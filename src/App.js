@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Post from "./component/Post";
-import { db } from "./firebase";
-import Modal from "@material-ui/core/Modal";
+import { db,auth } from "./firebase";
+import { Modal,Button,Input } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-
-
-// function rand() {
-//   return Math.round(Math.random() * 20) - 10;
-// }
 
 function getModalStyle(){
   const top = 50 ;
@@ -27,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     width: 200,
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
+    borderRadius: theme.shape.borderRadius,
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
@@ -35,10 +30,34 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   const classes = useStyles();
-  const modalStyle = React.useState(getModalStyle);
 
+  const [modalStyle] = useState(getModalStyle);
   const [posts, setPosts] = useState([]);
   const [open, setOpen] = useState(false);
+  const [openSignIn, setOpenSignIn] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [user, setUser] = useState(null);
+  
+
+  useEffect(() => {
+    const unsubscribe =  auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        // user has logged in
+        console.log(authUser);
+        setUser(authUser);
+      } else {
+        // user has logged out
+        console.log("user logged out");
+        setUser(null);
+      }
+    });
+    return () => {
+      // perform some cleanup actions
+      unsubscribe();
+    };
+  }, [user, username]);
 
   useEffect(() => {
     db.collection('posts').onSnapshot(snapshot => {
@@ -49,30 +68,125 @@ function App() {
     });
   } , []);
 
+  const signUp = (e) => {
+    e.preventDefault();
+    auth
+    .createUserWithEmailAndPassword(email, password)
+    .then((authUser) => {
+      return authUser.user.updateProfile({
+        displayName: username
+      });
+    })
+    .catch((error) => alert(error.message));
+    setOpen(false);
+  }
+
+  const signIn = (e) => {
+    e.preventDefault();
+    auth
+    .signInWithEmailAndPassword(email, password)
+    .catch((error) => alert(error.message));
+    setOpenSignIn(false);
+  }
+
   return (
-      <>
+    <div className="app">
       <Modal
         open={open}
         onClose={() => setOpen(false)}
       >
         <div style={getModalStyle()} className={classes.paper}>
-                <h2 id="simple-modal-title">Text in a modal</h2>
-                <p id="simple-modal-description">
-                This is a test of modal.
-                </p>
+          <form className="modal__signup">
+            <center>
+            <img src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png" alt="instagram" className="modal__signup__img" />
+            <Input 
+              type="text"
+              placeholder="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <Input
+              type="text"
+              placeholder="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Input
+              type="password" 
+              placeholder="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Button
+              type="submit"
+              onClick={signUp}
+              variant="contained"
+              color="primary"
+            >
+              Sign Up
+            </Button>
+            </center>
+          </form>  
         </div>
       </Modal>
-    <div className="app">
-      
+      <Modal
+        open={openSignIn}
+        onClose={() => setOpenSignIn(false)}
+      >
+        <div style={getModalStyle()} className={classes.paper}>
+          <form className="modal__signup">
+            <center>
+            <img src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png" alt="instagram" className="modal__signup__img" />
+            <Input
+              type="text"
+              placeholder="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Input
+              type="password" 
+              placeholder="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Button
+              type="submit"
+              onClick={signIn}
+              variant="contained"
+              color="primary"
+            >
+              Sign In
+            </Button>
+            </center>
+          </form>  
+        </div>
+      </Modal>
 
       <div className="app__header">
-        <img src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png" alt="instagram" className="app__header__img" />
+        <img
+          src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
+          alt="instagram"
+          className="app__header__img" 
+        />
       </div>
 
-      <Button 
+      {user ? (
+        <Button 
+          onClick={() => auth.signOut()} color="secondary"
+          variant="contained" style={{margin: 0,top: '50%', left: '90%' }} 
+        >Logout</Button>
+      ) : (
+        <div className="login__container">
+        <Button 
+        onClick={() => setOpenSignIn(true)} color="primary"
+        variant="contained" style={{margin: 10,top: '50%', left: '80%' }} 
+        >Sign In</Button>
+        <Button 
         onClick={() => setOpen(true)} color="primary"
-        variant="contained" style={{margin: 0,top: '50%', left: '90%' }} 
-      >Sign Up</Button>
+        variant="contained" style={{ margin: 10,top: '50%', left: '80%' }} 
+        >Sign Up</Button>
+        </div>
+      )}
 
       {
         posts.map(({id, post}) => (
@@ -86,7 +200,6 @@ function App() {
         ))
       }
     </div>
-    </>
   );
 }
 

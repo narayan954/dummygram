@@ -8,7 +8,8 @@
 }
 
 .app__header__img {
-  width: 15%;
+  width: 100px;
+  height: 40px;
 }
 
 .app__header {
@@ -44,5 +45,18 @@
 
 .post__avatar {
   margin-right: 10px;
+}
 
+/* signup modal */
+.modal__signup__img {
+  width: 50%;
+}
+
+.modal__signup {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__signup button {
+  margin-top: 10px;
 }
