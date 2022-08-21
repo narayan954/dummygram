@@ -5,6 +5,8 @@
 /* App styles */
 .app {
   background-color: white;
+  justify-content: center;
+  align-items: center;
 }
 
 .app__header__img {

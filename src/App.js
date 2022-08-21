@@ -3,6 +3,7 @@ import Post from "./component/Post";
 import { db,auth } from "./firebase";
 import { Modal,Button,Input } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import ImgUpload from "./component/ImgUpload";
 
 function getModalStyle(){
   const top = 50 ;
@@ -91,6 +92,12 @@ function App() {
 
   return (
     <div className="app">
+      {user?.displayName ? (
+        <ImgUpload username={user?.displayName} />
+      ) : (
+        <h3>Sorry you need to login to upload posts</h3>
+      )}
+
       <Modal
         open={openSignUp}
         onClose={() => setOpenSignUp(false)}
@@ -169,11 +176,12 @@ function App() {
           className="app__header__img" 
         />
       </div>
+      <center>
 
       {user ? (
         <Button 
           onClick={() => auth.signOut()} color="secondary"
-          variant="contained" style={{margin: 0,top: '50%', left: '90%' }} 
+          variant="contained" style={{margin: 5}} 
         >Logout</Button>
       ) : (
         <div className="login__container">
@@ -190,7 +198,8 @@ function App() {
           
         </div>
       )}
-
+      
+      <div className="app__posts">
       {
         posts.map(({id, post}) => (
           <Post
@@ -202,6 +211,9 @@ function App() {
           />
         ))
       }
+      </div>
+      </center>
+
     </div>
   );
 }
