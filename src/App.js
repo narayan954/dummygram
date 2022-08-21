@@ -33,8 +33,8 @@ function App() {
 
   const [modalStyle] = useState(getModalStyle);
   const [posts, setPosts] = useState([]);
-  const [open, setOpen] = useState(false);
-  const [openSignIn, setOpenSignIn] = useState("");
+  const [openSignUp, setOpenSignUp] = useState(false);
+  const [openSignIn, setOpenSignIn] = useState(false);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -78,7 +78,7 @@ function App() {
       });
     })
     .catch((error) => alert(error.message));
-    setOpen(false);
+    setOpenSignUp(false);
   }
 
   const signIn = (e) => {
@@ -92,10 +92,10 @@ function App() {
   return (
     <div className="app">
       <Modal
-        open={open}
-        onClose={() => setOpen(false)}
+        open={openSignUp}
+        onClose={() => setOpenSignUp(false)}
       >
-        <div style={getModalStyle()} className={classes.paper}>
+        <div style={modalStyle} className={classes.paper}>
           <form className="modal__signup">
             <center>
             <img src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png" alt="instagram" className="modal__signup__img" />
@@ -177,14 +177,17 @@ function App() {
         >Logout</Button>
       ) : (
         <div className="login__container">
-        <Button 
-        onClick={() => setOpenSignIn(true)} color="primary"
-        variant="contained" style={{margin: 10,top: '50%', left: '80%' }} 
-        >Sign In</Button>
-        <Button 
-        onClick={() => setOpen(true)} color="primary"
-        variant="contained" style={{ margin: 10,top: '50%', left: '80%' }} 
-        >Sign Up</Button>
+
+          <Button 
+            onClick={() => setOpenSignIn(true)} color="primary"
+            variant="contained" style={{margin: 5}} 
+          >Sign In</Button>
+
+          <Button 
+            onClick={() => setOpenSignUp(true)} color="primary"
+            variant="contained" style={{ margin: 5}} 
+          >Sign Up</Button>
+          
         </div>
       )}
 
