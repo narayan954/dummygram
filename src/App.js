@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Post from "./component/Post";
 import { db } from "./firebase";
-import Modal from '@mui/material/Modal';
-import { makeStyles } from '@material-ui/styles';
+import Modal from "@material-ui/core/Modal";
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+
 
 
 function getModalStyle(){
@@ -21,23 +23,9 @@ function rand(min, max) {
 }
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
-  },
-  gridList: {
-    width: 500,
-    height: 450,
-  },
-  icon: {
-    color: 'rgba(255, 255, 255, 0.54)',
-  },
   paper: {
     position: 'absolute',
-    width: 400,
+    width: 200,
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
@@ -62,62 +50,45 @@ function App() {
     });
   } , []);
   
+  // const signUp = (event) => {
+  //   event.preventDefault();
+  //   setOpen(true);
+  // }
+
 
   return (
-    <>
-      <div className="app">
-        <Modal
-          open={open}
-          onClose={()=>setOpen(false)}
-        >
-          <div style={modalStyle} className={classes.paper}>
-            <h2>Modal title</h2>
-            {/* <form className="app__form">
-              <center>
-                <img className="app__form__logo" src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png" alt="instagram_logo" />
-              </center>
-              <input
-                className="app__form__input"
-                placeholder="Email"
-                type="text"
-                name="email"
-                value={email}
-                onChange={handleChange}
-              />
-              <input
-                className="app__form__input"
-                placeholder="Password"
-                type="password"
-                name="password"
-                value={password}
-                onChange={handleChange}
-              />
-              <button className="app__form__button" type="submit">
-                Sign In
-              </button>
-              <button className="app__form__button" type="submit">
-                Sign Up
-              </button>
-            </form> */}
-          </div>
-        </Modal>
-
-        <div className="app__header">
+    <div className="app">
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+      >
+        <div style={modalStyle} className={classes.paper}>
+          <center>
           <img src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png" alt="instagram" className="app__header__img" />
+          <input placeholder="email" type="text" />
+          <input placeholder="password" type="password" />
+          </center>
         </div>
-        {
-          posts.map(({id, post}) => (
-            <Post
-              key={id}
-              username={post.username}
-              avatar={post.avatar}
-              imageUrl={post.imageUrl}
-              caption={post.caption}
-            />
-          ))
-        }
+      </Modal>
+
+      <div className="app__header">
+        <img src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png" alt="instagram" className="app__header__img" />
       </div>
-    </>
+
+      <Button onClick={() => setOpen(true)}> Sign Up</Button>
+
+      {
+        posts.map(({id, post}) => (
+          <Post
+            key={id}
+            username={post.username}
+            avatar={post.avatar}
+            imageUrl={post.imageUrl}
+            caption={post.caption}
+          />
+        ))
+      }
+    </div>
   );
 }
 
