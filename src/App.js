@@ -92,8 +92,8 @@ function App() {
 
   return (
     <div className="app">
-      {user?.displayName ? (
-        <ImgUpload username={user?.displayName} />
+      {(user?.displayName) ? (
+        <ImgUpload username={user.displayName} />
       ) : (
         <h3>Sorry you need to login to upload posts</h3>
       )}
