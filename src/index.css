@@ -11,7 +11,7 @@
 
 .app__header__img {
   object-fit: contain;
-  width: 120px;
+  width: 150px;
 }
 
 .app__header {
@@ -35,6 +35,7 @@
   max-width: 400px;
   border: 1px solid lightgrey;
   margin-bottom: 20px;
+  word-wrap: break-word;
 }
 
 .post__img {
@@ -79,14 +80,13 @@
   flex: 0;
   border: none;
   border-top: 1px solid lightgrey;
-  /* color: #0a66c2; */
-  color: #6082a3;
-  background-color: transparent;
+  color: #0a66c2;
+  /* color: #6082a3; */
   cursor: pointer;
 }
 
 .post__comments {
-  padding: 10px;
+  padding: 5px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -107,7 +107,7 @@
 }
 
 /* image upload css */
-.imageupload {
+.imageUpload {
   display: flex;
   flex-direction: column;
   width: 60%;
@@ -119,6 +119,6 @@
   background-color: white;
 }
 
-.imageupload-progress {
+.imageUpload-progress {
   width: 100%;
 }

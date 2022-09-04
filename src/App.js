@@ -92,6 +92,35 @@ function App() {
 
   return (
     <div className="app">
+      <div className="app__header">
+        <img
+          src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
+          alt="instagram"
+          className="app__header__img" 
+        />
+
+        {user ? (
+        <Button 
+          onClick={() => auth.signOut()} color="secondary"
+          variant="contained" style={{margin: 5}} 
+          >Logout</Button>
+        ) : (
+        <div className="login__container">
+
+          <Button 
+            onClick={() => setOpenSignIn(true)} color="primary"
+            variant="contained" style={{margin: 5}} 
+          >Sign In</Button>
+
+          <Button 
+            onClick={() => setOpenSignUp(true)} color="primary"
+            variant="contained" style={{ margin: 5}} 
+          >Sign Up</Button>
+          
+        </div>
+        )}
+      </div>
+      
       <Modal
         open={openSignUp}
         onClose={() => setOpenSignUp(false)}
@@ -163,34 +192,6 @@ function App() {
         </div>
       </Modal>
 
-      <div className="app__header">
-        <img
-          src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
-          alt="instagram"
-          className="app__header__img" 
-        />
-
-        {user ? (
-        <Button 
-          onClick={() => auth.signOut()} color="secondary"
-          variant="contained" style={{margin: 5}} 
-          >Logout</Button>
-        ) : (
-        <div className="login__container">
-
-          <Button 
-            onClick={() => setOpenSignIn(true)} color="primary"
-            variant="contained" style={{margin: 5}} 
-          >Sign In</Button>
-
-          <Button 
-            onClick={() => setOpenSignUp(true)} color="primary"
-            variant="contained" style={{ margin: 5}} 
-          >Sign Up</Button>
-          
-        </div>
-        )}
-      </div>
       <center>
       
       <div className="app__posts">

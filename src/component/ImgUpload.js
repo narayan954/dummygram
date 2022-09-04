@@ -52,8 +52,8 @@ function ImgUpload(props) {
 
 
     return (
-        <div className='imageupload'>
-            <progress className='imageupload-progress' value={progress} max="100" />
+        <div className='imageUpload'>
+            <progress className='imageUpload-progress' value={progress} max="100" />
             <input 
                 type="text" 
                 name="caption" 
