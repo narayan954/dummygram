@@ -3,7 +3,8 @@ import { db,storage } from "../firebase";
 import firebase from 'firebase/compat/app';
 import Button from '@material-ui/core/Button';
 
-function ImgUpload({username}) {
+
+function ImgUpload(props) {
     const [image, setImage] = useState(null);
     const [caption, setCaption] = useState("");
     const [progress, setProgress] = useState(0);
@@ -37,7 +38,7 @@ function ImgUpload({username}) {
                         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                         caption: caption,
                         imageUrl: url,
-                        username: username,
+                        username: props.username,
                         avatar: "avatar"
                     });
                     setProgress(0);
@@ -51,8 +52,8 @@ function ImgUpload({username}) {
 
 
     return (
-        <div>
-            <progress value={progress} max="100" />
+        <div className='imageupload'>
+            <progress className='imageupload-progress' value={progress} max="100" />
             <input 
                 type="text" 
                 name="caption" 

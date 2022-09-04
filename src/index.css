@@ -10,14 +10,24 @@
 }
 
 .app__header__img {
-  width: 100px;
-  height: 40px;
+  object-fit: contain;
+  width: 120px;
 }
 
 .app__header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: white;
+  padding: 10px;
   object-fit: contain;
-  padding: 5px;
   border-bottom: 1px solid lightgrey;
+  display: flex;
+  justify-content: space-between;
+}
+
+.app__posts {
+  padding: 20px;
 }
 
 /* Post style */
@@ -47,6 +57,39 @@
 
 .post__avatar {
   margin-right: 10px;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.post__commentBox {
+  display: flex;
+  margin-top: 10px;
+}
+
+.post__input {
+  border: none;
+  flex: 1;
+  padding: 10px;
+  border-top: 1px solid lightgrey;
+}
+
+.post__button {
+  flex: 0;
+  border: none;
+  border-top: 1px solid lightgrey;
+  /* color: #0a66c2; */
+  color: #6082a3;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.post__comments {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 /* signup modal */
@@ -61,4 +104,21 @@
 
 .modal__signup button {
   margin-top: 10px;
+}
+
+/* image upload css */
+.imageupload {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  background-color: white;
+}
+
+.imageupload-progress {
+  width: 100%;
 }
