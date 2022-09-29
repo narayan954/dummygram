@@ -33,16 +33,6 @@ Dummygram has been in full-time development since september 2022 and is part of 
     - [Code Style](#code-style)
   - [First time setup](#first-time-setup)
   - [Running the app locally](#running-the-app-locally)
-  - [Roadmap](https://github.com/withspectrum/spectrum/projects/19)
-- [Technical](docs/)
-  - [Testing](docs/testing/intro.md)
-  - [Background Jobs](docs/workers/background-jobs.md)
-  - [Deployment](docs/deployments.md)
-  - [API](docs/backend/api/)
-    - [Fragments](docs/backend/api/fragments.md)
-    - [Pagination](docs/backend/api/pagination.md)
-    - [Testing](docs/backend/api/testing.md)
-    - [Tips and Tricks](docs/backend/api/tips-and-tricks.md)
 
 ## Contributing
 
