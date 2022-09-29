@@ -1,70 +1,154 @@
-# Getting Started with Create React App
+<div align="center">
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<img src="https://user-images.githubusercontent.com/77617189/192938064-17157845-e074-45cb-bb2d-4773a8cb1602.png" alt="Dummygram" width="200" height="200">
 
-## Available Scripts
+(https://dummy-gram.web.app/)
 
-In the project directory, you can run:
+### Instagram, dummified.
 
-### `npm start`
+</div>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## What is Dummygram?
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Vision
 
-### `npm test`
+When you learn ReactJs it seems obvious to work on some projects and for the projects you might want to choose something that interests you, maybe a clone of the app developed by the company that released ReactJs? Yes, you might be getting the point, this application is basically a clone of the original Instagram and tends to add features like instagram or maybe in fact the features that could not have been added in the instagram.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Status
 
-### `npm run build`
+Dummygram has been in full-time development since september 2022 and is part of GitHub since the very beginning. Our current priorities and what we are working on in the flexible and kind of obvious, but still we want to give it a unique look and make it feature rich
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<div align="center">
+  <img height="50px" alt="cluster" src="https://user-images.githubusercontent.com/77617189/192940070-15abdfcf-b8c7-4c13-aebf-7640ead16503.svg" />
+</div>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Docs
 
-### `npm run eject`
+- [Contributing](#contributing)
+  - [Ground Rules](#ground-rules)
+  - [Codebase](#codebase)
+    - [Technologies](#technologies)
+    - [Folder Structure](#folder-structure)
+    - [Code Style](#code-style)
+  - [First time setup](#first-time-setup)
+  - [Running the app locally](#running-the-app-locally)
+  - [Roadmap](https://github.com/withspectrum/spectrum/projects/19)
+- [Technical](docs/)
+  - [Testing](docs/testing/intro.md)
+  - [Background Jobs](docs/workers/background-jobs.md)
+  - [Deployment](docs/deployments.md)
+  - [API](docs/backend/api/)
+    - [Fragments](docs/backend/api/fragments.md)
+    - [Pagination](docs/backend/api/pagination.md)
+    - [Testing](docs/backend/api/testing.md)
+    - [Tips and Tricks](docs/backend/api/tips-and-tricks.md)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Contributing
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**We heartily welcome any and all contributions that match our engineering standards!**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+That being said, this codebase isn't your typical open source project because it's not a library or package with a limited scope—it's our entire product.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Ground Rules
 
-## Learn More
+#### Contributions and discussion guidelines
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+All conversations and communities on Dummygram agree to GitHub's [Community Guidelines](https://help.github.com/en/github/site-policy/github-community-guidelines) and [Acceptable Use Policies](https://help.github.com/en/github/site-policy/github-acceptable-use-policies). This code of conduct also applies to all conversations that happen within our contributor community here on GitHub. We expect discussions in issues and pull requests to stay positive, productive, and respectful. Remember: there are real people on the other side of that screen!
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### Reporting a bug or discussing a feature idea
 
-### Code Splitting
+If you found a technical bug on Dummygram or have ideas for features we should implement, the issue tracker is the best place to share your ideas. Make sure to follow the issue template and you should be golden! ([click here to open a new issue](https://github.com/narayan954/dummygram/issues/new))
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+#### Fixing a bug or implementing a new feature
 
-### Analyzing the Bundle Size
+If you find a bug on Dummygram and open a PR that fixes it we'll review it as soon as possible to ensure it matches our engineering standards.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+If you want to implement a new feature, open an issue first to discuss what it'd look like .
 
-### Making a Progressive Web App
+If you want to contribute but are unsure to start, we have [a "good first issue" label](https://github.com/narayan954/dummygram/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) which is applied to newcomer-friendly issues. Take a look at [the full list of good first issues](https://github.com/narayan954/dummygram/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) and pick something you like!
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Want to fix a bug or implement an agreed-upon feature? Great, jump to the [local setup instructions](#first-time-setup)!
 
-### Advanced Configuration
+<div align="center">
+  <img height="70px" src="https://user-images.githubusercontent.com/77617189/192940773-639eb52f-e688-4a5f-9c49-8184246345fa.svg" />
+</div>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Codebase
 
-### Deployment
+#### Technologies
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+With the ground rules out of the way, let's talk about the coarse architecture of this mono repo:
 
-### `npm run build` fails to minify
+**Frontend JavaScript**: We use React to power our frontend apps. Almost all of the code you'll touch in this codebase will be JavaScript.
+  Here is a list of all the big technologies we use:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **React**: Frontend React app
+- **Firebase**: Data storage and Authentication
+
+#### Folder structure
+
+```sh
+dummygram/
+├── public     # Public files used on the frontend
+├── src        # Frontend Code in React
+```
+
+#### Code Style
+
+We run Prettier on-commit, which means you can write code in whatever style you want and it will be automatically formatted according to the common style when you run `git commit`. We also have ESLint set up, although we've disabled all stylistic rules since Prettier takes care of those.
+
+##### Rules
+
+- **No `console.log`s in any file**: We use the `debug` module across the codebase to log debugging information in development only. Never commit a file that contains a `console.log` as CI will fail your build. The only exceptions are errors, which you can log, but you have to use `console.error` to be explicit about it
+
+<div align="center">
+  <img height="70px" src="https://user-images.githubusercontent.com/77617189/192942891-31b9152c-918b-4fac-af05-0ad6b1f594aa.svg" />
+</div>
+
+### First time setup
+
+The first step to running dummygram locally is downloading the code by cloning the repository:
+
+```sh
+git clone git@github.com:narayan954/dummygram.git
+```
+
+If you get `Permission denied` error using `ssh` refer [here](https://help.github.com/articles/error-permission-denied-publickey/)
+or use `https` link as a fallback.
+
+```sh
+git clone https://github.com/narayan954/dummygram.git
+```
+
+#### Installation
+
+Dummygram has a single installation step:
+- **Install the dependencies**: 
+
+```sh
+node shared/install-dependencies.js
+```
+
+You've now finished installing everything! Let's start :100:
+
+Now you're ready to run the app locally and sign into your local instance!
+
+### Running the app locally
+
+#### Start the servers
+
+Depending on what you're trying to work on you'll need to start servers. Generally, all servers run in by doing `npm install`, but if you run if some dependancy installation issues you may try `npm install --force` to run the server ignoring warnings.
+
+<br />	
+<div align="center">	
+  <img height="200px" src="https://user-images.githubusercontent.com/77617189/192947926-37284128-9965-46a4-b29b-c75e47b2f76b.svg" />	
+</div>
+
+## GitHub
+
+Dummygram is now part of GitHub. For code of conduct, please see [GitHub's Community Guidelines](https://help.github.com/en/github/site-policy/github-community-guidelines) and [Acceptable Use Policies](https://help.github.com/en/github/site-policy/github-acceptable-use-policies).
+
+## License
+
+BSD 3-Clause, see the [LICENSE](./LICENSE) file.
