@@ -25,6 +25,7 @@ Dummygram has been in full-time development since september 2022 and is part of 
 
 ## Docs
 
+- [How to get started with Open Source](#how-to-get-started-with-open-source)
 - [Contributing](#contributing)
   - [Ground Rules](#ground-rules)
   - [Codebase](#codebase)
@@ -33,6 +34,22 @@ Dummygram has been in full-time development since september 2022 and is part of 
     - [Code Style](#code-style)
   - [First time setup](#first-time-setup)
   - [Running the app locally](#running-the-app-locally)
+
+## How to get started with Open Source
+Here's a quick run down on how to get started with open source, first of all let's know some basic terminologies:
+- Git: is a versioning system that let's you store your code and code history on your local computer preventing loses and allowing sharing of that code
+- Github: is a server that let's you store the history in a database
+- Open Source: A project is said to be open sourced if you can see the code on GitHub
+- Fork: This is a copy that you make of a project on GitHub, it gets added to your repositories
+- Repository: A project on GitHub is called a repository
+- Pull Request: This is a fix for an issue proposed to be done in a project, this consists of you editing a file in the project.
+- Issue: An issue is a change that should be done in a project, can be a bug, a new feature or a suggestion to a project
+- Branch: A branch is a new workspace derived from the default workspace(main or master), it allows you to work on something without affecting the original code
+
+Now you know some basic terms, let's get into how to get started with some resources to let you understand open source better:
+- [Crash Course to Git and Github](https://www.youtube.com/watch?v=apGV9Kg7ics) - Video
+- [A complete Guide to Open Source](https://www.youtube.com/watch?v=yzeVMecydCE) - Video
+- [Guide to Open Source](https://www.freecodecamp.org/news/how-to-contribute-to-open-source-projects-beginners-guide/) - Article
 
 ## Contributing
 
