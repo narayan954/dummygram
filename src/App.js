@@ -218,11 +218,11 @@ function App() {
           ))}
         </div>
 
-        {/* {user?.displayName ? (
+        {{user?.displayName ? (
           <ImgUpload username={user.displayName} />
         ) : (
           <h3>Sorry you need to login to upload posts</h3>
-        )} */}
+        )}}
       </center>
     </div>
   );
