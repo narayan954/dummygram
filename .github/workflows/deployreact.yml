@@ -25,18 +25,18 @@ jobs:
         node-version: '16'
         cache: 'npm'
 
-    # Not using npm? Change `npm ci` to `yarn install` or `pnpm i`
+    # Not using npm? Change `npm ci` to `yarn install` or `npm i`
     - name: Install dependencies
-      run: npm ci
+      run: npm i
 
-    # Not using npm? Change `npm run build` to `yarn build` or `pnpm run build`
+    # Not using npm? Change `npm run build` to `yarn build` or `npm run build`
     - name: Build React
       run: npm run build --if-present
 
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v1
       with:
-        path: ./build
+        path: ./dist
 
   deploy:
     environment:
