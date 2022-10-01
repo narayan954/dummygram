@@ -52,7 +52,7 @@ function Post(prop) {
 
         <div className="post__comments">
           {comments.map((userComment) => (
-            <p>
+            <p key={userComment.timestamp.nanoseconds}>
               <strong>{userComment.username}</strong> {userComment.text}
             </p>
           ))}

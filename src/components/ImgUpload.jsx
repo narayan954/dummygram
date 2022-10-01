@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { db, storage } from "../lib/firebase";
 import firebase from "firebase/compat/app";
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 
 function ImgUpload(props) {
   const [image, setImage] = useState(null);

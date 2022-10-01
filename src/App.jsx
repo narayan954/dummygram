@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Post from "./component/Post";
+import Post from "./components/Post";
 import { db, auth } from "./lib/firebase";
-import { Modal, Button, Input } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import ImgUpload from "./component/ImgUpload";
+import { Modal, Button, Input } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import ImgUpload from "./components/ImgUpload";
 
 function getModalStyle() {
   const top = 50;
