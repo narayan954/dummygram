@@ -35,7 +35,7 @@ body:
       required: false
 
   - type: textarea
-    id: desktop
+    id: smartphones
     attributes:
       label: Smartphone (please complete the following information)
       description: Please add the details of your Smartphone -> Device, OS, Browser, Version
