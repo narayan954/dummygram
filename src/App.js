@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Post from "./component/Post";
-import { db,auth } from "./firebase";
+import { db,auth,storage } from "./firebase";
 import { Modal,Button,Input } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import ImgUpload from "./component/ImgUpload";
@@ -40,17 +40,24 @@ function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
-  
+  const [image, setImage] = useState(null);
 
+  const handleChange = (e) => {
+    if (e.target.files[0]) {
+        setImage(e.target.files[0]);
+    }
+  }
   useEffect(() => {
     const unsubscribe =  auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         // user has logged in
-        console.log(authUser);
+        // console.log(authUser)
+        // console.log(authUser.photoURL)
         setUser(authUser);
+        
       } else {
         // user has logged out
-        console.log("user logged out");
+        // console.log("user logged out");
         setUser(null);
       }
     });
@@ -74,12 +81,35 @@ function App() {
     auth
     .createUserWithEmailAndPassword(email, password)
     .then((authUser) => {
-      return authUser.user.updateProfile({
-        displayName: username
-      });
+      const uploadTask = storage.ref(`images/${image.name}`).put(image);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+            // // progress function ...
+            // setProgress(Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100));
+        },
+        (error) => {
+            // error function ...
+            console.log(error);
+            alert(error.message);
+        },
+        () => {
+            // complete function ...
+          storage
+            .ref("images")
+            .child(image.name)
+            .getDownloadURL()
+            .then((url) =>{  
+              return authUser.user.updateProfile({
+              displayName: username,
+              photoURL: url
+            })
+            })
+      })
+      setImage(null)
+      setOpenSignUp(false);
     })
-    .catch((error) => alert(error.message));
-    setOpenSignUp(false);
+    .catch((error) => alert(error.message)); 
   }
 
   const signIn = (e) => {
@@ -147,6 +177,21 @@ function App() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            {/* <label for="file" style={{margin:'20px 0px'}}>Choose your profile pic</label>
+            <input 
+                type="file" 
+                name="file" 
+                id="file" 
+                onChange={handleChange}
+                // value={image}
+            /> */}
+            <label for="file">Choose your profile pic</label>
+              <Input
+              type="file"
+              id="file" 
+              onChange={handleChange}
+            />
+
             <Button
               type="submit"
               onClick={signUp}
@@ -210,7 +255,7 @@ function App() {
       }
       </div>
       {user ? (
-        <ImgUpload username={user.displayName} />
+        <ImgUpload username={user.displayName} avatar={user.photoURL}/>
       ) : (
         <h3>Sorry you need to login to upload posts</h3>
       )}

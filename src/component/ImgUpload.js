@@ -15,6 +15,7 @@ function ImgUpload(props) {
         }
     }
     const handleUpload = () => {
+
         const uploadTask = storage.ref(`images/${image.name}`).put(image);
         uploadTask.on(
             "state_changed",
@@ -39,7 +40,7 @@ function ImgUpload(props) {
                         caption: caption,
                         imageUrl: url,
                         username: props.username,
-                        avatar: "avatar"
+                        avatar: props.avatar
                     });
                     setProgress(0);
                     setCaption("");
@@ -67,6 +68,7 @@ function ImgUpload(props) {
                 name="file" 
                 id="file" 
                 onChange={handleChange}
+                // value={image}
             />
             <Button
                 onClick={handleUpload}
