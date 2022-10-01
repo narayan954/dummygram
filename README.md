@@ -59,68 +59,6 @@ Dummygram has been in full-time development since September 2022 and is part of 
   - [Running the app locally](#running-the-app-locally)
 
 
-  
-## How to get started with Open Source
-Here's a quick run down on how to get started with open source, first of all let's know some basic terminologies:
-- Git: is a versioning system that let's you store your code and code history on your local computer preventing loses and allowing sharing of that code
-- Github: is a server that let's you store the history in a database
-- Open Source: A project is said to be open sourced if you can see the code on GitHub
-- Fork: This is a copy that you make of a project on GitHub, it gets added to your repositories
-- Repository: A project on GitHub is called a repository
-- Pull Request: This is a fix for an issue proposed to be done in a project, this consists of you editing a file in the project.
-- Issue: An issue is a change that should be done in a project, can be a bug, a new feature or a suggestion to a project
-- Branch: A branch is a new workspace derived from the default workspace(main or master), it allows you to work on something without affecting the original code
-
-Now you know some basic terms, let's get into how to get started with some resources to let you understand open source better:
-- [Crash Course to Git and Github](https://www.youtube.com/watch?v=apGV9Kg7ics) - Video
-- [A complete Guide to Open Source](https://www.youtube.com/watch?v=yzeVMecydCE) - Video
-- [Guide to Open Source](https://www.freecodecamp.org/news/how-to-contribute-to-open-source-projects-beginners-guide/) - Article
-
-
-## Contributing
-
-  
-
-**We heartily welcome any and all contributions that match our engineering standards! :raised_hands:**
-
-  
-
-That being said, this codebase isn't your typical open source project because it's not a library or package with a limited scope—it's our entire product.
-
-  
-
-## Ground Rules
-
-  
-
-#### Contributions and discussion guidelines
-
-  
-
-All conversations and communities on Dummygram agree to GitHub's [Community Guidelines](https://help.github.com/en/github/site-policy/github-community-guidelines) and [Acceptable Use Policies](https://help.github.com/en/github/site-policy/github-acceptable-use-policies). This code of conduct also applies to all conversations that happen within our contributor community here on GitHub. We expect discussions in issues and pull requests to stay positive, productive, and respectful. **Remember**: There are real people on the other side of that screen:exclamation: 
-
-  
-
-#### Reporting a bug or discussing a feature idea
-
-  
-
-If you found a technical bug on Dummygram or have ideas for features we should implement, the issue tracker is the best place to share your ideas. Make sure to follow the issue template and you should be golden! ([click here to open a new issue](https://github.com/narayan954/dummygram/issues/new))
-
-  
-
-#### Fixing a bug or implementing a new feature
-
-  
-
-- If you find a bug on Dummygram and open a PR that fixes it we'll review it as soon as possible to ensure it matches our engineering standards.
-- If you want to implement a new feature, open an issue first to discuss what it'd look like .
-- If you want to contribute but are unsure to start, we have [a "good first issue" label](https://github.com/narayan954/dummygram/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) which is applied to newcomer-friendly issues. Take a look at [the full list of good first issues](https://github.com/narayan954/dummygram/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) and pick something you like!
-- Want to fix a bug or implement an agreed-upon feature? Great, jump to the [local setup instructions](#first-time-setup)!
-
-  
-
-
 ## Codebase
 
   
@@ -161,30 +99,6 @@ dummygram/
 ├── src # Frontend Code in React
 
 ```
-
-  
-
-### Code Style
-
-  
-
-We run Prettier on-commit, which means you can write code in whatever style you want and it will be automatically formatted according to the common style when you run `git commit`. We also have ESLint set up, although we've disabled all stylistic rules since Prettier takes care of those.
-
-  
-
-## Rules
-
-  
-
--  **No `console.log`s in any file**: We use the `debug` module across the codebase to log debugging information in development only. Never commit a file that contains a `console.log` as CI will fail your build. The only exceptions are errors, which you can log, but you have to use `console.error` to be explicit about it
-
-  
-
-<div  align="center">
-
-<img  height="70px"  src="https://user-images.githubusercontent.com/77617189/192942891-31b9152c-918b-4fac-af05-0ad6b1f594aa.svg"  />
-
-</div>
 
   
 
@@ -276,6 +190,91 @@ Depending on what you're trying to work on you'll need to start servers. General
 
 </div>
 
+## How to get started with Open Source
+Here's a quick run down on how to get started with open source, first of all let's know some basic terminologies:
+- Git: is a versioning system that let's you store your code and code history on your local computer preventing loses and allowing sharing of that code
+- Github: is a server that let's you store the history in a database
+- Open Source: A project is said to be open sourced if you can see the code on GitHub
+- Fork: This is a copy that you make of a project on GitHub, it gets added to your repositories
+- Repository: A project on GitHub is called a repository
+- Pull Request: This is a fix for an issue proposed to be done in a project, this consists of you editing a file in the project.
+- Issue: An issue is a change that should be done in a project, can be a bug, a new feature or a suggestion to a project
+- Branch: A branch is a new workspace derived from the default workspace(main or master), it allows you to work on something without affecting the original code
+
+Now you know some basic terms, let's get into how to get started with some resources to let you understand open source better:
+- [Crash Course to Git and Github](https://www.youtube.com/watch?v=apGV9Kg7ics) - Video
+- [A complete Guide to Open Source](https://www.youtube.com/watch?v=yzeVMecydCE) - Video
+- [Guide to Open Source](https://www.freecodecamp.org/news/how-to-contribute-to-open-source-projects-beginners-guide/) - Article
+
+
+## Contributing
+
+  
+
+**We heartily welcome any and all contributions that match our engineering standards! :raised_hands:**
+
+  
+
+That being said, this codebase isn't your typical open source project because it's not a library or package with a limited scope—it's our entire product.
+
+  
+
+## Ground Rules
+
+  
+
+#### Contributions and discussion guidelines
+
+  
+
+All conversations and communities on Dummygram agree to GitHub's [Community Guidelines](https://help.github.com/en/github/site-policy/github-community-guidelines) and [Acceptable Use Policies](https://help.github.com/en/github/site-policy/github-acceptable-use-policies). This code of conduct also applies to all conversations that happen within our contributor community here on GitHub. We expect discussions in issues and pull requests to stay positive, productive, and respectful. **Remember**: There are real people on the other side of that screen:exclamation: 
+
+  
+
+#### Reporting a bug or discussing a feature idea
+
+  
+
+If you found a technical bug on Dummygram or have ideas for features we should implement, the issue tracker is the best place to share your ideas. Make sure to follow the issue template and you should be golden! ([click here to open a new issue](https://github.com/narayan954/dummygram/issues/new))
+
+  
+
+#### Fixing a bug or implementing a new feature
+
+  
+
+- If you find a bug on Dummygram and open a PR that fixes it we'll review it as soon as possible to ensure it matches our engineering standards.
+- If you want to implement a new feature, open an issue first to discuss what it'd look like .
+- If you want to contribute but are unsure to start, we have [a "good first issue" label](https://github.com/narayan954/dummygram/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) which is applied to newcomer-friendly issues. Take a look at [the full list of good first issues](https://github.com/narayan954/dummygram/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) and pick something you like!
+- Want to fix a bug or implement an agreed-upon feature? Great, jump to the [local setup instructions](#first-time-setup)!
+
+  
+## Rules
+
+  
+
+-  **No `console.log`s in any file**: We use the `debug` module across the codebase to log debugging information in development only. Never commit a file that contains a `console.log` as CI will fail your build. The only exceptions are errors, which you can log, but you have to use `console.error` to be explicit about it
+
+  
+
+<div  align="center">
+
+<img  height="70px"  src="https://user-images.githubusercontent.com/77617189/192942891-31b9152c-918b-4fac-af05-0ad6b1f594aa.svg"  />
+
+</div>
+
+
+## Open Source Programs
+<a href="https://hacktoberfest.com/">
+<img width="1200" alt="Email Banners-Dark" src="https://user-images.githubusercontent.com/79099734/189589410-ca17afb8-5855-4316-918a-054f27594809.png">
+</a>
+
+
+## Thanks to all Contributors 💪 
+
+Thanks a lot for spending your time helping dummygram grow. Thanks a lot! Keep rocking 🍻
+
+[![Contributors](https://contrib.rocks/image?repo=narayan954/dummygram)](https://github.com/narayan954/dummygram/graphs/contributors)
   
 
 ## GitHub
