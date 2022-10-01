@@ -40,7 +40,7 @@ function Post(prop) {
   return (
     <div className="post">
       <div className="post__header">
-        <Avatar className="post__avatar" alt={username} src={avatar} />
+        <Avatar className="post__avatar" alt={username} src={avatar} sx={{ bgcolor: 'Orange' }}/>
         <h3 className="post__username">{username}</h3>
       </div>
 
