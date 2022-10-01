@@ -178,7 +178,7 @@ Now you're ready to run the app locally and sign into your local instance!
 
   
 
-Depending on what you're trying to work on you'll need to start servers. Generally, all servers run in by doing `npm start`, but if you run if some dependancy issues you may try `npm start --force` to run the server ignoring warnings.
+To Start the development server run `npm run dev`.
 
   
 
