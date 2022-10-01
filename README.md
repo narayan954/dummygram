@@ -77,7 +77,7 @@ Now you know some basic terms, let's get into how to get started with some resou
 - [Guide to Open Source](https://www.freecodecamp.org/news/how-to-contribute-to-open-source-projects-beginners-guide/) - Article
 
 
-# Contributing
+## Contributing
 
   
 
