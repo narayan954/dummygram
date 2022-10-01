@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Post from "./components/Post";
 import { db, auth } from "./lib/firebase";
 import { Modal, Button, Input } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import ImgUpload from "./components/ImgUpload";
+import Loader from "./components/Loader";
 
 function getModalStyle() {
   const top = 50;
@@ -39,6 +40,12 @@ function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
+  const [signingUp, setSigningUp] = useState(false);
+  const [logginIn, setLogginIn] = useState(false);
+  const processingAuth = useMemo(
+    () => logginIn || signingUp,
+    [logginIn, signingUp]
+  );
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -73,6 +80,7 @@ function App() {
 
   const signUp = (e) => {
     e.preventDefault();
+    setSigningUp(true);
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((authUser) => {
@@ -80,16 +88,35 @@ function App() {
           displayName: username,
         });
       })
-      .catch((error) => alert(error.message));
-    setOpenSignUp(false);
+      .then(() => {
+        alert("Sigup Successful!");
+        setOpenSignUp(false);
+      })
+      .catch((error) => alert(error.message))
+      .finally(() => {
+        setSigningUp(false);
+      });
   };
 
   const signIn = (e) => {
     e.preventDefault();
+    setLogginIn(true);
     auth
       .signInWithEmailAndPassword(email, password)
-      .catch((error) => alert(error.message));
-    setOpenSignIn(false);
+      .then(() => {
+        alert("Login successful!");
+        setOpenSignIn(false);
+      })
+      .catch((error) => alert(error.message))
+      .finally(() => {
+        setLogginIn(false);
+      });
+  };
+
+  const signOut = () => {
+    if (confirm("Are you sure you want to logout?")) {
+      auth.signOut().finally();
+    }
   };
 
   return (
@@ -100,10 +127,11 @@ function App() {
           alt="instagram"
           className="app__header__img"
         />
-
-        {user ? (
+        {processingAuth ? (
+          <Loader />
+        ) : user ? (
           <Button
-            onClick={() => auth.signOut()}
+            onClick={signOut}
             color="secondary"
             variant="contained"
             style={{ margin: 5 }}
@@ -165,8 +193,9 @@ function App() {
                 onClick={signUp}
                 variant="contained"
                 color="primary"
+                disabled={processingAuth}
               >
-                Sign Up
+                {processingAuth ? <Loader /> : "Sign Up"}
               </Button>
             </center>
           </form>
@@ -198,8 +227,9 @@ function App() {
                 onClick={signIn}
                 variant="contained"
                 color="primary"
+                disabled={processingAuth}
               >
-                Sign In
+                {processingAuth ? <Loader /> : "Sign In"}
               </Button>
             </center>
           </form>
