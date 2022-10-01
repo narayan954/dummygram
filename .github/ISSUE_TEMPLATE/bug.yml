@@ -9,6 +9,15 @@ body:
       description: A brief description of the question or issue, also include what you tried and what didn't work
     validations:
       required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Steps to reproduce the bug that you found !
+    validations:
+      required: true
+
   - type: textarea
     id: screenshots
     attributes:
@@ -16,6 +25,23 @@ body:
       description: Please add screenshots if applicable
     validations:
       required: false
+
+  - type: textarea
+    id: desktop
+    attributes:
+      label: Desktop (please complete the following information)
+      description: Please add the details of your desktop -> OS, Browser, Version
+    validations:
+      required: false
+
+  - type: textarea
+    id: desktop
+    attributes:
+      label: Smartphone (please complete the following information)
+      description: Please add the details of your Smartphone -> Device, OS, Browser, Version
+    validations:
+      required: false
+
   - type: textarea
     id: extrainfo
     attributes:
