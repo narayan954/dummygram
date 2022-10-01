@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { db, storage } from "../lib/firebase";
 import firebase from "firebase/compat/app";
-import Button from "@mui/material/Button";
+import AnimatedButton from "./AnimatedButton";
 
 function ImgUpload(props) {
   const [image, setImage] = useState(null);
   const [caption, setCaption] = useState("");
   const [progress, setProgress] = useState(0);
+  const [uploadingPost, setUploadingPost] = useState(false);
 
   const handleChange = (e) => {
     if (e.target.files[0]) {
@@ -14,6 +15,7 @@ function ImgUpload(props) {
     }
   };
   const handleUpload = () => {
+    setUploadingPost(true);
     const uploadTask = storage.ref(`images/${image.name}`).put(image);
     uploadTask.on(
       "state_changed",
@@ -27,8 +29,10 @@ function ImgUpload(props) {
         // error function ...
         console.log(error);
         alert(error.message);
+        setUploadingPost(false);
       },
       () => {
+        setUploadingPost(false);
         // complete function ...
         storage
           .ref("images")
@@ -62,7 +66,9 @@ function ImgUpload(props) {
         value={caption}
       />
       <input type="file" name="file" id="file" onChange={handleChange} />
-      <Button onClick={handleUpload}>Upload</Button>
+      <AnimatedButton onClick={handleUpload} loading={uploadingPost}>
+        Upload
+      </AnimatedButton>
     </div>
   );
 }
