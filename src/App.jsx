@@ -42,11 +42,11 @@ function App() {
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
   const [signingUp, setSigningUp] = useState(false);
-  const [logginIn, setLogginIn] = useState(false);
+  const [loggingIn, setLoggingIn] = useState(false);
   const [loadingPosts, setLoadingPosts] = useState(true);
   const processingAuth = useMemo(
-    () => logginIn || signingUp || loadingPosts,
-    [logginIn, signingUp, loadingPosts]
+    () => loggingIn || signingUp || loadingPosts,
+    [loggingIn, signingUp, loadingPosts]
   );
 
   useEffect(() => {
@@ -103,7 +103,7 @@ function App() {
 
   const signIn = (e) => {
     e.preventDefault();
-    setLogginIn(true);
+    setLoggingIn(true);
     auth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
@@ -112,7 +112,7 @@ function App() {
       })
       .catch((error) => alert(error.message))
       .finally(() => {
-        setLogginIn(false);
+        setLoggingIn(false);
       });
   };
 
