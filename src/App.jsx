@@ -43,9 +43,10 @@ function App() {
   const [user, setUser] = useState(null);
   const [signingUp, setSigningUp] = useState(false);
   const [logginIn, setLogginIn] = useState(false);
+  const [loadingPosts, setLoadingPosts] = useState(true);
   const processingAuth = useMemo(
-    () => logginIn || signingUp,
-    [logginIn, signingUp]
+    () => logginIn || signingUp || loadingPosts,
+    [logginIn, signingUp, loadingPosts]
   );
 
   useEffect(() => {
@@ -70,6 +71,7 @@ function App() {
     db.collection("posts")
       .orderBy("timestamp", "desc")
       .onSnapshot((snapshot) => {
+        setLoadingPosts(false);
         setPosts(
           snapshot.docs.map((doc) => ({
             id: doc.id,
@@ -237,25 +239,42 @@ function App() {
         </div>
       </Modal>
 
-      <center>
-        <div className="app__posts">
-          {posts.map(({ id, post }) => (
-            <Post
-              key={id}
-              postId={id}
-              user={user}
-              username={post.username}
-              avatar={post.avatar}
-              imageUrl={post.imageUrl}
-              caption={post.caption}
-            />
-          ))}
-        </div>
-        {user ? (
-          <ImgUpload username={user.displayName} />
+      <center
+        style={
+          !loadingPosts
+            ? {}
+            : {
+                width: "100%",
+                minHeight: "100vh",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }
+        }
+      >
+        {loadingPosts ? (
+          <Loader />
         ) : (
-          <h3>Sorry you need to login to upload posts</h3>
+          <div className="app__posts">
+            {posts.map(({ id, post }) => (
+              <Post
+                key={id}
+                postId={id}
+                user={user}
+                username={post.username}
+                avatar={post.avatar}
+                imageUrl={post.imageUrl}
+                caption={post.caption}
+              />
+            ))}
+          </div>
         )}
+        {!loadingPosts &&
+          (user ? (
+            <ImgUpload username={user.displayName} />
+          ) : (
+            <h3>Sorry you need to login to upload posts</h3>
+          ))}
       </center>
     </div>
   );
