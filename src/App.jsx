@@ -90,7 +90,7 @@ function App() {
         });
       })
       .then(() => {
-        alert("Sigup Successful!");
+        alert("Signup Successful!");
         setOpenSignUp(false);
       })
       .catch((error) => alert(error.message))
