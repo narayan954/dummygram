@@ -5,6 +5,7 @@ import { Modal, Button, Input } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
+import AnimatedButton from "./components/AnimatedButton";
 
 function getModalStyle() {
   const top = 50;
@@ -188,15 +189,15 @@ function App() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <Button
+              <AnimatedButton
                 type="submit"
                 onClick={signUp}
                 variant="contained"
                 color="primary"
-                disabled={processingAuth}
+                loading={processingAuth}
               >
-                {processingAuth ? <Loader /> : "Sign Up"}
-              </Button>
+                Sign Up
+              </AnimatedButton>
             </center>
           </form>
         </div>
@@ -222,15 +223,15 @@ function App() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <Button
+              <AnimatedButton
                 type="submit"
                 onClick={signIn}
                 variant="contained"
                 color="primary"
-                disabled={processingAuth}
+                loading={processingAuth}
               >
-                {processingAuth ? <Loader /> : "Sign In"}
-              </Button>
+                Sign In
+              </AnimatedButton>
             </center>
           </form>
         </div>

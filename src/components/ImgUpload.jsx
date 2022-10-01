@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { db, storage } from "../lib/firebase";
 import firebase from "firebase/compat/app";
-import Button from "@mui/material/Button";
-import Loader from "./Loader";
+import AnimatedButton from "./AnimatedButton";
 
 function ImgUpload(props) {
   const [image, setImage] = useState(null);
@@ -67,9 +66,9 @@ function ImgUpload(props) {
         value={caption}
       />
       <input type="file" name="file" id="file" onChange={handleChange} />
-      <Button onClick={handleUpload}>
-        {uploadingPost ? <Loader /> : "Upload"}
-      </Button>
+      <AnimatedButton onClick={handleUpload} loading={uploadingPost}>
+        Upload
+      </AnimatedButton>
     </div>
   );
 }
