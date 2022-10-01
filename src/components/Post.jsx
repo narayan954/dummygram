@@ -17,7 +17,9 @@ function Post(prop) {
         .collection("comments")
         .orderBy("timestamp", "desc")
         .onSnapshot((snapshot) => {
-          setComments(snapshot.docs.map((doc) => doc.data()));
+          setComments(
+            snapshot.docs.map((doc) => ({ id: doc.id, content: doc.data() }))
+          );
         });
     }
     return () => {
@@ -52,8 +54,9 @@ function Post(prop) {
 
         <div className="post__comments">
           {comments.map((userComment) => (
-            <p key={userComment.timestamp.nanoseconds}>
-              <strong>{userComment.username}</strong> {userComment.text}
+            <p key={userComment.id}>
+              <strong>{userComment.content.username}</strong>{" "}
+              {userComment.content.text}
             </p>
           ))}
         </div>
