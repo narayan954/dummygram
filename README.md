@@ -291,3 +291,6 @@ Dummygram is now part of GitHub. For code of conduct, please see [GitHub's Commu
   
 
 BSD 3-Clause, see the [LICENSE](./LICENSE) file.
+
+
+---
