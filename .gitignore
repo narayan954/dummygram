@@ -27,8 +27,8 @@ package-lock.json
 /build
 
 # firebase
-# /.firebase
-# /firebase
+/.firebase
+/firebase
 
 # misc
 .DS_Store
