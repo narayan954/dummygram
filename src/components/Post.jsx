@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Avatar } from "@mui/material";
+import Avatar from "@mui/material/Avatar";
 import { db } from "../lib/firebase";
 import firebase from "firebase/compat/app";
 
@@ -40,7 +40,7 @@ function Post(prop) {
   return (
     <div className="post">
       <div className="post__header">
-        <Avatar className="post__avatar" alt={username} src={avatar} />
+        <Avatar className="post__avatar" alt={username} src={avatar} sx={{ bgcolor: 'Orange' }}/>
         <h3 className="post__username">{username}</h3>
       </div>
 
@@ -70,7 +70,7 @@ function Post(prop) {
         <div className="post__comments">
           {comments.map((userComment) => (
             <p key={userComment.id}>
-              <strong>{userComment.content.username}</strong>{" "}
+              <strong>{userComment.content.username}</strong>
               {userComment.content.text}
             </p>
           ))}

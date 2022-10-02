@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Post from "./components/Post";
 import { db, auth } from "./lib/firebase";
 import { Modal, Button, Input } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import ImgUpload from "./components/ImgUpload";
+import Loader from "./components/Loader";
+import AnimatedButton from "./components/AnimatedButton";
 
 function getModalStyle() {
   const top = 50;
@@ -39,6 +41,13 @@ function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
+  const [signingUp, setSigningUp] = useState(false);
+  const [loggingIn, setLoggingIn] = useState(false);
+  const [loadingPosts, setLoadingPosts] = useState(true);
+  const processingAuth = useMemo(
+    () => loggingIn || signingUp || loadingPosts,
+    [loggingIn, signingUp, loadingPosts]
+  );
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -62,6 +71,7 @@ function App() {
     db.collection("posts")
       .orderBy("timestamp", "desc")
       .onSnapshot((snapshot) => {
+        setLoadingPosts(false);
         setPosts(
           snapshot.docs.map((doc) => ({
             id: doc.id,
@@ -73,6 +83,7 @@ function App() {
 
   const signUp = (e) => {
     e.preventDefault();
+    setSigningUp(true);
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((authUser) => {
@@ -80,16 +91,35 @@ function App() {
           displayName: username,
         });
       })
-      .catch((error) => alert(error.message));
-    setOpenSignUp(false);
+      .then(() => {
+        alert("Signup Successful!");
+        setOpenSignUp(false);
+      })
+      .catch((error) => alert(error.message))
+      .finally(() => {
+        setSigningUp(false);
+      });
   };
 
   const signIn = (e) => {
     e.preventDefault();
+    setLoggingIn(true);
     auth
       .signInWithEmailAndPassword(email, password)
-      .catch((error) => alert(error.message));
-    setOpenSignIn(false);
+      .then(() => {
+        alert("Login successful!");
+        setOpenSignIn(false);
+      })
+      .catch((error) => alert(error.message))
+      .finally(() => {
+        setLoggingIn(false);
+      });
+  };
+
+  const signOut = () => {
+    if (confirm("Are you sure you want to logout?")) {
+      auth.signOut().finally();
+    }
   };
 
   return (
@@ -100,10 +130,11 @@ function App() {
           alt="instagram"
           className="app__header__img"
         />
-
-        {user ? (
+        {processingAuth ? (
+          <Loader />
+        ) : user ? (
           <Button
-            onClick={() => auth.signOut()}
+            onClick={signOut}
             color="secondary"
             variant="contained"
             style={{ margin: 5 }}
@@ -160,14 +191,15 @@ function App() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <Button
+              <AnimatedButton
                 type="submit"
                 onClick={signUp}
                 variant="contained"
                 color="primary"
+                loading={processingAuth}
               >
                 Sign Up
-              </Button>
+              </AnimatedButton>
             </center>
           </form>
         </div>
@@ -193,38 +225,56 @@ function App() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <Button
+              <AnimatedButton
                 type="submit"
                 onClick={signIn}
                 variant="contained"
                 color="primary"
+                loading={processingAuth}
               >
                 Sign In
-              </Button>
+              </AnimatedButton>
             </center>
           </form>
         </div>
       </Modal>
 
-      <center>
-        <div className="app__posts">
-          {posts.map(({ id, post }) => (
-            <Post
-              key={id}
-              postId={id}
-              user={user}
-              username={post.username}
-              avatar={post.avatar}
-              imageUrl={post.imageUrl}
-              caption={post.caption}
-            />
-          ))}
-        </div>
-        {user ? (
-          <ImgUpload username={user.displayName} />
+      <center
+        style={
+          !loadingPosts
+            ? {}
+            : {
+                width: "100%",
+                minHeight: "100vh",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }
+        }
+      >
+        {loadingPosts ? (
+          <Loader />
         ) : (
-          <h3>Sorry you need to login to upload posts</h3>
+          <div className="app__posts">
+            {posts.map(({ id, post }) => (
+              <Post
+                key={id}
+                postId={id}
+                user={user}
+                username={post.username}
+                avatar={post.avatar}
+                imageUrl={post.imageUrl}
+                caption={post.caption}
+              />
+            ))}
+          </div>
         )}
+        {!loadingPosts &&
+          (user ? (
+            <ImgUpload username={user.displayName} />
+          ) : (
+            <h3>Sorry you need to login to upload posts</h3>
+          ))}
       </center>
     </div>
   );
