@@ -99,15 +99,18 @@ function ImgUpload(props) {
       {uploadingPost && image && (
         <LinearProgress variant="determinate" value={progress} />
       )}
-      <input
-        type="file"
-        name="file"
-        id="file"
-        onChange={handleChange}
-        multiple
-        accept="image/*,video/*"
-        ref={imgInput}
-      />
+      {(!uploadingPost || (uploadingPost && image)) && (
+        <input
+          type="file"
+          name="file"
+          id="file"
+          onChange={handleChange}
+          multiple
+          accept="image/*,video/*"
+          ref={imgInput}
+          disabled={uploadingPost}
+        />
+      )}
       <TextField
         onChange={(e) => setCaption(e.target.value)}
         value={caption}
@@ -115,6 +118,7 @@ function ImgUpload(props) {
         label="Caption"
         multiline
         rows={4}
+        disabled={uploadingPost}
       />
       <AnimatedButton onClick={handleUpload} loading={uploadingPost}>
         Upload
