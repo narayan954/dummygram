@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Post from "./components/Post";
-import { db, auth,storage } from "./lib/firebase";
+import { db, auth } from "./lib/firebase";
 import { Modal, Button, Input } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import ImgUpload from "./components/ImgUpload";
@@ -48,13 +48,6 @@ function App() {
     () => loggingIn || signingUp || loadingPosts,
     [loggingIn, signingUp, loadingPosts]
   );
-  const [image, setImage] = useState(null);
-  const handleChange = (e) => {
-    if (e.target.files[0]) {
-        setImage(e.target.files[0]);
-    }
-  }
-
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -94,37 +87,13 @@ function App() {
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((authUser) => {
-        const uploadTask = storage.ref(`images/${image.name}`).put(image);
-        uploadTask.on(
-          "state_changed",
-          (snapshot) => {
-              // // progress function ...
-              // setProgress(Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100));
-          },
-          (error) => {
-              // error function ...
-              console.log(error);
-              alert(error.message);
-          },
-          () => {
-              // complete function ...
-            storage
-              .ref("images")
-              .child(image.name)
-              .getDownloadURL()
-              .then((url) =>{  
-                authUser.user.updateProfile({
-                displayName: username,
-                photoURL: url
-              })
-              alert("Signup Successful!");
-              setOpenSignUp(false);
-              })
-        })
-
+        return authUser.user.updateProfile({
+          displayName: username,
+        });
       })
       .then(() => {
-
+        alert("Signup Successful!");
+        setOpenSignUp(false);
       })
       .catch((error) => alert(error.message))
       .finally(() => {
@@ -222,12 +191,6 @@ function App() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <label for="file">Choose your profile pic</label>
-              <Input
-              type="file"
-              id="file" 
-              onChange={handleChange}
-              />
               <AnimatedButton
                 type="submit"
                 onClick={signUp}
@@ -308,7 +271,7 @@ function App() {
         )}
         {!loadingPosts &&
           (user ? (
-            <ImgUpload username={user.displayName} avatar={user.photoURL}/>
+            <ImgUpload username={user.displayName} />
           ) : (
             <h3>Sorry you need to login to upload posts</h3>
           ))}
