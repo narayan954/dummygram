@@ -96,7 +96,7 @@ function ImgUpload(props) {
 
   return (
     <div className="imageUpload">
-      {uploadingPost && (
+      {uploadingPost && image && (
         <LinearProgress variant="determinate" value={progress} />
       )}
       <input
