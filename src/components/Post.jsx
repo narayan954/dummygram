@@ -59,7 +59,11 @@ function Post(prop) {
       </div>
 
       <div className="post__container">
-        <img className="post__img" src={imageUrl} alt="random sq" />
+        {imageUrl ? (
+          <img className="post__img" src={imageUrl} alt="random sq" />
+        ) : (
+          <div className="post__background">{caption}</div>
+        )}
         <div className="social__icons__wrapper">
           <div className="social__icon">
             <FavoriteBorderIcon />
