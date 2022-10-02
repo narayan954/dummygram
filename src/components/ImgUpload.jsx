@@ -14,9 +14,9 @@ function ImgUpload(props) {
       setImage(e.target.files[0]);
     }
   };
- const handleUpload = () => {
+  const handleUpload = () => {
     setUploadingPost(true);
-    if(image){
+    if (image) {
       const uploadTask = storage.ref(`images/${image.name}`).put(image);
       uploadTask.on(
         "state_changed",
@@ -52,8 +52,7 @@ function ImgUpload(props) {
             });
         }
       );
-    }
-    else {
+    } else {
       db.collection("posts").add({
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         caption: caption,
