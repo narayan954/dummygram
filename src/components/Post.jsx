@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Avatar } from "@mui/material";
+import { Avatar, Grid } from "@mui/material";
 import { db } from "../lib/firebase";
 import firebase from "firebase/compat/app";
 
@@ -37,6 +37,15 @@ function Post(prop) {
     setComment("");
   };
 
+  const postImages = imageUrl.split(",");
+  const computeGridSize = (imagesLength, imageIndex) => {
+    if (imageIndex === imagesLength - 1 && (imageIndex + 1) % 2 !== 0) {
+      return 12;
+    }
+
+    return 6;
+  };
+
   return (
     <div className="post">
       <div className="post__header">
@@ -45,8 +54,13 @@ function Post(prop) {
       </div>
 
       <div className="post__container">
-        <img className="post__img" src={imageUrl} alt="random sq" />
-
+        <Grid container>
+          {postImages.map((img, index) => (
+            <Grid item key={img} xs={computeGridSize(postImages.length, index)}>
+              <img className="post__img" src={img} alt="random sq" />
+            </Grid>
+          ))}
+        </Grid>
         <h4 className="post__text">
           <strong>{username} </strong>
           {caption}
