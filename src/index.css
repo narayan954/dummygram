@@ -103,6 +103,24 @@
   background: transparent;
 }
 
+.post__background {
+  min-height: 250px;
+  background: linear-gradient(
+    45deg,
+    #405de6,
+    #5851db,
+    #833ab4,
+    #c13584,
+    #e1306c,
+    #fd1d1d
+  );
+  color: white;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+
 .post__comments {
   padding: 0 15px;
   display: flex;
