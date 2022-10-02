@@ -1,7 +1,17 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Post from "./components/Post";
 import { db, auth } from "./lib/firebase";
-import { Modal, Button, Input } from "@mui/material";
+import {
+  Modal,
+  Button,
+  Input,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  TextField,
+  DialogActions,
+} from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
@@ -44,6 +54,7 @@ function App() {
   const [signingUp, setSigningUp] = useState(false);
   const [logginIn, setLogginIn] = useState(false);
   const [loadingPosts, setLoadingPosts] = useState(true);
+  const [openNewUpload, setOpenNewUpload] = useState(false);
   const processingAuth = useMemo(
     () => logginIn || signingUp || loadingPosts,
     [logginIn, signingUp, loadingPosts]
@@ -133,14 +144,18 @@ function App() {
         {processingAuth ? (
           <Loader />
         ) : user ? (
-          <Button
-            onClick={signOut}
-            color="secondary"
-            variant="contained"
-            style={{ margin: 5 }}
-          >
-            Logout
-          </Button>
+          <>
+            <Button
+              onClick={() => setOpenNewUpload(true)}
+              color="secondary"
+              variant="contained"
+            >
+              New Post
+            </Button>
+            <Button onClick={signOut} color="secondary" variant="contained">
+              Logout
+            </Button>
+          </>
         ) : (
           <div className="login__container">
             <Button
@@ -163,6 +178,20 @@ function App() {
           </div>
         )}
       </div>
+      <Dialog open={openNewUpload} onClose={() => setOpenNewUpload(false)}>
+        <DialogTitle>New Upload</DialogTitle>
+        <DialogContent>
+          {!loadingPosts &&
+            (user ? (
+              <ImgUpload
+                username={user.displayName}
+                onUploadComplete={() => setOpenNewUpload(false)}
+              />
+            ) : (
+              <h3>Sorry you need to login to upload posts</h3>
+            ))}
+        </DialogContent>
+      </Dialog>
 
       <Modal open={openSignUp} onClose={() => setOpenSignUp(false)}>
         <div style={modalStyle} className={classes.paper}>
@@ -269,12 +298,6 @@ function App() {
             ))}
           </div>
         )}
-        {!loadingPosts &&
-          (user ? (
-            <ImgUpload username={user.displayName} />
-          ) : (
-            <h3>Sorry you need to login to upload posts</h3>
-          ))}
       </center>
     </div>
   );

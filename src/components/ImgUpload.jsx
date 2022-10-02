@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { db, handleMultiUpload, storage } from "../lib/firebase";
 import firebase from "firebase/compat/app";
 import AnimatedButton from "./AnimatedButton";
+import { LinearProgress, TextField } from "@mui/material";
 
 function ImgUpload(props) {
   const [image, setImage] = useState(null);
@@ -15,60 +16,89 @@ function ImgUpload(props) {
       setImage(Array.from(e.target.files));
     }
   };
+
+  const savePost = (imageUrl = "") => {
+    db.collection("posts")
+      .add({
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        caption: caption,
+        imageUrl,
+        username: props.username,
+        avatar: "avatar",
+      })
+      .then(() => {
+        alert("Post was uploaded successfully!");
+        setProgress(0);
+        setCaption("");
+        setImage(null);
+        if (imgInput.current) {
+          imgInput.current.value = null;
+        }
+
+        if (props.onUploadComplete) {
+          props.onUploadComplete();
+        }
+      })
+      .catch((err) => {
+        alert(err.message);
+
+        if (props.onUploadError) {
+          props.onUploadError(err)
+        }
+      })
+      .finally(() => {
+        setUploadingPost(false);
+      });
+  };
+
   const handleUpload = () => {
+    if (!image && !caption) {
+      return;
+    }
+    
+    setUploadingPost(true);
+    if (props.onUploadStart) {
+      props.onUploadStart();
+    }
+
     if (!image) {
+      savePost();
       return;
     }
 
-    setUploadingPost(true);
     handleMultiUpload(image, {
       onUploadProgress(percentage) {
         setProgress(percentage);
+
+        if (props.onUploadProgress) {
+          props.onUploadProgress(percentage);
+        }
       },
     })
       .then((urls) => {
-        db.collection("posts")
-          .add({
-            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            caption: caption,
-            imageUrl: urls.join(","),
-            username: props.username,
-            avatar: "avatar",
-          })
-          .then(() => {
-            alert("Post was uploaded successfully!");
-            setProgress(0);
-            setCaption("");
-            setImage(null);
-            if (imgInput.current) {
-              imgInput.current.value = null;
-            }
-          })
-          .catch((err) => {
-            alert(err.message);
-          })
-          .finally(() => {
-            setUploadingPost(false);
-          });
+        savePost(urls.join(","));
       })
       .catch((err) => {
         console.log(err);
         alert(err.message);
         setUploadingPost(false);
+
+        if (props.onUploadError) {
+          props.onUploadError(err);
+        }
+      })
+      .finally(() => {
+        if (props.onUploadEnd) {
+          props.onUploadEnd();
+        }
       });
   };
 
   return (
     <div className="imageUpload">
-      <progress className="imageUpload-progress" value={progress} max="100" />
-      <input
-        type="text"
-        name="caption"
-        id="caption"
-        placeholder="Enter a Caption.. "
-        onChange={(e) => setCaption(e.target.value)}
-        value={caption}
-      />
+      {uploadingPost && (
+        <LinearProgress variant="determinate" value={progress} />
+      )}
       <input
         type="file"
         name="file"
@@ -77,6 +107,14 @@ function ImgUpload(props) {
         multiple
         accept="image/*,video/*"
         ref={imgInput}
+      />
+      <TextField
+        onChange={(e) => setCaption(e.target.value)}
+        value={caption}
+        placeholder="Enter a Caption.."
+        label="Caption"
+        multiline
+        rows={4}
       />
       <AnimatedButton onClick={handleUpload} loading={uploadingPost}>
         Upload
