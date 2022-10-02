@@ -10,6 +10,7 @@ jobs:
       pull-requests: write
     steps:
     - uses: actions/first-interaction@v1
+      continue-on-error: true
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         issue-message: "Hi there, Thanks a lot for raising the issue, we'll look into it asap. Also please mention if you wish to work on the issue as well so you could be assigned"
