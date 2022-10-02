@@ -37,6 +37,7 @@ function Post(prop) {
     setComment("");
   };
 
+  /** @type {string[]} */
   const postImages = imageUrl.split(",");
   const computeGridSize = (imagesLength, imageIndex) => {
     if (imageIndex === imagesLength - 1 && (imageIndex + 1) % 2 !== 0) {
@@ -45,6 +46,7 @@ function Post(prop) {
 
     return 6;
   };
+  const postHasImages = postImages.some((image) => image.length !== 0);
 
   return (
     <div className="post">
@@ -54,13 +56,20 @@ function Post(prop) {
       </div>
 
       <div className="post__container">
-        <Grid container>
-          {postImages.map((img, index) => (
-            <Grid item key={img} xs={computeGridSize(postImages.length, index)}>
-              <img className="post__img" src={img} alt="random sq" />
-            </Grid>
-          ))}
-        </Grid>
+        {postHasImages && (
+          <Grid container>
+            {postImages.map((img, index) => (
+              <Grid
+                item
+                key={img}
+                xs={computeGridSize(postImages.length, index)}
+                className="post__img_container"
+              >
+                <img className="post__img" src={img} alt="random sq" />
+              </Grid>
+            ))}
+          </Grid>
+        )}
         <h4 className="post__text">
           <strong>{username} </strong>
           {caption}

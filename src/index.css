@@ -24,6 +24,7 @@
   border-bottom: 1px solid lightgrey;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .app__posts {
@@ -41,6 +42,9 @@
 .post__img {
   width: 100%;
   object-fit: contain;
+}
+
+.post__img_container:only-of-type .post__img {
   border-top: 1px solid lightgrey;
   border-bottom: 1px solid lightgrey;
 }
@@ -110,12 +114,13 @@
 .imageUpload {
   display: flex;
   flex-direction: column;
-  width: 60%;
+  width: 100%;
+  gap: 10px;
   margin-left: auto;
   margin-right: auto;
   margin-top: 10px;
   margin-bottom: 10px;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   background-color: white;
 }
 
