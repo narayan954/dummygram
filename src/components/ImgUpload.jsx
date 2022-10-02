@@ -42,8 +42,8 @@ function ImgUpload(props) {
                 timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                 caption: caption,
                 imageUrl: url,
-                username: props.username,
-                avatar: "avatar",
+                username: props.user.displayName,
+                avatar: props.user.photoURL,
               });
               setProgress(0);
               setCaption("");
@@ -57,9 +57,9 @@ function ImgUpload(props) {
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         caption: caption,
         imageUrl: "",
-        username: props.username,
-        avatar: "avatar",
-      });
+        username: props.user.displayName,
+        avatar: props.user.photoURL,
+      })
       setProgress(0);
       setCaption("");
       setImage(null);
@@ -69,6 +69,7 @@ function ImgUpload(props) {
 
   return (
     <div className="imageUpload">
+      <h1>Create a Post!</h1>
       <progress className="imageUpload-progress" value={progress} max="100" />
       <input
         type="text"
