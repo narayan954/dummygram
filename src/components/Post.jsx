@@ -45,12 +45,27 @@ function Post(prop) {
       </div>
 
       <div className="post__container">
-        <img className="post__img" src={imageUrl} alt="random sq" />
+        {
+          imageUrl !=="" ?
+          <>
+          <img className="post__img" src={imageUrl} alt="random sq" />
+
+          <h4 className="post__text">
+            <strong>{username} </strong>
+            {caption}
+          </h4></> :
+           <h4 className="post__text">
+
+           {caption}
+         </h4>
+
+        }
+        {/* <img className="post__img" src={imageUrl} alt="random sq" />
 
         <h4 className="post__text">
           <strong>{username} </strong>
           {caption}
-        </h4>
+        </h4> */}
 
         <div className="post__comments">
           {comments.map((userComment) => (
