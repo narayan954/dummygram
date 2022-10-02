@@ -1,5 +1,11 @@
 import React, { useEffect } from "react";
 import { Avatar, Grid } from "@mui/material";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
+import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
+import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
+import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
+import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import { db } from "../lib/firebase";
 import firebase from "firebase/compat/app";
 
@@ -51,12 +57,20 @@ function Post(prop) {
   return (
     <div className="post">
       <div className="post__header">
-        <Avatar className="post__avatar" alt={username} src={avatar} />
+        <Avatar
+          className="post__avatar"
+          alt={username}
+          src={avatar}
+          sx={{ bgcolor: "Orange" }}
+        />
         <h3 className="post__username">{username}</h3>
+        <div className="social__icon__last">
+          <MoreHorizOutlinedIcon />
+        </div>
       </div>
 
       <div className="post__container">
-        {postHasImages && (
+        {postHasImages ? (
           <Grid container>
             {postImages.map((img, index) => (
               <Grid
@@ -69,11 +83,31 @@ function Post(prop) {
               </Grid>
             ))}
           </Grid>
+        ) : (
+          <div className="post__background">{caption}</div>
         )}
-        <h4 className="post__text">
-          <strong>{username} </strong>
-          {caption}
-        </h4>
+        <div className="social__icons__wrapper">
+          <div className="social__icon">
+            <FavoriteBorderIcon />
+          </div>
+          <div className="social__icon">
+            <ModeCommentOutlinedIcon />
+          </div>
+          <div className="social__icon">
+            <SendOutlinedIcon />
+          </div>
+          <div className="social__icon__last">
+            <BookmarkBorderOutlinedIcon />
+          </div>
+        </div>
+        <div className="post__text">
+          {caption && (
+            <>
+              <strong>{username} </strong>
+              {caption}
+            </>
+          )}
+        </div>
 
         <div className="post__comments">
           {comments.map((userComment) => (
@@ -86,6 +120,9 @@ function Post(prop) {
 
         {user && (
           <form className="post__commentBox">
+            <div className="social__icon">
+              <SentimentSatisfiedAltOutlinedIcon />
+            </div>
             <input
               className="post__input"
               type="text"

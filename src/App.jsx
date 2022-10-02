@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Post from "./components/Post";
-import { db, auth } from "./lib/firebase";
+import { db, auth, storage } from "./lib/firebase";
 import {
   Modal,
   Button,
@@ -8,9 +8,6 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogContentText,
-  TextField,
-  DialogActions,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import ImgUpload from "./components/ImgUpload";
@@ -52,13 +49,20 @@ function App() {
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
   const [signingUp, setSigningUp] = useState(false);
-  const [logginIn, setLogginIn] = useState(false);
+  const [loggingIn, setLoggingIn] = useState(false);
   const [loadingPosts, setLoadingPosts] = useState(true);
   const [openNewUpload, setOpenNewUpload] = useState(false);
   const processingAuth = useMemo(
-    () => logginIn || signingUp || loadingPosts,
-    [logginIn, signingUp, loadingPosts]
+    () => loggingIn || signingUp || loadingPosts,
+    [loggingIn, signingUp, loadingPosts]
   );
+  const [image, setImage] = useState(null);
+
+  const handleChange = (e) => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
+  };
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -98,14 +102,38 @@ function App() {
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((authUser) => {
-        return authUser.user.updateProfile({
-          displayName: username,
-        });
+        const uploadTask = storage.ref(`images/${image.name}`).put(image);
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            // // progress function ...
+            // setProgress(Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100));
+          },
+          (error) => {
+            // error function ...
+            console.log(error);
+            alert(error.message);
+          },
+          () => {
+            // complete function ...
+            storage
+              .ref("images")
+              .child(image.name)
+              .getDownloadURL()
+              .then((url) => {
+                authUser.user.updateProfile({
+                  displayName: username,
+                  photoURL: url,
+                });
+                alert("Signup Successful!");
+                setOpenSignUp(false);
+              });
+          }
+        );
       })
-      .then(() => {
-        alert("Signup Successful!");
-        setOpenSignUp(false);
-      })
+      // .then(() => {
+
+      // })
       .catch((error) => alert(error.message))
       .finally(() => {
         setSigningUp(false);
@@ -114,7 +142,7 @@ function App() {
 
   const signIn = (e) => {
     e.preventDefault();
-    setLogginIn(true);
+    setLoggingIn(true);
     auth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
@@ -123,7 +151,7 @@ function App() {
       })
       .catch((error) => alert(error.message))
       .finally(() => {
-        setLogginIn(false);
+        setLoggingIn(false);
       });
   };
 
@@ -184,7 +212,7 @@ function App() {
           {!loadingPosts &&
             (user ? (
               <ImgUpload
-                username={user.displayName}
+                user={user}
                 onUploadComplete={() => setOpenNewUpload(false)}
               />
             ) : (
@@ -220,6 +248,9 @@ function App() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+              <label for="file">Choose your profile pic</label>
+              <Input type="file" id="file" onChange={handleChange} />
+
               <AnimatedButton
                 type="submit"
                 onClick={signUp}

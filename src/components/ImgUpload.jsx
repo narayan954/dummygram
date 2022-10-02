@@ -23,8 +23,8 @@ function ImgUpload(props) {
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         caption: caption,
         imageUrl,
-        username: props.username,
-        avatar: "avatar",
+        username: props.user.displayName,
+        avatar: props.user.photoURL,
       })
       .then(() => {
         alert("Post was uploaded successfully!");
@@ -43,7 +43,7 @@ function ImgUpload(props) {
         alert(err.message);
 
         if (props.onUploadError) {
-          props.onUploadError(err)
+          props.onUploadError(err);
         }
       })
       .finally(() => {
@@ -55,7 +55,7 @@ function ImgUpload(props) {
     if (!image && !caption) {
       return;
     }
-    
+
     setUploadingPost(true);
     if (props.onUploadStart) {
       props.onUploadStart();
