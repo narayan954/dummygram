@@ -53,24 +53,30 @@ function ImgUpload(props) {
         }
       );
     } else {
-      db.collection("posts").add({
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        caption: caption,
-        imageUrl: "",
-        username: props.user.displayName,
-        avatar: props.user.photoURL,
-      })
-      setProgress(0);
-      setCaption("");
-      setImage(null);
-      setUploadingPost(false);
+      if (caption) {
+        db.collection("posts").add({
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          caption: caption,
+          imageUrl: "",
+          username: props.user.displayName,
+          avatar: props.user.photoURL,
+        });
+        setProgress(0);
+        setCaption("");
+        setImage(null);
+        setUploadingPost(false);
+      } else {
+        setUploadingPost(false);
+      }
     }
   };
 
   return (
     <div className="imageUpload">
       <h1>Create a Post!</h1>
-      <progress className="imageUpload-progress" value={progress} max="100" />
+      {uploadingPost && (
+        <progress className="imageUpload-progress" value={progress} max="100" />
+      )}
       <input
         type="text"
         name="caption"
