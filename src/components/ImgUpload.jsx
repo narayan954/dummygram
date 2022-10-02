@@ -68,6 +68,7 @@ function ImgUpload(props) {
 
   return (
     <div className="imageUpload">
+      <h1>Create a Post!</h1>
       <progress className="imageUpload-progress" value={progress} max="100" />
       <input
         type="text"
