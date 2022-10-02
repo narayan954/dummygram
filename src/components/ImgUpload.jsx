@@ -42,12 +42,13 @@ function ImgUpload(props) {
                 timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                 caption: caption,
                 imageUrl: url,
-                username: props.username,
-                avatar: "avatar",
+                username: props.user.displayName,
+                avatar: props.user.photoURL,
               });
               setProgress(0);
               setCaption("");
               setImage(null);
+              setUploadingPost(false);
             });
         }
       );
@@ -57,12 +58,13 @@ function ImgUpload(props) {
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         caption: caption,
         imageUrl: "",
-        username: props.username,
-        avatar: "avatar",
+        username: props.user.displayName,
+        avatar: props.user.photoURL,
       })
       setProgress(0);
       setCaption("");
       setImage(null);
+      setUploadingPost(false);
     }
   };
 
