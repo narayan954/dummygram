@@ -15,6 +15,7 @@ function ImgUpload(props) {
     }
   };
  const handleUpload = () => {
+    setUploadingPost(true);
     if(image){
       const uploadTask = storage.ref(`images/${image.name}`).put(image);
       uploadTask.on(
