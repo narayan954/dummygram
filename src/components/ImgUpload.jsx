@@ -27,7 +27,7 @@ function ImgUpload(props) {
         avatar: props.user.photoURL,
       })
       .then(() => {
-        alert("Post was uploaded successfully!");
+        props.snackBar("success", "Post was uploaded successfully!");
         setProgress(0);
         setCaption("");
         setImage(null);
@@ -40,7 +40,7 @@ function ImgUpload(props) {
         }
       })
       .catch((err) => {
-        alert(err.message);
+        props.snackBar("error", err.message)
 
         if (props.onUploadError) {
           props.onUploadError(err);
@@ -80,7 +80,7 @@ function ImgUpload(props) {
       })
       .catch((err) => {
         console.log(err);
-        alert(err.message);
+        props.snackBar("error", err.message);
         setUploadingPost(false);
 
         if (props.onUploadError) {
