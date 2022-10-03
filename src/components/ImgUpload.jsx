@@ -1,91 +1,125 @@
-import React, { useState } from "react";
-import { db, storage } from "../lib/firebase";
+import React, { useRef, useState } from "react";
+import { db, handleMultiUpload } from "../lib/firebase";
 import firebase from "firebase/compat/app";
 import AnimatedButton from "./AnimatedButton";
+import { LinearProgress, TextField } from "@mui/material";
 
 function ImgUpload(props) {
   const [image, setImage] = useState(null);
   const [caption, setCaption] = useState("");
   const [progress, setProgress] = useState(0);
   const [uploadingPost, setUploadingPost] = useState(false);
+  const imgInput = useRef(null);
 
   const handleChange = (e) => {
-    if (e.target.files[0]) {
-      setImage(e.target.files[0]);
+    if (e.target.files?.length) {
+      setImage(Array.from(e.target.files));
     }
   };
-  const handleUpload = () => {
-    setUploadingPost(true);
-    if (image) {
-      const uploadTask = storage.ref(`images/${image.name}`).put(image);
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          // progress function ...
-          setProgress(
-            Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
-          );
-        },
-        (error) => {
-          // error function ...
-          console.log(error);
-          props.snackBar("error", error.message)
-        },
-        () => {
-          // complete function ...
-          storage
-            .ref("images")
-            .child(image.name)
-            .getDownloadURL()
-            .then((url) => {
-              db.collection("posts").add({
-                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                caption: caption,
-                imageUrl: url,
-                username: props.user.displayName,
-                avatar: props.user.photoURL,
-              });
-              setProgress(0);
-              setCaption("");
-              setImage(null);
-              setUploadingPost(false);
-            });
-        }
-      );
-    } else {
-      if (caption) {
-        db.collection("posts").add({
-          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-          caption: caption,
-          imageUrl: "",
-          username: props.user.displayName,
-          avatar: props.user.photoURL,
-        });
+
+  const savePost = (imageUrl = "") => {
+    db.collection("posts")
+      .add({
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        caption: caption,
+        imageUrl,
+        username: props.user.displayName,
+        avatar: props.user.photoURL,
+      })
+      .then(() => {
+        props.snackBar("info", "Post was uploaded successfully!");
         setProgress(0);
         setCaption("");
         setImage(null);
+        if (imgInput.current) {
+          imgInput.current.value = null;
+        }
+
+        if (props.onUploadComplete) {
+          props.onUploadComplete();
+        }
+      })
+      .catch((err) => {
+        props.snackBar("error", err.message);
+
+        if (props.onUploadError) {
+          props.onUploadError(err);
+        }
+      })
+      .finally(() => {
         setUploadingPost(false);
-      } else {
-        setUploadingPost(false);
-      }
+      });
+  };
+
+  const handleUpload = () => {
+    if (!image && !caption) {
+      return;
     }
+
+    setUploadingPost(true);
+    if (props.onUploadStart) {
+      props.onUploadStart();
+    }
+
+    if (!image) {
+      savePost();
+      return;
+    }
+
+    handleMultiUpload(image, {
+      onUploadProgress(percentage) {
+        setProgress(percentage);
+
+        if (props.onUploadProgress) {
+          props.onUploadProgress(percentage);
+        }
+      },
+    })
+      .then((urls) => {
+        savePost(urls.join(","));
+      })
+      .catch((err) => {
+        console.log(err);
+        props.snackBar("error", err.message);
+        setUploadingPost(false);
+
+        if (props.onUploadError) {
+          props.onUploadError(err);
+        }
+      })
+      .finally(() => {
+        if (props.onUploadEnd) {
+          props.onUploadEnd();
+        }
+      });
   };
 
   return (
     <div className="imageUpload">
-      <h1>Create a Post!</h1>
-      {uploadingPost && (
-        <progress className="imageUpload-progress" value={progress} max="100" />
+      {uploadingPost && image && (
+        <LinearProgress variant="determinate" value={progress} />
       )}
-      <input
-        type="text"
-        name="caption"
-        id="caption"
-        placeholder="Enter a Caption.. "
+      {(!uploadingPost || (uploadingPost && image)) && (
+        <input
+          type="file"
+          name="file"
+          id="file"
+          onChange={handleChange}
+          multiple
+          accept="image/*,video/*"
+          ref={imgInput}
+          disabled={uploadingPost}
+        />
+      )}
+      <TextField
         onChange={(e) => setCaption(e.target.value)}
         value={caption}
+        placeholder="Enter a Caption.."
+        label="Caption"
+        multiline
+        rows={4}
+        disabled={uploadingPost}
       />
-      <input type="file" name="file" id="file" onChange={handleChange} />
       <AnimatedButton onClick={handleUpload} loading={uploadingPost}>
         Upload
       </AnimatedButton>

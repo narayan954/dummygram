@@ -1,7 +1,14 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Post from "./components/Post";
-import { db, auth,storage } from "./lib/firebase";
-import { Modal, Button, Input } from "@mui/material";
+import { db, auth, storage } from "./lib/firebase";
+import {
+  Modal,
+  Button,
+  Input,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+} from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
@@ -45,6 +52,9 @@ function App() {
   const [signingUp, setSigningUp] = useState(false);
   const [loggingIn, setLoggingIn] = useState(false);
   const [loadingPosts, setLoadingPosts] = useState(true);
+  const [pageSize, setPageSize] = useState(10)
+  const [loadMorePosts, setLoadMorePosts] = useState(false);
+  const [openNewUpload, setOpenNewUpload] = useState(false);
   const processingAuth = useMemo(
     () => loggingIn || signingUp || loadingPosts,
     [loggingIn, signingUp, loadingPosts]
@@ -62,9 +72,9 @@ function App() {
 
   const handleChange = (e) => {
     if (e.target.files[0]) {
-        setImage(e.target.files[0]);
+      setImage(e.target.files[0]);
     }
-  }
+  };
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -85,8 +95,10 @@ function App() {
   }, [user, username]);
 
   useEffect(() => {
+    window.addEventListener("scroll", handleMouseScroll)
     db.collection("posts")
       .orderBy("timestamp", "desc")
+      .limit(pageSize)
       .onSnapshot((snapshot) => {
         setLoadingPosts(false);
         setPosts(
@@ -98,6 +110,33 @@ function App() {
       });
   }, []);
 
+  const handleMouseScroll = (event) => {
+    if(window.innerHeight + event.target.documentElement.scrollTop + 1 >= event.target.documentElement.scrollHeight){
+        setLoadMorePosts(true)
+    }
+  }
+
+useEffect(()=>{
+  if(loadMorePosts && posts.length){
+    db.collection("posts")
+      .orderBy("timestamp", "desc")
+      .startAfter(posts[posts.length-1].post.timestamp)
+      .limit(pageSize)
+      .onSnapshot((snapshot) => {
+        setPosts((loadedPosts) => {
+          return [
+              ...loadedPosts,
+              ...snapshot.docs.map((doc) => ({
+                  id: doc.id,
+                  post: doc.data(),
+              }))
+          ]
+        })
+      });
+  }
+  setLoadMorePosts(false)
+},[loadMorePosts])
+
   const signUp = (e) => {
     e.preventDefault();
     setSigningUp(true);
@@ -106,12 +145,12 @@ function App() {
       .then((authUser) => {
         const uploadTask = storage.ref(`images/${image.name}`).put(image);
         uploadTask.on(
-        "state_changed",
-        (snapshot) => {
+          "state_changed",
+          (snapshot) => {
             // // progress function ...
             // setProgress(Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100));
-        },
-        (error) => {
+          },
+          (error) => {
             // error function ...
             console.log(error);
             openSnackBar("error", error.message)
@@ -174,14 +213,18 @@ function App() {
         {processingAuth ? (
           <Loader />
         ) : user ? (
-          <Button
-            onClick={signOut}
-            color="secondary"
-            variant="contained"
-            style={{ margin: 5 }}
-          >
-            Logout
-          </Button>
+          <>
+            <Button
+              onClick={() => setOpenNewUpload(true)}
+              color="secondary"
+              variant="contained"
+            >
+              New Post
+            </Button>
+            <Button onClick={signOut} color="secondary" variant="contained">
+              Logout
+            </Button>
+          </>
         ) : (
           <div className="login__container">
             <Button
@@ -233,11 +276,7 @@ function App() {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <label for="file">Choose your profile pic</label>
-              <Input
-              type="file"
-              id="file" 
-              onChange={handleChange}
-              />
+              <Input type="file" id="file" onChange={handleChange} />
 
               <AnimatedButton
                 type="submit"
