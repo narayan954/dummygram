@@ -51,6 +51,8 @@ function App() {
   const [signingUp, setSigningUp] = useState(false);
   const [loggingIn, setLoggingIn] = useState(false);
   const [loadingPosts, setLoadingPosts] = useState(true);
+  const [pageSize, setPageSize] = useState(10)
+  const [loadMorePosts, setLoadMorePosts] = useState(false);
   const [openNewUpload, setOpenNewUpload] = useState(false);
   const processingAuth = useMemo(
     () => loggingIn || signingUp || loadingPosts,
@@ -83,8 +85,10 @@ function App() {
   }, [user, username]);
 
   useEffect(() => {
+    window.addEventListener("scroll", handleMouseScroll)
     db.collection("posts")
       .orderBy("timestamp", "desc")
+      .limit(pageSize)
       .onSnapshot((snapshot) => {
         setLoadingPosts(false);
         setPosts(
@@ -95,6 +99,33 @@ function App() {
         );
       });
   }, []);
+
+  const handleMouseScroll = (event) => {
+    if(window.innerHeight + event.target.documentElement.scrollTop + 1 >= event.target.documentElement.scrollHeight){
+        setLoadMorePosts(true)
+    }
+  }
+
+useEffect(()=>{
+  if(loadMorePosts && posts.length){
+    db.collection("posts")
+      .orderBy("timestamp", "desc")
+      .startAfter(posts[posts.length-1].post.timestamp)
+      .limit(pageSize)
+      .onSnapshot((snapshot) => {
+        setPosts((loadedPosts) => {
+          return [
+              ...loadedPosts,
+              ...snapshot.docs.map((doc) => ({
+                  id: doc.id,
+                  post: doc.data(),
+              }))
+          ]
+        })
+      });
+  }
+  setLoadMorePosts(false)
+},[loadMorePosts])
 
   const signUp = (e) => {
     e.preventDefault();
