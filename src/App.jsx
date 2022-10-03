@@ -105,13 +105,15 @@ useEffect(()=>{
       .startAfter(posts[posts.length-1].post.timestamp)
       .limit(pageSize)
       .onSnapshot((snapshot) => {
-        setPosts([
-          ...posts,
-          ...snapshot.docs.map((doc) => ({
-            id: doc.id,
-            post: doc.data(),
-          }))
-        ]);
+        setPosts((loadedPosts) => {
+          return [
+              ...loadedPosts,
+              ...snapshot.docs.map((doc) => ({
+                  id: doc.id,
+                  post: doc.data(),
+              }))
+          ]
+        })
       });
   }
   setLoadMorePosts(false)
