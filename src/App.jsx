@@ -6,6 +6,7 @@ import { makeStyles } from "@mui/styles";
 import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
 import AnimatedButton from "./components/AnimatedButton";
+import SnackBar from "./components/SnackBar";
 
 function getModalStyle() {
   const top = 50;
@@ -48,6 +49,15 @@ function App() {
     () => loggingIn || signingUp || loadingPosts,
     [loggingIn, signingUp, loadingPosts]
   );
+  const [openSnackbar, setOpenSnackbar] = useState(false)
+  const [alertSeverity, setAlertSeverity] = useState("success")
+  const [snackBarMessage, setSnackBarMessage] = useState("")
+  const openSnackBar = (severity, message) => {
+		setAlertSeverity(severity)
+		setSnackBarMessage(message)
+		setOpenSnackbar(true)
+  }
+  const snackBarprops = { open: openSnackbar, setOpen: setOpenSnackbar, alertSeverity, snackBarMessage }
   const [image, setImage] = useState(null);
 
   const handleChange = (e) => {
@@ -104,7 +114,7 @@ function App() {
         (error) => {
             // error function ...
             console.log(error);
-            alert(error.message);
+            openSnackBar("error", error.message)
         },
         () => {
             // complete function ...
@@ -116,8 +126,8 @@ function App() {
               authUser.user.updateProfile({
               displayName: username,
               photoURL: url
-            })
-            alert("Signup Successful!");
+              })
+            openSnackBar("success", "Signup Successful!")
             setOpenSignUp(false);
           })
         })
@@ -125,7 +135,7 @@ function App() {
       // .then(() => {
 
       // })
-      .catch((error) => alert(error.message))
+      .catch((error) => openSnackBar("error", error.message))
       .finally(() => {
         setSigningUp(false);
       });
@@ -137,10 +147,10 @@ function App() {
     auth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        alert("Login successful!");
+        openSnackBar("success", "Login successful!")
         setOpenSignIn(false);
       })
-      .catch((error) => alert(error.message))
+      .catch((error) => openSnackBar("error", error.message))
       .finally(() => {
         setLoggingIn(false);
       });
@@ -149,6 +159,7 @@ function App() {
   const signOut = () => {
     if (confirm("Are you sure you want to logout?")) {
       auth.signOut().finally();
+      openSnackBar("info", 'Logged Out Successfully!')
     }
   };
 
@@ -193,7 +204,7 @@ function App() {
           </div>
         )}
       </div>
-
+			<SnackBar {...snackBarprops} />
       <Modal open={openSignUp} onClose={() => setOpenSignUp(false)}>
         <div style={modalStyle} className={classes.paper}>
           <form className="modal__signup">
@@ -308,7 +319,7 @@ function App() {
         )}
         {!loadingPosts &&
           (user ? (
-            <ImgUpload user={user} />
+          <ImgUpload user={user} snackBar={openSnackBar} />
           ) : (
             <h3>Sorry you need to login to upload posts</h3>
           ))}
