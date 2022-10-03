@@ -1,7 +1,14 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Post from "./components/Post";
-import { db, auth,storage } from "./lib/firebase";
-import { Modal, Button, Input } from "@mui/material";
+import { db, auth, storage } from "./lib/firebase";
+import {
+  Modal,
+  Button,
+  Input,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+} from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
@@ -44,6 +51,7 @@ function App() {
   const [signingUp, setSigningUp] = useState(false);
   const [loggingIn, setLoggingIn] = useState(false);
   const [loadingPosts, setLoadingPosts] = useState(true);
+  const [openNewUpload, setOpenNewUpload] = useState(false);
   const processingAuth = useMemo(
     () => loggingIn || signingUp || loadingPosts,
     [loggingIn, signingUp, loadingPosts]
@@ -52,9 +60,9 @@ function App() {
 
   const handleChange = (e) => {
     if (e.target.files[0]) {
-        setImage(e.target.files[0]);
+      setImage(e.target.files[0]);
     }
-  }
+  };
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -96,31 +104,32 @@ function App() {
       .then((authUser) => {
         const uploadTask = storage.ref(`images/${image.name}`).put(image);
         uploadTask.on(
-        "state_changed",
-        (snapshot) => {
+          "state_changed",
+          (snapshot) => {
             // // progress function ...
             // setProgress(Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100));
-        },
-        (error) => {
+          },
+          (error) => {
             // error function ...
             console.log(error);
             alert(error.message);
-        },
-        () => {
+          },
+          () => {
             // complete function ...
-          storage
-            .ref("images")
-            .child(image.name)
-            .getDownloadURL()
-            .then((url) =>{  
-              authUser.user.updateProfile({
-              displayName: username,
-              photoURL: url
-            })
-            alert("Signup Successful!");
-            setOpenSignUp(false);
-          })
-        })
+            storage
+              .ref("images")
+              .child(image.name)
+              .getDownloadURL()
+              .then((url) => {
+                authUser.user.updateProfile({
+                  displayName: username,
+                  photoURL: url,
+                });
+                alert("Signup Successful!");
+                setOpenSignUp(false);
+              });
+          }
+        );
       })
       // .then(() => {
 
@@ -163,14 +172,18 @@ function App() {
         {processingAuth ? (
           <Loader />
         ) : user ? (
-          <Button
-            onClick={signOut}
-            color="secondary"
-            variant="contained"
-            style={{ margin: 5 }}
-          >
-            Logout
-          </Button>
+          <>
+            <Button
+              onClick={() => setOpenNewUpload(true)}
+              color="secondary"
+              variant="contained"
+            >
+              New Post
+            </Button>
+            <Button onClick={signOut} color="secondary" variant="contained">
+              Logout
+            </Button>
+          </>
         ) : (
           <div className="login__container">
             <Button
@@ -193,6 +206,20 @@ function App() {
           </div>
         )}
       </div>
+      <Dialog open={openNewUpload} onClose={() => setOpenNewUpload(false)}>
+        <DialogTitle>New Upload</DialogTitle>
+        <DialogContent>
+          {!loadingPosts &&
+            (user ? (
+              <ImgUpload
+                user={user}
+                onUploadComplete={() => setOpenNewUpload(false)}
+              />
+            ) : (
+              <h3>Sorry you need to login to upload posts</h3>
+            ))}
+        </DialogContent>
+      </Dialog>
 
       <Modal open={openSignUp} onClose={() => setOpenSignUp(false)}>
         <div style={modalStyle} className={classes.paper}>
@@ -222,11 +249,7 @@ function App() {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <label for="file">Choose your profile pic</label>
-              <Input
-              type="file"
-              id="file" 
-              onChange={handleChange}
-              />
+              <Input type="file" id="file" onChange={handleChange} />
 
               <AnimatedButton
                 type="submit"
@@ -306,12 +329,6 @@ function App() {
             ))}
           </div>
         )}
-        {!loadingPosts &&
-          (user ? (
-            <ImgUpload user={user} />
-          ) : (
-            <h3>Sorry you need to login to upload posts</h3>
-          ))}
       </center>
     </div>
   );

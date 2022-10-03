@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Avatar from "@mui/material/Avatar";
+import { Avatar, Grid } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
@@ -24,7 +24,7 @@ function Post(prop) {
         .orderBy("timestamp", "desc")
         .onSnapshot((snapshot) => {
           setComments(
-            snapshot.docs.map((doc) => ({ id: doc.id, content: doc.data() })),
+            snapshot.docs.map((doc) => ({ id: doc.id, content: doc.data() }))
           );
         });
     }
@@ -43,6 +43,17 @@ function Post(prop) {
     setComment("");
   };
 
+  /** @type {string[]} */
+  const postImages = imageUrl.split(",");
+  const computeGridSize = (imagesLength, imageIndex) => {
+    if (imageIndex === imagesLength - 1 && (imageIndex + 1) % 2 !== 0) {
+      return 12;
+    }
+
+    return 6;
+  };
+  const postHasImages = postImages.some((image) => image.length !== 0);
+
   return (
     <div className="post">
       <div className="post__header">
@@ -59,8 +70,19 @@ function Post(prop) {
       </div>
 
       <div className="post__container">
-        {imageUrl ? (
-          <img className="post__img" src={imageUrl} alt="random sq" />
+        {postHasImages ? (
+          <Grid container>
+            {postImages.map((img, index) => (
+              <Grid
+                item
+                key={img}
+                xs={computeGridSize(postImages.length, index)}
+                className="post__img_container"
+              >
+                <img className="post__img" src={img} alt="random sq" />
+              </Grid>
+            ))}
+          </Grid>
         ) : (
           <div className="post__background">{caption}</div>
         )}
