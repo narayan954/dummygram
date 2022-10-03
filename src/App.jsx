@@ -13,6 +13,8 @@ import { makeStyles } from "@mui/styles";
 import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
 import AnimatedButton from "./components/AnimatedButton";
+// import Logo from "./assets/logo.png";
+
 
 function getModalStyle() {
   const top = 50;
@@ -38,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function App() {
+  const Logo = "https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png";
   const classes = useStyles();
 
   const [modalStyle] = useState(getModalStyle);
@@ -196,8 +199,8 @@ useEffect(()=>{
     <div className="app">
       <div className="app__header">
         <img
-          src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
-          alt="instagram"
+          src={Logo}
+          alt="dummygram"
           className="app__header__img"
         />
         {processingAuth ? (
