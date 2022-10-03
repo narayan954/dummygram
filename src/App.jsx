@@ -293,7 +293,9 @@ function App() {
           <Loader />
         ) : (
           <div className="app__posts">
-            {posts.map(({ id, post }) => (
+            {
+            
+            posts.map(({ id, post }) => (
               <Post
                 key={id}
                 postId={id}
@@ -302,6 +304,7 @@ function App() {
                 avatar={post.avatar}
                 imageUrl={post.imageUrl}
                 caption={post.caption}
+                likecount={post.likecount}
               />
             ))}
           </div>

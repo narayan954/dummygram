@@ -9,10 +9,16 @@ import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlin
 import { db } from "../lib/firebase";
 import firebase from "firebase/compat/app";
 
+import {  doc, updateDoc } from "firebase/firestore";
+
 function Post(prop) {
-  const { username, caption, imageUrl, avatar, postId, user } = prop;
+  const { username, caption, imageUrl, avatar, postId, user ,likecount} = prop;
   const [comments, setComments] = React.useState([]);
   const [comment, setComment] = React.useState("");
+  const [likes, setLikes] = React.useState(likecount);
+  const [isClicked, setIsClicked] = React.useState(false);
+
+  const docRef = doc(db, "posts", postId);
 
   useEffect(() => {
     let unsubscribe;
@@ -32,7 +38,7 @@ function Post(prop) {
       unsubscribe();
     };
   }, [postId]);
-
+   
   const postComment = (event) => {
     event.preventDefault();
     db.collection("posts").doc(postId).collection("comments").add({
@@ -42,7 +48,29 @@ function Post(prop) {
     });
     setComment("");
   };
+  const likeshandler= ()=>{
+    if(likecount!==undefined){
+      if (isClicked) {
+        setLikes(likes - 1);
+      } else {
+        setLikes(likes + 1);
+      }
+      setIsClicked(!isClicked);
+      const data = {
+        likecount: likes
+      };
+      updateDoc(docRef, data)
+      .then(docRef => {
+          console.log("like added");
+      })
+      .catch(error => {
+          console.log(error);
+      })  
+    }
+   
 
+
+  }
   return (
     <div className="post">
       <div className="post__header">
@@ -65,8 +93,11 @@ function Post(prop) {
           <div className="post__background">{caption}</div>
         )}
         <div className="social__icons__wrapper">
-          <div className="social__icon">
+          
+         <span style={{marginLeft: "14px"}}>{likes} likes</span>  
+          <div className="social__icon" onClick={likeshandler}>
             <FavoriteBorderIcon />
+           
           </div>
           <div className="social__icon">
             <ModeCommentOutlinedIcon />
