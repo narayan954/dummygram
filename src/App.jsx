@@ -203,168 +203,97 @@ useEffect(()=>{
   };
 
   return (
-    <div className="app">
-      <div className="app__header">
-        <img
-          src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
-          alt="instagram"
-          className="app__header__img"
-        />
-        {processingAuth ? (
-          <Loader />
-        ) : user ? (
-          <>
-            <Button
-              onClick={() => setOpenNewUpload(true)}
-              color="secondary"
-              variant="contained"
-            >
-              New Post
-            </Button>
-            <Button onClick={signOut} color="secondary" variant="contained">
-              Logout
-            </Button>
-          </>
-        ) : (
-          <div className="login__container">
-            <Button
-              onClick={() => setOpenSignIn(true)}
-              color="primary"
-              variant="contained"
-              style={{ margin: 5 }}
-            >
-              Sign In
-            </Button>
+		<div className="app">
+			<div className="app__header">
+				<img src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png" alt="instagram" className="app__header__img" />
+				{processingAuth ? (
+					<Loader />
+				) : user ? (
+					<>
+						<Button onClick={() => setOpenNewUpload(true)} color="secondary" variant="contained">
+							New Post
+						</Button>
+						<Button onClick={signOut} color="secondary" variant="contained">
+							Logout
+						</Button>
+					</>
+				) : (
+					<div className="login__container">
+						<Button onClick={() => setOpenSignIn(true)} color="primary" variant="contained" style={{ margin: 5 }}>
+							Sign In
+						</Button>
 
-            <Button
-              onClick={() => setOpenSignUp(true)}
-              color="primary"
-              variant="contained"
-              style={{ margin: 5 }}
-            >
-              Sign Up
-            </Button>
-          </div>
-        )}
-      </div>
+						<Button onClick={() => setOpenSignUp(true)} color="primary" variant="contained" style={{ margin: 5 }}>
+							Sign Up
+						</Button>
+					</div>
+				)}
+			</div>
 			<SnackBar {...snackBarprops} />
-      <Modal open={openSignUp} onClose={() => setOpenSignUp(false)}>
-        <div style={modalStyle} className={classes.paper}>
-          <form className="modal__signup">
-            <center>
-              <img
-                src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
-                alt="instagram"
-                className="modal__signup__img"
-              />
-              <Input
-                type="text"
-                placeholder="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-              <Input
-                type="text"
-                placeholder="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <Input
-                type="password"
-                placeholder="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <label for="file">Choose your profile pic</label>
-              <Input type="file" id="file" onChange={handleChange} />
+			<Modal open={openSignUp} onClose={() => setOpenSignUp(false)}>
+				<div style={modalStyle} className={classes.paper}>
+					<form className="modal__signup">
+						<center>
+							<img src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png" alt="instagram" className="modal__signup__img" />
+							<Input type="text" placeholder="username" value={username} onChange={e => setUsername(e.target.value)} />
+							<Input type="text" placeholder="email" value={email} onChange={e => setEmail(e.target.value)} />
+							<Input type="password" placeholder="password" value={password} onChange={e => setPassword(e.target.value)} />
+							<label for="file">Choose your profile pic</label>
+							<Input type="file" id="file" onChange={handleChange} />
 
-              <AnimatedButton
-                type="submit"
-                onClick={signUp}
-                variant="contained"
-                color="primary"
-                loading={processingAuth}
-              >
-                Sign Up
-              </AnimatedButton>
-            </center>
-          </form>
-        </div>
-      </Modal>
-      <Modal open={openSignIn} onClose={() => setOpenSignIn(false)}>
-        <div style={getModalStyle()} className={classes.paper}>
-          <form className="modal__signup">
-            <center>
-              <img
-                src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
-                alt="instagram"
-                className="modal__signup__img"
-              />
-              <Input
-                type="text"
-                placeholder="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <Input
-                type="password"
-                placeholder="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <AnimatedButton
-                type="submit"
-                onClick={signIn}
-                variant="contained"
-                color="primary"
-                loading={processingAuth}
-              >
-                Sign In
-              </AnimatedButton>
-            </center>
-          </form>
-        </div>
-      </Modal>
+							<AnimatedButton type="submit" onClick={signUp} variant="contained" color="primary" loading={processingAuth}>
+								Sign Up
+							</AnimatedButton>
+						</center>
+					</form>
+				</div>
+			</Modal>
+			<Modal open={openSignIn} onClose={() => setOpenSignIn(false)}>
+				<div style={getModalStyle()} className={classes.paper}>
+					<form className="modal__signup">
+						<center>
+							<img src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png" alt="instagram" className="modal__signup__img" />
+							<Input type="text" placeholder="email" value={email} onChange={e => setEmail(e.target.value)} />
+							<Input type="password" placeholder="password" value={password} onChange={e => setPassword(e.target.value)} />
+							<AnimatedButton type="submit" onClick={signIn} variant="contained" color="primary" loading={processingAuth}>
+								Sign In
+							</AnimatedButton>
+						</center>
+					</form>
+				</div>
+			</Modal>
 
-      <center
-        style={
-          !loadingPosts
-            ? {}
-            : {
-                width: "100%",
-                minHeight: "100vh",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }
-        }
-      >
-        {loadingPosts ? (
-          <Loader />
-        ) : (
-          <div className="app__posts">
-            {posts.map(({ id, post }) => (
-              <Post
-                key={id}
-                postId={id}
-                user={user}
-                username={post.username}
-                avatar={post.avatar}
-                imageUrl={post.imageUrl}
-                caption={post.caption}
-              />
-            ))}
-          </div>
-        )}
-        {!loadingPosts &&
-          (user ? (
-          <ImgUpload user={user} snackBar={openSnackBar} />
-          ) : (
-            <h3>Sorry you need to login to upload posts</h3>
-          ))}
-      </center>
-    </div>
-  );
+			<center
+				style={
+					!loadingPosts
+						? {}
+						: {
+								width: "100%",
+								minHeight: "100vh",
+								display: "flex",
+								justifyContent: "center",
+								alignItems: "center",
+						  }
+				}
+			>
+				{loadingPosts ? (
+					<Loader />
+				) : (
+					<div className="app__posts">
+						{posts.map(({ id, post }) => (
+							<Post key={id} postId={id} user={user} username={post.username} avatar={post.avatar} imageUrl={post.imageUrl} caption={post.caption} />
+						))}
+					</div>
+				)}
+				<Dialog open={openNewUpload} onClose={() => setOpenNewUpload(false)}>
+					<DialogTitle>New Upload</DialogTitle>
+					<DialogContent>
+						{!loadingPosts && (user ? <ImgUpload user={user} onUploadComplete={() => setOpenNewUpload(false)} /> : <h3>Sorry you need to login to upload posts</h3>)}
+					</DialogContent>
+				</Dialog>
+			</center>
+		</div>
+  )
 }
 
 export default App;
