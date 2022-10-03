@@ -13,6 +13,7 @@ import { makeStyles } from "@mui/styles";
 import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
 import AnimatedButton from "./components/AnimatedButton";
+import { useSnackbar } from "notistack";
 
 function getModalStyle() {
   const top = 50;
@@ -59,6 +60,7 @@ function App() {
     [loggingIn, signingUp, loadingPosts]
   );
   const [image, setImage] = useState(null);
+  const { enqueueSnackbar } = useSnackbar()
 
   const handleChange = (e) => {
     if (e.target.files[0]) {
@@ -143,7 +145,9 @@ useEffect(()=>{
           (error) => {
             // error function ...
             console.log(error);
-            alert(error.message);
+            enqueueSnackbar(error.message, {
+              variant: "error"
+            })
           },
           () => {
             // complete function ...
@@ -156,7 +160,9 @@ useEffect(()=>{
                   displayName: username,
                   photoURL: url,
                 });
-                alert("Signup Successful!");
+                enqueueSnackbar("Signup Successful!", {
+                  variant: "success"
+                })
                 setOpenSignUp(false);
               });
           }
@@ -165,7 +171,9 @@ useEffect(()=>{
       // .then(() => {
 
       // })
-      .catch((error) => alert(error.message))
+      .catch((error) => enqueueSnackbar(error.message, {
+        variant: "error"
+      }))
       .finally(() => {
         setSigningUp(false);
       });
@@ -177,10 +185,14 @@ useEffect(()=>{
     auth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        alert("Login successful!");
+        enqueueSnackbar("Login successful!", {
+          variant: "success"
+        })
         setOpenSignIn(false);
       })
-      .catch((error) => alert(error.message))
+      .catch((error) => enqueueSnackbar(error.message, {
+        variant: "error"
+      }))
       .finally(() => {
         setLoggingIn(false);
       });
@@ -189,6 +201,9 @@ useEffect(()=>{
   const signOut = () => {
     if (confirm("Are you sure you want to logout?")) {
       auth.signOut().finally();
+      enqueueSnackbar("Logged out Successfully !", {
+        variant: "info"
+      })
     }
   };
 
