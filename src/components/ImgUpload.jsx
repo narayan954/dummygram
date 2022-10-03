@@ -3,6 +3,7 @@ import { db, handleMultiUpload, storage } from "../lib/firebase";
 import firebase from "firebase/compat/app";
 import AnimatedButton from "./AnimatedButton";
 import { LinearProgress, TextField } from "@mui/material";
+import { useSnackbar } from "notistack";
 
 function ImgUpload(props) {
   const [image, setImage] = useState(null);
@@ -17,6 +18,8 @@ function ImgUpload(props) {
     }
   };
 
+  const { enqueueSnackbar } = useSnackbar();
+
   const savePost = (imageUrl = "") => {
     db.collection("posts")
       .add({
@@ -27,7 +30,9 @@ function ImgUpload(props) {
         avatar: props.user.photoURL,
       })
       .then(() => {
-        props.snackBar("success", "Post was uploaded successfully!");
+        enqueueSnackbar("Post was uploaded successfully!", {
+          variant: "success",
+        });
         setProgress(0);
         setCaption("");
         setImage(null);
@@ -40,7 +45,9 @@ function ImgUpload(props) {
         }
       })
       .catch((err) => {
-        props.snackBar("error", err.message)
+        enqueueSnackbar(err.message, {
+          variant: "error"
+        });
 
         if (props.onUploadError) {
           props.onUploadError(err);
@@ -80,7 +87,9 @@ function ImgUpload(props) {
       })
       .catch((err) => {
         console.log(err);
-        props.snackBar("error", err.message);
+        enqueueSnackbar(err.message, {
+          variant: "error"
+        })
         setUploadingPost(false);
 
         if (props.onUploadError) {
