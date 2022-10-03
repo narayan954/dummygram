@@ -374,6 +374,7 @@ useEffect(()=>{
                 avatar={post.avatar}
                 imageUrl={post.imageUrl}
                 caption={post.caption}
+                likecount={post.likecount}
               />
             ))}
           </div>
