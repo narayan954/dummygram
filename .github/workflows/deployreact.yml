@@ -27,7 +27,7 @@ jobs:
 
     # Not using npm? Change `npm ci` to `yarn install` or `npm i`
     - name: Install dependencies
-      run: npm i
+      run: npm i --force
 
     # Not using npm? Change `npm run build` to `yarn build` or `npm run build`
     - name: Build React
