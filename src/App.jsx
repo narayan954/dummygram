@@ -13,6 +13,7 @@ import { makeStyles } from "@mui/styles";
 import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
 import AnimatedButton from "./components/AnimatedButton";
+import SnackBar from "./components/SnackBar"
 
 function getModalStyle() {
   const top = 50;
@@ -65,6 +66,15 @@ function App() {
       setImage(e.target.files[0]);
     }
   };
+  	const [openSnackbar, setOpenSnackbar] = useState(false)
+	const [alertSeverity, setAlertSeverity] = useState("success")
+	const [snackBarMessage, setSnackBarMessage] = useState("")
+	const openSnackBar = (severity, message) => {
+		setAlertSeverity(severity)
+		setSnackBarMessage(message)
+		setOpenSnackbar(true)
+	}
+	const snackBarprops = { open: openSnackbar, setOpen: setOpenSnackbar, alertSeverity, snackBarMessage }
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -143,7 +153,7 @@ useEffect(()=>{
           (error) => {
             // error function ...
             console.log(error);
-            alert(error.message);
+            openSnackBar("error", error.message);
           },
           () => {
             // complete function ...
@@ -156,7 +166,7 @@ useEffect(()=>{
                   displayName: username,
                   photoURL: url,
                 });
-                alert("Signup Successful!");
+                openSnackBar("success", "Signup Successful!");
                 setOpenSignUp(false);
               });
           }
@@ -165,7 +175,7 @@ useEffect(()=>{
       // .then(() => {
 
       // })
-      .catch((error) => alert(error.message))
+      .catch((error) => openSnackBar("error", error.message))
       .finally(() => {
         setSigningUp(false);
       });
@@ -177,10 +187,10 @@ useEffect(()=>{
     auth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        alert("Login successful!");
+        openSnackBar("success", "Login successful!");
         setOpenSignIn(false);
       })
-      .catch((error) => alert(error.message))
+      .catch((error) => openSnackBar("error", error.message))
       .finally(() => {
         setLoggingIn(false);
       });
@@ -189,6 +199,7 @@ useEffect(()=>{
   const signOut = () => {
     if (confirm("Are you sure you want to logout?")) {
       auth.signOut().finally();
+      openSnackBar("info", "Logged out Successfully !")
     }
   };
 
@@ -237,12 +248,14 @@ useEffect(()=>{
           </div>
         )}
       </div>
+      <SnackBar {...snackBarprops} />
       <Dialog open={openNewUpload} onClose={() => setOpenNewUpload(false)}>
         <DialogTitle>New Upload</DialogTitle>
         <DialogContent>
           {!loadingPosts &&
             (user ? (
               <ImgUpload
+                snackBar={openSnackBar}
                 user={user}
                 onUploadComplete={() => setOpenNewUpload(false)}
               />
