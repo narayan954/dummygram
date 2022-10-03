@@ -29,7 +29,7 @@ function ImgUpload(props) {
         (error) => {
           // error function ...
           console.log(error);
-          alert(error.message);
+          props.snackBar("error", error.message)
         },
         () => {
           // complete function ...
