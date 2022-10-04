@@ -121,7 +121,7 @@ function Post(prop) {
         )}
         <div className="social__icons__wrapper">
         
-         <span style={{marginLeft: "14px"}}>{likes?likesno:0} likes</span>
+         <span style={{marginLeft: "14px",fontWeight: 'bold'}}>{likes?likesno:0} likes</span>
 
           <div className="social__icon" onClick={likeshandler}>
             
