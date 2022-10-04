@@ -14,7 +14,7 @@ import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
 import AnimatedButton from "./components/AnimatedButton";
 // import Logo from "./assets/logo.png";
-
+import {FaArrowCircleUp} from 'react-icons/fa';
 import { useSnackbar } from "notistack";
 
 function getModalStyle() {
@@ -64,12 +64,27 @@ function App() {
   );
   const [image, setImage] = useState(null);
   const { enqueueSnackbar } = useSnackbar()
+  const [showScroll, setShowScroll] = useState(false)
 
   const handleChange = (e) => {
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
     }
   };
+
+  const checkScrollTop = () => {
+    if (!showScroll && window.pageYOffset > 400){
+      setShowScroll(true)
+    } else if (showScroll && window.pageYOffset <= 400){
+      setShowScroll(false)
+    }
+  };
+  
+  const scrollTop = () =>{
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  };
+
+  window.addEventListener('scroll', checkScrollTop)
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -379,6 +394,7 @@ useEffect(()=>{
           </div>
         )}
       </center>
+      <FaArrowCircleUp className="scrollTop" onClick={scrollTop} style={{height: 40, display: showScroll ? 'flex' : 'none'}}/>
     </div>
   );
 }
