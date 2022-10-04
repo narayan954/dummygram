@@ -57,7 +57,7 @@ function handleMultiUpload(files, options = {}) {
       task.on(
         "state_changed",
         (snapshot) => {
-          if (null === currUploadTotalSize) {
+          if (currUploadTotalSize === null) {
             totalSize += snapshot.totalBytes;
             currUploadTotalSize = snapshot.totalBytes;
           }
@@ -72,11 +72,11 @@ function handleMultiUpload(files, options = {}) {
           );
         },
         (error) => {
-          if (null !== currUploadTotalSize) {
+          if (currUploadTotalSize !== null) {
             totalSize -= currUploadTotalSize;
           }
 
-          if (null !== lastUploadedSize) {
+          if (lastUploadedSize !== null) {
             totalUploaded -= lastUploadedSize;
           }
 
