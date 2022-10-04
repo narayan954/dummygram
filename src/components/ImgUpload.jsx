@@ -86,7 +86,7 @@ function ImgUpload(props) {
         savePost(urls.join(","));
       })
       .catch((err) => {
-        console.log(err);
+        
         enqueueSnackbar(err.message, {
           variant: "error"
         })

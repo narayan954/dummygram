@@ -90,11 +90,11 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         // user has logged in
-        console.log(authUser);
+        
         setUser(authUser);
       } else {
         // user has logged out
-        console.log("user logged out");
+        
         setUser(null);
       }
     });
@@ -162,7 +162,7 @@ useEffect(()=>{
           },
           (error) => {
             // error function ...
-            console.log(error);
+            
             enqueueSnackbar(error.message, {
               variant: "error"
             })
