@@ -16,8 +16,7 @@ function Post(prop) {
   const [comments, setComments] = React.useState([]);
   const [comment, setComment] = React.useState("");
   const [likes, setLikes] = React.useState(likecount);
-  const [isClicked, setIsClicked] = React.useState(false);
-
+  const [likesno, setLikesno] = React.useState( likes?likes.length:0);
   const docRef = doc(db, "posts", postId);
 
   useEffect(() => {
@@ -59,19 +58,26 @@ function Post(prop) {
     return 6;
   };
   const postHasImages = postImages.some((image) => image.length !== 0);
+ 
+  async function likeshandler() {
+    if (user && likecount !== undefined) {
 
-   const likeshandler= ()=>{
-    if(likecount!==undefined){
-      if (isClicked) {
-        setLikes(likes - 1);
-      } else {
-        setLikes(likes + 1);
+      const ind = likecount.indexOf(user.email);
+      if (ind !== -1) {
+        likecount.splice(ind, 1);
+        setLikesno(likesno-1);
       }
-      setIsClicked(!isClicked);
+      else {
+        likecount.push(user.email);
+        setLikesno(likesno+1);
+      }
+
+      setLikes(likecount);
+    // console.log(likecount);
       const data = {
         likecount: likes
       };
-      updateDoc(docRef, data)
+      await updateDoc(docRef, data)
       .then(docRef => {
           console.log("like added");
       })
@@ -79,9 +85,7 @@ function Post(prop) {
           console.log(error);
       })  
     }
-
-
-
+    
   }
   return (
     <div className="post">
@@ -117,7 +121,8 @@ function Post(prop) {
         )}
         <div className="social__icons__wrapper">
         
-         <span style={{marginLeft: "14px"}}>{likes?likes:0} likes</span>  
+         <span style={{marginLeft: "14px"}}>{likes?likesno:0} likes</span>
+
           <div className="social__icon" onClick={likeshandler}>
             
             <FavoriteBorderIcon />

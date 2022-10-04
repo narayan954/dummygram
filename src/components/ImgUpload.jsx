@@ -28,7 +28,7 @@ function ImgUpload(props) {
         imageUrl,
         username: props.user.displayName,
         avatar: props.user.photoURL,
-        likecount:0,
+        likecount:[],
       })
       .then(() => {
         enqueueSnackbar("Post was uploaded successfully!", {
