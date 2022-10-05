@@ -16,7 +16,7 @@ function Post(prop) {
   const { username, caption, imageUrl, avatar, likecount} = post;
   const [comments, setComments] = React.useState([]);
   const [comment, setComment] = React.useState("");
-  const [likesno, setLikesno] = React.useState( likecount?likecount.length:0);
+  const [likesno, setLikesno] = React.useState( likecount ? likecount.length : 0);
   const docRef = doc(db, "posts", postId);
 
   useEffect(() => {
@@ -59,17 +59,17 @@ function Post(prop) {
   };
   const postHasImages = postImages.some((image) => image.length !== 0);
   
-  const tmplikecount= likecount?[...likecount]:0;
+  const tmplikecount= likecount ? [...likecount] : [];
   async function likeshandler() {
     if (user && likecount !== undefined) {
       let ind = tmplikecount.indexOf(user.uid);
       if (ind !== -1) {
         tmplikecount.splice(ind, 1);
-        setLikesno(likesno-1);
+        setLikesno((currLikesno) => currLikesno - 1);
       }
       else {
         tmplikecount.push(user.uid);
-        setLikesno(likesno+1);
+        setLikesno((currLikesno) => currLikesno + 1);
       }
       console.log(tmplikecount);
       const data = {
@@ -119,7 +119,7 @@ function Post(prop) {
         )}
         <div className="social__icons__wrapper">
         
-         <span style={{marginLeft: "14px",fontWeight: 'bold'}}>{likecount?likesno:0} likes</span>
+         <span style={{marginLeft: "14px",fontWeight: 'bold'}}>{likecount ? likesno : 0} likes</span>
 
           <div className="social__icon" onClick={likeshandler}>
             
