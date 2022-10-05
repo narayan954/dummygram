@@ -12,11 +12,11 @@ import firebase from "firebase/compat/app";
 import {  doc, updateDoc } from "firebase/firestore";
 
 function Post(prop) { 
-  const { username, caption, imageUrl, avatar, postId, user ,likecount} = prop;
+  const {  postId, user ,post} = prop;
+  const { username, caption, imageUrl, avatar, likecount} = post;
   const [comments, setComments] = React.useState([]);
   const [comment, setComment] = React.useState("");
-  const [likes, setLikes] = React.useState(likecount);
-  const [likesno, setLikesno] = React.useState( likes?likes.length:0);
+  const [likesno, setLikesno] = React.useState( likecount?likecount.length:0);
   const docRef = doc(db, "posts", postId);
 
   useEffect(() => {
@@ -58,24 +58,22 @@ function Post(prop) {
     return 6;
   };
   const postHasImages = postImages.some((image) => image.length !== 0);
- 
+  
+  const tmplikecount= likecount?[...likecount]:0;
   async function likeshandler() {
     if (user && likecount !== undefined) {
-
-      const ind = likecount.indexOf(user.email);
+      let ind = tmplikecount.indexOf(user.uid);
       if (ind !== -1) {
-        likecount.splice(ind, 1);
+        tmplikecount.splice(ind, 1);
         setLikesno(likesno-1);
       }
       else {
-        likecount.push(user.email);
+        tmplikecount.push(user.uid);
         setLikesno(likesno+1);
       }
-
-      setLikes(likecount);
-    // console.log(likecount);
+      console.log(tmplikecount);
       const data = {
-        likecount: likes
+        likecount: tmplikecount
       };
       await updateDoc(docRef, data)
       .then(docRef => {
@@ -121,7 +119,7 @@ function Post(prop) {
         )}
         <div className="social__icons__wrapper">
         
-         <span style={{marginLeft: "14px"}}>{likes?likesno:0} likes</span>
+         <span style={{marginLeft: "14px",fontWeight: 'bold'}}>{likecount?likesno:0} likes</span>
 
           <div className="social__icon" onClick={likeshandler}>
             

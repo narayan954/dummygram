@@ -370,11 +370,7 @@ useEffect(()=>{
                 key={id}
                 postId={id}
                 user={user}
-                username={post.username}
-                avatar={post.avatar}
-                imageUrl={post.imageUrl}
-                caption={post.caption}
-                likecount={post.likecount}
+                post={post}
               />
             ))}
           </div>
