@@ -138,6 +138,21 @@ useEffect(()=>{
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((authUser) => {
+        authUser.user.updateProfile({ // <-- Update Method here
+          displayName: username,
+          photoURL: authUser.image
+        }).then(function() {
+
+          // Profile updated successfully!
+          //  "NEW USER NAME"
+
+          var displayName = authUser.user.displayName;
+          // "https://example.com/jane-q-user/profile.jpg"
+          var photoURL = authUser.image
+
+        }, function(error) {
+          // An error happened.
+        });
         const uploadTask = storage.ref(`images/${image.name}`).put(image);
         uploadTask.on(
           "state_changed",
@@ -159,10 +174,10 @@ useEffect(()=>{
               .child(image.name)
               .getDownloadURL()
               .then((url) => {
-                authUser.user.updateProfile({
-                  displayName: username,
-                  photoURL: url,
-                });
+                //authUser.user.updateProfile({
+                 // displayName: username,
+                  //photoURL: url,
+                //});
                 enqueueSnackbar("Signup Successful!", {
                   variant: "success"
                 })
@@ -272,7 +287,7 @@ useEffect(()=>{
 
       <Modal open={openSignUp} onClose={() => setOpenSignUp(false)}>
         <div style={modalStyle} className={classes.paper}>
-          <form className="modal__signup">
+          <form className="modal__signup" onSubmit={signUp}>
             <center>
               <img
                 src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
@@ -282,6 +297,7 @@ useEffect(()=>{
               <Input
                 type="text"
                 placeholder="username"
+                required
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
@@ -302,7 +318,7 @@ useEffect(()=>{
 
               <AnimatedButton
                 type="submit"
-                onClick={signUp}
+                //onClick={signUp}
                 variant="contained"
                 color="primary"
                 loading={processingAuth}
