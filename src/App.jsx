@@ -14,7 +14,7 @@ import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
 import AnimatedButton from "./components/AnimatedButton";
 // import Logo from "./assets/logo.png";
-
+import {FaArrowCircleUp} from 'react-icons/fa';
 import { useSnackbar } from "notistack";
 
 function getModalStyle() {
@@ -64,6 +64,7 @@ function App() {
   );
   const [image, setImage] = useState(null);
   const { enqueueSnackbar } = useSnackbar()
+  const [showScroll, setShowScroll] = useState(false)
 
   const handleChange = (e) => {
     if (e.target.files[0]) {
@@ -71,15 +72,29 @@ function App() {
     }
   };
 
+  const checkScrollTop = () => {
+    if (!showScroll && window.pageYOffset > 400){
+      setShowScroll(true)
+    } else if (showScroll && window.pageYOffset <= 400){
+      setShowScroll(false)
+    }
+  };
+  
+  const scrollTop = () =>{
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  };
+
+  window.addEventListener('scroll', checkScrollTop)
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         // user has logged in
-        console.log(authUser);
+        
         setUser(authUser);
       } else {
         // user has logged out
-        console.log("user logged out");
+        
         setUser(null);
       }
     });
@@ -162,7 +177,7 @@ useEffect(()=>{
           },
           (error) => {
             // error function ...
-            console.log(error);
+            
             enqueueSnackbar(error.message, {
               variant: "error"
             })
@@ -386,15 +401,13 @@ useEffect(()=>{
                 key={id}
                 postId={id}
                 user={user}
-                username={post.username}
-                avatar={post.avatar}
-                imageUrl={post.imageUrl}
-                caption={post.caption}
+                post={post}
               />
             ))}
           </div>
         )}
       </center>
+      <FaArrowCircleUp className="scrollTop" onClick={scrollTop} style={{height: 40, display: showScroll ? 'flex' : 'none'}}/>
     </div>
   );
 }
