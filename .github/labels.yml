@@ -114,5 +114,9 @@
   {
     "name": "spam",
     "color": "752E16"
+  },
+  {
+    "name": "invalid",
+    "color": "752E16"
   }
 ]
