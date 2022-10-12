@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Avatar, Grid } from "@mui/material";
-import { auth,storage } from "../lib/firebase"
+import { auth, storage } from "../lib/firebase";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
@@ -17,24 +17,26 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  useMediaQuery
+  useMediaQuery,
 } from "@mui/material";
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from "@mui/material/styles";
 import { db } from "../lib/firebase";
 import firebase from "firebase/compat/app";
 
-import {  doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 const ITEM_HEIGHT = 48;
-function Post(prop) { 
-  const {  postId, user ,post} = prop;
-  const { username, caption, imageUrl, avatar, likecount} = post;
+function Post(prop) {
+  const { postId, user, post } = prop;
+  const { username, caption, imageUrl, avatar, likecount } = post;
   const [comments, setComments] = React.useState([]);
   const [comment, setComment] = React.useState("");
-  const [likesno, setLikesno] = React.useState( likecount ? likecount.length : 0);
+  const [likesno, setLikesno] = React.useState(
+    likecount ? likecount.length : 0
+  );
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [Open, setOpen] = React.useState(false);
   const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const open = Boolean(anchorEl);
   const docRef = doc(db, "posts", postId);
 
@@ -77,44 +79,42 @@ function Post(prop) {
     return 6;
   };
   const postHasImages = postImages.some((image) => image.length !== 0);
-  
-  const tmplikecount= likecount ? [...likecount] : [];
+
+  const tmplikecount = likecount ? [...likecount] : [];
   async function likeshandler() {
     if (user && likecount !== undefined) {
       let ind = tmplikecount.indexOf(user.uid);
       if (ind !== -1) {
         tmplikecount.splice(ind, 1);
         setLikesno((currLikesno) => currLikesno - 1);
-      }
-      else {
+      } else {
         tmplikecount.push(user.uid);
         setLikesno((currLikesno) => currLikesno + 1);
       }
       console.log(tmplikecount);
       const data = {
-        likecount: tmplikecount
+        likecount: tmplikecount,
       };
       await updateDoc(docRef, data)
-      .then(docRef => {
+        .then((docRef) => {
           console.log("like added");
-      })
-      .catch(error => {
+        })
+        .catch((error) => {
           console.log(error);
-      })  
+        });
     }
-      
-    }
-    async function deletePost(){
-      await db.collection("posts").doc(postId).delete();
-    }
-    const handleClickOpen = () => {
-      setOpen(true);
-      setAnchorEl(null);
-    };
+  }
+  async function deletePost() {
+    await db.collection("posts").doc(postId).delete();
+  }
+  const handleClickOpen = () => {
+    setOpen(true);
+    setAnchorEl(null);
+  };
 
-    const handleClose = () => {
-      setOpen(false);
-    };
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <div className="post">
       <div className="post__header">
@@ -125,34 +125,36 @@ function Post(prop) {
           sx={{ bgcolor: "Orange" }}
         />
         <h3 className="post__username">{username}</h3>
-        <div className="social__icon__last" >
-        <IconButton
-        aria-label="more"
-        id="long-button"
-        aria-controls={open ? 'long-menu' : undefined}
-        aria-expanded={open ? 'true' : undefined}
-        aria-haspopup="true"
-        onClick={(event) => setAnchorEl(event.currentTarget)}
-      >
-          <MoreHorizOutlinedIcon />
+        <div className="social__icon__last">
+          <IconButton
+            aria-label="more"
+            id="long-button"
+            aria-controls={open ? "long-menu" : undefined}
+            aria-expanded={open ? "true" : undefined}
+            aria-haspopup="true"
+            onClick={(event) => setAnchorEl(event.currentTarget)}
+          >
+            <MoreHorizOutlinedIcon />
           </IconButton>
-          {user && username == user.displayName && <Menu
-        id="long-menu"
-        MenuListProps={{
-          'aria-labelledby': 'long-button',
-        }}
-        anchorEl={anchorEl}
-        open={open}
-        onClose={() => setAnchorEl(null)}
-        PaperProps={{
-          style: {
-            maxHeight: ITEM_HEIGHT * 4.5,
-            width: '20ch',
-          },
-        }}
-      >
-          <MenuItem  onClick={handleClickOpen}> Delete </MenuItem>
-      </Menu>}
+          {user && username == user.displayName && (
+            <Menu
+              id="long-menu"
+              MenuListProps={{
+                "aria-labelledby": "long-button",
+              }}
+              anchorEl={anchorEl}
+              open={open}
+              onClose={() => setAnchorEl(null)}
+              PaperProps={{
+                style: {
+                  maxHeight: ITEM_HEIGHT * 4.5,
+                  width: "20ch",
+                },
+              }}
+            >
+              <MenuItem onClick={handleClickOpen}> Delete </MenuItem>
+            </Menu>
+          )}
           <Dialog
             fullScreen={fullScreen}
             open={Open}
@@ -197,11 +199,11 @@ function Post(prop) {
           <div className="post__background">{caption}</div>
         )}
         <div className="social__icons__wrapper">
-        
-         <span style={{marginLeft: "14px",fontWeight: 'bold'}}>{likecount ? likesno : 0} likes</span>
+          <span style={{ marginLeft: "14px", fontWeight: "bold" }}>
+            {likecount ? likesno : 0} likes
+          </span>
 
           <div className="social__icon" onClick={likeshandler}>
-            
             <FavoriteBorderIcon />
           </div>
           <div className="social__icon">

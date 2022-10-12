@@ -169,7 +169,7 @@
 }
 
 .scrollTop {
-  position: fixed; 
+  position: fixed;
   width: 100%;
   bottom: 20px;
   align-items: center;
@@ -182,7 +182,7 @@
   opacity: 0.5;
 }
 
-.scrollTop:hover{
+.scrollTop:hover {
   opacity: 1;
 }
 
