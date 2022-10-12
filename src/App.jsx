@@ -41,7 +41,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function App() {
-  const Logo = "https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png";
+  const Logo =
+    "https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png";
   const classes = useStyles();
 
   const [modalStyle] = useState(getModalStyle);
@@ -55,7 +56,7 @@ function App() {
   const [signingUp, setSigningUp] = useState(false);
   const [loggingIn, setLoggingIn] = useState(false);
   const [loadingPosts, setLoadingPosts] = useState(true);
-  const [pageSize, setPageSize] = useState(10)
+  const [pageSize, setPageSize] = useState(10);
   const [loadMorePosts, setLoadMorePosts] = useState(false);
   const [openNewUpload, setOpenNewUpload] = useState(false);
   const processingAuth = useMemo(
@@ -63,7 +64,7 @@ function App() {
     [loggingIn, signingUp, loadingPosts]
   );
   const [image, setImage] = useState(null);
-  const { enqueueSnackbar } = useSnackbar()
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleChange = (e) => {
     if (e.target.files[0]) {
@@ -90,7 +91,7 @@ function App() {
   }, [user, username]);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleMouseScroll)
+    window.addEventListener("scroll", handleMouseScroll);
     db.collection("posts")
       .orderBy("timestamp", "desc")
       .limit(pageSize)
@@ -106,31 +107,34 @@ function App() {
   }, []);
 
   const handleMouseScroll = (event) => {
-    if(window.innerHeight + event.target.documentElement.scrollTop + 1 >= event.target.documentElement.scrollHeight){
-        setLoadMorePosts(true)
+    if (
+      window.innerHeight + event.target.documentElement.scrollTop + 1 >=
+      event.target.documentElement.scrollHeight
+    ) {
+      setLoadMorePosts(true);
     }
-  }
+  };
 
-useEffect(()=>{
-  if(loadMorePosts && posts.length){
-    db.collection("posts")
-      .orderBy("timestamp", "desc")
-      .startAfter(posts[posts.length-1].post.timestamp)
-      .limit(pageSize)
-      .onSnapshot((snapshot) => {
-        setPosts((loadedPosts) => {
-          return [
+  useEffect(() => {
+    if (loadMorePosts && posts.length) {
+      db.collection("posts")
+        .orderBy("timestamp", "desc")
+        .startAfter(posts[posts.length - 1].post.timestamp)
+        .limit(pageSize)
+        .onSnapshot((snapshot) => {
+          setPosts((loadedPosts) => {
+            return [
               ...loadedPosts,
               ...snapshot.docs.map((doc) => ({
-                  id: doc.id,
-                  post: doc.data(),
-              }))
-          ]
-        })
-      });
-  }
-  setLoadMorePosts(false)
-},[loadMorePosts])
+                id: doc.id,
+                post: doc.data(),
+              })),
+            ];
+          });
+        });
+    }
+    setLoadMorePosts(false);
+  }, [loadMorePosts]);
 
   const signUp = (e) => {
     e.preventDefault();
@@ -149,8 +153,8 @@ useEffect(()=>{
             // error function ...
             console.log(error);
             enqueueSnackbar(error.message, {
-              variant: "error"
-            })
+              variant: "error",
+            });
           },
           () => {
             // complete function ...
@@ -164,8 +168,8 @@ useEffect(()=>{
                   photoURL: url,
                 });
                 enqueueSnackbar("Signup Successful!", {
-                  variant: "success"
-                })
+                  variant: "success",
+                });
                 setOpenSignUp(false);
               });
           }
@@ -174,9 +178,11 @@ useEffect(()=>{
       // .then(() => {
 
       // })
-      .catch((error) => enqueueSnackbar(error.message, {
-        variant: "error"
-      }))
+      .catch((error) =>
+        enqueueSnackbar(error.message, {
+          variant: "error",
+        })
+      )
       .finally(() => {
         setSigningUp(false);
       });
@@ -189,13 +195,15 @@ useEffect(()=>{
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         enqueueSnackbar("Login successful!", {
-          variant: "success"
-        })
+          variant: "success",
+        });
         setOpenSignIn(false);
       })
-      .catch((error) => enqueueSnackbar(error.message, {
-        variant: "error"
-      }))
+      .catch((error) =>
+        enqueueSnackbar(error.message, {
+          variant: "error",
+        })
+      )
       .finally(() => {
         setLoggingIn(false);
       });
@@ -205,19 +213,15 @@ useEffect(()=>{
     if (confirm("Are you sure you want to logout?")) {
       auth.signOut().finally();
       enqueueSnackbar("Logged out Successfully !", {
-        variant: "info"
-      })
+        variant: "info",
+      });
     }
   };
 
   return (
     <div className="app">
       <div className="app__header">
-        <img
-          src={Logo}
-          alt="dummygram"
-          className="app__header__img"
-        />
+        <img src={Logo} alt="dummygram" className="app__header__img" />
         {processingAuth ? (
           <Loader />
         ) : user ? (

@@ -46,7 +46,7 @@ function ImgUpload(props) {
       })
       .catch((err) => {
         enqueueSnackbar(err.message, {
-          variant: "error"
+          variant: "error",
         });
 
         if (props.onUploadError) {
@@ -88,8 +88,8 @@ function ImgUpload(props) {
       .catch((err) => {
         console.log(err);
         enqueueSnackbar(err.message, {
-          variant: "error"
-        })
+          variant: "error",
+        });
         setUploadingPost(false);
 
         if (props.onUploadError) {
