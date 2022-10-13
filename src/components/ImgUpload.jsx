@@ -28,7 +28,7 @@ function ImgUpload(props) {
         imageUrl,
         username: props.user.displayName,
         avatar: props.user.photoURL,
-        likecount:[],
+        likecount: [],
       })
       .then(() => {
         enqueueSnackbar("Post was uploaded successfully!", {
@@ -47,7 +47,7 @@ function ImgUpload(props) {
       })
       .catch((err) => {
         enqueueSnackbar(err.message, {
-          variant: "error"
+          variant: "error",
         });
 
         if (props.onUploadError) {
@@ -87,10 +87,9 @@ function ImgUpload(props) {
         savePost(urls.join(","));
       })
       .catch((err) => {
-        
         enqueueSnackbar(err.message, {
-          variant: "error"
-        })
+          variant: "error",
+        });
         setUploadingPost(false);
 
         if (props.onUploadError) {
