@@ -2,7 +2,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import "firebase/compat/storage";
-import { useState } from "react";
+import { v4 as uuid } from "uuid";
 
 const firebaseApp = firebase.initializeApp({
   apiKey: "AIzaSyAldAwalnW6viLMQR-djtoUudQNWTZREOc",
@@ -35,6 +35,7 @@ function handleMultiUpload(files, options = {}) {
        * @param {number} _percentage
        */
       onUploadProgress: (_percentage) => {},
+      generateThumbnails: false,
     },
     options
   );
@@ -43,9 +44,10 @@ function handleMultiUpload(files, options = {}) {
   let totalUploaded = 0;
 
   const uploadPromises = files.map((file) => {
+    const fileName = uuid() + "." + file.name.split(".").pop();
     return new Promise((resolve, reject) => {
       const task = storage
-        .ref(`${_options.storageLocation}/${file.name}`)
+        .ref(`${_options.storageLocation}/${fileName}`)
         .put(file);
 
       /** @type {null|number} */
@@ -84,10 +86,43 @@ function handleMultiUpload(files, options = {}) {
         () => {
           storage
             .ref(_options.storageLocation)
-            .child(file.name)
+            .child(fileName)
             .getDownloadURL()
             .then((url) => {
-              resolve(url);
+              if (_options.generateThumbnails) {
+                const thumbnailScale = 1 / 10;
+
+                const image = new Image();
+                image.src = URL.createObjectURL(file);
+
+                image.addEventListener("load", () => {
+                  const canvas = document.createElement("canvas");
+                  canvas.width = image.naturalWidth * thumbnailScale;
+                  canvas.height = image.naturalHeight * thumbnailScale;
+
+                  canvas
+                    .getContext("2d")
+                    .drawImage(image, 0, 0, canvas.width, canvas.height);
+
+                  resolve({
+                    thumbnail: canvas.toDataURL(),
+                    imageWidth: image.naturalWidth,
+                    imageHeight: image.naturalHeight,
+                    imageUrl: url,
+                  });
+                });
+
+                image.addEventListener("error", () => {
+                  resolve({
+                    imageUrl: url,
+                    thumbnail: null,
+                    imageWidth: 0,
+                    imageHeight: 0,
+                  });
+                });
+              } else {
+                resolve(url);
+              }
             })
             .catch((error) => {
               reject(error);

@@ -41,6 +41,8 @@
 }
 
 .post__img {
+  object-position: top;
+  max-width: 100%;
   width: 100%;
   object-fit: contain;
 }

@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Avatar, Grid } from "@mui/material";
-import { auth, storage } from "../lib/firebase";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
@@ -22,23 +21,24 @@ import {
 import { useTheme } from "@mui/material/styles";
 import { db } from "../lib/firebase";
 import firebase from "firebase/compat/app";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 const ITEM_HEIGHT = 48;
 function Post(prop) {
   const { postId, user, post } = prop;
   const { username, caption, imageUrl, avatar, likecount } = post;
-  const [comments, setComments] = React.useState([]);
-  const [comment, setComment] = React.useState("");
-  const [likesno, setLikesno] = React.useState(
-    likecount ? likecount.length : 0
-  );
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [Open, setOpen] = React.useState(false);
+  const [comments, setComments] = useState([]);
+  const [comment, setComment] = useState("");
+  const [likesno, setLikesno] = useState(likecount ? likecount.length : 0);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [Open, setOpen] = useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const open = Boolean(anchorEl);
   const docRef = doc(db, "posts", postId);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     let unsubscribe;
@@ -55,7 +55,9 @@ function Post(prop) {
         });
     }
     return () => {
-      unsubscribe();
+      if (unsubscribe) {
+        unsubscribe();
+      }
     };
   }, [postId]);
 
@@ -69,8 +71,28 @@ function Post(prop) {
     setComment("");
   };
 
-  /** @type {string[]} */
-  const postImages = imageUrl.split(",");
+  /**
+   * @type {{
+   *     imageUrl: null|string,
+   *     imageWidth: number,
+   *     imageHeight: number,
+   *     thumbnail: null | string
+   * }[]}
+   *
+   */
+  let postImages;
+
+  try {
+    postImages = JSON.parse(imageUrl);
+  } catch {
+    postImages = imageUrl.split(",").map((url) => ({
+      imageUrl: url,
+      imageWidth: 0,
+      imageHeight: 0,
+      thumbnail: null,
+    }));
+  }
+
   const computeGridSize = (imagesLength, imageIndex) => {
     if (imageIndex === imagesLength - 1 && (imageIndex + 1) % 2 !== 0) {
       return 12;
@@ -78,7 +100,7 @@ function Post(prop) {
 
     return 6;
   };
-  const postHasImages = postImages.some((image) => image.length !== 0);
+  const postHasImages = postImages.some((image) => Boolean(image.imageUrl));
 
   const tmplikecount = likecount ? [...likecount] : [];
   async function likeshandler() {
@@ -184,16 +206,32 @@ function Post(prop) {
       <div className="post__container">
         {postHasImages ? (
           <Grid container>
-            {postImages.map((img, index) => (
-              <Grid
-                item
-                key={img}
-                xs={computeGridSize(postImages.length, index)}
-                className="post__img_container"
-              >
-                <img className="post__img" src={img} alt="random sq" />
-              </Grid>
-            ))}
+            {postImages.map(
+              ({ imageUrl, imageWidth, imageHeight, thumbnail }, index) => (
+                <Grid
+                  item
+                  key={imageUrl}
+                  xs={computeGridSize(postImages.length, index)}
+                  className="post__img_container"
+                >
+                  <LazyLoadImage
+                    className="post__img"
+                    src={imageUrl}
+                    placeholderSrc={thumbnail}
+                    effect="blur"
+                    alt={`${username}'s upload`}
+                    delayTime={1000}
+                    style={{
+                      width: imageLoaded ? "100%" : imageWidth,
+                      height: imageLoaded ? undefined : imageHeight,
+                      objectFit: imageLoaded ? "contain" : "cover",
+                    }}
+                    afterLoad={() => setImageLoaded(true)}
+                  />
+                  {/* <img className="post__img" src={img} alt="random sq" /> */}
+                </Grid>
+              )
+            )}
           </Grid>
         ) : (
           <div className="post__background">{caption}</div>
@@ -217,7 +255,7 @@ function Post(prop) {
           </div>
         </div>
         <div className="post__text">
-          {caption && (
+          {caption && postHasImages && (
             <>
               <strong>{username} </strong>
               {caption}
