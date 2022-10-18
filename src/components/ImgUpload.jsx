@@ -34,7 +34,7 @@ function ImgUpload(props) {
         enqueueSnackbar("Post was uploaded successfully!", {
           variant: "success",
         });
-        setProgress(0);
+        setProgress(0); 
         setCaption("");
         setImage(null);
         if (imgInput.current) {
@@ -75,6 +75,7 @@ function ImgUpload(props) {
     }
 
     handleMultiUpload(image, {
+      generateThumbnails: true,
       onUploadProgress(percentage) {
         setProgress(percentage);
 
@@ -84,7 +85,7 @@ function ImgUpload(props) {
       },
     })
       .then((urls) => {
-        savePost(urls.join(","));
+        savePost(JSON.stringify(urls));
       })
       .catch((err) => {
         enqueueSnackbar(err.message, {
