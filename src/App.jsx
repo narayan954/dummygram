@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Post from "./components/Post";
 import { db, auth, storage } from "./lib/firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import {
   Modal,
   Button,
@@ -63,7 +64,10 @@ function App() {
     () => loggingIn || signingUp || loadingPosts,
     [loggingIn, signingUp, loadingPosts]
   );
+  
   const [image, setImage] = useState(null);
+  const [url, setUrl] = useState(null);
+
   const { enqueueSnackbar } = useSnackbar();
   const [showScroll, setShowScroll] = useState(false);
 
@@ -72,6 +76,8 @@ function App() {
       setImage(e.target.files[0]);
     }
   };
+
+
 
   const checkScrollTop = () => {
     if (!showScroll && window.pageYOffset > 400) {
@@ -157,21 +163,21 @@ function App() {
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((authUser) => {
-        authUser.user.updateProfile({ // <-- Update Method here
-          displayName: username,
-          photoURL: authUser.image
-        }).then(function() {
-
-          // Profile updated successfully!
-          //  "NEW USER NAME"
-
-          var displayName = authUser.user.displayName;
-          // "https://example.com/jane-q-user/profile.jpg"
-          var photoURL = authUser.image
-
-        }, function(error) {
-          // An error happened.
-        });
+        const imageRef = ref(storage, "image");
+        uploadBytes(imageRef, image)
+          .then(() => {
+            getDownloadURL(imageRef)
+              .then((url) => {
+                setUrl(url);
+              })
+              .catch((error) => {
+                console.log(error.message, "error getting the image url");
+              });
+            setImage(null);
+          })
+          .catch((error) => {
+            console.log(error.message);
+          });
         const uploadTask = storage.ref(`images/${image.name}`).put(image);
         uploadTask.on(
           "state_changed",
@@ -193,10 +199,10 @@ function App() {
               .child(image.name)
               .getDownloadURL()
               .then((url) => {
-                //authUser.user.updateProfile({
-                 // displayName: username,
-                  //photoURL: url,
-                //});
+                authUser.user.updateProfile({
+                  displayName: username,
+                  photoURL: url,
+                });
                 enqueueSnackbar("Signup Successful!", {
                   variant: "success",
                 });
@@ -333,11 +339,11 @@ function App() {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <label for="file">Choose your profile pic</label>
-              <Input type="file" id="file" onChange={handleChange} />
+              <input type="file" id ="file" onChange={handleChange} />
 
               <AnimatedButton
                 type="submit"
-                //onClick={signUp}
+                //onClick={handleSubmit}
                 variant="contained"
                 color="primary"
                 loading={processingAuth}
