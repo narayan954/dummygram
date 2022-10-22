@@ -244,8 +244,12 @@ function Post(prop) {
           </span>
 
           <div className="social__icon" onClick={likeshandler}>
-            {tmplikecount.indexOf(user.uid) != -1 ? (
-              <FavoriteOutlinedIcon sx={{ color: red[500] }} />
+            {user ? (
+              tmplikecount.indexOf(user.uid) != -1 ? (
+                <FavoriteOutlinedIcon sx={{ color: red[500] }} />
+              ) : (
+                <FavoriteBorderIcon />
+              )
             ) : (
               <FavoriteBorderIcon />
             )}
