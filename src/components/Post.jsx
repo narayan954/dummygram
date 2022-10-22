@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Avatar, Grid } from "@mui/material";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import { red } from "@mui/material/colors";
@@ -8,7 +8,14 @@ import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
+import { useTheme } from "@mui/material/styles";
+import { db } from "../lib/firebase";
+import firebase from "firebase/compat/app";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 import {
+  Avatar,
+  Grid,
   Menu,
   MenuItem,
   IconButton,
@@ -20,20 +27,15 @@ import {
   DialogContentText,
   useMediaQuery,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-import { db } from "../lib/firebase";
-import firebase from "firebase/compat/app";
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import "react-lazy-load-image-component/src/effects/blur.css";
 
-import { doc, getDoc, updateDoc } from "firebase/firestore";
 const ITEM_HEIGHT = 48;
+
 function Post(prop) {
   const { postId, user, post } = prop;
   const { username, caption, imageUrl, avatar, likecount } = post;
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
-  const [likesno, setLikesno] = useState(likecount ? likecount.length : 0);
+  const [likesNo, setLikesNo] = useState(likecount ? likecount.length : 0);
   const [anchorEl, setAnchorEl] = useState(null);
   const [Open, setOpen] = useState(false);
   const theme = useTheme();
@@ -44,6 +46,7 @@ function Post(prop) {
 
   useEffect(() => {
     let unsubscribe;
+
     if (postId) {
       unsubscribe = db
         .collection("posts")
@@ -56,6 +59,7 @@ function Post(prop) {
           );
         });
     }
+
     return () => {
       if (unsubscribe) {
         unsubscribe();
@@ -99,38 +103,42 @@ function Post(prop) {
     if (imageIndex === imagesLength - 1 && (imageIndex + 1) % 2 !== 0) {
       return 12;
     }
-
     return 6;
   };
-  const postHasImages = postImages.some((image) => Boolean(image.imageUrl));
 
-  const tmplikecount = likecount ? [...likecount] : [];
-  async function likeshandler() {
+  const postHasImages = postImages.some((image) => Boolean(image.imageUrl));
+  const tempLikeCount = likecount ? [...likecount] : [];
+
+  async function likesHandler() {
     if (user && likecount !== undefined) {
-      let ind = tmplikecount.indexOf(user.uid);
+      let ind = tempLikeCount.indexOf(user.uid);
+
       if (ind !== -1) {
-        tmplikecount.splice(ind, 1);
-        setLikesno((currLikesno) => currLikesno - 1);
+        tempLikeCount.splice(ind, 1);
+        setLikesNo((currLikesNo) => currLikesNo - 1);
       } else {
-        tmplikecount.push(user.uid);
-        setLikesno((currLikesno) => currLikesno + 1);
+        tempLikeCount.push(user.uid);
+        setLikesNo((currLikesNo) => currLikesNo + 1);
       }
-      console.log(tmplikecount);
+
+      // console.log(tempLikeCount);
       const data = {
-        likecount: tmplikecount,
+        likecount: tempLikeCount,
       };
       await updateDoc(docRef, data)
-        .then((docRef) => {
-          console.log("like added");
-        })
+        // .then((docRef) => {
+        //   console.log("like added");
+        // })
         .catch((error) => {
-          console.log(error);
+          // console.log(error);
         });
     }
   }
+
   async function deletePost() {
     await db.collection("posts").doc(postId).delete();
   }
+
   const handleClickOpen = () => {
     setOpen(true);
     setAnchorEl(null);
@@ -139,6 +147,7 @@ function Post(prop) {
   const handleClose = () => {
     setOpen(false);
   };
+
   return (
     <div className="post">
       <div className="post__header">
@@ -240,12 +249,12 @@ function Post(prop) {
         )}
         <div className="social__icons__wrapper">
           <span style={{ marginLeft: "14px", fontWeight: "bold" }}>
-            {likecount ? likesno : 0} likes
+            {likecount ? likesNo : 0} likes
           </span>
 
-          <div className="social__icon" onClick={likeshandler}>
+          <div className="social__icon" onClick={likesHandler}>
             {user ? (
-              tmplikecount.indexOf(user.uid) != -1 ? (
+              tempLikeCount.indexOf(user.uid) != -1 ? (
                 <FavoriteOutlinedIcon sx={{ color: red[500] }} />
               ) : (
                 <FavoriteBorderIcon />
@@ -254,16 +263,17 @@ function Post(prop) {
               <FavoriteBorderIcon />
             )}
           </div>
-          <div className="social__icon">
+          {/* <div className="social__icon">
             <ModeCommentOutlinedIcon />
-          </div>
-          <div className="social__icon">
+          </div> */}
+          {/* <div className="social__icon">
             <SendOutlinedIcon />
-          </div>
-          <div className="social__icon__last">
+          </div> */}
+          {/* <div className="social__icon__last">
             <BookmarkBorderOutlinedIcon />
-          </div>
+          </div> */}
         </div>
+
         <div className="post__text">
           {caption && postHasImages && (
             <>
