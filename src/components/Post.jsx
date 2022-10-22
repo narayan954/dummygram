@@ -25,6 +25,7 @@ import { db } from "../lib/firebase";
 import firebase from "firebase/compat/app";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import EmojiPicker from 'emoji-picker-react';
 
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 const ITEM_HEIGHT = 48;
@@ -35,6 +36,7 @@ function Post(prop) {
   const [comment, setComment] = useState("");
   const [likesno, setLikesno] = useState(likecount ? likecount.length : 0);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [showEmojis, setShowEmojis] =  useState(false);
   const [Open, setOpen] = useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -71,6 +73,11 @@ function Post(prop) {
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
     setComment("");
+  };
+
+  const onEmojiClick = (emojiObject, event) => {
+    setComment(prevInput => prevInput + emojiObject.emoji)
+    setShowEmojis(false);
   };
 
   /**
@@ -285,7 +292,24 @@ function Post(prop) {
         {user && (
           <form className="post__commentBox">
             <div className="social__icon">
-              <SentimentSatisfiedAltOutlinedIcon />
+              <SentimentSatisfiedAltOutlinedIcon
+                onClick={() => {
+                  setShowEmojis(val => !val);
+                }}
+              />
+              {showEmojis && (
+                <div id="picker">
+                  <EmojiPicker 
+                    emojiStyle="native"
+                    height={330}
+                    searchDisabled={true}
+                    onEmojiClick={onEmojiClick}
+                    previewConfig={{
+                      showPreview: false
+                    }}
+                  />
+                </div>
+              )}
             </div>
             <input
               className="post__input"
