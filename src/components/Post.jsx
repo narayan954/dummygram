@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Avatar, Grid } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
-import { red } from '@mui/material/colors';
+import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
+import { red } from "@mui/material/colors";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
@@ -244,9 +244,15 @@ function Post(prop) {
           </span>
 
           <div className="social__icon" onClick={likeshandler}>
-          {
-            user? (tmplikecount.indexOf(user.uid) != -1)? <FavoriteOutlinedIcon sx = {{color : red[500]}}/>: <FavoriteBorderIcon /> : <FavoriteBorderIcon />
-          }
+            {user ? (
+              tmplikecount.indexOf(user.uid) != -1 ? (
+                <FavoriteOutlinedIcon sx={{ color: red[500] }} />
+              ) : (
+                <FavoriteBorderIcon />
+              )
+            ) : (
+              <FavoriteBorderIcon />
+            )}
           </div>
           <div className="social__icon">
             <ModeCommentOutlinedIcon />
