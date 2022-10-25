@@ -210,3 +210,18 @@ div#picker {
   left: -7px;
   transform: scale(0.9);
 }
+
+.social-icon{
+  margin: 10px 20px;
+  font-size: 30px;
+}
+
+.social-icon:hover{
+  color:#1976d2;
+}
+
+#footer{
+  text-align: center;
+  padding: 7% 15%;
+  background-color: grey;
+}

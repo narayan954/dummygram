@@ -39,3 +39,17 @@
 .read-the-docs {
   color: #888;
 }
+
+.social-icon{
+  margin: 10px 20px;
+  font-size: 30px;
+}
+
+.social-icon:hover{
+  color:rgb(226, 133, 57);
+}
+
+.footer{
+  text-align: center;
+  padding: 7% 15%;
+}
