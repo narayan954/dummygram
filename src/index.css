@@ -2,6 +2,30 @@
   margin: 0;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    45deg,
+    #405de6,
+    #5851db,
+    #833ab4,
+    #c13584,
+    #e1306c,
+    #fd1d1d
+  );
+  border-radius: 10px;
+}
+
 /* App styles */
 .app {
   background-color: white;
@@ -79,6 +103,8 @@
 }
 .social__icon {
   padding: 10px;
+  width: 24px;
+  height: 28px;
 }
 .social__icon__last {
   padding: 10px;
@@ -102,6 +128,7 @@
   border: none;
   flex: 1;
   padding: 10px;
+  font-size: 16px;
 }
 
 .post__button {
@@ -177,7 +204,7 @@
 .scrollTop {
   position: fixed;
   width: 100%;
-  bottom: 20px;
+  bottom: 10px;
   align-items: center;
   height: 20px;
   justify-content: center;
@@ -199,4 +226,11 @@
   100% {
     opacity: 0.5;
   }
+}
+
+div#picker {
+  position: relative;
+  top: -353px;
+  left: -7px;
+  transform: scale(0.9);
 }
