@@ -77,14 +77,13 @@ function Post(prop) {
   };
 
   const deleteComment = async (event, Commentref) => {
-    console.log(Commentref.content.text);
     event.preventDefault();
     await db
       .collection("posts")
       .doc(postId)
       .collection("comments")
-      .doc(Commentref.id).delete();
-
+      .doc(Commentref.id)
+      .delete();
   };
 
   const onEmojiClick = (emojiObject, event) => {
@@ -101,7 +100,7 @@ function Post(prop) {
    * }[]}
    *
    */
-  let postImages; 
+  let postImages;
 
   try {
     postImages = JSON.parse(imageUrl);
@@ -297,12 +296,8 @@ function Post(prop) {
             <p key={userComment.id}>
               <strong>{userComment.content.username}</strong>{" "}
               {userComment.content.text}
-              <span
-                onClick={(event) =>
-                  deleteComment(event, userComment)
-                }
-              >
-                {(user && (userComment.content.username === user.displayName)) ? (
+              <span onClick={(event) => deleteComment(event, userComment)}>
+                {user && userComment.content.username === user.displayName ? (
                   <DeleteTwoToneIcon fontSize="small" />
                 ) : (
                   <></>
