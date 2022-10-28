@@ -79,7 +79,7 @@ function Post(prop) {
   const deleteComment = async (event, Commentref) => {
     console.log(Commentref.content.text);
     event.preventDefault();
-    db
+    await db
       .collection("posts")
       .doc(postId)
       .collection("comments")
@@ -302,7 +302,7 @@ function Post(prop) {
                   deleteComment(event, userComment)
                 }
               >
-                {userComment.content.username === user.displayName ? (
+                {(user && (userComment.content.username === user.displayName)) ? (
                   <DeleteTwoToneIcon fontSize="small" />
                 ) : (
                   <></>
