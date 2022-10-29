@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import { red } from "@mui/material/colors";
