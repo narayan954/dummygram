@@ -1,9 +1,8 @@
-
-<div  align="center">
+<div align="center">
 
 <img  src="https://user-images.githubusercontent.com/77617189/192938064-17157845-e074-45cb-bb2d-4773a8cb1602.png"  alt="Dummygram"  width="250"  height="200">
 
-[see live!](https://dummy-gram.web.app/)
+[See Live!](https://dummy-gram.web.app/)
 
 ### *Instagram*, dummified
 
@@ -27,17 +26,23 @@ When you learn ReactJs it seems obvious to work on some projects and for the pro
 
 Dummygram has been in full-time development since September 2022 and is part of GitHub since the very beginning. Our current priorities and what we are working on is kind of obvious, but still we want to give it a unique look and make it feature rich.:sparkles:
   
-## Docs
+# Docs
 
-- [How to get started with Open Source](#how-to-get-started-with-open-source)
-- [Contributing](#contributing)
-  - [Ground Rules](#ground-rules)
+- Table of Contents
   - [Codebase](#codebase)
     - [Technologies](#technologies)
     - [Folder Structure](#folder-structure)
-    - [Code Style](#code-style)
-  - [First time setup](#first-time-setup)
-  - [Running the app locally](#running-the-app-locally)
+
+  - [Project Setup](#project-setup)
+    - [First time setup](#first-time-setup)
+    - [installation](#installation)
+    - [Running the app locally](#running-the-app-locally)
+
+  - [How to get started with Open Source](#how-to-get-started-with-open-source)
+  - [Contributing](#contributing)
+  - [Rules](#rules)
+  - [Open Source Programs](#open-source-programs)
+  - [License](#license)
 
 ## Codebase
 
@@ -66,7 +71,9 @@ dummygram/
 
 ```
 
-## First time setup
+## Project Setup
+
+### First time setup
 
 The first step to running dummygram locally is downloading the code by cloning the repository:
 
@@ -100,7 +107,7 @@ npm install
 
 You've now finished installing everything! Let's start :100:
 
-Ps: if you're getting error installing the dependancies, try --force command along with npm install. For example
+Ps: if you're getting error installing the dependencies, try --force command along with npm install. For example
 
 ```sh
 
@@ -110,19 +117,17 @@ npm install --force
 
 Now you're ready to run the app locally and sign into your local instance!
 
-## Running the app locally
+### Running the app locally
 
-### Start the servers
+#### Start the servers
 
-To Start the development server run `npm run dev`.
+To Start the development server run
 
-<br  />
+```sh
+npm run dev
+```
 
-<div  align="center">
-
-<img  height="200px"  src="https://user-images.githubusercontent.com/77617189/192947926-37284128-9965-46a4-b29b-c75e47b2f76b.svg"  />
-
-</div>
+<div  align="center"><img  height="200px"  src="https://user-images.githubusercontent.com/77617189/192947926-37284128-9965-46a4-b29b-c75e47b2f76b.svg"  /></div>
 
 ## How to get started with Open Source
 
@@ -149,38 +154,35 @@ Now you know some basic terms, let's get into how to get started with some resou
 
 That being said, this codebase isn't your typical open source project because it's not a library or package with a limited scope—it's our entire product.
 
-## Ground Rules
+## Rules
 
-#### Contributions and discussion guidelines
+- **No `console.log`s in any file**: We use the `debug` module across the codebase to log debugging information in development only. Never commit a file that contains a `console.log` as CI will fail your build. The only exceptions are errors, which you can log, but you have to use `console.error` to be explicit about it
+- **Code reviews**: All submissions, including submissions by project members, require review. We use GitHub pull requests for this purpose.
+
+### Contributions and discussion guidelines
 
 All conversations and communities on Dummygram agree to GitHub's [Community Guidelines](https://help.github.com/en/github/site-policy/github-community-guidelines) and [Acceptable Use Policies](https://help.github.com/en/github/site-policy/github-acceptable-use-policies). This code of conduct also applies to all conversations that happen within our contributor community here on GitHub. We expect discussions in issues and pull requests to stay positive, productive, and respectful. **Remember**: There are real people on the other side of that screen:exclamation:
 
-#### Reporting a bug or discussing a feature idea
+### Reporting a bug or discussing a feature idea
 
 If you found a technical bug on Dummygram or have ideas for features we should implement, the issue tracker is the best place to share your ideas. Make sure to follow the issue template and you should be golden! ([click here to open a new issue](https://github.com/narayan954/dummygram/issues/new))
 
-#### Fixing a bug or implementing a new feature
+### Fixing a bug or implementing a new feature
 
 - If you find a bug on Dummygram and open a PR that fixes it we'll review it as soon as possible to ensure it matches our engineering standards.
 - If you want to implement a new feature, open an issue first to discuss what it'd look like .
 - If you want to contribute but are unsure to start, we have [a "good first issue" label](https://github.com/narayan954/dummygram/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) which is applied to newcomer-friendly issues. Take a look at [the full list of good first issues](https://github.com/narayan954/dummygram/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) and pick something you like!
 - Want to fix a bug or implement an agreed-upon feature? Great, jump to the [local setup instructions](#first-time-setup)!
 
-## Rules
+## Code of Conduct
 
-- **No `console.log`s in any file**: We use the `debug` module across the codebase to log debugging information in development only. Never commit a file that contains a `console.log` as CI will fail your build. The only exceptions are errors, which you can log, but you have to use `console.error` to be explicit about it
+Dummygram is now part of GitHub. For code of conduct, please see [GitHub's Community Guidelines](https://help.github.com/en/github/site-policy/github-community-guidelines) and [Acceptable Use Policies](https://help.github.com/en/github/site-policy/github-acceptable-use-policies).
 
-<div  align="center">
-
-<img  height="70px"  src="https://user-images.githubusercontent.com/77617189/192942891-31b9152c-918b-4fac-af05-0ad6b1f594aa.svg"  />
-
-</div>
+<div  align="center"><img  height="70px"  src="https://user-images.githubusercontent.com/77617189/192942891-31b9152c-918b-4fac-af05-0ad6b1f594aa.svg"  /></div>
 
 ## Open Source Programs
 
-<a href="https://hacktoberfest.com/">
-<img width="1200" alt="Email Banners-Dark" src="https://user-images.githubusercontent.com/79099734/189589410-ca17afb8-5855-4316-918a-054f27594809.png">
-</a>
+<a href="https://hacktoberfest.com/"><img width="1200" alt="Email Banners-Dark" src="https://user-images.githubusercontent.com/79099734/189589410-ca17afb8-5855-4316-918a-054f27594809.png"></a>
 
 ## Thanks to all Contributors 💪
 
@@ -188,10 +190,6 @@ Thanks a lot for spending your time helping dummygram grow. Thanks a lot! Keep r
 
 [![Contributors](https://contrib.rocks/image?repo=narayan954/dummygram)](https://github.com/narayan954/dummygram/graphs/contributors)
   
-## GitHub
-
-Dummygram is now part of GitHub. For code of conduct, please see [GitHub's Community Guidelines](https://help.github.com/en/github/site-policy/github-community-guidelines) and [Acceptable Use Policies](https://help.github.com/en/github/site-policy/github-acceptable-use-policies).
-
 ## License
 
 BSD 3-Clause, see the [LICENSE](./LICENSE) file.
