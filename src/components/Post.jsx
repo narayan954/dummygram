@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import { red } from "@mui/material/colors";
-import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
-import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
+// import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
+// import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
-import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
+// import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import {
   Avatar,
