@@ -79,6 +79,8 @@
 }
 .social__icon {
   padding: 10px;
+  width: 24px;
+  height: 28px;
 }
 .social__icon__last {
   padding: 10px;
@@ -102,6 +104,7 @@
   border: none;
   flex: 1;
   padding: 10px;
+  font-size: 16px;
 }
 
 .post__button {
@@ -199,4 +202,11 @@
   100% {
     opacity: 0.5;
   }
+}
+
+div#picker {
+  position: relative;
+  top: -353px;
+  left: -7px;
+  transform: scale(0.9);
 }
