@@ -35,7 +35,7 @@ function ImgUpload(props) {
         enqueueSnackbar("Post was uploaded successfully!", {
           variant: "success",
         });
-        setProgress(0); 
+        setProgress(0);
         setCaption("");
         setImage(null);
         if (imgInput.current) {
