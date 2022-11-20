@@ -28,8 +28,8 @@ import firebase from "firebase/compat/app";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import EmojiPicker from "emoji-picker-react";
-
 import { doc, FieldValue, getDoc, updateDoc } from "firebase/firestore";
+
 const ITEM_HEIGHT = 48;
 
 function Post(prop) {
