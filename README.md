@@ -24,7 +24,7 @@ When you learn ReactJs it seems obvious to work on some projects and for the pro
 
 ## Status
 
-Dummygram has been in full-time development since September 2022 and is part of GitHub since the very beginning. Our current priorities and what we are working on is kind of obvious, but still we want to give it a unique look and make it feature rich.:sparkles:
+Dummygram has been in development since September 2022 and is part of GitHub since the very beginning. Our current priorities and what we are working on is kind of obvious, but still we want to give it a unique look and make it feature rich.:sparkles:
   
 # Docs
 
