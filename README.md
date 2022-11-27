@@ -192,6 +192,6 @@ Thanks a lot for spending your time helping dummygram grow. Thanks a lot! Keep r
   
 ## License
 
-BSD 3-Clause, see the [LICENSE](./LICENSE) file.
+MIT License, see the [LICENSE](./LICENSE) file.
 
 ---
