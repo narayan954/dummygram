@@ -157,27 +157,12 @@ function App() {
     setLoadMorePosts(false);
   }, [loadMorePosts]);
 
-  const signUp = (e) => {
+   const signUp = (e) => {
     e.preventDefault();
     setSigningUp(true);
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((authUser) => {
-        const imageRef = ref(storage, "image");
-        uploadBytes(imageRef, image)
-          .then(() => {
-            getDownloadURL(imageRef)
-              .then((url) => {
-                setUrl(url);
-              })
-              .catch((error) => {
-                console.log(error.message, "error getting the image url");
-              });
-            setImage(null);
-          })
-          .catch((error) => {
-            console.log(error.message);
-          });
         const uploadTask = storage.ref(`images/${image.name}`).put(image);
         uploadTask.on(
           "state_changed",
@@ -223,6 +208,7 @@ function App() {
         setSigningUp(false);
       });
   };
+
 
   const signIn = (e) => {
     e.preventDefault();
