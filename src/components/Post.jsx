@@ -256,6 +256,7 @@ function Post(prop) {
                       objectFit: imageLoaded ? "contain" : "cover",
                     }}
                     afterLoad={() => setImageLoaded(true)}
+                    onDoubleClick={likesHandler}
                   />
                   {/* <img className="post__img" src={img} alt="random sq" /> */}
                 </Grid>
@@ -266,7 +267,7 @@ function Post(prop) {
           <div className="post__background">{caption}</div>
         )}
         <div className="social__icons__wrapper">
-          <span style={{ marginLeft: "14px", fontWeight: "bold" }}>
+          <span style={{ marginLeft: "14px", fontWeight: "light" }}>
             {likecount ? likesNo : 0} likes
           </span>
 
