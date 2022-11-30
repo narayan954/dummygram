@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Post from "./components/Post";
 import { db, auth, storage } from "./lib/firebase";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import {
   Modal,
   Button,
@@ -14,7 +13,6 @@ import { makeStyles } from "@mui/styles";
 import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
 import AnimatedButton from "./components/AnimatedButton";
-// import Logo from "./assets/logo.png";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { useSnackbar } from "notistack";
 
@@ -64,9 +62,8 @@ function App() {
     () => loggingIn || signingUp || loadingPosts,
     [loggingIn, signingUp, loadingPosts]
   );
-  
+
   const [image, setImage] = useState(null);
-  const [url, setUrl] = useState(null);
 
   const { enqueueSnackbar } = useSnackbar();
   const [showScroll, setShowScroll] = useState(false);
@@ -76,8 +73,6 @@ function App() {
       setImage(e.target.files[0]);
     }
   };
-
-
 
   const checkScrollTop = () => {
     if (!showScroll && window.pageYOffset > 400) {
@@ -97,11 +92,9 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         // user has logged in
-
         setUser(authUser);
       } else {
         // user has logged out
-
         setUser(null);
       }
     });
@@ -157,7 +150,7 @@ function App() {
     setLoadMorePosts(false);
   }, [loadMorePosts]);
 
-   const signUp = (e) => {
+  const signUp = (e) => {
     e.preventDefault();
     setSigningUp(true);
     auth
@@ -208,7 +201,6 @@ function App() {
         setSigningUp(false);
       });
   };
-
 
   const signIn = (e) => {
     e.preventDefault();
@@ -325,11 +317,10 @@ function App() {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <label for="file">Choose your profile pic</label>
-              <input type="file" id ="file" onChange={handleChange} />
+              <Input type="file" id="file" onChange={handleChange} />
 
               <AnimatedButton
                 type="submit"
-                //onClick={handleSubmit}
                 variant="contained"
                 color="primary"
                 loading={processingAuth}
