@@ -1,6 +1,6 @@
 <div align="center">
 
-<img  src="https://user-images.githubusercontent.com/77617189/192938064-17157845-e074-45cb-bb2d-4773a8cb1602.png"  alt="Dummygram"  width="250"  height="200">
+<img  src="https://github.com/narayan954/dummygram/blob/master/src/assets/logo.png"  alt="Dummygram"  width="250"  height="200">
 
 [See Live!](https://dummy-gram.web.app/)
 
@@ -24,7 +24,7 @@ When you learn ReactJs it seems obvious to work on some projects and for the pro
 
 ## Status
 
-Dummygram has been in full-time development since September 2022 and is part of GitHub since the very beginning. Our current priorities and what we are working on is kind of obvious, but still we want to give it a unique look and make it feature rich.:sparkles:
+Dummygram has been in development since September 2022 and is part of GitHub since the very beginning. Our current priorities and what we are working on is kind of obvious, but still we want to give it a unique look and make it feature rich.:sparkles:
   
 # Docs
 
@@ -192,6 +192,6 @@ Thanks a lot for spending your time helping dummygram grow. Thanks a lot! Keep r
   
 ## License
 
-BSD 3-Clause, see the [LICENSE](./LICENSE) file.
+MIT License, see the [LICENSE](./LICENSE) file.
 
 ---
