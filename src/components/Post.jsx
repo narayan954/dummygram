@@ -2,11 +2,8 @@ import { useEffect, useState } from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import { red } from "@mui/material/colors";
-// import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
-// import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
-// import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import {
   Avatar,
@@ -28,8 +25,8 @@ import firebase from "firebase/compat/app";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import EmojiPicker from "emoji-picker-react";
+import { doc, updateDoc } from "firebase/firestore";
 
-import { doc, FieldValue, getDoc, updateDoc } from "firebase/firestore";
 const ITEM_HEIGHT = 48;
 
 function Post(prop) {
@@ -80,13 +77,13 @@ function Post(prop) {
     setComment("");
   };
 
-  const deleteComment = async (event, Commentref) => {
+  const deleteComment = async (event, commentRef) => {
     event.preventDefault();
     await db
       .collection("posts")
       .doc(postId)
       .collection("comments")
-      .doc(Commentref.id)
+      .doc(commentRef.id)
       .delete();
   };
 

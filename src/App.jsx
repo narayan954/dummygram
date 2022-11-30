@@ -13,7 +13,6 @@ import { makeStyles } from "@mui/styles";
 import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
 import AnimatedButton from "./components/AnimatedButton";
-// import Logo from "./assets/logo.png";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { useSnackbar } from "notistack";
 
@@ -63,7 +62,9 @@ function App() {
     () => loggingIn || signingUp || loadingPosts,
     [loggingIn, signingUp, loadingPosts]
   );
+
   const [image, setImage] = useState(null);
+
   const { enqueueSnackbar } = useSnackbar();
   const [showScroll, setShowScroll] = useState(false);
 
@@ -91,11 +92,9 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         // user has logged in
-
         setUser(authUser);
       } else {
         // user has logged out
-
         setUser(null);
       }
     });
@@ -291,7 +290,7 @@ function App() {
 
       <Modal open={openSignUp} onClose={() => setOpenSignUp(false)}>
         <div style={modalStyle} className={classes.paper}>
-          <form className="modal__signup">
+          <form className="modal__signup" onSubmit={signUp}>
             <center>
               <img
                 src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
@@ -301,6 +300,7 @@ function App() {
               <Input
                 type="text"
                 placeholder="username"
+                required
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
@@ -321,7 +321,6 @@ function App() {
 
               <AnimatedButton
                 type="submit"
-                onClick={signUp}
                 variant="contained"
                 color="primary"
                 loading={processingAuth}

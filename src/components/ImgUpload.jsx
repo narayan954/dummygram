@@ -18,6 +18,7 @@ function ImgUpload(props) {
     }
   };
 
+
   const { enqueueSnackbar } = useSnackbar();
 
   const savePost = (imageUrl = "") => {
@@ -120,7 +121,7 @@ function ImgUpload(props) {
           ref={imgInput}
           disabled={uploadingPost}
         />
-      )}
+      )} 
       <TextField
         onChange={(e) => setCaption(e.target.value)}
         value={caption}
@@ -130,7 +131,7 @@ function ImgUpload(props) {
         rows={4}
         disabled={uploadingPost}
       />
-      <AnimatedButton onClick={handleUpload} loading={uploadingPost}>
+      <AnimatedButton onClick={handleUpload} loading={uploadingPost}> 
         Upload
       </AnimatedButton>
     </div>
