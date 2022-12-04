@@ -9,6 +9,10 @@ import {
   DialogTitle,
   DialogContent,
 } from "@mui/material";
+
+import { FiSearch, FiHome } from "react-icons/fi"
+import { BsPlusSquare } from "react-icons/bs"
+import { CgProfile } from 'react-icons/cg'
 import { makeStyles } from "@mui/styles";
 import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
@@ -240,16 +244,30 @@ function App() {
           <Loader />
         ) : user ? (
           <>
-            <Button
+            <div className="app__header__search__bar">
+              <FiSearch />
+              <Input
+                type="text"
+                placeholder="Search"
+                onChange={(e) => setEmail(e.target.value)}
+                style={{ outline: 'none' }}
+              />
+            </div>
+            <div className="app__header__home_post_profile_icons">
+              <FiHome style={{fontSize:"24px",cursor:"pointer",}}  onClick={scrollTop}/>
+              <BsPlusSquare style={{fontSize:"20px", cursor:"pointer", }} onClick={() => setOpenNewUpload(true)}/>
+              <CgProfile style={{fontSize:"24px",cursor:"pointer"}} onClick={signOut} />
+            </div>
+            {/* <Button
               onClick={() => setOpenNewUpload(true)}
               color="secondary"
               variant="contained"
             >
               New Post
-            </Button>
-            <Button onClick={signOut} color="secondary" variant="contained">
+            </Button> */}
+            {/* <Button onClick={signOut} color="secondary" variant="contained">
               Logout
-            </Button>
+            </Button> */}
           </>
         ) : (
           <div className="login__container">
@@ -371,12 +389,12 @@ function App() {
           !loadingPosts
             ? {}
             : {
-                width: "100%",
-                minHeight: "100vh",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }
+              width: "100%",
+              minHeight: "100vh",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }
         }
       >
         {loadingPosts ? (
@@ -392,7 +410,7 @@ function App() {
       <FaArrowCircleUp
         className="scrollTop"
         onClick={scrollTop}
-        style={{ height: 40, display: showScroll ? "flex" : "none" }}
+        style={{ height: 40, display: showScroll ? "flex" : "none", fontWeight:"lighter" }}
       />
     </div>
   );

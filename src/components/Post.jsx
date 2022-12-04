@@ -301,12 +301,12 @@ function Post(prop) {
 
         <div className="post__comments">
           {comments.map((userComment) => (
-            <p key={userComment.id}>
+            <p key={userComment.id} className="post__comment">
               <strong>{userComment.content.username}</strong>{" "}
               {userComment.content.text}
               <span onClick={(event) => deleteComment(event, userComment)}>
                 {user && userComment.content.username === user.displayName ? (
-                  <DeleteTwoToneIcon fontSize="small" />
+                  <DeleteTwoToneIcon fontSize="small" className="delete_two_tone_icon"/>
                 ) : (
                   <></>
                 )}

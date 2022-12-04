@@ -1,5 +1,8 @@
 * {
   margin: 0;
+  padding:0;
+  margin:0;
+  box-sizing: border-box;
 }
 
 /* App styles */
@@ -7,14 +10,14 @@
   background-color: white;
   justify-content: center;
   align-items: center;
-}
-
-.app__header__img {
-  object-fit: contain;
-  width: 150px;
+  border:2px solid blue;
+  width: 100%;
 }
 
 .app__header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   position: sticky;
   top: 0;
   z-index: 1;
@@ -22,10 +25,34 @@
   padding: 10px;
   object-fit: contain;
   border-bottom: 1px solid lightgrey;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
+
+.app__header__img {
+  object-fit: contain;
+  width: 150px;
+}
+
+.app__header__search__bar{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #D9D9D9;
+  opacity: 50%;
+  padding-inline:10px;
+  padding-block:4px;
+  border-radius: 5px;
+  gap: 10px;
+}
+
+.app__header__home_post_profile_icons{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap:30px;
+}
+
+
+
 
 .app__posts {
   padding: 20px;
@@ -81,10 +108,12 @@
   padding: 10px;
   width: 24px;
   height: 28px;
+  cursor: pointer;
 }
 .social__icon__last {
   padding: 10px;
   margin-left: auto !important;
+  border:2px solid red;
 }
 .post__avatar {
   margin-right: 10px;
@@ -98,6 +127,15 @@
   display: flex;
   margin-top: 10px;
   border-top: 1px solid lightgrey;
+}
+
+.post__comment{
+  display: flex;
+  align-items: center;
+}
+.delete_two_tone_icon{
+  cursor: pointer;
+  padding-inline-start: 0.2em;
 }
 
 .post__input {
