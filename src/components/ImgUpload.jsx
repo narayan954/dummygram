@@ -4,6 +4,8 @@ import firebase from "firebase/compat/app";
 import AnimatedButton from "./AnimatedButton";
 import { LinearProgress, TextField } from "@mui/material";
 import { useSnackbar } from "notistack";
+import "./imgPreview.css";
+
 
 function ImgUpload(props) {
   const [image, setImage] = useState(null);
@@ -11,13 +13,22 @@ function ImgUpload(props) {
   const [progress, setProgress] = useState(0);
   const [uploadingPost, setUploadingPost] = useState(false);
   const imgInput = useRef(null);
+  const [selectedFiles, setSelectedFiles] = useState(undefined);
+  const [imagePreviews, setImagePreviews] = useState([]);
 
   const handleChange = (e) => {
+    let images = [];
+
     if (e.target.files?.length) {
       setImage(Array.from(e.target.files));
+      setImagePreviews(image);
     }
-  };
+    for (let i = 0; i < e.target.files.length; i++) {
+      images.push(URL.createObjectURL(e.target.files[i]));
+    }
 
+    setImagePreviews(images);
+  };
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -121,7 +132,21 @@ function ImgUpload(props) {
           ref={imgInput}
           disabled={uploadingPost}
         />
-      )} 
+      )}
+      {imagePreviews && (
+        <div>
+          {imagePreviews.map((img, i) => {
+            return (
+              <img 
+              id="imgPreview"
+              className="preview" 
+              src={img} 
+              alt={"image-" + i} 
+              key={i} />
+            );
+          })}
+        </div>
+      )}
       <TextField
         onChange={(e) => setCaption(e.target.value)}
         value={caption}
@@ -131,7 +156,7 @@ function ImgUpload(props) {
         rows={4}
         disabled={uploadingPost}
       />
-      <AnimatedButton onClick={handleUpload} loading={uploadingPost}> 
+      <AnimatedButton onClick={handleUpload} loading={uploadingPost}>
         Upload
       </AnimatedButton>
     </div>
