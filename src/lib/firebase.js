@@ -5,13 +5,13 @@ import "firebase/compat/storage";
 import { v4 as uuid } from "uuid";
 
 const firebaseApp = firebase.initializeApp({
-  apiKey: "AIzaSyCMmQUVG213FeNgkZ3HSPAz1qahmZVy4Xw",
-  authDomain: "dummygram-ada23.firebaseapp.com",
-  projectId: "dummygram-ada23",
-  storageBucket: "dummygram-ada23.appspot.com",
-  messagingSenderId: "857633733943",
-  appId: "1:857633733943:web:61545c9a4a721ea798aeb2",
-  measurementId: "G-B38V8JW7SL"
+  apiKey: "AIzaSyAldAwalnW6viLMQR-djtoUudQNWTZREOc",
+  authDomain: "dummy-gram.firebaseapp.com",
+  projectId: "dummy-gram",
+  storageBucket: "dummy-gram.appspot.com",
+  messagingSenderId: "329994030699",
+  appId: "1:329994030699:web:4d6e02e440b5def1066b2e",
+  measurementId: "G-E5KS3423ZK",
 });
 
 // Use these for db & auth
