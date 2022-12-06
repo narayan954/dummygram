@@ -13,7 +13,6 @@ function ImgUpload(props) {
   const [progress, setProgress] = useState(0);
   const [uploadingPost, setUploadingPost] = useState(false);
   const imgInput = useRef(null);
-  const [selectedFiles, setSelectedFiles] = useState(undefined);
   const [imagePreviews, setImagePreviews] = useState([]);
 
   const handleChange = (e) => {
