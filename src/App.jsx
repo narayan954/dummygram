@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import Post from "./components/Post";
 import { db, auth, storage } from "./lib/firebase";
 import {
@@ -19,6 +19,14 @@ import Loader from "./components/Loader";
 import AnimatedButton from "./components/AnimatedButton";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { useSnackbar } from "notistack";
+
+import Divider from '@mui/material/Divider';
+import Paper from '@mui/material/Paper';
+import MenuList from '@mui/material/MenuList';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
 
 function getModalStyle() {
   const top = 50;
@@ -236,6 +244,34 @@ function App() {
     }
   };
 
+
+
+/**
+ * * HEADER PROFILE ICON MENU  <START></START>* *
+ */
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
+  let menuRef = useRef();
+
+  useEffect((e) => {
+
+    let handler = (event) => {
+      if (showProfileMenu && !(menuRef.current.contains(event.target))) {
+        setShowProfileMenu(false);
+      }
+    };
+    document.addEventListener("mousedown", handler)
+
+    return (() => {
+      document.removeEventListener("mousedown", handler);
+    })
+  })
+  const handleClose = () => setShowProfileMenu(false);
+  const handleShow = () => setShowProfileMenu(true);
+
+  /**
+ * * HEADER PROFILE ICON MENU </END>* *
+ */
+
   return (
     <div className="app">
       <div className="app__header">
@@ -254,10 +290,31 @@ function App() {
               />
             </div>
             <div className="app__header__home_post_profile_icons">
-              <FiHome style={{fontSize:"24px",cursor:"pointer",}}  onClick={scrollTop}/>
-              <BsPlusSquare style={{fontSize:"20px", cursor:"pointer", }} onClick={() => setOpenNewUpload(true)}/>
-              <CgProfile style={{fontSize:"24px",cursor:"pointer"}} onClick={signOut} />
+              <FiHome style={{ fontSize: "24px", cursor: "pointer", }} onClick={scrollTop} />
+              <BsPlusSquare style={{ fontSize: "20px", cursor: "pointer", }} onClick={() => setOpenNewUpload(true)} />
+              <div className="app__header_profile_div">
+                <CgProfile className="app__header__profile__icon" style={{ fontSize: "24px", cursor: "pointer" }} onClick={handleShow} />
+                {
+                  showProfileMenu && <Paper ref={menuRef} className="app__header__profile__menu" id="__app_header__profile__menu">
+                    <MenuList>
+                      <MenuItem onClick={handleClose}>
+                        <ListItemIcon>
+                          <AccountCircleTwoToneIcon fontSize="medium" />
+                        </ListItemIcon>
+                        <ListItemText>Profile</ListItemText>
+                      </MenuItem>
+                      <Divider />
+                      <MenuItem onClick={handleClose}>
+                        <ListItemText onClick={signOut} >Log out</ListItemText>
+                      </MenuItem>
+                    </MenuList>
+                  </Paper>
+                }
+              </div>
+
             </div>
+
+
             {/* <Button
               onClick={() => setOpenNewUpload(true)}
               color="secondary"
@@ -410,7 +467,7 @@ function App() {
       <FaArrowCircleUp
         className="scrollTop"
         onClick={scrollTop}
-        style={{ height: 40, display: showScroll ? "flex" : "none", fontWeight:"lighter" }}
+        style={{ height: 40, display: showScroll ? "flex" : "none", fontWeight: "lighter" }}
       />
     </div>
   );

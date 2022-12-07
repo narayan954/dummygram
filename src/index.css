@@ -49,8 +49,19 @@
   justify-content: space-around;
   align-items: center;
   gap:30px;
+  /* position: relative; */
 }
 
+.app__header_profile_div{
+  position: relative;
+}
+.app__header__profile__menu{
+  position: absolute;
+  min-width:120px;
+  max-width: 100%;
+  right: 0;
+  top:50px;
+}
 
 
 
