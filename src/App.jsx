@@ -339,7 +339,7 @@ function App() {
             <center>
               <img
                 src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
-                alt="instagram"
+                alt="dummygram"
                 className="modal__signup__img"
               />
               <Input
