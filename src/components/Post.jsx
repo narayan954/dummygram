@@ -308,29 +308,38 @@ function Post(prop) {
             </>
           )}
         </div>
-
-        <Button onClick={setisCommentOpen}>View All comments</Button>
-        <DialogBox
-          open={isCommentOpen}
-          onClose={handleCommentClose}
-          title="All Comments"
-        >
-          <div className="post__comments">
-            {comments.map((userComment) => (
-              <p key={userComment.id}>
-                <strong>{userComment.content.username}</strong>{" "}
-                {userComment.content.text}
-                <span onClick={(event) => deleteComment(event, userComment)}>
-                  {user && userComment.content.username === user.displayName ? (
-                    <DeleteTwoToneIcon fontSize="small" />
-                  ) : (
-                    <></>
-                  )}
-                </span>
-              </p>
-            ))}
-          </div>
-        </DialogBox>
+        
+        {comments.length != 0 ? (
+          <>
+            <Button onClick={setisCommentOpen}>View All comments</Button>
+            <DialogBox
+              open={isCommentOpen}
+              onClose={handleCommentClose}
+              title="All Comments"
+            >
+              <div className="post__comments">
+                {comments.map((userComment) => (
+                  <p key={userComment.id}>
+                    <strong>{userComment.content.username}</strong>{" "}
+                    {userComment.content.text}
+                    <span
+                      onClick={(event) => deleteComment(event, userComment)}
+                    >
+                      {user &&
+                      userComment.content.username === user.displayName ? (
+                        <DeleteTwoToneIcon fontSize="small" />
+                      ) : (
+                        <></>
+                      )}
+                    </span>
+                  </p>
+                ))}
+              </div>
+            </DialogBox>
+          </>
+        ) : (
+          <></>
+        )}
 
         {user && (
           <form className="post__commentBox">
