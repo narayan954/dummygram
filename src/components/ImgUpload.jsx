@@ -140,7 +140,7 @@ function ImgUpload(props) {
               id="imgPreview"
               className="preview" 
               src={img} 
-              alt={`image-{i}`} 
+              alt={`image-${i}`}
               key={i} />
             );
           })}
