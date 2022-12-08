@@ -343,7 +343,10 @@ function App() {
           </div>
         )}
       </div>
-      <Dialog open={openNewUpload} onClose={() => setOpenNewUpload(false)}>
+      <Dialog 
+      open={openNewUpload} 
+      onClose={() => setOpenNewUpload(false)}
+      >
         <DialogTitle>New Upload</DialogTitle>
         <DialogContent>
           {!loadingPosts &&
@@ -387,8 +390,7 @@ function App() {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <label for="file">Choose your profile pic</label>
-              <Input type="file" id="file" onChange={handleChange} />
-
+              <Input type="file" id="file" onChange={handleChange}/>
               <AnimatedButton
                 type="submit"
                 variant="contained"
@@ -407,7 +409,7 @@ function App() {
             <center>
               <img
                 src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
-                alt="instagram"
+                alt="dummygram"
                 className="modal__signup__img"
               />
               <Input

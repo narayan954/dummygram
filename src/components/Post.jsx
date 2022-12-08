@@ -26,6 +26,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import EmojiPicker from "emoji-picker-react";
 import { doc, updateDoc } from "firebase/firestore";
+import DialogBox from "../reusableComponents/DialogBox";
 
 const ITEM_HEIGHT = 48;
 
@@ -38,6 +39,7 @@ function Post(prop) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [showEmojis, setShowEmojis] = useState(false);
   const [Open, setOpen] = useState(false);
+  const [isCommentOpen, setisCommentOpen] = useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const open = Boolean(anchorEl);
@@ -159,8 +161,16 @@ function Post(prop) {
     setAnchorEl(null);
   };
 
+  const handleCommentOpen = () => {
+    setisCommentOpen(true);
+  };
+
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleCommentClose = () => {
+    setisCommentOpen(false);
   };
 
   return (
@@ -298,6 +308,7 @@ function Post(prop) {
             </>
           )}
         </div>
+<<<<<<< HEAD
 
         <div className="post__comments">
           {comments.map((userComment) => (
@@ -314,6 +325,40 @@ function Post(prop) {
             </p>
           ))}
         </div>
+=======
+        
+        {comments.length ? (
+          <>
+            <Button onClick={setisCommentOpen}>View All comments</Button>
+            <DialogBox
+              open={isCommentOpen}
+              onClose={handleCommentClose}
+              title="All Comments"
+            >
+              <div className="post__comments">
+                {comments.map((userComment) => (
+                  <p key={userComment.id}>
+                    <strong>{userComment.content.username}</strong>{" "}
+                    {userComment.content.text}
+                    <span
+                      onClick={(event) => deleteComment(event, userComment)}
+                    >
+                      {user &&
+                      userComment.content.username === user.displayName ? (
+                        <DeleteTwoToneIcon fontSize="small" />
+                      ) : (
+                        <></>
+                      )}
+                    </span>
+                  </p>
+                ))}
+              </div>
+            </DialogBox>
+          </>
+        ) : (
+          <></>
+        )}
+>>>>>>> 91abcbb009814eb8bc61b46ddefb9d0304762f24
 
         {user && (
           <form className="post__commentBox">
