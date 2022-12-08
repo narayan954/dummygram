@@ -285,16 +285,16 @@ function App() {
               />
             </div>
             <div className="app__header__home_post_profile_icons">
-              <FiHome style={{ fontSize: "24px", cursor: "pointer", }} onClick={scrollTop} />
-              <BsPlusSquare style={{ fontSize: "20px", cursor: "pointer", }} onClick={() => setOpenNewUpload(true)} />
+              <FiHome style={{ fontSize: "26px", cursor: "pointer", }} onClick={scrollTop} />
+              <BsPlusSquare style={{ fontSize: "26px", cursor: "pointer", }} onClick={() => setOpenNewUpload(true)} />
               <div className="app__header_profile_div">
-                <CgProfile className="app__header__profile__icon" style={{ fontSize: "24px", cursor: "pointer" }} onClick={handleShow} />
+                <CgProfile className="app__header__profile__icon" style={{ fontSize: "28px", cursor: "pointer" }} onClick={handleShow} />
                 {
                   showProfileMenu && <Paper ref={menuRef} className="app__header__profile__menu" id="__app_header__profile__menu">
                     <MenuList>
                       <MenuItem onClick={handleClose}>
                         <ListItemIcon>
-                          <AccountCircleTwoToneIcon fontSize="medium" />
+                          <AccountCircleTwoToneIcon/>
                         </ListItemIcon>
                         <ListItemText>Profile</ListItemText>
                       </MenuItem>
@@ -362,7 +362,7 @@ function App() {
       </Dialog>
 
       <Modal open={openSignUp} onClose={() => setOpenSignUp(false)}>
-        <div style={modalStyle} className={classes.paper}>
+        <div style={modalStyle} className={classes.paper} id="model__signUp__parent">
           <form className="modal__signup" onSubmit={signUp}>
             <center>
               <img
@@ -372,20 +372,20 @@ function App() {
               />
               <Input
                 type="text"
-                placeholder="username"
+                placeholder="Username"
                 required
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
               <Input
                 type="text"
-                placeholder="email"
+                placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <Input
                 type="password"
-                placeholder="password"
+                placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -403,8 +403,8 @@ function App() {
           </form>
         </div>
       </Modal>
-      <Modal open={openSignIn} onClose={() => setOpenSignIn(false)}>
-        <div style={getModalStyle()} className={classes.paper}>
+      <Modal open={openSignIn} onClose={() => setOpenSignIn(false)} >
+        <div style={getModalStyle()} className={classes.paper} id="model__signIn__parent">
           <form className="modal__signup">
             <center>
               <img
@@ -414,13 +414,13 @@ function App() {
               />
               <Input
                 type="text"
-                placeholder="email"
+                placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <Input
                 type="password"
-                placeholder="password"
+                placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />

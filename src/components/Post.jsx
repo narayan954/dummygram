@@ -308,25 +308,7 @@ function Post(prop) {
             </>
           )}
         </div>
-<<<<<<< HEAD
 
-        <div className="post__comments">
-          {comments.map((userComment) => (
-            <p key={userComment.id} className="post__comment">
-              <strong>{userComment.content.username}</strong>{" "}
-              {userComment.content.text}
-              <span onClick={(event) => deleteComment(event, userComment)}>
-                {user && userComment.content.username === user.displayName ? (
-                  <DeleteTwoToneIcon fontSize="small" className="delete_two_tone_icon"/>
-                ) : (
-                  <></>
-                )}
-              </span>
-            </p>
-          ))}
-        </div>
-=======
-        
         {comments.length ? (
           <>
             <Button onClick={setisCommentOpen}>View All comments</Button>
@@ -344,7 +326,7 @@ function Post(prop) {
                       onClick={(event) => deleteComment(event, userComment)}
                     >
                       {user &&
-                      userComment.content.username === user.displayName ? (
+                        userComment.content.username === user.displayName ? (
                         <DeleteTwoToneIcon fontSize="small" />
                       ) : (
                         <></>
@@ -358,7 +340,6 @@ function Post(prop) {
         ) : (
           <></>
         )}
->>>>>>> 91abcbb009814eb8bc61b46ddefb9d0304762f24
 
         {user && (
           <form className="post__commentBox">
