@@ -16,7 +16,7 @@ function ImgUpload(props) {
   const [imagePreviews, setImagePreviews] = useState([]);
 
   const handleChange = (e) => {
-    let images = [];
+    const images = [];
 
     if (e.target.files?.length) {
       setImage(Array.from(e.target.files));
