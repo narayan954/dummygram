@@ -124,7 +124,7 @@
 .social__icon__last {
   padding: 10px;
   margin-left: auto !important;
-  border:2px solid red;
+  /* border:2px solid red; */
 }
 .post__avatar {
   margin-right: 10px;
@@ -218,7 +218,6 @@
   margin-right: auto;
   margin-top: 10px;
   margin-bottom: 10px;
-  /* border: 1px solid #ccc; */
   background-color: white;
 }
 

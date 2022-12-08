@@ -10,9 +10,6 @@ import {
   DialogContent,
 } from "@mui/material";
 
-import { FiSearch, FiHome } from "react-icons/fi"
-import { BsPlusSquare } from "react-icons/bs"
-import { CgProfile } from 'react-icons/cg'
 import { makeStyles } from "@mui/styles";
 import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
@@ -20,13 +17,16 @@ import AnimatedButton from "./components/AnimatedButton";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { useSnackbar } from "notistack";
 
-import Divider from '@mui/material/Divider';
-import Paper from '@mui/material/Paper';
-import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemIcon from '@mui/material/ListItemIcon';
+import MenuList from '@mui/material/MenuList';
+import Paper from '@mui/material/Paper';
+import Divider from '@mui/material/Divider';
 import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
+import { CgProfile } from 'react-icons/cg'
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import { BsPlusSquare } from "react-icons/bs"
+import { FiSearch, FiHome } from "react-icons/fi"
 
 function getModalStyle() {
   const top = 50;
@@ -245,16 +245,14 @@ function App() {
   };
 
 
+// use state and function profile icon menu
 
-/**
- * * HEADER PROFILE ICON MENU  <START></START>* *
- */
   const [showProfileMenu, setShowProfileMenu] = useState(false);
-  let menuRef = useRef();
+  const menuRef = useRef();
 
-  useEffect((e) => {
+  useEffect(() => {
 
-    let handler = (event) => {
+    const handler = (event) => {
       if (showProfileMenu && !(menuRef.current.contains(event.target))) {
         setShowProfileMenu(false);
       }
@@ -268,9 +266,6 @@ function App() {
   const handleClose = () => setShowProfileMenu(false);
   const handleShow = () => setShowProfileMenu(true);
 
-  /**
- * * HEADER PROFILE ICON MENU </END>* *
- */
 
   return (
     <div className="app">
