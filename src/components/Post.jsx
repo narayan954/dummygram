@@ -309,7 +309,7 @@ function Post(prop) {
           )}
         </div>
         
-        {comments.length != 0 ? (
+        {comments.length ? (
           <>
             <Button onClick={setisCommentOpen}>View All comments</Button>
             <DialogBox
