@@ -309,28 +309,113 @@ function Post(prop) {
           )}
         </div>
 
-        <Button onClick={setisCommentOpen}>View All comments</Button>
-        <DialogBox
-          open={isCommentOpen}
-          onClose={handleCommentClose}
-          title="All Comments"
-        >
-          <div className="post__comments">
-            {comments.map((userComment) => (
-              <p key={userComment.id}>
-                <strong>{userComment.content.username}</strong>{" "}
-                {userComment.content.text}
-                <span onClick={(event) => deleteComment(event, userComment)}>
-                  {user && userComment.content.username === user.displayName ? (
-                    <DeleteTwoToneIcon fontSize="small" />
-                  ) : (
-                    <></>
-                  )}
-                </span>
-              </p>
-            ))}
-          </div>
-        </DialogBox>
+
+         {/* View all comments dialog Box */}
+        {comments.length != 0 ? (
+          <>
+            <Button onClick={setisCommentOpen}>View All comments</Button>
+            <DialogBox
+              open={isCommentOpen}
+              onClose={handleCommentClose}
+              title="All Comments"
+            >
+              {postHasImages ? (
+          <Grid container>
+            {postImages.map(
+              ({ imageUrl, imageWidth, imageHeight, thumbnail }, index) => (
+                <Grid
+                  item
+                  key={imageUrl}
+                  xs={computeGridSize(postImages.length, index)}
+                  className="post__img_container"
+                >
+                  <LazyLoadImage
+                    className="post__img"
+                    src={imageUrl}
+                    placeholderSrc={thumbnail}
+                    effect="blur"
+                    alt={`${username}'s upload`}
+                    delayTime={1000}
+                    style={{
+                      width: imageLoaded ? "100%" : imageWidth,
+                      height: imageLoaded ? undefined : imageHeight,
+                      objectFit: imageLoaded ? "contain" : "cover",
+                    }}
+                    afterLoad={() => setImageLoaded(true)}
+                    onDoubleClick={likesHandler}
+                  />
+                  {/* <img className="post__img" src={img} alt="random sq" /> */}
+                </Grid>
+              )
+            )}
+          </Grid>
+        ) : (
+          <div className="post__background">{caption}</div>
+        )}
+              <div className="post__comments">
+                {comments.map((userComment) => (
+                  <p key={userComment.id}>
+                    <strong>{userComment.content.username}</strong>{" "}
+                    {userComment.content.text}
+                    <span
+                      onClick={(event) => deleteComment(event, userComment)}
+                    >
+                      {user &&
+                      userComment.content.username === user.displayName ? (
+                        <DeleteTwoToneIcon fontSize="small" />
+                      ) : (
+                        <></>
+                      )}
+                    </span>
+                  </p>
+                ))}
+              </div>
+              {user && (
+          <form className="post__commentBox">
+            <div className="social__icon">
+              <SentimentSatisfiedAltOutlinedIcon
+                onClick={() => {
+                  setShowEmojis((val) => !val);
+                }}
+              />
+              {showEmojis && (
+                <div id="picker">
+                  <EmojiPicker
+                    emojiStyle="native"
+                    height={330}
+                    searchDisabled={true}
+                    onEmojiClick={onEmojiClick}
+                    previewConfig={{
+                      showPreview: false,
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+
+
+            <input
+              className="post__input"
+              type="text"
+              placeholder="Add a comment..."
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+            />
+            <button
+              className="post__button"
+              disabled={!comment}
+              type="submit"
+              onClick={postComment}
+            >
+              Post
+            </button>
+          </form>
+        )}
+            </DialogBox>
+          </>
+        ) : (
+          <></>
+        )}
 
         {user && (
           <form className="post__commentBox">

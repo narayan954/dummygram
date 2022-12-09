@@ -28,7 +28,6 @@ dist-ssr
 # firebase
 /.firebase
 /firebase
-/lib/firebase.js
 
 # misc
 .DS_Store
