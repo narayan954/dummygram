@@ -8,7 +8,6 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  overflow: hidden;
 }
 
 .app__header {
@@ -16,6 +15,7 @@
   justify-content: space-around;
   align-items: center;
   position: sticky;
+  overflow: hidden;
   top: 0;
   z-index: 1;
   background-color: white;
@@ -27,6 +27,7 @@
 .app__header__img {
   object-fit: contain;
   width: 150px;
+  cursor: pointer;
 }
 
 .app__header__search__bar {
@@ -229,10 +230,8 @@
   display: flex;
   flex-direction: column;
   gap: 1.2em;
-  padding: 1em;
   text-align: center;
   margin: auto;
-  border: 2px solid hsla(0, 0%, 0%, 0.504);
 }
 
 

@@ -245,7 +245,7 @@ function App() {
   };
 
 
-// use state and function profile icon menu
+  // use state and function profile icon menu
 
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const menuRef = useRef();
@@ -270,7 +270,7 @@ function App() {
   return (
     <div className="app">
       <div className="app__header">
-        <img src={Logo} alt="dummygram" className="app__header__img" />
+        <img src={Logo} alt="dummygram" className="app__header__img" onClick={scrollTop} />
         {processingAuth ? (
           <Loader />
         ) : user ? (
@@ -286,7 +286,7 @@ function App() {
             </div>
             <div className="app__header__home_post_profile_icons">
               <FiHome style={{ fontSize: "26px", cursor: "pointer", }} onClick={scrollTop} />
-              <BsPlusSquare style={{ fontSize: "26px", cursor: "pointer", }} onClick={() => setOpenNewUpload(true)} />
+              <BsPlusSquare style={{ fontSize: "26px", cursor: "pointer", stroke: "black", strokeWidth: "0.5" }} onClick={() => setOpenNewUpload(true)} />
               <div className="app__header_profile_div">
                 <CgProfile className="app__header__profile__icon" style={{ fontSize: "28px", cursor: "pointer" }} onClick={handleShow} />
                 {
@@ -294,7 +294,7 @@ function App() {
                     <MenuList>
                       <MenuItem onClick={handleClose}>
                         <ListItemIcon>
-                          <AccountCircleTwoToneIcon/>
+                          <AccountCircleTwoToneIcon />
                         </ListItemIcon>
                         <ListItemText>Profile</ListItemText>
                       </MenuItem>
@@ -306,7 +306,6 @@ function App() {
                   </Paper>
                 }
               </div>
-
             </div>
 
 
@@ -343,9 +342,10 @@ function App() {
           </div>
         )}
       </div>
-      <Dialog 
-      open={openNewUpload} 
-      onClose={() => setOpenNewUpload(false)}
+
+      <Dialog
+        open={openNewUpload}
+        onClose={() => setOpenNewUpload(false)}
       >
         <DialogTitle>New Upload</DialogTitle>
         <DialogContent>
@@ -390,7 +390,7 @@ function App() {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <label for="file">Choose your profile pic</label>
-              <Input type="file" id="file" onChange={handleChange}/>
+              <Input type="file" id="file" onChange={handleChange} />
               <AnimatedButton
                 type="submit"
                 variant="contained"
