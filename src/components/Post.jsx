@@ -5,6 +5,7 @@ import { red } from "@mui/material/colors";
 import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
+import Scroll from "../reusableComponents/Scroll";
 import {
   Avatar,
   Grid,
@@ -372,6 +373,7 @@ function Post(prop) {
                   </Item>
                 </Grid>
                 <Grid item  xs={6} md={6}>
+                  <Scroll>
                   <Item>
                   <div className="post__comments">
                     {comments.map((userComment) => (
@@ -388,11 +390,12 @@ function Post(prop) {
                             <></>
                           )}
                         </span>
+                        <hr></hr>
                       </p>
                     ))}
                   </div>
-                  
                   </Item>
+                  </Scroll>
                 </Grid>
               </Grid>
               </Box>
@@ -432,7 +435,7 @@ function Post(prop) {
                         type="submit"
                         onClick={postComment}
                       >
-                        Post
+                        Comment
                       </button>
                     </form>
                   )}
