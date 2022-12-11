@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import Post from "./components/Post";
 import { db, auth, storage } from "./lib/firebase";
+import { Popover } from 'antd';
 import {
   Modal,
   Button,
@@ -10,6 +11,12 @@ import {
   DialogContent,
 } from "@mui/material";
 
+import { makeStyles } from "@mui/styles";
+import ImgUpload from "./components/ImgUpload";
+import Loader from "./components/Loader";
+import AnimatedButton from "./components/AnimatedButton";
+import { FaArrowCircleUp } from "react-icons/fa";
+import { useSnackbar } from "notistack";
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import Paper from '@mui/material/Paper';
@@ -283,10 +290,17 @@ function App() {
               />
             </div>
             <div className="app__header__home_post_profile_icons">
-              <FiHome style={{ fontSize: "26px", cursor: "pointer", }} onClick={scrollTop} />
-              <BsPlusSquare style={{ fontSize: "26px", cursor: "pointer", stroke: "black", strokeWidth: "0.5" }} onClick={() => setOpenNewUpload(true)} />
+              <Popover content="Home"><FiHome style={{ fontSize: "26px", cursor: "pointer", }} onClick={scrollTop} />
+              </Popover>
+
+              <Popover content="New Post">
+                <BsPlusSquare style={{ fontSize: "26px", cursor: "pointer", stroke: "black", strokeWidth: "0.5" }} onClick={() => setOpenNewUpload(true)} />
+              </Popover>
               <div className="app__header_profile_div">
-                <CgProfile className="app__header__profile__icon" style={{ fontSize: "28px", cursor: "pointer" }} onClick={handleShow} />
+
+                <Popover content="Profile Menu">
+                  <CgProfile className="app__header__profile__icon" style={{ fontSize: "28px", cursor: "pointer" }} onClick={handleShow} />
+                </Popover>
                 {
                   showProfileMenu && <Paper ref={menuRef} className="app__header__profile__menu" id="__app_header__profile__menu">
                     <MenuList>

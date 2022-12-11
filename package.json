@@ -17,6 +17,7 @@
     "@mui/icons-material": "^5.10.16",
     "@mui/material": "^5.10.17",
     "@mui/styles": "^5.10.16",
+    "antd": "^5.0.5",
     "emoji-picker-react": "^4.4.7",
     "firebase": "^9.15.0",
     "notistack": "^2.0.8",
