@@ -1,5 +1,8 @@
 * {
   margin: 0;
+  padding:0;
+  margin:0;
+  box-sizing: border-box;
 }
 
 /* App styles */
@@ -127,6 +130,7 @@
 .social__icon__last {
   padding: 10px;
   margin-left: auto !important;
+  border:2px solid red;
 }
 
 .post__avatar {

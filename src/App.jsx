@@ -10,13 +10,6 @@ import {
   DialogContent,
 } from "@mui/material";
 
-import { makeStyles } from "@mui/styles";
-import ImgUpload from "./components/ImgUpload";
-import Loader from "./components/Loader";
-import AnimatedButton from "./components/AnimatedButton";
-import { FaArrowCircleUp } from "react-icons/fa";
-import { useSnackbar } from "notistack";
-
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import Paper from '@mui/material/Paper';
@@ -245,14 +238,16 @@ function App() {
   };
 
 
-  // use state and function profile icon menu
 
+/**
+ * * HEADER PROFILE ICON MENU  <START></START>* *
+ */
   const [showProfileMenu, setShowProfileMenu] = useState(false);
-  const menuRef = useRef();
+  let menuRef = useRef();
 
-  useEffect(() => {
+  useEffect((e) => {
 
-    const handler = (event) => {
+    let handler = (event) => {
       if (showProfileMenu && !(menuRef.current.contains(event.target))) {
         setShowProfileMenu(false);
       }
@@ -266,6 +261,9 @@ function App() {
   const handleClose = () => setShowProfileMenu(false);
   const handleShow = () => setShowProfileMenu(true);
 
+  /**
+ * * HEADER PROFILE ICON MENU </END>* *
+ */
 
   return (
     <div className="app">
@@ -295,7 +293,7 @@ function App() {
                       <MenuItem onClick={handleClose}>
                         <ListItemIcon>
                           <AccountCircleTwoToneIcon />
-                        </ListItemIcon>
+                          </ListItemIcon>
                         <ListItemText>Profile</ListItemText>
                       </MenuItem>
                       <Divider />
