@@ -10,23 +10,16 @@ import {
   DialogContent,
 } from "@mui/material";
 
-import { FiSearch, FiHome } from "react-icons/fi"
-import { BsPlusSquare } from "react-icons/bs"
-import { CgProfile } from 'react-icons/cg'
-import { makeStyles } from "@mui/styles";
-import ImgUpload from "./components/ImgUpload";
-import Loader from "./components/Loader";
-import AnimatedButton from "./components/AnimatedButton";
-import { FaArrowCircleUp } from "react-icons/fa";
-import { useSnackbar } from "notistack";
-
-import Divider from '@mui/material/Divider';
-import Paper from '@mui/material/Paper';
-import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemIcon from '@mui/material/ListItemIcon';
+import MenuList from '@mui/material/MenuList';
+import Paper from '@mui/material/Paper';
+import Divider from '@mui/material/Divider';
 import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
+import { CgProfile } from 'react-icons/cg'
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import { BsPlusSquare } from "react-icons/bs"
+import { FiSearch, FiHome } from "react-icons/fi"
 
 function getModalStyle() {
   const top = 50;
@@ -275,7 +268,7 @@ function App() {
   return (
     <div className="app">
       <div className="app__header">
-        <img src={Logo} alt="dummygram" className="app__header__img" />
+        <img src={Logo} alt="dummygram" className="app__header__img" onClick={scrollTop} />
         {processingAuth ? (
           <Loader />
         ) : user ? (
@@ -290,17 +283,17 @@ function App() {
               />
             </div>
             <div className="app__header__home_post_profile_icons">
-              <FiHome style={{ fontSize: "24px", cursor: "pointer", }} onClick={scrollTop} />
-              <BsPlusSquare style={{ fontSize: "20px", cursor: "pointer", }} onClick={() => setOpenNewUpload(true)} />
+              <FiHome style={{ fontSize: "26px", cursor: "pointer", }} onClick={scrollTop} />
+              <BsPlusSquare style={{ fontSize: "26px", cursor: "pointer", stroke: "black", strokeWidth: "0.5" }} onClick={() => setOpenNewUpload(true)} />
               <div className="app__header_profile_div">
-                <CgProfile className="app__header__profile__icon" style={{ fontSize: "24px", cursor: "pointer" }} onClick={handleShow} />
+                <CgProfile className="app__header__profile__icon" style={{ fontSize: "28px", cursor: "pointer" }} onClick={handleShow} />
                 {
                   showProfileMenu && <Paper ref={menuRef} className="app__header__profile__menu" id="__app_header__profile__menu">
                     <MenuList>
                       <MenuItem onClick={handleClose}>
                         <ListItemIcon>
-                          <AccountCircleTwoToneIcon fontSize="medium" />
-                        </ListItemIcon>
+                          <AccountCircleTwoToneIcon />
+                          </ListItemIcon>
                         <ListItemText>Profile</ListItemText>
                       </MenuItem>
                       <Divider />
@@ -311,7 +304,6 @@ function App() {
                   </Paper>
                 }
               </div>
-
             </div>
 
 
@@ -348,9 +340,10 @@ function App() {
           </div>
         )}
       </div>
-      <Dialog 
-      open={openNewUpload} 
-      onClose={() => setOpenNewUpload(false)}
+
+      <Dialog
+        open={openNewUpload}
+        onClose={() => setOpenNewUpload(false)}
       >
         <DialogTitle>New Upload</DialogTitle>
         <DialogContent>
@@ -367,7 +360,7 @@ function App() {
       </Dialog>
 
       <Modal open={openSignUp} onClose={() => setOpenSignUp(false)}>
-        <div style={modalStyle} className={classes.paper}>
+        <div style={modalStyle} className={classes.paper} id="model__signUp__parent">
           <form className="modal__signup" onSubmit={signUp}>
             <center>
               <img
@@ -377,25 +370,25 @@ function App() {
               />
               <Input
                 type="text"
-                placeholder="username"
+                placeholder="Username"
                 required
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
               <Input
                 type="text"
-                placeholder="email"
+                placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <Input
                 type="password"
-                placeholder="password"
+                placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
               <label for="file">Choose your profile pic</label>
-              <Input type="file" id="file" onChange={handleChange}/>
+              <Input type="file" id="file" onChange={handleChange} />
               <AnimatedButton
                 type="submit"
                 variant="contained"
@@ -408,8 +401,8 @@ function App() {
           </form>
         </div>
       </Modal>
-      <Modal open={openSignIn} onClose={() => setOpenSignIn(false)}>
-        <div style={getModalStyle()} className={classes.paper}>
+      <Modal open={openSignIn} onClose={() => setOpenSignIn(false)} >
+        <div style={getModalStyle()} className={classes.paper} id="model__signIn__parent">
           <form className="modal__signup">
             <center>
               <img
@@ -419,13 +412,13 @@ function App() {
               />
               <Input
                 type="text"
-                placeholder="email"
+                placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <Input
                 type="password"
-                placeholder="password"
+                placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />

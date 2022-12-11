@@ -308,7 +308,7 @@ function Post(prop) {
             </>
           )}
         </div>
-        
+
         {comments.length ? (
           <>
             <Button onClick={setisCommentOpen}>View All comments</Button>
@@ -326,7 +326,7 @@ function Post(prop) {
                       onClick={(event) => deleteComment(event, userComment)}
                     >
                       {user &&
-                      userComment.content.username === user.displayName ? (
+                        userComment.content.username === user.displayName ? (
                         <DeleteTwoToneIcon fontSize="small" />
                       ) : (
                         <></>
