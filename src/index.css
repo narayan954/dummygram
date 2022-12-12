@@ -156,13 +156,13 @@
 
 .post__input {
   border: none;
-  flex: 1;
+  flex: 0.8;
   padding: 10px;
   font-size: 16px;
 }
 
 .post__button {
-  flex: 0;
+  flex: 0.2;
   border: none;
 
   color: #0a66c2;
