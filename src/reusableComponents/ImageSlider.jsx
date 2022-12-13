@@ -24,8 +24,6 @@ const ImageSlider = ({ slides }) => {
   //   setTimeout(() => setCurrent(current + 1), 1000);
   // }, [slides]);
 
-  console.log(slides);
-
   if (!Array.isArray(slides) || slides.length <= 0) {
     return null;
   }
