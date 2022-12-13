@@ -31,6 +31,7 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import EmojiPicker from "emoji-picker-react";
 import { doc, updateDoc } from "firebase/firestore";
 import DialogBox from "../reusableComponents/DialogBox";
+import ImageSlider from "../reusableComponents/ImageSlider";
 
 const ITEM_HEIGHT = 48;
 
@@ -253,35 +254,11 @@ function Post(prop) {
 
       <div className="post__container">
         {postHasImages ? (
-          <Grid container>
-            {postImages.map(
-              ({ imageUrl, imageWidth, imageHeight, thumbnail }, index) => (
-                <Grid
-                  item
-                  key={imageUrl}
-                  xs={computeGridSize(postImages.length, index)}
-                  className="post__img_container"
-                >
-                  <LazyLoadImage
-                    className="post__img"
-                    src={imageUrl}
-                    placeholderSrc={thumbnail}
-                    effect="blur"
-                    alt={`${username}'s upload`}
-                    delayTime={1000}
-                    style={{
-                      width: imageLoaded ? "100%" : imageWidth,
-                      height: imageLoaded ? undefined : imageHeight,
-                      objectFit: imageLoaded ? "contain" : "cover",
-                    }}
-                    afterLoad={() => setImageLoaded(true)}
-                    onDoubleClick={likesHandler}
-                  />
-                  {/* <img className="post__img" src={img} alt="random sq" /> */}
-                </Grid>
-              )
-            )}
-          </Grid>
+          <div>
+            <ImageSlider slides={
+              postImages
+            } />
+          </div>
         ) : (
           <div className="post__background">{caption}</div>
         )}
