@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
+import CommentIcon from "@mui/icons-material/Comment";
 import { red } from "@mui/material/colors";
 import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
-import Scroll from "../reusableComponents/Scroll";
 import {
   Avatar,
   Grid,
@@ -19,9 +19,6 @@ import {
   DialogContent,
   DialogContentText,
   useMediaQuery,
-  Box,
-  Paper,
-  styled
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { db } from "../lib/firebase";
@@ -31,6 +28,7 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import EmojiPicker from "emoji-picker-react";
 import { doc, updateDoc } from "firebase/firestore";
 import DialogBox from "../reusableComponents/DialogBox";
+import ReadMore from "./ReadMore";
 
 const ITEM_HEIGHT = 48;
 
@@ -72,14 +70,6 @@ function Post(prop) {
       }
     };
   }, [postId]);
-
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  }));
 
   const postComment = (event) => {
     event.preventDefault();
@@ -186,13 +176,28 @@ function Post(prop) {
   };
 
   return (
-    <div className="post">
+    <div
+      className="post"
+      style={{ boxShadow: "0px 1px 4px 0.4px rgba(0, 0, 0, 0.4)" }}
+    >
       <div className="post__header">
         <Avatar
           className="post__avatar"
           alt={username}
           src={avatar}
-          sx={{ bgcolor: "Orange" }}
+          sx={{
+            bgcolor: "royalblue",
+            border: "2px solid transparent",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            cursor: "pointer",
+            "&:hover": {
+              boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 17px 0px",
+              border: "2px solid black",
+              scale: "1.1",
+            },
+          }}
         />
         <h3 className="post__username">{username}</h3>
         <div className="social__icon__last">
@@ -253,7 +258,7 @@ function Post(prop) {
 
       <div className="post__container">
         {postHasImages ? (
-          <Grid container>
+          <Grid container sx={{ position: "relative" }}>
             {postImages.map(
               ({ imageUrl, imageWidth, imageHeight, thumbnail }, index) => (
                 <Grid
@@ -277,6 +282,7 @@ function Post(prop) {
                     afterLoad={() => setImageLoaded(true)}
                     onDoubleClick={likesHandler}
                   />
+
                   {/* <img className="post__img" src={img} alt="random sq" /> */}
                 </Grid>
               )
@@ -287,10 +293,15 @@ function Post(prop) {
         )}
         <div className="social__icons__wrapper">
           <span style={{ marginLeft: "14px", fontWeight: "light" }}>
-            {likecount ? likesNo : 0} likes
+            {likecount ? likesNo : 0}{" "}
+            <span style={{ fontWeight: "bold" }}>likes</span>
           </span>
 
-          <div className="social__icon" onClick={likesHandler}>
+          <div
+            className="social__icon"
+            onClick={likesHandler}
+            style={{ cursor: "pointer" }}
+          >
             {user ? (
               tempLikeCount.indexOf(user.uid) != -1 ? (
                 <FavoriteOutlinedIcon sx={{ color: red[500] }} />
@@ -315,130 +326,50 @@ function Post(prop) {
         <div className="post__text">
           {caption && postHasImages && (
             <>
-              <strong>{username} </strong>
-              {caption}
+              <strong style={{ color: "royalblue" }}>#{username} </strong>
+              <ReadMore caption={caption} />
             </>
           )}
         </div>
 
-        {/* View all comments dialog Box */}
         {comments.length ? (
           <>
-            <Button onClick={setisCommentOpen}>View All comments</Button>
+            <Button
+              onClick={setisCommentOpen}
+              startIcon={<CommentIcon />}
+              sx={{
+                backgroundColor: "transparent",
+                // textDecoration: "underline",
+                backgroundColor: "rgba(	135, 206, 235, 0.2)",
+                margin: "12px 0",
+                fontSize: "12px",
+              }}
+            >
+              View All comments
+            </Button>
             <DialogBox
               open={isCommentOpen}
               onClose={handleCommentClose}
               title="All Comments"
             >
-              <Box sx={{ flexGrow: 1 }}>
-              <Grid container>
-                <Grid item  xs={6} md={6}>
-                  <Item>
-                  {postHasImages ? (
-                    <Grid container>
-                      {postImages.map(
-                        (
-                          { imageUrl, imageWidth, imageHeight, thumbnail },
-                          index
-                        ) => (
-                          <Grid
-                            item
-                            key={imageUrl}
-                            xs={computeGridSize(postImages.length, index)}
-                            className="post__img_container"
-                          >
-                            <LazyLoadImage
-                              className="post__img"
-                              src={imageUrl}
-                              placeholderSrc={thumbnail}
-                              effect="blur"
-                              alt={`${username}'s upload`}
-                              delayTime={1000}
-                              style={{
-                                width: imageLoaded ? "100%" : imageWidth,
-                                height: imageLoaded ? undefined : imageHeight,
-                                objectFit: imageLoaded ? "contain" : "cover",
-                              }}
-                              afterLoad={() => setImageLoaded(true)}
-                              onDoubleClick={likesHandler}
-                            />
-                            {/* <img className="post__img" src={img} alt="random sq" /> */}
-                          </Grid>
-                        )
+              <div className="post__comments">
+                {comments.map((userComment) => (
+                  <p key={userComment.id}>
+                    <strong>{userComment.content.username}</strong>{" "}
+                    {userComment.content.text}
+                    <span
+                      onClick={(event) => deleteComment(event, userComment)}
+                    >
+                      {user &&
+                      userComment.content.username === user.displayName ? (
+                        <DeleteTwoToneIcon fontSize="small" />
+                      ) : (
+                        <></>
                       )}
-                    </Grid>
-                  ) : (
-                    <div className="post__background">{caption}</div>
-                  )}
-                  </Item>
-                </Grid>
-                <Grid item  xs={6} md={6}>
-                  <Scroll>
-                  <Item>
-                  <div className="post__comments">
-                    {comments.map((userComment) => (
-                      <p key={userComment.id}>
-                        <strong>{userComment.content.username}</strong>{" "}
-                        {userComment.content.text}
-                        <span
-                          onClick={(event) => deleteComment(event, userComment)}
-                        >
-                          {user &&
-                          userComment.content.username === user.displayName ? (
-                            <DeleteTwoToneIcon fontSize="small" />
-                          ) : (
-                            <></>
-                          )}
-                        </span>
-                        <hr></hr>
-                      </p>
-                    ))}
-                  </div>
-                  </Item>
-                  </Scroll>
-                </Grid>
-              </Grid>
-              </Box>
-              {user && (
-                    <form className="post__commentBox">
-                      <div className="social__icon">
-                        <SentimentSatisfiedAltOutlinedIcon
-                          onClick={() => {
-                            setShowEmojis((val) => !val);
-                          }}
-                        />
-                        {showEmojis && (
-                          <div id="picker">
-                            <EmojiPicker
-                              emojiStyle="native"
-                              height={330}
-                              searchDisabled={true}
-                              onEmojiClick={onEmojiClick}
-                              previewConfig={{
-                                showPreview: false,
-                              }}
-                            />
-                          </div>
-                        )}
-                      </div>
-
-                      <input
-                        className="post__input"
-                        type="text"
-                        placeholder="Add a comment..."
-                        value={comment}
-                        onChange={(e) => setComment(e.target.value)}
-                      />
-                      <button
-                        className="post__button"
-                        disabled={!comment}
-                        type="submit"
-                        onClick={postComment}
-                      >
-                        Comment
-                      </button>
-                    </form>
-                  )}
+                    </span>
+                  </p>
+                ))}
+              </div>
             </DialogBox>
           </>
         ) : (
