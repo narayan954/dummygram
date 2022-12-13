@@ -9,6 +9,7 @@ For setting up database on your local machine follow below mentioned steps
 - The API key will be in the format
 
 `
+
 const firebaseApp = firebase.initializeApp({
 
   apiKey: "",
@@ -25,7 +26,6 @@ const firebaseApp = firebase.initializeApp({
   
   measurementId: "",
 });
-`
 `
 
 - Go to build-> Authentication, Keep sign-in method as email and password
