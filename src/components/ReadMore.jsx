@@ -41,7 +41,7 @@ function ReadMore({ caption }) {
                 className="read__more__less"
                 onClick={handleReadMore}
               >
-                Read More
+                 {" "}Read More
               </span>
             </>
           ) : (
@@ -51,7 +51,7 @@ function ReadMore({ caption }) {
                 className="read__more__less"
                 onClick={handleReadLess}
               >
-                Read Less
+                {" "}Read Less
               </span>
             </>
           )}
