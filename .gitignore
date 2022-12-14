@@ -7,7 +7,6 @@ dist-ssr
 *.local
 .pnp
 .pnp.js
-package-lock.json
 
 # Editor directories and files
 .vscode/*
