@@ -6,7 +6,7 @@ import "./ImageSlider.css";
 const ImageSlider = ({ slides }) => {
   const [current, setCurrent] = useState(0);
 
-  //destructure  slides.lenght to get const { lenght } = slides;
+  //destructure  slides.length to get const { length } = slides;
 
   const prevStep = () => {
     setCurrent(current === 0 ? slides.length - 1 : current - 1);
@@ -24,13 +24,7 @@ const ImageSlider = ({ slides }) => {
   //   setTimeout(() => setCurrent(current + 1), 1000);
   // }, [slides]);
 
-
-  if (slides.length <= 0) {
-
-    return null;
-  }
-
-  return (
+  return slides.length ? (
     <div className="slider">
       {slides.map(({ imageUrl, imageWidth, imageHeight, thumbnail }, index) => (
         <div
@@ -51,14 +45,18 @@ const ImageSlider = ({ slides }) => {
               objectFit: "contain",
             }}
           />
-          {slides.length > 1 ? <>
-          <FaChevronCircleLeft className="circle" onClick={prevStep} />
-          <FaChevronCircleRight className="chevron" onClick={nextStep} />
-          </> : <></>}
+          {slides.length > 1 ? (
+            <>
+              <FaChevronCircleLeft className="circle" onClick={prevStep} />
+              <FaChevronCircleRight className="chevron" onClick={nextStep} />
+            </>
+          ) : (
+            <></>
+          )}
         </div>
       ))}
     </div>
-  );
+  ) : null;
 };
 
 export default ImageSlider;
