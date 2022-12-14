@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import './ImageSlider.css'
+import "./ImageSlider.css";
 
 const ImageSlider = ({ slides }) => {
   const [current, setCurrent] = useState(0);
@@ -44,7 +44,9 @@ const ImageSlider = ({ slides }) => {
             alt={` upload`}
             delayTime={1000}
             style={{
-                width: "100%", height: "100%", objectFit: "contain"
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
             }}
           />
           <FaChevronCircleLeft className="circle" onClick={prevStep} />

@@ -21,7 +21,7 @@ import {
   useMediaQuery,
   Box,
   Paper,
-  styled
+  styled,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { db } from "../lib/firebase";
@@ -62,7 +62,10 @@ function Post(prop) {
         .orderBy("timestamp", "desc")
         .onSnapshot((snapshot) => {
           setComments(
-            snapshot.docs.map((doc) => ({ id: doc.id, content: doc.data() }))
+            snapshot.docs.map((doc) => ({
+              id: doc.id,
+              content: doc.data(),
+            }))
           );
         });
     }
@@ -75,10 +78,10 @@ function Post(prop) {
   }, [postId]);
 
   const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
     ...theme.typography.body2,
     padding: theme.spacing(1),
-    textAlign: 'center',
+    textAlign: "center",
     color: theme.palette.text.secondary,
   }));
 
@@ -254,11 +257,7 @@ function Post(prop) {
 
       <div className="post__container">
         {postHasImages ? (
-          <div>
-            <ImageSlider slides={
-              postImages
-            } />
-          </div>
+          <ImageSlider slides={postImages} />
         ) : (
           <div className="post__background">{caption}</div>
         )}
@@ -308,114 +307,121 @@ function Post(prop) {
               title="All Comments"
             >
               <Box sx={{ flexGrow: 1 }}>
-              <Grid container>
-                <Grid item  xs={6} md={6}>
-                  <Item>
-                  {postHasImages ? (
-                    <Grid container>
-                      {postImages.map(
-                        (
-                          { imageUrl, imageWidth, imageHeight, thumbnail },
-                          index
-                        ) => (
-                          <Grid
-                            item
-                            key={imageUrl}
-                            xs={computeGridSize(postImages.length, index)}
-                            className="post__img_container"
-                          >
-                            <LazyLoadImage
-                              className="post__img"
-                              src={imageUrl}
-                              placeholderSrc={thumbnail}
-                              effect="blur"
-                              alt={`${username}'s upload`}
-                              delayTime={1000}
-                              style={{
-                                width: imageLoaded ? "100%" : imageWidth,
-                                height: imageLoaded ? undefined : imageHeight,
-                                objectFit: imageLoaded ? "contain" : "cover",
-                              }}
-                              afterLoad={() => setImageLoaded(true)}
-                              onDoubleClick={likesHandler}
-                            />
-                            {/* <img className="post__img" src={img} alt="random sq" /> */}
-                          </Grid>
-                        )
-                      )}
-                    </Grid>
-                  ) : (
-                    <div className="post__background">{caption}</div>
-                  )}
-                  </Item>
-                </Grid>
-                <Grid item  xs={6} md={6}>
-                  <Scroll>
-                  <Item>
-                  <div className="post__comments">
-                    {comments.map((userComment) => (
-                      <p key={userComment.id}>
-                        <strong>{userComment.content.username}</strong>{" "}
-                        {userComment.content.text}
-                        <span
-                          onClick={(event) => deleteComment(event, userComment)}
-                        >
-                          {user &&
-                          userComment.content.username === user.displayName ? (
-                            <DeleteTwoToneIcon fontSize="small" />
-                          ) : (
-                            <></>
+                <Grid container>
+                  <Grid item xs={6} md={6}>
+                    <Item>
+                      {postHasImages ? (
+                        <Grid container>
+                          {postImages.map(
+                            (
+                              { imageUrl, imageWidth, imageHeight, thumbnail },
+                              index
+                            ) => (
+                              <Grid
+                                item
+                                key={imageUrl}
+                                xs={computeGridSize(postImages.length, index)}
+                                className="post__img_container"
+                              >
+                                <LazyLoadImage
+                                  className="post__img"
+                                  src={imageUrl}
+                                  placeholderSrc={thumbnail}
+                                  effect="blur"
+                                  alt={`${username}'s upload`}
+                                  delayTime={1000}
+                                  style={{
+                                    width: imageLoaded ? "100%" : imageWidth,
+                                    height: imageLoaded
+                                      ? undefined
+                                      : imageHeight,
+                                    objectFit: imageLoaded
+                                      ? "contain"
+                                      : "cover",
+                                  }}
+                                  afterLoad={() => setImageLoaded(true)}
+                                  onDoubleClick={likesHandler}
+                                />
+                                {/* <img className="post__img" src={img} alt="random sq" /> */}
+                              </Grid>
+                            )
                           )}
-                        </span>
-                        <hr></hr>
-                      </p>
-                    ))}
-                  </div>
-                  </Item>
-                  </Scroll>
+                        </Grid>
+                      ) : (
+                        <div className="post__background">{caption}</div>
+                      )}
+                    </Item>
+                  </Grid>
+                  <Grid item xs={6} md={6}>
+                    <Scroll>
+                      <Item>
+                        <div className="post__comments">
+                          {comments.map((userComment) => (
+                            <p key={userComment.id}>
+                              <strong>{userComment.content.username}</strong>{" "}
+                              {userComment.content.text}
+                              <span
+                                onClick={(event) =>
+                                  deleteComment(event, userComment)
+                                }
+                              >
+                                {user &&
+                                userComment.content.username ===
+                                  user.displayName ? (
+                                  <DeleteTwoToneIcon fontSize="small" />
+                                ) : (
+                                  <></>
+                                )}
+                              </span>
+                              <hr></hr>
+                            </p>
+                          ))}
+                        </div>
+                      </Item>
+                    </Scroll>
+                  </Grid>
                 </Grid>
-              </Grid>
               </Box>
               {user && (
-                    <form className="post__commentBox">
-                      <div className="social__icon">
-                        <SentimentSatisfiedAltOutlinedIcon
-                          onClick={() => {
-                            setShowEmojis((val) => !val);
+                <form className="post__commentBox">
+                  <div className="social__icon">
+                    <SentimentSatisfiedAltOutlinedIcon
+                      onClick={() => {
+                        setShowEmojis((val) => !val);
+                      }}
+                    />
+                    {showEmojis && (
+                      <div id="picker">
+                        <EmojiPicker
+                          emojiStyle="native"
+                          height={330}
+                          searchDisabled={true}
+                          onEmojiClick={onEmojiClick}
+                          previewConfig={{
+                            showPreview: false,
                           }}
                         />
-                        {showEmojis && (
-                          <div id="picker">
-                            <EmojiPicker
-                              emojiStyle="native"
-                              height={330}
-                              searchDisabled={true}
-                              onEmojiClick={onEmojiClick}
-                              previewConfig={{
-                                showPreview: false,
-                              }}
-                            />
-                          </div>
-                        )}
                       </div>
+                    )}
+                  </div>
 
-                      <input
-                        className="post__input"
-                        type="text"
-                        placeholder="Add a comment..."
-                        value={comment}
-                        onChange={(e) => setComment(e.target.value)}
-                      />
-                      <button
-                        className="post__button"
-                        disabled={!comment}
-                        type="submit"
-                        onClick={postComment}
-                      >
-                        Comment
-                      </button>
-                    </form>
-                  )}
+                  <input
+                    className="post__input"
+                    type="text"
+                    placeholder="Add a comment..."
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                  />
+                  <button
+                    className="post__button"
+                    disabled={!comment}
+                    type="submit"
+                    onClick={postComment}
+                  >
+                    Comment
+                  </button>
+                </form>
+              )}
             </DialogBox>
           </>
         ) : (
