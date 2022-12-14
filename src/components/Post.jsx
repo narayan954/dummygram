@@ -338,7 +338,7 @@ function Post(prop) {
         <div className="post__text">
           {caption && postHasImages && (
             <>
-              <strong style={{ color: "royalblue" }}>#{username} </strong>
+              <strong style={{ color: "royalblue" }}>{username} </strong>
               <ReadMore caption={caption} />
             </>
           )}
@@ -346,12 +346,10 @@ function Post(prop) {
 
         {comments.length ? (
           <>
-          <Button
+            <Button
               onClick={setisCommentOpen}
               startIcon={<CommentIcon />}
               sx={{
-                backgroundColor: "transparent",
-                // textDecoration: "underline",
                 backgroundColor: "rgba(	135, 206, 235, 0.2)",
                 margin: "12px 0",
                 fontSize: "12px",
