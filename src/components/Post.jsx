@@ -32,6 +32,7 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import EmojiPicker from "emoji-picker-react";
 import { doc, updateDoc } from "firebase/firestore";
 import DialogBox from "../reusableComponents/DialogBox";
+import ImageSlider from "../reusableComponents/ImageSlider";
 import ReadMore from "./ReadMore";
 
 const ITEM_HEIGHT = 48;
@@ -63,7 +64,10 @@ function Post(prop) {
         .orderBy("timestamp", "desc")
         .onSnapshot((snapshot) => {
           setComments(
-            snapshot.docs.map((doc) => ({ id: doc.id, content: doc.data() }))
+            snapshot.docs.map((doc) => ({
+              id: doc.id,
+              content: doc.data(),
+            }))
           );
         });
     }
@@ -270,36 +274,7 @@ function Post(prop) {
 
       <div className="post__container">
         {postHasImages ? (
-          <Grid container sx={{ position: "relative" }}>
-            {postImages.map(
-              ({ imageUrl, imageWidth, imageHeight, thumbnail }, index) => (
-                <Grid
-                  item
-                  key={imageUrl}
-                  xs={computeGridSize(postImages.length, index)}
-                  className="post__img_container"
-                >
-                  <LazyLoadImage
-                    className="post__img"
-                    src={imageUrl}
-                    placeholderSrc={thumbnail}
-                    effect="blur"
-                    alt={`${username}'s upload`}
-                    delayTime={1000}
-                    style={{
-                      width: imageLoaded ? "100%" : imageWidth,
-                      height: imageLoaded ? undefined : imageHeight,
-                      objectFit: imageLoaded ? "contain" : "cover",
-                    }}
-                    afterLoad={() => setImageLoaded(true)}
-                    onDoubleClick={likesHandler}
-                  />
-
-                  {/* <img className="post__img" src={img} alt="random sq" /> */}
-                </Grid>
-              )
-            )}
-          </Grid>
+          <ImageSlider slides={postImages} />
         ) : (
           <div className="post__background">{caption}</div>
         )}
