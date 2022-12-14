@@ -26,7 +26,7 @@ const ImageSlider = ({ slides }) => {
 
   console.log(slides);
 
-  if (!Array.isArray(slides) || slides.length <= 0) {
+  if (slides.length <= 0) {
     return null;
   }
 
@@ -49,8 +49,10 @@ const ImageSlider = ({ slides }) => {
                 width: "100%", height: "100%", objectFit: "contain"
             }}
           />
+          {slides.length > 1 ? <>
           <FaChevronCircleLeft className="circle" onClick={prevStep} />
           <FaChevronCircleRight className="chevron" onClick={nextStep} />
+          </> : <></>}
         </div>
       ))}
     </div>
