@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
+import CommentIcon from "@mui/icons-material/Comment";
 import { red } from "@mui/material/colors";
 import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
@@ -32,6 +33,7 @@ import EmojiPicker from "emoji-picker-react";
 import { doc, updateDoc } from "firebase/firestore";
 import DialogBox from "../reusableComponents/DialogBox";
 import ImageSlider from "../reusableComponents/ImageSlider";
+import ReadMore from "./ReadMore";
 
 const ITEM_HEIGHT = 48;
 
@@ -190,13 +192,28 @@ function Post(prop) {
   };
 
   return (
-    <div className="post">
+    <div
+      className="post"
+      style={{ boxShadow: "0px 1px 4px 0.4px rgba(0, 0, 0, 0.4)" }}
+    >
       <div className="post__header">
         <Avatar
           className="post__avatar"
           alt={username}
           src={avatar}
-          sx={{ bgcolor: "Orange" }}
+          sx={{
+            bgcolor: "royalblue",
+            border: "2px solid transparent",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            cursor: "pointer",
+            "&:hover": {
+              boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 17px 0px",
+              border: "2px solid black",
+              scale: "1.1",
+            },
+          }}
         />
         <h3 className="post__username">{username}</h3>
         <div className="social__icon__last">
@@ -263,10 +280,15 @@ function Post(prop) {
         )}
         <div className="social__icons__wrapper">
           <span style={{ marginLeft: "14px", fontWeight: "light" }}>
-            {likecount ? likesNo : 0} likes
+            {likecount ? likesNo : 0}{" "}
+            <span style={{ fontWeight: "bold" }}>likes</span>
           </span>
 
-          <div className="social__icon" onClick={likesHandler}>
+          <div
+            className="social__icon"
+            onClick={likesHandler}
+            style={{ cursor: "pointer" }}
+          >
             {user ? (
               tempLikeCount.indexOf(user.uid) != -1 ? (
                 <FavoriteOutlinedIcon sx={{ color: red[500] }} />
@@ -291,16 +313,25 @@ function Post(prop) {
         <div className="post__text">
           {caption && postHasImages && (
             <>
-              <strong>{username} </strong>
-              {caption}
+              <strong style={{ color: "royalblue" }}>{username} </strong>
+              <ReadMore caption={caption} />
             </>
           )}
         </div>
 
-        {/* View all comments dialog Box */}
         {comments.length ? (
           <>
-            <Button onClick={setisCommentOpen}>View All comments</Button>
+            <Button
+              onClick={setisCommentOpen}
+              startIcon={<CommentIcon />}
+              sx={{
+                backgroundColor: "rgba(	135, 206, 235, 0.2)",
+                margin: "12px 0",
+                fontSize: "12px",
+              }}
+            >
+              View All comments
+            </Button>
             <DialogBox
               open={isCommentOpen}
               onClose={handleCommentClose}

@@ -102,13 +102,13 @@
 
 .post__input {
   border: none;
-  flex: 0.8;
+  flex: 1;
   padding: 10px;
   font-size: 16px;
 }
 
 .post__button {
-  flex: 0.2;
+  flex: 0;
   border: none;
 
   color: #0a66c2;
@@ -193,6 +193,16 @@
 
 .scrollTop:hover {
   opacity: 1;
+}
+
+.read__more__less {
+  text-decoration: underline;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.read__more__less:hover {
+    color: royalblue;
 }
 
 @keyframes fadeIn {
