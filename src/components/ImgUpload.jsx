@@ -6,7 +6,6 @@ import { LinearProgress, TextField } from "@mui/material";
 import { useSnackbar } from "notistack";
 import "./imgPreview.css";
 
-
 function ImgUpload(props) {
   const [image, setImage] = useState(null);
   const [caption, setCaption] = useState("");
@@ -136,12 +135,13 @@ function ImgUpload(props) {
         <div>
           {imagePreviews.map((img, i) => {
             return (
-              <img 
-              id="imgPreview"
-              className="preview" 
-              src={img} 
-              alt={`image-${i}`}
-              key={i} />
+              <img
+                id="imgPreview"
+                className="preview"
+                src={img}
+                alt={`image-${i}`}
+                key={i}
+              />
             );
           })}
         </div>

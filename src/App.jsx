@@ -340,11 +340,8 @@ function App() {
           </div>
         )}
       </div>
+      <Dialog open={openNewUpload} onClose={() => setOpenNewUpload(false)}>
 
-      <Dialog
-        open={openNewUpload}
-        onClose={() => setOpenNewUpload(false)}
-      >
         <DialogTitle>New Upload</DialogTitle>
         <DialogContent>
           {!loadingPosts &&
