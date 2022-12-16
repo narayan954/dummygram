@@ -120,16 +120,19 @@ function ImgUpload(props) {
         <LinearProgress variant="determinate" value={progress} />
       )}
       {(!uploadingPost || (uploadingPost && image)) && (
+        <>
         <input
           type="file"
           name="file"
           id="file"
           onChange={handleChange}
           multiple
-          accept="image/*,video/*"
+          accept="image/*"
           ref={imgInput}
           disabled={uploadingPost}
         />
+        <caption>Please upload .jpg images only</caption>
+        </>
       )}
       {imagePreviews && (
         <div>
