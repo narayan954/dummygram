@@ -3,7 +3,7 @@ import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "./ImageSlider.css";
 
-const ImageSlider = ({ slides }) => {
+const ImageSlider = ({ slides, isCommentBox }) => {
   const [current, setCurrent] = useState(0);
 
   //destructure  slides.length to get const { length } = slides;
@@ -47,8 +47,8 @@ const ImageSlider = ({ slides }) => {
           />
           {slides.length > 1 ? (
             <>
-              <FaChevronCircleLeft className="circle" onClick={prevStep} />
-              <FaChevronCircleRight className="chevron" onClick={nextStep} />
+              <FaChevronCircleLeft className="circle" onClick={prevStep} style={(isCommentBox) ? { width: "50%" } : {width: "100%"}}  />
+              <FaChevronCircleRight className="chevron" onClick={nextStep} style={(isCommentBox) ? { width: "50%" } : {width: "100%"}}/>
             </>
           ) : (
             <></>
