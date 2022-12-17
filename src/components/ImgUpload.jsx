@@ -13,8 +13,27 @@ function ImgUpload(props) {
   const [uploadingPost, setUploadingPost] = useState(false);
   const imgInput = useRef(null);
   const [imagePreviews, setImagePreviews] = useState([]);
+  const [isValidimage, setisValidimage] = useState(true);
 
   const handleChange = (e) => {
+    const image = e.target.files[0];
+    if (!image) {
+      enqueueSnackbar("Select min 1 image!", {
+        variant: "error",
+      })
+      setisValidimage(false);
+      return false;
+    }
+    if (!image.name.match(/\.(jpg|jpeg|png)$/)) {
+      enqueueSnackbar("Select a valid image!", {
+        variant: "error",
+      })
+      setisValidimage(false);
+
+      return false;
+    }
+    setisValidimage(true);
+
     const images = [];
 
     if (e.target.files?.length) {
@@ -70,8 +89,11 @@ function ImgUpload(props) {
   };
 
   const handleUpload = () => {
-    if (!image && !caption) {
-      return;
+    if ((!image && !caption) || !isValidimage) {
+      enqueueSnackbar("Upload valid image and caption!", {
+        variant: "error",
+      })
+      return false;
     }
 
     setUploadingPost(true);
@@ -121,17 +143,17 @@ function ImgUpload(props) {
       )}
       {(!uploadingPost || (uploadingPost && image)) && (
         <>
-        <input
-          type="file"
-          name="file"
-          id="file"
-          onChange={handleChange}
-          multiple
-          accept="image/*"
-          ref={imgInput}
-          disabled={uploadingPost}
-        />
-        <caption>Please upload .jpg images only</caption>
+          <input
+            type="file"
+            name="file"
+            id="file"
+            onChange={handleChange}
+            multiple
+            accept="image/*"
+            ref={imgInput}
+            disabled={uploadingPost}
+          />
+          <caption>Allowed Types: jpg, jpeg, png</caption>
         </>
       )}
       {imagePreviews && (
