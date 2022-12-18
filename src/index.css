@@ -195,6 +195,16 @@
   opacity: 1;
 }
 
+.read__more__less {
+  text-decoration: underline;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.read__more__less:hover {
+    color: royalblue;
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -210,5 +220,3 @@ div#picker {
   left: -7px;
   transform: scale(0.9);
 }
-
-
