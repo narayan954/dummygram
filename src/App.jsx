@@ -77,7 +77,7 @@ function App() {
 
   const [image, setImage] = useState(null);
 
-  const { enqueueSnackbar } = useSnackbar();
+  // const { enqueueSnackbar } = useSnackbar();
   const [showScroll, setShowScroll] = useState(false);
 
   const handleChange = (e) => {
