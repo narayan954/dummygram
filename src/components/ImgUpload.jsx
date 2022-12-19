@@ -24,7 +24,7 @@ function ImgUpload(props) {
       setisValidimage(false);
       return false;
     }
-    if (!image.name.match(/\.(jpg|jpeg|png)$/)) {
+    if (!image.name.match(/\.(jpg|jpeg|png|gif)$/)) {
       enqueueSnackbar("Select a valid image!", {
         variant: "error",
       })
