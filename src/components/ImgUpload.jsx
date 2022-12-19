@@ -16,20 +16,19 @@ function ImgUpload(props) {
   const [isValidimage, setisValidimage] = useState(true);
 
   const handleChange = (e) => {
-    
     if (!e.target.files[0]) {
       enqueueSnackbar("Select min 1 image!", {
         variant: "error",
-      })
+      });
       setisValidimage(false);
       return false;
     }
-    for(let i = 0; i < e.target.files.length; i++){
-      const img = e.target.files[i]
+    for (let i = 0; i < e.target.files.length; i++) {
+      const img = e.target.files[i];
       if (!img.name.match(/\.(jpg|jpeg|png|gif)$/)) {
         enqueueSnackbar("Select a valid image!", {
           variant: "error",
-        })
+        });
         setisValidimage(false);
         return false;
       }
@@ -94,7 +93,7 @@ function ImgUpload(props) {
     if ((!image && !caption) || !isValidimage) {
       enqueueSnackbar("Upload valid image and caption!", {
         variant: "error",
-      })
+      });
       return false;
     }
 
