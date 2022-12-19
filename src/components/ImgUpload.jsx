@@ -16,21 +16,23 @@ function ImgUpload(props) {
   const [isValidimage, setisValidimage] = useState(true);
 
   const handleChange = (e) => {
-    const image = e.target.files[0];
-    if (!image) {
+    
+    if (!e.target.files[0]) {
       enqueueSnackbar("Select min 1 image!", {
         variant: "error",
       })
       setisValidimage(false);
       return false;
     }
-    if (!image.name.match(/\.(jpg|jpeg|png|gif)$/)) {
-      enqueueSnackbar("Select a valid image!", {
-        variant: "error",
-      })
-      setisValidimage(false);
-
-      return false;
+    for(let i = 0; i < e.target.files.length; i++){
+      const img = e.target.files[i]
+      if (!img.name.match(/\.(jpg|jpeg|png|gif)$/)) {
+        enqueueSnackbar("Select a valid image!", {
+          variant: "error",
+        })
+        setisValidimage(false);
+        return false;
+      }
     }
     setisValidimage(true);
 
