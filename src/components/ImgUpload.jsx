@@ -13,8 +13,28 @@ function ImgUpload(props) {
   const [uploadingPost, setUploadingPost] = useState(false);
   const imgInput = useRef(null);
   const [imagePreviews, setImagePreviews] = useState([]);
+  const [isValidimage, setisValidimage] = useState(true);
 
   const handleChange = (e) => {
+    if (!e.target.files[0]) {
+      enqueueSnackbar("Select min 1 image!", {
+        variant: "error",
+      });
+      setisValidimage(false);
+      return false;
+    }
+    for (let i = 0; i < e.target.files.length; i++) {
+      const img = e.target.files[i];
+      if (!img.name.match(/\.(jpg|jpeg|png|gif)$/)) {
+        enqueueSnackbar("Select a valid image!", {
+          variant: "error",
+        });
+        setisValidimage(false);
+        return false;
+      }
+    }
+    setisValidimage(true);
+
     const images = [];
 
     if (e.target.files?.length) {
@@ -70,8 +90,11 @@ function ImgUpload(props) {
   };
 
   const handleUpload = () => {
-    if (!image && !caption) {
-      return;
+    if ((!image && !caption) || !isValidimage) {
+      enqueueSnackbar("Upload valid image and caption!", {
+        variant: "error",
+      });
+      return false;
     }
 
     setUploadingPost(true);
@@ -120,16 +143,19 @@ function ImgUpload(props) {
         <LinearProgress variant="determinate" value={progress} />
       )}
       {(!uploadingPost || (uploadingPost && image)) && (
-        <input
-          type="file"
-          name="file"
-          id="file"
-          onChange={handleChange}
-          multiple
-          accept="image/*,video/*"
-          ref={imgInput}
-          disabled={uploadingPost}
-        />
+        <>
+          <input
+            type="file"
+            name="file"
+            id="file"
+            onChange={handleChange}
+            multiple
+            accept="image/*"
+            ref={imgInput}
+            disabled={uploadingPost}
+          />
+          <caption>Allowed Types: jpg, jpeg, png</caption>
+        </>
       )}
       {imagePreviews && (
         <div>

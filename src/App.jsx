@@ -317,7 +317,12 @@ function App() {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <label for="file">Choose your profile pic</label>
-              <Input type="file" id="file" onChange={handleChange} />
+              <input
+                type="file"
+                id="file"
+                onChange={handleChange}
+                accept="image/*"
+              />
               <AnimatedButton
                 type="submit"
                 variant="contained"
