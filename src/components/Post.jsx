@@ -365,7 +365,7 @@ function Post(prop) {
                                   <></>
                                 )}
                               </span>
-                              <hr></hr>
+                              <hr />
                             </p>
                           ))}
                         </div>
