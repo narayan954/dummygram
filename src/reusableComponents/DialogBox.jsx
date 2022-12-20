@@ -26,7 +26,7 @@ const DialogBox = (props) => {
         <DialogContentText>{props.children}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button autoFocus onClick={props.onClose}>
+        <Button  onClick={props.onClose}>
           Cancel
         </Button>
       </DialogActions>

@@ -261,10 +261,10 @@ function Post(prop) {
               </DialogContentText>
             </DialogContent>
             <DialogActions>
-              <Button autoFocus onClick={handleClose}>
+              <Button  onClick={handleClose}>
                 Cancel
               </Button>
-              <Button onClick={deletePost} autoFocus>
+              <Button onClick={deletePost} >
                 Delete
               </Button>
             </DialogActions>
