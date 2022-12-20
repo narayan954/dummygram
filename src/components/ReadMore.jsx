@@ -36,22 +36,17 @@ function ReadMore({ caption }) {
           {expand === false ? (
             <>
               {desc}...
-              <span
-                
-                className="read__more__less"
-                onClick={handleReadMore}
-              >
-                 {" "}Read More
+              <span className="read__more__less" onClick={handleReadMore}>
+                {" "}
+                Read More
               </span>
             </>
           ) : (
             <>
               {caption}
-              <span
-                className="read__more__less"
-                onClick={handleReadLess}
-              >
-                {" "}Read Less
+              <span className="read__more__less" onClick={handleReadLess}>
+                {" "}
+                Read Less
               </span>
             </>
           )}

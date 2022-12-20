@@ -274,7 +274,7 @@ function Post(prop) {
 
       <div className="post__container">
         {postHasImages ? (
-          <ImageSlider slides={postImages}  isCommentBox={false}/>
+          <ImageSlider slides={postImages} isCommentBox={false} />
         ) : (
           <div className="post__background">{caption}</div>
         )}
@@ -342,7 +342,7 @@ function Post(prop) {
                   <Grid item xs={6} md={6}>
                     <Item>
                       {postHasImages ? (
-                        <ImageSlider slides={postImages} isCommentBox={true}/>
+                        <ImageSlider slides={postImages} isCommentBox={true} />
                       ) : (
                         <div className="post__background">{caption}</div>
                       )}
