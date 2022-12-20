@@ -301,7 +301,7 @@
 }
 
 .read__more__less:hover {
-    color: royalblue;
+  color: royalblue;
 }
 
 @keyframes fadeIn {

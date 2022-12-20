@@ -4,7 +4,7 @@
 
 [See Live!](https://dummy-gram.web.app/)
 
-### *Instagram*, dummified
+### _Instagram_, dummified
 
 ![Issues](https://img.shields.io/github/issues/narayan954/dummygram?color=brightgreen)
 ![Pull requests](https://img.shields.io/github/issues-pr/narayan954/dummygram)
@@ -20,20 +20,23 @@
 
 ## Vision
 
-When you learn ReactJs it seems obvious to work on some projects and for the projects you might want to choose something that interests you. How about a clone of the app developed by the company that released ReactJs ?  Yes, you might be getting the point, this application is basically a clone of the original Instagram and tends to add features like instagram or in fact the features that could not have been added in the instagram. So what are you waiting for? Use this opportunity to contribute and learn. :smiley:
+When you learn ReactJs it seems obvious to work on some projects and for the projects you might want to choose something that interests you. How about a clone of the app developed by the company that released ReactJs ? Yes, you might be getting the point, this application is basically a clone of the original Instagram and tends to add features like instagram or in fact the features that could not have been added in the instagram. So what are you waiting for? Use this opportunity to contribute and learn. :smiley:
 
 ## Status
 
 Dummygram has been in development since September 2022 and is part of GitHub since the very beginning. Our current priorities and what we are working on is kind of obvious, but still we want to give it a unique look and make it feature rich.:sparkles:
-  
+
 # Docs
 
 - Table of Contents
+
   - [Codebase](#codebase)
+
     - [Technologies](#technologies)
     - [Folder Structure](#folder-structure)
 
   - [Project Setup](#project-setup)
+
     - [First time setup](#first-time-setup)
     - [installation](#installation)
     - [Running the app locally](#running-the-app-locally)
@@ -195,7 +198,7 @@ Dummygram is now part of GitHub. For code of conduct, please see [GitHub's Commu
 Thanks a lot for spending your time helping dummygram grow. Thanks a lot! Keep rocking 🍻
 
 [![Contributors](https://contrib.rocks/image?repo=narayan954/dummygram)](https://github.com/narayan954/dummygram/graphs/contributors)
-  
+
 ## License
 
 MIT License, see the [LICENSE](./LICENSE) file.

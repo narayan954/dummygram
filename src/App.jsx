@@ -384,7 +384,7 @@ function App() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <label for="file">Choose your profile pic</label>
+              <label htmlFor="file">Choose your profile pic</label>
               <input
                 type="file"
                 id="file"

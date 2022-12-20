@@ -47,8 +47,16 @@ const ImageSlider = ({ slides, isCommentBox }) => {
           />
           {slides.length > 1 ? (
             <>
-              <FaChevronCircleLeft className="circle" onClick={prevStep} style={(isCommentBox) ? { width: "50%" } : {width: "100%"}}  />
-              <FaChevronCircleRight className="chevron" onClick={nextStep} style={(isCommentBox) ? { width: "50%" } : {width: "100%"}}/>
+              <FaChevronCircleLeft
+                className="circle"
+                onClick={prevStep}
+                style={isCommentBox ? { width: "50%" } : { width: "100%" }}
+              />
+              <FaChevronCircleRight
+                className="chevron"
+                onClick={nextStep}
+                style={isCommentBox ? { width: "50%" } : { width: "100%" }}
+              />
             </>
           ) : (
             <></>

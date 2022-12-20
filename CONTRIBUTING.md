@@ -31,7 +31,7 @@ Work in Progress pull requests are also welcome to get feedback early on, or if 
 
 ## GIT AND GITHUB
 
- Before continuing we want to clarify the difference between Git and Github. Git is a version control system(VCS) which is a tool to manage the history of our Source Code. GitHub is a hosting service for Git projects.
+Before continuing we want to clarify the difference between Git and Github. Git is a version control system(VCS) which is a tool to manage the history of our Source Code. GitHub is a hosting service for Git projects.
 
 We assume you have created an account on Github and installed Git on your System.
 
@@ -60,7 +60,7 @@ Open Source projects always have something to workon and improves with each new 
 
 You have forked the project you want to contribute to your github account. To get this project on your development machine we use clone command of git.
 
-```$ git clone https://github.com/<your-account-username>/<your-forked-project>.git```  
+`$ git clone https://github.com/<your-account-username>/<your-forked-project>.git`  
 Now you have the project on your local machine.
 
 ### ADD A REMOTE (UPSTREAM) TO ORIGINAL PROJECT REPOSITORY
@@ -80,14 +80,14 @@ Open Source projects have a number of contributors who can push code anytime. So
     git fetch upstream
     git merge upstream/master
     git push origin master
-  
+
 The last command pushes the latest code to your forked repository on Github. The origin is the remote pointing to your forked repository on github.
 
 ### CREATE A NEW BRANCH FOR A FEATURE OR BUGFIX -
 
 Normally, all repositories have a master branch which is considered to remain stable and all new features should be made in a separate branch and after completion merged into master branch. So we should create a new branch for our feature or bugfix and start working on the issue.
 
-```$ git checkout -b <feature-branch>```
+`$ git checkout -b <feature-branch>`
 This will create a new branch out of master branch. Now start working on the problem and commit your changes.
 
     git add --all
@@ -108,14 +108,14 @@ Now you get the latest commits from other contributors and check that your commi
 
 You have completed the feature, but you have made a number of commits which make less sense. You should squash your commits to make good commits.
 
-```$ git rebase -i HEAD~5```
+`$ git rebase -i HEAD~5`
 This will open an editor which will allow you to squash the commits.
 
 ### PUSH CODE AND CREATE A PULL REQUEST -
 
 Till this point you have a new branch with the feature or bugfix you want in the project you had forked. Now push your new branch to your remote fork on github.
 
-```$ git push origin <feature-branch>```
+`$ git push origin <feature-branch>`
 
 Now you are ready to help the project by opening a pull request means you now tell the project managers to add the feature or bugfix to original repository. You can open a pull request by clicking on green icon -
 
