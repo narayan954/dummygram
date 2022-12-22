@@ -274,8 +274,11 @@ function App() {
         <img
           src={Logo}
           alt="dummygram"
-          className="app__header__img"
-          onClick={scrollTop}
+          className="app__header__img w-100"
+          onClick={() => {
+            window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+          }}
+
         />
         {processingAuth ? (
           <Loader />
