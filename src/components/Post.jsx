@@ -27,7 +27,6 @@ import {
 import { useTheme } from "@mui/material/styles";
 import { db } from "../lib/firebase";
 import firebase from "firebase/compat/app";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import EmojiPicker from "emoji-picker-react";
 import { doc, updateDoc } from "firebase/firestore";
@@ -51,7 +50,6 @@ function Post(prop) {
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const open = Boolean(anchorEl);
   const docRef = doc(db, "posts", postId);
-  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     let unsubscribe;
@@ -134,13 +132,6 @@ function Post(prop) {
     }));
   }
 
-  const computeGridSize = (imagesLength, imageIndex) => {
-    if (imageIndex === imagesLength - 1 && (imageIndex + 1) % 2 !== 0) {
-      return 12;
-    }
-    return 6;
-  };
-
   const postHasImages = postImages.some((image) => Boolean(image.imageUrl));
   const tempLikeCount = likecount ? [...likecount] : [];
 
@@ -156,7 +147,6 @@ function Post(prop) {
         setLikesNo((currLikesNo) => currLikesNo + 1);
       }
 
-      // console.log(tempLikeCount);
       const data = {
         likecount: tempLikeCount,
       };
@@ -177,10 +167,6 @@ function Post(prop) {
   const handleClickOpen = () => {
     setOpen(true);
     setAnchorEl(null);
-  };
-
-  const handleCommentOpen = () => {
-    setisCommentOpen(true);
   };
 
   const handleClose = () => {

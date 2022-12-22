@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import Post from "./components/Post";
 import { db, auth, storage } from "./lib/firebase";
-import { Popover } from 'antd';
+import { Popover } from "antd";
 import {
   Modal,
   Button,
@@ -16,17 +16,16 @@ import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
 import AnimatedButton from "./components/AnimatedButton";
 import { FaArrowCircleUp } from "react-icons/fa";
-import { useSnackbar } from "notistack";
-import MenuItem from '@mui/material/MenuItem';
-import MenuList from '@mui/material/MenuList';
-import Paper from '@mui/material/Paper';
-import Divider from '@mui/material/Divider';
-import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
-import { CgProfile } from 'react-icons/cg'
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import { BsPlusSquare } from "react-icons/bs"
-import { FiSearch, FiHome } from "react-icons/fi"
+import MenuItem from "@mui/material/MenuItem";
+import MenuList from "@mui/material/MenuList";
+import Paper from "@mui/material/Paper";
+import Divider from "@mui/material/Divider";
+import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
+import { CgProfile } from "react-icons/cg";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import { BsPlusSquare } from "react-icons/bs";
+import { FiSearch, FiHome } from "react-icons/fi";
 
 function getModalStyle() {
   const top = 50;
@@ -244,38 +243,40 @@ function App() {
     }
   };
 
-
-
-/**
- * * HEADER PROFILE ICON MENU  <START></START>* *
- */
+  /**
+   * * HEADER PROFILE ICON MENU  <START></START>* *
+   */
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   let menuRef = useRef();
 
   useEffect((e) => {
-
     let handler = (event) => {
-      if (showProfileMenu && !(menuRef.current.contains(event.target))) {
+      if (showProfileMenu && !menuRef.current.contains(event.target)) {
         setShowProfileMenu(false);
       }
     };
-    document.addEventListener("mousedown", handler)
+    document.addEventListener("mousedown", handler);
 
-    return (() => {
+    return () => {
       document.removeEventListener("mousedown", handler);
-    })
-  })
+    };
+  });
   const handleClose = () => setShowProfileMenu(false);
   const handleShow = () => setShowProfileMenu(true);
 
   /**
- * * HEADER PROFILE ICON MENU </END>* *
- */
+   * * HEADER PROFILE ICON MENU </END>* *
+   */
 
   return (
     <div className="app">
       <div className="app__header">
-        <img src={Logo} alt="dummygram" className="app__header__img" onClick={scrollTop} />
+        <img
+          src={Logo}
+          alt="dummygram"
+          className="app__header__img"
+          onClick={scrollTop}
+        />
         {processingAuth ? (
           <Loader />
         ) : user ? (
@@ -286,40 +287,58 @@ function App() {
                 type="text"
                 placeholder="Search"
                 onChange={(e) => setEmail(e.target.value)}
-                style={{ outline: 'none' }}
+                style={{ outline: "none" }}
               />
             </div>
             <div className="app__header__home_post_profile_icons">
-              <Popover content="Home"><FiHome style={{ fontSize: "26px", cursor: "pointer", }} onClick={scrollTop} />
+              <Popover content="Home">
+                <FiHome
+                  style={{ fontSize: "26px", cursor: "pointer" }}
+                  onClick={scrollTop}
+                />
               </Popover>
 
               <Popover content="New Post">
-                <BsPlusSquare style={{ fontSize: "26px", cursor: "pointer", stroke: "black", strokeWidth: "0.5" }} onClick={() => setOpenNewUpload(true)} />
+                <BsPlusSquare
+                  style={{
+                    fontSize: "26px",
+                    cursor: "pointer",
+                    stroke: "black",
+                    strokeWidth: "0.5",
+                  }}
+                  onClick={() => setOpenNewUpload(true)}
+                />
               </Popover>
               <div className="app__header_profile_div">
-
                 <Popover content="Profile Menu">
-                  <CgProfile className="app__header__profile__icon" style={{ fontSize: "28px", cursor: "pointer" }} onClick={handleShow} />
+                  <CgProfile
+                    className="app__header__profile__icon"
+                    style={{ fontSize: "28px", cursor: "pointer" }}
+                    onClick={handleShow}
+                  />
                 </Popover>
-                {
-                  showProfileMenu && <Paper ref={menuRef} className="app__header__profile__menu" id="__app_header__profile__menu">
+                {showProfileMenu && (
+                  <Paper
+                    ref={menuRef}
+                    className="app__header__profile__menu"
+                    id="__app_header__profile__menu"
+                  >
                     <MenuList>
                       <MenuItem onClick={handleClose}>
                         <ListItemIcon>
                           <AccountCircleTwoToneIcon />
-                          </ListItemIcon>
+                        </ListItemIcon>
                         <ListItemText>Profile</ListItemText>
                       </MenuItem>
                       <Divider />
                       <MenuItem onClick={handleClose}>
-                        <ListItemText onClick={signOut} >Log out</ListItemText>
+                        <ListItemText onClick={signOut}>Log out</ListItemText>
                       </MenuItem>
                     </MenuList>
                   </Paper>
-                }
+                )}
               </div>
             </div>
-
 
             {/* <Button
               onClick={() => setOpenNewUpload(true)}
@@ -355,7 +374,6 @@ function App() {
         )}
       </div>
       <Dialog open={openNewUpload} onClose={() => setOpenNewUpload(false)}>
-
         <DialogTitle>New Upload</DialogTitle>
         <DialogContent>
           {!loadingPosts &&
@@ -371,7 +389,11 @@ function App() {
       </Dialog>
 
       <Modal open={openSignUp} onClose={() => setOpenSignUp(false)}>
-        <div style={modalStyle} className={classes.paper} id="model__signUp__parent">
+        <div
+          style={modalStyle}
+          className={classes.paper}
+          id="model__signUp__parent"
+        >
           <form className="modal__signup" onSubmit={signUp}>
             <center>
               <img
@@ -417,8 +439,12 @@ function App() {
           </form>
         </div>
       </Modal>
-      <Modal open={openSignIn} onClose={() => setOpenSignIn(false)} >
-        <div style={getModalStyle()} className={classes.paper} id="model__signIn__parent">
+      <Modal open={openSignIn} onClose={() => setOpenSignIn(false)}>
+        <div
+          style={getModalStyle()}
+          className={classes.paper}
+          id="model__signIn__parent"
+        >
           <form className="modal__signup">
             <center>
               <img
@@ -457,12 +483,12 @@ function App() {
           !loadingPosts
             ? {}
             : {
-              width: "100%",
-              minHeight: "100vh",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }
+                width: "100%",
+                minHeight: "100vh",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }
         }
       >
         {loadingPosts ? (
@@ -478,7 +504,11 @@ function App() {
       <FaArrowCircleUp
         className="scrollTop"
         onClick={scrollTop}
-        style={{ height: 40, display: showScroll ? "flex" : "none", fontWeight: "lighter" }}
+        style={{
+          height: 40,
+          display: showScroll ? "flex" : "none",
+          fontWeight: "lighter",
+        }}
       />
     </div>
   );
