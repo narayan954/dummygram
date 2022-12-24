@@ -62,6 +62,7 @@
   font-size: 15px;
   text-align: left;
 }
+
 .post__username {
   font-size: 14px;
   font-weight: 600;
@@ -73,19 +74,23 @@
   justify-content: space-between;
   padding: 10px;
 }
+
 .social__icons__wrapper {
   display: flex;
   align-items: center;
 }
+
 .social__icon {
   padding: 10px;
   width: 24px;
   height: 28px;
 }
+
 .social__icon__last {
   padding: 10px;
   margin-left: auto !important;
 }
+
 .post__avatar {
   margin-right: 10px;
   border-radius: 50%;
@@ -119,15 +124,13 @@
 
 .post__background {
   min-height: 250px;
-  background: linear-gradient(
-    45deg,
-    #405de6,
-    #5851db,
-    #833ab4,
-    #c13584,
-    #e1306c,
-    #fd1d1d
-  );
+  background: linear-gradient(45deg,
+      #405de6,
+      #5851db,
+      #833ab4,
+      #c13584,
+      #e1306c,
+      #fd1d1d);
   color: white;
   justify-content: center;
   display: flex;
@@ -179,8 +182,9 @@
 
 .scrollTop {
   position: fixed;
-  width: 100%;
+  width: 50px;
   bottom: 10px;
+  left: 50%;
   align-items: center;
   height: 20px;
   justify-content: center;
@@ -189,6 +193,7 @@
   animation: fadeIn 0.3s;
   transition: opacity 0.4s;
   opacity: 0.5;
+  display: flex;
 }
 
 .scrollTop:hover {
@@ -209,6 +214,7 @@
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 0.5;
   }
