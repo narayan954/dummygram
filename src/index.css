@@ -278,8 +278,9 @@
 
 .scrollTop {
   position: fixed;
-  width: 100%;
+  width: 50px;
   bottom: 10px;
+  left: 50%;
   align-items: center;
   height: 20px;
   justify-content: center;
@@ -288,6 +289,7 @@
   animation: fadeIn 0.3s;
   transition: opacity 0.4s;
   opacity: 0.5;
+  display: flex;
 }
 
 .scrollTop:hover {
