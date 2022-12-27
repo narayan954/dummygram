@@ -24,7 +24,7 @@
   border-bottom: 1px solid lightgrey;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center;flex-wrap: wrap;
 }
 
 .app__posts {
@@ -72,6 +72,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px;
+  flex-wrap: wrap;
 }
 .social__icons__wrapper {
   display: flex;
@@ -98,6 +99,7 @@
   display: flex;
   margin-top: 10px;
   border-top: 1px solid lightgrey;
+  flex-wrap: wrap;
 }
 
 .post__input {
