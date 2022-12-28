@@ -25,7 +25,8 @@
   border-bottom: 1px solid lightgrey;
   display: flex;
   justify-content: space-between;
-  align-items: center;flex-wrap: wrap;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .app__posts {
