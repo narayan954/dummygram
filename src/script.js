@@ -9,7 +9,7 @@ const options = {
   buttonColorLight: "#fff", // default: '#fff'
   saveInCookies: true, // default: true,
   label: "🌓", // default: ''
-  autoMatchOsTheme: false, // default: true
+  autoMatchOsTheme: true, // default: true
 };
 
 const darkmode = new Darkmode(options);
