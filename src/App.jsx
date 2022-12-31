@@ -249,7 +249,7 @@ function App() {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   let menuRef = useRef();
 
-  useEffect((e) => {
+  useEffect(() => {
     let handler = (event) => {
       if (showProfileMenu && !menuRef.current.contains(event.target)) {
         setShowProfileMenu(false);
