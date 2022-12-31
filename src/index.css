@@ -8,6 +8,12 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  overflow-x: auto;
+}
+
+.app__header__img {
+  object-fit: contain;
+  width: 150px;
 }
 
 .app__header {
@@ -33,6 +39,7 @@
 .app__header__search__bar {
   display: flex;
   align-items: center;
+
   justify-content: space-between;
   background-color: #D9D9D9;
   opacity: 50%;
@@ -60,6 +67,7 @@
   max-width: 100%;
   right: 0;
   top: 50px;
+  flex-wrap: wrap;
 }
 
 
@@ -110,6 +118,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px;
+  flex-wrap: wrap;
 }
 
 .social__icons__wrapper {
@@ -142,6 +151,7 @@
   display: flex;
   margin-top: 10px;
   border-top: 1px solid lightgrey;
+  flex-wrap: wrap;
 }
 
 .post__comment {
