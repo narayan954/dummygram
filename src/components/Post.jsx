@@ -324,6 +324,7 @@ function Post(prop) {
                 backgroundColor: "rgba(	135, 206, 235, 0.2)",
                 margin: "12px 0",
                 fontSize: "12px",
+                minHeight: "40px",
               }}
             >
               View All comments
