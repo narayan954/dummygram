@@ -280,9 +280,7 @@ function App() {
           }}
 
         />
-        {processingAuth ? (
-          <Loader />
-        ) : user ? (
+        {user ? (
           <>
             <div className="app__header__search__bar">
               <FiSearch />
@@ -430,12 +428,7 @@ function App() {
                 onChange={handleChange}
                 accept="image/*"
               />
-              <AnimatedButton
-                type="submit"
-                variant="contained"
-                color="primary"
-                loading={processingAuth}
-              >
+              <AnimatedButton type="submit" variant="contained" color="primary">
                 Sign Up
               </AnimatedButton>
             </center>
@@ -472,7 +465,6 @@ function App() {
                 onClick={signIn}
                 variant="contained"
                 color="primary"
-                loading={processingAuth}
               >
                 Sign In
               </AnimatedButton>
