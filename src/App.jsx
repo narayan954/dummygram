@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import Post from "./components/Post";
 import { db, auth, storage } from "./lib/firebase";
+import { Popover } from "antd";
 import {
   Modal,
   Button,
@@ -9,12 +10,22 @@ import {
   DialogTitle,
   DialogContent,
 } from "@mui/material";
+
 import { makeStyles } from "@mui/styles";
 import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
 import AnimatedButton from "./components/AnimatedButton";
 import { FaArrowCircleUp } from "react-icons/fa";
-import { useSnackbar } from "notistack";
+import MenuItem from "@mui/material/MenuItem";
+import MenuList from "@mui/material/MenuList";
+import Paper from "@mui/material/Paper";
+import Divider from "@mui/material/Divider";
+import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
+import { CgProfile } from "react-icons/cg";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import { BsPlusSquare } from "react-icons/bs";
+import { FiSearch, FiHome } from "react-icons/fi";
 
 function getModalStyle() {
   const top = 50;
@@ -65,7 +76,7 @@ function App() {
 
   const [image, setImage] = useState(null);
 
-  const { enqueueSnackbar } = useSnackbar();
+  // const { enqueueSnackbar } = useSnackbar();
   const [showScroll, setShowScroll] = useState(false);
 
   const handleChange = (e) => {
@@ -232,6 +243,31 @@ function App() {
     }
   };
 
+  /**
+   * * HEADER PROFILE ICON MENU  <START></START>* *
+   */
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
+  let menuRef = useRef();
+
+  useEffect(() => {
+    let handler = (event) => {
+      if (showProfileMenu && !menuRef.current.contains(event.target)) {
+        setShowProfileMenu(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+  });
+  const handleClose = () => setShowProfileMenu(false);
+  const handleShow = () => setShowProfileMenu(true);
+
+  /**
+   * * HEADER PROFILE ICON MENU </END>* *
+   */
+
   return (
     <div className="app">
       <div className="app__header">
@@ -242,19 +278,79 @@ function App() {
           onClick={() => {
             window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
           }}
+
         />
         {user ? (
           <>
-            <Button
+            <div className="app__header__search__bar">
+              <FiSearch />
+              <Input
+                type="text"
+                placeholder="Search"
+                onChange={(e) => setEmail(e.target.value)}
+                style={{ outline: "none" }}
+              />
+            </div>
+            <div className="app__header__home_post_profile_icons">
+              <Popover content="Home">
+                <FiHome
+                  style={{ fontSize: "26px", cursor: "pointer" }}
+                  onClick={scrollTop}
+                />
+              </Popover>
+
+              <Popover content="New Post">
+                <BsPlusSquare
+                  style={{
+                    fontSize: "26px",
+                    cursor: "pointer",
+                    stroke: "black",
+                    strokeWidth: "0.5",
+                  }}
+                  onClick={() => setOpenNewUpload(true)}
+                />
+              </Popover>
+              <div className="app__header_profile_div">
+                <Popover content="Profile Menu">
+                  <CgProfile
+                    className="app__header__profile__icon"
+                    style={{ fontSize: "28px", cursor: "pointer" }}
+                    onClick={handleShow}
+                  />
+                </Popover>
+                {showProfileMenu && (
+                  <Paper
+                    ref={menuRef}
+                    className="app__header__profile__menu"
+                    id="__app_header__profile__menu"
+                  >
+                    <MenuList>
+                      <MenuItem onClick={handleClose}>
+                        <ListItemIcon>
+                          <AccountCircleTwoToneIcon />
+                        </ListItemIcon>
+                        <ListItemText>Profile</ListItemText>
+                      </MenuItem>
+                      <Divider />
+                      <MenuItem onClick={handleClose}>
+                        <ListItemText onClick={signOut}>Log out</ListItemText>
+                      </MenuItem>
+                    </MenuList>
+                  </Paper>
+                )}
+              </div>
+            </div>
+
+            {/* <Button
               onClick={() => setOpenNewUpload(true)}
               color="secondary"
               variant="contained"
             >
               New Post
-            </Button>
-            <Button onClick={signOut} color="secondary" variant="contained">
+            </Button> */}
+            {/* <Button onClick={signOut} color="secondary" variant="contained">
               Logout
-            </Button>
+            </Button> */}
           </>
         ) : (
           <div className="login__container">
@@ -294,7 +390,11 @@ function App() {
       </Dialog>
 
       <Modal open={openSignUp} onClose={() => setOpenSignUp(false)}>
-        <div style={modalStyle} className={classes.paper}>
+        <div
+          style={modalStyle}
+          className={classes.paper}
+          id="model__signUp__parent"
+        >
           <form className="modal__signup" onSubmit={signUp}>
             <center>
               <img
@@ -304,20 +404,20 @@ function App() {
               />
               <Input
                 type="text"
-                placeholder="username"
+                placeholder="Username"
                 required
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
               <Input
                 type="text"
-                placeholder="email"
+                placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <Input
                 type="password"
-                placeholder="password"
+                placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -336,7 +436,11 @@ function App() {
         </div>
       </Modal>
       <Modal open={openSignIn} onClose={() => setOpenSignIn(false)}>
-        <div style={getModalStyle()} className={classes.paper}>
+        <div
+          style={getModalStyle()}
+          className={classes.paper}
+          id="model__signIn__parent"
+        >
           <form className="modal__signup">
             <center>
               <img
@@ -346,13 +450,13 @@ function App() {
               />
               <Input
                 type="text"
-                placeholder="email"
+                placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <Input
                 type="password"
-                placeholder="password"
+                placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -395,7 +499,11 @@ function App() {
       <FaArrowCircleUp
         className="scrollTop"
         onClick={scrollTop}
-        style={{ height: 40, display: showScroll ? "flex" : "none" }}
+        style={{
+          height: 40,
+          display: showScroll ? "flex" : "none",
+          fontWeight: "lighter",
+        }}
       />
     </div>
   );
