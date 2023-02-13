@@ -216,6 +216,14 @@
   color: royalblue;
 }
 
+.darkmode-toggle{
+  z-index: 1;
+}
+
+.app {
+  overflow: hidden;
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
