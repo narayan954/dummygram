@@ -126,6 +126,7 @@
   background: transparent;
 }
 
+
 .post__background {
   min-height: 250px;
   background: linear-gradient(
@@ -142,6 +143,7 @@
   display: flex;
   align-items: center;
   font-weight: 600;
+  position: relative;
 }
 
 .post__comments {
