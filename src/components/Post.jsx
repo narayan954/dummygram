@@ -338,7 +338,7 @@ function Post(prop) {
                   <Grid item xs={6} md={6}>
                     <Item>
                       {postHasImages ? (
-                        <ImageSlider slides={postImages} isCommentBox={true} />
+                        <ImageSlider slides={postImages} isCommentBox />
                       ) : (
                         <div className="post__background">{caption}</div>
                       )}
@@ -387,7 +387,7 @@ function Post(prop) {
                         <EmojiPicker
                           emojiStyle="native"
                           height={330}
-                          searchDisabled={true}
+                          searchDisabled
                           onEmojiClick={onEmojiClick}
                           previewConfig={{
                             showPreview: false,
@@ -433,7 +433,7 @@ function Post(prop) {
                   <EmojiPicker
                     emojiStyle="native"
                     height={330}
-                    searchDisabled={true}
+                    searchDisabled
                     onEmojiClick={onEmojiClick}
                     previewConfig={{
                       showPreview: false,
