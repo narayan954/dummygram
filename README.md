@@ -152,7 +152,6 @@ Now you know some basic terms, let's get into how to get started with some resou
 - [A complete Guide to Open Source](https://www.youtube.com/watch?v=yzeVMecydCE) - Video
 - [Guide to Open Source](https://www.freecodecamp.org/news/how-to-contribute-to-open-source-projects-beginners-guide/) - Article
 
-
 ## How to use Dummygram
 
 [Flow of Control](FlowOfControl.md)
