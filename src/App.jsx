@@ -258,20 +258,36 @@ function App() {
           </>
         ) : (
           <div className="login__container">
-            <Button className="btns"
+            <Button
               onClick={() => setOpenSignIn(true)}
               color="primary"
               variant="contained"
               style={{ margin: 5 }}
+              sx={{
+                ':hover': {
+                  bgcolor: 'white', 
+                  color: '#0a66c2',
+                  border: 2,
+                  fontWeight: 'bold'
+                },
+              }}
             >
               Sign In
             </Button>
 
-            <Button className="btns"
+            <Button
               onClick={() => setOpenSignUp(true)}
               color="primary"
               variant="contained"
               style={{ margin: 5 }}
+              sx={{
+                ':hover': {
+                  bgcolor: 'white', 
+                  color: '#0a66c2',
+                  border: 2,
+                  fontWeight: 'bold'
+                },
+              }}
             >
               Sign Up
             </Button>
@@ -328,7 +344,15 @@ function App() {
                 onChange={handleChange}
                 accept="image/*"
               />
-              <AnimatedButton className="btns" type="submit" variant="contained" color="primary">
+              <AnimatedButton type="submit" variant="contained" color="primary"  
+              sx={{
+                  ':hover': {
+                    bgcolor: 'white', 
+                    color: '#0a66c2',
+                    border: 2,
+                    fontWeight: 'bold'
+                  },
+                }}>
                 Sign Up
               </AnimatedButton>
             </center>
@@ -356,11 +380,19 @@ function App() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <AnimatedButton className = "btns"
+              <AnimatedButton
                 type="submit"
                 onClick={signIn}
                 variant="contained"
                 color="primary"
+                sx={{
+                  ':hover': {
+                    bgcolor: 'white', 
+                    color: '#0a66c2',
+                    border: 2,
+                    fontWeight: 'bold'
+                  },
+                }}
               >
                 Sign In
               </AnimatedButton>
