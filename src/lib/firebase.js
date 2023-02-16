@@ -6,7 +6,6 @@ import { v4 as uuid } from "uuid";
 
 
 const firebaseApp = firebase.initializeApp({
-  // console.log("api key");
   
   apiKey: import.meta.env.VITE_DUMMYGRAM_APIKEY,
   authDomain: import.meta.env.VITE_DUMMYGRAM_AUTHDOMAIN,
