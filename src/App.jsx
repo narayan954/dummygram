@@ -258,7 +258,7 @@ function App() {
           </>
         ) : (
           <div className="login__container">
-            <Button
+            <Button className="btns"
               onClick={() => setOpenSignIn(true)}
               color="primary"
               variant="contained"
@@ -267,7 +267,7 @@ function App() {
               Sign In
             </Button>
 
-            <Button
+            <Button className="btns"
               onClick={() => setOpenSignUp(true)}
               color="primary"
               variant="contained"
@@ -328,7 +328,7 @@ function App() {
                 onChange={handleChange}
                 accept="image/*"
               />
-              <AnimatedButton type="submit" variant="contained" color="primary">
+              <AnimatedButton className="btns" type="submit" variant="contained" color="primary">
                 Sign Up
               </AnimatedButton>
             </center>
@@ -356,7 +356,7 @@ function App() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <AnimatedButton
+              <AnimatedButton className = "btns"
                 type="submit"
                 onClick={signIn}
                 variant="contained"

@@ -241,3 +241,10 @@ div#picker {
   left: -7px;
   transform: scale(0.9);
 }
+
+.btns:hover{
+  color:#0a66c2;
+  background-color: white !important;
+  font-weight: bold;
+  border: 2px #0a66c2 solid;
+}
