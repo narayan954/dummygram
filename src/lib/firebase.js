@@ -3,19 +3,22 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import "firebase/compat/storage";
 import { v4 as uuid } from "uuid";
-require("dotenv").config();
+
 
 const firebaseApp = firebase.initializeApp({
-  apiKey: process.env.REACT_APP_DUMMYGRAM_APIKEY,
-  authDomain: process.env.REACT_APP_DUMMYGRAM_AUTHDOMAIN,
-  projectId: process.env.REACT_APP_DUMMYGRAM_PROJECTID,
-  storageBucket: process.env.REACT_APP_DUMMYGRAM_STORAGEBUCKET,
-  messagingSenderId: process.env.REACT_APP_DUMMYGRAM_MESSAGINGSENDERID,
-  appId: process.env.REACT_APP_DUMMYGRAM_APPID,
-  measurementId: process.env.REACT_APP_DUMMYGRAM_MEASUREMENTID,
+  // console.log("api key");
+  
+  apiKey: import.meta.env.VITE_DUMMYGRAM_APIKEY,
+  authDomain: import.meta.env.VITE_DUMMYGRAM_AUTHDOMAIN,
+  projectId: import.meta.env.VITE_DUMMYGRAM_PROJECTID,
+  storageBucket: import.meta.env.VITE_DUMMYGRAM_STORAGEBUCKET,
+  messagingSenderId: import.meta.env.VITE_DUMMYGRAM_MESSAGINGSENDERID,
+  appId: import.meta.env.VITE_DUMMYGRAM_APPID,
+  measurementId: import.meta.env.VITE_DUMMYGRAM_MEASUREMENTID,
 });
 
 // Use these for db & auth
+// console.log("api key = ", import.meta.env);
 const db = firebaseApp.firestore();
 const auth = firebase.auth();
 const storage = firebase.storage();
