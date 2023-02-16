@@ -2,7 +2,7 @@
 
 Hi there! We're thrilled that you'd like to contribute to this project. Your help is essential for keeping it great.
 
-Please note that this project is released with a [Contributor Code of Conduct][code-of-conduct]. By participating in this project you agree to abide by its terms.
+Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
 
 ## Issues and PRs
 
@@ -12,7 +12,7 @@ We'd also love PRs. If you're thinking of a large PR, we advise opening up an is
 
 ## Submitting a pull request
 
-1. [Fork][fork] and clone the repository.
+1. [Fork](https://github.com/narayan954/dummygram/fork) and clone the repository.
 1. Configure and install the dependencies.
 1. Make sure the tests pass on your machine.
 1. Create a new branch: `git checkout -b my-branch-name`.
@@ -31,7 +31,7 @@ Work in Progress pull requests are also welcome to get feedback early on, or if 
 
 ## GIT AND GITHUB
 
-Before continuing we want to clarify the difference between Git and Github. Git is a version control system(VCS) which is a tool to manage the history of our Source Code. GitHub is a hosting service for Git projects.
+Before continuing we want to clarify the difference between Git and Github. Git is a version control system (VCS) which is a tool to manage the history of our Source Code. GitHub is a hosting service for Git projects.
 
 We assume you have created an account on Github and installed Git on your System.
 

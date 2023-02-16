@@ -1,6 +1,6 @@
 <div align="center">
 
-<img  src="https://github.com/narayan954/dummygram/blob/master/src/assets/logo.png"  alt="Dummygram"  width="250"  height="200">
+<img  src=" src/assets/logo.png"  alt="Dummygram"  width="250"  height="200">
 
 [See Live!](https://dummy-gram.web.app/)
 
@@ -42,6 +42,7 @@ Dummygram has been in development since September 2022 and is part of GitHub sin
     - [Running the app locally](#running-the-app-locally)
 
   - [How to get started with Open Source](#how-to-get-started-with-open-source)
+  - [How to use Dummygram](#how-to-use-dummygram)
   - [Contributing](#contributing)
   - [Rules](#rules)
   - [Open Source Programs](#open-source-programs)
@@ -150,6 +151,10 @@ Now you know some basic terms, let's get into how to get started with some resou
 - [Crash Course to Git and Github](https://www.youtube.com/watch?v=apGV9Kg7ics) - Video
 - [A complete Guide to Open Source](https://www.youtube.com/watch?v=yzeVMecydCE) - Video
 - [Guide to Open Source](https://www.freecodecamp.org/news/how-to-contribute-to-open-source-projects-beginners-guide/) - Article
+
+## How to use Dummygram
+
+[Flow of Control](FlowOfControl.md)
 
 ## Contributing
 
