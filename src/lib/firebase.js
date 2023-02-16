@@ -4,9 +4,7 @@ import "firebase/compat/firestore";
 import "firebase/compat/storage";
 import { v4 as uuid } from "uuid";
 
-
 const firebaseApp = firebase.initializeApp({
-  
   apiKey: import.meta.env.VITE_DUMMYGRAM_APIKEY,
   authDomain: import.meta.env.VITE_DUMMYGRAM_AUTHDOMAIN,
   projectId: import.meta.env.VITE_DUMMYGRAM_PROJECTID,
