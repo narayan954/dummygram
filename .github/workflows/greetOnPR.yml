@@ -1,0 +1,20 @@
+name: Greet User on Contribution
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+  push:
+    branches:
+      - main
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Greet User
+      run: |
+        echo "Hello ${{ github.actor }}! Thank you for contributing to our project.We'll have a look asap!"
