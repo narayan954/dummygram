@@ -15,15 +15,30 @@ import Loader from "./components/Loader";
 import AnimatedButton from "./components/AnimatedButton";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { useSnackbar } from "notistack";
+import "./App.css"
 
 function getModalStyle() {
   const top = 50;
   const left = 50;
+  const padding = 5;
+  const radius = 10;
 
   return {
     top: `${top}%`,
     left: `${left}%`,
     transform: `translate(-${top}%, -${left}%)`,
+    padding: `${padding}%`,
+    borderRadius: `${radius}%`
+  };
+}
+
+function getInputStyle() {
+  // const top = 50;
+  // const left = 50;
+  const margin = 5;
+
+  return {
+    margin: `${margin}%`
   };
 }
 
@@ -45,6 +60,7 @@ function App() {
   const classes = useStyles();
 
   const [modalStyle] = useState(getModalStyle);
+  const [inputStyle] = useState(getInputStyle);
   const [posts, setPosts] = useState([]);
   const [openSignUp, setOpenSignUp] = useState(false);
   const [openSignIn, setOpenSignIn] = useState(false);
@@ -301,33 +317,34 @@ function App() {
                 src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
                 alt="instagram"
                 className="modal__signup__img"
+                style={{width: "80%"}}
               />
               <Input
                 type="text"
-                placeholder="username"
+                placeholder="USERNAME"
                 required
                 value={username}
+                style={inputStyle}
                 onChange={(e) => setUsername(e.target.value)}
               />
               <Input
                 type="text"
-                placeholder="email"
+                placeholder="EMAIL"
                 value={email}
+                style={inputStyle}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <Input
                 type="password"
-                placeholder="password"
+                placeholder="PASSWORD"
                 value={password}
+                style={inputStyle}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <label htmlFor="file">Choose your profile pic</label>
-              <input
-                type="file"
-                id="file"
-                onChange={handleChange}
-                accept="image/*"
-              />
+              <div class="file-input">
+                <input type="file" id="file" class="file"/>
+                <label for="file">Select Profile Picture</label>
+              </div>
               <AnimatedButton type="submit" variant="contained" color="primary">
                 Sign Up
               </AnimatedButton>
@@ -343,17 +360,20 @@ function App() {
                 src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
                 alt="dummygram"
                 className="modal__signup__img"
+                style={{width: "80%"}}
               />
               <Input
                 type="text"
-                placeholder="email"
+                placeholder="EMAIL"
                 value={email}
+                style={inputStyle}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <Input
                 type="password"
-                placeholder="password"
+                placeholder="PASSWORD"
                 value={password}
+                style={inputStyle}
                 onChange={(e) => setPassword(e.target.value)}
               />
               <AnimatedButton
