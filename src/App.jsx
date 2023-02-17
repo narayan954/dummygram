@@ -351,9 +351,9 @@ function App() {
                 style={inputStyle}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <div class="file-input">
-                <input type="file" id="file" class="file"/>
-                <label for="file">Select Profile Picture</label>
+              <div className="file-input">
+                <input type="file" id="file" className="file"/>
+                <label htmlFor="file">Select Profile Picture</label>
               </div>
               <AnimatedButton type="submit" variant="contained" color="primary">
                 Sign Up
