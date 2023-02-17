@@ -62,6 +62,14 @@ function App() {
     () => loggingIn || signingUp || loadingPosts,
     [loggingIn, signingUp, loadingPosts]
   );
+  const buttonStyle = {
+    ":hover": {
+      bgcolor: "white",
+      color: "#0a66c2",
+      border: 2,
+      fontWeight: "bold",
+    },
+  };
 
   const [image, setImage] = useState(null);
 
@@ -263,14 +271,7 @@ function App() {
               color="primary"
               variant="contained"
               style={{ margin: 5 }}
-              sx={{
-                ':hover': {
-                  bgcolor: 'white', 
-                  color: '#0a66c2',
-                  border: 2,
-                  fontWeight: 'bold'
-                },
-              }}
+              sx={buttonStyle}
             >
               Sign In
             </Button>
@@ -280,14 +281,7 @@ function App() {
               color="primary"
               variant="contained"
               style={{ margin: 5 }}
-              sx={{
-                ':hover': {
-                  bgcolor: 'white', 
-                  color: '#0a66c2',
-                  border: 2,
-                  fontWeight: 'bold'
-                },
-              }}
+              sx={buttonStyle}
             >
               Sign Up
             </Button>
@@ -344,15 +338,12 @@ function App() {
                 onChange={handleChange}
                 accept="image/*"
               />
-              <AnimatedButton type="submit" variant="contained" color="primary"  
-              sx={{
-                  ':hover': {
-                    bgcolor: 'white', 
-                    color: '#0a66c2',
-                    border: 2,
-                    fontWeight: 'bold'
-                  },
-                }}>
+              <AnimatedButton
+                type="submit"
+                variant="contained"
+                color="primary"
+                sx={buttonStyle}
+              >
                 Sign Up
               </AnimatedButton>
             </center>
@@ -385,14 +376,7 @@ function App() {
                 onClick={signIn}
                 variant="contained"
                 color="primary"
-                sx={{
-                  ':hover': {
-                    bgcolor: 'white', 
-                    color: '#0a66c2',
-                    border: 2,
-                    fontWeight: 'bold'
-                  },
-                }}
+                sx={buttonStyle}
               >
                 Sign In
               </AnimatedButton>
