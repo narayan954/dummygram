@@ -240,3 +240,37 @@ div#picker {
   left: -7px;
   transform: scale(0.9);
 }
+
+#follobtn{
+  padding: 10px 20px;
+  margin: 5px;
+  background-color: black;
+  color: #fff8;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+
+}
+#followbtn.pointer {
+  cursor: pointer;
+}
+#followbtn:hover {
+  background-color: #07f6f6;
+}
+
+#savebtn{
+  padding: 5px 5px;
+  margin: 7px;
+  background-color: rgb(0, 0, 0);
+  color: #fff8;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  
+  }
+  #savebtn.pointer {
+    cursor: pointer;
+  }
+  #savebtn:hover {
+    background-color: #07baf6;
+  }

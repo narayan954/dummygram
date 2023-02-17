@@ -38,7 +38,7 @@ import ReadMore from "./ReadMore";
 const ITEM_HEIGHT = 48;
 
 function Post(prop) {
-  const { postId, user, post } = prop;
+  const { postId, user, post, save } = prop;
   const { username, caption, imageUrl, avatar, likecount } = post;
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
@@ -86,6 +86,47 @@ function Post(prop) {
     textAlign: "center",
     color: theme.palette.text.secondary,
   }));
+
+  //----* Creating follow and save function*-----
+
+
+  async function FollowerUser(){
+    if (("#follow").text().trim() == "follow"){
+      follow.addEventListener(click,() =>'following' )
+      setFollowed(true);
+
+  }
+  else{
+      setFollowed(false);
+
+
+  }
+} 
+// process to add follow click on button 
+// firebase: create 2 services (functions)
+// update the following array of the logged in user (in this case, my profile)
+// update the followers array of the user who has been followed
+
+
+async function save_post(){
+  if (("#saved").text().trim() == "save"){
+    follow.addEventListener(click,() =>'saved' )
+    setSave(true);
+
+}
+else{
+    setSave(false);
+
+
+}
+//process to add save 
+// firebase: create 1 services (functions) for saves post
+// update the saved array of the user saved post 
+
+}
+
+// ---*Creating follow and save function ends*------- 
+
 
   const postComment = (event) => {
     event.preventDefault();
@@ -143,7 +184,7 @@ function Post(prop) {
 
   const postHasImages = postImages.some((image) => Boolean(image.imageUrl));
   const tempLikeCount = likecount ? [...likecount] : [];
-
+ 
   async function likesHandler() {
     if (user && likecount !== undefined) {
       let ind = tempLikeCount.indexOf(user.uid);
@@ -154,9 +195,7 @@ function Post(prop) {
       } else {
         tempLikeCount.push(user.uid);
         setLikesNo((currLikesNo) => currLikesNo + 1);
-      }
-
-      // console.log(tempLikeCount);
+      };
       const data = {
         likecount: tempLikeCount,
       };
@@ -170,11 +209,11 @@ function Post(prop) {
     }
   }
 
-  async function deletePost() {
+async function deletePost() {
     await db.collection("posts").doc(postId).delete();
   }
 
-  const handleClickOpen = () => {
+ const handleClickOpen = () => {
     setOpen(true);
     setAnchorEl(null);
   };
@@ -266,6 +305,13 @@ function Post(prop) {
             </DialogActions>
           </Dialog>
         </div>
+
+         {/* adding follow button with "FollowerUser" functinality  */}
+        <div>
+          <button id="followbtn"
+          onClick={FollowerUser}>follow</button>
+        </div>
+        
       </div>
 
       <div className="post__container">
@@ -304,6 +350,11 @@ function Post(prop) {
           {/* <div className="social__icon__last">
             <BookmarkBorderOutlinedIcon />
           </div> */}
+
+          {/* adding save button with "save_posts" functinality  */}
+          <button id="savebtn"
+          onClick={save_post}>
+            save</button>
         </div>
 
         <div className="post__text">
