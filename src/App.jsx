@@ -32,15 +32,6 @@ function getModalStyle() {
   };
 }
 
-function getInputStyle() {
-  // const top = 50;
-  // const left = 50;
-  const margin = 5;
-
-  return {
-    margin: `${margin}%`
-  };
-}
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -60,7 +51,6 @@ function App() {
   const classes = useStyles();
 
   const [modalStyle] = useState(getModalStyle);
-  const [inputStyle] = useState(getInputStyle);
   const [posts, setPosts] = useState([]);
   const [openSignUp, setOpenSignUp] = useState(false);
   const [openSignIn, setOpenSignIn] = useState(false);
