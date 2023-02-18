@@ -334,25 +334,26 @@ function App() {
                 placeholder="USERNAME"
                 required
                 value={username}
-                style={inputStyle}
+                style={{margin : "5%"}}
                 onChange={(e) => setUsername(e.target.value)}
               />
               <Input
                 type="text"
                 placeholder="EMAIL"
                 value={email}
-                style={inputStyle}
+                style={{margin : "5%"}}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <Input
                 type="password"
                 placeholder="PASSWORD"
                 value={password}
-                style={inputStyle}
+                style={{margin : "5%"}}
                 onChange={(e) => setPassword(e.target.value)}
               />
               <div className="file-input">
-                <input type="file" id="file" className="file"/>
+                <input type="file" id="file" className="file" onChange={handleChange}
+                accept="image/*"/>
                 <label htmlFor="file">Select Profile Picture</label>
               </div>
               <AnimatedButton type="submit" variant="contained" color="primary">
@@ -376,14 +377,14 @@ function App() {
                 type="text"
                 placeholder="EMAIL"
                 value={email}
-                style={inputStyle}
+                style={{margin : "5%"}}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <Input
                 type="password"
                 placeholder="PASSWORD"
                 value={password}
-                style={inputStyle}
+                style={{margin : "5%"}}
                 onChange={(e) => setPassword(e.target.value)}
               />
               <AnimatedButton
