@@ -195,12 +195,13 @@ Dummygram is now part of GitHub. For code of conduct, please see [GitHub's Commu
 <a href="https://hacktoberfest.com/"><img alt="hacktoberfest logo" src="https://user-images.githubusercontent.com/79099734/189589410-ca17afb8-5855-4316-918a-054f27594809.png"></a>
 
 <p align="center">
-<a href="https://www.codepeak.tech/"><img alt="Light" src="https://user-images.githubusercontent.com/77617189/205454287-c5bffb68-d08f-4103-a191-02b7f54fb81f.png" width="47%" height="400"></a>
+<a href="https://www.codepeak.tech/"><img alt="codepeak" src="https://user-images.githubusercontent.com/77617189/205454287-c5bffb68-d08f-4103-a191-02b7f54fb81f.png" width="47%" height="400"></a>
 &nbsp; &nbsp; &nbsp; &nbsp;
-<a href="https://kwoc.kossiitkgp.org/"><img alt="Dark" src="https://user-images.githubusercontent.com/77617189/205456062-b28a333d-c48b-41ef-96c3-676ef2363ade.png" width="47%" height="400"></a>
+<a href="https://kwoc.kossiitkgp.org/"><img alt="kwoc" src="https://user-images.githubusercontent.com/77617189/205456062-b28a333d-c48b-41ef-96c3-676ef2363ade.png" width="47%" height="400"></a>
 </p>
 
 <a href="https://iwoc.live/"><img alt="iwoc program" src="https://user-images.githubusercontent.com/77617189/215256338-87d294c6-c33e-4da6-8236-f8ab6fae6c4b.png"></a>
+<a href="https://jwoc.tech/"><img alt="jwoc program" src="https://user-images.githubusercontent.com/77617189/219851281-59de273a-388a-4367-a7c6-39d37196ee90.png"></a>
 
 </p>
 
