@@ -189,17 +189,16 @@
 
 .scrollTop {
   position: fixed;
-  width: 50px;
-  bottom: 10px;
+  width: 60px;
+  bottom: 20px;
   left: 50%;
   align-items: center;
-  height: 20px;
+  height: 60px;
   justify-content: center;
   z-index: 1000;
   cursor: pointer;
-  animation: fadeIn 0.3s;
+  animation: fadeIn 0.2s;
   transition: opacity 0.4s;
-  opacity: 0.5;
   display: flex;
 }
 
