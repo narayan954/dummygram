@@ -423,9 +423,14 @@ function App() {
         )}
       </center>
       <FaArrowCircleUp
+        fill="#777"
+        // stroke="30"
         className="scrollTop"
         onClick={scrollTop}
-        style={{ height: 40, display: showScroll ? "flex" : "none" }}
+        style={{
+          height: 60,
+          display: showScroll ? "flex" : "none",
+        }}
       />
     </div>
   );
