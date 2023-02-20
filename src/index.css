@@ -16,7 +16,8 @@
 }
 
 .app__header {
-  position: sticky;
+  position: fixed;
+  width: 98%;
   top: 0;
   z-index: 1;
   background-color: white;
@@ -30,7 +31,7 @@
 }
 
 .app__posts {
-  padding: 20px;
+  padding: 60px;
 }
 
 /* Post style */
