@@ -4,7 +4,7 @@ git:
   core_eol: "native"
 line_ending: "GIT_ATTRIBUTES"
 formatters:
-- format: "markdown"
-  steps:
-  - id: "flexmark"
-    parameters: {}
+  - format: "markdown"
+    steps:
+      - id: "flexmark"
+        parameters: {}
