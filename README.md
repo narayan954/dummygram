@@ -188,7 +188,8 @@ Dummygram is now part of GitHub. For code of conduct, please see [GitHub's Commu
 
 <div  align="center"><img  height="70px"  src="https://user-images.githubusercontent.com/77617189/192942891-31b9152c-918b-4fac-af05-0ad6b1f594aa.svg"  /></div>
 
-## Open Source Programs
+
+## <h1 align=center>Open Source Programs</h1>
 
 <p align="center">
 
@@ -235,7 +236,6 @@ Thanks a lot for spending your time helping dummygram grow. Thanks a lot! Keep r
 **MIT License, see the [LICENSE](./LICENSE) file.**
 
 <br>
-
 ---
 <div align="center">
     <h3><b>Take a moment to star ⭐ the project if you like it</b></h3>
