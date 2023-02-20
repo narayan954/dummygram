@@ -205,13 +205,23 @@ Dummygram is now part of GitHub. For code of conduct, please see [GitHub's Commu
 
 </p>
 
-# Contribution 
+# # <h1 align=center>CONTRIBUTION 👏</h1>
+
+
 
 ## 🧑‍💻 About the Admin
 
 | Admin   | 
 | :----------: | 
 |<a href="https://github.com/narayan954"><img src="https://avatars.githubusercontent.com/narayan954" width=150px height=150px /></a><br>Narayan soni<br> |
+<br>
+
+## 👩🏽‍💻 Contributing
+
+- Contributions make the open source community such an amazing place to learn, inspire, and create.
+- Any contributions you make are greatly appreciated.
+- Check out our [contribution guidelines](/CONTRIBUTING.md) for more information.
+
 <br>
 
 ## Thanks to all Contributors 💪
