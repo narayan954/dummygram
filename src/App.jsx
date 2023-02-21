@@ -19,11 +19,15 @@ import { useSnackbar } from "notistack";
 function getModalStyle() {
   const top = 50;
   const left = 50;
+  const padding = 5;
+  const radius = 10;
 
   return {
     top: `${top}%`,
     left: `${left}%`,
     transform: `translate(-${top}%, -${left}%)`,
+    padding: `${padding}%`,
+    borderRadius: `${radius}%`,
   };
 }
 
@@ -62,8 +66,17 @@ function App() {
     () => loggingIn || signingUp || loadingPosts,
     [loggingIn, signingUp, loadingPosts]
   );
+  const buttonStyle = {
+    ":hover": {
+      bgcolor: "white",
+      color: "#0a66c2",
+      border: 2,
+      fontWeight: "bold",
+    },
+  };
 
   const [image, setImage] = useState(null);
+  const [address, setAddress] = useState(null);
 
   const { enqueueSnackbar } = useSnackbar();
   const [showScroll, setShowScroll] = useState(false);
@@ -71,6 +84,7 @@ function App() {
   const handleChange = (e) => {
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
+      setAddress(e.target.value);
     }
   };
 
@@ -263,6 +277,7 @@ function App() {
               color="primary"
               variant="contained"
               style={{ margin: 5 }}
+              sx={buttonStyle}
             >
               Sign In
             </Button>
@@ -272,6 +287,7 @@ function App() {
               color="primary"
               variant="contained"
               style={{ margin: 5 }}
+              sx={buttonStyle}
             >
               Sign Up
             </Button>
@@ -301,34 +317,70 @@ function App() {
                 src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
                 alt="instagram"
                 className="modal__signup__img"
+                style={{ width: "80%" }}
               />
+              <div
+                style={{
+                  height: "100px",
+                  width: "100px",
+                  borderRadius: "100%",
+                  border: "2px",
+                  borderColor: "black",
+                  borderStyle: "solid",
+                }}
+              >
+                {address ? (
+                  <img
+                    src={URL.createObjectURL(image)}
+                    alt="profile pic"
+                    style={{
+                      width: "100px",
+                      height: "100px",
+                      borderRadius: "100%",
+                    }}
+                  />
+                ) : (
+                  <div style={{ marginTop: "30px" }}>PROFILE PICTURE</div>
+                )}
+              </div>
               <Input
                 type="text"
-                placeholder="username"
+                placeholder="USERNAME"
                 required
                 value={username}
+                style={{ margin: "5%" }}
                 onChange={(e) => setUsername(e.target.value)}
               />
               <Input
                 type="text"
-                placeholder="email"
+                placeholder="EMAIL"
                 value={email}
+                style={{ margin: "5%" }}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <Input
                 type="password"
-                placeholder="password"
+                placeholder="PASSWORD"
                 value={password}
+                style={{ margin: "5%" }}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <label htmlFor="file">Choose your profile pic</label>
-              <input
-                type="file"
-                id="file"
-                onChange={handleChange}
-                accept="image/*"
-              />
-              <AnimatedButton type="submit" variant="contained" color="primary">
+              <div className="file-input">
+                <input
+                  type="file"
+                  id="file"
+                  className="file"
+                  onChange={handleChange}
+                  accept="image/*"
+                />
+                <label htmlFor="file">Select Profile Picture</label>
+              </div>
+              <AnimatedButton
+                type="submit"
+                variant="contained"
+                color="primary"
+                sx={buttonStyle}
+              >
                 Sign Up
               </AnimatedButton>
             </center>
@@ -343,17 +395,20 @@ function App() {
                 src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
                 alt="dummygram"
                 className="modal__signup__img"
+                style={{ width: "80%" }}
               />
               <Input
                 type="text"
-                placeholder="email"
+                placeholder="EMAIL"
                 value={email}
+                style={{ margin: "5%" }}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <Input
                 type="password"
-                placeholder="password"
+                placeholder="PASSWORD"
                 value={password}
+                style={{ margin: "5%" }}
                 onChange={(e) => setPassword(e.target.value)}
               />
               <AnimatedButton
@@ -361,6 +416,7 @@ function App() {
                 onClick={signIn}
                 variant="contained"
                 color="primary"
+                sx={buttonStyle}
               >
                 Sign In
               </AnimatedButton>
@@ -393,9 +449,14 @@ function App() {
         )}
       </center>
       <FaArrowCircleUp
+        fill="#777"
+        // stroke="30"
         className="scrollTop"
         onClick={scrollTop}
-        style={{ height: 40, display: showScroll ? "flex" : "none" }}
+        style={{
+          height: 50,
+          display: showScroll ? "flex" : "none",
+        }}
       />
     </div>
   );

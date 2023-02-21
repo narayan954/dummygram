@@ -189,17 +189,16 @@
 
 .scrollTop {
   position: fixed;
-  width: 50px;
-  bottom: 10px;
+  width: 60px;
+  bottom: 20px;
   left: 50%;
   align-items: center;
-  height: 20px;
+  height: 60px;
   justify-content: center;
   z-index: 1000;
   cursor: pointer;
-  animation: fadeIn 0.3s;
+  animation: fadeIn 0.2s;
   transition: opacity 0.4s;
-  opacity: 0.5;
   display: flex;
 }
 
@@ -240,4 +239,30 @@ div#picker {
   top: -353px;
   left: -7px;
   transform: scale(0.9);
+}
+
+/* profile pic upload input */
+.file {
+  opacity: 0;
+  width: 0.1px;
+  height: 0.1px;
+  position: absolute;
+}
+
+.file-input label {
+  display: block;
+  position: relative;
+  margin-top: 15px;
+  width: 200px;
+  height: 40px;
+  border-radius: 20px;
+  background: linear-gradient(40deg, #ff6ec4, #7873f5);
+  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease-out;
 }
