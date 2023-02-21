@@ -76,6 +76,7 @@ function App() {
   };
 
   const [image, setImage] = useState(null);
+  const [address, setAddress] = useState(null);
 
   const { enqueueSnackbar } = useSnackbar();
   const [showScroll, setShowScroll] = useState(false);
@@ -83,6 +84,7 @@ function App() {
   const handleChange = (e) => {
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
+      setAddress(e.target.value);
     }
   };
 
@@ -317,6 +319,9 @@ function App() {
                 className="modal__signup__img"
                 style={{ width: "80%" }}
               />
+              <div style={{height: "100px", width: "100px", borderRadius: "100%", border: "2px", borderColor: "black", borderStyle: "solid"}}>
+                {address ? <img src={URL.createObjectURL(image)} alt="profile pic" style={{width: "100px", height: "100px", borderRadius: "100%"}}/> : <div style={{marginTop: "30px"}}>PROFILE PICTURE</div>}
+              </div>
               <Input
                 type="text"
                 placeholder="USERNAME"
