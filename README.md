@@ -206,7 +206,7 @@ Dummygram is now part of GitHub. For code of conduct, please see [GitHub's Commu
 
 </p>
 
-# # <h1 align=center>CONTRIBUTION 👏</h1>
+## <h1 align=center>CONTRIBUTION 👏</h1>
 
 
 
