@@ -97,8 +97,8 @@
 .post__avatar {
   margin-right: 10px;
   border-radius: 50%;
-  width: 30px !important;
-  height: 30px !important;
+  width: 25px !important;
+  height: 25px !important;
   object-fit: contain;
 }
 
