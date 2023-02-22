@@ -143,6 +143,12 @@ function Post(prop) {
 
   const postHasImages = postImages.some((image) => Boolean(image.imageUrl));
   const tempLikeCount = likecount ? [...likecount] : [];
+  const buttonStyle = {
+    ":hover": {
+      color: "#ff4d4d",
+      fontSize: "30px"
+    },
+  }
 
   async function likesHandler() {
     if (user && likecount !== undefined) {
@@ -275,10 +281,6 @@ function Post(prop) {
           <div className="post__background">{caption}</div>
         )}
         <div className="social__icons__wrapper">
-          <span style={{ marginLeft: "14px", fontWeight: "light" }}>
-            {likecount ? likesNo : 0}{" "}
-            <span style={{ fontWeight: "bold" }}>likes</span>
-          </span>
 
           <div
             className="social__icon"
@@ -287,23 +289,19 @@ function Post(prop) {
           >
             {user ? (
               tempLikeCount.indexOf(user.uid) != -1 ? (
-                <FavoriteOutlinedIcon sx={{ color: red[500] }} />
+                <FavoriteOutlinedIcon style={{color: "red", fontSize: "35px"}}/>
               ) : (
-                <FavoriteBorderIcon />
+                <FavoriteBorderIcon sx={buttonStyle}/>
               )
             ) : (
-              <FavoriteBorderIcon />
+              <FavoriteBorderIcon sx={buttonStyle}/>
             )}
           </div>
-          {/* <div className="social__icon">
-            <ModeCommentOutlinedIcon />
-          </div> */}
-          {/* <div className="social__icon">
-            <SendOutlinedIcon />
-          </div> */}
-          {/* <div className="social__icon__last">
-            <BookmarkBorderOutlinedIcon />
-          </div> */}
+
+          <span style={{ marginLeft: "", fontWeight: "bold" }}>
+            {(likecount !== 0) ? `${likesNo} Likes` : " "}{" "}
+            {/* <span style={{ fontWeight: "bold" }}>Likes</span> */}
+          </span>
         </div>
 
         <div className="post__text">
