@@ -22,7 +22,7 @@
   background-color: rgb(145, 237, 203);
   padding: 10px;
   object-fit: contain;
-  border-bottom: 1px solid rgba(215, 208, 208, 0.845);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.373);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -36,7 +36,7 @@
 /* Post style */
 .post {
   max-width: 400px;
-  border: 1px solid rgb(238, 180, 207);
+  border: 1px solid rgba(0, 0, 0, 0.373);
   border-radius: 5px;
   margin-bottom: 20px;
   word-wrap: break-word;
@@ -105,7 +105,7 @@
 .post__commentBox {
   display: flex;
   margin-top: 10px;
-  border-top: 1px solid rgb(56, 100, 230);
+  border-top: 1px solid rgba(0, 0, 0, 0.373);
   flex-wrap: wrap;
 }
 
