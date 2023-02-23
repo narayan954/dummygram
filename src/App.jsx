@@ -294,15 +294,15 @@ function App() {
           </div>
         )}
       </div>
-      <Dialog style={{borderRadius: "100px"}} open={openNewUpload} onClose={() => setOpenNewUpload(false)}>
-        <div style={{padding: "20px", borderRadius: "10%"}}>
-        <center><img
+      <Dialog sx={{borderRadius: "100px"}} open={openNewUpload} onClose={() => setOpenNewUpload(false)}>
+        <div style={{padding: "20px", borderRadius: "10%", textAlign: "center"}}>
+        <img
                 src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
                 alt="instagram"
                 className="modal__signup__img"
                 style={{ width: "50%" }}
               />
-          <p style={{fontSize: "25px", fontFamily: "monospace"}}>New Post</p></center>
+          <p style={{fontSize: "25px", fontFamily: "monospace"}}>New Post</p>
         <DialogContent>
           {!loadingPosts &&
             (user ? (
