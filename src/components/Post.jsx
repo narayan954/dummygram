@@ -144,9 +144,9 @@ function Post(prop) {
   const buttonStyle = {
     ":hover": {
       color: "#ff4d4d",
-      fontSize: "29px"
+      fontSize: "29px",
     },
-  }
+  };
 
   async function likesHandler() {
     if (user && likecount !== undefined) {
@@ -279,7 +279,6 @@ function Post(prop) {
           <div className="post__background">{caption}</div>
         )}
         <div className="social__icons__wrapper">
-
           <div
             className="social__icon"
             onClick={likesHandler}
@@ -287,17 +286,19 @@ function Post(prop) {
           >
             {user ? (
               tempLikeCount.indexOf(user.uid) != -1 ? (
-                <FavoriteOutlinedIcon sx={{ color: red[500], fontSize: "30px"}}/>
+                <FavoriteOutlinedIcon
+                  sx={{ color: red[500], fontSize: "30px" }}
+                />
               ) : (
-                <FavoriteBorderIcon sx={buttonStyle}/>
+                <FavoriteBorderIcon sx={buttonStyle} />
               )
             ) : (
-              <FavoriteBorderIcon sx={buttonStyle}/>
+              <FavoriteBorderIcon sx={buttonStyle} />
             )}
           </div>
 
           <span style={{ marginLeft: "", fontWeight: "bold" }}>
-            {(likecount !== 0) ? `${likesNo} Likes` : " "}{" "}
+            {likecount !== 0 ? `${likesNo} Likes` : " "}{" "}
             {/* <span style={{ fontWeight: "bold" }}>Likes</span> */}
           </span>
           {/* comment button */}
