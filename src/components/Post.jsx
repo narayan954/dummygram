@@ -27,7 +27,6 @@ import {
 import { useTheme } from "@mui/material/styles";
 import { db } from "../lib/firebase";
 import firebase from "firebase/compat/app";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import EmojiPicker from "emoji-picker-react";
 import { doc, updateDoc } from "firebase/firestore";
@@ -51,7 +50,6 @@ function Post(prop) {
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const open = Boolean(anchorEl);
   const docRef = doc(db, "posts", postId);
-  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     let unsubscribe;
@@ -134,15 +132,21 @@ function Post(prop) {
     }));
   }
 
-  const computeGridSize = (imagesLength, imageIndex) => {
-    if (imageIndex === imagesLength - 1 && (imageIndex + 1) % 2 !== 0) {
-      return 12;
-    }
-    return 6;
-  };
+  // const computeGridSize = (imagesLength, imageIndex) => {
+  //   if (imageIndex === imagesLength - 1 && (imageIndex + 1) % 2 !== 0) {
+  //     return 12;
+  //   }
+  //   return 6;
+  // };
 
   const postHasImages = postImages.some((image) => Boolean(image.imageUrl));
   const tempLikeCount = likecount ? [...likecount] : [];
+  const buttonStyle = {
+    ":hover": {
+      color: "#ff4d4d",
+      fontSize: "29px"
+    },
+  }
 
   async function likesHandler() {
     if (user && likecount !== undefined) {
@@ -179,9 +183,9 @@ function Post(prop) {
     setAnchorEl(null);
   };
 
-  const handleCommentOpen = () => {
-    setisCommentOpen(true);
-  };
+  // const handleCommentOpen = () => {
+  //   setisCommentOpen(true);
+  // };
 
   const handleClose = () => {
     setOpen(false);
@@ -275,10 +279,6 @@ function Post(prop) {
           <div className="post__background">{caption}</div>
         )}
         <div className="social__icons__wrapper">
-          <span style={{ marginLeft: "14px", fontWeight: "light" }}>
-            {likecount ? likesNo : 0}{" "}
-            <span style={{ fontWeight: "bold" }}>likes</span>
-          </span>
 
           <div
             className="social__icon"
@@ -287,20 +287,28 @@ function Post(prop) {
           >
             {user ? (
               tempLikeCount.indexOf(user.uid) != -1 ? (
-                <FavoriteOutlinedIcon sx={{ color: red[500] }} />
+                <FavoriteOutlinedIcon sx={{ color: red[500], fontSize: "30px"}}/>
               ) : (
-                <FavoriteBorderIcon />
+                <FavoriteBorderIcon sx={buttonStyle}/>
               )
             ) : (
-              <FavoriteBorderIcon />
+              <FavoriteBorderIcon sx={buttonStyle}/>
             )}
           </div>
+
+          <span style={{ marginLeft: "", fontWeight: "bold" }}>
+            {(likecount !== 0) ? `${likesNo} Likes` : " "}{" "}
+            {/* <span style={{ fontWeight: "bold" }}>Likes</span> */}
+          </span>
+          {/* comment button */}
           {/* <div className="social__icon">
             <ModeCommentOutlinedIcon />
           </div> */}
+          {/* share button */}
           {/* <div className="social__icon">
             <SendOutlinedIcon />
           </div> */}
+          {/* save button */}
           {/* <div className="social__icon__last">
             <BookmarkBorderOutlinedIcon />
           </div> */}
