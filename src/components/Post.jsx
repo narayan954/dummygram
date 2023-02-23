@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import CommentIcon from "@mui/icons-material/Comment";
+import { red } from "@mui/material/colors";
 import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
@@ -286,7 +287,7 @@ function Post(prop) {
           >
             {user ? (
               tempLikeCount.indexOf(user.uid) != -1 ? (
-                <FavoriteOutlinedIcon style={{color: "red", fontSize: "30px"}}/>
+                <FavoriteOutlinedIcon sx={{ color: red[500], fontSize: "30px"}}/>
               ) : (
                 <FavoriteBorderIcon sx={buttonStyle}/>
               )
