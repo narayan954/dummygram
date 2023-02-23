@@ -205,7 +205,7 @@ Dummygram is now part of GitHub. For code of conduct, please see [GitHub's Commu
 ## 🧑‍💻 About the Admin
 
 |                                                                          Admin                                                                          |
-|:-------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| :-----------------------------------------------------------------------------------------------------------------------------------------------------: |
 | <a href="https://github.com/narayan954"><img src="https://avatars.githubusercontent.com/narayan954" width=150px height=150px /></a><br>Narayan soni<br> |
 
 <br>
@@ -234,4 +234,3 @@ Thanks a lot for spending your time helping dummygram grow. Thanks a lot! Keep r
     <h3><b>Take a moment to star ⭐ the project if you like it</b></h3>
     <h3>Do checkout the other repos 💫</h3> 
 </div>
-
