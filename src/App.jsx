@@ -15,7 +15,7 @@ import Loader from "./components/Loader";
 import AnimatedButton from "./components/AnimatedButton";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { useSnackbar } from "notistack";
-import logo from './assets/logo.png';
+import logo from "./assets/logo.png";
 
 function getModalStyle() {
   const top = 50;
