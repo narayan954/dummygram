@@ -1,6 +1,6 @@
 <div align="center">
 
-<img  src=" src/assets/logo.png"  alt="Dummygram"  width="250"  height="200">
+<img  src=" src/assets/app-logo.png"  alt="Dummygram"  width="250"  height="200">
 
 [See Live!](https://dummy-gram.web.app/)
 
