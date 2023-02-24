@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Post from "./components/Post";
 import { db, auth, storage } from "./lib/firebase";
+import { googleProvider, facebookProvider } from "./lib/firebase";
 import {
   Modal,
   Button,
@@ -8,6 +9,7 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
+  Divider,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import ImgUpload from "./components/ImgUpload";
@@ -244,6 +246,48 @@ function App() {
     }
   };
 
+  const signInWithGoogle = (e) =>{
+    e.preventDefault();
+    setLoggingIn(true);
+    auth
+    .signInWithPopup(googleProvider)
+    .then(() => {
+        enqueueSnackbar("Login successful!", {
+          variant: "success",
+        });
+        setOpenSignIn(false);
+      })
+      .catch((error) =>
+        enqueueSnackbar(error.message, {
+          variant: "error",
+        })
+      )
+      .finally(() => {
+        setLoggingIn(false);
+      });
+  }
+
+  const signInWithFacebook = (e) =>{
+    e.preventDefault();
+    setLoggingIn(true);
+    auth
+    .signInWithPopup(facebookProvider)
+    .then(() => {
+        enqueueSnackbar("Login successful!", {
+          variant: "success",
+        });
+        setOpenSignIn(false);
+      })
+      .catch((error) =>
+        enqueueSnackbar(error.message, {
+          variant: "error",
+        })
+      )
+      .finally(() => {
+        setLoggingIn(false);
+      });
+  }
+
   return (
     <div className="app">
       <div className="app__header">
@@ -393,6 +437,26 @@ function App() {
                 sx={buttonStyle}
               >
                 Sign In
+              </AnimatedButton>
+              <Divider/>
+              <AnimatedButton
+                type="submit"
+                onClick={signInWithGoogle}
+                variant="contained"
+                color="primary"
+                sx={buttonStyle}
+              >
+                Sign In With Google
+              </AnimatedButton>
+              <Divider/>
+              <AnimatedButton
+                type="submit"
+                onClick={signInWithFacebook}
+                variant="contained"
+                color="primary"
+                sx={buttonStyle}
+              >
+                Sign In With Facebook
               </AnimatedButton>
             </center>
           </form>

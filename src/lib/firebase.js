@@ -3,6 +3,7 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import "firebase/compat/storage";
 import { v4 as uuid } from "uuid";
+import { GoogleAuthProvider } from "firebase/auth";
 
 const firebaseApp = firebase.initializeApp({
   apiKey: import.meta.env.VITE_DUMMYGRAM_APIKEY,
@@ -145,3 +146,5 @@ function handleMultiUpload(files, options = {}) {
 }
 
 export { db, auth, storage, handleMultiUpload };
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
+export const facebookProvider = new firebase.auth.FacebookAuthProvider();
