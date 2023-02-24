@@ -430,6 +430,7 @@ function App() {
         </div>
       </Modal>
 
+    <div style={{display: "flex", alignContent: "center", justifyContent: "center"}}>
       <div
         style={
           !loadingPosts
@@ -446,12 +447,13 @@ function App() {
         {loadingPosts ? (
           <Loader />
         ) : (
-          <div className="app__posts" style={{marginLeft: "33%"}}>
+          <div className="app__posts">
             {posts.map(({ id, post }) => (
               <Post key={id} postId={id} user={user} post={post} />
             ))}
           </div>
         )}
+      </div>
       </div>
       <FaArrowCircleUp
         fill="#777"
@@ -464,6 +466,7 @@ function App() {
         }}
       />
     </div>
+    
   );
 }
 
