@@ -29,6 +29,7 @@ function getModalStyle() {
     transform: `translate(-${top}%, -${left}%)`,
     padding: `${padding}%`,
     borderRadius: `${radius}%`,
+    textAlign: "center"
   };
 }
 
@@ -319,12 +320,11 @@ function App() {
       <Modal open={openSignUp} onClose={() => setOpenSignUp(false)}>
         <div style={modalStyle} className={classes.paper}>
           <form className="modal__signup" onSubmit={signUp}>
-            <center>
               <img
                 src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
                 alt="instagram"
                 className="modal__signup__img"
-                style={{ width: "80%" }}
+                style={{ width: "80%", marginLeft:"10%" }}
               />
               <div
                 style={{
@@ -334,6 +334,7 @@ function App() {
                   border: "2px",
                   borderColor: "black",
                   borderStyle: "solid",
+                  marginLeft:"22%"
                 }}
               >
                 {address ? (
@@ -390,19 +391,17 @@ function App() {
               >
                 Sign Up
               </AnimatedButton>
-            </center>
           </form>
         </div>
       </Modal>
       <Modal open={openSignIn} onClose={() => setOpenSignIn(false)}>
         <div style={getModalStyle()} className={classes.paper}>
           <form className="modal__signup">
-            <center>
               <img
                 src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
                 alt="dummygram"
                 className="modal__signup__img"
-                style={{ width: "80%" }}
+                style={{ width: "80%", marginLeft: "10%" }}
               />
               <Input
                 type="text"
@@ -427,12 +426,11 @@ function App() {
               >
                 Sign In
               </AnimatedButton>
-            </center>
           </form>
         </div>
       </Modal>
 
-      <center
+      <div
         style={
           !loadingPosts
             ? {}
@@ -448,13 +446,13 @@ function App() {
         {loadingPosts ? (
           <Loader />
         ) : (
-          <div className="app__posts">
+          <div className="app__posts" style={{marginLeft: "33%"}}>
             {posts.map(({ id, post }) => (
               <Post key={id} postId={id} user={user} post={post} />
             ))}
           </div>
         )}
-      </center>
+      </div>
       <FaArrowCircleUp
         fill="#777"
         // stroke="30"
