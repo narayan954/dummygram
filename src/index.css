@@ -180,8 +180,6 @@
   margin-right: auto;
   margin-top: 10px;
   margin-bottom: 10px;
-  /* border: 1px solid #ccc; */
-  background-color: rgb(157, 237, 226);
 }
 
 .imageUpload-progress {
@@ -262,7 +260,7 @@ div#picker {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #cf0db5;
+  color: #ffffff;
   font-weight: bold;
   cursor: pointer;
   transition: transform 0.2s ease-out;
