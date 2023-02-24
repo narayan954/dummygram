@@ -144,33 +144,37 @@ function ImgUpload(props) {
       )}
       {(!uploadingPost || (uploadingPost && image)) && (
         <>
-          <center><div className="file-input">
-                <input
-                  type="file"
-                  className="file"
-                  name="file"
-                  id="file"
-                  onChange={handleChange}
-                  multiple
-                  accept="image/*"
-                  ref={imgInput}
-                  disabled={uploadingPost}
-                />
-                <label htmlFor="file">Upload Picture</label>
-          </div></center>
+          <center>
+            <div className="file-input">
+              <input
+                type="file"
+                className="file"
+                name="file"
+                id="file"
+                onChange={handleChange}
+                multiple
+                accept="image/*"
+                ref={imgInput}
+                disabled={uploadingPost}
+              />
+              <label htmlFor="file">Upload Picture</label>
+            </div>
+          </center>
         </>
       )}
       {imagePreviews && (
         <div>
           {imagePreviews.map((img, i) => {
             return (
-              <center><img
-                id="imgPreview"
-                className="preview"
-                src={img}
-                alt={`image-${i}`}
-                key={i}
-              /></center>
+              <center>
+                <img
+                  id="imgPreview"
+                  className="preview"
+                  src={img}
+                  alt={`image-${i}`}
+                  key={i}
+                />
+              </center>
             );
           })}
         </div>
