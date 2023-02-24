@@ -17,6 +17,7 @@ import Loader from "./components/Loader";
 import AnimatedButton from "./components/AnimatedButton";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { useSnackbar } from "notistack";
+import logo from './assets/logo.png';
 
 function getModalStyle() {
   const top = 50;
@@ -46,8 +47,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function App() {
-  const Logo =
-    "https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png";
   const classes = useStyles();
 
   const [modalStyle] = useState(getModalStyle);
@@ -78,6 +77,7 @@ function App() {
   };
 
   const [image, setImage] = useState(null);
+  const [address, setAddress] = useState(null);
 
   const { enqueueSnackbar } = useSnackbar();
   const [showScroll, setShowScroll] = useState(false);
@@ -85,6 +85,7 @@ function App() {
   const handleChange = (e) => {
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
+      setAddress(e.target.value);
     }
   };
 
@@ -292,7 +293,7 @@ function App() {
     <div className="app">
       <div className="app__header">
         <img
-          src={Logo}
+          src={logo}
           alt="dummygram"
           className="app__header__img w-100"
           onClick={() => {
@@ -361,6 +362,30 @@ function App() {
                 className="modal__signup__img"
                 style={{ width: "80%" }}
               />
+              <div
+                style={{
+                  height: "100px",
+                  width: "100px",
+                  borderRadius: "100%",
+                  border: "2px",
+                  borderColor: "black",
+                  borderStyle: "solid",
+                }}
+              >
+                {address ? (
+                  <img
+                    src={URL.createObjectURL(image)}
+                    alt="profile pic"
+                    style={{
+                      width: "100px",
+                      height: "100px",
+                      borderRadius: "100%",
+                    }}
+                  />
+                ) : (
+                  <div style={{ marginTop: "30px" }}>PROFILE PICTURE</div>
+                )}
+              </div>
               <Input
                 type="text"
                 placeholder="USERNAME"
