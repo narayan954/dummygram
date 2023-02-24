@@ -3,7 +3,6 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import "firebase/compat/storage";
 import { v4 as uuid } from "uuid";
-import { GoogleAuthProvider } from "firebase/auth";
 
 const firebaseApp = firebase.initializeApp({
   apiKey: import.meta.env.VITE_DUMMYGRAM_APIKEY,
