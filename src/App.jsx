@@ -15,7 +15,7 @@ import Loader from "./components/Loader";
 import AnimatedButton from "./components/AnimatedButton";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { useSnackbar } from "notistack";
-import logo from './assets/logo.png';
+import logo from "./assets/logo.png";
 
 function getModalStyle() {
   const top = 50;
@@ -29,7 +29,7 @@ function getModalStyle() {
     transform: `translate(-${top}%, -${left}%)`,
     padding: `${padding}%`,
     borderRadius: `${radius}%`,
-    textAlign: "center"
+    textAlign: "center",
   };
 }
 
@@ -294,166 +294,178 @@ function App() {
           </div>
         )}
       </div>
-      <Dialog sx={{borderRadius: "100px"}} open={openNewUpload} onClose={() => setOpenNewUpload(false)}>
-        <div style={{padding: "20px", borderRadius: "10%", textAlign: "center"}}>
-        <img
-                src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
-                alt="instagram"
-                className="modal__signup__img"
-                style={{ width: "50%" }}
-              />
-          <p style={{fontSize: "25px", fontFamily: "monospace"}}>New Post</p>
-        <DialogContent>
-          {!loadingPosts &&
-            (user ? (
-              <ImgUpload
-                user={user}
-                onUploadComplete={() => setOpenNewUpload(false)}
-              />
-            ) : (
-              <h3>Sorry you need to login to upload posts</h3>
-            ))}
-        </DialogContent>
+      <Dialog
+        sx={{ borderRadius: "100px" }}
+        open={openNewUpload}
+        onClose={() => setOpenNewUpload(false)}
+      >
+        <div
+          style={{ padding: "20px", borderRadius: "10%", textAlign: "center" }}
+        >
+          <img
+            src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
+            alt="instagram"
+            className="modal__signup__img"
+            style={{ width: "50%" }}
+          />
+          <p style={{ fontSize: "25px", fontFamily: "monospace" }}>New Post</p>
+          <DialogContent>
+            {!loadingPosts &&
+              (user ? (
+                <ImgUpload
+                  user={user}
+                  onUploadComplete={() => setOpenNewUpload(false)}
+                />
+              ) : (
+                <h3>Sorry you need to login to upload posts</h3>
+              ))}
+          </DialogContent>
         </div>
       </Dialog>
 
       <Modal open={openSignUp} onClose={() => setOpenSignUp(false)}>
         <div style={modalStyle} className={classes.paper}>
           <form className="modal__signup" onSubmit={signUp}>
-              <img
-                src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
-                alt="instagram"
-                className="modal__signup__img"
-                style={{ width: "80%", marginLeft:"10%" }}
-              />
-              <div
-                style={{
-                  height: "100px",
-                  width: "100px",
-                  borderRadius: "100%",
-                  border: "2px",
-                  borderColor: "black",
-                  borderStyle: "solid",
-                  marginLeft:"22%"
-                }}
-              >
-                {address ? (
-                  <img
-                    src={URL.createObjectURL(image)}
-                    alt="profile pic"
-                    style={{
-                      width: "100px",
-                      height: "100px",
-                      borderRadius: "100%",
-                    }}
-                  />
-                ) : (
-                  <div style={{ marginTop: "30px" }}>PROFILE PICTURE</div>
-                )}
-              </div>
-              <Input
-                type="text"
-                placeholder="USERNAME"
-                required
-                value={username}
-                style={{ margin: "5%" }}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-              <Input
-                type="text"
-                placeholder="EMAIL"
-                value={email}
-                style={{ margin: "5%" }}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <Input
-                type="password"
-                placeholder="PASSWORD"
-                value={password}
-                style={{ margin: "5%" }}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <div className="file-input">
-                <input
-                  type="file"
-                  id="file"
-                  className="file"
-                  onChange={handleChange}
-                  accept="image/*"
+            <img
+              src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
+              alt="instagram"
+              className="modal__signup__img"
+              style={{ width: "80%", marginLeft: "10%" }}
+            />
+            <div
+              style={{
+                height: "100px",
+                width: "100px",
+                borderRadius: "100%",
+                border: "2px",
+                borderColor: "black",
+                borderStyle: "solid",
+                marginLeft: "22%",
+              }}
+            >
+              {address ? (
+                <img
+                  src={URL.createObjectURL(image)}
+                  alt="profile pic"
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                    borderRadius: "100%",
+                  }}
                 />
-                <label htmlFor="file">Select Profile Picture</label>
-              </div>
-              <AnimatedButton
-                type="submit"
-                variant="contained"
-                color="primary"
-                sx={buttonStyle}
-              >
-                Sign Up
-              </AnimatedButton>
+              ) : (
+                <div style={{ marginTop: "30px" }}>PROFILE PICTURE</div>
+              )}
+            </div>
+            <Input
+              type="text"
+              placeholder="USERNAME"
+              required
+              value={username}
+              style={{ margin: "5%" }}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <Input
+              type="text"
+              placeholder="EMAIL"
+              value={email}
+              style={{ margin: "5%" }}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Input
+              type="password"
+              placeholder="PASSWORD"
+              value={password}
+              style={{ margin: "5%" }}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <div className="file-input">
+              <input
+                type="file"
+                id="file"
+                className="file"
+                onChange={handleChange}
+                accept="image/*"
+              />
+              <label htmlFor="file">Select Profile Picture</label>
+            </div>
+            <AnimatedButton
+              type="submit"
+              variant="contained"
+              color="primary"
+              sx={buttonStyle}
+            >
+              Sign Up
+            </AnimatedButton>
           </form>
         </div>
       </Modal>
       <Modal open={openSignIn} onClose={() => setOpenSignIn(false)}>
         <div style={getModalStyle()} className={classes.paper}>
           <form className="modal__signup">
-              <img
-                src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
-                alt="dummygram"
-                className="modal__signup__img"
-                style={{ width: "80%", marginLeft: "10%" }}
-              />
-              <Input
-                type="text"
-                placeholder="EMAIL"
-                value={email}
-                style={{ margin: "5%" }}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <Input
-                type="password"
-                placeholder="PASSWORD"
-                value={password}
-                style={{ margin: "5%" }}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <AnimatedButton
-                type="submit"
-                onClick={signIn}
-                variant="contained"
-                color="primary"
-                sx={buttonStyle}
-              >
-                Sign In
-              </AnimatedButton>
+            <img
+              src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
+              alt="dummygram"
+              className="modal__signup__img"
+              style={{ width: "80%", marginLeft: "10%" }}
+            />
+            <Input
+              type="text"
+              placeholder="EMAIL"
+              value={email}
+              style={{ margin: "5%" }}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Input
+              type="password"
+              placeholder="PASSWORD"
+              value={password}
+              style={{ margin: "5%" }}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <AnimatedButton
+              type="submit"
+              onClick={signIn}
+              variant="contained"
+              color="primary"
+              sx={buttonStyle}
+            >
+              Sign In
+            </AnimatedButton>
           </form>
         </div>
       </Modal>
 
-    <div style={{display: "flex", alignContent: "center", justifyContent: "center"}}>
       <div
-        style={
-          !loadingPosts
-            ? {}
-            : {
-                width: "100%",
-                minHeight: "100vh",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }
-        }
+        style={{
+          display: "flex",
+          alignContent: "center",
+          justifyContent: "center",
+        }}
       >
-        {loadingPosts ? (
-          <Loader />
-        ) : (
-          <div className="app__posts">
-            {posts.map(({ id, post }) => (
-              <Post key={id} postId={id} user={user} post={post} />
-            ))}
-          </div>
-        )}
-      </div>
+        <div
+          style={
+            !loadingPosts
+              ? {}
+              : {
+                  width: "100%",
+                  minHeight: "100vh",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }
+          }
+        >
+          {loadingPosts ? (
+            <Loader />
+          ) : (
+            <div className="app__posts">
+              {posts.map(({ id, post }) => (
+                <Post key={id} postId={id} user={user} post={post} />
+              ))}
+            </div>
+          )}
+        </div>
       </div>
       <FaArrowCircleUp
         fill="#777"
@@ -466,7 +478,6 @@ function App() {
         }}
       />
     </div>
-    
   );
 }
 
