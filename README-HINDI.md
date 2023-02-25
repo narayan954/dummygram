@@ -152,7 +152,6 @@ npm run dev
 - [ओपन सोर्स के लिए एक पूरी गाइड](https://www.youtube.com/watch?v=yzeVMecydCE) - वीडियो
 - [ओपन सोर्स के लिए गाइड](https://www.freecodecamp.org/news/how-to-contribute-to-open-source-projects-beginners-guide/) - लेख
 
-
 ## डमीग्राम का उपयोग कैसे करें
 
 [नियंत्रण का प्रवाह](FlowOfControl.md)
@@ -213,5 +212,4 @@ npm run dev
 
 ## लाइसेंस
 
-एमआईटी लाइसेंस, [लाइसेंस](LICENSE) फ़ाइल देखें।
----
+## एमआईटी लाइसेंस, [लाइसेंस](LICENSE) फ़ाइल देखें।
