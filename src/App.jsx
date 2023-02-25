@@ -1,6 +1,12 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Post from "./components/Post";
-import { db, auth, storage, googleProvider, facebookProvider } from "./lib/firebase";
+import {
+  db,
+  auth,
+  storage,
+  googleProvider,
+  facebookProvider,
+} from "./lib/firebase";
 import {
   Modal,
   Button,
@@ -244,34 +250,13 @@ function App() {
       variant: "info",
     });
   };
-  
-   const signInWithGoogle = (e) =>{
-    e.preventDefault();
-    setLoggingIn(true);
-    auth
-    .signInWithPopup(googleProvider)
-    .then(() => {
-        enqueueSnackbar("Login successful!", {
-          variant: "success",
-        });
-        setOpenSignIn(false);
-      })
-      .catch((error) =>
-        enqueueSnackbar(error.message, {
-          variant: "error",
-        })
-      )
-      .finally(() => {
-        setLoggingIn(false);
-      });
-  }
 
-  const signInWithFacebook = (e) =>{
+  const signInWithGoogle = (e) => {
     e.preventDefault();
     setLoggingIn(true);
     auth
-    .signInWithPopup(facebookProvider)
-    .then(() => {
+      .signInWithPopup(googleProvider)
+      .then(() => {
         enqueueSnackbar("Login successful!", {
           variant: "success",
         });
@@ -285,7 +270,28 @@ function App() {
       .finally(() => {
         setLoggingIn(false);
       });
-  }
+  };
+
+  const signInWithFacebook = (e) => {
+    e.preventDefault();
+    setLoggingIn(true);
+    auth
+      .signInWithPopup(facebookProvider)
+      .then(() => {
+        enqueueSnackbar("Login successful!", {
+          variant: "success",
+        });
+        setOpenSignIn(false);
+      })
+      .catch((error) =>
+        enqueueSnackbar(error.message, {
+          variant: "error",
+        })
+      )
+      .finally(() => {
+        setLoggingIn(false);
+      });
+  };
 
   return (
     <div className="app">
@@ -481,23 +487,23 @@ function App() {
               Sign In
             </AnimatedButton>
             <AnimatedButton
-                type="submit"
-                onClick={signInWithGoogle}
-                variant="contained"
-                color="primary"
-                sx={buttonStyle}
-              >
-                Sign In With Google
-              </AnimatedButton>
-              <AnimatedButton
-                type="submit"
-                onClick={signInWithFacebook}
-                variant="contained"
-                color="primary"
-                sx={buttonStyle}
-              >
-                Sign In With Facebook
-              </AnimatedButton>
+              type="submit"
+              onClick={signInWithGoogle}
+              variant="contained"
+              color="primary"
+              sx={buttonStyle}
+            >
+              Sign In With Google
+            </AnimatedButton>
+            <AnimatedButton
+              type="submit"
+              onClick={signInWithFacebook}
+              variant="contained"
+              color="primary"
+              sx={buttonStyle}
+            >
+              Sign In With Facebook
+            </AnimatedButton>
           </form>
         </div>
       </Modal>
