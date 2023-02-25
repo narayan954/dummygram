@@ -8,7 +8,6 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  Divider,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import ImgUpload from "./components/ImgUpload";
@@ -16,7 +15,7 @@ import Loader from "./components/Loader";
 import AnimatedButton from "./components/AnimatedButton";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { useSnackbar } from "notistack";
-import logo from './assets/logo.png';
+import logo from "./assets/logo.png";
 
 function getModalStyle() {
   const top = 50;
@@ -30,6 +29,7 @@ function getModalStyle() {
     transform: `translate(-${top}%, -${left}%)`,
     padding: `${padding}%`,
     borderRadius: `${radius}%`,
+    textAlign: "center",
   };
 }
 
@@ -62,6 +62,7 @@ function App() {
   const [pageSize, setPageSize] = useState(10);
   const [loadMorePosts, setLoadMorePosts] = useState(false);
   const [openNewUpload, setOpenNewUpload] = useState(false);
+  const [logout, setLogout] = useState(false);
   const processingAuth = useMemo(
     () => loggingIn || signingUp || loadingPosts,
     [loggingIn, signingUp, loadingPosts]
@@ -238,15 +239,13 @@ function App() {
   };
 
   const signOut = () => {
-    if (confirm("Are you sure you want to logout?")) {
-      auth.signOut().finally();
-      enqueueSnackbar("Logged out Successfully !", {
-        variant: "info",
-      });
-    }
+    auth.signOut().finally();
+    enqueueSnackbar("Logged out Successfully !", {
+      variant: "info",
+    });
   };
-
-  const signInWithGoogle = (e) =>{
+  
+   const signInWithGoogle = (e) =>{
     e.preventDefault();
     setLoggingIn(true);
     auth
@@ -308,7 +307,13 @@ function App() {
             >
               New Post
             </Button>
-            <Button onClick={signOut} color="secondary" variant="contained">
+            <Button
+              onClick={() => {
+                setLogout(true);
+              }}
+              color="secondary"
+              variant="contained"
+            >
               Logout
             </Button>
           </>
@@ -336,134 +341,146 @@ function App() {
           </div>
         )}
       </div>
-      <Dialog open={openNewUpload} onClose={() => setOpenNewUpload(false)}>
-        <DialogTitle>New Upload</DialogTitle>
-        <DialogContent>
-          {!loadingPosts &&
-            (user ? (
-              <ImgUpload
-                user={user}
-                onUploadComplete={() => setOpenNewUpload(false)}
-              />
-            ) : (
-              <h3>Sorry you need to login to upload posts</h3>
-            ))}
-        </DialogContent>
+      <Dialog
+        sx={{ borderRadius: "100px" }}
+        open={openNewUpload}
+        onClose={() => setOpenNewUpload(false)}
+      >
+        <div
+          style={{ padding: "20px", borderRadius: "10%", textAlign: "center" }}
+        >
+          <img
+            src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
+            alt="instagram"
+            className="modal__signup__img"
+            style={{ width: "50%" }}
+          />
+          <p style={{ fontSize: "25px", fontFamily: "monospace" }}>New Post</p>
+          <DialogContent>
+            {!loadingPosts &&
+              (user ? (
+                <ImgUpload
+                  user={user}
+                  onUploadComplete={() => setOpenNewUpload(false)}
+                />
+              ) : (
+                <h3>Sorry you need to login to upload posts</h3>
+              ))}
+          </DialogContent>
+        </div>
       </Dialog>
 
       <Modal open={openSignUp} onClose={() => setOpenSignUp(false)}>
         <div style={modalStyle} className={classes.paper}>
           <form className="modal__signup" onSubmit={signUp}>
-            <center>
-              <img
-                src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
-                alt="instagram"
-                className="modal__signup__img"
-                style={{ width: "80%" }}
-              />
-              <div
-                style={{
-                  height: "100px",
-                  width: "100px",
-                  borderRadius: "100%",
-                  border: "2px",
-                  borderColor: "black",
-                  borderStyle: "solid",
-                }}
-              >
-                {address ? (
-                  <img
-                    src={URL.createObjectURL(image)}
-                    alt="profile pic"
-                    style={{
-                      width: "100px",
-                      height: "100px",
-                      borderRadius: "100%",
-                    }}
-                  />
-                ) : (
-                  <div style={{ marginTop: "30px" }}>PROFILE PICTURE</div>
-                )}
-              </div>
-              <Input
-                type="text"
-                placeholder="USERNAME"
-                required
-                value={username}
-                style={{ margin: "5%" }}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-              <Input
-                type="text"
-                placeholder="EMAIL"
-                value={email}
-                style={{ margin: "5%" }}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <Input
-                type="password"
-                placeholder="PASSWORD"
-                value={password}
-                style={{ margin: "5%" }}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <div className="file-input">
-                <input
-                  type="file"
-                  id="file"
-                  className="file"
-                  onChange={handleChange}
-                  accept="image/*"
+            <img
+              src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
+              alt="instagram"
+              className="modal__signup__img"
+              style={{ width: "80%", marginLeft: "10%" }}
+            />
+            <div
+              style={{
+                height: "100px",
+                width: "100px",
+                borderRadius: "100%",
+                border: "2px",
+                borderColor: "black",
+                borderStyle: "solid",
+                marginLeft: "22%",
+              }}
+            >
+              {address ? (
+                <img
+                  src={URL.createObjectURL(image)}
+                  alt="profile pic"
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                    borderRadius: "100%",
+                  }}
                 />
-                <label htmlFor="file">Select Profile Picture</label>
-              </div>
-              <AnimatedButton
-                type="submit"
-                variant="contained"
-                color="primary"
-                sx={buttonStyle}
-              >
-                Sign Up
-              </AnimatedButton>
-            </center>
+              ) : (
+                <div style={{ marginTop: "30px" }}>PROFILE PICTURE</div>
+              )}
+            </div>
+            <Input
+              type="text"
+              placeholder="USERNAME"
+              required
+              value={username}
+              style={{ margin: "5%" }}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <Input
+              type="text"
+              placeholder="EMAIL"
+              value={email}
+              style={{ margin: "5%" }}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Input
+              type="password"
+              placeholder="PASSWORD"
+              value={password}
+              style={{ margin: "5%" }}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <div className="file-input">
+              <input
+                type="file"
+                id="file"
+                className="file"
+                onChange={handleChange}
+                accept="image/*"
+              />
+              <label htmlFor="file">Select Profile Picture</label>
+            </div>
+            <AnimatedButton
+              type="submit"
+              variant="contained"
+              color="primary"
+              sx={buttonStyle}
+            >
+              Sign Up
+            </AnimatedButton>
           </form>
         </div>
       </Modal>
+
       <Modal open={openSignIn} onClose={() => setOpenSignIn(false)}>
         <div style={getModalStyle()} className={classes.paper}>
           <form className="modal__signup">
-            <center>
-              <img
-                src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
-                alt="dummygram"
-                className="modal__signup__img"
-                style={{ width: "80%" }}
-              />
-              <Input
-                type="text"
-                placeholder="EMAIL"
-                value={email}
-                style={{ margin: "5%" }}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <Input
-                type="password"
-                placeholder="PASSWORD"
-                value={password}
-                style={{ margin: "5%" }}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <AnimatedButton
-                type="submit"
-                onClick={signIn}
-                variant="contained"
-                color="primary"
-                sx={buttonStyle}
-              >
-                Sign In
-              </AnimatedButton>
-              <Divider/>
-              <AnimatedButton
+            <img
+              src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
+              alt="dummygram"
+              className="modal__signup__img"
+              style={{ width: "80%", marginLeft: "10%" }}
+            />
+            <Input
+              type="text"
+              placeholder="EMAIL"
+              value={email}
+              style={{ margin: "5%" }}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Input
+              type="password"
+              placeholder="PASSWORD"
+              value={password}
+              style={{ margin: "5%" }}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <AnimatedButton
+              type="submit"
+              onClick={signIn}
+              variant="contained"
+              color="primary"
+              sx={buttonStyle}
+            >
+              Sign In
+            </AnimatedButton>
+            <AnimatedButton
                 type="submit"
                 onClick={signInWithGoogle}
                 variant="contained"
@@ -472,7 +489,6 @@ function App() {
               >
                 Sign In With Google
               </AnimatedButton>
-              <Divider/>
               <AnimatedButton
                 type="submit"
                 onClick={signInWithFacebook}
@@ -482,34 +498,74 @@ function App() {
               >
                 Sign In With Facebook
               </AnimatedButton>
-            </center>
           </form>
         </div>
       </Modal>
 
-      <center
-        style={
-          !loadingPosts
-            ? {}
-            : {
-                width: "100%",
-                minHeight: "100vh",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }
-        }
+      <Modal open={logout} onClose={() => setLogout(false)}>
+        <div style={getModalStyle()} className={classes.paper}>
+          <form className="modal__signup">
+            <img
+              src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
+              alt="dummygram"
+              className="modal__signup__img"
+              style={{ width: "80%", marginLeft: "10%" }}
+            />
+
+            <p
+              style={{
+                fontSize: "15px",
+                fontFamily: "monospace",
+                padding: "10%",
+              }}
+            >
+              Are you sure you want to Logout?
+            </p>
+
+            <AnimatedButton
+              type="submit"
+              onClick={signOut}
+              variant="contained"
+              color="primary"
+              sx={buttonStyle}
+            >
+              Logout
+            </AnimatedButton>
+          </form>
+        </div>
+      </Modal>
+
+      <div
+        style={{
+          display: "flex",
+          alignContent: "center",
+          justifyContent: "center",
+        }}
       >
-        {loadingPosts ? (
-          <Loader />
-        ) : (
-          <div className="app__posts">
-            {posts.map(({ id, post }) => (
-              <Post key={id} postId={id} user={user} post={post} />
-            ))}
-          </div>
-        )}
-      </center>
+        <div
+          style={
+            !loadingPosts
+              ? {}
+              : {
+                  width: "100%",
+                  minHeight: "100vh",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }
+          }
+        >
+          {loadingPosts ? (
+            <Loader />
+          ) : (
+            <div className="app__posts">
+              {posts.map(({ id, post }) => (
+                <Post key={id} postId={id} user={user} post={post} />
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
       <FaArrowCircleUp
         fill="#777"
         // stroke="30"
