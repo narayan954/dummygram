@@ -447,7 +447,7 @@ function App() {
               style={{ width: "80%", marginLeft: "10%" }}
             />
 
-            <p style={{ fontSize: "15px", fontFamily: "monospace", padding: "10%" }}>Are you sure you want to Logout</p>
+            <p style={{ fontSize: "15px", fontFamily: "monospace", padding: "10%" }}>Are you sure you want to Logout?</p>
             
             <AnimatedButton
               type="submit"
