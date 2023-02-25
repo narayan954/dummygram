@@ -265,7 +265,13 @@ function App() {
             >
               New Post
             </Button>
-            <Button onClick={() => {setLogout(true)}} color="secondary" variant="contained">
+            <Button
+              onClick={() => {
+                setLogout(true);
+              }}
+              color="secondary"
+              variant="contained"
+            >
               Logout
             </Button>
           </>
@@ -439,16 +445,23 @@ function App() {
       <Modal open={logout} onClose={() => setLogout(false)}>
         <div style={getModalStyle()} className={classes.paper}>
           <form className="modal__signup">
-
-          <img
+            <img
               src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
               alt="dummygram"
               className="modal__signup__img"
               style={{ width: "80%", marginLeft: "10%" }}
             />
 
-            <p style={{ fontSize: "15px", fontFamily: "monospace", padding: "10%" }}>Are you sure you want to Logout?</p>
-            
+            <p
+              style={{
+                fontSize: "15px",
+                fontFamily: "monospace",
+                padding: "10%",
+              }}
+            >
+              Are you sure you want to Logout?
+            </p>
+
             <AnimatedButton
               type="submit"
               onClick={signOut}
