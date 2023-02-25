@@ -75,7 +75,10 @@ function App() {
   );
   const buttonStyle = {
     background: "linear-gradient(40deg, #e107c1, #59afc7)",
-    borderRadius: "20px"
+    borderRadius: "20px",
+    ":hover": {
+      background: "linear-gradient(-40deg, #59afc7, #e107c1)"
+    },
   };
 
   const [image, setImage] = useState(null);
