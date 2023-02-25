@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Post from "./components/Post";
-import { db, auth, storage } from "./lib/firebase";
-import { googleProvider, facebookProvider } from "./lib/firebase";
+import { db, auth, storage, googleProvider, facebookProvider } from "./lib/firebase";
 import {
   Modal,
   Button,
