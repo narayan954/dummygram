@@ -74,11 +74,10 @@ function App() {
     [loggingIn, signingUp, loadingPosts]
   );
   const buttonStyle = {
+    background: "linear-gradient(40deg, #e107c1, #59afc7)",
+    borderRadius: "20px",
     ":hover": {
-      bgcolor: "white",
-      color: "#0a66c2",
-      border: 2,
-      fontWeight: "bold",
+      background: "linear-gradient(-40deg, #59afc7, #e107c1)"
     },
   };
 
@@ -310,6 +309,7 @@ function App() {
               onClick={() => setOpenNewUpload(true)}
               color="secondary"
               variant="contained"
+              sx={buttonStyle}
             >
               New Post
             </Button>
@@ -319,6 +319,7 @@ function App() {
               }}
               color="secondary"
               variant="contained"
+              sx={buttonStyle}
             >
               Logout
             </Button>
