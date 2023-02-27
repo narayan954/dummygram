@@ -214,7 +214,7 @@ Dummygram is now part of GitHub. For code of conduct, please see [GitHub's Commu
 
 | Admin   | 
 | :----------: | 
-|<a href="https://github.com/narayan954"><img src="https://avatars.githubusercontent.com/narayan954" width=150px height=150px /></a><br>Narayan soni<br> |
+|<center><a href="https://github.com/narayan954"><img src="https://avatars.githubusercontent.com/narayan954" width=150px height=150px /></a><br>Narayan soni<br></center> |
 <br>
 
 ## 👩🏽‍💻 Contributing
