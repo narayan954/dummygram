@@ -26,27 +26,39 @@ When you learn ReactJs it seems obvious to work on some projects and for the pro
 
 Dummygram has been in development since September 2022 and is part of GitHub since the very beginning. Our current priorities and what we are working on is kind of obvious, but still we want to give it a unique look and make it feature rich.:sparkles:
 
-# Docs
+# Table of Contents
 
-- Table of Contents
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+        <a href="#codebase">Codebase</a>
+        <ul>
+          <li><a href="#technologies">Technologies</a></li>
+		  <li><a href="#folder-structure">Folder Structure</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#project-setup">Project Setup</a>
+        <ul>
+          <li><a href="#first-time-setup">First time setup</a></li>
+          <li><a href="#installation">Installation</a></li>
+		      <li><a href="#running-the-app-locally">Running the app locally</a></li>
+        </ul>
+      </li>
+      <li><a href="#how-to-get-started-with-open-source">How to get started with Open Source</a></li>
+      <li><a href="#how-to-use-dummygram">How to use Dummygram</a></li>
+      <li><a href="#contributing">Contributing</a></li>
+      <li><a href="#rules">Rules</a></li>
+      <li><a href="#open-source-programs">Open Source Programs</a></li>
+      <li><a href="#license">License</a></li>
+  </ol>
+</details>
 
-  - [Codebase](#codebase)
 
-    - [Technologies](#technologies)
-    - [Folder Structure](#folder-structure)
 
-  - [Project Setup](#project-setup)
 
-    - [First time setup](#first-time-setup)
-    - [installation](#installation)
-    - [Running the app locally](#running-the-app-locally)
 
-  - [How to get started with Open Source](#how-to-get-started-with-open-source)
-  - [How to use Dummygram](#how-to-use-dummygram)
-  - [Contributing](#contributing)
-  - [Rules](#rules)
-  - [Open Source Programs](#open-source-programs)
-  - [License](#license)
 
 ## Codebase
 
