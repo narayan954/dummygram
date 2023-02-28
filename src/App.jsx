@@ -125,6 +125,15 @@ function App() {
   }, [user, username]);
 
   useEffect(() => {
+    window.document.body.style.setProperty("--bg-color", "rgb(145, 237, 203)");
+    if (document.body.classList.contains("darkmode--activated")) {
+      window.document.body.style.setProperty("--color", "white");
+      document.getElementsByClassName('app__header__img').item(0).style.filter="invert(100%)";
+    } else {
+      window.document.body.style.setProperty("--color", "black");
+      document.getElementsByClassName('app__header__img').item(0).style.filter="invert(0%)";
+    }
+
     window.addEventListener("scroll", handleMouseScroll);
     db.collection("posts")
       .orderBy("timestamp", "desc")
@@ -292,6 +301,8 @@ function App() {
       });
   };
 
+
+
   return (
     <div className="app">
       <div className="app__header">
@@ -325,6 +336,7 @@ function App() {
             </Button>
           </>
         ) : (
+
           <div className="login__container">
             <Button
               onClick={() => setOpenSignIn(true)}
@@ -346,9 +358,11 @@ function App() {
               Sign Up
             </Button>
           </div>
+
         )}
       </div>
-      <Dialog
+
+      {/* <Dialog
         sx={{ borderRadius: "100px" }}
         open={openNewUpload}
         onClose={() => setOpenNewUpload(false)}
@@ -540,7 +554,7 @@ function App() {
             </AnimatedButton>
           </form>
         </div>
-      </Modal>
+      </Modal> */}
 
       <div
         style={{
@@ -549,7 +563,7 @@ function App() {
           justifyContent: "center",
         }}
       >
-        <div
+         <div
           style={
             !loadingPosts
               ? {}
@@ -570,10 +584,12 @@ function App() {
                 <Post key={id} postId={id} user={user} post={post} />
               ))}
             </div>
-          )}
+          )} 
         </div>
-      </div>
-      <FaArrowCircleUp
+        
+      </div> 
+      
+       <FaArrowCircleUp
         fill="#777"
         // stroke="30"
         className="scrollTop"
@@ -582,7 +598,7 @@ function App() {
           height: 50,
           display: showScroll ? "flex" : "none",
         }}
-      />
+      /> 
     </div>
   );
 }
