@@ -266,22 +266,6 @@ div#picker {
   transition: transform 0.2s ease-out;
 }
 
-/* landing page animation */
-
-#logo{
-  width: 0px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  animation: animate 4s ease forwards;
-}
-
-@keyframes animate {
-  to{
-      width: 100%;
-  }
-}
 ::-webkit-scrollbar {
   width: 0.8rem;
 }
