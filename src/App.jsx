@@ -130,13 +130,14 @@ function App() {
       window.document.body.style.setProperty("--bg-color", "black");
       window.document.body.style.setProperty("--color", "white");
       window.document.body.style.setProperty("--val", 1);
-      document.getElementsByClassName('app__header__img').item(0).style.filter="invert(100%)";
-
+      document.getElementsByClassName("app__header__img").item(0).style.filter =
+        "invert(100%)";
     } else {
       window.document.body.style.setProperty("--bg-color", "white");
       window.document.body.style.setProperty("--color", "#2B1B17");
       window.document.body.style.setProperty("--val", 0);
-      document.getElementsByClassName('app__header__img').item(0).style.filter="invert(0%)";
+      document.getElementsByClassName("app__header__img").item(0).style.filter =
+        "invert(0%)";
     }
 
     window.addEventListener("scroll", handleMouseScroll);
@@ -306,8 +307,6 @@ function App() {
       });
   };
 
-
-
   return (
     <div className="app">
       <div className="app__header">
@@ -341,7 +340,6 @@ function App() {
             </Button>
           </>
         ) : (
-
           <div className="login__container">
             <Button
               onClick={() => setOpenSignIn(true)}
@@ -363,7 +361,6 @@ function App() {
               Sign Up
             </Button>
           </div>
-
         )}
       </div>
 
@@ -373,13 +370,13 @@ function App() {
         onClose={() => setOpenNewUpload(false)}
       >
         <div
-          style={{ 
+          style={{
             backgroundColor: "var(--bg-color)",
-            padding: "20px", 
-            textAlign: "center", 
+            padding: "20px",
+            textAlign: "center",
             color: "var(--color)",
-            border: "2px solid var(--color)"
-            }}
+            border: "2px solid var(--color)",
+          }}
         >
           <img
             src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
@@ -387,17 +384,23 @@ function App() {
             className="modal__signup__img"
             style={{ width: "50%", filter: "invert(var(--val))" }}
           />
-          <p style={{ 
-            fontSize: "25px", 
-            fontFamily: "monospace", 
-            color: "var(--color)" 
-            }}>
+          <p
+            style={{
+              fontSize: "25px",
+              fontFamily: "monospace",
+              color: "var(--color)",
+            }}
+          >
             New Post
           </p>
-          
-          <DialogContent sx={{ 
-            // backgroundColor: "var(--bg-color)",
-            }}>
+
+          <DialogContent
+            sx={
+              {
+                // backgroundColor: "var(--bg-color)",
+              }
+            }
+          >
             {!loadingPosts &&
               (user ? (
                 <ImgUpload
@@ -408,7 +411,6 @@ function App() {
                 <h3>Sorry you need to login to upload posts</h3>
               ))}
           </DialogContent>
-          
         </div>
       </Dialog>
 
@@ -419,7 +421,11 @@ function App() {
               src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
               alt="instagram"
               className="modal__signup__img"
-              style={{ width: "80%", marginLeft: "10%", filter: "invert(var(--val))" }}
+              style={{
+                width: "80%",
+                marginLeft: "10%",
+                filter: "invert(var(--val))",
+              }}
             />
             <div
               style={{
@@ -499,7 +505,11 @@ function App() {
               src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
               alt="dummygram"
               className="modal__signup__img"
-              style={{ width: "80%", marginLeft: "10%", filter: "invert(var(--val))" }}
+              style={{
+                width: "80%",
+                marginLeft: "10%",
+                filter: "invert(var(--val))",
+              }}
             />
             <Input
               type="text"
@@ -512,7 +522,7 @@ function App() {
               type="password"
               placeholder="PASSWORD"
               value={password}
-              style={{ margin: "5%", color: "var(--color)", }}
+              style={{ margin: "5%", color: "var(--color)" }}
               onChange={(e) => setPassword(e.target.value)}
             />
             <AnimatedButton
@@ -553,7 +563,11 @@ function App() {
               src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
               alt="dummygram"
               className="modal__signup__img"
-              style={{ width: "80%", marginLeft: "10%", filter: "invert(var(--val))" }}
+              style={{
+                width: "80%",
+                marginLeft: "10%",
+                filter: "invert(var(--val))",
+              }}
             />
 
             <p
@@ -561,7 +575,7 @@ function App() {
                 fontSize: "15px",
                 fontFamily: "monospace",
                 padding: "10%",
-                color: "var(--color)"
+                color: "var(--color)",
               }}
             >
               Are you sure you want to Logout?
@@ -587,7 +601,7 @@ function App() {
           justifyContent: "center",
         }}
       >
-         <div
+        <div
           style={
             !loadingPosts
               ? {}
@@ -608,12 +622,11 @@ function App() {
                 <Post key={id} postId={id} user={user} post={post} />
               ))}
             </div>
-          )} 
+          )}
         </div>
-        
-      </div> 
-      
-       <FaArrowCircleUp
+      </div>
+
+      <FaArrowCircleUp
         fill="#777"
         // stroke="30"
         className="scrollTop"
@@ -622,7 +635,7 @@ function App() {
           height: 50,
           display: showScroll ? "flex" : "none",
         }}
-      /> 
+      />
     </div>
   );
 }

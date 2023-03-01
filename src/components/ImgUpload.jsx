@@ -192,10 +192,7 @@ function ImgUpload(props) {
           borderRadius: "8px",
         }}
       />
-      <AnimatedButton 
-        onClick={handleUpload} 
-        loading={uploadingPost}
-        >
+      <AnimatedButton onClick={handleUpload} loading={uploadingPost}>
         Upload
       </AnimatedButton>
     </div>
