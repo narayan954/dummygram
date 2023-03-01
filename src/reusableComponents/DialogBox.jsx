@@ -20,27 +20,31 @@ const DialogBox = (props) => {
       onClose={props.onClose}
       aria-labelledby="responsive-dialog-title"
     >
-      <DialogTitle 
-        id="responsive-dialog-title" 
+      <DialogTitle
+        id="responsive-dialog-title"
         sx={{
-          fontWeight: "bold", 
-          backgroundColor: "var(--bg-color)", 
+          fontWeight: "bold",
+          backgroundColor: "var(--bg-color)",
           color: "var(--color)",
-          }}
+        }}
       >
         {props.title}
       </DialogTitle>
 
       <Divider />
 
-      <DialogContent sx={{color: "var(--color)"}}>
+      <DialogContent sx={{ color: "var(--color)" }}>
         <DialogContentText>{props.children}</DialogContentText>
       </DialogContent>
 
-      <DialogActions sx={{backgroundColor: "var(--bg-color)"}}>
-        <Button onClick={props.onClose} sx={{fontWeight: "bold", color: 'var(--color)'}} >Cancel</Button>
+      <DialogActions sx={{ backgroundColor: "var(--bg-color)" }}>
+        <Button
+          onClick={props.onClose}
+          sx={{ fontWeight: "bold", color: "var(--color)" }}
+        >
+          Cancel
+        </Button>
       </DialogActions>
-      
     </Dialog>
   );
 };

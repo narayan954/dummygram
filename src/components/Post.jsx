@@ -229,7 +229,7 @@ function Post(prop) {
             aria-haspopup="true"
             onClick={(event) => setAnchorEl(event.currentTarget)}
             sx={{
-              color: "var(--color)"
+              color: "var(--color)",
             }}
           >
             <MoreHorizOutlinedIcon />
@@ -347,7 +347,7 @@ function Post(prop) {
               onClose={handleCommentClose}
               title="All Comments"
             >
-              <Box sx={{ flexGrow: 1}}>
+              <Box sx={{ flexGrow: 1 }}>
                 <Grid container>
                   <Grid item xs={6} md={6}>
                     <Item>
@@ -418,12 +418,12 @@ function Post(prop) {
                     placeholder="Add a comment..."
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
-                    style={{ 
-                      backgroundColor: "var(--bg-color)", 
+                    style={{
+                      backgroundColor: "var(--bg-color)",
                       color: "var(--color)",
                       borderRadius: "22px",
                       marginTop: "4px",
-                     }}
+                    }}
                   />
                   <button
                     className="post__button"
@@ -431,15 +431,14 @@ function Post(prop) {
                     type="submit"
                     onClick={postComment}
                     style={{
-                      fontWeight: 'bold', 
-                      textTransform: "uppercase", 
-                      }}
+                      fontWeight: "bold",
+                      textTransform: "uppercase",
+                    }}
                   >
                     Comment
                   </button>
                 </form>
               )}
-              
             </DialogBox>
           </>
         ) : (
@@ -475,7 +474,7 @@ function Post(prop) {
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               style={{
-                backgroundColor: "var(--bg-color)", 
+                backgroundColor: "var(--bg-color)",
                 color: "var(--color)",
                 borderRadius: "22px",
                 margin: "4px 0px",
@@ -487,15 +486,14 @@ function Post(prop) {
               type="submit"
               onClick={postComment}
               style={{
-                      fontWeight: 'bold', 
-                      textTransform: "uppercase", 
-                      }}
+                fontWeight: "bold",
+                textTransform: "uppercase",
+              }}
             >
               Post
             </button>
           </form>
         )}
-
       </div>
     </div>
   );
