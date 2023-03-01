@@ -187,15 +187,8 @@ function ImgUpload(props) {
         multiline
         rows={4}
         disabled={uploadingPost}
-        sx={{
-          backgroundColor: "white",
-          borderRadius: "8px",
-        }}
       />
-      <AnimatedButton 
-        onClick={handleUpload} 
-        loading={uploadingPost}
-        >
+      <AnimatedButton onClick={handleUpload} loading={uploadingPost}>
         Upload
       </AnimatedButton>
     </div>
