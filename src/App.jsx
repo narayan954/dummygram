@@ -7,6 +7,7 @@ import {
 import {
   Button,
   Dialog,
+  Modal,
   DialogContent,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
@@ -18,6 +19,8 @@ import logo from "./assets/logo.png";
 import {Switch, Route} from "react-router-dom";
 import LoginScreen from './pages/Login';
 import SignupScreen from './pages/Signup';
+import AnimatedButton from "./components/AnimatedButton";
+
 
 export function getModalStyle() {
   const top = 50;
@@ -51,21 +54,14 @@ export const useStyles = makeStyles((theme) => ({
 function App() {
   const classes = useStyles();
 
-  const [modalStyle] = useState(getModalStyle);
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState(null);
   const [username, setUsername] = useState("");
-  const [signingUp, setSigningUp] = useState(false);
-  const [loggingIn, setLoggingIn] = useState(false);
   const [loadingPosts, setLoadingPosts] = useState(true);
   const [pageSize, setPageSize] = useState(10);
   const [loadMorePosts, setLoadMorePosts] = useState(false);
   const [openNewUpload, setOpenNewUpload] = useState(false);
   const [logout, setLogout] = useState(false);
-  const processingAuth = useMemo(
-    () => loggingIn || signingUp || loadingPosts,
-    [loggingIn, signingUp, loadingPosts]
-  );
   const buttonStyle = {
     background: "linear-gradient(40deg, #e107c1, #59afc7)",
     borderRadius: "20px",
@@ -73,9 +69,6 @@ function App() {
       background: "linear-gradient(-40deg, #59afc7, #e107c1)",
     },
   };
-
-  const [image, setImage] = useState(null);
-  const [address, setAddress] = useState(null);
 
   const { enqueueSnackbar } = useSnackbar();
   const [showScroll, setShowScroll] = useState(false);
@@ -171,13 +164,13 @@ function App() {
   }, [loadMorePosts]);
 
  
-
   const signOut = () => {
     auth.signOut().finally();
     enqueueSnackbar("Logged out Successfully !", {
       variant: "info",
     });
   };
+
 
   return (
     <div className="app">
@@ -284,94 +277,6 @@ function App() {
                   </DialogContent>
                 </div>
               </Dialog>
-
-          <Switch>
-            <Route exact path="/dummygram/">
-
-              {/* <Modal open={openSignUp} onClose={() => setOpenSignUp(false)}>
-                <div style={modalStyle} className={classes.paper}>
-                  <form className="modal__signup" onSubmit={signUp}>
-                    <img
-                      src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
-                      alt="instagram"
-                      className="modal__signup__img"
-                      style={{
-                        width: "80%",
-                        marginLeft: "10%",
-                        filter: "invert(var(--val))",
-                      }}
-                    />
-                    <div
-                      style={{
-                        height: "100px",
-                        width: "100px",
-                        borderRadius: "100%",
-                        border: "2px",
-                        borderColor: "black",
-                        borderStyle: "solid",
-                        marginLeft: "22%",
-                        boxShadow: "0px 0px 5px 1px white",
-                        zIndex: 1,
-                      }}
-                    >
-                      {address ? (
-                        <img
-                          src={URL.createObjectURL(image)}
-                          alt="profile pic"
-                          style={{
-                            width: "100px",
-                            height: "100px",
-                            borderRadius: "100%",
-                          }}
-                        />
-                      ) : (
-                        <div style={{ marginTop: "30px" }}>PROFILE PICTURE</div>
-                      )}
-                    </div>
-                    <Input
-                      type="text"
-                      placeholder="USERNAME"
-                      required
-                      value={username}
-                      style={{ margin: "5%", color: "var(--color)" }}
-                      onChange={(e) => setUsername(e.target.value)}
-                    />
-                    <Input
-                      type="text"
-                      placeholder="EMAIL"
-                      value={email}
-                      style={{ margin: "5%", color: "var(--color)" }}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <Input
-                      type="password"
-                      placeholder="PASSWORD"
-                      value={password}
-                      style={{ margin: "5%", color: "var(--color)" }}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <div className="file-input">
-                      <input
-                        type="file"
-                        id="file"
-                        className="file"
-                        onChange={handleChange}
-                        accept="image/*"
-                      />
-                      <label htmlFor="file">Select Profile Picture</label>
-                    </div>
-                    <AnimatedButton
-                      type="submit"
-                      variant="contained"
-                      color="primary"
-                      sx={buttonStyle}
-                    >
-                      Sign Up
-                    </AnimatedButton>
-                  </form>
-                </div>
-              </Modal>
-
               <Modal open={logout} onClose={() => setLogout(false)}>
                 <div style={getModalStyle()} className={classes.paper}>
                   <form className="modal__signup">
@@ -408,8 +313,10 @@ function App() {
                     </AnimatedButton>
                   </form>
                 </div>
-              </Modal> */}
+              </Modal>
 
+          <Switch>
+            <Route exact path="/dummygram/">
               <div
                 style={{
                   display: "flex",

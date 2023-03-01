@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { getModalStyle, useStyles } from '../App';
 import { Input } from "@mui/material";
 import AnimatedButton from "../components/AnimatedButton";
+import {auth, storage,} from "../lib/firebase";
 
 
 const SignupScreen = () => {
@@ -11,6 +12,8 @@ const SignupScreen = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [signingUp, setSigningUp] = useState(false);
+
   
   const [image, setImage] = useState(null);
   const [address, setAddress] = useState(null);
@@ -64,10 +67,10 @@ const SignupScreen = () => {
                 enqueueSnackbar("Signup Successful!", {
                   variant: "success",
                 });
-                setOpenSignUp(false);
               });
           }
         );
+        window.location.href = '/login';
       })
       // .then(() => {
 

@@ -2,16 +2,20 @@ import React, {useState, useEffect} from 'react';
 import { getModalStyle, useStyles } from '../App';
 import { Input } from "@mui/material";
 import AnimatedButton from "../components/AnimatedButton";
+import { auth } from "../lib/firebase";
+import { useSnackbar } from "notistack";
+
 
 
 const LoginScreen = () => {
   const classes = useStyles();
 
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
-  const [pageSize, setPaut] = useState(false);
+  
+  const [loggingIn, setLoggingIn] = useState(false);
 
   const buttonStyle = {
     background: "linear-gradient(40deg, #e107c1, #59afc7)",
@@ -21,32 +25,36 @@ const LoginScreen = () => {
     },
   };
 
-  // useEffect(() => {
-  //   const unsubscribe = auth.onAuthStateChanged((authUser) => {
-  //     if (authUser) {
-  //       // user has logged in
-  //       setUser(authUser);
-  //     } else {
-  //       // user has logged out
-  //       setUser(null);
-  //     }
-  //   });
-  //   return () => {
-  //     // perform some cleanup actions
-  //     // unsubscribe();
-  //   };
-  // }, [user, username]);
+  const { enqueueSnackbar } = useSnackbar();
+
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        // user has logged in
+        setUser(authUser);
+      } else {
+        // user has logged out
+        setUser(null);
+      }
+    });
+    return () => {
+      // perform some cleanup actions
+      unsubscribe();
+    };
+  }, [user, username]);
 
   const signIn = (e) => {
     e.preventDefault();
     setLoggingIn(true);
+    console.log("fasdfasdf")
     auth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         enqueueSnackbar("Login successful!", {
           variant: "success",
         });
-        setOpenSignIn(false);
+        window.location.href = '/';
       })
       .catch((error) =>
         enqueueSnackbar(error.message, {
@@ -68,7 +76,6 @@ const LoginScreen = () => {
         enqueueSnackbar("Login successful!", {
           variant: "success",
         });
-        setOpenSignIn(false);
       })
       .catch((error) =>
         enqueueSnackbar(error.message, {
