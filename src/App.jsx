@@ -36,6 +36,7 @@ function getModalStyle() {
     padding: `${padding}%`,
     borderRadius: `${radius}%`,
     textAlign: "center",
+    backgroundColor: "var(--bg-color)",
   };
 }
 
@@ -43,11 +44,11 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     position: "absolute",
     width: 200,
-    backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
+    border: "1px solid var(--color)",
     borderRadius: theme.shape.borderRadius,
-    boxShadow: theme.shadows[5],
+    boxShadow: theme.shadows[10],
     padding: theme.spacing(2, 4, 3),
+    color: "var(--color)",
   },
 }));
 
@@ -125,12 +126,16 @@ function App() {
   }, [user, username]);
 
   useEffect(() => {
-    window.document.body.style.setProperty("--bg-color", "rgb(145, 237, 203)");
     if (document.body.classList.contains("darkmode--activated")) {
+      window.document.body.style.setProperty("--bg-color", "black");
       window.document.body.style.setProperty("--color", "white");
+      window.document.body.style.setProperty("--val", 1);
       document.getElementsByClassName('app__header__img').item(0).style.filter="invert(100%)";
+
     } else {
-      window.document.body.style.setProperty("--color", "black");
+      window.document.body.style.setProperty("--bg-color", "white");
+      window.document.body.style.setProperty("--color", "#2B1B17");
+      window.document.body.style.setProperty("--val", 0);
       document.getElementsByClassName('app__header__img').item(0).style.filter="invert(0%)";
     }
 
@@ -362,22 +367,37 @@ function App() {
         )}
       </div>
 
-      {/* <Dialog
+      <Dialog
         sx={{ borderRadius: "100px" }}
         open={openNewUpload}
         onClose={() => setOpenNewUpload(false)}
       >
         <div
-          style={{ padding: "20px", borderRadius: "10%", textAlign: "center" }}
+          style={{ 
+            backgroundColor: "var(--bg-color)",
+            padding: "20px", 
+            textAlign: "center", 
+            color: "var(--color)",
+            border: "2px solid var(--color)"
+            }}
         >
           <img
             src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
             alt="instagram"
             className="modal__signup__img"
-            style={{ width: "50%" }}
+            style={{ width: "50%", filter: "invert(var(--val))" }}
           />
-          <p style={{ fontSize: "25px", fontFamily: "monospace" }}>New Post</p>
-          <DialogContent>
+          <p style={{ 
+            fontSize: "25px", 
+            fontFamily: "monospace", 
+            color: "var(--color)" 
+            }}>
+            New Post
+          </p>
+          
+          <DialogContent sx={{ 
+            // backgroundColor: "var(--bg-color)",
+            }}>
             {!loadingPosts &&
               (user ? (
                 <ImgUpload
@@ -388,6 +408,7 @@ function App() {
                 <h3>Sorry you need to login to upload posts</h3>
               ))}
           </DialogContent>
+          
         </div>
       </Dialog>
 
@@ -398,7 +419,7 @@ function App() {
               src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
               alt="instagram"
               className="modal__signup__img"
-              style={{ width: "80%", marginLeft: "10%" }}
+              style={{ width: "80%", marginLeft: "10%", filter: "invert(var(--val))" }}
             />
             <div
               style={{
@@ -409,6 +430,8 @@ function App() {
                 borderColor: "black",
                 borderStyle: "solid",
                 marginLeft: "22%",
+                boxShadow: "0px 0px 5px 1px white",
+                zIndex: 1,
               }}
             >
               {address ? (
@@ -430,21 +453,21 @@ function App() {
               placeholder="USERNAME"
               required
               value={username}
-              style={{ margin: "5%" }}
+              style={{ margin: "5%", color: "var(--color)" }}
               onChange={(e) => setUsername(e.target.value)}
             />
             <Input
               type="text"
               placeholder="EMAIL"
               value={email}
-              style={{ margin: "5%" }}
+              style={{ margin: "5%", color: "var(--color)" }}
               onChange={(e) => setEmail(e.target.value)}
             />
             <Input
               type="password"
               placeholder="PASSWORD"
               value={password}
-              style={{ margin: "5%" }}
+              style={{ margin: "5%", color: "var(--color)" }}
               onChange={(e) => setPassword(e.target.value)}
             />
             <div className="file-input">
@@ -476,20 +499,20 @@ function App() {
               src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
               alt="dummygram"
               className="modal__signup__img"
-              style={{ width: "80%", marginLeft: "10%" }}
+              style={{ width: "80%", marginLeft: "10%", filter: "invert(var(--val))" }}
             />
             <Input
               type="text"
               placeholder="EMAIL"
               value={email}
-              style={{ margin: "5%" }}
+              style={{ margin: "5%", color: "var(--color)" }}
               onChange={(e) => setEmail(e.target.value)}
             />
             <Input
               type="password"
               placeholder="PASSWORD"
               value={password}
-              style={{ margin: "5%" }}
+              style={{ margin: "5%", color: "var(--color)", }}
               onChange={(e) => setPassword(e.target.value)}
             />
             <AnimatedButton
@@ -530,7 +553,7 @@ function App() {
               src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
               alt="dummygram"
               className="modal__signup__img"
-              style={{ width: "80%", marginLeft: "10%" }}
+              style={{ width: "80%", marginLeft: "10%", filter: "invert(var(--val))" }}
             />
 
             <p
@@ -538,6 +561,7 @@ function App() {
                 fontSize: "15px",
                 fontFamily: "monospace",
                 padding: "10%",
+                color: "var(--color)"
               }}
             >
               Are you sure you want to Logout?
@@ -554,7 +578,7 @@ function App() {
             </AnimatedButton>
           </form>
         </div>
-      </Modal> */}
+      </Modal>
 
       <div
         style={{

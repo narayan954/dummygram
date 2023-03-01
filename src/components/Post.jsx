@@ -198,7 +198,7 @@ function Post(prop) {
   return (
     <div
       className="post"
-      style={{ boxShadow: "0px 1px 4px 0.4px rgba(0, 0, 0, 0.4)" }}
+      style={{ boxShadow: "0px 0px 5px 1px rgba(0, 0, 0, 0.4)" }}
     >
       <div className="post__header">
         <Avatar
@@ -228,6 +228,9 @@ function Post(prop) {
             aria-expanded={open ? "true" : undefined}
             aria-haspopup="true"
             onClick={(event) => setAnchorEl(event.currentTarget)}
+            sx={{
+              color: "var(--color)"
+            }}
           >
             <MoreHorizOutlinedIcon />
           </IconButton>
@@ -331,18 +334,20 @@ function Post(prop) {
               startIcon={<CommentIcon />}
               sx={{
                 backgroundColor: "rgba(	135, 206, 235, 0.2)",
-                margin: "12px 0",
+                margin: "12px 8px",
                 fontSize: "12px",
+                fontWeight: "bold",
               }}
             >
               View All comments
             </Button>
+
             <DialogBox
               open={isCommentOpen}
               onClose={handleCommentClose}
               title="All Comments"
             >
-              <Box sx={{ flexGrow: 1 }}>
+              <Box sx={{ flexGrow: 1}}>
                 <Grid container>
                   <Grid item xs={6} md={6}>
                     <Item>
@@ -383,6 +388,7 @@ function Post(prop) {
                   </Grid>
                 </Grid>
               </Box>
+
               {user && (
                 <form className="post__commentBox">
                   <div className="social__icon">
@@ -412,17 +418,28 @@ function Post(prop) {
                     placeholder="Add a comment..."
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
+                    style={{ 
+                      backgroundColor: "var(--bg-color)", 
+                      color: "var(--color)",
+                      borderRadius: "22px",
+                      marginTop: "4px",
+                     }}
                   />
                   <button
                     className="post__button"
                     disabled={!comment}
                     type="submit"
                     onClick={postComment}
+                    style={{
+                      fontWeight: 'bold', 
+                      textTransform: "uppercase", 
+                      }}
                   >
                     Comment
                   </button>
                 </form>
               )}
+              
             </DialogBox>
           </>
         ) : (
@@ -457,17 +474,28 @@ function Post(prop) {
               placeholder="Add a comment..."
               value={comment}
               onChange={(e) => setComment(e.target.value)}
+              style={{
+                backgroundColor: "var(--bg-color)", 
+                color: "var(--color)",
+                borderRadius: "22px",
+                margin: "4px 0px",
+              }}
             />
             <button
               className="post__button"
               disabled={!comment}
               type="submit"
               onClick={postComment}
+              style={{
+                      fontWeight: 'bold', 
+                      textTransform: "uppercase", 
+                      }}
             >
               Post
             </button>
           </form>
         )}
+
       </div>
     </div>
   );
