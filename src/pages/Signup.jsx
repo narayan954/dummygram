@@ -75,7 +75,7 @@ const SignupScreen = () => {
               });
           }
         );
-        window.location.href = '/login';
+        window.location.href = '/dummygram/';
       })
       // .then(() => {
 
