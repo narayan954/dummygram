@@ -4,7 +4,7 @@
 
 /* App styles */
 .app {
-  background-color: rgb(145, 237, 203);
+  background-color: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
   justify-content: center;
   align-items: center;
   overflow-x: auto;
@@ -19,7 +19,7 @@
   position: sticky;
   top: 0;
   z-index: 1;
-  background-color: rgb(145, 237, 203);
+  background-color: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
   padding: 10px;
   object-fit: contain;
   border-bottom: 1px solid rgba(0, 0, 0, 0.373);
@@ -30,14 +30,16 @@
 }
 
 .app__posts {
+  background-color: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);;
   padding: 20px;
 }
 
 /* Post style */
 .post {
   max-width: 400px;
-  border: 1px solid rgba(0, 0, 0, 0.373);
+  border: 1px solid rgba(0, 0, 0, 0.73);
   border-radius: 5px;
+  border-color: black;
   margin-bottom: 20px;
   word-wrap: break-word;
 }
