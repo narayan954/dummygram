@@ -15,7 +15,7 @@ const LoginScreen = () => {
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
   
-  const [loggingIn, setLoggingIn] = useState(false);
+  // const [loggingIn, setLoggingIn] = useState(false);
 
   const buttonStyle = {
     background: "linear-gradient(40deg, #e107c1, #59afc7)",
@@ -28,26 +28,25 @@ const LoginScreen = () => {
   const { enqueueSnackbar } = useSnackbar();
 
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((authUser) => {
-      if (authUser) {
-        // user has logged in
-        setUser(authUser);
-      } else {
-        // user has logged out
-        setUser(null);
-      }
-    });
-    return () => {
-      // perform some cleanup actions
-      unsubscribe();
-    };
-  }, [user, username]);
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged((authUser) => {
+  //     if (authUser) {
+  //       // user has logged in
+  //       setUser(authUser);
+  //     } else {
+  //       // user has logged out
+  //       setUser(null);
+  //     }
+  //   });
+  //   return () => {
+  //     // perform some cleanup actions
+  //     unsubscribe();
+  //   };
+  // }, [user, username]);
 
   const signIn = (e) => {
     e.preventDefault();
-    setLoggingIn(true);
-    console.log("fasdfasdf")
+    // setLoggingIn(true);
     auth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
@@ -62,7 +61,7 @@ const LoginScreen = () => {
         })
       )
       .finally(() => {
-        setLoggingIn(false);
+        // setLoggingIn(false);
       });
   };
 

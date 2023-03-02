@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import Post from "./components/Post";
 import {
   db,
@@ -16,10 +16,11 @@ import Loader from "./components/Loader";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { useSnackbar } from "notistack";
 import logo from "./assets/logo.png";
-import {Switch, Route} from "react-router-dom";
+import {Switch, Route, Link, useHistory, Redirect} from "react-router-dom";
 import LoginScreen from './pages/Login';
 import SignupScreen from './pages/Signup';
 import AnimatedButton from "./components/AnimatedButton";
+
 
 
 export function getModalStyle() {
@@ -54,14 +55,16 @@ export const useStyles = makeStyles((theme) => ({
 function App() {
   const classes = useStyles();
 
+  const history = useHistory();
+
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState(null);
-  const [username, setUsername] = useState("");
   const [loadingPosts, setLoadingPosts] = useState(true);
   const [pageSize, setPageSize] = useState(10);
   const [loadMorePosts, setLoadMorePosts] = useState(false);
   const [openNewUpload, setOpenNewUpload] = useState(false);
   const [logout, setLogout] = useState(false);
+  
   const buttonStyle = {
     background: "linear-gradient(40deg, #e107c1, #59afc7)",
     borderRadius: "20px",
@@ -89,21 +92,20 @@ function App() {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
-      if (authUser) {
-        // user has logged in
+      if (authUser) {        
         setUser(authUser);
       } else {
-        // user has logged out
         setUser(null);
       }
+
     });
+
     return () => {
-      // perform some cleanup actions
       unsubscribe();
     };
-  }, [user, username]);
+  }, [user]);
 
-  useEffect(() => {
+  useEffect(() => {   
     if (document.body.classList.contains("darkmode--activated")) {
       window.document.body.style.setProperty("--bg-color", "black");
       window.document.body.style.setProperty("--color", "white");
@@ -171,9 +173,9 @@ function App() {
     });
   };
 
-
   return (
     <div className="app">
+      
       <div className="app__header">
         <img
           src={logo}
@@ -181,6 +183,10 @@ function App() {
           className="app__header__img w-100"
           onClick={() => {
             window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+            window.location.href = "/";
+          }}
+          style={{
+            cursor: "pointer",
           }}
         />
         {user ? (
@@ -207,7 +213,7 @@ function App() {
         ) : (
           <div className="login__container">
             <Button
-              onClick={() => {window.location.href = 'login'}}
+              onClick={() => { history.push('/dummygram/login') }}
               color="primary"
               variant="contained"
               style={{ margin: 5 }}
@@ -217,7 +223,7 @@ function App() {
             </Button>
 
             <Button
-              onClick={() => {window.location.href = 'signup'}}
+              onClick={() => { history.push('/dummygram/signup') }}
               color="primary"
               variant="contained"
               style={{ margin: 5 }}
@@ -228,6 +234,7 @@ function App() {
           </div>
         )}
       </div>
+
               <Dialog
                 sx={{ borderRadius: "100px" }}
                 open={openNewUpload}
@@ -316,8 +323,9 @@ function App() {
               </Modal>
 
           <Switch>
+
             <Route exact path="/dummygram/">
-              <div
+              {user ? <div
                 style={{
                   display: "flex",
                   alignContent: "center",
@@ -347,7 +355,9 @@ function App() {
                     </div>
                   )}
                 </div>
-              </div>
+              </div> : 
+              <Redirect to='/dummygram/login'></Redirect>
+              }
             </Route>
             
             <Route path="/dummygram/login">
@@ -359,7 +369,7 @@ function App() {
             </Route>
 
             <Route path="*">
-              <h1 style={{ textAlign: "center" }}>Page not found: 404</h1>
+              <h1 style={{ textAlign: "center", marginTop: "2rem" }}>Page not found: 404</h1>
             </Route>
 
           </Switch>
@@ -375,6 +385,7 @@ function App() {
           display: showScroll ? "flex" : "none",
         }}
       />
+
     </div>
   );
 }
