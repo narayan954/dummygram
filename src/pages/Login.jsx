@@ -2,8 +2,9 @@ import React, {useState, useEffect} from 'react';
 import { getModalStyle, useStyles } from '../App';
 import { Input } from "@mui/material";
 import AnimatedButton from "../components/AnimatedButton";
-import { auth } from "../lib/firebase";
+import { auth, googleProvider, facebookProvider } from "../lib/firebase";
 import { useSnackbar } from "notistack";
+import { useHistory } from 'react-router-dom';
 
 
 
@@ -15,8 +16,6 @@ const LoginScreen = () => {
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
   
-  // const [loggingIn, setLoggingIn] = useState(false);
-
   const buttonStyle = {
     background: "linear-gradient(40deg, #e107c1, #59afc7)",
     borderRadius: "20px",
@@ -26,34 +25,17 @@ const LoginScreen = () => {
   };
 
   const { enqueueSnackbar } = useSnackbar();
-
-
-  // useEffect(() => {
-  //   const unsubscribe = auth.onAuthStateChanged((authUser) => {
-  //     if (authUser) {
-  //       // user has logged in
-  //       setUser(authUser);
-  //     } else {
-  //       // user has logged out
-  //       setUser(null);
-  //     }
-  //   });
-  //   return () => {
-  //     // perform some cleanup actions
-  //     unsubscribe();
-  //   };
-  // }, [user, username]);
+  const history = useHistory();
 
   const signIn = (e) => {
     e.preventDefault();
-    // setLoggingIn(true);
     auth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         enqueueSnackbar("Login successful!", {
           variant: "success",
         });
-        window.location.href = '/';
+        // history.push('/dummygram/');
       })
       .catch((error) =>
         enqueueSnackbar(error.message, {
@@ -61,14 +43,12 @@ const LoginScreen = () => {
         })
       )
       .finally(() => {
-        // setLoggingIn(false);
       });
   };
 
 
   const signInWithGoogle = (e) => {
     e.preventDefault();
-    setLoggingIn(true);
     auth
       .signInWithPopup(googleProvider)
       .then(() => {
@@ -82,20 +62,17 @@ const LoginScreen = () => {
         })
       )
       .finally(() => {
-        setLoggingIn(false);
       });
   };
 
   const signInWithFacebook = (e) => {
     e.preventDefault();
-    setLoggingIn(true);
     auth
       .signInWithPopup(facebookProvider)
       .then(() => {
         enqueueSnackbar("Login successful!", {
           variant: "success",
         });
-        setOpenSignIn(false);
       })
       .catch((error) =>
         enqueueSnackbar(error.message, {
@@ -103,12 +80,12 @@ const LoginScreen = () => {
         })
       )
       .finally(() => {
-        setLoggingIn(false);
       });
   };
 
     return (
-        <div style={{
+        <div 
+          style={{
                   display: "flex",
                   alignContent: "center",
                   justifyContent: "center",

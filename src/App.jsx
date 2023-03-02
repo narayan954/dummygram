@@ -16,7 +16,7 @@ import Loader from "./components/Loader";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { useSnackbar } from "notistack";
 import logo from "./assets/logo.png";
-import {Switch, Route, Link, useHistory, Redirect} from "react-router-dom";
+import {Switch, Route, useHistory} from "react-router-dom";
 import LoginScreen from './pages/Login';
 import SignupScreen from './pages/Signup';
 import AnimatedButton from "./components/AnimatedButton";
@@ -94,8 +94,10 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {        
         setUser(authUser);
+        history.push('/dummygram/');
       } else {
         setUser(null);
+        history.push('/dummygram/login');
       }
 
     });
@@ -356,7 +358,7 @@ function App() {
                   )}
                 </div>
               </div> : 
-              <Redirect to='/dummygram/login'></Redirect>
+              <></>
               }
             </Route>
             

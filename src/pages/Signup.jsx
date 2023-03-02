@@ -2,7 +2,9 @@ import React, {useState, useEffect} from 'react';
 import { getModalStyle, useStyles } from '../App';
 import { Input } from "@mui/material";
 import AnimatedButton from "../components/AnimatedButton";
-import {auth, storage,} from "../lib/firebase";
+import {auth, storage, googleProvider, facebookProvider } from "../lib/firebase";
+import { useSnackbar } from "notistack";
+
 
 
 const SignupScreen = () => {
@@ -25,6 +27,9 @@ const SignupScreen = () => {
         background: "linear-gradient(-40deg, #59afc7, #e107c1)",
         },
     };
+
+    const { enqueueSnackbar } = useSnackbar();
+
 
     const handleChange = (e) => {
       if (e.target.files[0]) {
