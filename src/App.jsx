@@ -1,27 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Post from "./components/Post";
-import {
-  db,
-  auth,
-} from "./lib/firebase";
-import {
-  Button,
-  Dialog,
-  Modal,
-  DialogContent,
-} from "@mui/material";
+import { db, auth } from "./lib/firebase";
+import { Button, Dialog, Modal, DialogContent } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { useSnackbar } from "notistack";
 import logo from "./assets/logo.png";
-import {Switch, Route, useHistory} from "react-router-dom";
-import LoginScreen from './pages/Login';
-import SignupScreen from './pages/Signup';
+import { Switch, Route, useHistory } from "react-router-dom";
+import LoginScreen from "./pages/Login";
+import SignupScreen from "./pages/Signup";
 import AnimatedButton from "./components/AnimatedButton";
-
-
 
 export function getModalStyle() {
   const top = 50;
@@ -64,7 +54,7 @@ function App() {
   const [loadMorePosts, setLoadMorePosts] = useState(false);
   const [openNewUpload, setOpenNewUpload] = useState(false);
   const [logout, setLogout] = useState(false);
-  
+
   const buttonStyle = {
     background: "linear-gradient(40deg, #e107c1, #59afc7)",
     borderRadius: "20px",
@@ -92,14 +82,13 @@ function App() {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
-      if (authUser) {        
+      if (authUser) {
         setUser(authUser);
-        history.push('/dummygram/');
+        history.push("/dummygram/");
       } else {
         setUser(null);
-        history.push('/dummygram/login');
+        history.push("/dummygram/login");
       }
-
     });
 
     return () => {
@@ -107,7 +96,7 @@ function App() {
     };
   }, [user]);
 
-  useEffect(() => {   
+  useEffect(() => {
     if (document.body.classList.contains("darkmode--activated")) {
       window.document.body.style.setProperty("--bg-color", "black");
       window.document.body.style.setProperty("--color", "white");
@@ -167,7 +156,6 @@ function App() {
     setLoadMorePosts(false);
   }, [loadMorePosts]);
 
- 
   const signOut = () => {
     auth.signOut().finally();
     enqueueSnackbar("Logged out Successfully !", {
@@ -177,7 +165,6 @@ function App() {
 
   return (
     <div className="app">
-      
       <div className="app__header">
         <img
           src={logo}
@@ -215,7 +202,9 @@ function App() {
         ) : (
           <div className="login__container">
             <Button
-              onClick={() => { history.push('/dummygram/login') }}
+              onClick={() => {
+                history.push("/dummygram/login");
+              }}
               color="primary"
               variant="contained"
               style={{ margin: 5 }}
@@ -225,7 +214,9 @@ function App() {
             </Button>
 
             <Button
-              onClick={() => { history.push('/dummygram/signup') }}
+              onClick={() => {
+                history.push("/dummygram/signup");
+              }}
               color="primary"
               variant="contained"
               style={{ margin: 5 }}
@@ -237,145 +228,146 @@ function App() {
         )}
       </div>
 
-              <Dialog
-                sx={{ borderRadius: "100px" }}
-                open={openNewUpload}
-                onClose={() => setOpenNewUpload(false)}
-              >
-                <div
-                  style={{
-                    backgroundColor: "var(--bg-color)",
-                    padding: "20px",
-                    textAlign: "center",
-                    color: "var(--color)",
-                    border: "2px solid var(--color)",
-                  }}
-                >
-                  <img
-                    src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
-                    alt="instagram"
-                    className="modal__signup__img"
-                    style={{ width: "50%", filter: "invert(var(--val))" }}
-                  />
-                  <p
-                    style={{
-                      fontSize: "25px",
-                      fontFamily: "monospace",
-                      color: "var(--color)",
-                    }}
-                  >
-                    New Post
-                  </p>
+      <Dialog
+        sx={{ borderRadius: "100px" }}
+        open={openNewUpload}
+        onClose={() => setOpenNewUpload(false)}
+      >
+        <div
+          style={{
+            backgroundColor: "var(--bg-color)",
+            padding: "20px",
+            textAlign: "center",
+            color: "var(--color)",
+            border: "2px solid var(--color)",
+          }}
+        >
+          <img
+            src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
+            alt="instagram"
+            className="modal__signup__img"
+            style={{ width: "50%", filter: "invert(var(--val))" }}
+          />
+          <p
+            style={{
+              fontSize: "25px",
+              fontFamily: "monospace",
+              color: "var(--color)",
+            }}
+          >
+            New Post
+          </p>
 
-                  <DialogContent
-                    sx={
-                      {
-                        // backgroundColor: "var(--bg-color)",
-                      }
-                    }
-                  >
-                    {!loadingPosts &&
-                      (user ? (
-                        <ImgUpload
-                          user={user}
-                          onUploadComplete={() => setOpenNewUpload(false)}
-                        />
-                      ) : (
-                        <h3>Sorry you need to login to upload posts</h3>
-                      ))}
-                  </DialogContent>
-                </div>
-              </Dialog>
-              <Modal open={logout} onClose={() => setLogout(false)}>
-                <div style={getModalStyle()} className={classes.paper}>
-                  <form className="modal__signup">
-                    <img
-                      src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
-                      alt="dummygram"
-                      className="modal__signup__img"
-                      style={{
-                        width: "80%",
-                        marginLeft: "10%",
-                        filter: "invert(var(--val))",
-                      }}
-                    />
-
-                    <p
-                      style={{
-                        fontSize: "15px",
-                        fontFamily: "monospace",
-                        padding: "10%",
-                        color: "var(--color)",
-                      }}
-                    >
-                      Are you sure you want to Logout?
-                    </p>
-
-                    <AnimatedButton
-                      type="submit"
-                      onClick={signOut}
-                      variant="contained"
-                      color="primary"
-                      sx={buttonStyle}
-                    >
-                      Logout
-                    </AnimatedButton>
-                  </form>
-                </div>
-              </Modal>
-
-          <Switch>
-
-            <Route exact path="/dummygram/">
-              {user ? <div
-                style={{
-                  display: "flex",
-                  alignContent: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <div
-                  style={
-                    !loadingPosts
-                      ? {}
-                      : {
-                          width: "100%",
-                          minHeight: "100vh",
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }
-                  }
-                >
-                  {loadingPosts ? (
-                    <Loader />
-                  ) : (
-                    <div className="app__posts">
-                      {posts.map(({ id, post }) => (
-                        <Post key={id} postId={id} user={user} post={post} />
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div> : 
-              <></>
+          <DialogContent
+            sx={
+              {
+                // backgroundColor: "var(--bg-color)",
               }
-            </Route>
-            
-            <Route path="/dummygram/login">
-              <LoginScreen/>
-            </Route>
-            
-            <Route path="/dummygram/signup">
-              <SignupScreen/>
-            </Route>
+            }
+          >
+            {!loadingPosts &&
+              (user ? (
+                <ImgUpload
+                  user={user}
+                  onUploadComplete={() => setOpenNewUpload(false)}
+                />
+              ) : (
+                <h3>Sorry you need to login to upload posts</h3>
+              ))}
+          </DialogContent>
+        </div>
+      </Dialog>
+      <Modal open={logout} onClose={() => setLogout(false)}>
+        <div style={getModalStyle()} className={classes.paper}>
+          <form className="modal__signup">
+            <img
+              src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
+              alt="dummygram"
+              className="modal__signup__img"
+              style={{
+                width: "80%",
+                marginLeft: "10%",
+                filter: "invert(var(--val))",
+              }}
+            />
 
-            <Route path="*">
-              <h1 style={{ textAlign: "center", marginTop: "2rem" }}>Page not found: 404</h1>
-            </Route>
+            <p
+              style={{
+                fontSize: "15px",
+                fontFamily: "monospace",
+                padding: "10%",
+                color: "var(--color)",
+              }}
+            >
+              Are you sure you want to Logout?
+            </p>
 
-          </Switch>
+            <AnimatedButton
+              type="submit"
+              onClick={signOut}
+              variant="contained"
+              color="primary"
+              sx={buttonStyle}
+            >
+              Logout
+            </AnimatedButton>
+          </form>
+        </div>
+      </Modal>
 
+      <Switch>
+        <Route exact path="/dummygram/">
+          {user ? (
+            <div
+              style={{
+                display: "flex",
+                alignContent: "center",
+                justifyContent: "center",
+              }}
+            >
+              <div
+                style={
+                  !loadingPosts
+                    ? {}
+                    : {
+                        width: "100%",
+                        minHeight: "100vh",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }
+                }
+              >
+                {loadingPosts ? (
+                  <Loader />
+                ) : (
+                  <div className="app__posts">
+                    {posts.map(({ id, post }) => (
+                      <Post key={id} postId={id} user={user} post={post} />
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : (
+            <></>
+          )}
+        </Route>
+
+        <Route path="/dummygram/login">
+          <LoginScreen />
+        </Route>
+
+        <Route path="/dummygram/signup">
+          <SignupScreen />
+        </Route>
+
+        <Route path="*">
+          <h1 style={{ textAlign: "center", marginTop: "2rem" }}>
+            Page not found: 404
+          </h1>
+        </Route>
+      </Switch>
 
       <FaArrowCircleUp
         fill="#777"
@@ -387,7 +379,6 @@ function App() {
           display: showScroll ? "flex" : "none",
         }}
       />
-
     </div>
   );
 }
