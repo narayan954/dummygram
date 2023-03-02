@@ -1,29 +1,29 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import Post from "./components/Post";
 import {
   db,
   auth,
-  storage,
-  googleProvider,
-  facebookProvider,
 } from "./lib/firebase";
 import {
-  Modal,
   Button,
-  Input,
   Dialog,
-  DialogTitle,
+  Modal,
   DialogContent,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
-import AnimatedButton from "./components/AnimatedButton";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { useSnackbar } from "notistack";
 import logo from "./assets/logo.png";
+import {Switch, Route, useHistory} from "react-router-dom";
+import LoginScreen from './pages/Login';
+import SignupScreen from './pages/Signup';
+import AnimatedButton from "./components/AnimatedButton";
 
-function getModalStyle() {
+
+
+export function getModalStyle() {
   const top = 50;
   const left = 50;
   const padding = 5;
@@ -40,7 +40,7 @@ function getModalStyle() {
   };
 }
 
-const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles((theme) => ({
   paper: {
     position: "absolute",
     width: 200,
@@ -55,25 +55,16 @@ const useStyles = makeStyles((theme) => ({
 function App() {
   const classes = useStyles();
 
-  const [modalStyle] = useState(getModalStyle);
+  const history = useHistory();
+
   const [posts, setPosts] = useState([]);
-  const [openSignUp, setOpenSignUp] = useState(false);
-  const [openSignIn, setOpenSignIn] = useState(false);
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
-  const [signingUp, setSigningUp] = useState(false);
-  const [loggingIn, setLoggingIn] = useState(false);
   const [loadingPosts, setLoadingPosts] = useState(true);
   const [pageSize, setPageSize] = useState(10);
   const [loadMorePosts, setLoadMorePosts] = useState(false);
   const [openNewUpload, setOpenNewUpload] = useState(false);
   const [logout, setLogout] = useState(false);
-  const processingAuth = useMemo(
-    () => loggingIn || signingUp || loadingPosts,
-    [loggingIn, signingUp, loadingPosts]
-  );
+  
   const buttonStyle = {
     background: "linear-gradient(40deg, #e107c1, #59afc7)",
     borderRadius: "20px",
@@ -82,18 +73,8 @@ function App() {
     },
   };
 
-  const [image, setImage] = useState(null);
-  const [address, setAddress] = useState(null);
-
   const { enqueueSnackbar } = useSnackbar();
   const [showScroll, setShowScroll] = useState(false);
-
-  const handleChange = (e) => {
-    if (e.target.files[0]) {
-      setImage(e.target.files[0]);
-      setAddress(e.target.value);
-    }
-  };
 
   const checkScrollTop = () => {
     if (!showScroll && window.pageYOffset > 400) {
@@ -111,21 +92,22 @@ function App() {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
-      if (authUser) {
-        // user has logged in
+      if (authUser) {        
         setUser(authUser);
+        history.push('/dummygram/');
       } else {
-        // user has logged out
         setUser(null);
+        history.push('/dummygram/login');
       }
+
     });
+
     return () => {
-      // perform some cleanup actions
       unsubscribe();
     };
-  }, [user, username]);
+  }, [user]);
 
-  useEffect(() => {
+  useEffect(() => {   
     if (document.body.classList.contains("darkmode--activated")) {
       window.document.body.style.setProperty("--bg-color", "black");
       window.document.body.style.setProperty("--color", "white");
@@ -185,79 +167,7 @@ function App() {
     setLoadMorePosts(false);
   }, [loadMorePosts]);
 
-  const signUp = (e) => {
-    e.preventDefault();
-    setSigningUp(true);
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((authUser) => {
-        const uploadTask = storage.ref(`images/${image.name}`).put(image);
-        uploadTask.on(
-          "state_changed",
-          (snapshot) => {
-            // // progress function ...
-            // setProgress(Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100));
-          },
-          (error) => {
-            // error function ...
-
-            enqueueSnackbar(error.message, {
-              variant: "error",
-            });
-          },
-          () => {
-            // complete function ...
-            storage
-              .ref("images")
-              .child(image.name)
-              .getDownloadURL()
-              .then((url) => {
-                authUser.user.updateProfile({
-                  displayName: username,
-                  photoURL: url,
-                });
-                enqueueSnackbar("Signup Successful!", {
-                  variant: "success",
-                });
-                setOpenSignUp(false);
-              });
-          }
-        );
-      })
-      // .then(() => {
-
-      // })
-      .catch((error) =>
-        enqueueSnackbar(error.message, {
-          variant: "error",
-        })
-      )
-      .finally(() => {
-        setSigningUp(false);
-      });
-  };
-
-  const signIn = (e) => {
-    e.preventDefault();
-    setLoggingIn(true);
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        enqueueSnackbar("Login successful!", {
-          variant: "success",
-        });
-        setOpenSignIn(false);
-      })
-      .catch((error) =>
-        enqueueSnackbar(error.message, {
-          variant: "error",
-        })
-      )
-      .finally(() => {
-        setLoggingIn(false);
-      });
-  };
-
+ 
   const signOut = () => {
     auth.signOut().finally();
     enqueueSnackbar("Logged out Successfully !", {
@@ -265,50 +175,9 @@ function App() {
     });
   };
 
-  const signInWithGoogle = (e) => {
-    e.preventDefault();
-    setLoggingIn(true);
-    auth
-      .signInWithPopup(googleProvider)
-      .then(() => {
-        enqueueSnackbar("Login successful!", {
-          variant: "success",
-        });
-        setOpenSignIn(false);
-      })
-      .catch((error) =>
-        enqueueSnackbar(error.message, {
-          variant: "error",
-        })
-      )
-      .finally(() => {
-        setLoggingIn(false);
-      });
-  };
-
-  const signInWithFacebook = (e) => {
-    e.preventDefault();
-    setLoggingIn(true);
-    auth
-      .signInWithPopup(facebookProvider)
-      .then(() => {
-        enqueueSnackbar("Login successful!", {
-          variant: "success",
-        });
-        setOpenSignIn(false);
-      })
-      .catch((error) =>
-        enqueueSnackbar(error.message, {
-          variant: "error",
-        })
-      )
-      .finally(() => {
-        setLoggingIn(false);
-      });
-  };
-
   return (
     <div className="app">
+      
       <div className="app__header">
         <img
           src={logo}
@@ -316,6 +185,10 @@ function App() {
           className="app__header__img w-100"
           onClick={() => {
             window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+            window.location.href = "/";
+          }}
+          style={{
+            cursor: "pointer",
           }}
         />
         {user ? (
@@ -342,7 +215,7 @@ function App() {
         ) : (
           <div className="login__container">
             <Button
-              onClick={() => setOpenSignIn(true)}
+              onClick={() => { history.push('/dummygram/login') }}
               color="primary"
               variant="contained"
               style={{ margin: 5 }}
@@ -352,7 +225,7 @@ function App() {
             </Button>
 
             <Button
-              onClick={() => setOpenSignUp(true)}
+              onClick={() => { history.push('/dummygram/signup') }}
               color="primary"
               variant="contained"
               style={{ margin: 5 }}
@@ -364,267 +237,145 @@ function App() {
         )}
       </div>
 
-      <Dialog
-        sx={{ borderRadius: "100px" }}
-        open={openNewUpload}
-        onClose={() => setOpenNewUpload(false)}
-      >
-        <div
-          style={{
-            backgroundColor: "var(--bg-color)",
-            padding: "20px",
-            textAlign: "center",
-            color: "var(--color)",
-            border: "2px solid var(--color)",
-          }}
-        >
-          <img
-            src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
-            alt="instagram"
-            className="modal__signup__img"
-            style={{ width: "50%", filter: "invert(var(--val))" }}
-          />
-          <p
-            style={{
-              fontSize: "25px",
-              fontFamily: "monospace",
-              color: "var(--color)",
-            }}
-          >
-            New Post
-          </p>
-
-          <DialogContent
-            sx={
-              {
-                // backgroundColor: "var(--bg-color)",
-              }
-            }
-          >
-            {!loadingPosts &&
-              (user ? (
-                <ImgUpload
-                  user={user}
-                  onUploadComplete={() => setOpenNewUpload(false)}
-                />
-              ) : (
-                <h3>Sorry you need to login to upload posts</h3>
-              ))}
-          </DialogContent>
-        </div>
-      </Dialog>
-
-      <Modal open={openSignUp} onClose={() => setOpenSignUp(false)}>
-        <div style={modalStyle} className={classes.paper}>
-          <form className="modal__signup" onSubmit={signUp}>
-            <img
-              src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
-              alt="instagram"
-              className="modal__signup__img"
-              style={{
-                width: "80%",
-                marginLeft: "10%",
-                filter: "invert(var(--val))",
-              }}
-            />
-            <div
-              style={{
-                height: "100px",
-                width: "100px",
-                borderRadius: "100%",
-                border: "2px",
-                borderColor: "black",
-                borderStyle: "solid",
-                marginLeft: "22%",
-                boxShadow: "0px 0px 5px 1px white",
-                zIndex: 1,
-              }}
-            >
-              {address ? (
-                <img
-                  src={URL.createObjectURL(image)}
-                  alt="profile pic"
+              <Dialog
+                sx={{ borderRadius: "100px" }}
+                open={openNewUpload}
+                onClose={() => setOpenNewUpload(false)}
+              >
+                <div
                   style={{
-                    width: "100px",
-                    height: "100px",
-                    borderRadius: "100%",
+                    backgroundColor: "var(--bg-color)",
+                    padding: "20px",
+                    textAlign: "center",
+                    color: "var(--color)",
+                    border: "2px solid var(--color)",
                   }}
-                />
-              ) : (
-                <div style={{ marginTop: "30px" }}>PROFILE PICTURE</div>
-              )}
-            </div>
-            <Input
-              type="text"
-              placeholder="USERNAME"
-              required
-              value={username}
-              style={{ margin: "5%", color: "var(--color)" }}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <Input
-              type="text"
-              placeholder="EMAIL"
-              value={email}
-              style={{ margin: "5%", color: "var(--color)" }}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <Input
-              type="password"
-              placeholder="PASSWORD"
-              value={password}
-              style={{ margin: "5%", color: "var(--color)" }}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <div className="file-input">
-              <input
-                type="file"
-                id="file"
-                className="file"
-                onChange={handleChange}
-                accept="image/*"
-              />
-              <label htmlFor="file">Select Profile Picture</label>
-            </div>
-            <AnimatedButton
-              type="submit"
-              variant="contained"
-              color="primary"
-              sx={buttonStyle}
-            >
-              Sign Up
-            </AnimatedButton>
-          </form>
-        </div>
-      </Modal>
+                >
+                  <img
+                    src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
+                    alt="instagram"
+                    className="modal__signup__img"
+                    style={{ width: "50%", filter: "invert(var(--val))" }}
+                  />
+                  <p
+                    style={{
+                      fontSize: "25px",
+                      fontFamily: "monospace",
+                      color: "var(--color)",
+                    }}
+                  >
+                    New Post
+                  </p>
 
-      <Modal open={openSignIn} onClose={() => setOpenSignIn(false)}>
-        <div style={getModalStyle()} className={classes.paper}>
-          <form className="modal__signup">
-            <img
-              src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
-              alt="dummygram"
-              className="modal__signup__img"
-              style={{
-                width: "80%",
-                marginLeft: "10%",
-                filter: "invert(var(--val))",
-              }}
-            />
-            <Input
-              type="text"
-              placeholder="EMAIL"
-              value={email}
-              style={{ margin: "5%", color: "var(--color)" }}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <Input
-              type="password"
-              placeholder="PASSWORD"
-              value={password}
-              style={{ margin: "5%", color: "var(--color)" }}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <AnimatedButton
-              type="submit"
-              onClick={signIn}
-              variant="contained"
-              color="primary"
-              sx={buttonStyle}
-            >
-              Sign In
-            </AnimatedButton>
-            <AnimatedButton
-              type="submit"
-              onClick={signInWithGoogle}
-              variant="contained"
-              color="primary"
-              sx={buttonStyle}
-            >
-              Sign In With Google
-            </AnimatedButton>
-            <AnimatedButton
-              type="submit"
-              onClick={signInWithFacebook}
-              variant="contained"
-              color="primary"
-              sx={buttonStyle}
-            >
-              Sign In With Facebook
-            </AnimatedButton>
-          </form>
-        </div>
-      </Modal>
+                  <DialogContent
+                    sx={
+                      {
+                        // backgroundColor: "var(--bg-color)",
+                      }
+                    }
+                  >
+                    {!loadingPosts &&
+                      (user ? (
+                        <ImgUpload
+                          user={user}
+                          onUploadComplete={() => setOpenNewUpload(false)}
+                        />
+                      ) : (
+                        <h3>Sorry you need to login to upload posts</h3>
+                      ))}
+                  </DialogContent>
+                </div>
+              </Dialog>
+              <Modal open={logout} onClose={() => setLogout(false)}>
+                <div style={getModalStyle()} className={classes.paper}>
+                  <form className="modal__signup">
+                    <img
+                      src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
+                      alt="dummygram"
+                      className="modal__signup__img"
+                      style={{
+                        width: "80%",
+                        marginLeft: "10%",
+                        filter: "invert(var(--val))",
+                      }}
+                    />
 
-      <Modal open={logout} onClose={() => setLogout(false)}>
-        <div style={getModalStyle()} className={classes.paper}>
-          <form className="modal__signup">
-            <img
-              src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
-              alt="dummygram"
-              className="modal__signup__img"
-              style={{
-                width: "80%",
-                marginLeft: "10%",
-                filter: "invert(var(--val))",
-              }}
-            />
+                    <p
+                      style={{
+                        fontSize: "15px",
+                        fontFamily: "monospace",
+                        padding: "10%",
+                        color: "var(--color)",
+                      }}
+                    >
+                      Are you sure you want to Logout?
+                    </p>
 
-            <p
-              style={{
-                fontSize: "15px",
-                fontFamily: "monospace",
-                padding: "10%",
-                color: "var(--color)",
-              }}
-            >
-              Are you sure you want to Logout?
-            </p>
+                    <AnimatedButton
+                      type="submit"
+                      onClick={signOut}
+                      variant="contained"
+                      color="primary"
+                      sx={buttonStyle}
+                    >
+                      Logout
+                    </AnimatedButton>
+                  </form>
+                </div>
+              </Modal>
 
-            <AnimatedButton
-              type="submit"
-              onClick={signOut}
-              variant="contained"
-              color="primary"
-              sx={buttonStyle}
-            >
-              Logout
-            </AnimatedButton>
-          </form>
-        </div>
-      </Modal>
+          <Switch>
 
-      <div
-        style={{
-          display: "flex",
-          alignContent: "center",
-          justifyContent: "center",
-        }}
-      >
-        <div
-          style={
-            !loadingPosts
-              ? {}
-              : {
-                  width: "100%",
-                  minHeight: "100vh",
+            <Route exact path="/dummygram/">
+              {user ? <div
+                style={{
                   display: "flex",
+                  alignContent: "center",
                   justifyContent: "center",
-                  alignItems: "center",
-                }
-          }
-        >
-          {loadingPosts ? (
-            <Loader />
-          ) : (
-            <div className="app__posts">
-              {posts.map(({ id, post }) => (
-                <Post key={id} postId={id} user={user} post={post} />
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
+                }}
+              >
+                <div
+                  style={
+                    !loadingPosts
+                      ? {}
+                      : {
+                          width: "100%",
+                          minHeight: "100vh",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }
+                  }
+                >
+                  {loadingPosts ? (
+                    <Loader />
+                  ) : (
+                    <div className="app__posts">
+                      {posts.map(({ id, post }) => (
+                        <Post key={id} postId={id} user={user} post={post} />
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div> : 
+              <></>
+              }
+            </Route>
+            
+            <Route path="/dummygram/login">
+              <LoginScreen/>
+            </Route>
+            
+            <Route path="/dummygram/signup">
+              <SignupScreen/>
+            </Route>
+
+            <Route path="*">
+              <h1 style={{ textAlign: "center", marginTop: "2rem" }}>Page not found: 404</h1>
+            </Route>
+
+          </Switch>
+
 
       <FaArrowCircleUp
         fill="#777"
@@ -636,6 +387,7 @@ function App() {
           display: showScroll ? "flex" : "none",
         }}
       />
+
     </div>
   );
 }
