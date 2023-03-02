@@ -204,10 +204,19 @@ Dummygram is now part of GitHub. For code of conduct, please see [GitHub's Commu
 <a href="https://jwoc.tech/"><img alt="jwoc program" src="https://user-images.githubusercontent.com/77617189/219851281-59de273a-388a-4367-a7c6-39d37196ee90.png"></a>
 
 </p>
+<h2 align="center">Feedback</h2>
+
+If you have any feedback or suggestions please reach out to Project - Maintainer.  
+* [Narayan Soni](https://github.com/narayan954) 
+
+
+
+
 
 ## Thanks to all Contributors 💪
 
 Thanks a lot for spending your time helping dummygram grow. Thanks a lot! Keep rocking 🍻
+### Show some ❤️ by starring this awesome Repository!
 
 [![Contributors](https://contrib.rocks/image?repo=narayan954/dummygram)](https://github.com/narayan954/dummygram/graphs/contributors)
 
