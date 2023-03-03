@@ -169,7 +169,13 @@ That being said, this codebase isn't your typical open source project because it
 
 ### Contributions and discussion guidelines
 
-All conversations and communities on Dummygram agree to GitHub's [Community Guidelines](https://help.github.com/en/github/site-policy/github-community-guidelines) and [Acceptable Use Policies](https://help.github.com/en/github/site-policy/github-acceptable-use-policies). This code of conduct also applies to all conversations that happen within our contributor community here on GitHub. We expect discussions in issues and pull requests to stay positive, productive, and respectful. **Remember**: There are real people on the other side of that screen:exclamation:
+🎊All conversations and communities on Dummygram agree to GitHub's [Community Guidelines](https://help.github.com/en/github/site-policy/github-community-guidelines) and [Acceptable Use Policies](https://help.github.com/en/github/site-policy/github-acceptable-use-policies).
+
+🎊Code of conduct is applied for all conversations that happen within the contributor community here on GitHub. 
+
+🎊Discussions are important,productive and respectful. 
+
+🎊**Remember**:-There are real people on the other side of that screen:exclamation:
 
 ### Reporting a bug or discussing a feature idea
 
