@@ -208,7 +208,11 @@ Dummygram is now part of GitHub. For code of conduct, please see [GitHub's Commu
 
 If you have any feedback or suggestions please reach out to Project - Maintainer.  
 * [Narayan Soni](https://github.com/narayan954) 
-
+<div align="center">
+    For further queries and whereabouts you can communicate and reach ot through <a href="https://www.linkedin.com/in/narayan-soni/">Linkedin</a>
+  
+& <a href="https://mail.google.com/mail/u/0/#inbox">email</a>
+ 
 
 
 
