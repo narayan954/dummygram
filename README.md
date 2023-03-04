@@ -169,7 +169,13 @@ That being said, this codebase isn't your typical open source project because it
 
 ### Contributions and discussion guidelines
 
-All conversations and communities on Dummygram agree to GitHub's [Community Guidelines](https://help.github.com/en/github/site-policy/github-community-guidelines) and [Acceptable Use Policies](https://help.github.com/en/github/site-policy/github-acceptable-use-policies). This code of conduct also applies to all conversations that happen within our contributor community here on GitHub. We expect discussions in issues and pull requests to stay positive, productive, and respectful. **Remember**: There are real people on the other side of that screen:exclamation:
+🎊All conversations and communities on Dummygram agree to GitHub's [Community Guidelines](https://help.github.com/en/github/site-policy/github-community-guidelines) and [Acceptable Use Policies](https://help.github.com/en/github/site-policy/github-acceptable-use-policies).
+
+🎊Code of conduct is applied for all conversations that happen within the contributor community here on GitHub. 
+
+🎊Discussions are important,productive and respectful. 
+
+🎊**Remember**:-There are real people on the other side of that screen:exclamation:
 
 ### Reporting a bug or discussing a feature idea
 
@@ -206,17 +212,14 @@ Dummygram is now part of GitHub. For code of conduct, please see [GitHub's Commu
 
 </p>
 
-## <h1 align=center>CONTRIBUTION 👏</h1>
+## Feedback
 
+If you have any feedback or suggestions please reach out to the Project-Maintainer [Narayan Soni](https://github.com/narayan954) 
+<div align="left">
+For further queries and whereabouts you can communicate and reach out to the owner through <a href="https://www.linkedin.com/in/narayan-soni/">Linkedin</a> & <a href="https://mail.google.com/mail/u/0/#inbox">email</a>
+</div> 
 
-
-## 🧑‍💻 About the Admin
-
-| Admin   | 
-| :----------: | 
-|<a href="https://github.com/narayan954"><img src="https://avatars.githubusercontent.com/narayan954" width=150px height=150px /></a><br>Narayan soni<br> |
-<br>
-
+  
 ## 👩🏽‍💻 Contributing
 
 - Contributions make the open source community such an amazing place to learn, inspire, and create.
@@ -225,19 +228,21 @@ Dummygram is now part of GitHub. For code of conduct, please see [GitHub's Commu
 
 <br>
 
-## Thanks to all Contributors 💪
+<div align="center">
 
+## Thanks to all Contributors 💪
 Thanks a lot for spending your time helping dummygram grow. Thanks a lot! Keep rocking 🍻
+ 
 
 [![Contributors](https://contrib.rocks/image?repo=narayan954/dummygram)](https://github.com/narayan954/dummygram/graphs/contributors)
-
+  
+ 
 ## License
 
 **MIT License, see the [LICENSE](./LICENSE) file.**
 
 <br>
 ---
-<div align="center">
     <h3><b>Take a moment to star ⭐ the project if you like it</b></h3>
     <h3>Do checkout the other repos 💫</h3> 
 </div>
