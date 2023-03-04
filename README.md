@@ -171,9 +171,9 @@ That being said, this codebase isn't your typical open source project because it
 
 🎊All conversations and communities on Dummygram agree to GitHub's [Community Guidelines](https://help.github.com/en/github/site-policy/github-community-guidelines) and [Acceptable Use Policies](https://help.github.com/en/github/site-policy/github-acceptable-use-policies).
 
-🎊Code of conduct is applied for all conversations that happen within the contributor community here on GitHub. 
+🎊Code of conduct is applied for all conversations that happen within the contributor community here on GitHub.
 
-🎊Discussions are important,productive and respectful. 
+🎊Discussions are important,productive and respectful.
 
 🎊**Remember**:-There are real people on the other side of that screen:exclamation:
 
@@ -194,7 +194,6 @@ Dummygram is now part of GitHub. For code of conduct, please see [GitHub's Commu
 
 <div  align="center"><img  height="70px"  src="https://user-images.githubusercontent.com/77617189/192942891-31b9152c-918b-4fac-af05-0ad6b1f594aa.svg"  /></div>
 
-
 ## <h1 align=center>Open Source Programs</h1>
 
 <p align="center">
@@ -214,12 +213,12 @@ Dummygram is now part of GitHub. For code of conduct, please see [GitHub's Commu
 
 ## Feedback
 
-If you have any feedback or suggestions please reach out to the Project-Maintainer [Narayan Soni](https://github.com/narayan954) 
+If you have any feedback or suggestions please reach out to the Project-Maintainer [Narayan Soni](https://github.com/narayan954)
+
 <div align="left">
 For further queries and whereabouts you can communicate and reach out to the owner through <a href="https://www.linkedin.com/in/narayan-soni/">Linkedin</a> & <a href="https://mail.google.com/mail/u/0/#inbox">email</a>
-</div> 
+</div>
 
-  
 ## 👩🏽‍💻 Contributing
 
 - Contributions make the open source community such an amazing place to learn, inspire, and create.
@@ -231,18 +230,18 @@ For further queries and whereabouts you can communicate and reach out to the own
 <div align="center">
 
 ## Thanks to all Contributors 💪
+
 Thanks a lot for spending your time helping dummygram grow. Thanks a lot! Keep rocking 🍻
- 
 
 [![Contributors](https://contrib.rocks/image?repo=narayan954/dummygram)](https://github.com/narayan954/dummygram/graphs/contributors)
-  
- 
+
 ## License
 
 **MIT License, see the [LICENSE](./LICENSE) file.**
 
-<br>
----
+## <br>
+
     <h3><b>Take a moment to star ⭐ the project if you like it</b></h3>
-    <h3>Do checkout the other repos 💫</h3> 
+    <h3>Do checkout the other repos 💫</h3>
+
 </div>
