@@ -217,18 +217,6 @@ If you have any feedback or suggestions please reach out to the Project-Maintain
 <div align="left">
 For further queries and whereabouts you can communicate and reach out to the owner through <a href="https://www.linkedin.com/in/narayan-soni/">Linkedin</a> & <a href="https://mail.google.com/mail/u/0/#inbox">email</a>
 </div> 
-<div align="center">
-
-## <h1 align=center>CONTRIBUTION 👏</h1>
-
-
-
-## 🧑‍💻 About the Admin
-
-| Admin   | 
-| :----------: | 
-|<a href="https://github.com/narayan954"><img src="https://avatars.githubusercontent.com/narayan954" width=150px height=150px /></a><br>Narayan soni<br> |
-<br>
 
 ## 👩🏽‍💻 Contributing
 
@@ -238,6 +226,7 @@ For further queries and whereabouts you can communicate and reach out to the own
 
 <br>
 
+<div align="center">
 ## Thanks to all Contributors 💪
 
 Thanks a lot for spending your time helping dummygram grow. Thanks a lot! Keep rocking 🍻
@@ -245,7 +234,6 @@ Thanks a lot for spending your time helping dummygram grow. Thanks a lot! Keep r
 
 [![Contributors](https://contrib.rocks/image?repo=narayan954/dummygram)](https://github.com/narayan954/dummygram/graphs/contributors)
   
-### Show some ❤️ by starring this awesome Repository!
  
 ## License
 
