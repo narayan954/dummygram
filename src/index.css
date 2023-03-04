@@ -281,18 +281,18 @@ div#picker {
 
 /* landing animation */
 
-#logo{
+#logo {
   width: 0px;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
-  animation: animate 4s ease forwards;  
+  transform: translate(-50%, -50%);
+  animation: animate 4s ease forwards;
   filter: invert(0.5) sepia(1) saturate(5) hue-rotate(175deg);
 }
 
 @keyframes animate {
-  to{
-      width: 100%;
+  to {
+    width: 100%;
   }
 }
