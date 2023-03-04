@@ -211,7 +211,8 @@ Dummygram is now part of GitHub. For code of conduct, please see [GitHub's Commu
 <a href="https://jwoc.tech/"><img alt="jwoc program" src="https://user-images.githubusercontent.com/77617189/219851281-59de273a-388a-4367-a7c6-39d37196ee90.png"></a>
 
 </p>
-<h2 align="left">Feedback</h2>
+
+## Feedback
 
 If you have any feedback or suggestions please reach out to the Project-Maintainer [Narayan Soni](https://github.com/narayan954) 
 <div align="left">
@@ -228,8 +229,8 @@ For further queries and whereabouts you can communicate and reach out to the own
 <br>
 
 <div align="center">
-## Thanks to all Contributors 💪
 
+## Thanks to all Contributors 💪
 Thanks a lot for spending your time helping dummygram grow. Thanks a lot! Keep rocking 🍻
  
 
