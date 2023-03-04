@@ -4,7 +4,7 @@
 
 /* App styles */
 .app {
-  background-color: rgb(145, 237, 203);
+  /* background-color: var(--bg-color); */
   justify-content: center;
   align-items: center;
   overflow-x: auto;
@@ -19,10 +19,9 @@
   position: sticky;
   top: 0;
   z-index: 1;
-  background-color: rgb(145, 237, 203);
   padding: 10px;
   object-fit: contain;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.373);
+  border-bottom: 1px solid var(--color);
   display: flex;
   justify-content: space-between;
   align-items: center;

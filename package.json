@@ -24,6 +24,7 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
     "react-lazy-load-image-component": "^1.5.6",
+    "react-router-dom": "^5.3.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
