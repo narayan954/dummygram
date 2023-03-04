@@ -189,7 +189,8 @@
   position: fixed;
   width: 60px;
   bottom: 20px;
-  align-self: center;
+  left: 50%;
+  align-self: center;  
   height: 60px;
   justify-content: center;
   z-index: 1000;
@@ -197,11 +198,46 @@
   animation: fadeIn 0.2s;
   transition: opacity 0.4s;
   display: flex;
-
+  opacity: 0.9;
 }
 
 .scrollTop:hover {
   opacity: 1;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .scrollTop {
+    left: 43%;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .scrollTop {
+    left: 45.6%;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .scrollTop {
+    left: 46.6%;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .scrollTop {
+    left: 47.2%;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .scrollTop {
+    left: 47.7%;
+  }
 }
 
 .read__more__less {
@@ -294,40 +330,5 @@ div#picker {
 @keyframes animate {
   to {
     width: 100%;
-  }
-}
-
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
-  .scrollTop {
-    left: 43%;
-  }
-}
-
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-  .scrollTop {
-    left: 45.6%;
-  }
-}
-
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-  .scrollTop {
-    left: 46.6%;
-  }
-}
-
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
-  .scrollTop {
-    left: 47.2%;
-  }
-}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-  .scrollTop {
-    left: 47.7%;
   }
 }
