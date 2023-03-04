@@ -27,7 +27,6 @@ import {
 import { useTheme } from "@mui/material/styles";
 import { db } from "../lib/firebase";
 import firebase from "firebase/compat/app";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import EmojiPicker from "emoji-picker-react";
 import { doc, updateDoc } from "firebase/firestore";
@@ -51,7 +50,6 @@ function Post(prop) {
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const open = Boolean(anchorEl);
   const docRef = doc(db, "posts", postId);
-  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     let unsubscribe;
@@ -134,15 +132,21 @@ function Post(prop) {
     }));
   }
 
-  const computeGridSize = (imagesLength, imageIndex) => {
-    if (imageIndex === imagesLength - 1 && (imageIndex + 1) % 2 !== 0) {
-      return 12;
-    }
-    return 6;
-  };
+  // const computeGridSize = (imagesLength, imageIndex) => {
+  //   if (imageIndex === imagesLength - 1 && (imageIndex + 1) % 2 !== 0) {
+  //     return 12;
+  //   }
+  //   return 6;
+  // };
 
   const postHasImages = postImages.some((image) => Boolean(image.imageUrl));
   const tempLikeCount = likecount ? [...likecount] : [];
+  const buttonStyle = {
+    ":hover": {
+      color: "#ff4d4d",
+      fontSize: "29px",
+    },
+  };
 
   async function likesHandler() {
     if (user && likecount !== undefined) {
@@ -179,9 +183,9 @@ function Post(prop) {
     setAnchorEl(null);
   };
 
-  const handleCommentOpen = () => {
-    setisCommentOpen(true);
-  };
+  // const handleCommentOpen = () => {
+  //   setisCommentOpen(true);
+  // };
 
   const handleClose = () => {
     setOpen(false);
@@ -194,7 +198,7 @@ function Post(prop) {
   return (
     <div
       className="post"
-      style={{ boxShadow: "0px 1px 4px 0.4px rgba(0, 0, 0, 0.4)" }}
+      style={{ boxShadow: "0px 0px 5px 1px rgba(0, 0, 0, 0.4)" }}
     >
       <div className="post__header">
         <Avatar
@@ -224,6 +228,9 @@ function Post(prop) {
             aria-expanded={open ? "true" : undefined}
             aria-haspopup="true"
             onClick={(event) => setAnchorEl(event.currentTarget)}
+            sx={{
+              color: "var(--color)",
+            }}
           >
             <MoreHorizOutlinedIcon />
           </IconButton>
@@ -275,11 +282,6 @@ function Post(prop) {
           <div className="post__background">{caption}</div>
         )}
         <div className="social__icons__wrapper">
-          <span style={{ marginLeft: "14px", fontWeight: "light" }}>
-            {likecount ? likesNo : 0}{" "}
-            <span style={{ fontWeight: "bold" }}>likes</span>
-          </span>
-
           <div
             className="social__icon"
             onClick={likesHandler}
@@ -287,20 +289,30 @@ function Post(prop) {
           >
             {user ? (
               tempLikeCount.indexOf(user.uid) != -1 ? (
-                <FavoriteOutlinedIcon sx={{ color: red[500] }} />
+                <FavoriteOutlinedIcon
+                  sx={{ color: red[500], fontSize: "30px" }}
+                />
               ) : (
-                <FavoriteBorderIcon />
+                <FavoriteBorderIcon sx={buttonStyle} />
               )
             ) : (
-              <FavoriteBorderIcon />
+              <FavoriteBorderIcon sx={buttonStyle} />
             )}
           </div>
+
+          <span style={{ marginLeft: "", fontWeight: "bold" }}>
+            {likecount !== 0 ? `${likesNo} Likes` : " "}{" "}
+            {/* <span style={{ fontWeight: "bold" }}>Likes</span> */}
+          </span>
+          {/* comment button */}
           {/* <div className="social__icon">
             <ModeCommentOutlinedIcon />
           </div> */}
+          {/* share button */}
           {/* <div className="social__icon">
             <SendOutlinedIcon />
           </div> */}
+          {/* save button */}
           {/* <div className="social__icon__last">
             <BookmarkBorderOutlinedIcon />
           </div> */}
@@ -322,12 +334,14 @@ function Post(prop) {
               startIcon={<CommentIcon />}
               sx={{
                 backgroundColor: "rgba(	135, 206, 235, 0.2)",
-                margin: "12px 0",
+                margin: "12px 8px",
                 fontSize: "12px",
+                fontWeight: "bold",
               }}
             >
               View All comments
             </Button>
+
             <DialogBox
               open={isCommentOpen}
               onClose={handleCommentClose}
@@ -374,6 +388,7 @@ function Post(prop) {
                   </Grid>
                 </Grid>
               </Box>
+
               {user && (
                 <form className="post__commentBox">
                   <div className="social__icon">
@@ -403,12 +418,22 @@ function Post(prop) {
                     placeholder="Add a comment..."
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
+                    style={{
+                      backgroundColor: "var(--bg-color)",
+                      color: "var(--color)",
+                      borderRadius: "22px",
+                      marginTop: "4px",
+                    }}
                   />
                   <button
                     className="post__button"
                     disabled={!comment}
                     type="submit"
                     onClick={postComment}
+                    style={{
+                      fontWeight: "bold",
+                      textTransform: "uppercase",
+                    }}
                   >
                     Comment
                   </button>
@@ -448,12 +473,22 @@ function Post(prop) {
               placeholder="Add a comment..."
               value={comment}
               onChange={(e) => setComment(e.target.value)}
+              style={{
+                backgroundColor: "var(--bg-color)",
+                color: "var(--color)",
+                borderRadius: "22px",
+                margin: "4px 0px",
+              }}
             />
             <button
               className="post__button"
               disabled={!comment}
               type="submit"
               onClick={postComment}
+              style={{
+                fontWeight: "bold",
+                textTransform: "uppercase",
+              }}
             >
               Post
             </button>

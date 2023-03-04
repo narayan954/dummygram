@@ -4,7 +4,7 @@
 
 /* App styles */
 .app {
-  background-color: rgb(145, 237, 203);
+  /* background-color: var(--bg-color); */
   justify-content: center;
   align-items: center;
   overflow-x: auto;
@@ -19,10 +19,9 @@
   position: sticky;
   top: 0;
   z-index: 1;
-  background-color: rgb(145, 237, 203);
   padding: 10px;
   object-fit: contain;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.373);
+  border-bottom: 1px solid var(--color);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -180,8 +179,6 @@
   margin-right: auto;
   margin-top: 10px;
   margin-bottom: 10px;
-  /* border: 1px solid #ccc; */
-  background-color: rgb(157, 237, 226);
 }
 
 .imageUpload-progress {
@@ -262,8 +259,40 @@ div#picker {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #cf0db5;
+  color: #ffffff;
   font-weight: bold;
   cursor: pointer;
   transition: transform 0.2s ease-out;
+}
+
+::-webkit-scrollbar {
+  width: 0.8rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: black;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(40deg, #e107c1, #59afc7);
+  border-radius: 10px;
+  border: 2px black solid;
+}
+
+/* landing animation */
+
+#logo {
+  width: 0px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: animate 4s ease forwards;
+  filter: invert(0.5) sepia(1) saturate(5) hue-rotate(175deg);
+}
+
+@keyframes animate {
+  to {
+    width: 100%;
+  }
 }

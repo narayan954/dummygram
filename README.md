@@ -1,6 +1,6 @@
 <div align="center">
 
-<img  src=" src/assets/logo.png"  alt="Dummygram"  width="250"  height="200">
+<img  src=" src/assets/app-logo.png"  alt="Dummygram"  width="250"  height="200">
 
 [See Live!](https://dummy-gram.web.app/)
 
@@ -194,7 +194,8 @@ Dummygram is now part of GitHub. For code of conduct, please see [GitHub's Commu
 
 <div  align="center"><img  height="70px"  src="https://user-images.githubusercontent.com/77617189/192942891-31b9152c-918b-4fac-af05-0ad6b1f594aa.svg"  /></div>
 
-## Open Source Programs
+
+## <h1 align=center>Open Source Programs</h1>
 
 <p align="center">
 
@@ -218,6 +219,25 @@ For further queries and whereabouts you can communicate and reach out to the own
 </div> 
 <div align="center">
 
+## <h1 align=center>CONTRIBUTION 👏</h1>
+
+
+
+## 🧑‍💻 About the Admin
+
+| Admin   | 
+| :----------: | 
+|<a href="https://github.com/narayan954"><img src="https://avatars.githubusercontent.com/narayan954" width=150px height=150px /></a><br>Narayan soni<br> |
+<br>
+
+## 👩🏽‍💻 Contributing
+
+- Contributions make the open source community such an amazing place to learn, inspire, and create.
+- Any contributions you make are greatly appreciated.
+- Check out our [contribution guidelines](/CONTRIBUTING.md) for more information.
+
+<br>
+
 ## Thanks to all Contributors 💪
 
 Thanks a lot for spending your time helping dummygram grow. Thanks a lot! Keep rocking 🍻
@@ -229,7 +249,10 @@ Thanks a lot for spending your time helping dummygram grow. Thanks a lot! Keep r
  
 ## License
 
-MIT License, see the [LICENSE](./LICENSE) file.
+**MIT License, see the [LICENSE](./LICENSE) file.**
 
+<br>
 ---
+    <h3><b>Take a moment to star ⭐ the project if you like it</b></h3>
+    <h3>Do checkout the other repos 💫</h3> 
 </div>

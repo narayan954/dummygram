@@ -5,7 +5,7 @@ on:
     types: [opened, reopened, synchronize]
   push:
     branches:
-      - main
+      - master,main
 
 jobs:
   greet:
