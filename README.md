@@ -239,9 +239,9 @@ Thanks a lot for spending your time helping dummygram grow. Thanks a lot! Keep r
 
 **MIT License, see the [LICENSE](./LICENSE) file.**
 
-## <br>
+<br>
 
-    <h3><b>Take a moment to star ⭐ the project if you like it</b></h3>
+<h3><b>Take a moment to star ⭐ the project if you like it</b></h3>
     <h3>Do checkout the other repos 💫</h3>
 
 </div>
