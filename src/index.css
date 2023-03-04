@@ -287,7 +287,8 @@ div#picker {
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  animation: animate 4s ease forwards;
+  animation: animate 4s ease forwards;  
+  filter: invert(0.5) sepia(1) saturate(5) hue-rotate(175deg);
 }
 
 @keyframes animate {
