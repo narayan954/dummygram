@@ -329,6 +329,7 @@ div#picker {
   transform: translate(-50%, -50%);
   animation: animate 4s ease forwards;
   filter: invert(0.5) sepia(1) saturate(5) hue-rotate(175deg);
+  z-index: 1;
 }
 
 @keyframes animate {
