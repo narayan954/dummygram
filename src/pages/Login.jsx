@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { getModalStyle, useStyles } from "../App";
 import { auth, googleProvider, facebookProvider } from "../lib/firebase";
 import { useSnackbar } from "notistack";
@@ -11,9 +11,7 @@ const LoginScreen = () => {
   const classes = useStyles();
 
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState(null);
 
   const { enqueueSnackbar } = useSnackbar();
   const history = useHistory();
