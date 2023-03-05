@@ -212,6 +212,10 @@
   .scrollTop {
     left: 43%;
   }
+  .app__header {
+    position: sticky;
+    top: 0;
+  }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -219,12 +223,19 @@
   .scrollTop {
     left: 45.6%;
   }
+  .app__header {
+    position: sticky;
+    top: 0;
 }
-
+}
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
   .scrollTop {
     left: 46.6%;
+  }
+  .app__header {
+    position: sticky;
+    top: 0;
   }
 }
 
@@ -233,12 +244,20 @@
   .scrollTop {
     left: 47.2%;
   }
+  .app__header {
+    position: sticky;
+    top: 0;
+  }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
   .scrollTop {
     left: 47.7%;
+  }
+  .app__header {
+    position: sticky;
+    top: 0;
   }
 }
 
