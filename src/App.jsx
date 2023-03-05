@@ -8,7 +8,7 @@ import Loader from "./components/Loader";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { useSnackbar } from "notistack";
 import logo from "./assets/logo.png";
-import { Switch, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import LoginScreen from "./pages/Login";
 import SignupScreen from "./pages/Signup";
 import AnimatedButton from "./components/AnimatedButton";
@@ -314,8 +314,8 @@ function App() {
         </div>
       </Modal>
 
-      <Switch>
-        <Route exact path="/dummygram/">
+      <Routes>
+        <Route path="/dummygram/">
           {user ? (
             <div
               style={{
@@ -366,7 +366,7 @@ function App() {
             Page not found: 404
           </h1>
         </Route>
-      </Switch>
+      </Routes>
 
       <FaArrowCircleUp
         fill="#777"
