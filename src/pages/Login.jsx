@@ -99,24 +99,24 @@ const LoginScreen = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <button type="submit" onClick={signIn} className="button log">
-            LogIn <FontAwesomeIcon icon={faRightToBracket}/>
+            LogIn <FontAwesomeIcon icon={faRightToBracket} />
           </button>
 
           <div className="or">
-            <div className="line"/>
+            <div className="line" />
             <div style={{ padding: "9px" }}>or</div>
-            <div className="line"/>
+            <div className="line" />
           </div>
           <div className="google-fb-login">
             <button className="button" type="submit" onClick={signInWithGoogle}>
-              <FontAwesomeIcon icon={faGoogle}/>
+              <FontAwesomeIcon icon={faGoogle} />
             </button>
             <button
               className="button"
               type="submit"
               onClick={signInWithFacebook}
             >
-              <FontAwesomeIcon icon={faSquareFacebook}/>
+              <FontAwesomeIcon icon={faSquareFacebook} />
             </button>
           </div>
           <button
