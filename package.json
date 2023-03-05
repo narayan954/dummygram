@@ -12,31 +12,31 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.5",
-    "@emotion/styled": "^11.10.5",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
     "@fortawesome/free-brands-svg-icons": "^6.3.0",
     "@fortawesome/free-solid-svg-icons": "^6.3.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "@mui/icons-material": "^5.11.9",
-    "@mui/material": "^5.11.9",
-    "@mui/styles": "^5.11.9",
+    "@mui/icons-material": "^5.11.11",
+    "@mui/material": "^5.11.11",
+    "@mui/styles": "^5.11.11",
     "emoji-picker-react": "^4.4.7",
-    "firebase": "^9.17.1",
+    "firebase": "^9.17.2",
     "notistack": "^2.0.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-icons": "^4.7.1",
+    "react-icons": "^4.8.0",
     "react-lazy-load-image-component": "^1.5.6",
-    "react-router-dom": "^5.3.0",
+    "react-router-dom": "^6.8.2",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
-    "@types/react-dom": "^18.0.10",
+    "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^3.1.0",
     "cypress": "^12.7.0",
     "gh-pages": "^5.0.0",
-    "react-error-overlay": "^6.0.9",
-    "vite": "^4.1.1"
+    "react-error-overlay": "^6.0.11",
+    "vite": "^4.1.4"
   }
 }
