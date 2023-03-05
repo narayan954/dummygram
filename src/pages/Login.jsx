@@ -1,26 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { getModalStyle, useStyles } from "../App";
-import { Input } from "@mui/material";
-import AnimatedButton from "../components/AnimatedButton";
 import { auth, googleProvider, facebookProvider } from "../lib/firebase";
 import { useSnackbar } from "notistack";
 import { useHistory } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSquareFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 
 const LoginScreen = () => {
   const classes = useStyles();
 
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState(null);
-
-  const buttonStyle = {
-    background: "linear-gradient(40deg, #e107c1, #59afc7)",
-    borderRadius: "20px",
-    ":hover": {
-      background: "linear-gradient(-40deg, #59afc7, #e107c1)",
-    },
-  };
 
   const { enqueueSnackbar } = useSnackbar();
   const history = useHistory();
@@ -33,7 +24,6 @@ const LoginScreen = () => {
         enqueueSnackbar("Login successful!", {
           variant: "success",
         });
-        // history.push('/dummygram/');
       })
       .catch((error) =>
         enqueueSnackbar(error.message, {
@@ -93,51 +83,51 @@ const LoginScreen = () => {
             className="modal__signup__img"
             style={{
               width: "80%",
-              marginLeft: "10%",
               filter: "invert(var(--val))",
             }}
           />
-          <Input
-            type="text"
-            placeholder="EMAIL"
+          <input
+            type="email"
+            placeholder=" Email"
             value={email}
-            style={{ margin: "5%", color: "var(--color)" }}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <Input
+          <input
             type="password"
-            placeholder="PASSWORD"
+            placeholder=" Password"
             value={password}
-            style={{ margin: "5%", color: "var(--color)" }}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <AnimatedButton
+          <button type="submit" onClick={signIn} className="button log">
+            LogIn <FontAwesomeIcon icon={faRightToBracket} />
+          </button>
+
+          <div className="or">
+            <div className="line" />
+            <div style={{ padding: "9px" }}>or</div>
+            <div className="line" />
+          </div>
+          <div className="google-fb-login">
+            <button className="button" type="submit" onClick={signInWithGoogle}>
+              <FontAwesomeIcon icon={faGoogle} />
+            </button>
+            <button
+              className="button"
+              type="submit"
+              onClick={signInWithFacebook}
+            >
+              <FontAwesomeIcon icon={faSquareFacebook} />
+            </button>
+          </div>
+          <button
             type="submit"
-            onClick={signIn}
-            variant="contained"
-            color="primary"
-            sx={buttonStyle}
+            onClick={() => {
+              history.push("/dummygram/signup");
+            }}
+            className="button reg"
           >
-            Sign In
-          </AnimatedButton>
-          <AnimatedButton
-            type="submit"
-            onClick={signInWithGoogle}
-            variant="contained"
-            color="primary"
-            sx={buttonStyle}
-          >
-            Sign In With Google
-          </AnimatedButton>
-          <AnimatedButton
-            type="submit"
-            onClick={signInWithFacebook}
-            variant="contained"
-            color="primary"
-            sx={buttonStyle}
-          >
-            Sign In With Facebook
-          </AnimatedButton>
+            Need an account <span> Sign up </span>
+          </button>
         </form>
       </div>
     </div>

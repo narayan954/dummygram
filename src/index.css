@@ -1,5 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
 * {
   margin: 0;
+  font-family: "Poppins", sans-serif;
 }
 
 /* App styles */
@@ -163,6 +166,7 @@
 .modal__signup {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .modal__signup button {
@@ -352,4 +356,68 @@ div#picker {
   to {
     width: 100%;
   }
+}
+/* Login button  */
+
+.button {
+  cursor: pointer;
+  border: 0;
+  border-radius: 4px;
+  font-weight: 600;
+  width: 100%;
+  padding: 10px 0;
+  box-shadow: 0 0 20px rgba(104, 85, 224, 0.2);
+  transition: 0.4s;
+}
+.button:hover {
+  color: white;
+  box-shadow: 0 0 20px rgba(104, 85, 224, 0.6);
+  background-color: rgba(104, 85, 224, 1);
+}
+/* sign in button */
+.reg:hover {
+  color: black;
+  box-shadow: 0 0 20px rgba(104, 85, 224, 0.6);
+  background-color: rgba(255, 255, 255, 1);
+}
+.reg span {
+  color: rgb(104, 85, 224);
+  border-bottom: 2px solid rgb(104, 85, 224);
+}
+/* login button */
+.log {
+  color: rgb(104, 85, 224);
+  background-color: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(104, 85, 224, 1);
+}
+/* Input */
+input {
+  width: 230px;
+  cursor: pointer;
+  border: 0;
+  border-radius: 4px;
+  font-weight: 600;
+  padding: 10px;
+  margin-top: 10px;
+  box-shadow: 0 0 20px rgba(104, 85, 224, 0.2);
+  border: 1px solid rgba(104, 85, 224, 1);
+  transition: 0.4s;
+}
+
+/*login screen sapration line */
+.or {
+  width: 230px;
+  display: flex;
+  align-items: center;
+}
+.line {
+  width: 100%;
+  border-bottom: 2px solid rgb(104, 85, 224);
+}
+/* login with google or facebook button */
+.google-fb-login button {
+  font-size: 22px;
+  margin: 5px;
+  width: 50px;
+  height: 50px;
 }
