@@ -3,6 +3,10 @@ import { getModalStyle, useStyles } from "../App";
 import { auth, googleProvider, facebookProvider } from "../lib/firebase";
 import { useSnackbar } from "notistack";
 import { useHistory } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
+import { faRightToBracket} from "@fortawesome/free-solid-svg-icons"
 
 const LoginScreen = () => {
   const classes = useStyles();
@@ -106,7 +110,7 @@ const LoginScreen = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <button type="submit" onClick={signIn} className="button log">
-            LogIn <i class="fa-solid fa-right-to-bracket"></i>
+            LogIn <FontAwesomeIcon style={faRightToBracket}></FontAwesomeIcon>
           </button>
 
           <div className="or">
@@ -116,14 +120,14 @@ const LoginScreen = () => {
           </div>
           <div className="google-fb-login">
             <button className="button" type="submit" onClick={signInWithGoogle}>
-              <i class="fa-brands fa-google"></i>
+              <FontAwesomeIcon icon={faGoogle}></FontAwesomeIcon>
             </button>
             <button
               className="button"
               type="submit"
               onClick={signInWithFacebook}
             >
-              <i class="fa-brands fa-facebook"></i>
+              <FontAwesomeIcon icon={faSquareFacebook}></FontAwesomeIcon>
             </button>
           </div>
           <button
