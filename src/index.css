@@ -1,10 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
 * {
   margin: 0;
+  font-family: "Poppins", sans-serif;
 }
 
 /* App styles */
 .app {
-  background-color: white;
+  /* background-color: var(--bg-color); */
   justify-content: center;
   align-items: center;
   overflow-x: auto;
@@ -19,10 +22,9 @@
   position: sticky;
   top: 0;
   z-index: 1;
-  background-color: white;
   padding: 10px;
   object-fit: contain;
-  border-bottom: 1px solid lightgrey;
+  border-bottom: 1px solid var(--color);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -36,7 +38,7 @@
 /* Post style */
 .post {
   max-width: 400px;
-  border: 1px solid lightgrey;
+  border: 1px solid rgba(0, 0, 0, 0.373);
   border-radius: 5px;
   margin-bottom: 20px;
   word-wrap: break-word;
@@ -54,8 +56,8 @@
 }
 
 .post__img_container:only-of-type .post__img {
-  border-top: 1px solid lightgrey;
-  border-bottom: 1px solid rgba(211, 211, 211, 0.281);
+  border-top: 1px solid rgba(215, 208, 208, 0.845);
+  border-bottom: 1px solid rgba(72, 6, 91, 0.281);
 }
 
 .post__text {
@@ -105,7 +107,7 @@
 .post__commentBox {
   display: flex;
   margin-top: 10px;
-  border-top: 1px solid lightgrey;
+  border-top: 1px solid rgba(0, 0, 0, 0.373);
   flex-wrap: wrap;
 }
 
@@ -114,6 +116,7 @@
   flex: 1;
   padding: 10px;
   font-size: 16px;
+  background-color: rgb(145, 237, 203);
 }
 
 .post__button {
@@ -130,14 +133,14 @@
   min-height: 250px;
   background: linear-gradient(
     45deg,
-    #405de6,
-    #5851db,
-    #833ab4,
-    #c13584,
-    #e1306c,
-    #fd1d1d
+    #abdb10,
+    #cbdb51,
+    #ce2a11,
+    #e263ab,
+    #30e19d,
+    #a1d9c9
   );
-  color: white;
+  color: rgb(145, 230, 227);
   justify-content: center;
   display: flex;
   align-items: center;
@@ -161,6 +164,7 @@
 .modal__signup {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .modal__signup button {
@@ -179,8 +183,6 @@
   margin-right: auto;
   margin-top: 10px;
   margin-bottom: 10px;
-  /* border: 1px solid #ccc; */
-  background-color: white;
 }
 
 .imageUpload-progress {
@@ -192,7 +194,7 @@
   width: 60px;
   bottom: 20px;
   left: 50%;
-  align-items: center;
+  align-self: center;
   height: 60px;
   justify-content: center;
   z-index: 1000;
@@ -200,20 +202,56 @@
   animation: fadeIn 0.2s;
   transition: opacity 0.4s;
   display: flex;
+  opacity: 0.9;
 }
 
 .scrollTop:hover {
   opacity: 1;
 }
 
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .scrollTop {
+    left: 43%;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .scrollTop {
+    left: 45.6%;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .scrollTop {
+    left: 46.6%;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .scrollTop {
+    left: 47.2%;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .scrollTop {
+    left: 47.7%;
+  }
+}
+
 .read__more__less {
   text-decoration: underline;
   cursor: pointer;
-  color: rgba(0, 0, 0, 0.4);
+  color: rgba(17, 3, 46, 0.4);
 }
 
 .read__more__less:hover {
-  color: royalblue;
+  color: rgb(6, 33, 115);
 }
 
 .darkmode-toggle {
@@ -256,13 +294,109 @@ div#picker {
   width: 200px;
   height: 40px;
   border-radius: 20px;
-  background: linear-gradient(40deg, #ff6ec4, #7873f5);
+  background: linear-gradient(40deg, #e107c1, #59afc7);
   box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: #ffffff;
   font-weight: bold;
   cursor: pointer;
   transition: transform 0.2s ease-out;
+}
+
+::-webkit-scrollbar {
+  width: 0.8rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: black;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(40deg, #e107c1, #59afc7);
+  border-radius: 10px;
+  border: 2px black solid;
+}
+
+/* landing animation */
+
+#logo {
+  width: 0px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: animate 4s ease forwards;
+  filter: invert(0.5) sepia(1) saturate(5) hue-rotate(175deg);
+}
+
+@keyframes animate {
+  to {
+    width: 100%;
+  }
+}
+/* Login button  */
+
+.button {
+  cursor: pointer;
+  border: 0;
+  border-radius: 4px;
+  font-weight: 600;
+  width: 100%;
+  padding: 10px 0;
+  box-shadow: 0 0 20px rgba(104, 85, 224, 0.2);
+  transition: 0.4s;
+}
+.button:hover {
+  color: white;
+  box-shadow: 0 0 20px rgba(104, 85, 224, 0.6);
+  background-color: rgba(104, 85, 224, 1);
+}
+/* sign in button */
+.reg:hover {
+  color: black;
+  box-shadow: 0 0 20px rgba(104, 85, 224, 0.6);
+  background-color: rgba(255, 255, 255, 1);
+}
+.reg span {
+  color: rgb(104, 85, 224);
+  border-bottom: 2px solid rgb(104, 85, 224);
+}
+/* login button */
+.log {
+  color: rgb(104, 85, 224);
+  background-color: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(104, 85, 224, 1);
+}
+/* Input */
+input {
+  width: 230px;
+  cursor: pointer;
+  border: 0;
+  border-radius: 4px;
+  font-weight: 600;
+  padding: 10px;
+  margin-top: 10px;
+  box-shadow: 0 0 20px rgba(104, 85, 224, 0.2);
+  border: 1px solid rgba(104, 85, 224, 1);
+  transition: 0.4s;
+}
+
+/*login screen sapration line */
+.or {
+  width: 230px;
+  display: flex;
+  align-items: center;
+}
+.line {
+  width: 100%;
+  border-bottom: 2px solid rgb(104, 85, 224);
+}
+/* login with google or facebook button */
+.google-fb-login button {
+  font-size: 22px;
+  margin: 5px;
+  width: 50px;
+  height: 50px;
 }
