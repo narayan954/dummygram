@@ -4,9 +4,8 @@ import { auth, googleProvider, facebookProvider } from "../lib/firebase";
 import { useSnackbar } from "notistack";
 import { useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGoogle } from "@fortawesome/free-brands-svg-icons";
-import { faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
-import { faRightToBracket} from "@fortawesome/free-solid-svg-icons"
+import { faSquareFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 
 const LoginScreen = () => {
   const classes = useStyles();
@@ -15,14 +14,6 @@ const LoginScreen = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
-
-  const buttonStyle = {
-    background: "linear-gradient(40deg, #e107c1, #59afc7)",
-    borderRadius: "20px",
-    ":hover": {
-      background: "linear-gradient(-40deg, #59afc7, #e107c1)",
-    },
-  };
 
   const { enqueueSnackbar } = useSnackbar();
   const history = useHistory();
@@ -114,20 +105,20 @@ const LoginScreen = () => {
           </button>
 
           <div className="or">
-            <div className="line"></div>
+            <div className="line"/>
             <div style={{ padding: "9px" }}>or</div>
-            <div className="line"></div>
+            <div className="line"/>
           </div>
           <div className="google-fb-login">
             <button className="button" type="submit" onClick={signInWithGoogle}>
-              <FontAwesomeIcon icon={faGoogle}></FontAwesomeIcon>
+              <FontAwesomeIcon icon={faGoogle}/>
             </button>
             <button
               className="button"
               type="submit"
               onClick={signInWithFacebook}
             >
-              <FontAwesomeIcon icon={faSquareFacebook}></FontAwesomeIcon>
+              <FontAwesomeIcon icon={faSquareFacebook}/>
             </button>
           </div>
           <button
