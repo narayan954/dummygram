@@ -93,51 +93,49 @@ const LoginScreen = () => {
             className="modal__signup__img"
             style={{
               width: "80%",
-              marginLeft: "10%",
               filter: "invert(var(--val))",
             }}
           />
-          <Input
-            type="text"
-            placeholder="EMAIL"
+          <input
+            type="email"
+            placeholder=" Email"
             value={email}
-            style={{ margin: "5%", color: "var(--color)" }}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <Input
+          <input
             type="password"
-            placeholder="PASSWORD"
+            placeholder=" Password"
             value={password}
-            style={{ margin: "5%", color: "var(--color)" }}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <AnimatedButton
+          <div className="logsignin">
+            <button type="submit" onClick={signIn} className="log">
+              LogIn <i class="fa-solid fa-right-to-bracket"></i>
+            </button>
+          </div>
+
+          <div className="or">
+            <div className="line"></div>
+            <div style={{ padding: "9px" }}>or</div>
+            <div className="line"></div>
+          </div>
+          <div className="g-fb-lin">
+            <button type="submit" onClick={signInWithGoogle}>
+              <i class="fa-brands fa-google"></i>
+            </button>
+            <button type="submit" onClick={signInWithFacebook}>
+              <i class="fa-brands fa-facebook"></i>
+            </button>
+          </div>
+          <button
             type="submit"
-            onClick={signIn}
-            variant="contained"
-            color="primary"
-            sx={buttonStyle}
+            onClick={() => {
+              history.push("/dummygram/signup");
+            }}
+            className="reg"
           >
-            Sign In
-          </AnimatedButton>
-          <AnimatedButton
-            type="submit"
-            onClick={signInWithGoogle}
-            variant="contained"
-            color="primary"
-            sx={buttonStyle}
-          >
-            Sign In With Google
-          </AnimatedButton>
-          <AnimatedButton
-            type="submit"
-            onClick={signInWithFacebook}
-            variant="contained"
-            color="primary"
-            sx={buttonStyle}
-          >
-            Sign In With Facebook
-          </AnimatedButton>
+            Need an account <span> Sign up </span>
+          </button>
         </form>
       </div>
     </div>

@@ -16,8 +16,8 @@ import AnimatedButton from "./components/AnimatedButton";
 export function getModalStyle() {
   const top = 50;
   const left = 50;
-  const padding = 5;
-  const radius = 10;
+  const padding = 2;
+  const radius = 3;
 
   return {
     top: `${top}%`,
@@ -33,10 +33,9 @@ export function getModalStyle() {
 export const useStyles = makeStyles((theme) => ({
   paper: {
     position: "absolute",
-    width: 200,
-    border: "1px solid var(--color)",
+    width: 250,
     borderRadius: theme.shape.borderRadius,
-    boxShadow: theme.shadows[10],
+    boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
     color: "var(--color)",
   },
