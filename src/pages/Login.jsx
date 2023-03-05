@@ -119,9 +119,13 @@ const LoginScreen = () => {
           </div>
           <div className="google-fb-login">
             <button className="button" type="submit" onClick={signInWithGoogle}>
-              <i class="fa-brands fa-google" ></i>
+              <i class="fa-brands fa-google"></i>
             </button>
-            <button className="button" type="submit" onClick={signInWithFacebook}>
+            <button
+              className="button"
+              type="submit"
+              onClick={signInWithFacebook}
+            >
               <i class="fa-brands fa-facebook"></i>
             </button>
           </div>
