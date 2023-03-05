@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { getModalStyle, useStyles } from "../App";
 import { auth, googleProvider, facebookProvider } from "../lib/firebase";
 import { useSnackbar } from "notistack";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
@@ -14,7 +14,7 @@ const LoginScreen = () => {
   const [password, setPassword] = useState("");
 
   const { enqueueSnackbar } = useSnackbar();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const signIn = (e) => {
     e.preventDefault();
@@ -122,7 +122,7 @@ const LoginScreen = () => {
           <button
             type="submit"
             onClick={() => {
-              history.push("/dummygram/signup");
+              navigate("/dummygram/signup");
             }}
             className="button reg"
           >
