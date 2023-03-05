@@ -13,6 +13,7 @@
 .app__header__img {
   object-fit: contain;
   width: 150px;
+  
 }
 
 .app__header {
@@ -26,6 +27,7 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+
 }
 
 .app__posts {
