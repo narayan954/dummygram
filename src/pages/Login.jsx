@@ -101,7 +101,7 @@ const LoginScreen = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <button type="submit" onClick={signIn} className="button log">
-            LogIn <FontAwesomeIcon style={faRightToBracket}></FontAwesomeIcon>
+            LogIn <FontAwesomeIcon style={faRightToBracket}/>
           </button>
 
           <div className="or">
