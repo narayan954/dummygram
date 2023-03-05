@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { getModalStyle, useStyles } from "../App";
-import { Input } from "@mui/material";
-import AnimatedButton from "../components/AnimatedButton";
 import { auth, googleProvider, facebookProvider } from "../lib/firebase";
 import { useSnackbar } from "notistack";
 import { useHistory } from "react-router-dom";
@@ -33,7 +31,6 @@ const LoginScreen = () => {
         enqueueSnackbar("Login successful!", {
           variant: "success",
         });
-        // history.push('/dummygram/');
       })
       .catch((error) =>
         enqueueSnackbar(error.message, {
