@@ -8,7 +8,7 @@ import Loader from "./components/Loader";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { useSnackbar } from "notistack";
 import logo from "./assets/logo.png";
-import { Switch, Route, useHistory } from "react-router-dom";
+import { Switch, Route, useNavigate } from "react-router-dom";
 import LoginScreen from "./pages/Login";
 import SignupScreen from "./pages/Signup";
 import AnimatedButton from "./components/AnimatedButton";
@@ -44,7 +44,7 @@ export const useStyles = makeStyles((theme) => ({
 function App() {
   const classes = useStyles();
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState(null);
@@ -83,10 +83,10 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         setUser(authUser);
-        history.push("/dummygram/");
+        navigate("/dummygram/");
       } else {
         setUser(null);
-        history.push("/dummygram/login");
+        navigate("/dummygram/login");
       }
     });
 
@@ -202,7 +202,7 @@ function App() {
           <div className="login__container">
             <Button
               onClick={() => {
-                history.push("/dummygram/login");
+                navigate("/dummygram/login");
               }}
               color="primary"
               variant="contained"
@@ -214,7 +214,7 @@ function App() {
 
             <Button
               onClick={() => {
-                history.push("/dummygram/signup");
+                navigate("/dummygram/signup");
               }}
               color="primary"
               variant="contained"
