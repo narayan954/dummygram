@@ -12,6 +12,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import LoginScreen from "./pages/Login";
 import SignupScreen from "./pages/Signup";
 import AnimatedButton from "./components/AnimatedButton";
+import NotFoundPage from "./components/NotFound";
 
 export function getModalStyle() {
   const top = 50;
@@ -315,8 +316,7 @@ function App() {
       </Modal>
 
       <Routes>
-        <Route path="/dummygram/">
-          {user ? (
+        <Route exact path="/dummygram/" element={user ?
             <div
               style={{
                 display: "flex",
@@ -347,25 +347,14 @@ function App() {
                   </div>
                 )}
               </div>
-            </div>
-          ) : (
-            <></>
-          )}
-        </Route>
+            </div> : 
+            <></> } />
 
-        <Route path="/dummygram/login">
-          <LoginScreen />
-        </Route>
+        <Route path="/dummygram/login" element={<LoginScreen/>} />
 
-        <Route path="/dummygram/signup">
-          <SignupScreen />
-        </Route>
+        <Route path="/dummygram/signup" element={<SignupScreen/>} />
 
-        <Route path="*">
-          <h1 style={{ textAlign: "center", marginTop: "2rem" }}>
-            Page not found: 404
-          </h1>
-        </Route>
+        <Route path="*" element={<NotFoundPage/>} />
       </Routes>
 
       <FaArrowCircleUp
