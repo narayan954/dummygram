@@ -164,8 +164,6 @@
 .modal__signup {
   display: flex;
   flex-direction: column;
-  display: flex;
-  justify-content: center;
   align-items: center;
 }
 
@@ -302,12 +300,9 @@ div#picker {
     width: 100%;
   }
 }
-.logsignin{
-  display: flex;
-  width: 100%;
-  justify-content: center;
-}
-button {
+/* Login button  */
+
+.button {
   cursor: pointer;
   border: 0;
   border-radius: 4px;
@@ -317,27 +312,29 @@ button {
   box-shadow: 0 0 20px rgba(104, 85, 224, 0.2);
   transition: 0.4s;
 }
-.reg span{
-  color:rgb(104, 85, 224) ;
-  border-bottom: 2px solid rgb(104, 85, 224);
-  
+.button:hover {
+  color: white;
+  box-shadow: 0 0 20px rgba(104, 85, 224, 0.6);
+  background-color: rgba(104, 85, 224, 1);
 }
+/* sign in button */
 .reg:hover{
   color: black;
   box-shadow: 0 0 20px rgba(104, 85, 224, 0.6);
   background-color: rgba(255, 255, 255, 1);
 }
+.reg span{
+  color:rgb(104, 85, 224) ;
+  border-bottom: 2px solid rgb(104, 85, 224);
+  
+}
+/* login button */
 .log {
   color: rgb(104, 85, 224);
   background-color: rgba(255, 255, 255, 1);
   border: 1px solid rgba(104, 85, 224, 1);
 }
-button:hover {
-  color: white;
-  box-shadow: 0 0 20px rgba(104, 85, 224, 0.6);
-  background-color: rgba(104, 85, 224, 1);
-}
-
+/* Input */
 input {
   width: 230px;
   cursor: pointer;
@@ -350,9 +347,8 @@ input {
   border: 1px solid rgba(104, 85, 224, 1);
   transition: 0.4s;
 }
-input::placeholder{
-  padding: 15px;
-}
+
+/*login screen sapration line */
 .or{
   width: 230px;
   display: flex;
@@ -362,8 +358,8 @@ input::placeholder{
   width: 100%;
   border-bottom: 2px solid rgb(104, 85, 224);
 }
-
-.g-fb-lin button{
+/* login with google or facebook button */
+.google-fb-login button{
   font-size: 22px;
   margin: 5px;
   width: 50px;

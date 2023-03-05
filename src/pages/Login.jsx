@@ -108,22 +108,20 @@ const LoginScreen = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <div className="logsignin">
-            <button type="submit" onClick={signIn} className="log">
-              LogIn <i class="fa-solid fa-right-to-bracket"></i>
-            </button>
-          </div>
+          <button type="submit" onClick={signIn} className="button log">
+            LogIn <i class="fa-solid fa-right-to-bracket"></i>
+          </button>
 
           <div className="or">
             <div className="line"></div>
             <div style={{ padding: "9px" }}>or</div>
             <div className="line"></div>
           </div>
-          <div className="g-fb-lin">
-            <button type="submit" onClick={signInWithGoogle}>
-              <i class="fa-brands fa-google"></i>
+          <div className="google-fb-login">
+            <button className="button" type="submit" onClick={signInWithGoogle}>
+              <i class="fa-brands fa-google" ></i>
             </button>
-            <button type="submit" onClick={signInWithFacebook}>
+            <button className="button" type="submit" onClick={signInWithFacebook}>
               <i class="fa-brands fa-facebook"></i>
             </button>
           </div>
@@ -132,7 +130,7 @@ const LoginScreen = () => {
             onClick={() => {
               history.push("/dummygram/signup");
             }}
-            className="reg"
+            className="button reg"
           >
             Need an account <span> Sign up </span>
           </button>
