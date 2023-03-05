@@ -316,45 +316,53 @@ function App() {
       </Modal>
 
       <Routes>
-        <Route exact path="/dummygram/" element={user ?
-            <div
-              style={{
-                display: "flex",
-                alignContent: "center",
-                justifyContent: "center",
-              }}
-            >
+        <Route
+          exact
+          path="/dummygram/"
+          element={
+            user ? (
               <div
-                style={
-                  !loadingPosts
-                    ? {}
-                    : {
-                        width: "100%",
-                        minHeight: "100vh",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }
-                }
+                style={{
+                  display: "flex",
+                  alignContent: "center",
+                  justifyContent: "center",
+                }}
               >
-                {loadingPosts ? (
-                  <Loader />
-                ) : (
-                  <div className="app__posts">
-                    {posts.map(({ id, post }) => (
-                      <Post key={id} postId={id} user={user} post={post} />
-                    ))}
-                  </div>
-                )}
+                <div
+                  style={
+                    !loadingPosts
+                      ? {}
+                      : {
+                          width: "100%",
+                          minHeight: "100vh",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }
+                  }
+                >
+                  {loadingPosts ? (
+                    <Loader />
+                  ) : (
+                    <div className="app__posts">
+                      {posts.map(({ id, post }) => (
+                        <Post key={id} postId={id} user={user} post={post} />
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
-            </div> : 
-            <></> } />
+            ) : (
+              <></>
+            )
+          }
+        />
 
-        <Route path="/dummygram/login" element={<LoginScreen/>} />
+        <Route path="/dummygram/login" element={<LoginScreen />} />
 
-        <Route path="/dummygram/signup" element={<SignupScreen/>} />
+        <Route path="/dummygram/signup" element={<SignupScreen />} />
 
-        <Route path="*" element={<NotFoundPage/>} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
 
       <FaArrowCircleUp
