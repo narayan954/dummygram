@@ -124,7 +124,6 @@ const SignupScreen = () => {
           variant: "error",
         })
       )
-      .finally(() => {});
   };
   return (
     <div
@@ -135,7 +134,7 @@ const SignupScreen = () => {
       }}
     >
       <div style={modalStyle} className={classes.paper}>
-        <form className="modal__signup" onSubmit={signUp}>
+        <form className="modal__signup">
           <input
             type="file"
             id="file"
@@ -175,7 +174,7 @@ const SignupScreen = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button type="submit" className="button signup">
+          <button onClick={signUp} className="button signup">
             Sign Up <FontAwesomeIcon icon={faRightToBracket} />
           </button>
           <div className="or">
@@ -196,13 +195,12 @@ const SignupScreen = () => {
             </button>
           </div>
           <button
-            type="submit"
             onClick={() => {
-              navigate("/dummygram/signup");
+              navigate("/dummygram/login");
             }}
             className="button reg"
           >
-            Alrady have account <span> LogIn</span>
+            Already have an account? <span>Sign in</span>
           </button>
         </form>
       </div>
