@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { getModalStyle, useStyles } from "../App";
-import { Input } from "@mui/material";
-import AnimatedButton from "../components/AnimatedButton";
 import {
   auth,
   storage,
@@ -9,6 +7,10 @@ import {
   facebookProvider,
 } from "../lib/firebase";
 import { useSnackbar } from "notistack";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSquareFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 
 const SignupScreen = () => {
   const classes = useStyles();
@@ -18,19 +20,11 @@ const SignupScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [signingUp, setSigningUp] = useState(false);
-
   const [image, setImage] = useState(null);
   const [address, setAddress] = useState(null);
 
-  const buttonStyle = {
-    background: "linear-gradient(40deg, #e107c1, #59afc7)",
-    borderRadius: "20px",
-    ":hover": {
-      background: "linear-gradient(-40deg, #59afc7, #e107c1)",
-    },
-  };
-
   const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     if (e.target.files[0]) {
@@ -90,7 +84,37 @@ const SignupScreen = () => {
         setSigningUp(false);
       });
   };
+  const signInWithGoogle = (e) => {
+    e.preventDefault();
+    auth
+      .signInWithPopup(googleProvider)
+      .then(() => {
+        enqueueSnackbar("Signin successful!", {
+          variant: "success",
+        });
+      })
+      .catch((error) =>
+        enqueueSnackbar(error.message, {
+          variant: "error",
+        })
+      )
+  };
 
+  const signInWithFacebook = (e) => {
+    e.preventDefault();
+    auth
+      .signInWithPopup(facebookProvider)
+      .then(() => {
+        enqueueSnackbar("Signin successful!", {
+          variant: "success",
+        });
+      })
+      .catch((error) =>
+        enqueueSnackbar(error.message, {
+          variant: "error",
+        })
+      )
+  };
   return (
     <div
       style={{
@@ -100,84 +124,73 @@ const SignupScreen = () => {
       }}
     >
       <div style={modalStyle} className={classes.paper}>
-        <form className="modal__signup" onSubmit={signUp}>
-          <img
-            src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
-            alt="instagram"
-            className="modal__signup__img"
-            style={{
-              width: "80%",
-              marginLeft: "10%",
-              filter: "invert(var(--val))",
-            }}
+        <form className="modal__signup">
+          <input
+            type="file"
+            id="file"
+            className="file"
+            onChange={handleChange}
+            accept="image/*"
           />
-          <div
-            style={{
-              height: "100px",
-              width: "100px",
-              borderRadius: "100%",
-              border: "2px",
-              borderColor: "black",
-              borderStyle: "solid",
-              marginLeft: "22%",
-              boxShadow: "0px 0px 5px 1px white",
-              zIndex: 1,
-            }}
-          >
-            {address ? (
-              <img
-                src={URL.createObjectURL(image)}
-                alt="profile pic"
-                style={{
-                  width: "100px",
-                  height: "100px",
-                  borderRadius: "100%",
-                }}
-              />
-            ) : (
-              <div style={{ marginTop: "30px" }}>PROFILE PICTURE</div>
-            )}
-          </div>
-          <Input
+          <label htmlFor="file">
+            <div className="img-outer">
+              {address ? (
+                <img
+                  src={URL.createObjectURL(image)}
+                  alt="profile pic"
+                  className="img-inner"
+                />
+              ) : (
+                <div className="img-inner">Profile Picture</div>
+              )}
+            </div>
+          </label>
+
+          <input
             type="text"
-            placeholder="USERNAME"
-            required
+            placeholder="Username"
             value={username}
-            style={{ margin: "5%", color: "var(--color)" }}
             onChange={(e) => setUsername(e.target.value)}
           />
-          <Input
-            type="text"
-            placeholder="EMAIL"
+          <input
+            type="email"
+            placeholder=" Email"
             value={email}
-            style={{ margin: "5%", color: "var(--color)" }}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <Input
+          <input
             type="password"
-            placeholder="PASSWORD"
+            placeholder=" Password"
             value={password}
-            style={{ margin: "5%", color: "var(--color)" }}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <div className="file-input">
-            <input
-              type="file"
-              id="file"
-              className="file"
-              onChange={handleChange}
-              accept="image/*"
-            />
-            <label htmlFor="file">Select Profile Picture</label>
+          <button type="submit" onClick={signUp} className="button signup">
+            Sign Up <FontAwesomeIcon icon={faRightToBracket} />
+          </button>
+          <div className="or">
+            <div className="line" />
+            <div style={{ padding: "9px" }}>or</div>
+            <div className="line" />
           </div>
-          <AnimatedButton
-            type="submit"
-            variant="contained"
-            color="primary"
-            sx={buttonStyle}
+          <div className="google-fb-login">
+            <button className="button" onClick={signInWithGoogle}>
+              <FontAwesomeIcon icon={faGoogle} />
+            </button>
+            <button
+              className="button"
+              onClick={signInWithFacebook}
+            >
+              <FontAwesomeIcon icon={faSquareFacebook} />
+            </button>
+          </div>
+          <button
+            onClick={() => {
+              navigate("/dummygram/login");
+            }}
+            className="button reg"
           >
-            Sign Up
-          </AnimatedButton>
+            Already have an account? <span>Sign in</span>
+          </button>
         </form>
       </div>
     </div>
