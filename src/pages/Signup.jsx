@@ -97,7 +97,7 @@ const SignupScreen = () => {
         enqueueSnackbar(error.message, {
           variant: "error",
         })
-      )
+      );
   };
 
   const signInWithFacebook = (e) => {
@@ -113,7 +113,7 @@ const SignupScreen = () => {
         enqueueSnackbar(error.message, {
           variant: "error",
         })
-      )
+      );
   };
   return (
     <div
@@ -176,10 +176,7 @@ const SignupScreen = () => {
             <button className="button" onClick={signInWithGoogle}>
               <FontAwesomeIcon icon={faGoogle} />
             </button>
-            <button
-              className="button"
-              onClick={signInWithFacebook}
-            >
+            <button className="button" onClick={signInWithFacebook}>
               <FontAwesomeIcon icon={faSquareFacebook} />
             </button>
           </div>

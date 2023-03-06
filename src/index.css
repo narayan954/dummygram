@@ -131,13 +131,15 @@
 
 .post__background {
   min-height: 250px;
-  background: linear-gradient(45deg,
-      #abdb10,
-      #cbdb51,
-      #ce2a11,
-      #e263ab,
-      #30e19d,
-      #a1d9c9);
+  background: linear-gradient(
+    45deg,
+    #abdb10,
+    #cbdb51,
+    #ce2a11,
+    #e263ab,
+    #30e19d,
+    #a1d9c9
+  );
   color: rgb(145, 230, 227);
   justify-content: center;
   display: flex;
@@ -180,7 +182,7 @@
 
 .img-inner:hover {
   background-color: #ddd;
-  transition: .5s ease-in-out;
+  transition: 0.5s ease-in-out;
 }
 
 .img-inner img {
