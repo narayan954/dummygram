@@ -9,6 +9,9 @@ import {
   facebookProvider,
 } from "../lib/firebase";
 import { useSnackbar } from "notistack";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSquareFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 
 const SignupScreen = () => {
   const classes = useStyles();
@@ -90,7 +93,39 @@ const SignupScreen = () => {
         setSigningUp(false);
       });
   };
+  const signInWithGoogle = (e) => {
+    e.preventDefault();
+    auth
+      .signInWithPopup(googleProvider)
+      .then(() => {
+        enqueueSnackbar("Login successful!", {
+          variant: "success",
+        });
+      })
+      .catch((error) =>
+        enqueueSnackbar(error.message, {
+          variant: "error",
+        })
+      )
+      .finally(() => {});
+  };
 
+  const signInWithFacebook = (e) => {
+    e.preventDefault();
+    auth
+      .signInWithPopup(facebookProvider)
+      .then(() => {
+        enqueueSnackbar("Login successful!", {
+          variant: "success",
+        });
+      })
+      .catch((error) =>
+        enqueueSnackbar(error.message, {
+          variant: "error",
+        })
+      )
+      .finally(() => {});
+  };
   return (
     <div
       style={{
@@ -101,83 +136,74 @@ const SignupScreen = () => {
     >
       <div style={modalStyle} className={classes.paper}>
         <form className="modal__signup" onSubmit={signUp}>
-          <img
-            src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
-            alt="instagram"
-            className="modal__signup__img"
-            style={{
-              width: "80%",
-              marginLeft: "10%",
-              filter: "invert(var(--val))",
-            }}
+          <input
+            type="file"
+            id="file"
+            className="file"
+            onChange={handleChange}
+            accept="image/*"
           />
-          <div
-            style={{
-              height: "100px",
-              width: "100px",
-              borderRadius: "100%",
-              border: "2px",
-              borderColor: "black",
-              borderStyle: "solid",
-              marginLeft: "22%",
-              boxShadow: "0px 0px 5px 1px white",
-              zIndex: 1,
-            }}
-          >
-            {address ? (
-              <img
-                src={URL.createObjectURL(image)}
-                alt="profile pic"
-                style={{
-                  width: "100px",
-                  height: "100px",
-                  borderRadius: "100%",
-                }}
-              />
-            ) : (
-              <div style={{ marginTop: "30px" }}>PROFILE PICTURE</div>
-            )}
-          </div>
-          <Input
+          <label htmlFor="file">
+            <div className="img-outer">
+              {address ? (
+                <img
+                  src={URL.createObjectURL(image)}
+                  alt="profile pic"
+                  className="img-inner"
+                />
+              ) : (
+                <div className="img-inner">Profile Picture</div>
+              )}
+            </div>
+          </label>
+
+          <input
             type="text"
-            placeholder="USERNAME"
-            required
+            placeholder="Username"
             value={username}
-            style={{ margin: "5%", color: "var(--color)" }}
             onChange={(e) => setUsername(e.target.value)}
           />
-          <Input
-            type="text"
-            placeholder="EMAIL"
+          <input
+            type="email"
+            placeholder=" Email"
             value={email}
-            style={{ margin: "5%", color: "var(--color)" }}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <Input
+          <input
             type="password"
-            placeholder="PASSWORD"
+            placeholder=" Password"
             value={password}
-            style={{ margin: "5%", color: "var(--color)" }}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <div className="file-input">
-            <input
-              type="file"
-              id="file"
-              className="file"
-              onChange={handleChange}
-              accept="image/*"
-            />
-            <label htmlFor="file">Select Profile Picture</label>
+          <button type="submit" className="button signup">
+            Sign Up <FontAwesomeIcon icon={faRightToBracket} />
+          </button>
+          <div className="or">
+            <div className="line" />
+            <div style={{ padding: "9px" }}>or</div>
+            <div className="line" />
           </div>
-          <AnimatedButton
+          <div className="google-fb-login">
+            <button className="button" type="submit" onClick={signInWithGoogle}>
+              <FontAwesomeIcon icon={faGoogle} />
+            </button>
+            <button
+              className="button"
+              type="submit"
+              onClick={signInWithFacebook}
+            >
+              <FontAwesomeIcon icon={faSquareFacebook} />
+            </button>
+          </div>
+          <button
             type="submit"
-            variant="contained"
-            color="primary"
-            sx={buttonStyle}
+            onClick={() => {
+              navigate("/dummygram/signup");
+            }}
+            className="button reg"
           >
-            Sign Up
-          </AnimatedButton>
+            Alrady have account <span> LogIn</span>
+          </button>
         </form>
       </div>
     </div>

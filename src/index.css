@@ -131,15 +131,13 @@
 
 .post__background {
   min-height: 250px;
-  background: linear-gradient(
-    45deg,
-    #abdb10,
-    #cbdb51,
-    #ce2a11,
-    #e263ab,
-    #30e19d,
-    #a1d9c9
-  );
+  background: linear-gradient(45deg,
+      #abdb10,
+      #cbdb51,
+      #ce2a11,
+      #e263ab,
+      #30e19d,
+      #a1d9c9);
   color: rgb(145, 230, 227);
   justify-content: center;
   display: flex;
@@ -157,8 +155,40 @@
 }
 
 /* signup modal */
+.img-outer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.img-outer .img-inner {
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100% - 15px);
+  width: calc(100% - 15px);
+  border-radius: 50%;
+  overflow: hidden;
+  transition: 1s ease-in-out;
+}
+
+.img-inner:hover {
+  background-color: #ddd;
+  transition: .5s ease-in-out;
+}
+
+.img-inner img {
+  border-radius: 50%;
+}
+
 .modal__signup__img {
-  width: 50%;
+  width: 80%;
 }
 
 .modal__signup {
@@ -337,6 +367,7 @@ div#picker {
     width: 100%;
   }
 }
+
 /* Login button  */
 
 .button {
@@ -349,27 +380,44 @@ div#picker {
   box-shadow: 0 0 20px rgba(104, 85, 224, 0.2);
   transition: 0.4s;
 }
+
 .button:hover {
   color: white;
   box-shadow: 0 0 20px rgba(104, 85, 224, 0.6);
   background-color: rgba(104, 85, 224, 1);
 }
+
 /* sign in button */
 .reg:hover {
   color: black;
   box-shadow: 0 0 20px rgba(104, 85, 224, 0.6);
   background-color: rgba(255, 255, 255, 1);
 }
+
 .reg span {
   color: rgb(104, 85, 224);
   border-bottom: 2px solid rgb(104, 85, 224);
 }
+
 /* login button */
 .log {
   color: rgb(104, 85, 224);
   background-color: rgba(255, 255, 255, 1);
   border: 1px solid rgba(104, 85, 224, 1);
 }
+
+.signup {
+  color: white;
+  box-shadow: 0 0 20px rgba(104, 85, 224, 0.6);
+  background-color: rgba(104, 85, 224, 1);
+}
+
+.signup:hover {
+  color: rgb(104, 85, 224);
+  box-shadow: 0 0 20px rgba(104, 85, 224, 0.6);
+  background-color: rgb(255, 255, 255);
+}
+
 /* Input */
 input {
   width: 230px;
@@ -390,10 +438,12 @@ input {
   display: flex;
   align-items: center;
 }
+
 .line {
   width: 100%;
   border-bottom: 2px solid rgb(104, 85, 224);
 }
+
 /* login with google or facebook button */
 .google-fb-login button {
   font-size: 22px;
