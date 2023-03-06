@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { getModalStyle, useStyles } from "../App";
-import { Input } from "@mui/material";
-import AnimatedButton from "../components/AnimatedButton";
 import {
   auth,
   storage,
@@ -9,6 +7,7 @@ import {
   facebookProvider,
 } from "../lib/firebase";
 import { useSnackbar } from "notistack";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
@@ -21,19 +20,11 @@ const SignupScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [signingUp, setSigningUp] = useState(false);
-
   const [image, setImage] = useState(null);
   const [address, setAddress] = useState(null);
 
-  const buttonStyle = {
-    background: "linear-gradient(40deg, #e107c1, #59afc7)",
-    borderRadius: "20px",
-    ":hover": {
-      background: "linear-gradient(-40deg, #59afc7, #e107c1)",
-    },
-  };
-
   const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     if (e.target.files[0]) {
@@ -107,7 +98,6 @@ const SignupScreen = () => {
           variant: "error",
         })
       )
-      .finally(() => {});
   };
 
   const signInWithFacebook = (e) => {
@@ -174,7 +164,7 @@ const SignupScreen = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button onClick={signUp} className="button signup">
+          <button type="submit" onClick={signUp} className="button signup">
             Sign Up <FontAwesomeIcon icon={faRightToBracket} />
           </button>
           <div className="or">
