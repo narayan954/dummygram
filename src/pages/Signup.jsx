@@ -98,7 +98,7 @@ const SignupScreen = () => {
     auth
       .signInWithPopup(googleProvider)
       .then(() => {
-        enqueueSnackbar("Login successful!", {
+        enqueueSnackbar("Signin successful!", {
           variant: "success",
         });
       })
@@ -115,7 +115,7 @@ const SignupScreen = () => {
     auth
       .signInWithPopup(facebookProvider)
       .then(() => {
-        enqueueSnackbar("Login successful!", {
+        enqueueSnackbar("Signin successful!", {
           variant: "success",
         });
       })
