@@ -183,12 +183,11 @@ const SignupScreen = () => {
             <div className="line" />
           </div>
           <div className="google-fb-login">
-            <button className="button" type="submit" onClick={signInWithGoogle}>
+            <button className="button" onClick={signInWithGoogle}>
               <FontAwesomeIcon icon={faGoogle} />
             </button>
             <button
               className="button"
-              type="submit"
               onClick={signInWithFacebook}
             >
               <FontAwesomeIcon icon={faSquareFacebook} />
