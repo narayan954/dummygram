@@ -8,10 +8,11 @@ import Loader from "./components/Loader";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { useSnackbar } from "notistack";
 import logo from "./assets/logo.png";
-import { Switch, Route, useHistory } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import LoginScreen from "./pages/Login";
 import SignupScreen from "./pages/Signup";
 import AnimatedButton from "./components/AnimatedButton";
+import NotFoundPage from "./components/NotFound";
 
 export function getModalStyle() {
   const top = 50;
@@ -44,7 +45,7 @@ export const useStyles = makeStyles((theme) => ({
 function App() {
   const classes = useStyles();
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState(null);
@@ -83,10 +84,10 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         setUser(authUser);
-        history.push("/dummygram/");
+        navigate("/dummygram/");
       } else {
         setUser(null);
-        history.push("/dummygram/login");
+        navigate("/dummygram/login");
       }
     });
 
@@ -202,7 +203,7 @@ function App() {
           <div className="login__container">
             <Button
               onClick={() => {
-                history.push("/dummygram/login");
+                navigate("/dummygram/login");
               }}
               color="primary"
               variant="contained"
@@ -214,7 +215,7 @@ function App() {
 
             <Button
               onClick={() => {
-                history.push("/dummygram/signup");
+                navigate("/dummygram/signup");
               }}
               color="primary"
               variant="contained"
@@ -314,59 +315,55 @@ function App() {
         </div>
       </Modal>
 
-      <Switch>
-        <Route exact path="/dummygram/">
-          {user ? (
-            <div
-              style={{
-                display: "flex",
-                alignContent: "center",
-                justifyContent: "center",
-              }}
-            >
+      <Routes>
+        <Route
+          exact
+          path="/dummygram/"
+          element={
+            user ? (
               <div
-                style={
-                  !loadingPosts
-                    ? {}
-                    : {
-                        width: "100%",
-                        minHeight: "100vh",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }
-                }
+                style={{
+                  display: "flex",
+                  alignContent: "center",
+                  justifyContent: "center",
+                }}
               >
-                {loadingPosts ? (
-                  <Loader />
-                ) : (
-                  <div className="app__posts">
-                    {posts.map(({ id, post }) => (
-                      <Post key={id} postId={id} user={user} post={post} />
-                    ))}
-                  </div>
-                )}
+                <div
+                  style={
+                    !loadingPosts
+                      ? {}
+                      : {
+                          width: "100%",
+                          minHeight: "100vh",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }
+                  }
+                >
+                  {loadingPosts ? (
+                    <Loader />
+                  ) : (
+                    <div className="app__posts">
+                      {posts.map(({ id, post }) => (
+                        <Post key={id} postId={id} user={user} post={post} />
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          ) : (
-            <></>
-          )}
-        </Route>
+            ) : (
+              <></>
+            )
+          }
+        />
 
-        <Route path="/dummygram/login">
-          <LoginScreen />
-        </Route>
+        <Route path="/dummygram/login" element={<LoginScreen />} />
 
-        <Route path="/dummygram/signup">
-          <SignupScreen />
-        </Route>
+        <Route path="/dummygram/signup" element={<SignupScreen />} />
 
-        <Route path="*">
-          <h1 style={{ textAlign: "center", marginTop: "2rem" }}>
-            Page not found: 404
-          </h1>
-        </Route>
-      </Switch>
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
 
       <FaArrowCircleUp
         fill="#777"
