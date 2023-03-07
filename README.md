@@ -141,6 +141,10 @@ _We will be using Cypress for our testing purposes._
 
 ### Introduction to Cypress
 
+<img src='https://docs.cypress.io/img/guides/overview/v10/real-world-app.png' width='920'>
+
+<details><summary>See More</summary> <br>
+
 Cypress is a relatively new automated tests tool which is gaining popularity at a very rapid pace
 
 Here is the home page for Cypress if someone wants to look it up
@@ -152,13 +156,19 @@ Cypress has very strong documentation so a new comer could find most of the info
 Also as a starting point it would be good to go through these tutorial videos
 <https://docs.cypress.io/examples/tutorials>
 
-<img src='https://docs.cypress.io/img/guides/overview/v10/real-world-app.png' width='920'>
+</details>
 
 ---
 
 ### Start Testing
 
 > You need to [setup](#project-setup) the project as usual, and after that we can run our test cases.
+
+<sub>See It Running</sub>
+
+<https://user-images.githubusercontent.com/84321236/223492442-1b161401-4ca2-41f7-832d-7302e2832b5a.mp4>
+
+<details><summary>See More</summary> <br>
 
 1. **Run This Command**
 
@@ -180,9 +190,7 @@ _It will open up this window,_
 
 <img src='https://i.ibb.co/z59yv8B/image.png' width='720'>
 
-- **See It Running**
-
-<https://user-images.githubusercontent.com/84321236/223492442-1b161401-4ca2-41f7-832d-7302e2832b5a.mp4>
+</details>
 
 ---
 
@@ -190,6 +198,10 @@ _It will open up this window,_
 
 Working Directory: `/cypress/` <br>
 E2E Files: `/cypress/e2e/`
+
+<img width="720" alt="image" src="https://user-images.githubusercontent.com/84321236/223501582-99163f05-940c-4e9a-a59a-8951a1be1e3a.png">
+
+<details><summary>See More</summary> <br>
 
 **To Create New E2E Tests**
 
@@ -199,11 +211,13 @@ E2E Files: `/cypress/e2e/`
 
 <img width="720" alt="test-file-screenshot" src="https://user-images.githubusercontent.com/84321236/223485219-2fd93fa7-686e-4a60-92b0-2a927ee4a7b0.png">
 
-3. Then, [test](#Start-Testing) your test cases:
+3. Then, [test](#start-testing) your test cases:
 
    ```zsh
    npm run cypress:open
    ```
+
+</details>
 
 ---
 
