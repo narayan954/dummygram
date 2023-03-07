@@ -38,9 +38,10 @@ Dummygram has been in development since September 2022 and is part of GitHub sin
   - [Project Setup](#project-setup)
 
     - [First time setup](#first-time-setup)
-    - [installation](#installation)
+    - [Installation](#installation)
     - [Running the app locally](#running-the-app-locally)
 
+  - [Testing](#testing)
   - [How to get started with Open Source](#how-to-get-started-with-open-source)
   - [How to use Dummygram](#how-to-use-dummygram)
   - [Contributing](#contributing)
@@ -131,7 +132,94 @@ To Start the development server run
 npm run dev
 ```
 
-<div  align="center"><img  height="200px"  src="https://user-images.githubusercontent.com/77617189/192947926-37284128-9965-46a4-b29b-c75e47b2f76b.svg"  /></div>
+<div  align="center"><img  height="200px"  src="https://user-images.githubusercontent.com/77617189/192947926-37284128-9965-46a4-b29b-c75e47b2f76b.svg" /></div>
+
+## Testing
+
+Here we will see, how to run tests and how to setup new test cases.
+_We will be using Cypress for our testing purposes._
+
+### Introduction to Cypress
+
+<img src='https://docs.cypress.io/img/guides/overview/v10/real-world-app.png' width='920'>
+
+<details><summary>See More</summary> <br>
+
+Cypress is a relatively new automated tests tool which is gaining popularity at a very rapid pace
+
+Here is the home page for Cypress if someone wants to look it up
+<https://www.cypress.io/>
+
+Cypress has very strong documentation so a new comer could find most of the information from their own site
+<https://docs.cypress.io/guides/overview/why-cypress.html#In-a-nutshell>
+
+Also as a starting point it would be good to go through these tutorial videos
+<https://docs.cypress.io/examples/tutorials>
+
+</details>
+
+---
+
+### Start Testing
+
+> You need to [setup](#project-setup) the project as usual, and after that we can run our test cases.
+
+<sub>See It Running</sub>
+
+<https://user-images.githubusercontent.com/84321236/223492442-1b161401-4ca2-41f7-832d-7302e2832b5a.mp4>
+
+<details><summary>See More</summary> <br>
+
+1. **Run This Command**
+
+```zsh
+npm run cypress:open
+```
+
+_It will open up this window,_
+
+<img src='https://i.ibb.co/QC72wq8/image.png' width='720'>
+
+> As you can see, we only added E2E testing
+
+2. **Click on E2E Testing & Select Browser**
+
+<img src='https://i.ibb.co/4TpgRgG/image.png' width='720'>
+
+3. **Now Click on any Test to Run it**
+
+<img src='https://i.ibb.co/z59yv8B/image.png' width='720'>
+
+</details>
+
+---
+
+### Create New Test Cases
+
+Working Directory: `/cypress/` <br>
+E2E Files: `/cypress/e2e/`
+
+<img width="720" alt="image" src="https://user-images.githubusercontent.com/84321236/223501582-99163f05-940c-4e9a-a59a-8951a1be1e3a.png">
+
+<details><summary>See More</summary> <br>
+
+**To Create New E2E Tests**
+
+1. Goto `/cypress/e2e/`
+2. You can create new file (similar to `spec.cy.js`). <br>
+   **OR** add new `it` function inside existing `describe` function in this existing file.
+
+<img width="720" alt="test-file-screenshot" src="https://user-images.githubusercontent.com/84321236/223485219-2fd93fa7-686e-4a60-92b0-2a927ee4a7b0.png">
+
+3. Then, [test](#start-testing) your test cases:
+
+   ```zsh
+   npm run cypress:open
+   ```
+
+</details>
+
+---
 
 ## How to get started with Open Source
 
