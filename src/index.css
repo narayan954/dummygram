@@ -1,10 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
 * {
   margin: 0;
+  font-family: "Poppins", sans-serif;
 }
 
 /* App styles */
 .app {
+
   background-color: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+
+  /* background-color: var(--bg-color); */
+
   justify-content: center;
   align-items: center;
   overflow-x: auto;
@@ -22,7 +29,7 @@
   background-color: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
   padding: 10px;
   object-fit: contain;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.373);
+  border-bottom: 1px solid var(--color);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -157,13 +164,46 @@
 }
 
 /* signup modal */
+.img-outer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.img-outer .img-inner {
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100% - 15px);
+  width: calc(100% - 15px);
+  border-radius: 50%;
+  overflow: hidden;
+  transition: 1s ease-in-out;
+}
+
+.img-inner:hover {
+  background-color: #ddd;
+  transition: 0.5s ease-in-out;
+}
+
+.img-inner img {
+  border-radius: 50%;
+}
+
 .modal__signup__img {
-  width: 50%;
+  width: 80%;
 }
 
 .modal__signup {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .modal__signup button {
@@ -193,7 +233,7 @@
   width: 60px;
   bottom: 20px;
   left: 50%;
-  align-items: center;
+  align-self: center;
   height: 60px;
   justify-content: center;
   z-index: 1000;
@@ -201,10 +241,46 @@
   animation: fadeIn 0.2s;
   transition: opacity 0.4s;
   display: flex;
+  opacity: 0.9;
 }
 
 .scrollTop:hover {
   opacity: 1;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .scrollTop {
+    left: 43%;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .scrollTop {
+    left: 45.6%;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .scrollTop {
+    left: 46.6%;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .scrollTop {
+    left: 47.2%;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .scrollTop {
+    left: 47.7%;
+  }
 }
 
 .read__more__less {
@@ -266,4 +342,121 @@ div#picker {
   font-weight: bold;
   cursor: pointer;
   transition: transform 0.2s ease-out;
+}
+
+::-webkit-scrollbar {
+  width: 0.8rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: black;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(40deg, #e107c1, #59afc7);
+  border-radius: 10px;
+  border: 2px black solid;
+}
+
+/* landing animation */
+
+#logo {
+  width: 0px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: animate 4s ease forwards;
+  filter: invert(0.5) sepia(1) saturate(5) hue-rotate(175deg);
+  z-index: 1;
+}
+
+@keyframes animate {
+  to {
+    width: 100%;
+  }
+}
+
+/* Login button  */
+
+.button {
+  cursor: pointer;
+  border: 0;
+  border-radius: 4px;
+  font-weight: 600;
+  width: 100%;
+  padding: 10px 0;
+  box-shadow: 0 0 20px rgba(104, 85, 224, 0.2);
+  transition: 0.4s;
+}
+
+.button:hover {
+  color: white;
+  box-shadow: 0 0 20px rgba(104, 85, 224, 0.6);
+  background-color: rgba(104, 85, 224, 1);
+}
+
+/* sign in button */
+.reg:hover {
+  color: black;
+  box-shadow: 0 0 20px rgba(104, 85, 224, 0.6);
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.reg span {
+  color: rgb(104, 85, 224);
+  border-bottom: 2px solid rgb(104, 85, 224);
+}
+
+/* login button */
+.log {
+  color: rgb(104, 85, 224);
+  background-color: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(104, 85, 224, 1);
+}
+
+.signup {
+  color: white;
+  box-shadow: 0 0 20px rgba(104, 85, 224, 0.6);
+  background-color: rgba(104, 85, 224, 1);
+}
+
+.signup:hover {
+  color: rgb(104, 85, 224);
+  box-shadow: 0 0 20px rgba(104, 85, 224, 0.6);
+  background-color: rgb(255, 255, 255);
+}
+
+/* Input */
+input {
+  width: 230px;
+  cursor: pointer;
+  border: 0;
+  border-radius: 4px;
+  font-weight: 600;
+  padding: 10px;
+  margin-top: 10px;
+  box-shadow: 0 0 20px rgba(104, 85, 224, 0.2);
+  border: 1px solid rgba(104, 85, 224, 1);
+  transition: 0.4s;
+}
+
+/*login screen sapration line */
+.or {
+  width: 230px;
+  display: flex;
+  align-items: center;
+}
+
+.line {
+  width: 100%;
+  border-bottom: 2px solid rgb(104, 85, 224);
+}
+
+/* login with google or facebook button */
+.google-fb-login button {
+  font-size: 22px;
+  margin: 5px;
+  width: 50px;
+  height: 50px;
 }
