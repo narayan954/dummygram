@@ -195,6 +195,7 @@ function App() {
               color="secondary"
               variant="contained"
               sx={buttonStyle}
+              className= "logout-button"
             >
               Logout
             </Button>
