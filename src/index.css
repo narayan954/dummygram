@@ -23,22 +23,26 @@
 }
 
 .app__header {
-  position: sticky;
+  position: fixed;
+  width: 100%;
   top: 0;
   z-index: 1;
   background-color: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
-  padding: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   object-fit: contain;
   border-bottom: 1px solid var(--color);
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  background-color: white;
 }
 
 .app__posts {
   background-color: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);;
   padding: 20px;
+  padding-top: 5.5em;
 }
 
 /* Post style */

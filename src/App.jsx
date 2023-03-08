@@ -194,7 +194,7 @@ function App() {
               }}
               color="secondary"
               variant="contained"
-              sx={buttonStyle}
+              sx={{...buttonStyle,marginRight: "10px"}}
             >
               Logout
             </Button>
