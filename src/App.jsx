@@ -194,8 +194,7 @@ function App() {
               }}
               color="secondary"
               variant="contained"
-              sx={buttonStyle}
-              className= "logout-button"
+              sx={{...buttonStyle,marginRight: "10px"}}
             >
               Logout
             </Button>
