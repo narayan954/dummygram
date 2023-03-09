@@ -19,4 +19,11 @@ describe("Dummygram Test Suite", () => {
       .should("not.be.visible");
     cy.contains("Sign In").should("be.visible");
   });
+
+  // Add New Test Below
+
+  // it("New Test Part", () => {
+  //   cy.visit("https://narayan954.github.io/dummygram/");
+  //   // Rest Goes here
+  // });
 });
