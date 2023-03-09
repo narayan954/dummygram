@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { getModalStyle, useStyles } from "../App";
+import { updateProfile } from "firebase/auth";
 import {
   auth,
   storage,
@@ -36,10 +37,23 @@ const SignupScreen = () => {
   const signUp = (e) => {
     e.preventDefault();
     setSigningUp(true);
+    if (username === "") {
+      enqueueSnackbar("Username cannot be blank", {
+        variant: "error",
+      });
+      return;
+    }
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((authUser) => {
-        const uploadTask = storage.ref(`images/${image.name}`).put(image);
+        updateProfile(auth.currentUser, {
+          displayName: username,
+        }).catch((error) => {
+          enqueueSnackbar(error.message, {
+            variant: "error",
+          });
+        });
+        const uploadTask = storage.ref(`images/${image?.name}`).put(image);
         uploadTask.on(
           "state_changed",
           () => {
@@ -57,7 +71,7 @@ const SignupScreen = () => {
             // complete function ...
             storage
               .ref("images")
-              .child(image.name)
+              .child(image?.name)
               .getDownloadURL()
               .then((url) => {
                 authUser.user.updateProfile({
