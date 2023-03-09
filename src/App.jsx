@@ -172,7 +172,7 @@ function App() {
           className="app__header__img w-100"
           onClick={() => {
             window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-            window.location.href = "/";
+            window.location.href = "/dummygram";
           }}
           style={{
             cursor: "pointer",
