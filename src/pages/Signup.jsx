@@ -34,7 +34,7 @@ const SignupScreen = () => {
     }
   };
 
-  const signUp = (e) => {
+  const signUp = async (e) => {
     e.preventDefault();
     setSigningUp(true);
     if (username === "") {
@@ -43,16 +43,25 @@ const SignupScreen = () => {
       });
       return;
     }
-    auth
+    await auth
       .createUserWithEmailAndPassword(email, password)
-      .then((authUser) => {
-        updateProfile(auth.currentUser, {
+      .then(async (authUser) => {
+        await updateProfile(auth.currentUser, {
           displayName: username,
-        }).catch((error) => {
-          enqueueSnackbar(error.message, {
-            variant: "error",
+        })
+          .then(() => {
+            enqueueSnackbar(
+              `Congratulations ${username},you have joined Dummygram`,
+              {
+                variant: "success",
+              }
+            );
+          })
+          .catch((error) => {
+            enqueueSnackbar(error.message, {
+              variant: "error",
+            });
           });
-        });
         const uploadTask = storage.ref(`images/${image?.name}`).put(image);
         uploadTask.on(
           "state_changed",
@@ -84,7 +93,8 @@ const SignupScreen = () => {
               });
           }
         );
-        window.location.href = "/dummygram/";
+
+        // window.location.href = "/dummygram/";
       })
       // .then(() => {
 

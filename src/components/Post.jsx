@@ -330,7 +330,9 @@ function Post(prop) {
         {comments.length ? (
           <>
             <Button
-              onClick={setisCommentOpen}
+              onClick={() => {
+                setisCommentOpen(!Open);
+              }}
               startIcon={<CommentIcon />}
               sx={{
                 backgroundColor: "rgba(	135, 206, 235, 0.2)",
