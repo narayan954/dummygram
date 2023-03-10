@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { getModalStyle, useStyles } from "../App";
 import { updateProfile } from "firebase/auth";
+import { updateProfile } from "firebase/auth";
 import {
   auth,
   storage,
