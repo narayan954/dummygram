@@ -90,7 +90,6 @@ const SignupScreen = () => {
               });
           }
         );
-
       })
       .catch((error) =>
         enqueueSnackbar(error.message, {
