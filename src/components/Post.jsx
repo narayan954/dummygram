@@ -312,7 +312,7 @@ function Post(prop) {
             id="share-button"
             aria-haspopup="true"
             onClick={() => {
-              setLink(`https://dummy-gram.web.app/${postId}`);
+              setLink(`https://narayan954.github.io/dummygram/${postId}`);
               setPostText(caption);
               shareModal(true);
             }}
