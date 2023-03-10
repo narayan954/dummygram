@@ -70,14 +70,11 @@ const SignupScreen = () => {
             // setProgress(Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100));
           },
           (error) => {
-            // error function ...
-
             enqueueSnackbar(error.message, {
               variant: "error",
             });
           },
           () => {
-            // complete function ...
             storage
               .ref("images")
               .child(image?.name)
@@ -94,11 +91,7 @@ const SignupScreen = () => {
           }
         );
 
-        // window.location.href = "/dummygram/";
       })
-      // .then(() => {
-
-      // })
       .catch((error) =>
         enqueueSnackbar(error.message, {
           variant: "error",

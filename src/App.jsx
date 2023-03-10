@@ -84,9 +84,7 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         setUser(authUser);
-        // setTimeout(() => {
         navigate("/dummygram/");
-        // }, 2000);
       } else {
         setUser(null);
         navigate("/dummygram/login");
