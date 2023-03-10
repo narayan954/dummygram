@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { getModalStyle, useStyles } from "../App";
+import { updateProfile } from "firebase/auth";
 import {
   auth,
   storage,
@@ -33,13 +34,35 @@ const SignupScreen = () => {
     }
   };
 
-  const signUp = (e) => {
+  const signUp = async (e) => {
     e.preventDefault();
     setSigningUp(true);
-    auth
+    if (username === "") {
+      enqueueSnackbar("Username cannot be blank", {
+        variant: "error",
+      });
+      return;
+    }
+    await auth
       .createUserWithEmailAndPassword(email, password)
-      .then((authUser) => {
-        const uploadTask = storage.ref(`images/${image.name}`).put(image);
+      .then(async (authUser) => {
+        await updateProfile(auth.currentUser, {
+          displayName: username,
+        })
+          .then(() => {
+            enqueueSnackbar(
+              `Congratulations ${username},you have joined Dummygram`,
+              {
+                variant: "success",
+              }
+            );
+          })
+          .catch((error) => {
+            enqueueSnackbar(error.message, {
+              variant: "error",
+            });
+          });
+        const uploadTask = storage.ref(`images/${image?.name}`).put(image);
         uploadTask.on(
           "state_changed",
           () => {
@@ -47,17 +70,14 @@ const SignupScreen = () => {
             // setProgress(Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100));
           },
           (error) => {
-            // error function ...
-
             enqueueSnackbar(error.message, {
               variant: "error",
             });
           },
           () => {
-            // complete function ...
             storage
               .ref("images")
-              .child(image.name)
+              .child(image?.name)
               .getDownloadURL()
               .then((url) => {
                 authUser.user.updateProfile({
@@ -70,11 +90,8 @@ const SignupScreen = () => {
               });
           }
         );
-        window.location.href = "/dummygram/";
-      })
-      // .then(() => {
 
-      // })
+      })
       .catch((error) =>
         enqueueSnackbar(error.message, {
           variant: "error",
