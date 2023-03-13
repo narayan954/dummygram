@@ -13,6 +13,7 @@ import LoginScreen from "./pages/Login";
 import SignupScreen from "./pages/Signup";
 import AnimatedButton from "./components/AnimatedButton";
 import NotFoundPage from "./components/NotFound";
+import ShareModal from "./components/ShareModal";
 
 export function getModalStyle() {
   const top = 50;
@@ -54,6 +55,9 @@ function App() {
   const [loadMorePosts, setLoadMorePosts] = useState(false);
   const [openNewUpload, setOpenNewUpload] = useState(false);
   const [logout, setLogout] = useState(false);
+  const [openShareModal, setOpenShareModal] = useState(false);
+  const [currentPostLink, setCurrentPostLink] = useState("");
+  const [postText, setPostText] = useState("");
 
   const buttonStyle = {
     background: "linear-gradient(40deg, #e107c1, #59afc7)",
@@ -172,7 +176,7 @@ function App() {
           className="app__header__img w-100"
           onClick={() => {
             window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-            window.location.href = "/";
+            navigate("/dummygram/");
           }}
           style={{
             cursor: "pointer",
@@ -227,6 +231,13 @@ function App() {
           </div>
         )}
       </div>
+
+      <ShareModal
+        openShareModal={openShareModal}
+        setOpenShareModal={setOpenShareModal}
+        currentPostLink={currentPostLink}
+        postText={postText}
+      />
 
       <Dialog
         sx={{ borderRadius: "100px" }}
@@ -346,7 +357,15 @@ function App() {
                   ) : (
                     <div className="app__posts">
                       {posts.map(({ id, post }) => (
-                        <Post key={id} postId={id} user={user} post={post} />
+                        <Post
+                          key={id}
+                          postId={id}
+                          user={user}
+                          post={post}
+                          shareModal={setOpenShareModal}
+                          setLink={setCurrentPostLink}
+                          setPostText={setPostText}
+                        />
                       ))}
                     </div>
                   )}
