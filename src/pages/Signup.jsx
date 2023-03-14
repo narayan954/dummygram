@@ -196,7 +196,7 @@ const SignupScreen = () => {
               <FontAwesomeIcon icon={faSquareFacebook} />
             </button>
           </div>
-          <span className="have-account">
+          <div className="have-account">
             Already have an account?{" "}
             <span
               onClick={() => {
@@ -205,7 +205,7 @@ const SignupScreen = () => {
             >
               Sign in
             </span>
-          </span>
+          </div>
         </form>
       </div>
     </div>

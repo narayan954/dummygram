@@ -119,7 +119,7 @@ const LoginScreen = () => {
               <FontAwesomeIcon icon={faSquareFacebook} />
             </button>
           </div>
-          <span className="have-account">
+          <div className="have-account">
             Need an account{" "}
             <span
               onClick={() => {
@@ -128,7 +128,7 @@ const LoginScreen = () => {
             >
               Sign up
             </span>
-          </span>
+          </div>
         </form>
       </div>
     </div>

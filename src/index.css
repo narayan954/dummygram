@@ -466,4 +466,5 @@ input {
 .have-account span {
   color: rgb(104, 85, 224);
   border-bottom: 2px solid rgb(104, 85, 224);
+  cursor:pointer;
 }
