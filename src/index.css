@@ -457,14 +457,13 @@ input {
   width: 50px;
   height: 50px;
 }
-.have-account{
+.have-account {
   color: var(--color);
   font-size: 13px;
   margin: 10px 0;
-
 }
 .have-account span {
   color: rgb(104, 85, 224);
   border-bottom: 2px solid rgb(104, 85, 224);
-  cursor:pointer;
+  cursor: pointer;
 }
