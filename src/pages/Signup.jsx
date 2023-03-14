@@ -196,14 +196,16 @@ const SignupScreen = () => {
               <FontAwesomeIcon icon={faSquareFacebook} />
             </button>
           </div>
-          <button
-            onClick={() => {
-              navigate("/dummygram/login");
-            }}
-            className="button reg"
-          >
-            Already have an account? <span>Sign in</span>
-          </button>
+          <span className="have-account">
+            Already have an account?{" "}
+            <span
+              onClick={() => {
+                navigate("/dummygram/login");
+              }}
+            >
+              Sign in
+            </span>
+          </span>
         </form>
       </div>
     </div>

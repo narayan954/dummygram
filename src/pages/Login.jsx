@@ -119,15 +119,16 @@ const LoginScreen = () => {
               <FontAwesomeIcon icon={faSquareFacebook} />
             </button>
           </div>
-          <button
-            type="submit"
-            onClick={() => {
-              navigate("/dummygram/signup");
-            }}
-            className="button reg"
-          >
-            Need an account <span> Sign up </span>
-          </button>
+          <span className="have-account">
+            Need an account{" "}
+            <span
+              onClick={() => {
+                navigate("/dummygram/signup");
+              }}
+            >
+              Sign up
+            </span>
+          </span>
         </form>
       </div>
     </div>
