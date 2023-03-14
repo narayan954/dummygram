@@ -25,6 +25,8 @@ document
       document.getElementsByClassName("app__header__img").item(0).style.filter =
         "invert(100%)";
       document.body.style.setProperty("--color", "white");
+      document.body.style.setProperty("--bg-light", "#505050");
+      document.body.style.setProperty("--color-shadow", "rgba(255, 255, 255, 0.35)");
       document.body.style.setProperty("--bg-color", "black");
       window.document.body.style.setProperty("--val", 1);
       document.getElementById("scrollbar_style").innerHTML =
@@ -33,6 +35,8 @@ document
       document.getElementsByClassName("app__header__img").item(0).style.filter =
         "invert(0%)";
       document.body.style.setProperty("--color", "black");
+      document.body.style.setProperty("--bg-light", "white");
+      document.body.style.setProperty("--color-shadow", "rgba(0, 0, 0, 0.35)");
       document.body.style.setProperty("--bg-color", "white");
       window.document.body.style.setProperty("--val", 0);
       document.getElementById("scrollbar_style").innerHTML =
