@@ -37,7 +37,7 @@ export const useStyles = makeStyles((theme) => ({
     position: "absolute",
     width: 250,
     borderRadius: theme.shape.borderRadius,
-    boxShadow:"var(--color-shadow) 0px 5px 15px",
+    boxShadow: "var(--color-shadow) 0px 5px 15px",
     padding: theme.spacing(2, 4, 3),
     color: "var(--color)",
   },
@@ -103,14 +103,20 @@ function App() {
   useEffect(() => {
     if (document.body.classList.contains("darkmode--activated")) {
       window.document.body.style.setProperty("--bg-color", "black");
-      window.document.body.style.setProperty("--color-shadow", "rgba(255, 255, 255, 0.35)");
+      window.document.body.style.setProperty(
+        "--color-shadow",
+        "rgba(255, 255, 255, 0.35)"
+      );
       window.document.body.style.setProperty("--color", "white");
       window.document.body.style.setProperty("--val", 1);
       document.getElementsByClassName("app__header__img").item(0).style.filter =
         "invert(100%)";
     } else {
       window.document.body.style.setProperty("--bg-color", "white");
-      window.document.body.style.setProperty("--color-shadow", "rgba(0, 0, 0, 0.35)");
+      window.document.body.style.setProperty(
+        "--color-shadow",
+        "rgba(0, 0, 0, 0.35)"
+      );
       window.document.body.style.setProperty("--color", "#2B1B17");
       window.document.body.style.setProperty("--val", 0);
       document.getElementsByClassName("app__header__img").item(0).style.filter =
