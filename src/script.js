@@ -20,13 +20,16 @@ document.getElementById("scrollbar_style").innerHTML =
 
 document
   .querySelector("button.darkmode-toggle")
-  .addEventListener("click", function () {
+  .addEventListener("click", () => {
     if (document.body.classList.contains("darkmode--activated")) {
       document.getElementsByClassName("app__header__img").item(0).style.filter =
         "invert(100%)";
       document.body.style.setProperty("--color", "white");
       document.body.style.setProperty("--bg-light", "#505050");
-      document.body.style.setProperty("--color-shadow", "rgba(255, 255, 255, 0.35)");
+      document.body.style.setProperty(
+        "--color-shadow",
+        "rgba(255, 255, 255, 0.35)"
+      );
       document.body.style.setProperty("--bg-color", "black");
       window.document.body.style.setProperty("--val", 1);
       document.getElementById("scrollbar_style").innerHTML =

@@ -131,6 +131,11 @@ const SignupScreen = () => {
         })
       );
   };
+
+  const navigateToLogin = () => {
+    navigate("/dummygram/login");
+  };
+
   return (
     <div
       style={{
@@ -198,11 +203,7 @@ const SignupScreen = () => {
           </div>
           <div className="have-account">
             Already have an account?{" "}
-            <span
-              onClick={() => {
-                navigate("/dummygram/login");
-              }}
-            >
+            <span role={"button"} onClick={navigateToLogin}>
               Sign in
             </span>
           </div>
