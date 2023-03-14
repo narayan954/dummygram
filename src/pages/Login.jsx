@@ -78,7 +78,7 @@ const LoginScreen = () => {
       <div style={getModalStyle()} className={classes.paper}>
         <form className="modal__signup">
           <img
-            src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
+            src="src/assets/logo.png"
             alt="dummygram"
             className="modal__signup__img"
             style={{
