@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
+import Logo from "../assets/logo.png";
 
 const LoginScreen = () => {
   const classes = useStyles();
@@ -82,7 +83,7 @@ const LoginScreen = () => {
       <div style={getModalStyle()} className={classes.paper}>
         <form className="modal__signup">
           <img
-            src="src/assets/logo.png"
+            src={Logo}
             alt="dummygram"
             className="modal__signup__img"
             style={{
