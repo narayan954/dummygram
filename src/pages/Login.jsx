@@ -67,6 +67,10 @@ const LoginScreen = () => {
       .finally(() => {});
   };
 
+  const navigateToSignup = () => {
+    navigate("/dummygram/signup");
+  };
+
   return (
     <div
       style={{
@@ -78,7 +82,7 @@ const LoginScreen = () => {
       <div style={getModalStyle()} className={classes.paper}>
         <form className="modal__signup">
           <img
-            src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
+            src="src/assets/logo.png"
             alt="dummygram"
             className="modal__signup__img"
             style={{
@@ -119,15 +123,12 @@ const LoginScreen = () => {
               <FontAwesomeIcon icon={faSquareFacebook} />
             </button>
           </div>
-          <button
-            type="submit"
-            onClick={() => {
-              navigate("/dummygram/signup");
-            }}
-            className="button reg"
-          >
-            Need an account <span> Sign up </span>
-          </button>
+          <div className="have-account">
+            Need an account{" "}
+            <span role={"button"} onClick={navigateToSignup}>
+              Sign up
+            </span>
+          </div>
         </form>
       </div>
     </div>

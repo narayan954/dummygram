@@ -23,6 +23,7 @@ import {
   Box,
   Paper,
   styled,
+  SvgIcon,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { db } from "../lib/firebase";
@@ -33,11 +34,12 @@ import { doc, updateDoc } from "firebase/firestore";
 import DialogBox from "../reusableComponents/DialogBox";
 import ImageSlider from "../reusableComponents/ImageSlider";
 import ReadMore from "./ReadMore";
+import ReplyRoundedIcon from "@mui/icons-material/ReplyRounded";
 
 const ITEM_HEIGHT = 48;
 
 function Post(prop) {
-  const { postId, user, post } = prop;
+  const { postId, user, post, shareModal, setLink, setPostText } = prop;
   const { username, caption, imageUrl, avatar, likecount } = post;
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
@@ -304,6 +306,24 @@ function Post(prop) {
             {likecount !== 0 ? `${likesNo} Likes` : " "}{" "}
             {/* <span style={{ fontWeight: "bold" }}>Likes</span> */}
           </span>
+
+          <IconButton
+            aria-label="share"
+            id="share-button"
+            aria-haspopup="true"
+            onClick={() => {
+              setLink(`https://narayan954.github.io/dummygram/${postId}`);
+              setPostText(caption);
+              shareModal(true);
+            }}
+            sx={{
+              color: "var(--color)",
+              marginX: "4px",
+            }}
+          >
+            <ReplyRoundedIcon htmlColor="var(--color)" />
+          </IconButton>
+
           {/* comment button */}
           {/* <div className="social__icon">
             <ModeCommentOutlinedIcon />
@@ -330,7 +350,9 @@ function Post(prop) {
         {comments.length ? (
           <>
             <Button
-              onClick={setisCommentOpen}
+              onClick={() => {
+                setisCommentOpen(!Open);
+              }}
               startIcon={<CommentIcon />}
               sx={{
                 backgroundColor: "rgba(	135, 206, 235, 0.2)",

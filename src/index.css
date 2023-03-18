@@ -31,7 +31,7 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  background-color: white;
+  background-color: var(--bg-color);
 }
 
 .app__posts {
@@ -168,7 +168,7 @@
   height: 120px;
   width: 120px;
   border-radius: 50%;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 20px var(--color-shadow);
   cursor: pointer;
 }
 
@@ -456,4 +456,14 @@ input {
   margin: 5px;
   width: 50px;
   height: 50px;
+}
+.have-account {
+  color: var(--color);
+  font-size: 13px;
+  margin: 10px 0;
+}
+.have-account span {
+  color: rgb(104, 85, 224);
+  border-bottom: 2px solid rgb(104, 85, 224);
+  cursor: pointer;
 }

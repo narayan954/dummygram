@@ -13,6 +13,7 @@ import LoginScreen from "./pages/Login";
 import SignupScreen from "./pages/Signup";
 import AnimatedButton from "./components/AnimatedButton";
 import NotFoundPage from "./components/NotFound";
+import ShareModal from "./components/ShareModal";
 
 export function getModalStyle() {
   const top = 50;
@@ -36,7 +37,7 @@ export const useStyles = makeStyles((theme) => ({
     position: "absolute",
     width: 250,
     borderRadius: theme.shape.borderRadius,
-    boxShadow: theme.shadows[5],
+    boxShadow: "var(--color-shadow) 0px 5px 15px",
     padding: theme.spacing(2, 4, 3),
     color: "var(--color)",
   },
@@ -54,6 +55,9 @@ function App() {
   const [loadMorePosts, setLoadMorePosts] = useState(false);
   const [openNewUpload, setOpenNewUpload] = useState(false);
   const [logout, setLogout] = useState(false);
+  const [openShareModal, setOpenShareModal] = useState(false);
+  const [currentPostLink, setCurrentPostLink] = useState("");
+  const [postText, setPostText] = useState("");
 
   const buttonStyle = {
     background: "linear-gradient(40deg, #e107c1, #59afc7)",
@@ -99,12 +103,20 @@ function App() {
   useEffect(() => {
     if (document.body.classList.contains("darkmode--activated")) {
       window.document.body.style.setProperty("--bg-color", "black");
+      window.document.body.style.setProperty(
+        "--color-shadow",
+        "rgba(255, 255, 255, 0.35)"
+      );
       window.document.body.style.setProperty("--color", "white");
       window.document.body.style.setProperty("--val", 1);
       document.getElementsByClassName("app__header__img").item(0).style.filter =
         "invert(100%)";
     } else {
       window.document.body.style.setProperty("--bg-color", "white");
+      window.document.body.style.setProperty(
+        "--color-shadow",
+        "rgba(0, 0, 0, 0.35)"
+      );
       window.document.body.style.setProperty("--color", "#2B1B17");
       window.document.body.style.setProperty("--val", 0);
       document.getElementsByClassName("app__header__img").item(0).style.filter =
@@ -172,7 +184,7 @@ function App() {
           className="app__header__img w-100"
           onClick={() => {
             window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-            window.location.href = "/dummygram";
+            navigate("/dummygram/");
           }}
           style={{
             cursor: "pointer",
@@ -227,6 +239,13 @@ function App() {
           </div>
         )}
       </div>
+
+      <ShareModal
+        openShareModal={openShareModal}
+        setOpenShareModal={setOpenShareModal}
+        currentPostLink={currentPostLink}
+        postText={postText}
+      />
 
       <Dialog
         sx={{ borderRadius: "100px" }}
@@ -346,7 +365,15 @@ function App() {
                   ) : (
                     <div className="app__posts">
                       {posts.map(({ id, post }) => (
-                        <Post key={id} postId={id} user={user} post={post} />
+                        <Post
+                          key={id}
+                          postId={id}
+                          user={user}
+                          post={post}
+                          shareModal={setOpenShareModal}
+                          setLink={setCurrentPostLink}
+                          setPostText={setPostText}
+                        />
                       ))}
                     </div>
                   )}
