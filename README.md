@@ -2,7 +2,7 @@
 
 <img  src=" src/assets/app-logo.png"  alt="Dummygram"  width="250"  height="200">
 
-[See Live!](https://dummy-gram.web.app/)
+[See Live!](https://narayan954.github.io/dummygram/)
 
 ### _Instagram_, dummified
 
