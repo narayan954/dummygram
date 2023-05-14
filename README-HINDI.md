@@ -128,7 +128,7 @@ npm install --force
 डेवलपमेंट सर्वर शुरू करने के लिए रन करें
 
 ```sh
-npm run dev
+npm start
 ```
 
 <div  align="center"><img  height="200px"  src="https://user-images.githubusercontent.com/77617189/192947926-37284128-9965-46a4-b29b-c75e47b2f76b.svg"  /></div>
