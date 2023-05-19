@@ -7,9 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import Logo from "../assets/logo.png";
-
 import { RiEyeFill, RiEyeCloseFill } from "react-icons/ri";
-import { Button } from "@mui/material";
 
 const LoginScreen = () => {
   const classes = useStyles();

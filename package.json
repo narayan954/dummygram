@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "homepage": "https://<narayan954>.github.io/<dummygram>/",
   "scripts": {
     "start": "vite --port=3000",
     "build": "vite build",
