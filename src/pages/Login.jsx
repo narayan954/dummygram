@@ -6,16 +6,23 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
-import logo from "../assets/logo.png";
+import Logo from "../assets/logo.png";
+import { RiEyeFill, RiEyeCloseFill } from "react-icons/ri";
 
 const LoginScreen = () => {
   const classes = useStyles();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
+
+  const handleShowPassword = (e) => {
+    e.preventDefault();
+    setShowPassword(!showPassword);
+  };
 
   const signIn = (e) => {
     e.preventDefault();
@@ -83,7 +90,7 @@ const LoginScreen = () => {
       <div style={getModalStyle()} className={classes.paper}>
         <form className="modal__signup">
           <img
-            src={logo}
+            src={Logo}
             alt="dummygram"
             className="modal__signup__img"
             style={{
@@ -97,12 +104,49 @@ const LoginScreen = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <input
-            type="password"
-            placeholder=" Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              width: "100%",
+              border: "1px solid rgba(104, 85, 224, 1)",
+              height: "100%",
+              boxSizing: "border-box",
+              marginTop: "10px",
+              backgroundColor: "white",
+              boxShadow: "0 0 20px rgba(104, 85, 224, 0.2)",
+              borderRadius: "4px",
+              // padding: "10px",
+            }}
+          >
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder=" Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              style={{
+                width: "100%",
+                border: "none",
+                margin: 0,
+                boxShadow: "none",
+              }}
+            />
+            <button
+              onClick={(e) => handleShowPassword(e)}
+              style={{
+                height: "100%",
+                width: "50px",
+                margin: 0,
+                background: "transparent",
+                outline: "none",
+                border: "none",
+                cursor: "pointer",
+              }}
+            >
+              {showPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
+            </button>
+          </div>
           <button type="submit" onClick={signIn} className="button log">
             LogIn <FontAwesomeIcon icon={faRightToBracket} />
           </button>
