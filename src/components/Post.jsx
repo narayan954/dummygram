@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import TextField from '@mui/material/TextField';
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import CommentIcon from "@mui/icons-material/Comment";
 import { red } from "@mui/material/colors";
@@ -45,8 +46,10 @@ function Post(prop) {
   const [comment, setComment] = useState("");
   const [likesNo, setLikesNo] = useState(likecount ? likecount.length : 0);
   const [anchorEl, setAnchorEl] = useState(null);
+  const[editCaption,setEditCaption]=useState(caption)
   const [showEmojis, setShowEmojis] = useState(false);
   const [Open, setOpen] = useState(false);
+  const [openEditCaption,setOpenEditCaption]=useState(false);
   const [isCommentOpen, setisCommentOpen] = useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -184,6 +187,28 @@ function Post(prop) {
     setOpen(true);
     setAnchorEl(null);
   };
+  const handleClickOpenCaption=async()=>{
+    
+    setOpenEditCaption(true);
+  }
+  const handleClickClosedCaption=()=>{
+    setEditCaption(caption)
+    setOpenEditCaption(false);
+  }
+  const handleSubmitCaption=async()=>{
+    const taskDocRef = doc(db, "posts", postId);
+    let data= await db.collection("posts").doc(postId).get().then(doc =>{
+      return doc.data()
+    });
+    try{
+      await updateDoc(taskDocRef, {
+        caption: editCaption,
+      })
+    } catch (err) {
+      alert(err)
+    }
+    setOpenEditCaption(false);
+  }
 
   // const handleCommentOpen = () => {
   //   setisCommentOpen(true);
@@ -253,6 +278,7 @@ function Post(prop) {
               }}
             >
               <MenuItem onClick={handleClickOpen}> Delete </MenuItem>
+              <MenuItem onClick={handleClickOpenCaption}> Edit </MenuItem>
             </Menu>
           )}
           <Dialog
@@ -276,6 +302,28 @@ function Post(prop) {
           </Dialog>
         </div>
       </div>
+      <>
+      <Dialog fullWidth open={openEditCaption} onClose={handleClickClosedCaption}>
+        <DialogTitle>Change Caption</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Enter Your Caption"
+            type="text"
+            fullWidth
+            variant="standard"
+            onChange={(e)=>setEditCaption(e.target.value)}
+            value={editCaption}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClickClosedCaption}>Cancel</Button>
+          <Button onClick={handleSubmitCaption}>Submit</Button>
+        </DialogActions>
+      </Dialog>
+      </>
 
       <div className="post__container">
         {postHasImages ? (
