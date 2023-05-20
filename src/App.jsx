@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from "react";
-import Post from "./components/Post";
-import { db, auth } from "./lib/firebase";
-import { Button, Dialog, Modal, DialogContent } from "@mui/material";
+import { Box, Button, Dialog, DialogContent, Divider, Modal, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import { useSnackbar } from "notistack";
+import React, { useEffect, useState } from "react";
+import { FaArrowCircleUp, FaUserCircle } from "react-icons/fa";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import logo from "./assets/logo.png";
+import AnimatedButton from "./components/AnimatedButton";
 import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
-import { FaArrowCircleUp } from "react-icons/fa";
-import { useSnackbar } from "notistack";
-import logo from "./assets/logo.png";
-import { Routes, Route, useNavigate } from "react-router-dom";
-import LoginScreen from "./pages/Login";
-import SignupScreen from "./pages/Signup";
-import AnimatedButton from "./components/AnimatedButton";
 import NotFoundPage from "./components/NotFound";
+import Post from "./components/Post";
 import ShareModal from "./components/ShareModal";
+import { auth, db } from "./lib/firebase";
+import LoginScreen from "./pages/Login";
+import Profile from "./pages/Profile";
+import SignupScreen from "./pages/Signup";
 
 export function getModalStyle() {
   const top = 50;
@@ -50,6 +51,8 @@ function App() {
 
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [curUser, setCurUser] = useState([]);
   const [loadingPosts, setLoadingPosts] = useState(true);
   const [pageSize, setPageSize] = useState(10);
   const [loadMorePosts, setLoadMorePosts] = useState(false);
@@ -88,6 +91,7 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         setUser(authUser);
+        setCurUser(authUser.toJSON());
         navigate("/dummygram/");
       } else {
         setUser(null);
@@ -201,14 +205,36 @@ function App() {
               New Post
             </Button>
             <Button
-              onClick={() => {
-                setLogout(true);
-              }}
+              onClick={() => setOpen((cur) => !cur)}
               color="secondary"
               variant="contained"
               sx={{ ...buttonStyle, marginRight: "10px" }}
             >
-              Logout
+              <FaUserCircle fontSize="large" />
+              {open && (
+                <Box
+                  backgroundColor="black"
+                  position="absolute"
+                  borderRadius="4px"
+                  marginTop={14}
+                  sx={{
+                    vertical: 'top',
+                    border: "2px solid white"
+                  }}
+                >
+                  <Box display="flex" padding="0.5rem" sx={{ cursor: "pointer" }}
+                    onClick={() => navigate(`/dummygram/profile`)}>
+                    <Typography fontFamily="serif" fontSize="1rem">Profile</Typography>
+                  </Box>
+                  <Divider />
+                  <Box display="flex" padding="0.5rem" sx={{ cursor: "pointer" }}
+                    onClick={() => {
+                      setLogout(true);
+                    }}>
+                    <Typography fontFamily="serif" fontSize="0.9rem">Log Out</Typography>
+                  </Box>
+                </Box>
+              )}
             </Button>
           </>
         ) : (
@@ -352,12 +378,12 @@ function App() {
                     !loadingPosts
                       ? {}
                       : {
-                          width: "100%",
-                          minHeight: "100vh",
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }
+                        width: "100%",
+                        minHeight: "100vh",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }
                   }
                 >
                   {loadingPosts ? (
@@ -384,6 +410,8 @@ function App() {
             )
           }
         />
+
+        <Route path="/dummygram/profile" element={curUser && <Profile curUser={curUser} />} />
 
         <Route path="/dummygram/login" element={<LoginScreen />} />
 
