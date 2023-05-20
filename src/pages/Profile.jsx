@@ -1,5 +1,4 @@
 import { Box, Divider, Typography, useMediaQuery } from '@mui/material';
-import React from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 
 function Profile({ curUser }) {

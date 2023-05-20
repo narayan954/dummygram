@@ -1,7 +1,7 @@
 import { Box, Button, Dialog, DialogContent, Divider, Modal, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaArrowCircleUp, FaUserCircle } from "react-icons/fa";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import logo from "./assets/logo.png";
@@ -223,14 +223,12 @@ function App() {
                   }}
                 >
                   <Box display="flex" padding="0.5rem" sx={{ cursor: "pointer" }}
-                    onClick={() => navigate(`/dummygram/profile`)}>
+                    onClick={() => navigate("/dummygram/profile")}>
                     <Typography fontFamily="serif" fontSize="1rem">Profile</Typography>
                   </Box>
                   <Divider />
                   <Box display="flex" padding="0.5rem" sx={{ cursor: "pointer" }}
-                    onClick={() => {
-                      setLogout(true);
-                    }}>
+                    onClick={() => setLogout(true)}>
                     <Typography fontFamily="serif" fontSize="0.9rem">Log Out</Typography>
                   </Box>
                 </Box>
