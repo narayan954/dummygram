@@ -89,7 +89,7 @@ function ImgUpload(props) {
       });
   };
 
-  const handleUpload = () => {
+  function handleUpload() {
     if ((!image && !caption) || !isValidimage) {
       enqueueSnackbar("Upload valid image and caption!", {
         variant: "error",
@@ -135,7 +135,7 @@ function ImgUpload(props) {
           props.onUploadEnd();
         }
       });
-  };
+  }
 
   return (
     <div className="imageUpload">
@@ -182,6 +182,7 @@ function ImgUpload(props) {
       <TextField
         onChange={(e) => setCaption(e.target.value)}
         value={caption}
+        variant="filled"
         placeholder="Enter a Caption.."
         label="Caption"
         multiline
@@ -190,9 +191,17 @@ function ImgUpload(props) {
         sx={{
           backgroundColor: "white",
           borderRadius: "8px",
+
+          "& .MuiFormLabel-root.Mui-focused": {
+            fontWeight: "bold",
+          },
         }}
       />
-      <AnimatedButton onClick={handleUpload} loading={uploadingPost}>
+      <AnimatedButton
+        onClick={handleUpload}
+        loading={uploadingPost}
+        style={{ fontWeight: "bold" }}
+      >
         Upload
       </AnimatedButton>
     </div>
