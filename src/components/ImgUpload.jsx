@@ -89,7 +89,7 @@ function ImgUpload(props) {
       });
   };
 
-  const handleUpload = () => {
+  function handleUpload() {
     if ((!image && !caption) || !isValidimage) {
       enqueueSnackbar("Upload valid image and caption!", {
         variant: "error",
@@ -135,7 +135,7 @@ function ImgUpload(props) {
           props.onUploadEnd();
         }
       });
-  };
+  }
 
   return (
     <div className="imageUpload">
