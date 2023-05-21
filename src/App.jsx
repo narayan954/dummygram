@@ -8,12 +8,13 @@ import Loader from "./components/Loader";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { useSnackbar } from "notistack";
 import logo from "./assets/logo.png";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, Link } from "react-router-dom";
 import LoginScreen from "./pages/Login";
 import SignupScreen from "./pages/Signup";
 import AnimatedButton from "./components/AnimatedButton";
 import NotFoundPage from "./components/NotFound";
 import ShareModal from "./components/ShareModal";
+import PostView from "./pages/PostView";
 
 export function getModalStyle() {
   const top = 50;
@@ -190,6 +191,7 @@ function App() {
             cursor: "pointer",
           }}
         />
+
         {user ? (
           <>
             <Button
@@ -388,6 +390,10 @@ function App() {
         <Route path="/dummygram/login" element={<LoginScreen />} />
 
         <Route path="/dummygram/signup" element={<SignupScreen />} />
+        <Route path="/dummygram/posts/:id" element={<PostView user={user}
+                          shareModal={setOpenShareModal}
+                          setLink={setCurrentPostLink}
+                          setPostText={setPostText}/>} />
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

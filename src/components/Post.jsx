@@ -35,6 +35,7 @@ import DialogBox from "../reusableComponents/DialogBox";
 import ImageSlider from "../reusableComponents/ImageSlider";
 import ReadMore from "./ReadMore";
 import ReplyRoundedIcon from "@mui/icons-material/ReplyRounded";
+import { Link } from "react-router-dom";
 
 const ITEM_HEIGHT = 48;
 
@@ -202,6 +203,7 @@ function Post(prop) {
       className="post"
       style={{ boxShadow: "0px 0px 5px 1px rgba(0, 0, 0, 0.4)" }}
     >
+     <Link to={`/dummygram/posts/${postId}`} style={{ textDecoration: 'none' }}>
       <div className="post__header">
         <Avatar
           className="post__avatar"
@@ -237,7 +239,7 @@ function Post(prop) {
             <MoreHorizOutlinedIcon />
           </IconButton>
           {user && username == user.displayName && (
-            <Menu
+           <Menu
               id="long-menu"
               MenuListProps={{
                 "aria-labelledby": "long-button",
@@ -254,6 +256,7 @@ function Post(prop) {
             >
               <MenuItem onClick={handleClickOpen}> Delete </MenuItem>
             </Menu>
+      
           )}
           <Dialog
             fullScreen={fullScreen}
@@ -276,7 +279,7 @@ function Post(prop) {
           </Dialog>
         </div>
       </div>
-
+</Link>
       <div className="post__container">
         {postHasImages ? (
           <ImageSlider slides={postImages} isCommentBox={false} />
