@@ -37,7 +37,7 @@ const ImageSlider = ({ slides, isCommentBox }) => {
             src={imageUrl}
             placeholderSrc={thumbnail}
             effect="blur"
-            alt={` upload`}
+            alt={" upload"}
             delayTime={1000}
             style={{
               width: "100%",
