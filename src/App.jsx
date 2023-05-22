@@ -1,6 +1,7 @@
 import { Button, Dialog, DialogContent, Modal } from "@mui/material";
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
 import AnimatedButton from "./components/AnimatedButton";
