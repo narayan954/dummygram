@@ -1,3 +1,4 @@
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import {
   Box,
   Button,
@@ -209,6 +210,7 @@ function App() {
               variant="contained"
               sx={buttonStyle}
             >
+            <AddCircleOutlineIcon style={{padding: "2px", marginRight:"4"}}/>
               New Post
             </Button>
             <Button
