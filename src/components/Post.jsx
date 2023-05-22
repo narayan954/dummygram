@@ -375,8 +375,8 @@ function Post(prop) {
                     <Item>
                       {postHasImages ? (
                         <ImageSlider slides={postImages} isCommentBox />
-                      ) : (
-                        <div className="post__background">{caption}</div>
+                      ) : ( 
+                        <div className="post_caption">{caption}</div>
                       )}
                     </Item>
                   </Grid>

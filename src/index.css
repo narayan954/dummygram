@@ -152,6 +152,11 @@
   position: relative;
 }
 
+.post_caption{
+  width: 384px;
+  padding: 8px;
+}
+
 .post__comments {
   padding: 0 15px;
   display: flex;
