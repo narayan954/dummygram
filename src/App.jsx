@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from "react";
-import Post from "./components/Post";
-import { db, auth } from "./lib/firebase";
-import { Button, Dialog, Modal, DialogContent } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import { Button, Dialog, DialogContent, Modal } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { auth, db } from "./lib/firebase";
+
+import AnimatedButton from "./components/AnimatedButton";
+import { FaArrowCircleUp } from "react-icons/fa";
 import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
-import { FaArrowCircleUp } from "react-icons/fa";
-import { useSnackbar } from "notistack";
-import logo from "./assets/logo.png";
-import { Routes, Route, useNavigate } from "react-router-dom";
 import LoginScreen from "./pages/Login";
-import SignupScreen from "./pages/Signup";
-import AnimatedButton from "./components/AnimatedButton";
 import NotFoundPage from "./components/NotFound";
+import Post from "./components/Post";
 import ShareModal from "./components/ShareModal";
+import SignupScreen from "./pages/Signup";
+import logo from "./assets/logo.png";
+import { makeStyles } from "@mui/styles";
+import { useSnackbar } from "notistack";
 
 export function getModalStyle() {
   const top = 50;

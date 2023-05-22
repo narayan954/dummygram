@@ -1,13 +1,15 @@
+import "./index.css";
+
+import { SnackbarProvider, useSnackbar } from "notistack";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+
+import App from "./App";
+import { BrowserRouter } from "react-router-dom";
 import { Close } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { SnackbarProvider, useSnackbar } from "notistack";
+import LandingAnimation from "./components/LandingAnimation";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import App from "./App";
-import "./index.css";
-import LandingAnimation from "./components/LandingAnimation";
 
 const theme = createTheme();
 
