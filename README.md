@@ -1,3 +1,4 @@
+<div id="top"></div>
 <div align="center">
 
 <img  src="src/assets/app-logo.png"  alt="Dummygram"  width="250"  height="200">
@@ -339,3 +340,4 @@ Thanks a lot for spending your time helping dummygram grow. Thanks a lot! Keep r
     <h3>Do checkout the other repos 💫</h3>
 
 </div>
+<p align="right">(<a href="#top">Back to top</a>)</p>
