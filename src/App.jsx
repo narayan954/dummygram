@@ -1,20 +1,21 @@
-import React, { useState, useEffect } from "react";
-import Post from "./components/Post";
-import { db, auth } from "./lib/firebase";
-import { Button, Dialog, Modal, DialogContent } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import { Button, Dialog, DialogContent, Modal } from "@mui/material";
+import { Link, Route, Routes, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { auth, db } from "./lib/firebase";
+
+import AnimatedButton from "./components/AnimatedButton";
+import { FaArrowCircleUp } from "react-icons/fa";
 import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
-import { FaArrowCircleUp } from "react-icons/fa";
-import { useSnackbar } from "notistack";
-import logo from "./assets/logo.png";
-import { Routes, Route, useNavigate, Link } from "react-router-dom";
 import LoginScreen from "./pages/Login";
-import SignupScreen from "./pages/Signup";
-import AnimatedButton from "./components/AnimatedButton";
 import NotFoundPage from "./components/NotFound";
-import ShareModal from "./components/ShareModal";
+import Post from "./components/Post";
 import PostView from "./pages/PostView";
+import ShareModal from "./components/ShareModal";
+import SignupScreen from "./pages/Signup";
+import logo from "./assets/logo.png";
+import { makeStyles } from "@mui/styles";
+import { useSnackbar } from "notistack";
 
 export function getModalStyle() {
   const top = 50;
@@ -390,10 +391,17 @@ function App() {
         <Route path="/dummygram/login" element={<LoginScreen />} />
 
         <Route path="/dummygram/signup" element={<SignupScreen />} />
-        <Route path="/dummygram/posts/:id" element={<PostView user={user}
-                          shareModal={setOpenShareModal}
-                          setLink={setCurrentPostLink}
-                          setPostText={setPostText}/>} />
+        <Route
+          path="/dummygram/posts/:id"
+          element={
+            <PostView
+              user={user}
+              shareModal={setOpenShareModal}
+              setLink={setCurrentPostLink}
+              setPostText={setPostText}
+            />
+          }
+        />
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

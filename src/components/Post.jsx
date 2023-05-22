@@ -1,41 +1,43 @@
-import { useEffect, useState } from "react";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
-import CommentIcon from "@mui/icons-material/Comment";
-import { red } from "@mui/material/colors";
-import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
-import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
-import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
-import Scroll from "../reusableComponents/Scroll";
+import "react-lazy-load-image-component/src/effects/blur.css";
+
 import {
   Avatar,
-  Grid,
-  Menu,
-  MenuItem,
-  IconButton,
+  Box,
   Button,
   Dialog,
-  DialogTitle,
   DialogActions,
   DialogContent,
   DialogContentText,
-  useMediaQuery,
-  Box,
+  DialogTitle,
+  Grid,
+  IconButton,
+  Menu,
+  MenuItem,
   Paper,
-  styled,
   SvgIcon,
+  styled,
+  useMediaQuery,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-import { db } from "../lib/firebase";
-import firebase from "firebase/compat/app";
-import "react-lazy-load-image-component/src/effects/blur.css";
-import EmojiPicker from "emoji-picker-react";
 import { doc, updateDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
+
+import CommentIcon from "@mui/icons-material/Comment";
+import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import DialogBox from "../reusableComponents/DialogBox";
+import EmojiPicker from "emoji-picker-react";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import ImageSlider from "../reusableComponents/ImageSlider";
+import { Link } from "react-router-dom";
+import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import ReadMore from "./ReadMore";
 import ReplyRoundedIcon from "@mui/icons-material/ReplyRounded";
-import { Link } from "react-router-dom";
+import Scroll from "../reusableComponents/Scroll";
+import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
+import { db } from "../lib/firebase";
+import firebase from "firebase/compat/app";
+import { red } from "@mui/material/colors";
+import { useTheme } from "@mui/material/styles";
 
 const ITEM_HEIGHT = 48;
 
@@ -203,83 +205,85 @@ function Post(prop) {
       className="post"
       style={{ boxShadow: "0px 0px 5px 1px rgba(0, 0, 0, 0.4)" }}
     >
-     <Link to={`/dummygram/posts/${postId}`} style={{ textDecoration: 'none' }}>
-      <div className="post__header">
-        <Avatar
-          className="post__avatar"
-          alt={username}
-          src={avatar}
-          sx={{
-            bgcolor: "royalblue",
-            border: "2px solid transparent",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            cursor: "pointer",
-            "&:hover": {
-              boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 17px 0px",
-              border: "2px solid black",
-              scale: "1.1",
-            },
-          }}
-        />
-        <h3 className="post__username">{username}</h3>
-        <div className="social__icon__last">
-          <IconButton
-            aria-label="more"
-            id="long-button"
-            aria-controls={open ? "long-menu" : undefined}
-            aria-expanded={open ? "true" : undefined}
-            aria-haspopup="true"
-            onClick={(event) => setAnchorEl(event.currentTarget)}
+      <Link
+        to={`/dummygram/posts/${postId}`}
+        style={{ textDecoration: "none" }}
+      >
+        <div className="post__header">
+          <Avatar
+            className="post__avatar"
+            alt={username}
+            src={avatar}
             sx={{
-              color: "var(--color)",
+              bgcolor: "royalblue",
+              border: "2px solid transparent",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              cursor: "pointer",
+              "&:hover": {
+                boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 17px 0px",
+                border: "2px solid black",
+                scale: "1.1",
+              },
             }}
-          >
-            <MoreHorizOutlinedIcon />
-          </IconButton>
-          {user && username == user.displayName && (
-           <Menu
-              id="long-menu"
-              MenuListProps={{
-                "aria-labelledby": "long-button",
-              }}
-              anchorEl={anchorEl}
-              open={open}
-              onClose={() => setAnchorEl(null)}
-              PaperProps={{
-                style: {
-                  maxHeight: ITEM_HEIGHT * 4.5,
-                  width: "20ch",
-                },
+          />
+          <h3 className="post__username">{username}</h3>
+          <div className="social__icon__last">
+            <IconButton
+              aria-label="more"
+              id="long-button"
+              aria-controls={open ? "long-menu" : undefined}
+              aria-expanded={open ? "true" : undefined}
+              aria-haspopup="true"
+              onClick={(event) => setAnchorEl(event.currentTarget)}
+              sx={{
+                color: "var(--color)",
               }}
             >
-              <MenuItem onClick={handleClickOpen}> Delete </MenuItem>
-            </Menu>
-      
-          )}
-          <Dialog
-            fullScreen={fullScreen}
-            open={Open}
-            onClose={handleClose}
-            aria-labelledby="responsive-dialog-title"
-          >
-            <DialogTitle id="responsive-dialog-title">
-              {"Delete Post?"}
-            </DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                Are you sure you want to delete this post?
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleClose}>Cancel</Button>
-              <Button onClick={deletePost}>Delete</Button>
-            </DialogActions>
-          </Dialog>
+              <MoreHorizOutlinedIcon />
+            </IconButton>
+            {user && username == user.displayName && (
+              <Menu
+                id="long-menu"
+                MenuListProps={{
+                  "aria-labelledby": "long-button",
+                }}
+                anchorEl={anchorEl}
+                open={open}
+                onClose={() => setAnchorEl(null)}
+                PaperProps={{
+                  style: {
+                    maxHeight: ITEM_HEIGHT * 4.5,
+                    width: "20ch",
+                  },
+                }}
+              >
+                <MenuItem onClick={handleClickOpen}> Delete </MenuItem>
+              </Menu>
+            )}
+            <Dialog
+              fullScreen={fullScreen}
+              open={Open}
+              onClose={handleClose}
+              aria-labelledby="responsive-dialog-title"
+            >
+              <DialogTitle id="responsive-dialog-title">
+                {"Delete Post?"}
+              </DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  Are you sure you want to delete this post?
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose}>Cancel</Button>
+                <Button onClick={deletePost}>Delete</Button>
+              </DialogActions>
+            </Dialog>
+          </div>
         </div>
-      </div>
-</Link>
+      </Link>
       <div className="post__container">
         {postHasImages ? (
           <ImageSlider slides={postImages} isCommentBox={false} />
