@@ -1,40 +1,42 @@
-import { useEffect, useState } from "react";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
-import CommentIcon from "@mui/icons-material/Comment";
-import { red } from "@mui/material/colors";
-import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
-import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
-import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
-import Scroll from "../reusableComponents/Scroll";
+import "react-lazy-load-image-component/src/effects/blur.css";
+
 import {
   Avatar,
-  Grid,
-  Menu,
-  MenuItem,
-  IconButton,
+  Box,
   Button,
   Dialog,
-  DialogTitle,
   DialogActions,
   DialogContent,
   DialogContentText,
-  useMediaQuery,
-  Box,
+  DialogTitle,
+  Grid,
+  IconButton,
+  Menu,
+  MenuItem,
   Paper,
-  styled,
   SvgIcon,
+  styled,
+  useMediaQuery,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-import { db } from "../lib/firebase";
-import firebase from "firebase/compat/app";
-import "react-lazy-load-image-component/src/effects/blur.css";
-import EmojiPicker from "emoji-picker-react";
 import { doc, updateDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
+
+import CommentIcon from "@mui/icons-material/Comment";
+import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import DialogBox from "../reusableComponents/DialogBox";
+import EmojiPicker from "emoji-picker-react";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import ImageSlider from "../reusableComponents/ImageSlider";
+import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import ReadMore from "./ReadMore";
 import ReplyRoundedIcon from "@mui/icons-material/ReplyRounded";
+import Scroll from "../reusableComponents/Scroll";
+import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
+import { db } from "../lib/firebase";
+import firebase from "firebase/compat/app";
+import { red } from "@mui/material/colors";
+import { useTheme } from "@mui/material/styles";
 
 const ITEM_HEIGHT = 48;
 

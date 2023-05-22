@@ -1,5 +1,6 @@
+import { useEffect, useState } from "react";
+
 import React from "react";
-import { useState, useEffect } from "react";
 
 function ReadMore({ caption }) {
   const [desc, setDesc] = useState("");

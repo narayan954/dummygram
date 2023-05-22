@@ -1,10 +1,12 @@
+import "./imgPreview.css";
+
+import { LinearProgress, TextField } from "@mui/material";
 import React, { useRef, useState } from "react";
 import { db, handleMultiUpload, storage } from "../lib/firebase";
-import firebase from "firebase/compat/app";
+
 import AnimatedButton from "./AnimatedButton";
-import { LinearProgress, TextField } from "@mui/material";
+import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
-import "./imgPreview.css";
 
 function ImgUpload(props) {
   const [image, setImage] = useState(null);
