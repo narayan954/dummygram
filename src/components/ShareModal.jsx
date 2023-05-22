@@ -92,7 +92,7 @@ const ShareModal = (props) => {
           value={currentPostLink}
           onClick={() => {
             window.navigator.clipboard.writeText(currentPostLink);
-            enqueueSnackbar(`Copied Post Link!`, {
+            enqueueSnackbar("Copied Post Link!", {
               variant: "success",
             });
           }}
