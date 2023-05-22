@@ -14,6 +14,7 @@ import SignupScreen from "./pages/Signup";
 import AnimatedButton from "./components/AnimatedButton";
 import NotFoundPage from "./components/NotFound";
 import ShareModal from "./components/ShareModal";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 export function getModalStyle() {
   const top = 50;
@@ -198,6 +199,7 @@ function App() {
               variant="contained"
               sx={buttonStyle}
             >
+            <AddCircleOutlineIcon style={{padding: "2px", marginRight:"4"}}/>
               New Post
             </Button>
             <Button
