@@ -1,15 +1,24 @@
-import { Button, Dialog, DialogContent, Modal } from "@mui/material";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogContent,
+  Divider,
+  Modal,
+  Typography,
+} from "@mui/material";
+import { FaArrowCircleUp, FaUserCircle } from "react-icons/fa";
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
 import AnimatedButton from "./components/AnimatedButton";
-import { FaArrowCircleUp } from "react-icons/fa";
 import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
 import LoginScreen from "./pages/Login";
 import NotFoundPage from "./components/NotFound";
 import Post from "./components/Post";
+import Profile from "./pages/Profile";
 import ShareModal from "./components/ShareModal";
 import SignupScreen from "./pages/Signup";
 import logo from "./assets/logo.png";
@@ -51,6 +60,7 @@ function App() {
 
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState(null);
+  const [open, setOpen] = useState();
   const [loadingPosts, setLoadingPosts] = useState(true);
   const [pageSize, setPageSize] = useState(10);
   const [loadMorePosts, setLoadMorePosts] = useState(false);
@@ -202,14 +212,46 @@ function App() {
               New Post
             </Button>
             <Button
-              onClick={() => {
-                setLogout(true);
-              }}
+              onClick={() => setOpen((cur) => !cur)}
               color="secondary"
               variant="contained"
               sx={{ ...buttonStyle, marginRight: "10px" }}
             >
-              Logout
+              <FaUserCircle fontSize="large" />
+              {open && (
+                <Box
+                  backgroundColor="black"
+                  position="absolute"
+                  borderRadius="4px"
+                  marginTop={14}
+                  sx={{
+                    vertical: "top",
+                    border: "2px solid white",
+                  }}
+                >
+                  <Box
+                    display="flex"
+                    padding="0.5rem"
+                    sx={{ cursor: "pointer" }}
+                    onClick={() => navigate("/dummygram/profile")}
+                  >
+                    <Typography fontFamily="serif" fontSize="1rem">
+                      Profile
+                    </Typography>
+                  </Box>
+                  <Divider />
+                  <Box
+                    display="flex"
+                    padding="0.5rem"
+                    sx={{ cursor: "pointer" }}
+                    onClick={() => setLogout(true)}
+                  >
+                    <Typography fontFamily="serif" fontSize="0.9rem">
+                      Log Out
+                    </Typography>
+                  </Box>
+                </Box>
+              )}
             </Button>
           </>
         ) : (
@@ -384,6 +426,11 @@ function App() {
               <></>
             )
           }
+        />
+
+        <Route
+          path="/dummygram/profile"
+          element={user && <Profile curUser={user.toJSON()} />}
         />
 
         <Route path="/dummygram/login" element={<LoginScreen />} />
