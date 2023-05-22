@@ -281,7 +281,7 @@ function Post(prop) {
         {postHasImages ? (
           <ImageSlider slides={postImages} isCommentBox={false} />
         ) : (
-          <div className="post__background">{caption}</div>
+          <div className="post_caption">{caption}</div>
         )}
         <div className="social__icons__wrapper">
           <div
