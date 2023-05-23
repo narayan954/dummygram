@@ -1,5 +1,3 @@
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { auth, db } from "./lib/firebase";
 import {
   Box,
   Button,
@@ -10,15 +8,17 @@ import {
   Typography,
 } from "@mui/material";
 import { FaArrowCircleUp, FaUserCircle } from "react-icons/fa";
-import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { auth, db } from "./lib/firebase";
 
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import AnimatedButton from "./components/AnimatedButton";
 import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
 import LoginScreen from "./pages/Login";
 import NotFoundPage from "./components/NotFound";
-import Post from "./components/Post";\
+import Post from "./components/Post";
 import PostView from "./pages/PostView";
 import Profile from "./pages/Profile";
 import ShareModal from "./components/ShareModal";

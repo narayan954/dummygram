@@ -205,85 +205,85 @@ function Post(prop) {
       className="post"
       style={{ boxShadow: "0px 0px 5px 1px rgba(0, 0, 0, 0.4)" }}
     >
-      <Link
-        to={`/dummygram/posts/${postId}`}
-        style={{ textDecoration: "none" }}
-      >
-        <div className="post__header">
-          <Avatar
-            className="post__avatar"
-            alt={username}
-            src={avatar}
-            sx={{
-              bgcolor: "royalblue",
-              border: "2px solid transparent",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              cursor: "pointer",
-              "&:hover": {
-                boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 17px 0px",
-                border: "2px solid black",
-                scale: "1.1",
-              },
-            }}
-          />
+      <div className="post__header">
+        <Avatar
+          className="post__avatar"
+          alt={username}
+          src={avatar}
+          sx={{
+            bgcolor: "royalblue",
+            border: "2px solid transparent",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            cursor: "pointer",
+            "&:hover": {
+              boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 17px 0px",
+              border: "2px solid black",
+              scale: "1.1",
+            },
+          }}
+        />
+        <Link
+          to={`/dummygram/posts/${postId}`}
+          style={{ textDecoration: "none" }}
+        >
           <h3 className="post__username">{username}</h3>
-          <div className="social__icon__last">
-            <IconButton
-              aria-label="more"
-              id="long-button"
-              aria-controls={open ? "long-menu" : undefined}
-              aria-expanded={open ? "true" : undefined}
-              aria-haspopup="true"
-              onClick={(event) => setAnchorEl(event.currentTarget)}
-              sx={{
-                color: "var(--color)",
+        </Link>
+        <div className="social__icon__last">
+          <IconButton
+            aria-label="more"
+            id="long-button"
+            aria-controls={open ? "long-menu" : undefined}
+            aria-expanded={open ? "true" : undefined}
+            aria-haspopup="true"
+            onClick={(event) => setAnchorEl(event.currentTarget)}
+            sx={{
+              color: "var(--color)",
+            }}
+          >
+            <MoreHorizOutlinedIcon />
+          </IconButton>
+          {user && username == user.displayName && (
+            <Menu
+              id="long-menu"
+              MenuListProps={{
+                "aria-labelledby": "long-button",
+              }}
+              anchorEl={anchorEl}
+              open={open}
+              onClose={() => setAnchorEl(null)}
+              PaperProps={{
+                style: {
+                  maxHeight: ITEM_HEIGHT * 4.5,
+                  width: "20ch",
+                },
               }}
             >
-              <MoreHorizOutlinedIcon />
-            </IconButton>
-            {user && username == user.displayName && (
-              <Menu
-                id="long-menu"
-                MenuListProps={{
-                  "aria-labelledby": "long-button",
-                }}
-                anchorEl={anchorEl}
-                open={open}
-                onClose={() => setAnchorEl(null)}
-                PaperProps={{
-                  style: {
-                    maxHeight: ITEM_HEIGHT * 4.5,
-                    width: "20ch",
-                  },
-                }}
-              >
-                <MenuItem onClick={handleClickOpen}> Delete </MenuItem>
-              </Menu>
-            )}
-            <Dialog
-              fullScreen={fullScreen}
-              open={Open}
-              onClose={handleClose}
-              aria-labelledby="responsive-dialog-title"
-            >
-              <DialogTitle id="responsive-dialog-title">
-                {"Delete Post?"}
-              </DialogTitle>
-              <DialogContent>
-                <DialogContentText>
-                  Are you sure you want to delete this post?
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleClose}>Cancel</Button>
-                <Button onClick={deletePost}>Delete</Button>
-              </DialogActions>
-            </Dialog>
-          </div>
+              <MenuItem onClick={handleClickOpen}> Delete </MenuItem>
+            </Menu>
+          )}
+          <Dialog
+            fullScreen={fullScreen}
+            open={Open}
+            onClose={handleClose}
+            aria-labelledby="responsive-dialog-title"
+          >
+            <DialogTitle id="responsive-dialog-title">
+              {"Delete Post?"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Are you sure you want to delete this post?
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>Cancel</Button>
+              <Button onClick={deletePost}>Delete</Button>
+            </DialogActions>
+          </Dialog>
         </div>
-      </Link>
+      </div>
       <div className="post__container">
         {postHasImages ? (
           <ImageSlider slides={postImages} isCommentBox={false} />
