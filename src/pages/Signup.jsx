@@ -14,6 +14,7 @@ import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import './Login.css'
 
 const SignupScreen = () => {
   const classes = useStyles();
