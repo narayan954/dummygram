@@ -283,7 +283,7 @@ function Post(prop) {
         {postHasImages ? (
           <ImageSlider slides={postImages} isCommentBox={false} />
         ) : (
-          <div className="post_caption">{caption}</div>
+          <div className="post__background"><p className="post_caption">{caption}</p></div>
         )}
         <div className="post__text">
           {caption && postHasImages && (
@@ -293,130 +293,6 @@ function Post(prop) {
             </>
           )}
         </div>
-<<<<<<< HEAD
-
-        {comments.length ? (
-          <>
-            <Button
-              onClick={() => {
-                setisCommentOpen(!Open);
-              }}
-              startIcon={<CommentIcon />}
-              sx={{
-                backgroundColor: "rgba(	135, 206, 235, 0.2)",
-                margin: "12px 8px",
-                fontSize: "12px",
-                fontWeight: "bold",
-              }}
-            >
-              View All comments
-            </Button>
-
-            <DialogBox
-              open={isCommentOpen}
-              onClose={handleCommentClose}
-              title="All Comments"
-            >
-              <Box sx={{ flexGrow: 1 }}>
-                <Grid container>
-                  <Grid item xs={6} md={6}>
-                    <Item>
-                      {postHasImages ? (
-                        <ImageSlider slides={postImages} isCommentBox />
-                      ) : ( 
-                        <div className="post_caption">{caption}</div>
-                      )}
-                    </Item>
-                  </Grid>
-                  <Grid item xs={6} md={6}>
-                    <Scroll>
-                      <Item>
-                        <div className="post__comments">
-                          {comments.map((userComment) => (
-                            <p key={userComment.id}>
-                              <strong>{userComment.content.username}</strong>{" "}
-                              {userComment.content.text}
-                              <span
-                                onClick={(event) =>
-                                  deleteComment(event, userComment)
-                                }
-                              >
-                                {user &&
-                                userComment.content.username ===
-                                  user.displayName ? (
-                                  <DeleteTwoToneIcon fontSize="small" />
-                                ) : (
-                                  <></>
-                                )}
-                              </span>
-                              <hr />
-                            </p>
-                          ))}
-                        </div>
-                      </Item>
-                    </Scroll>
-                  </Grid>
-                </Grid>
-              </Box>
-
-              {user && (
-                <form className="post__commentBox">
-                  <div className="social__icon">
-                    <SentimentSatisfiedAltOutlinedIcon
-                      onClick={() => {
-                        setShowEmojis((val) => !val);
-                      }}
-                    />
-                    {showEmojis && (
-                      <div id="picker">
-                        <EmojiPicker
-                          emojiStyle="native"
-                          height={330}
-                          searchDisabled
-                          onEmojiClick={onEmojiClick}
-                          previewConfig={{
-                            showPreview: false,
-                          }}
-                        />
-                      </div>
-                    )}
-                  </div>
-
-                  <input
-                    className="post__input"
-                    type="text"
-                    placeholder="Add a comment..."
-                    value={comment}
-                    onChange={(e) => setComment(e.target.value)}
-                    style={{
-                      backgroundColor: "var(--bg-color)",
-                      color: "var(--color)",
-                      borderRadius: "22px",
-                      marginTop: "4px",
-                    }}
-                  />
-                  <button
-                    className="post__button"
-                    disabled={!comment}
-                    type="submit"
-                    onClick={postComment}
-                    style={{
-                      fontWeight: "bold",
-                      textTransform: "uppercase",
-                    }}
-                  >
-                    Comment
-                  </button>
-                </form>
-              )}
-            </DialogBox>
-          </>
-        ) : (
-          <></>
-        )}
-
-=======
->>>>>>> master
         {user && (
           <form className="post__commentBox">
             <div className="social__icon">
@@ -549,7 +425,7 @@ function Post(prop) {
                           {postHasImages ? (
                             <ImageSlider slides={postImages} isCommentBox />
                           ) : (
-                            <div className="post__background">{caption}</div>
+                            <div className="post__background" >{caption}</div>
                           )}
                         </Item>
                       </Grid>

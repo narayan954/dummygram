@@ -153,8 +153,10 @@
 }
 
 .post_caption{
-  width: 384px;
+  width: 24em;
   padding: 8px;
+  font-weight: 600;
+  color: rgb(145, 230, 227);
 }
 
 .post__comments {
