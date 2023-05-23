@@ -1,0 +1,8 @@
+input[type="email"]:hover,
+input[type="password"]:hover {
+  cursor: text;
+}
+
+input:focus{
+    outline: none;
+}
