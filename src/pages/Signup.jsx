@@ -1,18 +1,19 @@
 import React, { useState } from "react";
-import { getModalStyle, useStyles } from "../App";
-import { updateProfile } from "firebase/auth";
+import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
 import {
   auth,
-  storage,
-  googleProvider,
   facebookProvider,
+  googleProvider,
+  storage,
 } from "../lib/firebase";
-import { useSnackbar } from "notistack";
-import { useNavigate } from "react-router-dom";
+import { faGoogle, faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
+import { getModalStyle, useStyles } from "../App";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSquareFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
-import { RiEyeFill, RiEyeCloseFill } from "react-icons/ri";
+import { updateProfile } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
 const SignupScreen = () => {
   const classes = useStyles();

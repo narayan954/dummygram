@@ -1,6 +1,7 @@
-import React from "react";
 import { Box, Button, Container, Typography } from "@mui/material";
+
 import Grid from "@mui/material/Grid";
+import React from "react";
 
 export default function Error() {
   return (

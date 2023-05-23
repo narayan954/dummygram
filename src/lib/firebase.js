@@ -1,7 +1,8 @@
-import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import "firebase/compat/storage";
+
+import firebase from "firebase/compat/app";
 import { v4 as uuid } from "uuid";
 
 const firebaseApp = firebase.initializeApp({
