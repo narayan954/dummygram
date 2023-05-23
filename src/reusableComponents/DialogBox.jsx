@@ -1,16 +1,17 @@
 // To use this dialog box create a useState and pass them as open and onClose
 // open is a boolean value to show the dialog box
 
-import React from "react";
 import {
   Button,
   Dialog,
   DialogActions,
   DialogContent,
+  DialogContentText,
   DialogTitle,
   Divider,
-  DialogContentText,
 } from "@mui/material";
+
+import React from "react";
 
 const DialogBox = (props) => {
   return (

@@ -1,6 +1,7 @@
+<div id="top"></div>
 <div align="center">
 
-<img  src=" src/assets/app-logo.png"  alt="Dummygram"  width="250"  height="200">
+<img  src="src/assets/app-logo.png"  alt="Dummygram"  width="250"  height="200">
 
 [See Live!](https://narayan954.github.io/dummygram/)
 
@@ -81,6 +82,12 @@ dummygram/
 ### First time setup
 
 The first step to running dummygram locally is downloading the code by cloning the repository:
+
+<details><summary>Video Demo to run Dummygram in your local under 2 minutes</summary> <br>
+
+<https://github.com/narayan954/dummygram/assets/77617189/c21f0bdc-e845-4c32-b148-54d8048cbc33>
+
+</details>
 
 ```sh
 
@@ -333,3 +340,4 @@ Thanks a lot for spending your time helping dummygram grow. Thanks a lot! Keep r
     <h3>Do checkout the other repos 💫</h3>
 
 </div>
+<p align="right">(<a href="#top">Back to top</a>)</p>

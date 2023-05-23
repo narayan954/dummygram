@@ -16,10 +16,10 @@ jobs:
         uses: JasonEtco/slash-assign-action@v0.0.3
         with:
           assigned_label: Assigned
-          days_until_warning: 5
-          days_until_unassign: 7
+          days_until_warning: 3
+          days_until_unassign: 4
           stale_assignment_label: Stale
-          assigned_comment: "This issue [has been assigned]({{ comment.html_url }}) to {{ comment.user.login }}!\nIt will become unassigned if it is nott closed within {{ totalDays }} days. A maintainer can also add the **{{ inputs.pin_label }}** label to prevent it from being unassigned."
+          assigned_comment: "This issue [has been assigned]({{ comment.html_url }}) to {{ comment.user.login }}!\nIt will become unassigned if it is not closed within {{ totalDays }} days. A maintainer can also add the **{{ inputs.pin_label }}** label to prevent it from being unassigned."
           fail_comment: "This issue is already assigned to a contributor."
 
       - name: Message failure
@@ -40,5 +40,5 @@ jobs:
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
           author: "${{github.actor}}"
-          repo: Suvraneel/Automated-assign-labeler #Change the Repo name
-          maxIssue: 3
+          repo: narayan954/dummygram #Change the Repo name
+          maxIssue: 1

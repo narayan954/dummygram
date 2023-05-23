@@ -1,7 +1,8 @@
+import { Dialog, IconButton, Input } from "@mui/material";
 import React, { useState } from "react";
-import { Dialog, Input, IconButton } from "@mui/material";
-import { useSnackbar } from "notistack";
+
 import logo from "../assets/logo.png";
+import { useSnackbar } from "notistack";
 
 const ShareModal = (props) => {
   const { openShareModal, setOpenShareModal, currentPostLink, postText } =
@@ -92,7 +93,7 @@ const ShareModal = (props) => {
           value={currentPostLink}
           onClick={() => {
             window.navigator.clipboard.writeText(currentPostLink);
-            enqueueSnackbar(`Copied Post Link!`, {
+            enqueueSnackbar("Copied Post Link!", {
               variant: "success",
             });
           }}
