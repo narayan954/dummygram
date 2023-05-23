@@ -53,7 +53,7 @@ body {
   padding: 60px 9px;
   position: relative;
   text-align: center;
-  vertical-align: middle;
+  /* vertical-align: middle; */
   z-index: 1;
   color: #c7c7c7;
   text-decoration: none;

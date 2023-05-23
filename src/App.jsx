@@ -211,7 +211,7 @@ function App() {
               sx={buttonStyle}
             >
               <AddCircleOutlineIcon
-                style={{ padding: "2px", marginRight: "4" }}
+                style={{ padding: "2px" }}
               />
               New Post
             </Button>
@@ -224,13 +224,15 @@ function App() {
               <FaUserCircle fontSize="large" />
               {open && (
                 <Box
-                  backgroundColor="black"
+                  backgroundColor="#fff"
+                  color="black"
+                  padding='2px'
                   position="absolute"
                   borderRadius="4px"
                   marginTop={14}
                   sx={{
                     vertical: "top",
-                    border: "2px solid white",
+                    border: "1px solid black",
                   }}
                 >
                   <Box
@@ -399,12 +401,12 @@ function App() {
                     !loadingPosts
                       ? {}
                       : {
-                          width: "100%",
-                          minHeight: "100vh",
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }
+                        width: "100%",
+                        minHeight: "100vh",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }
                   }
                 >
                   {loadingPosts ? (
