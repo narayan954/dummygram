@@ -1,12 +1,12 @@
 import {
   Box,
   Button,
+  ClickAwayListener,
   Dialog,
   DialogContent,
   Divider,
   Modal,
   Typography,
-  ClickAwayListener
 } from "@mui/material";
 import { FaArrowCircleUp, FaUserCircle } from "react-icons/fa";
 import React, { useEffect, useState } from "react";
@@ -218,7 +218,7 @@ function App() {
               />
               New Post
             </Button>
-            <ClickAwayListener onClickAway={()=>setOpen(false)}>
+            <ClickAwayListener onClickAway={() => setOpen(false)}>
               <Button
                 onClick={() => setOpen((cur) => !cur)}
                 color="secondary"
@@ -404,12 +404,12 @@ function App() {
                     !loadingPosts
                       ? {}
                       : {
-                        width: "100%",
-                        minHeight: "100vh",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }
+                          width: "100%",
+                          minHeight: "100vh",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }
                   }
                 >
                   {loadingPosts ? (
@@ -470,7 +470,7 @@ function App() {
           display: showScroll ? "flex" : "none",
         }}
       />
-    </div >
+    </div>
   );
 }
 
