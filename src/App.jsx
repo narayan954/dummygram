@@ -6,6 +6,7 @@ import {
   Divider,
   Modal,
   Typography,
+  ClickAwayListener
 } from "@mui/material";
 import { FaArrowCircleUp, FaUserCircle } from "react-icons/fa";
 import React, { useEffect, useState } from "react";
@@ -217,48 +218,50 @@ function App() {
               />
               New Post
             </Button>
-            <Button
-              onClick={() => setOpen((cur) => !cur)}
-              color="secondary"
-              variant="contained"
-              sx={{ ...buttonStyle, marginRight: "10px" }}
-            >
-              <FaUserCircle fontSize="large" />
-              {open && (
-                <Box
-                  backgroundColor="black"
-                  position="absolute"
-                  borderRadius="4px"
-                  marginTop={14}
-                  sx={{
-                    vertical: "top",
-                    border: "2px solid white",
-                  }}
-                >
+            <ClickAwayListener onClickAway={()=>setOpen(false)}>
+              <Button
+                onClick={() => setOpen((cur) => !cur)}
+                color="secondary"
+                variant="contained"
+                sx={{ ...buttonStyle, marginRight: "10px" }}
+              >
+                <FaUserCircle fontSize="large" />
+                {open && (
                   <Box
-                    display="flex"
-                    padding="0.5rem"
-                    sx={{ cursor: "pointer" }}
-                    onClick={() => navigate("/dummygram/profile")}
+                    backgroundColor="black"
+                    position="absolute"
+                    borderRadius="4px"
+                    marginTop={14}
+                    sx={{
+                      vertical: "top",
+                      border: "2px solid white",
+                    }}
                   >
-                    <Typography fontFamily="serif" fontSize="1rem">
-                      Profile
-                    </Typography>
+                    <Box
+                      display="flex"
+                      padding="0.5rem"
+                      sx={{ cursor: "pointer" }}
+                      onClick={() => navigate("/dummygram/profile")}
+                    >
+                      <Typography fontFamily="serif" fontSize="1rem">
+                        Profile
+                      </Typography>
+                    </Box>
+                    <Divider />
+                    <Box
+                      display="flex"
+                      padding="0.5rem"
+                      sx={{ cursor: "pointer" }}
+                      onClick={() => setLogout(true)}
+                    >
+                      <Typography fontFamily="serif" fontSize="0.9rem">
+                        Log Out
+                      </Typography>
+                    </Box>
                   </Box>
-                  <Divider />
-                  <Box
-                    display="flex"
-                    padding="0.5rem"
-                    sx={{ cursor: "pointer" }}
-                    onClick={() => setLogout(true)}
-                  >
-                    <Typography fontFamily="serif" fontSize="0.9rem">
-                      Log Out
-                    </Typography>
-                  </Box>
-                </Box>
-              )}
-            </Button>
+                )}
+              </Button>
+            </ClickAwayListener>
           </>
         ) : (
           <div className="login__container">
@@ -401,12 +404,12 @@ function App() {
                     !loadingPosts
                       ? {}
                       : {
-                          width: "100%",
-                          minHeight: "100vh",
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }
+                        width: "100%",
+                        minHeight: "100vh",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }
                   }
                 >
                   {loadingPosts ? (
@@ -467,7 +470,7 @@ function App() {
           display: showScroll ? "flex" : "none",
         }}
       />
-    </div>
+    </div >
   );
 }
 
