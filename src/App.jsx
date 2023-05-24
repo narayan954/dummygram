@@ -1,7 +1,7 @@
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import {
   Box,
   Button,
+  ClickAwayListener,
   Dialog,
   DialogContent,
   Divider,
@@ -13,12 +13,14 @@ import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import AnimatedButton from "./components/AnimatedButton";
 import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
 import LoginScreen from "./pages/Login";
 import NotFoundPage from "./components/NotFound";
 import Post from "./components/Post";
+import PostView from "./pages/PostView";
 import Profile from "./pages/Profile";
 import ShareModal from "./components/ShareModal";
 import SignupScreen from "./pages/Signup";
@@ -202,6 +204,7 @@ function App() {
             cursor: "pointer",
           }}
         />
+
         {user ? (
           <>
             <Button
@@ -210,53 +213,53 @@ function App() {
               variant="contained"
               sx={buttonStyle}
             >
-              <AddCircleOutlineIcon
-                style={{ padding: "2px", marginRight: "4" }}
-              />
+              <AddCircleOutlineIcon style={{ marginRight: "4" }} />
               New Post
             </Button>
-            <Button
-              onClick={() => setOpen((cur) => !cur)}
-              color="secondary"
-              variant="contained"
-              sx={{ ...buttonStyle, marginRight: "10px" }}
-            >
-              <FaUserCircle fontSize="large" />
-              {open && (
-                <Box
-                  backgroundColor="black"
-                  position="absolute"
-                  borderRadius="4px"
-                  marginTop={14}
-                  sx={{
-                    vertical: "top",
-                    border: "2px solid white",
-                  }}
-                >
+            <ClickAwayListener onClickAway={() => setOpen(false)}>
+              <Button
+                onClick={() => setOpen((cur) => !cur)}
+                color="secondary"
+                variant="contained"
+                sx={{ ...buttonStyle, marginRight: "10px" }}
+              >
+                <FaUserCircle fontSize="large" />
+                {open && (
                   <Box
-                    display="flex"
-                    padding="0.5rem"
-                    sx={{ cursor: "pointer" }}
-                    onClick={() => navigate("/dummygram/profile")}
+                    backgroundColor="black"
+                    position="absolute"
+                    borderRadius="4px"
+                    marginTop={14}
+                    sx={{
+                      vertical: "top",
+                      border: "2px solid white",
+                    }}
                   >
-                    <Typography fontFamily="serif" fontSize="1rem">
-                      Profile
-                    </Typography>
+                    <Box
+                      display="flex"
+                      padding="0.5rem"
+                      sx={{ cursor: "pointer" }}
+                      onClick={() => navigate("/dummygram/profile")}
+                    >
+                      <Typography fontFamily="serif" fontSize="1rem">
+                        Profile
+                      </Typography>
+                    </Box>
+                    <Divider />
+                    <Box
+                      display="flex"
+                      padding="0.5rem"
+                      sx={{ cursor: "pointer" }}
+                      onClick={() => setLogout(true)}
+                    >
+                      <Typography fontFamily="serif" fontSize="0.9rem">
+                        Log Out
+                      </Typography>
+                    </Box>
                   </Box>
-                  <Divider />
-                  <Box
-                    display="flex"
-                    padding="0.5rem"
-                    sx={{ cursor: "pointer" }}
-                    onClick={() => setLogout(true)}
-                  >
-                    <Typography fontFamily="serif" fontSize="0.9rem">
-                      Log Out
-                    </Typography>
-                  </Box>
-                </Box>
-              )}
-            </Button>
+                )}
+              </Button>
+            </ClickAwayListener>
           </>
         ) : (
           <div className="login__container">
@@ -440,6 +443,17 @@ function App() {
         <Route path="/dummygram/login" element={<LoginScreen />} />
 
         <Route path="/dummygram/signup" element={<SignupScreen />} />
+        <Route
+          path="/dummygram/posts/:id"
+          element={
+            <PostView
+              user={user}
+              shareModal={setOpenShareModal}
+              setLink={setCurrentPostLink}
+              setPostText={setPostText}
+            />
+          }
+        />
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
