@@ -4,6 +4,7 @@ import {
   Avatar,
   Box,
   Button,
+  ClickAwayListener,
   Dialog,
   DialogActions,
   DialogContent,
@@ -201,6 +202,7 @@ function Post(prop) {
   };
 
   return (
+    <ClickAwayListener onClickAway={() => setShowEmojis(false)}>
     <div
       className="post"
       style={{ boxShadow: "0px 0px 5px 1px rgba(0, 0, 0, 0.4)" }}
@@ -530,6 +532,7 @@ function Post(prop) {
         )}
       </div>
     </div>
+  </ClickAwayListener>  
   );
 }
 
