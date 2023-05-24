@@ -16,7 +16,7 @@ import NotFoundPage from "./components/NotFound";
 import ShareModal from "./components/ShareModal";
 import { HiOutlineLogout } from "react-icons/hi";
 import { RiImageAddFill } from "react-icons/ri";
-import './custom.css'
+import './index.css'
 
 export function getModalStyle() {
   const top = 50;
