@@ -1,15 +1,15 @@
 import React, { useState } from "react";
+import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
+import { auth, facebookProvider, googleProvider } from "../lib/firebase";
+import { faGoogle, faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
 import { getModalStyle, useStyles } from "../App";
-import { auth, googleProvider, facebookProvider } from "../lib/firebase";
-import { useSnackbar } from "notistack";
-import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSquareFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
-import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
-import Logo from "../assets/logo.png";
 
-import { RiEyeFill, RiEyeCloseFill } from "react-icons/ri";
 import { Button } from "@mui/material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Logo from "../assets/logo.png";
+import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
 const LoginScreen = () => {
   const classes = useStyles();

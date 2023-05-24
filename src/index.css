@@ -34,6 +34,19 @@
   background-color: var(--bg-color);
 }
 
+/* Add media query in navbar for responsiveness */
+@media only screen and (max-width: 460px) {
+  .app__header__img {
+    object-fit: contain;
+    width: 120px;
+  }
+  .app__header {
+    width: 100%;
+    padding: 10px;
+    font-size: "8px";
+  }
+}
+
 .app__posts {
   padding: 20px;
   padding-top: 5.5em;
@@ -42,10 +55,21 @@
 /* Post style */
 .post {
   max-width: 400px;
+  margin-top: 20px;
+  padding: 5px;
   border: 1px solid rgba(0, 0, 0, 0.373);
   border-radius: 5px;
   margin-bottom: 20px;
   word-wrap: break-word;
+}
+
+/* Added media query in post for responsiveness */
+@media only screen and (max-width: 460px) {
+  .post {
+    max-width: 320px;
+    padding: 5px;
+    margin-top: 25px;
+  }
 }
 
 .post__img {
@@ -150,6 +174,13 @@
   align-items: center;
   font-weight: 600;
   position: relative;
+}
+
+.post_caption {
+  width: 24em;
+  padding: 8px;
+  font-weight: 600;
+  color: rgb(145, 230, 227);
 }
 
 .post__comments {
