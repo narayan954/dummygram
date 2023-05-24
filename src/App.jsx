@@ -213,7 +213,7 @@ function App() {
               sx={buttonStyle}
             >
               <AddCircleOutlineIcon
-                style={{ padding: "2px", marginRight: "4" }}
+                style={{ marginRight: "4" }}
               />
               New Post
             </Button>

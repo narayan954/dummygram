@@ -36,10 +36,14 @@
 
 /* Add media query in navbar for responsiveness */
 @media only screen and (max-width: 460px) {
+  .app__header__img {
+    object-fit: contain;
+    width: 120px;
+  }
   .app__header{
-    position: fixed;
-    width: 95%;
+    width: 100%;
     padding: 10px;
+    font-size:'8px',
   }
 }
 
