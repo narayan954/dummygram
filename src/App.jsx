@@ -239,7 +239,15 @@ function App() {
                       display="flex"
                       padding="0.5rem"
                       sx={{ cursor: "pointer" }}
-                      onClick={() => navigate("/dummygram/profile")}
+                      onClick={() =>
+                        navigate("/dummygram/profile", {
+                          state: {
+                            name: user.toJSON().displayName,
+                            email: user.toJSON().email,
+                            avatar: user.toJSON().photoURL,
+                          },
+                        })
+                      }
                     >
                       <Typography fontFamily="serif" fontSize="1rem">
                         Profile
@@ -435,10 +443,9 @@ function App() {
           }
         />
 
-        <Route
-          path="/dummygram/profile"
-          element={user && <Profile curUser={user.toJSON()} />}
-        />
+        {user && (
+          <Route path="/dummygram/profile" element={user && <Profile />} />
+        )}
 
         <Route path="/dummygram/login" element={<LoginScreen />} />
 
