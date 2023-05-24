@@ -231,7 +231,8 @@ function App() {
                   padding='2px'
                   position="absolute"
                   borderRadius="4px"
-                  marginTop={14}
+                  marginTop={16}
+                  marginRight={3}
                   sx={{
                     vertical: "top",
                     border: "1px solid black",
