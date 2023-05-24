@@ -196,16 +196,9 @@ function App() {
           alt="dummygram"
           className="app__header__img w-100"
           onClick={() => {
-            if(location.pathname==='/dummygram/login'){
-              navigate("/dummygram/login"); 
-            }
-            else if (location.pathname === '/dummygram/signup'){
-              navigate("/dummygram/signup");               
-            }
-            else{
-              navigate("/dummygram/");
-            }
             window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+            // navigate("/dummygram/login");
+            if(location.path)
           }}
           style={{
             cursor: "pointer",
@@ -279,7 +272,7 @@ function App() {
               style={{ margin: 5 }}
               sx={buttonStyle}
             >
-              Log In
+              Sign In
             </Button>
 
             <Button

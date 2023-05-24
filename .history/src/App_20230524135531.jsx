@@ -203,7 +203,7 @@ function App() {
               navigate("/dummygram/signup");               
             }
             else{
-              navigate("/dummygram/");
+              navigate("/dummygram");
             }
             window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
           }}
@@ -279,7 +279,7 @@ function App() {
               style={{ margin: 5 }}
               sx={buttonStyle}
             >
-              Log In
+              Sign In
             </Button>
 
             <Button

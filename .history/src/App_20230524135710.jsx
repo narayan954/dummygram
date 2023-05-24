@@ -279,7 +279,7 @@ function App() {
               style={{ margin: 5 }}
               sx={buttonStyle}
             >
-              Log In
+               In
             </Button>
 
             <Button
