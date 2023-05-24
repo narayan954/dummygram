@@ -14,6 +14,9 @@ import SignupScreen from "./pages/Signup";
 import AnimatedButton from "./components/AnimatedButton";
 import NotFoundPage from "./components/NotFound";
 import ShareModal from "./components/ShareModal";
+import { HiOutlineLogout } from "react-icons/hi";
+import { RiImageAddFill } from "react-icons/ri";
+import './custom.css'
 
 export function getModalStyle() {
   const top = 50;
@@ -61,10 +64,12 @@ function App() {
 
   const buttonStyle = {
     background: "linear-gradient(40deg, #e107c1, #59afc7)",
-    borderRadius: "20px",
+    borderRadius: "5px",
+    padding: "10px 20px 10px 20px",
+    color: "white",
     ":hover": {
       background: "linear-gradient(-40deg, #59afc7, #e107c1)",
-    },
+    }
   };
 
   const { enqueueSnackbar } = useSnackbar();
@@ -188,27 +193,29 @@ function App() {
           }}
           style={{
             cursor: "pointer",
+            marginLeft: "4%"
           }}
         />
         {user ? (
           <>
-            <Button
-              onClick={() => setOpenNewUpload(true)}
-              color="secondary"
-              variant="contained"
-              sx={buttonStyle}
-            >
+            <Button onClick={() => setOpenNewUpload(true)} sx={buttonStyle}>
+              <RiImageAddFill size={20} /> 
+              <div style={{marginLeft:"3px"}}>
               New Post
+              </div>
             </Button>
+
             <Button
+              className="btn"
               onClick={() => {
                 setLogout(true);
               }}
-              color="secondary"
-              variant="contained"
-              sx={{ ...buttonStyle, marginRight: "10px" }}
+              sx={{ ...buttonStyle, marginRight: "20px" }}
             >
+              <HiOutlineLogout size={20} />
+              <div style={{marginLeft:"3px"}}>
               Logout
+              </div>
             </Button>
           </>
         ) : (
@@ -315,19 +322,13 @@ function App() {
                 fontSize: "15px",
                 fontFamily: "monospace",
                 padding: "10%",
-                color: "var(--color)",
               }}
             >
               Are you sure you want to Logout?
             </p>
 
-            <AnimatedButton
-              type="submit"
-              onClick={signOut}
-              variant="contained"
-              color="primary"
-              sx={buttonStyle}
-            >
+            <AnimatedButton type="submit" onClick={signOut} sx={buttonStyle}>
+              <HiOutlineLogout />
               Logout
             </AnimatedButton>
           </form>
@@ -352,12 +353,12 @@ function App() {
                     !loadingPosts
                       ? {}
                       : {
-                          width: "100%",
-                          minHeight: "100vh",
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }
+                        width: "100%",
+                        minHeight: "100vh",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }
                   }
                 >
                   {loadingPosts ? (

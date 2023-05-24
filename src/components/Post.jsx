@@ -325,9 +325,9 @@ function Post(prop) {
           </IconButton>
 
           {/* comment button */}
-          {/* <div className="social__icon">
-            <ModeCommentOutlinedIcon />
-          </div> */}
+          {/* <div className="social__icon"> */}
+            {/* <ModeCommentOutlinedIcon /> */}
+          {/* </div> */}
           {/* share button */}
           {/* <div className="social__icon">
             <SendOutlinedIcon />
