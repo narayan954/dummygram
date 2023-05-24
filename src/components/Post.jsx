@@ -28,6 +28,7 @@ import EmojiPicker from "emoji-picker-react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import ImageSlider from "../reusableComponents/ImageSlider";
+import { Link } from "react-router-dom";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import ReadMore from "./ReadMore";
 import ReplyRoundedIcon from "@mui/icons-material/ReplyRounded";
@@ -223,7 +224,12 @@ function Post(prop) {
             },
           }}
         />
-        <h3 className="post__username">{username}</h3>
+        <Link
+          to={`/dummygram/posts/${postId}`}
+          style={{ textDecoration: "none" }}
+        >
+          <h3 className="post__username">{username}</h3>
+        </Link>
         <div className="social__icon__last">
           <IconButton
             aria-label="more"
@@ -278,12 +284,13 @@ function Post(prop) {
           </Dialog>
         </div>
       </div>
-
       <div className="post__container">
         {postHasImages ? (
           <ImageSlider slides={postImages} isCommentBox={false} />
         ) : (
-          <div className="post__background">{caption}</div>
+          <div className="post__background">
+            <p className="post_caption">{caption}</p>
+          </div>
         )}
         <div className="post__text">
           {caption && postHasImages && (
@@ -425,7 +432,9 @@ function Post(prop) {
                           {postHasImages ? (
                             <ImageSlider slides={postImages} isCommentBox />
                           ) : (
-                            <div className="post__background">{caption}</div>
+                            <div className="post__background">
+                              <p className="post_caption">{caption}</p>
+                            </div>
                           )}
                         </Item>
                       </Grid>

@@ -1,4 +1,3 @@
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import {
   Box,
   Button,
@@ -13,12 +12,14 @@ import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import AnimatedButton from "./components/AnimatedButton";
 import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
 import LoginScreen from "./pages/Login";
 import NotFoundPage from "./components/NotFound";
 import Post from "./components/Post";
+import PostView from "./pages/PostView";
 import Profile from "./pages/Profile";
 import ShareModal from "./components/ShareModal";
 import SignupScreen from "./pages/Signup";
@@ -202,6 +203,7 @@ function App() {
             cursor: "pointer",
           }}
         />
+
         {user ? (
           <>
             <Button
@@ -442,6 +444,17 @@ function App() {
         <Route path="/dummygram/login" element={<LoginScreen />} />
 
         <Route path="/dummygram/signup" element={<SignupScreen />} />
+        <Route
+          path="/dummygram/posts/:id"
+          element={
+            <PostView
+              user={user}
+              shareModal={setOpenShareModal}
+              setLink={setCurrentPostLink}
+              setPostText={setPostText}
+            />
+          }
+        />
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
