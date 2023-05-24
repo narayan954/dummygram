@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  ClickAwayListener,
   Dialog,
   DialogContent,
   Divider,
@@ -221,61 +220,53 @@ function App() {
               variant="contained"
               sx={buttonStyle}
             >
-              <AddCircleOutlineIcon style={{ marginRight: "4" }} />
+              <AddCircleOutlineIcon
+                style={{ padding: "2px", marginRight: "4" }}
+              />
               New Post
             </Button>
-            <ClickAwayListener onClickAway={() => setOpen(false)}>
-              <Button
-                onClick={() => setOpen((cur) => !cur)}
-                color="secondary"
-                variant="contained"
-                sx={{ ...buttonStyle, marginRight: "10px" }}
-              >
-                <FaUserCircle fontSize="large" />
-                {open && (
+            <Button
+              onClick={() => setOpen((cur) => !cur)}
+              color="secondary"
+              variant="contained"
+              sx={{ ...buttonStyle, marginRight: "10px" }}
+            >
+              <FaUserCircle fontSize="large" />
+              {open && (
+                <Box
+                  backgroundColor="black"
+                  position="absolute"
+                  borderRadius="4px"
+                  marginTop={14}
+                  sx={{
+                    vertical: "top",
+                    border: "2px solid white",
+                  }}
+                >
                   <Box
-                    backgroundColor="black"
-                    position="absolute"
-                    borderRadius="4px"
-                    marginTop={14}
-                    sx={{
-                      vertical: "top",
-                      border: "2px solid white",
-                    }}
+                    display="flex"
+                    padding="0.5rem"
+                    sx={{ cursor: "pointer" }}
+                    onClick={() => navigate("/dummygram/profile")}
                   >
-                    <Box
-                      display="flex"
-                      padding="0.5rem"
-                      sx={{ cursor: "pointer" }}
-                      onClick={() =>
-                        navigate("/dummygram/profile", {
-                          state: {
-                            name: user.toJSON().displayName,
-                            email: user.toJSON().email,
-                            avatar: user.toJSON().photoURL,
-                          },
-                        })
-                      }
-                    >
-                      <Typography fontFamily="serif" fontSize="1rem">
-                        Profile
-                      </Typography>
-                    </Box>
-                    <Divider />
-                    <Box
-                      display="flex"
-                      padding="0.5rem"
-                      sx={{ cursor: "pointer" }}
-                      onClick={() => setLogout(true)}
-                    >
-                      <Typography fontFamily="serif" fontSize="0.9rem">
-                        Log Out
-                      </Typography>
-                    </Box>
+                    <Typography fontFamily="serif" fontSize="1rem">
+                      Profile
+                    </Typography>
                   </Box>
-                )}
-              </Button>
-            </ClickAwayListener>
+                  <Divider />
+                  <Box
+                    display="flex"
+                    padding="0.5rem"
+                    sx={{ cursor: "pointer" }}
+                    onClick={() => setLogout(true)}
+                  >
+                    <Typography fontFamily="serif" fontSize="0.9rem">
+                      Log Out
+                    </Typography>
+                  </Box>
+                </Box>
+              )}
+            </Button>
           </>
         ) : (
           <div className="login__container">
@@ -451,9 +442,10 @@ function App() {
           }
         />
 
-        {user && (
-          <Route path="/dummygram/profile" element={user && <Profile />} />
-        )}
+        <Route
+          path="/dummygram/profile"
+          element={user && <Profile curUser={user.toJSON()} />}
+        />
 
         <Route path="/dummygram/login" element={<LoginScreen />} />
 
