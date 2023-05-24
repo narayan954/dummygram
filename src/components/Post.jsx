@@ -14,10 +14,10 @@ import {
   Menu,
   MenuItem,
   Paper,
-  SvgIcon,
   styled,
   useMediaQuery,
 } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
 import { doc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
@@ -28,7 +28,6 @@ import EmojiPicker from "emoji-picker-react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import ImageSlider from "../reusableComponents/ImageSlider";
-import { Link } from "react-router-dom";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import ReadMore from "./ReadMore";
 import ReplyRoundedIcon from "@mui/icons-material/ReplyRounded";
@@ -55,6 +54,7 @@ function Post(prop) {
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const open = Boolean(anchorEl);
   const docRef = doc(db, "posts", postId);
+  const navigate = useNavigate();
 
   useEffect(() => {
     let unsubscribe;
@@ -222,6 +222,14 @@ function Post(prop) {
               border: "2px solid black",
               scale: "1.1",
             },
+          }}
+          onClick={() => {
+            navigate("/dummygram/profile", {
+              state: {
+                name: username,
+                avatar: avatar,
+              },
+            });
           }}
         />
         <Link
