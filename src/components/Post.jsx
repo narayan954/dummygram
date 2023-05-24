@@ -38,6 +38,7 @@ import { db } from "../lib/firebase";
 import firebase from "firebase/compat/app";
 import { red } from "@mui/material/colors";
 import { useTheme } from "@mui/material/styles";
+import ClickOutsideComponent from '../reusableComponents/ClickOutsideComponent.jsx';
 
 const ITEM_HEIGHT = 48;
 
@@ -200,7 +201,12 @@ function Post(prop) {
     setisCommentOpen(false);
   };
 
+  const handleOutsideClick = () => {
+    setShowEmojis(false);
+  };
+
   return (
+    <ClickOutsideComponent onClickOutside={handleOutsideClick}>
     <div
       className="post"
       style={{ boxShadow: "0px 0px 5px 1px rgba(0, 0, 0, 0.4)" }}
@@ -530,6 +536,7 @@ function Post(prop) {
         )}
       </div>
     </div>
+  </ClickOutsideComponent>  
   );
 }
 
