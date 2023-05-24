@@ -1,16 +1,28 @@
+<div id="top"></div>
 <div align="center">
 
-<img  src=" src/assets/app-logo.png"  alt="Dummygram"  width="250"  height="200">
+<img  src="src/assets/app-logo.png"  alt="Dummygram"  width="250"  height="200">
 
 [See Live!](https://narayan954.github.io/dummygram/)
 
 ### _Instagram_, dummified
 
-![Issues](https://img.shields.io/github/issues/narayan954/dummygram?color=brightgreen)
-![Pull requests](https://img.shields.io/github/issues-pr/narayan954/dummygram)
-![Forks](https://img.shields.io/github/forks/narayan954/dummygram)
-![Stars](https://img.shields.io/github/stars/narayan954/dummygram)
-![Licence](https://img.shields.io/github/license/narayan954/dummygram?color=orange)
+<div align="center">
+      <img src="https://forthebadge.com/images/badges/built-with-love.svg" />
+      <img src="https://forthebadge.com/images/badges/uses-brains.svg" />
+      <img src="https://forthebadge.com/images/badges/powered-by-responsibility.svg" />
+      <br>
+      <img src="https://img.shields.io/github/repo-size/narayan954/dummygram?style=for-the-badge" />
+      <img src="https://img.shields.io/github/issues/narayan954/dummygram?style=for-the-badge" />
+      <img src="https://img.shields.io/github/issues-raw/narayan954/dummygram?style=for-the-badge" />
+      <img src="https://img.shields.io/github/forks/narayan954/dummygram?style=for-the-badge" />
+      <img src="https://img.shields.io/github/issues-pr-closed/narayan954/dummygram?style=for-the-badge" />
+      <br>
+      <img src="https://img.shields.io/github/stars/narayan954/dummygram?style=for-the-badge" />
+      <img src="https://img.shields.io/github/contributors/narayan954/dummygram?style=for-the-badge" />
+      <img src="https://img.shields.io/github/issues-pr-closed/narayan954/dummygram?style=for-the-badge" />
+      <img src="https://img.shields.io/github/last-commit/narayan954/dummygram?style=for-the-badge" />
+ </div>
 
 ---
 
@@ -81,6 +93,12 @@ dummygram/
 ### First time setup
 
 The first step to running dummygram locally is downloading the code by cloning the repository:
+
+<details><summary>Video Demo to run Dummygram in your local under 2 minutes</summary> <br>
+
+<https://github.com/narayan954/dummygram/assets/77617189/c21f0bdc-e845-4c32-b148-54d8048cbc33>
+
+</details>
 
 ```sh
 
@@ -333,3 +351,4 @@ Thanks a lot for spending your time helping dummygram grow. Thanks a lot! Keep r
     <h3>Do checkout the other repos 💫</h3>
 
 </div>
+<p align="right">(<a href="#top">Back to top</a>)</p>

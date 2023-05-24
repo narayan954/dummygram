@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import "./ImageSlider.css";
+
+import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const ImageSlider = ({ slides, isCommentBox }) => {
   const [current, setCurrent] = useState(0);
@@ -37,7 +39,7 @@ const ImageSlider = ({ slides, isCommentBox }) => {
             src={imageUrl}
             placeholderSrc={thumbnail}
             effect="blur"
-            alt={` upload`}
+            alt={" upload"}
             delayTime={1000}
             style={{
               width: "100%",
