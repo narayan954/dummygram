@@ -45,6 +45,7 @@ const ITEM_HEIGHT = 48;
 function Post(prop) {
   const { postId, user, post, shareModal, setLink, setPostText } = prop;
   const { username, caption, imageUrl, avatar, likecount } = post;
+
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
   const [likesNo, setLikesNo] = useState(likecount ? likecount.length : 0);
@@ -52,9 +53,14 @@ function Post(prop) {
   const [showEmojis, setShowEmojis] = useState(false);
   const [Open, setOpen] = useState(false);
   const [isCommentOpen, setisCommentOpen] = useState(false);
+  const [readMore, setReadMore] = useState(false);
+
   const theme = useTheme();
+
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+
   const open = Boolean(anchorEl);
+
   const docRef = doc(db, "posts", postId);
 
   useEffect(() => {
@@ -200,7 +206,7 @@ function Post(prop) {
   const handleCommentClose = () => {
     setisCommentOpen(false);
   };
-
+  
   const calculateTime = () => {
     // Convert Firebase timestamp to JavaScript Date object
     const postDate = post.timestamp?.toDate();
@@ -234,6 +240,10 @@ function Post(prop) {
     }
   };
   
+  const handleReadPost = () => {
+    setReadMore(!readMore);
+  };
+
   return (
     <ClickAwayListener onClickAway={() => setShowEmojis(false)}>
       <div
@@ -325,13 +335,34 @@ function Post(prop) {
             <ImageSlider slides={postImages} isCommentBox={false} />
           ) : (
             <div className="post__background">
-              <p className="post_caption">{caption}</p>
+              {caption.length >= 700 && readMore == false ? (
+                <>
+                  <p className="post_caption">
+                    {caption.substr(0, 700)}
+                    <button class="post__btn" onClick={() => handleReadPost()}>
+                      ... Read More
+                    </button>
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className="post_caption">{caption}</p>
+                  {caption.length >= 700 && (
+                    <button
+                      class="post__less_btn"
+                      onClick={() => handleReadPost()}
+                    >
+                      ... Read Less
+                    </button>
+                  )}
+                </>
+              )}
             </div>
           )}
           <div className="post__text">
             {caption && postHasImages && (
               <>
-                <strong style={{ color: "royalblue" }}>{username} </strong>
+                {/* <strong style={{ color: "royalblue" }}>{username} </strong> */}
                 <ReadMore caption={caption} />
               </>
             )}
