@@ -201,6 +201,39 @@ function Post(prop) {
     setisCommentOpen(false);
   };
 
+  const calculateTime = () => {
+    // Convert Firebase timestamp to JavaScript Date object
+    const postDate = post.timestamp?.toDate();
+  
+    // Get the current time
+    const currentDate = new Date();
+  
+    // Calculate the time difference in milliseconds
+    const timeDiff = currentDate.getTime() - postDate?.getTime();
+  
+    // Convert milliseconds to seconds, minutes, hours, or days as needed
+    const seconds = Math.floor(timeDiff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+  
+    // Return the formatted time string
+    if (days > 0) {
+      if (days === 1) {
+        return `Yesterday`;
+      } else {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return `${postDate.toLocaleDateString(undefined, options)}`;
+      }
+    } else if (hours > 0) {
+      return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+    } else if (minutes > 0) {
+      return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+    } else {
+      return `${seconds} second${seconds !== 1 ? 's' : ''} ago`;
+    }
+  };
+  
   return (
     <ClickAwayListener onClickAway={() => setShowEmojis(false)}>
       <div
@@ -231,6 +264,7 @@ function Post(prop) {
             style={{ textDecoration: "none" }}
           >
             <h3 className="post__username">{username}</h3>
+            <p>{calculateTime()}</p>
           </Link>
           <div className="social__icon__last">
             <IconButton
