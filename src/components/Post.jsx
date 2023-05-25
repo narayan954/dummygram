@@ -1,41 +1,44 @@
-import { useEffect, useState } from "react";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import TextField from "@mui/material/TextField";
-import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
-import CommentIcon from "@mui/icons-material/Comment";
-import { red } from "@mui/material/colors";
-import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
-import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
-import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
-import Scroll from "../reusableComponents/Scroll";
+import "react-lazy-load-image-component/src/effects/blur.css";
+
 import {
   Avatar,
-  Grid,
-  Menu,
-  MenuItem,
-  IconButton,
+  Box,
   Button,
+  ClickAwayListener,
   Dialog,
-  DialogTitle,
   DialogActions,
   DialogContent,
   DialogContentText,
-  useMediaQuery,
-  Box,
+  DialogTitle,
+  Grid,
+  IconButton,
+  Menu,
+  MenuItem,
   Paper,
-  styled,
   SvgIcon,
+  styled,
+  useMediaQuery,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-import { db } from "../lib/firebase";
-import firebase from "firebase/compat/app";
-import "react-lazy-load-image-component/src/effects/blur.css";
-import EmojiPicker from "emoji-picker-react";
 import { doc, updateDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import TextField from '@mui/material/TextField';
+import CommentIcon from "@mui/icons-material/Comment";
+import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import DialogBox from "../reusableComponents/DialogBox";
+import EmojiPicker from "emoji-picker-react";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import ImageSlider from "../reusableComponents/ImageSlider";
+import { Link } from "react-router-dom";
+import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import ReadMore from "./ReadMore";
 import ReplyRoundedIcon from "@mui/icons-material/ReplyRounded";
+import Scroll from "../reusableComponents/Scroll";
+import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
+import { db } from "../lib/firebase";
+import firebase from "firebase/compat/app";
+import { red } from "@mui/material/colors";
+import { useTheme } from "@mui/material/styles";
 
 const ITEM_HEIGHT = 48;
 
@@ -219,86 +222,71 @@ function Post(prop) {
   };
 
   return (
-    <div
-      className="post"
-      style={{ boxShadow: "0px 0px 5px 1px rgba(0, 0, 0, 0.4)" }}
-    >
-      <div className="post__header">
-        <Avatar
-          className="post__avatar"
-          alt={username}
-          src={avatar}
-          sx={{
-            bgcolor: "royalblue",
-            border: "2px solid transparent",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            cursor: "pointer",
-            "&:hover": {
-              boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 17px 0px",
-              border: "2px solid black",
-              scale: "1.1",
-            },
-          }}
-        />
-        <h3 className="post__username">{username}</h3>
-        <div className="social__icon__last">
-          <IconButton
-            aria-label="more"
-            id="long-button"
-            aria-controls={open ? "long-menu" : undefined}
-            aria-expanded={open ? "true" : undefined}
-            aria-haspopup="true"
-            onClick={(event) => setAnchorEl(event.currentTarget)}
+    <ClickAwayListener onClickAway={() => setShowEmojis(false)}>
+      <div
+        className="post"
+        style={{ boxShadow: "0px 0px 5px 1px rgba(0, 0, 0, 0.4)" }}
+      >
+        <div className="post__header">
+          <Avatar
+            className="post__avatar"
+            alt={username}
+            src={avatar}
             sx={{
-              color: "var(--color)",
+              bgcolor: "royalblue",
+              border: "2px solid transparent",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              cursor: "pointer",
+              "&:hover": {
+                boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 17px 0px",
+                border: "2px solid black",
+                scale: "1.1",
+              },
             }}
+          />
+          <Link
+            to={`/dummygram/posts/${postId}`}
+            style={{ textDecoration: "none" }}
           >
-            <MoreHorizOutlinedIcon />
-          </IconButton>
-          {user && username == user.displayName && (
-            <Menu
-              id="long-menu"
-              MenuListProps={{
-                "aria-labelledby": "long-button",
-              }}
-              anchorEl={anchorEl}
-              open={open}
-              onClose={() => setAnchorEl(null)}
-              PaperProps={{
-                style: {
-                  maxHeight: ITEM_HEIGHT * 4.5,
-                  width: "20ch",
-                },
+            <h3 className="post__username">{username}</h3>
+          </Link>
+          <div className="social__icon__last">
+            <IconButton
+              aria-label="more"
+              id="long-button"
+              aria-controls={open ? "long-menu" : undefined}
+              aria-expanded={open ? "true" : undefined}
+              aria-haspopup="true"
+              onClick={(event) => setAnchorEl(event.currentTarget)}
+              sx={{
+                color: "var(--color)",
               }}
             >
-              <MenuItem onClick={handleClickOpen}> Delete </MenuItem>
-              <MenuItem onClick={handleClickOpenCaption}> Edit </MenuItem>
-            </Menu>
-          )}
-          <Dialog
-            fullScreen={fullScreen}
-            open={Open}
-            onClose={handleClose}
-            aria-labelledby="responsive-dialog-title"
-          >
-            <DialogTitle id="responsive-dialog-title">
-              {"Delete Post?"}
-            </DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                Are you sure you want to delete this post?
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleClose}>Cancel</Button>
-              <Button onClick={deletePost}>Delete</Button>
-            </DialogActions>
-          </Dialog>
-        </div>
-      </div>
-      <>
+              <MoreHorizOutlinedIcon />
+            </IconButton>
+            {user && username == user.displayName && (
+              <Menu
+                id="long-menu"
+                MenuListProps={{
+                  "aria-labelledby": "long-button",
+                }}
+                anchorEl={anchorEl}
+                open={open}
+                onClose={() => setAnchorEl(null)}
+                PaperProps={{
+                  style: {
+                    maxHeight: ITEM_HEIGHT * 4.5,
+                    width: "20ch",
+                  },
+                }}
+              >
+                <MenuItem onClick={handleClickOpen}> Delete </MenuItem>
+                <MenuItem onClick={handleClickOpenCaption}> Edit </MenuItem>
+              </Menu>
+            )}
+                  <>
         <Dialog
           fullWidth
           open={openEditCaption}
@@ -325,247 +313,274 @@ function Post(prop) {
         </Dialog>
       </>
 
-      <div className="post__container">
-        {postHasImages ? (
-          <ImageSlider slides={postImages} isCommentBox={false} />
-        ) : (
-          <div className="post__background">{caption}</div>
-        )}
-        <div className="social__icons__wrapper">
-          <div
-            className="social__icon"
-            onClick={likesHandler}
-            style={{ cursor: "pointer" }}
-          >
-            {user ? (
-              tempLikeCount.indexOf(user.uid) != -1 ? (
-                <FavoriteOutlinedIcon
-                  sx={{ color: red[500], fontSize: "30px" }}
-                />
-              ) : (
-                <FavoriteBorderIcon sx={buttonStyle} />
-              )
-            ) : (
-              <FavoriteBorderIcon sx={buttonStyle} />
+            <Dialog
+              fullScreen={fullScreen}
+              open={Open}
+              onClose={handleClose}
+              aria-labelledby="responsive-dialog-title"
+            >
+              <DialogTitle id="responsive-dialog-title">
+                {"Delete Post?"}
+              </DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  Are you sure you want to delete this post?
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose}>Cancel</Button>
+                <Button onClick={deletePost}>Delete</Button>
+              </DialogActions>
+            </Dialog>
+          </div>
+        </div>
+        <div className="post__container">
+          {postHasImages ? (
+            <ImageSlider slides={postImages} isCommentBox={false} />
+          ) : (
+            <div className="post__background">
+              <p className="post_caption">{caption}</p>
+            </div>
+          )}
+          <div className="post__text">
+            {caption && postHasImages && (
+              <>
+                <strong style={{ color: "royalblue" }}>{username} </strong>
+                <ReadMore caption={caption} />
+              </>
             )}
           </div>
-
-          <span style={{ marginLeft: "", fontWeight: "bold" }}>
-            {likecount !== 0 ? `${likesNo} Likes` : " "}{" "}
-            {/* <span style={{ fontWeight: "bold" }}>Likes</span> */}
-          </span>
-
-          <IconButton
-            aria-label="share"
-            id="share-button"
-            aria-haspopup="true"
-            onClick={() => {
-              setLink(`https://narayan954.github.io/dummygram/${postId}`);
-              setPostText(caption);
-              shareModal(true);
-            }}
-            sx={{
-              color: "var(--color)",
-              marginX: "4px",
-            }}
-          >
-            <ReplyRoundedIcon htmlColor="var(--color)" />
-          </IconButton>
-
-          {/* comment button */}
-          {/* <div className="social__icon">
-            <ModeCommentOutlinedIcon />
-          </div> */}
-          {/* share button */}
-          {/* <div className="social__icon">
-            <SendOutlinedIcon />
-          </div> */}
-          {/* save button */}
-          {/* <div className="social__icon__last">
-            <BookmarkBorderOutlinedIcon />
-          </div> */}
-        </div>
-
-        <div className="post__text">
-          {caption && postHasImages && (
-            <>
-              <strong style={{ color: "royalblue" }}>{username} </strong>
-              <ReadMore caption={caption} />
-            </>
-          )}
-        </div>
-
-        {comments.length ? (
-          <>
-            <Button
-              onClick={() => {
-                setisCommentOpen(!Open);
-              }}
-              startIcon={<CommentIcon />}
-              sx={{
-                backgroundColor: "rgba(	135, 206, 235, 0.2)",
-                margin: "12px 8px",
-                fontSize: "12px",
-                fontWeight: "bold",
-              }}
-            >
-              View All comments
-            </Button>
-
-            <DialogBox
-              open={isCommentOpen}
-              onClose={handleCommentClose}
-              title="All Comments"
-            >
-              <Box sx={{ flexGrow: 1 }}>
-                <Grid container>
-                  <Grid item xs={6} md={6}>
-                    <Item>
-                      {postHasImages ? (
-                        <ImageSlider slides={postImages} isCommentBox />
-                      ) : (
-                        <div className="post__background">{caption}</div>
-                      )}
-                    </Item>
-                  </Grid>
-                  <Grid item xs={6} md={6}>
-                    <Scroll>
-                      <Item>
-                        <div className="post__comments">
-                          {comments.map((userComment) => (
-                            <p key={userComment.id}>
-                              <strong>{userComment.content.username}</strong>{" "}
-                              {userComment.content.text}
-                              <span
-                                onClick={(event) =>
-                                  deleteComment(event, userComment)
-                                }
-                              >
-                                {user &&
-                                userComment.content.username ===
-                                  user.displayName ? (
-                                  <DeleteTwoToneIcon fontSize="small" />
-                                ) : (
-                                  <></>
-                                )}
-                              </span>
-                              <hr />
-                            </p>
-                          ))}
-                        </div>
-                      </Item>
-                    </Scroll>
-                  </Grid>
-                </Grid>
-              </Box>
-
-              {user && (
-                <form className="post__commentBox">
-                  <div className="social__icon">
-                    <SentimentSatisfiedAltOutlinedIcon
-                      onClick={() => {
-                        setShowEmojis((val) => !val);
+          {user && (
+            <form className="post__commentBox">
+              <div className="social__icon">
+                <SentimentSatisfiedAltOutlinedIcon
+                  onClick={() => {
+                    setShowEmojis((val) => !val);
+                  }}
+                />
+                {showEmojis && (
+                  <div id="picker">
+                    <EmojiPicker
+                      emojiStyle="native"
+                      height={330}
+                      searchDisabled
+                      onEmojiClick={onEmojiClick}
+                      previewConfig={{
+                        showPreview: false,
                       }}
                     />
-                    {showEmojis && (
-                      <div id="picker">
-                        <EmojiPicker
-                          emojiStyle="native"
-                          height={330}
-                          searchDisabled
-                          onEmojiClick={onEmojiClick}
-                          previewConfig={{
-                            showPreview: false,
-                          }}
-                        />
-                      </div>
-                    )}
                   </div>
-
-                  <input
-                    className="post__input"
-                    type="text"
-                    placeholder="Add a comment..."
-                    value={comment}
-                    onChange={(e) => setComment(e.target.value)}
-                    style={{
-                      backgroundColor: "var(--bg-color)",
-                      color: "var(--color)",
-                      borderRadius: "22px",
-                      marginTop: "4px",
-                    }}
-                  />
-                  <button
-                    className="post__button"
-                    disabled={!comment}
-                    type="submit"
-                    onClick={postComment}
-                    style={{
-                      fontWeight: "bold",
-                      textTransform: "uppercase",
-                    }}
-                  >
-                    Comment
-                  </button>
-                </form>
-              )}
-            </DialogBox>
-          </>
-        ) : (
-          <></>
-        )}
-
-        {user && (
-          <form className="post__commentBox">
-            <div className="social__icon">
-              <SentimentSatisfiedAltOutlinedIcon
-                onClick={() => {
-                  setShowEmojis((val) => !val);
+                )}
+              </div>
+              <input
+                className="post__input"
+                type="text"
+                placeholder="Add a comment..."
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                style={{
+                  backgroundColor: "var(--bg-color)",
+                  color: "var(--color)",
+                  borderRadius: "22px",
+                  margin: "4px 0px",
                 }}
               />
-              {showEmojis && (
-                <div id="picker">
-                  <EmojiPicker
-                    emojiStyle="native"
-                    height={330}
-                    searchDisabled
-                    onEmojiClick={onEmojiClick}
-                    previewConfig={{
-                      showPreview: false,
+              <button
+                className="post__button"
+                disabled={!comment}
+                type="submit"
+                onClick={postComment}
+                style={{
+                  fontWeight: "bold",
+                  textTransform: "uppercase",
+                }}
+              >
+                Post
+              </button>
+              {comments.length ? (
+                <>
+                  <div className="social__icons__wrapper">
+                    <div
+                      className="social__icon"
+                      onClick={likesHandler}
+                      style={{ cursor: "pointer" }}
+                    >
+                      {user ? (
+                        tempLikeCount.indexOf(user.uid) != -1 ? (
+                          <FavoriteOutlinedIcon
+                            sx={{ color: red[500], fontSize: "30px" }}
+                          />
+                        ) : (
+                          <FavoriteBorderIcon sx={buttonStyle} />
+                        )
+                      ) : (
+                        <FavoriteBorderIcon sx={buttonStyle} />
+                      )}
+                    </div>
+
+                    <span style={{ marginLeft: "", fontWeight: "bold" }}>
+                      {likecount !== 0 ? `${likesNo} Likes` : " "}{" "}
+                      {/* <span style={{ fontWeight: "bold" }}>Likes</span> */}
+                    </span>
+
+                    <IconButton
+                      aria-label="share"
+                      id="share-button"
+                      aria-haspopup="true"
+                      onClick={() => {
+                        setLink(
+                          `https://narayan954.github.io/dummygram/${postId}`
+                        );
+                        setPostText(caption);
+                        shareModal(true);
+                      }}
+                      sx={{
+                        color: "var(--color)",
+                        marginX: "4px",
+                      }}
+                    >
+                      <ReplyRoundedIcon htmlColor="var(--color)" />
+                    </IconButton>
+
+                    {/* comment button */}
+                    {/* <div className="social__icon">
+            <ModeCommentOutlinedIcon />
+          </div> */}
+                    {/* share button */}
+                    {/* <div className="social__icon">
+            <SendOutlinedIcon />
+          </div> */}
+                    {/* save button */}
+                    {/* <div className="social__icon__last">
+            <BookmarkBorderOutlinedIcon />
+          </div> */}
+                  </div>
+                  <Button
+                    onClick={() => {
+                      setisCommentOpen(!Open);
                     }}
-                  />
-                </div>
+                    startIcon={<CommentIcon />}
+                    sx={{
+                      backgroundColor: "rgba(	135, 206, 235, 0.2)",
+                      margin: "12px 8px",
+                      fontSize: "12px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    View All comments
+                  </Button>
+
+                  <DialogBox
+                    open={isCommentOpen}
+                    onClose={handleCommentClose}
+                    title="All Comments"
+                  >
+                    <Box sx={{ flexGrow: 1 }}>
+                      <Grid container>
+                        <Grid item xs={6} md={6}>
+                          <Item>
+                            {postHasImages ? (
+                              <ImageSlider slides={postImages} isCommentBox />
+                            ) : (
+                              <div className="post__background">
+                                <p className="post_caption">{caption}</p>
+                              </div>
+                            )}
+                          </Item>
+                        </Grid>
+                        <Grid item xs={6} md={6}>
+                          <Scroll>
+                            <Item>
+                              <div className="post__comments">
+                                {comments.map((userComment) => (
+                                  <p key={userComment.id}>
+                                    <strong>
+                                      {userComment.content.username}
+                                    </strong>{" "}
+                                    {userComment.content.text}
+                                    <span
+                                      onClick={(event) =>
+                                        deleteComment(event, userComment)
+                                      }
+                                    >
+                                      {user &&
+                                      userComment.content.username ===
+                                        user.displayName ? (
+                                        <DeleteTwoToneIcon fontSize="small" />
+                                      ) : (
+                                        <></>
+                                      )}
+                                    </span>
+                                    <hr />
+                                  </p>
+                                ))}
+                              </div>
+                            </Item>
+                          </Scroll>
+                        </Grid>
+                      </Grid>
+                    </Box>
+
+                    {user && (
+                      <form className="post__commentBox">
+                        <div className="social__icon">
+                          <SentimentSatisfiedAltOutlinedIcon
+                            onClick={() => {
+                              setShowEmojis((val) => !val);
+                            }}
+                          />
+                          {showEmojis && (
+                            <div id="picker">
+                              <EmojiPicker
+                                emojiStyle="native"
+                                height={330}
+                                searchDisabled
+                                onEmojiClick={onEmojiClick}
+                                previewConfig={{
+                                  showPreview: false,
+                                }}
+                              />
+                            </div>
+                          )}
+                        </div>
+
+                        <input
+                          className="post__input"
+                          type="text"
+                          placeholder="Add a comment..."
+                          value={comment}
+                          onChange={(e) => setComment(e.target.value)}
+                          style={{
+                            backgroundColor: "var(--bg-color)",
+                            color: "var(--color)",
+                            borderRadius: "22px",
+                            marginTop: "4px",
+                          }}
+                        />
+                        <button
+                          className="post__button"
+                          disabled={!comment}
+                          type="submit"
+                          onClick={postComment}
+                          style={{
+                            fontWeight: "bold",
+                            textTransform: "uppercase",
+                          }}
+                        >
+                          Comment
+                        </button>
+                      </form>
+                    )}
+                  </DialogBox>
+                </>
+              ) : (
+                <></>
               )}
-            </div>
-            <input
-              className="post__input"
-              type="text"
-              placeholder="Add a comment..."
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-              style={{
-                backgroundColor: "var(--bg-color)",
-                color: "var(--color)",
-                borderRadius: "22px",
-                margin: "4px 0px",
-              }}
-            />
-            <button
-              className="post__button"
-              disabled={!comment}
-              type="submit"
-              onClick={postComment}
-              style={{
-                fontWeight: "bold",
-                textTransform: "uppercase",
-              }}
-            >
-              Post
-            </button>
-          </form>
-        )}
+            </form>
+          )}
+        </div>
       </div>
-    </div>
+    </ClickAwayListener>
   );
 }
 
