@@ -1,5 +1,4 @@
 import "react-lazy-load-image-component/src/effects/blur.css";
-
 import {
   Avatar,
   Box,
@@ -21,7 +20,7 @@ import {
 } from "@mui/material";
 import { doc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import TextField from '@mui/material/TextField';
+import TextField from "@mui/material/TextField";
 import CommentIcon from "@mui/icons-material/Comment";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import DialogBox from "../reusableComponents/DialogBox";
@@ -286,32 +285,32 @@ function Post(prop) {
                 <MenuItem onClick={handleClickOpenCaption}> Edit </MenuItem>
               </Menu>
             )}
-                  <>
-        <Dialog
-          fullWidth
-          open={openEditCaption}
-          onClose={handleClickClosedCaption}
-        >
-          <DialogTitle>Change Caption</DialogTitle>
-          <DialogContent>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Enter Your Caption"
-              type="text"
-              fullWidth
-              variant="standard"
-              onChange={(e) => setEditCaption(e.target.value)}
-              value={editCaption}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClickClosedCaption}>Cancel</Button>
-            <Button onClick={handleSubmitCaption}>Submit</Button>
-          </DialogActions>
-        </Dialog>
-      </>
+            <>
+              <Dialog
+                fullWidth
+                open={openEditCaption}
+                onClose={handleClickClosedCaption}
+              >
+                <DialogTitle>Change Caption</DialogTitle>
+                <DialogContent>
+                  <TextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label="Enter Your Caption"
+                    type="text"
+                    fullWidth
+                    variant="standard"
+                    onChange={(e) => setEditCaption(e.target.value)}
+                    value={editCaption}
+                  />
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClickClosedCaption}>Cancel</Button>
+                  <Button onClick={handleSubmitCaption}>Submit</Button>
+                </DialogActions>
+              </Dialog>
+            </>
 
             <Dialog
               fullScreen={fullScreen}
