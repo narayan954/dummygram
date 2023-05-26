@@ -39,13 +39,13 @@ import { db } from "../lib/firebase";
 import firebase from "firebase/compat/app";
 import { red } from "@mui/material/colors";
 import { useTheme } from "@mui/material/styles";
-
+import useCreatedAt from "../hooks/useCreatedAt";
 const ITEM_HEIGHT = 48;
 
 function Post(prop) {
   const { postId, user, post, shareModal, setLink, setPostText } = prop;
-  const { username, caption, imageUrl, avatar, likecount } = post;
-
+  const { username, caption, imageUrl, avatar, likecount,timestamp} = post;
+  const time=useCreatedAt(timestamp)
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
   const [likesNo, setLikesNo] = useState(likecount ? likecount.length : 0);
@@ -207,39 +207,6 @@ function Post(prop) {
     setisCommentOpen(false);
   };
   
-  const calculateTime = () => {
-    // Convert Firebase timestamp to JavaScript Date object
-    const postDate = post.timestamp?.toDate();
-  
-    // Get the current time
-    const currentDate = new Date();
-  
-    // Calculate the time difference in milliseconds
-    const timeDiff = currentDate.getTime() - postDate?.getTime();
-  
-    // Convert milliseconds to seconds, minutes, hours, or days as needed
-    const seconds = Math.floor(timeDiff / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(minutes / 60);
-    const days = Math.floor(hours / 24);
-  
-    // Return the formatted time string
-    if (days > 0) {
-      if (days === 1) {
-        return `Yesterday`;
-      } else {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        return `${postDate.toLocaleDateString(undefined, options)}`;
-      }
-    } else if (hours > 0) {
-      return `${hours} hour${hours > 1 ? 's' : ''} ago`;
-    } else if (minutes > 0) {
-      return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
-    } else {
-      return `${seconds} second${seconds !== 1 ? 's' : ''} ago`;
-    }
-  };
-  
   const handleReadPost = () => {
     setReadMore(!readMore);
   };
@@ -274,7 +241,7 @@ function Post(prop) {
             style={{ textDecoration: "none" }}
           >
             <h3 className="post__username">{username}</h3>
-            <p>{calculateTime()}</p>
+            <p>{time}</p>
           </Link>
           <div className="social__icon__last">
             <IconButton
@@ -339,7 +306,7 @@ function Post(prop) {
                 <>
                   <p className="post_caption">
                     {caption.substr(0, 700)}
-                    <button class="post__btn" onClick={() => handleReadPost()}>
+                    <button className="post__btn" onClick={() => handleReadPost()}>
                       ... Read More
                     </button>
                   </p>
@@ -349,7 +316,7 @@ function Post(prop) {
                   <p className="post_caption">{caption}</p>
                   {caption.length >= 700 && (
                     <button
-                      class="post__less_btn"
+                      className="post__less_btn"
                       onClick={() => handleReadPost()}
                     >
                       ... Read Less
