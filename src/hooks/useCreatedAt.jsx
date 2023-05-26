@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from "react";
 
 const useCreatedAt = (postTimestamp) => {
-  const [time, setTime] = useState('');
+  const [time, setTime] = useState("");
 
   useEffect(() => {
     const calculateTime = () => {
-      if (!postTimestamp) return ''; // Handle null or undefined case
+      if (!postTimestamp) return ""; // Handle null or undefined case
 
       const postDate = postTimestamp.toDate();
       const currentDate = new Date();
@@ -17,17 +17,17 @@ const useCreatedAt = (postTimestamp) => {
 
       if (days > 0) {
         if (days === 1) {
-          return 'Yesterday';
+          return "Yesterday";
         } else {
-          const options = { year: 'numeric', month: 'long', day: 'numeric' };
+          const options = { year: "numeric", month: "long", day: "numeric" };
           return postDate.toLocaleDateString(undefined, options);
         }
       } else if (hours > 0) {
-        return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
+        return `${hours} hour${hours !== 1 ? "s" : ""} ago`;
       } else if (minutes > 0) {
-        return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
+        return `${minutes} minute${minutes !== 1 ? "s" : ""} ago`;
       } else {
-        return `${seconds} second${seconds !== 1 ? 's' : ''} ago`;
+        return `${seconds} second${seconds !== 1 ? "s" : ""} ago`;
       }
     };
 
