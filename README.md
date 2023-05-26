@@ -243,14 +243,14 @@ E2E Files: `/cypress/e2e/`
 
 Here's a quick rundown on how to get started with open source. First of all, let's know some basic terminologies:
 
-- Git: is a versioning system that lets you store your code and code history on your local computer, preventing loss and allowing sharing of that code
-- Github: is a server that lets you store the history in a database
-- Open Source: A project is said to be open sourced if you can see the code on GitHub
-- Fork: This is a copy that you make of a project on GitHub, it gets added to your repositories
-- Repository: A project on GitHub is called a repository
+- Git: This is a versioning system that lets you store your code and code history on your local computer, preventing loss and allowing sharing of that code.
+- Github: This is a server that lets you store the history in a database.
+- Open Source: A project is said to be open sourced if you can see the code on GitHub.
+- Fork: This is a copy that you make of a project on GitHub, it gets added to your repositories.
+- Repository: A project on GitHub is called a repository.
 - Pull Request: This is a fix for an issue proposed to be done in a project, this consists of you editing a file in the project.
-- Issue: An issue is a change that should be done in a project, can be a bug, a new feature or a suggestion to a project
-- Branch: A branch is a new workspace derived from the default workspace(main or master), it allows you to work on something without affecting the original code
+- Issue: An issue is a change that should be done in a project, can be a bug, a new feature or a suggestion to a project.
+- Branch: A branch is a new workspace derived from the default workspace(main or master) that allows you to work on something without affecting the original code.
 
 Now you know some basic terms, let's get into how to get started with some resources to let you understand open source better:
 
