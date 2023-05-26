@@ -241,10 +241,10 @@ E2E Files: `/cypress/e2e/`
 
 ## How to get started with Open Source
 
-Here's a quick run down on how to get started with open source, first of all let's know some basic terminologies:
+Here's a quick rundown on how to get started with open source. First of all, let's know some basic terminologies:
 
-- Git: is a versioning system that let's you store your code and code history on your local computer preventing loses and allowing sharing of that code
-- Github: is a server that let's you store the history in a database
+- Git: is a versioning system that lets you store your code and code history on your local computer, preventing loss and allowing sharing of that code
+- Github: is a server that lets you store the history in a database
 - Open Source: A project is said to be open sourced if you can see the code on GitHub
 - Fork: This is a copy that you make of a project on GitHub, it gets added to your repositories
 - Repository: A project on GitHub is called a repository
