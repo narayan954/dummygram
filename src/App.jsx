@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  ClickAwayListener,
   Dialog,
   DialogContent,
   Divider,
@@ -196,15 +197,20 @@ function App() {
           alt="dummygram"
           className="app__header__img w-100"
           onClick={() => {
+            if (
+              location.pathname !== "/dummygram/login" &&
+              location.pathname !== "/dummygram/signup"
+            ) {
+              navigate("/dummygram/");
+            }
             window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-            navigate("/dummygram/");
           }}
           style={{
             cursor: "pointer",
           }}
         />
 
-        {user ? (
+{user ? (
           <>
             <Button
               onClick={() => setOpenNewUpload(true)}
@@ -274,7 +280,7 @@ function App() {
               style={{ margin: 5 }}
               sx={buttonStyle}
             >
-              Sign In
+              Log In
             </Button>
 
             <Button
@@ -437,10 +443,9 @@ function App() {
           }
         />
 
-        <Route
-          path="/dummygram/profile"
-          element={user && <Profile curUser={user.toJSON()} />}
-        />
+        {user && (
+          <Route path="/dummygram/profile" element={user && <Profile />} />
+        )}
 
         <Route path="/dummygram/login" element={<LoginScreen />} />
 
