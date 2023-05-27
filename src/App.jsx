@@ -14,6 +14,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import { AiOutlineClose } from "react-icons/ai";
 import AnimatedButton from "./components/AnimatedButton";
 import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
@@ -324,6 +325,13 @@ function App() {
             border: "2px solid var(--color)",
           }}
         >
+          <AiOutlineClose
+            onClick={() => {
+              setOpenNewUpload(false);
+            }}
+            size={25}
+            style={{ position: "absolute", right: "1rem" }}
+          />
           <img
             src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
             alt="instagram"
