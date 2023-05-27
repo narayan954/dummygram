@@ -39,14 +39,15 @@ import TextField from "@mui/material/TextField";
 import { db } from "../lib/firebase";
 import firebase from "firebase/compat/app";
 import { red } from "@mui/material/colors";
+import useCreatedAt from "../hooks/useCreatedAt";
 import { useTheme } from "@mui/material/styles";
 
 const ITEM_HEIGHT = 48;
 
 function Post(prop) {
   const { postId, user, post, shareModal, setLink, setPostText } = prop;
-  const { username, caption, imageUrl, avatar, likecount } = post;
-
+  const { username, caption, imageUrl, avatar, likecount, timestamp } = post;
+  const time = useCreatedAt(timestamp);
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
   const [likesNo, setLikesNo] = useState(likecount ? likecount.length : 0);
@@ -262,6 +263,7 @@ function Post(prop) {
             style={{ textDecoration: "none" }}
           >
             <h3 className="post__username">{username}</h3>
+            <p>{time}</p>
           </Link>
           <div className="social__icon__last">
             <IconButton
@@ -367,7 +369,7 @@ function Post(prop) {
                   <p className="post_caption">{caption}</p>
                   {caption.length >= 700 && (
                     <button
-                      class="post__less_btn"
+                      className="post__less_btn"
                       onClick={() => handleReadPost()}
                     >
                       ... Read Less
