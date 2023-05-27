@@ -448,13 +448,12 @@ function App() {
           }
         />
 
-        {user && (
-          <Route path="/dummygram/profile" element={user && <Profile />} />
-        )}
+        <Route path="/dummygram/profile" element={<Profile />} />
 
         <Route path="/dummygram/login" element={<LoginScreen />} />
 
         <Route path="/dummygram/signup" element={<SignupScreen />} />
+
         <Route
           path="/dummygram/posts/:id"
           element={
