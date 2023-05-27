@@ -14,7 +14,6 @@ import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
-import './Login.css'
 
 const SignupScreen = () => {
   const classes = useStyles();
@@ -27,18 +26,16 @@ const SignupScreen = () => {
   const [signingUp, setSigningUp] = useState(false);
   const [image, setImage] = useState(null);
   const [address, setAddress] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
-
-  const [showPassword, setShowPassword] = useState(false);
 
   const handleShowPassword = (e) => {
     e.preventDefault();
     setShowPassword(!showPassword);
   };
-
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleShowConfirmPassword = (e) => {
     e.preventDefault();

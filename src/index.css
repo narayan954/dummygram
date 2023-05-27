@@ -34,6 +34,14 @@
   background-color: var(--bg-color);
 }
 
+input:hover {
+  cursor: text;
+}
+
+input:focus {
+  outline: none;
+}
+
 /* Add media query in navbar for responsiveness */
 @media only screen and (max-width: 460px) {
   .app__header__img {

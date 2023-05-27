@@ -4,13 +4,11 @@ import { auth, facebookProvider, googleProvider } from "../lib/firebase";
 import { faGoogle, faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
 import { getModalStyle, useStyles } from "../App";
 
-import { Button } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Logo from "../assets/logo.png";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
-import './Login.css'
 
 const LoginScreen = () => {
   const classes = useStyles();
@@ -121,8 +119,6 @@ const LoginScreen = () => {
               boxShadow: "0 0 20px rgba(104, 85, 224, 0.2)",
               borderRadius: "4px",
               // padding: "10px",
-              
-              
             }}
           >
             <input
