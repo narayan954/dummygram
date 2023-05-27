@@ -34,7 +34,9 @@ const DialogBox = (props) => {
 
       <Divider />
 
-      <DialogContent sx={{ color: "var(--color)" }}>
+      <DialogContent
+        sx={{ color: "var(--color)", backgroundColor: "var(--bg-color)" }}
+      >
         <DialogContentText>{props.children}</DialogContentText>
       </DialogContent>
 
