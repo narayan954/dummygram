@@ -22,6 +22,7 @@ const SignupScreen = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [cpassword, sPassword] = useState("");
   const [signingUp, setSigningUp] = useState(false);
   const [image, setImage] = useState(null);
   const [address, setAddress] = useState(null);
@@ -36,6 +37,13 @@ const SignupScreen = () => {
     setShowPassword(!showPassword);
   };
 
+  const [showCPassword, setCShowPassword] = useState(false);
+
+  const handleCShowPassword = (e) => {
+    e.preventDefault();
+    setCShowPassword(!showCPassword);
+  };
+
   const handleChange = (e) => {
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
@@ -48,6 +56,12 @@ const SignupScreen = () => {
     setSigningUp(true);
     if (username === "") {
       enqueueSnackbar("Username cannot be blank", {
+        variant: "error",
+      });
+      return;
+    }
+    if(password != cpassword){
+      enqueueSnackbar("Password dosen't match", {
         variant: "error",
       });
       return;
@@ -231,6 +245,52 @@ const SignupScreen = () => {
               {showPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
             </button>
           </div>
+
+         {/* Confirm password */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              width: "100%",
+              border: "1px solid rgba(104, 85, 224, 1)",
+              height: "100%",
+              boxSizing: "border-box",
+              marginTop: "10px",
+              backgroundColor: "white",
+              boxShadow: "0 0 20px rgba(104, 85, 224, 0.2)",
+              borderRadius: "4px",
+              // padding: "10px",
+            }}
+          >
+            <input
+              type={showCPassword ? "text" : "password"}
+              placeholder="Confirm Password"
+              value={cpassword}
+              onChange={(e) => sPassword(e.target.value)}
+              style={{
+                width: "100%",
+                border: "none",
+                margin: 0,
+                boxShadow: "none",
+              }}
+            />
+            <button
+              onClick={(e) => handleCShowPassword(e)}
+              style={{
+                height: "100%",
+                width: "50px",
+                margin: 0,
+                background: "transparent",
+                outline: "none",
+                border: "none",
+                cursor: "pointer",
+              }}
+            >
+              {showCPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
+              </button>
+          </div>
+
           <button type="submit" onClick={signUp} className="button signup">
             Sign Up <FontAwesomeIcon icon={faRightToBracket} />
           </button>
