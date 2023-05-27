@@ -505,7 +505,7 @@ function Post(prop) {
                 title="All Comments"
               >
                 <Box sx={{ flexGrow: 1 }}>
-                  <Grid container>
+                  <Grid container spacing={2}>
                     <Grid item xs={6} md={6}>
                       <Item>
                         {postHasImages ? (
