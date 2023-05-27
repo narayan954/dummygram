@@ -22,7 +22,7 @@ const SignupScreen = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [Confirmpassword, setConfirmPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [signingUp, setSigningUp] = useState(false);
   const [image, setImage] = useState(null);
   const [address, setAddress] = useState(null);
@@ -37,11 +37,11 @@ const SignupScreen = () => {
     setShowPassword(!showPassword);
   };
 
-  const [showConfirmPassword, setConfirmShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleConfirmShowPassword = (e) => {
+  const handleShowConfirmPassword = (e) => {
     e.preventDefault();
-    setConfirmShowPassword(!showConfirmPassword);
+    setShowConfirmPassword(!showConfirmPassword);
   };
 
   const handleChange = (e) => {
@@ -60,7 +60,7 @@ const SignupScreen = () => {
       });
       return;
     }
-    if(password != Confirmpassword){
+    if(password != confirmPassword){
       enqueueSnackbar("Password dosen't match", {
         variant: "error",
       });
@@ -266,7 +266,7 @@ const SignupScreen = () => {
             <input
               type={showConfirmPassword ? "text" : "password"}
               placeholder="Confirm Password"
-              value={Confirmpassword}
+              value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               style={{
                 width: "100%",
@@ -276,7 +276,7 @@ const SignupScreen = () => {
               }}
             />
             <button
-              onClick={(e) => handleConfirmShowPassword(e)}
+              onClick={(e) => handleShowConfirmPassword(e)}
               style={{
                 height: "100%",
                 width: "50px",
