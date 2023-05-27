@@ -7,11 +7,22 @@
 
 ### _Instagram_, dummified
 
-![Issues](https://img.shields.io/github/issues/narayan954/dummygram?color=brightgreen)
-![Pull requests](https://img.shields.io/github/issues-pr/narayan954/dummygram)
-![Forks](https://img.shields.io/github/forks/narayan954/dummygram)
-![Stars](https://img.shields.io/github/stars/narayan954/dummygram)
-![Licence](https://img.shields.io/github/license/narayan954/dummygram?color=orange)
+<div align="center">
+      <img src="https://forthebadge.com/images/badges/built-with-love.svg" />
+      <img src="https://forthebadge.com/images/badges/uses-brains.svg" />
+      <img src="https://forthebadge.com/images/badges/powered-by-responsibility.svg" />
+      <br>
+      <img src="https://img.shields.io/github/repo-size/narayan954/dummygram?style=for-the-badge" />
+      <img src="https://img.shields.io/github/issues/narayan954/dummygram?style=for-the-badge" />
+      <img src="https://img.shields.io/github/issues-raw/narayan954/dummygram?style=for-the-badge" />
+      <img src="https://img.shields.io/github/forks/narayan954/dummygram?style=for-the-badge" />
+      <img src="https://img.shields.io/github/issues-pr-closed/narayan954/dummygram?style=for-the-badge" />
+      <br>
+      <img src="https://img.shields.io/github/stars/narayan954/dummygram?style=for-the-badge" />
+      <img src="https://img.shields.io/github/contributors/narayan954/dummygram?style=for-the-badge" />
+      <img src="https://img.shields.io/github/issues-pr-closed/narayan954/dummygram?style=for-the-badge" />
+      <img src="https://img.shields.io/github/last-commit/narayan954/dummygram?style=for-the-badge" />
+ </div>
 
 ---
 
@@ -230,16 +241,16 @@ E2E Files: `/cypress/e2e/`
 
 ## How to get started with Open Source
 
-Here's a quick run down on how to get started with open source, first of all let's know some basic terminologies:
+Here's a quick rundown on how to get started with open source. First of all, let's know some basic terminologies:
 
-- Git: is a versioning system that let's you store your code and code history on your local computer preventing loses and allowing sharing of that code
-- Github: is a server that let's you store the history in a database
-- Open Source: A project is said to be open sourced if you can see the code on GitHub
-- Fork: This is a copy that you make of a project on GitHub, it gets added to your repositories
-- Repository: A project on GitHub is called a repository
+- Git: This is a versioning system that lets you store your code and code history on your local computer, preventing loss and allowing sharing of that code.
+- Github: This is a server that lets you store the history in a database.
+- Open Source: A project is said to be open sourced if you can see the code on GitHub.
+- Fork: This is a copy that you make of a project on GitHub, it gets added to your repositories.
+- Repository: A project on GitHub is called a repository.
 - Pull Request: This is a fix for an issue proposed to be done in a project, this consists of you editing a file in the project.
-- Issue: An issue is a change that should be done in a project, can be a bug, a new feature or a suggestion to a project
-- Branch: A branch is a new workspace derived from the default workspace(main or master), it allows you to work on something without affecting the original code
+- Issue: An issue is a change that should be done in a project, can be a bug, a new feature or a suggestion to a project.
+- Branch: A branch is a new workspace derived from the default workspace(main or master) that allows you to work on something without affecting the original code.
 
 Now you know some basic terms, let's get into how to get started with some resources to let you understand open source better:
 

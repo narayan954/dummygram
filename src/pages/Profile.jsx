@@ -1,8 +1,10 @@
-import { Box, Divider, Typography, useMediaQuery } from "@mui/material";
+import { Avatar, Box, Divider, Typography, useMediaQuery } from "@mui/material";
 
 import { FaUserCircle } from "react-icons/fa";
+import { useLocation } from "react-router-dom";
 
-function Profile({ curUser }) {
+function Profile() {
+  const { name, email, avatar } = useLocation().state;
   const isNonMobile = useMediaQuery("(min-width: 768px)");
 
   return (
@@ -21,15 +23,32 @@ function Profile({ curUser }) {
       >
         <Box display="flex" flexDirection="column" gap={1}>
           <Box marginX="auto" fontSize="600%">
-            <FaUserCircle />
-            <Divider />
+            {avatar ? (
+              <Avatar
+                alt={name}
+                src={avatar}
+                sx={{
+                  width: "30vh",
+                  height: "30vh",
+                  bgcolor: "royalblue",
+                  border: "2px solid transparent",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  cursor: "pointer",
+                }}
+              />
+            ) : (
+              <FaUserCircle style={{ width: "25vh", height: "25vh" }} />
+            )}
           </Box>
+          <Divider sx={{ marginTop: "1rem" }} />
           <Typography fontSize="1.3rem" fontWeight="600" fontFamily="serif">
-            {curUser.displayName}
+            {name}
           </Typography>
           <Divider />
           <Typography fontSize="1.5rem" fontWeight="600" fontFamily="serif">
-            {curUser.email}
+            {email && email}
           </Typography>
         </Box>
       </Box>

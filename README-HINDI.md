@@ -6,11 +6,22 @@
 
 ### _इंस्टाग्राम_, डमीफाइड
 
-![Issues](https://img.shields.io/github/issues/narayan954/dummygram?color=brightgreen)
-![Pull requests](https://img.shields.io/github/issues-pr/narayan954/dummygram)
-![Forks](https://img.shields.io/github/forks/narayan954/dummygram)
-![Stars](https://img.shields.io/github/stars/narayan954/dummygram)
-![Licence](https://img.shields.io/github/license/narayan954/dummygram?color=orange)
+<div align="center">
+      <img src="https://forthebadge.com/images/badges/built-with-love.svg" />
+      <img src="https://forthebadge.com/images/badges/uses-brains.svg" />
+      <img src="https://forthebadge.com/images/badges/powered-by-responsibility.svg" />
+      <br>
+      <img src="https://img.shields.io/github/repo-size/narayan954/dummygram?style=for-the-badge" />
+      <img src="https://img.shields.io/github/issues/narayan954/dummygram?style=for-the-badge" />
+      <img src="https://img.shields.io/github/issues-raw/narayan954/dummygram?style=for-the-badge" />
+      <img src="https://img.shields.io/github/forks/narayan954/dummygram?style=for-the-badge" />
+      <img src="https://img.shields.io/github/issues-pr-closed/narayan954/dummygram?style=for-the-badge" />
+      <br>
+      <img src="https://img.shields.io/github/stars/narayan954/dummygram?style=for-the-badge" />
+      <img src="https://img.shields.io/github/contributors/narayan954/dummygram?style=for-the-badge" />
+      <img src="https://img.shields.io/github/issues-pr-closed/narayan954/dummygram?style=for-the-badge" />
+      <img src="https://img.shields.io/github/last-commit/narayan954/dummygram?style=for-the-badge" />
+ </div>
 
 ---
 

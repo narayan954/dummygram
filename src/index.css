@@ -34,6 +34,19 @@
   background-color: var(--bg-color);
 }
 
+/* Add media query in navbar for responsiveness */
+@media only screen and (max-width: 460px) {
+  .app__header__img {
+    object-fit: contain;
+    width: 120px;
+  }
+  .app__header {
+    width: 100%;
+    padding: 10px;
+    font-size: "8px";
+  }
+}
+
 .app__posts {
   padding: 20px;
   padding-top: 5.5em;
@@ -42,10 +55,21 @@
 /* Post style */
 .post {
   max-width: 400px;
+  margin-top: 20px;
+  padding: 5px;
   border: 1px solid rgba(0, 0, 0, 0.373);
   border-radius: 5px;
   margin-bottom: 20px;
   word-wrap: break-word;
+}
+
+/* Added media query in post for responsiveness */
+@media only screen and (max-width: 460px) {
+  .post {
+    max-width: 320px;
+    padding: 5px;
+    margin-top: 25px;
+  }
 }
 
 .post__img {
@@ -135,7 +159,7 @@
 
 .post__background {
   min-height: 250px;
-  background: linear-gradient(
+  /* background: linear-gradient(
     45deg,
     #abdb10,
     #cbdb51,
@@ -143,20 +167,39 @@
     #e263ab,
     #30e19d,
     #a1d9c9
-  );
-  color: rgb(145, 230, 227);
+  ); */
+  background: url(./images/postbg.avif);
+  background-size: cover;
+  /* color: rgb(145, 230, 227); */
+  color: black;
   justify-content: center;
-  display: flex;
   align-items: center;
   font-weight: 600;
   position: relative;
 }
 
+.post__btn {
+  position: absolute;
+  right: 15px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.post__less_btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
 .post_caption {
-  width: 24em;
+  text-align: center;
   padding: 8px;
-  font-weight: 600;
-  color: rgb(145, 230, 227);
+  font-weight: 400;
+  font-size: 15px;
+  color: black;
 }
 
 .post__comments {
@@ -165,6 +208,8 @@
   flex-direction: column;
   align-items: flex-start;
   font-size: 15px;
+  text-align: left;
+  word-break: break-word;
 }
 
 /* signup modal */
@@ -464,11 +509,13 @@ input {
   width: 50px;
   height: 50px;
 }
+
 .have-account {
   color: var(--color);
   font-size: 13px;
   margin: 10px 0;
 }
+
 .have-account span {
   color: rgb(104, 85, 224);
   border-bottom: 2px solid rgb(104, 85, 224);

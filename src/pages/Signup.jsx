@@ -60,7 +60,7 @@ const SignupScreen = () => {
       });
       return;
     }
-    if(password != confirmPassword){
+    if (password != confirmPassword) {
       enqueueSnackbar("Password dosen't match", {
         variant: "error",
       });
@@ -246,7 +246,7 @@ const SignupScreen = () => {
             </button>
           </div>
 
-         {/* Confirm password */}
+          {/* Confirm password */}
           <div
             style={{
               display: "flex",
@@ -288,7 +288,7 @@ const SignupScreen = () => {
               }}
             >
               {showConfirmPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
-              </button>
+            </button>
           </div>
 
           <button type="submit" onClick={signUp} className="button signup">

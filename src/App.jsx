@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  ClickAwayListener,
   Dialog,
   DialogContent,
   Divider,
@@ -196,8 +197,13 @@ function App() {
           alt="dummygram"
           className="app__header__img w-100"
           onClick={() => {
+            if (
+              location.pathname !== "/dummygram/login" &&
+              location.pathname !== "/dummygram/signup"
+            ) {
+              navigate("/dummygram/");
+            }
             window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-            navigate("/dummygram/");
           }}
           style={{
             cursor: "pointer",
@@ -212,53 +218,61 @@ function App() {
               variant="contained"
               sx={buttonStyle}
             >
-              <AddCircleOutlineIcon
-                style={{ padding: "2px", marginRight: "4" }}
-              />
+              <AddCircleOutlineIcon style={{ marginRight: "4" }} />
               New Post
             </Button>
-            <Button
-              onClick={() => setOpen((cur) => !cur)}
-              color="secondary"
-              variant="contained"
-              sx={{ ...buttonStyle, marginRight: "10px" }}
-            >
-              <FaUserCircle fontSize="large" />
-              {open && (
-                <Box
-                  backgroundColor="black"
-                  position="absolute"
-                  borderRadius="4px"
-                  marginTop={14}
-                  sx={{
-                    vertical: "top",
-                    border: "2px solid white",
-                  }}
-                >
+            <ClickAwayListener onClickAway={() => setOpen(false)}>
+              <Button
+                onClick={() => setOpen((cur) => !cur)}
+                color="secondary"
+                variant="contained"
+                sx={{ ...buttonStyle, marginRight: "10px" }}
+              >
+                <FaUserCircle fontSize="large" />
+                {open && (
                   <Box
-                    display="flex"
-                    padding="0.5rem"
-                    sx={{ cursor: "pointer" }}
-                    onClick={() => navigate("/dummygram/profile")}
+                    backgroundColor="black"
+                    position="absolute"
+                    borderRadius="4px"
+                    marginTop={14}
+                    sx={{
+                      vertical: "top",
+                      border: "2px solid white",
+                    }}
                   >
-                    <Typography fontFamily="serif" fontSize="1rem">
-                      Profile
-                    </Typography>
+                    <Box
+                      display="flex"
+                      padding="0.5rem"
+                      sx={{ cursor: "pointer" }}
+                      onClick={() =>
+                        navigate("/dummygram/profile", {
+                          state: {
+                            name: user.toJSON().displayName,
+                            email: user.toJSON().email,
+                            avatar: user.toJSON().photoURL,
+                          },
+                        })
+                      }
+                    >
+                      <Typography fontFamily="serif" fontSize="1rem">
+                        Profile
+                      </Typography>
+                    </Box>
+                    <Divider />
+                    <Box
+                      display="flex"
+                      padding="0.5rem"
+                      sx={{ cursor: "pointer" }}
+                      onClick={() => setLogout(true)}
+                    >
+                      <Typography fontFamily="serif" fontSize="0.9rem">
+                        Log Out
+                      </Typography>
+                    </Box>
                   </Box>
-                  <Divider />
-                  <Box
-                    display="flex"
-                    padding="0.5rem"
-                    sx={{ cursor: "pointer" }}
-                    onClick={() => setLogout(true)}
-                  >
-                    <Typography fontFamily="serif" fontSize="0.9rem">
-                      Log Out
-                    </Typography>
-                  </Box>
-                </Box>
-              )}
-            </Button>
+                )}
+              </Button>
+            </ClickAwayListener>
           </>
         ) : (
           <div className="login__container">
@@ -271,7 +285,7 @@ function App() {
               style={{ margin: 5 }}
               sx={buttonStyle}
             >
-              Sign In
+              Log In
             </Button>
 
             <Button
@@ -434,10 +448,9 @@ function App() {
           }
         />
 
-        <Route
-          path="/dummygram/profile"
-          element={user && <Profile curUser={user.toJSON()} />}
-        />
+        {user && (
+          <Route path="/dummygram/profile" element={user && <Profile />} />
+        )}
 
         <Route path="/dummygram/login" element={<LoginScreen />} />
 
