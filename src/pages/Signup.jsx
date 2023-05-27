@@ -22,7 +22,7 @@ const SignupScreen = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [cpassword, sPassword] = useState("");
+  const [Confirmpassword, setConfirmPassword] = useState("");
   const [signingUp, setSigningUp] = useState(false);
   const [image, setImage] = useState(null);
   const [address, setAddress] = useState(null);
@@ -37,11 +37,11 @@ const SignupScreen = () => {
     setShowPassword(!showPassword);
   };
 
-  const [showCPassword, setCShowPassword] = useState(false);
+  const [showConfirmPassword, setConfirmShowPassword] = useState(false);
 
-  const handleCShowPassword = (e) => {
+  const handleConfirmShowPassword = (e) => {
     e.preventDefault();
-    setCShowPassword(!showCPassword);
+    setConfirmShowPassword(!showConfirmPassword);
   };
 
   const handleChange = (e) => {
@@ -60,7 +60,7 @@ const SignupScreen = () => {
       });
       return;
     }
-    if(password != cpassword){
+    if(password != Confirmpassword){
       enqueueSnackbar("Password dosen't match", {
         variant: "error",
       });
@@ -264,10 +264,10 @@ const SignupScreen = () => {
             }}
           >
             <input
-              type={showCPassword ? "text" : "password"}
+              type={showConfirmPassword ? "text" : "password"}
               placeholder="Confirm Password"
-              value={cpassword}
-              onChange={(e) => sPassword(e.target.value)}
+              value={Confirmpassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               style={{
                 width: "100%",
                 border: "none",
@@ -276,7 +276,7 @@ const SignupScreen = () => {
               }}
             />
             <button
-              onClick={(e) => handleCShowPassword(e)}
+              onClick={(e) => handleConfirmShowPassword(e)}
               style={{
                 height: "100%",
                 width: "50px",
@@ -287,7 +287,7 @@ const SignupScreen = () => {
                 cursor: "pointer",
               }}
             >
-              {showCPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
+              {showConfirmPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
               </button>
           </div>
 
