@@ -232,13 +232,16 @@ function App() {
                 <FaUserCircle fontSize="large" />
                 {open && (
                   <Box
-                    backgroundColor="black"
+                    backgroundColor="#fff"
+                    color="black"
+                    padding="2px"
                     position="absolute"
                     borderRadius="4px"
-                    marginTop={14}
+                    marginTop={16}
+                    marginRight={3}
                     sx={{
                       vertical: "top",
-                      border: "2px solid white",
+                      border: "1px solid black",
                     }}
                   >
                     <Box
