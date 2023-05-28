@@ -1,12 +1,16 @@
 import { Avatar, Box, Divider, Typography, useMediaQuery } from "@mui/material";
 
 import { FaUserCircle } from "react-icons/fa";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Profile() {
   const { name, email, avatar } = useLocation().state;
   const isNonMobile = useMediaQuery("(min-width: 768px)");
+  const navigate = useNavigate();
 
+  const handleBack = () => {
+    navigate('/dummygram'); // Use navigate function to change the URL
+  };
   return (
     <Box
       height="100vh"
@@ -50,6 +54,9 @@ function Profile() {
           <Typography fontSize="1.5rem" fontWeight="600" fontFamily="serif">
             {email && email}
           </Typography>
+          <Button onClick={handleBack} variant="outlined" sx={{ marginTop: "1rem" }}>
+            Back
+          </Button>
         </Box>
       </Box>
     </Box>
