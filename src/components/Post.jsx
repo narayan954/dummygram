@@ -421,7 +421,11 @@ function Post(prop) {
               <input
                 className="post__input"
                 type="text"
-                placeholder="Add a comment..."
+                placeholder={
+                  comments.length !== 0
+                    ? "Add a comment..."
+                    : "Be the first one to comment..."
+                }
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
                 style={{
@@ -504,9 +508,17 @@ function Post(prop) {
                   margin: "12px 8px",
                   fontSize: "12px",
                   fontWeight: "bold",
+                  "&.Mui-disabled": {
+                    color: "#616161",
+                  },
                 }}
+                disabled={comments.length !== 0 ? false : true}
               >
-                View All comments
+                {comments.length > 1
+                  ? `View all ${comments.length} comments`
+                  : comments.length === 1
+                  ? `View 1 comment`
+                  : "No comments yet"}
               </Button>
               <DialogBox
                 open={isCommentOpen}
@@ -536,7 +548,7 @@ function Post(prop) {
                                   <p key={userComment.id}>
                                     <strong>
                                       {userComment.content.username}
-                                    </strong>{" "}
+                                    </strong>
                                     {userComment.content.text}
                                     <span
                                       onClick={(event) =>
