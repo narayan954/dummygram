@@ -529,3 +529,23 @@ input {
   border-bottom: 2px solid rgb(104, 85, 224);
   cursor: pointer;
 }
+
+.cameraBtn button{
+  margin: 20px;
+  padding: 8px;
+  background: rgb(223,95,218);
+  background: linear-gradient(40deg, rgba(223,95,218,1) 53%, rgba(104,197,213,1) 100%);
+  /* border: 1px solid var(--color); */
+  border: none;
+  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+  cursor:pointer;
+  
+}
+.takePic p{
+  margin-top: 15px;
+  font-size: 22px;
+    font-family: monospace;
+    color: var(--color);
+}
+

@@ -7,6 +7,9 @@ import { db, handleMultiUpload, storage } from "../lib/firebase";
 import AnimatedButton from "./AnimatedButton";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
+import AllCameraimg from "./AllCameraimg";
+import Camera from "./Camera";
+
 
 function ImgUpload(props) {
   const [image, setImage] = useState(null);
@@ -160,6 +163,8 @@ function ImgUpload(props) {
                 disabled={uploadingPost}
               />
               <label htmlFor="file">Upload Picture</label>
+              <Camera />
+              
             </div>
           </center>
         </>
