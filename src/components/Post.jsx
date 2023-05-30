@@ -22,7 +22,6 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { doc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
-
 import CommentIcon from "@mui/icons-material/Comment";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import DialogBox from "../reusableComponents/DialogBox";
@@ -58,6 +57,7 @@ function Post(prop) {
   const [openEditCaption, setOpenEditCaption] = useState(false);
   const [isCommentOpen, setisCommentOpen] = useState(false);
   const [readMore, setReadMore] = useState(false);
+  const [openToDeleteComment, setOpenToDeleteComment] = useState(false);
   const navigate = useNavigate();
 
   const theme = useTheme();
@@ -199,13 +199,16 @@ function Post(prop) {
     setOpen(true);
     setAnchorEl(null);
   };
+
   const handleClickOpenCaption = async () => {
     setOpenEditCaption(true);
   };
+
   const handleClickClosedCaption = () => {
     setEditCaption(caption);
     setOpenEditCaption(false);
   };
+  
   const handleSubmitCaption = async () => {
     const taskDocRef = doc(db, "posts", postId);
     try {
@@ -229,6 +232,10 @@ function Post(prop) {
   const handleCommentClose = () => {
     setisCommentOpen(false);
   };
+
+  const handleCloseForDeleteComment = () => {
+    setOpenToDeleteComment(false)
+  }
 
   const handleReadPost = () => {
     setReadMore(!readMore);
@@ -517,8 +524,8 @@ function Post(prop) {
                 {comments.length > 1
                   ? `View all ${comments.length} comments`
                   : comments.length === 1
-                  ? `View 1 comment`
-                  : "No comments yet"}
+                    ? `View 1 comment`
+                    : "No comments yet"}
               </Button>
               <DialogBox
                 open={isCommentOpen}
@@ -550,13 +557,30 @@ function Post(prop) {
                                       {userComment.content.username}
                                     </strong>
                                     {userComment.content.text}
-                                    <span
-                                      onClick={(event) =>
-                                        deleteComment(event, userComment)
-                                      }
-                                    >
+                                    <span onClick={() => {
+                                      setOpenToDeleteComment(!openToDeleteComment)
+                                    }}>
+                                      {openToDeleteComment ?
+                                        <Dialog
+                                          fullScreen={fullScreen}
+                                          open={openToDeleteComment}
+                                          onClose={handleCloseForDeleteComment}
+                                          aria-labelledby="responsive-dialog-title">
+                                          <DialogTitle id="responsive-dialog-title">
+                                            {"Delete Comment?"}
+                                          </DialogTitle>
+                                          <DialogContent>
+                                            <DialogContentText>
+                                              Are you sure you want to delete this Comment?
+                                            </DialogContentText>
+                                          </DialogContent>
+                                          <DialogActions>
+                                            <Button onClick={handleCloseForDeleteComment}>Cancel</Button>
+                                            <Button onClick={(event) => deleteComment(event, userComment)}>Delete</Button>
+                                          </DialogActions>
+                                        </Dialog> : null}
                                       {user &&
-                                      userComment.content.username ===
+                                        userComment.content.username ===
                                         user.displayName ? (
                                         <DeleteTwoToneIcon fontSize="small" />
                                       ) : (
