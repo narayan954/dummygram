@@ -15,6 +15,7 @@ import { auth, db } from "./lib/firebase";
 
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineClose } from "react-icons/ai";
+import AllCameraimg from "./components/AllCameraimg";
 import AnimatedButton from "./components/AnimatedButton";
 import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
@@ -28,8 +29,6 @@ import SignupScreen from "./pages/Signup";
 import logo from "./assets/logo.png";
 import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
-import AllCameraimg from "./components/AllCameraimg";
-
 
 export function getModalStyle() {
   const top = 50;
@@ -194,7 +193,6 @@ function App() {
 
   return (
     <div className="app">
-      
       <div className="app__header">
         <img
           src={logo}
@@ -224,9 +222,8 @@ function App() {
             >
               <AddCircleOutlineIcon style={{ marginRight: "4" }} />
               New Post
-
             </Button>
-            
+
             <ClickAwayListener onClickAway={() => setOpen(false)}>
               <Button
                 onClick={() => setOpen((cur) => !cur)}

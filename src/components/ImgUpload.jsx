@@ -4,14 +4,13 @@ import { LinearProgress, TextField } from "@mui/material";
 import React, { useRef, useState } from "react";
 import { db, handleMultiUpload, storage } from "../lib/firebase";
 
+import AllCameraimg from "./AllCameraimg";
 import AnimatedButton from "./AnimatedButton";
+import Camera from "./Camera";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
-import AllCameraimg from "./AllCameraimg";
-import Camera from "./Camera";
 
-
-function ImgUpload(props) {
+export default function ImgUpload(props) {
   const [image, setImage] = useState(null);
   const [caption, setCaption] = useState("");
   const [progress, setProgress] = useState(0);
@@ -164,7 +163,6 @@ function ImgUpload(props) {
               />
               <label htmlFor="file">Upload Picture</label>
               <Camera />
-              
             </div>
           </center>
         </>
@@ -214,5 +212,3 @@ function ImgUpload(props) {
     </div>
   );
 }
-
-export default ImgUpload;
