@@ -49,6 +49,7 @@ function Post(prop) {
   const time = useCreatedAt(timestamp);
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
+  const [deleteCommentID, setDeleteCommentID] = useState('')
   const [likesNo, setLikesNo] = useState(likecount ? likecount.length : 0);
   const [anchorEl, setAnchorEl] = useState(null);
   const [editCaption, setEditCaption] = useState(caption);
@@ -208,7 +209,7 @@ function Post(prop) {
     setEditCaption(caption);
     setOpenEditCaption(false);
   };
-  
+
   const handleSubmitCaption = async () => {
     const taskDocRef = doc(db, "posts", postId);
     try {
@@ -552,40 +553,32 @@ function Post(prop) {
                             {comments.length ? (
                               <>
                                 {comments.map((userComment) => (
-                                  <p key={userComment.id}>
-                                    <strong>
-                                      {userComment.content.username}
-                                    </strong>
+                                  <p key={userComment.id} >
+                                    <strong>{userComment.content.username}</strong>
                                     {userComment.content.text}
                                     <span onClick={() => {
                                       setOpenToDeleteComment(!openToDeleteComment)
+                                      setDeleteCommentID(userComment)
                                     }}>
-                                      {openToDeleteComment ?
-                                        <Dialog
-                                          fullScreen={fullScreen}
-                                          open={openToDeleteComment}
-                                          onClose={handleCloseForDeleteComment}
-                                          aria-labelledby="responsive-dialog-title">
-                                          <DialogTitle id="responsive-dialog-title">
-                                            {"Delete Comment?"}
-                                          </DialogTitle>
-                                          <DialogContent>
-                                            <DialogContentText>
-                                              Are you sure you want to delete this Comment?
-                                            </DialogContentText>
-                                          </DialogContent>
-                                          <DialogActions>
-                                            <Button onClick={handleCloseForDeleteComment}>Cancel</Button>
-                                            <Button onClick={(event) => deleteComment(event, userComment)}>Delete</Button>
-                                          </DialogActions>
-                                        </Dialog> : null}
-                                      {user &&
-                                        userComment.content.username ===
-                                        user.displayName ? (
-                                        <DeleteTwoToneIcon fontSize="small" />
-                                      ) : (
-                                        <></>
-                                      )}
+                                      {user && userComment.content.username === user.displayName ? <DeleteTwoToneIcon fontSize="small" /> : <></>}
+                                      {<Dialog
+                                        fullScreen={fullScreen}
+                                        open={openToDeleteComment}
+                                        onClose={handleCloseForDeleteComment}
+                                        aria-labelledby="responsive-dialog-title">
+                                        <DialogTitle id="responsive-dialog-title">
+                                          {"Delete Comment?"}
+                                        </DialogTitle>
+                                        <DialogContent>
+                                          <DialogContentText>
+                                            Are you sure you want to delete this Comment?
+                                          </DialogContentText>
+                                        </DialogContent>
+                                        <DialogActions>
+                                          <Button onClick={handleCloseForDeleteComment}>Cancel</Button>
+                                          <Button onClick={(event) => deleteComment(event, deleteCommentID)}>Delete</Button>
+                                        </DialogActions>
+                                      </Dialog>}
                                     </span>
                                     <hr />
                                   </p>
@@ -600,7 +593,6 @@ function Post(prop) {
                     </Grid>
                   </Grid>
                 </Box>
-
                 {user && (
                   <form className="post__commentBox">
                     <div className="social__icon">
@@ -655,8 +647,8 @@ function Post(prop) {
             </form>
           )}
         </div>
-      </div>
-    </ClickAwayListener>
+      </div >
+    </ClickAwayListener >
   );
 }
 
