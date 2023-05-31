@@ -18,8 +18,8 @@ function Profile() {
   const isNonMobile = useMediaQuery("(min-width: 768px)");
   const { enqueueSnackbar } = useSnackbar();
   const [image, setImage] = useState("");
-  const [img, setAvatar] = useState(avatar);
-  const [visible,setVisibility] = useState(false);
+  const [profilepic, setProfilePic] = useState(avatar);
+  const [visible,setVisibile] = useState(false);
   const navigate = useNavigate();
 
   const handleBack = () => {
@@ -28,13 +28,11 @@ function Profile() {
 
   const handleChange = (e) => {
     if (e.target.files[0]) {
-      setAvatar(URL.createObjectURL(e.target.files[0]));
+      setProfilePic(URL.createObjectURL(e.target.files[0]));
       setImage(e.target.files[0]);
-      setVisibility(true);
+      setVisibile(true);
     }
   };
-  console.log(name)
-  console.log(auth.currentUser.displayName)
   const handleSave = async() => {
     const uploadTask =  storage.ref(`images/${image?.name}`).put(image);
    await uploadTask.on(
@@ -64,7 +62,7 @@ function Profile() {
           });
       }
     );
-    setVisibility(false);
+    setVisibile(false);
   };
 
   return (
@@ -83,10 +81,10 @@ function Profile() {
       >
         <Box display="flex" flexDirection="column" gap={1}>
           <Box marginX="auto" fontSize="600%">
-            {img ? (
+            {profilepic ? (
                   <Avatar
                     alt={name}
-                    src={img}
+                    src={profilepic}
                     sx={{
                       width: "30vh",
                       height: "30vh",
@@ -116,6 +114,13 @@ function Profile() {
             </div>
           </label>
           </Box>:""}
+          {visible && (<Button
+            onClick={handleSave}
+            variant="outlined"
+            sx={{ marginTop: "1rem" }}
+          >
+           Save
+          </Button>)}
           <Divider sx={{ marginTop: "1rem" }} />
           <Typography fontSize="1.3rem" fontWeight="600" fontFamily="serif">
             {name}
@@ -131,13 +136,6 @@ function Profile() {
           >
             Back
           </Button>
-          {visible && (<Button
-            onClick={handleSave}
-            variant="outlined"
-            sx={{ marginTop: "1rem" }}
-          >
-           Save
-          </Button>)}
         </Box>
       </Box>
     </Box>
