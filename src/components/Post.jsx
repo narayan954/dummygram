@@ -41,6 +41,7 @@ import firebase from "firebase/compat/app";
 import { red } from "@mui/material/colors";
 import useCreatedAt from "../hooks/useCreatedAt";
 import { useTheme } from "@mui/material/styles";
+import { saveAs } from "file-saver";
 
 const ITEM_HEIGHT = 48;
 
@@ -199,6 +200,10 @@ function Post(prop) {
     setOpen(true);
     setAnchorEl(null);
   };
+  const handleDownload = () => {
+    const urlimg = JSON.parse(imageUrl)[0].imageUrl;
+    saveAs(urlimg, "image");
+  };
   const handleClickOpenCaption = async () => {
     setOpenEditCaption(true);
   };
@@ -288,6 +293,36 @@ function Post(prop) {
             >
               <MoreHorizOutlinedIcon />
             </IconButton>
+            <Menu
+              id="long-menu"
+              MenuListProps={{
+                "aria-labelledby": "long-button",
+              }}
+              anchorEl={anchorEl}
+              open={open}
+              onClose={() => setAnchorEl(null)}
+              PaperProps={{
+                style: {
+                  maxHeight: ITEM_HEIGHT * 4.5,
+                  width: "20ch",
+                },
+              }}
+            >
+              <MenuItem onClick={handleDownload}> Download </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  navigate("/dummygram/profile", {
+                    state: {
+                      name: username,
+                      avatar: avatar,
+                    },
+                  });
+                }}
+              >
+                {" "}
+                Visit Profile{" "}
+              </MenuItem>
+            </Menu>
             {user && username == user.displayName && (
               <Menu
                 id="long-menu"
@@ -306,6 +341,7 @@ function Post(prop) {
               >
                 <MenuItem onClick={handleClickOpen}> Delete </MenuItem>
                 <MenuItem onClick={handleClickOpenCaption}> Edit </MenuItem>
+                <MenuItem onClick={handleDownload}> Download </MenuItem>
               </Menu>
             )}
             <>
