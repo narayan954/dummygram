@@ -413,7 +413,7 @@ div#picker {
   border-style: solid;
 }
 
-.img-edit:hover{
+.img-edit:hover {
   background: linear-gradient(40deg, #e107c1, #59afc7);
   transition: transform 0.5s ease-out;
 }
