@@ -29,6 +29,10 @@ import SignupScreen from "./pages/Signup";
 import logo from "./assets/logo.png";
 import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
+import Camera from "./components/Camera";
+
+
+
 
 export function getModalStyle() {
   const top = 50;
@@ -466,6 +470,10 @@ function App() {
         <Route path="/dummygram/login" element={<LoginScreen />} />
 
         <Route path="/dummygram/signup" element={<SignupScreen />} />
+        <Route path="/dummygram/camera" element={<Camera />}></Route>
+        <Route path="/dummygram/imgUpload" element={<ImgUpload />}></Route>
+
+        
 
         <Route
           path="/dummygram/posts/:id"

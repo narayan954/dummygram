@@ -3,6 +3,9 @@
 * {
   margin: 0;
   font-family: "Poppins", sans-serif;
+  box-sizing:border-box;
+  white-space: normal;
+
 }
 
 /* App styles */
@@ -203,9 +206,9 @@ input:focus {
 }
 
 .post_caption {
-  text-align: center;
+  text-align: right;
   padding: 8px;
-  font-weight: 400;
+  font-weight: 200;
   font-size: 15px;
   color: black;
 }
@@ -530,9 +533,10 @@ input {
   cursor: pointer;
 }
 
+/* webcam css */
 .cameraBtn button{
-  margin: 20px;
-  padding: 8px;
+  margin: 6px;
+  padding: 0px;
   background: rgb(223,95,218);
   background: linear-gradient(40deg, rgba(223,95,218,1) 53%, rgba(104,197,213,1) 100%);
   /* border: 1px solid var(--color); */
@@ -542,10 +546,51 @@ input {
   cursor:pointer;
   
 }
-.takePic p{
-  margin-top: 15px;
-  font-size: 22px;
-    font-family: monospace;
-    color: var(--color);
+.takePic {
+  margin-top: 25px;
+  font-size: 25px;
+  font-family: monospace;
+  color: black;
 }
+
+
+.popupMain {
+  padding: 32px;
+  display: flex;
+  flex-direction:column-reverse;
+  align-items: center;
+  justify-content: center;
+  min-height: 20vh;
+  box-sizing:border-box;
+  
+  
+}
+.openpopup{
+  
+  top: 46%;
+  left: 41.5%;
+  width: 100%;
+  height: 100%;
+  
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+  z-index: 999;
+}
+
+.popupMain button{
+  width: 200px;
+    height: 40px;
+    border-radius: 20px;
+    background: linear-gradient(40deg, #e107c1, #59afc7);
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease-out;
+    border: none;
+    
+}
+/* end */
 

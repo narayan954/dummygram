@@ -9,6 +9,8 @@ import AnimatedButton from "./AnimatedButton";
 import Camera from "./Camera";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
+import Camera from "./Camera";
+import Popup from "./Popup";
 
 export default function ImgUpload(props) {
   const [image, setImage] = useState(null);
@@ -141,6 +143,7 @@ export default function ImgUpload(props) {
       });
   }
 
+  const [buttonPopup,setButtonPopup] =useState(false)
   return (
     <div className="imageUpload">
       {uploadingPost && image && (
@@ -162,7 +165,14 @@ export default function ImgUpload(props) {
                 disabled={uploadingPost}
               />
               <label htmlFor="file">Upload Picture</label>
+              <main className="popupMain">
+                
+              <button className="openpopup"  onClick={()=>setButtonPopup(true)}>Take Picture</button>
+              <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
               <Camera />
+              </Popup>
+              </main>
+        
             </div>
           </center>
         </>
@@ -196,7 +206,7 @@ export default function ImgUpload(props) {
         sx={{
           backgroundColor: "white",
           borderRadius: "8px",
-
+        
           "& .MuiFormLabel-root.Mui-focused": {
             fontWeight: "bold",
           },

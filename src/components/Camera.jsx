@@ -1,10 +1,8 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-
+import React, {useCallback, useRef, useState} from "react";
 import Webcam from "react-webcam";
-
-const videoConstraints = {
-  width: 520,
-  facingMode: "enviroment",
+const videoConstraints ={
+    width: 340,
+    facingMode: "enviroment",
 };
 
 export default function Camera() {
