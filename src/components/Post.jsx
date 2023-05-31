@@ -398,7 +398,12 @@ function Post(prop) {
           </div>
           {user && (
             <form className="post__commentBox">
-              <div className="social__icon">
+              <div
+                className="social__icon"
+                style={{
+                  cursor: "pointer",
+                }}
+              >
                 <SentimentSatisfiedAltOutlinedIcon
                   onClick={() => {
                     setShowEmojis((val) => !val);
@@ -579,7 +584,12 @@ function Post(prop) {
 
                 {user && (
                   <form className="post__commentBox">
-                    <div className="social__icon">
+                    <div
+                      className="social__icon"
+                      style={{
+                        cursor: "pointer",
+                      }}
+                    >
                       <SentimentSatisfiedAltOutlinedIcon
                         onClick={() => {
                           setShowEmojis((val) => !val);
