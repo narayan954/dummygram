@@ -58,6 +58,8 @@ function Post(prop) {
   const [Open, setOpen] = useState(false);
   const [openEditCaption, setOpenEditCaption] = useState(false);
   const [isCommentOpen, setisCommentOpen] = useState(false);
+  const [deleteCommentID, setDeleteCommentID] = useState("");
+  const [openToDeleteComment, setOpenToDeleteComment] = useState(false);
   const [readMore, setReadMore] = useState(false);
   const navigate = useNavigate();
 
@@ -200,6 +202,7 @@ function Post(prop) {
     setOpen(true);
     setAnchorEl(null);
   };
+
   const handleDownload = () => {
     const urlimg = JSON.parse(imageUrl)[0].imageUrl;
     saveAs(urlimg, "image");
@@ -207,10 +210,12 @@ function Post(prop) {
   const handleClickOpenCaption = async () => {
     setOpenEditCaption(true);
   };
+
   const handleClickClosedCaption = () => {
     setEditCaption(caption);
     setOpenEditCaption(false);
   };
+
   const handleSubmitCaption = async () => {
     const taskDocRef = doc(db, "posts", postId);
     try {
@@ -233,6 +238,10 @@ function Post(prop) {
 
   const handleCommentClose = () => {
     setisCommentOpen(false);
+  };
+
+  const handleCloseForDeleteComment = () => {
+    setOpenToDeleteComment(false);
   };
 
   const handleReadPost = () => {
@@ -573,12 +582,15 @@ function Post(prop) {
                                   <p key={userComment.id}>
                                     <strong>
                                       {userComment.content.username}
-                                    </strong>
+                                    </strong>{" "}
                                     {userComment.content.text}
                                     <span
-                                      onClick={(event) =>
-                                        deleteComment(event, userComment)
-                                      }
+                                      onClick={() => {
+                                        setOpenToDeleteComment(
+                                          !openToDeleteComment
+                                        );
+                                        setDeleteCommentID(userComment);
+                                      }}
                                     >
                                       {user &&
                                       userComment.content.username ===
@@ -587,6 +599,43 @@ function Post(prop) {
                                       ) : (
                                         <></>
                                       )}
+                                      {
+                                        <Dialog
+                                          fullScreen={fullScreen}
+                                          open={openToDeleteComment}
+                                          onClose={handleCloseForDeleteComment}
+                                          aria-labelledby="responsive-dialog-title"
+                                        >
+                                          <DialogTitle id="responsive-dialog-title">
+                                            {"Delete Comment?"}
+                                          </DialogTitle>
+                                          <DialogContent>
+                                            <DialogContentText>
+                                              Are you sure you want to delete
+                                              this Comment?
+                                            </DialogContentText>
+                                          </DialogContent>
+                                          <DialogActions>
+                                            <Button
+                                              onClick={
+                                                handleCloseForDeleteComment
+                                              }
+                                            >
+                                              Cancel
+                                            </Button>
+                                            <Button
+                                              onClick={(event) =>
+                                                deleteComment(
+                                                  event,
+                                                  deleteCommentID
+                                                )
+                                              }
+                                            >
+                                              Delete
+                                            </Button>
+                                          </DialogActions>
+                                        </Dialog>
+                                      }
                                     </span>
                                     <hr />
                                   </p>
