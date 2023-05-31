@@ -39,9 +39,9 @@ import TextField from "@mui/material/TextField";
 import { db } from "../lib/firebase";
 import firebase from "firebase/compat/app";
 import { red } from "@mui/material/colors";
+import { saveAs } from "file-saver";
 import useCreatedAt from "../hooks/useCreatedAt";
 import { useTheme } from "@mui/material/styles";
-import { saveAs } from "file-saver";
 
 const ITEM_HEIGHT = 48;
 
@@ -308,6 +308,12 @@ function Post(prop) {
                 },
               }}
             >
+              {user && username == user.displayName && (
+                <>
+                  <MenuItem onClick={handleClickOpen}> Delete </MenuItem>
+                  <MenuItem onClick={handleClickOpenCaption}> Edit </MenuItem>
+                </>
+              )}
               <MenuItem onClick={handleDownload}> Download </MenuItem>
               <MenuItem
                 onClick={() => {
@@ -319,31 +325,9 @@ function Post(prop) {
                   });
                 }}
               >
-                {" "}
-                Visit Profile{" "}
+                Visit Profile
               </MenuItem>
             </Menu>
-            {user && username == user.displayName && (
-              <Menu
-                id="long-menu"
-                MenuListProps={{
-                  "aria-labelledby": "long-button",
-                }}
-                anchorEl={anchorEl}
-                open={open}
-                onClose={() => setAnchorEl(null)}
-                PaperProps={{
-                  style: {
-                    maxHeight: ITEM_HEIGHT * 4.5,
-                    width: "20ch",
-                  },
-                }}
-              >
-                <MenuItem onClick={handleClickOpen}> Delete </MenuItem>
-                <MenuItem onClick={handleClickOpenCaption}> Edit </MenuItem>
-                <MenuItem onClick={handleDownload}> Download </MenuItem>
-              </Menu>
-            )}
             <>
               <Dialog
                 fullWidth
