@@ -39,6 +39,7 @@ import TextField from "@mui/material/TextField";
 import { db } from "../lib/firebase";
 import firebase from "firebase/compat/app";
 import { red } from "@mui/material/colors";
+import { saveAs } from "file-saver";
 import useCreatedAt from "../hooks/useCreatedAt";
 import { useTheme } from "@mui/material/styles";
 
@@ -57,6 +58,8 @@ function Post(prop) {
   const [Open, setOpen] = useState(false);
   const [openEditCaption, setOpenEditCaption] = useState(false);
   const [isCommentOpen, setisCommentOpen] = useState(false);
+  const [deleteCommentID, setDeleteCommentID] = useState("");
+  const [openToDeleteComment, setOpenToDeleteComment] = useState(false);
   const [readMore, setReadMore] = useState(false);
   const navigate = useNavigate();
 
@@ -199,13 +202,20 @@ function Post(prop) {
     setOpen(true);
     setAnchorEl(null);
   };
+
+  const handleDownload = () => {
+    const urlimg = JSON.parse(imageUrl)[0].imageUrl;
+    saveAs(urlimg, "image");
+  };
   const handleClickOpenCaption = async () => {
     setOpenEditCaption(true);
   };
+
   const handleClickClosedCaption = () => {
     setEditCaption(caption);
     setOpenEditCaption(false);
   };
+
   const handleSubmitCaption = async () => {
     const taskDocRef = doc(db, "posts", postId);
     try {
@@ -228,6 +238,10 @@ function Post(prop) {
 
   const handleCommentClose = () => {
     setisCommentOpen(false);
+  };
+
+  const handleCloseForDeleteComment = () => {
+    setOpenToDeleteComment(false);
   };
 
   const handleReadPost = () => {
@@ -288,26 +302,41 @@ function Post(prop) {
             >
               <MoreHorizOutlinedIcon />
             </IconButton>
-            {user && username == user.displayName && (
-              <Menu
-                id="long-menu"
-                MenuListProps={{
-                  "aria-labelledby": "long-button",
-                }}
-                anchorEl={anchorEl}
-                open={open}
-                onClose={() => setAnchorEl(null)}
-                PaperProps={{
-                  style: {
-                    maxHeight: ITEM_HEIGHT * 4.5,
-                    width: "20ch",
-                  },
+            <Menu
+              id="long-menu"
+              MenuListProps={{
+                "aria-labelledby": "long-button",
+              }}
+              anchorEl={anchorEl}
+              open={open}
+              onClose={() => setAnchorEl(null)}
+              PaperProps={{
+                style: {
+                  maxHeight: ITEM_HEIGHT * 4.5,
+                  width: "20ch",
+                },
+              }}
+            >
+              {user && username == user.displayName && (
+                <>
+                  <MenuItem onClick={handleClickOpen}> Delete </MenuItem>
+                  <MenuItem onClick={handleClickOpenCaption}> Edit </MenuItem>
+                </>
+              )}
+              <MenuItem onClick={handleDownload}> Download </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  navigate("/dummygram/profile", {
+                    state: {
+                      name: username,
+                      avatar: avatar,
+                    },
+                  });
                 }}
               >
-                <MenuItem onClick={handleClickOpen}> Delete </MenuItem>
-                <MenuItem onClick={handleClickOpenCaption}> Edit </MenuItem>
-              </Menu>
-            )}
+                Visit Profile
+              </MenuItem>
+            </Menu>
             <>
               <Dialog
                 fullWidth
@@ -398,7 +427,12 @@ function Post(prop) {
           </div>
           {user && (
             <form className="post__commentBox">
-              <div className="social__icon">
+              <div
+                className="social__icon"
+                style={{
+                  cursor: "pointer",
+                }}
+              >
                 <SentimentSatisfiedAltOutlinedIcon
                   onClick={() => {
                     setShowEmojis((val) => !val);
@@ -548,12 +582,15 @@ function Post(prop) {
                                   <p key={userComment.id}>
                                     <strong>
                                       {userComment.content.username}
-                                    </strong>
+                                    </strong>{" "}
                                     {userComment.content.text}
                                     <span
-                                      onClick={(event) =>
-                                        deleteComment(event, userComment)
-                                      }
+                                      onClick={() => {
+                                        setOpenToDeleteComment(
+                                          !openToDeleteComment
+                                        );
+                                        setDeleteCommentID(userComment);
+                                      }}
                                     >
                                       {user &&
                                       userComment.content.username ===
@@ -562,6 +599,43 @@ function Post(prop) {
                                       ) : (
                                         <></>
                                       )}
+                                      {
+                                        <Dialog
+                                          fullScreen={fullScreen}
+                                          open={openToDeleteComment}
+                                          onClose={handleCloseForDeleteComment}
+                                          aria-labelledby="responsive-dialog-title"
+                                        >
+                                          <DialogTitle id="responsive-dialog-title">
+                                            {"Delete Comment?"}
+                                          </DialogTitle>
+                                          <DialogContent>
+                                            <DialogContentText>
+                                              Are you sure you want to delete
+                                              this Comment?
+                                            </DialogContentText>
+                                          </DialogContent>
+                                          <DialogActions>
+                                            <Button
+                                              onClick={
+                                                handleCloseForDeleteComment
+                                              }
+                                            >
+                                              Cancel
+                                            </Button>
+                                            <Button
+                                              onClick={(event) =>
+                                                deleteComment(
+                                                  event,
+                                                  deleteCommentID
+                                                )
+                                              }
+                                            >
+                                              Delete
+                                            </Button>
+                                          </DialogActions>
+                                        </Dialog>
+                                      }
                                     </span>
                                     <hr />
                                   </p>
@@ -579,7 +653,12 @@ function Post(prop) {
 
                 {user && (
                   <form className="post__commentBox">
-                    <div className="social__icon">
+                    <div
+                      className="social__icon"
+                      style={{
+                        cursor: "pointer",
+                      }}
+                    >
                       <SentimentSatisfiedAltOutlinedIcon
                         onClick={() => {
                           setShowEmojis((val) => !val);
