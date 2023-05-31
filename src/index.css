@@ -127,6 +127,11 @@ input:focus {
   height: 28px;
 }
 
+.social__icon:hover{
+  opacity: 60%;
+  cursor: pointer;
+}
+
 .social__icon__last {
   padding: 10px;
   margin-left: auto !important;
