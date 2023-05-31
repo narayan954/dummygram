@@ -146,6 +146,7 @@ export default function ImgUpload(props) {
   const [buttonPopup,setButtonPopup] =useState(false)
   return (
     <div className="imageUpload">
+      
       {uploadingPost && image && (
         <LinearProgress variant="determinate" value={progress} />
       )}
