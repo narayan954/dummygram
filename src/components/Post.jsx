@@ -39,6 +39,7 @@ import TextField from "@mui/material/TextField";
 import { db } from "../lib/firebase";
 import firebase from "firebase/compat/app";
 import { red } from "@mui/material/colors";
+import { saveAs } from "file-saver";
 import useCreatedAt from "../hooks/useCreatedAt";
 import { useTheme } from "@mui/material/styles";
 
@@ -199,6 +200,10 @@ function Post(prop) {
     setOpen(true);
     setAnchorEl(null);
   };
+  const handleDownload = () => {
+    const urlimg = JSON.parse(imageUrl)[0].imageUrl;
+    saveAs(urlimg, "image");
+  };
   const handleClickOpenCaption = async () => {
     setOpenEditCaption(true);
   };
@@ -288,26 +293,41 @@ function Post(prop) {
             >
               <MoreHorizOutlinedIcon />
             </IconButton>
-            {user && username == user.displayName && (
-              <Menu
-                id="long-menu"
-                MenuListProps={{
-                  "aria-labelledby": "long-button",
-                }}
-                anchorEl={anchorEl}
-                open={open}
-                onClose={() => setAnchorEl(null)}
-                PaperProps={{
-                  style: {
-                    maxHeight: ITEM_HEIGHT * 4.5,
-                    width: "20ch",
-                  },
+            <Menu
+              id="long-menu"
+              MenuListProps={{
+                "aria-labelledby": "long-button",
+              }}
+              anchorEl={anchorEl}
+              open={open}
+              onClose={() => setAnchorEl(null)}
+              PaperProps={{
+                style: {
+                  maxHeight: ITEM_HEIGHT * 4.5,
+                  width: "20ch",
+                },
+              }}
+            >
+              {user && username == user.displayName && (
+                <>
+                  <MenuItem onClick={handleClickOpen}> Delete </MenuItem>
+                  <MenuItem onClick={handleClickOpenCaption}> Edit </MenuItem>
+                </>
+              )}
+              <MenuItem onClick={handleDownload}> Download </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  navigate("/dummygram/profile", {
+                    state: {
+                      name: username,
+                      avatar: avatar,
+                    },
+                  });
                 }}
               >
-                <MenuItem onClick={handleClickOpen}> Delete </MenuItem>
-                <MenuItem onClick={handleClickOpenCaption}> Edit </MenuItem>
-              </Menu>
-            )}
+                Visit Profile
+              </MenuItem>
+            </Menu>
             <>
               <Dialog
                 fullWidth
