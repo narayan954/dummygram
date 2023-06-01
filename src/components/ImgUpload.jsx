@@ -6,7 +6,6 @@ import { db, handleMultiUpload, storage } from "../lib/firebase";
 
 import AllCameraimg from "./AllCameraimg";
 import AnimatedButton from "./AnimatedButton";
-import Camera from "./Camera";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
 import Camera from "./Camera";
