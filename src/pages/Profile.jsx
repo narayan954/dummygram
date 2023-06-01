@@ -8,7 +8,8 @@ import {
 } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { FaUserCircle } from "react-icons/fa";
+import { FaBlackTie, FaUserCircle } from "react-icons/fa";
+import { NoEncryptionTwoTone } from "@mui/icons-material";
 
 function Profile() {
   const { name, email, avatar } = useLocation().state;
@@ -28,10 +29,14 @@ function Profile() {
     >
       <Box
         width={isNonMobile ? "30%" : "80%"}
-        paddingY={3}
-        sx={{ border: "1px solid gray", borderRadius: "10px" }}
+        backgroundColor="#F4EEFF"
+        marginTop={6}
+        paddingY={6}
+        paddingX={7}
+        sx={{ border: "none", boxShadow: "0 0 6px black", }}
         display="flex"
         justifyContent="center"
+        textAlign={"center"}
       >
         <Box display="flex" flexDirection="column" gap={1}>
           <Box marginX="auto" fontSize="600%">
@@ -40,10 +45,11 @@ function Profile() {
                 alt={name}
                 src={avatar}
                 sx={{
-                  width: "30vh",
-                  height: "30vh",
-                  bgcolor: "royalblue",
-                  border: "2px solid transparent",
+                  width: "23vh",
+                  height: "23vh",
+                  bgcolor: "black",
+                  border: "none",
+                  boxShadow: "0 0 4px black",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
@@ -51,21 +57,23 @@ function Profile() {
                 }}
               />
             ) : (
-              <FaUserCircle style={{ width: "25vh", height: "25vh" }} />
+              <FaUserCircle style={{ width: "23vh", height: "23vh" }} />
             )}
           </Box>
           <Divider sx={{ marginTop: "1rem" }} />
-          <Typography fontSize="1.3rem" fontWeight="600" fontFamily="serif">
+          <Typography variant="h5" fontWeight="600" fontFamily="Segoe UI">
             {name}
           </Typography>
           <Divider />
-          <Typography fontSize="1.5rem" fontWeight="600" fontFamily="serif">
+          <Typography variant="h6" fontWeight="400" fontFamily="Segoe UI">
             {email && email}
           </Typography>
           <Button
             onClick={handleBack}
-            variant="outlined"
+            variant="contained"
+            color="primary"
             sx={{ marginTop: "1rem" }}
+            fontSize="1.2rem"
           >
             Back
           </Button>
