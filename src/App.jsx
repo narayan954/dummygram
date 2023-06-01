@@ -335,11 +335,9 @@ function App() {
           }}
         >
           <AiOutlineClose
-            onClick={() => {
-              setOpenNewUpload(false);
-            }}
+            onClick={() => setOpenNewUpload(false)}
             size={25}
-            style={{ position: "absolute", right: "1rem" }}
+            style={{ position: "absolute", right: "1rem", cursor: "pointer" }}
           />
           <img
             src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"

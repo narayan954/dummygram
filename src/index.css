@@ -404,6 +404,23 @@ div#picker {
   transition: transform 0.2s ease-out;
 }
 
+.img-edit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  border-radius: 1.303rem;
+  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  color: blue;
+  border-style: solid;
+}
+
+.img-edit:hover {
+  background: linear-gradient(40deg, #e107c1, #59afc7);
+  transition: transform 0.5s ease-out;
+}
+
 ::-webkit-scrollbar {
   width: 0.8rem;
 }
