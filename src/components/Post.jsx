@@ -318,10 +318,10 @@ function Post(prop) {
               }}
             >
               {user && username == user.displayName && (
-                <>
-                  <MenuItem onClick={handleClickOpen}> Delete </MenuItem>
-                  <MenuItem onClick={handleClickOpenCaption}> Edit </MenuItem>
-                </>
+                <MenuItem onClick={handleClickOpen}> Delete </MenuItem>
+              )}
+              {user && username == user.displayName && (
+                <MenuItem onClick={handleClickOpenCaption}> Edit </MenuItem>
               )}
               <MenuItem onClick={handleDownload}> Download </MenuItem>
               <MenuItem
