@@ -310,7 +310,7 @@ input:focus {
   .scrollTop {
     left: 43%;
   }
-  .app__newpost__button{
+  .app__newpost__button {
     left: -6%;
   }
 }
@@ -320,11 +320,9 @@ input:focus {
   .scrollTop {
     left: 45.6%;
   }
-  .app__newpost__button{
+  .app__newpost__button {
     left: -4.8%;
   }
-
-  
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
@@ -332,7 +330,7 @@ input:focus {
   .scrollTop {
     left: 46.6%;
   }
-  .app__newpost__button{
+  .app__newpost__button {
     left: -4.2%;
   }
 }
@@ -342,10 +340,9 @@ input:focus {
   .scrollTop {
     left: 47.2%;
   }
-  .app__newpost__button{
-    left:-3.5%;
+  .app__newpost__button {
+    left: -3.5%;
   }
-  
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
@@ -353,10 +350,9 @@ input:focus {
   .scrollTop {
     left: 47.7%;
   }
-  .app__newpost__button{
-    left:-3.2%;
+  .app__newpost__button {
+    left: -3.2%;
   }
-
 }
 
 .read__more__less {

@@ -220,7 +220,7 @@ function App() {
               sx={buttonStyle}
               className="app__newpost__button"
             >
-              <AddCircleOutlineIcon style={{ marginRight:"4"}} />
+              <AddCircleOutlineIcon style={{ marginRight: "4" }} />
               New Post
             </Button>
             <ClickAwayListener onClickAway={() => setOpen(false)}>
