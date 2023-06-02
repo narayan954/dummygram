@@ -310,7 +310,7 @@ input:focus {
   .scrollTop {
     left: 43%;
   }
-  .button_post{
+  .app__newpost__button{
     left: -6%;
   }
 }
@@ -320,7 +320,7 @@ input:focus {
   .scrollTop {
     left: 45.6%;
   }
-  .button_post{
+  .app__newpost__button{
     left: -4.8%;
   }
 
@@ -332,7 +332,7 @@ input:focus {
   .scrollTop {
     left: 46.6%;
   }
-  .button_post{
+  .app__newpost__button{
     left: -4.2%;
   }
 }
@@ -342,7 +342,7 @@ input:focus {
   .scrollTop {
     left: 47.2%;
   }
-  .button_post{
+  .app__newpost__button{
     left:-3.5%;
   }
   
@@ -353,7 +353,7 @@ input:focus {
   .scrollTop {
     left: 47.7%;
   }
-  .button_post{
+  .app__newpost__button{
     left:-3.2%;
   }
 

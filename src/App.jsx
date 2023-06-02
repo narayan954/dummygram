@@ -218,7 +218,7 @@ function App() {
               color="secondary"
               variant="contained"
               sx={buttonStyle}
-              className="button_post"
+              className="app__newpost__button"
             >
               <AddCircleOutlineIcon style={{ marginRight:"4"}} />
               New Post
