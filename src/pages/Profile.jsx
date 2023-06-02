@@ -6,11 +6,11 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
+import { FaBlackTie, FaUserCircle } from "react-icons/fa";
 import { auth, db, storage } from "../lib/firebase";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { FaBlackTie, FaUserCircle } from "react-icons/fa";
 import { NoEncryptionTwoTone } from "@mui/icons-material";
 import Post from "../components/Post";
 import ShareModal from "../components/ShareModal";
@@ -97,7 +97,7 @@ function Profile() {
         marginTop={6}
         paddingY={6}
         paddingX={7}
-        sx={{ border: "none", boxShadow: "0 0 6px black", }}
+        sx={{ border: "none", boxShadow: "0 0 6px black" }}
         display="flex"
         justifyContent="center"
         textAlign={"center"}
@@ -122,55 +122,39 @@ function Profile() {
               />
             ) : (
               <FaUserCircle style={{ width: "23vh", height: "23vh" }} />
-              )}
+            )}
+          </Box>
+          {name == auth.currentUser.displayName ? (
+            <Box>
+              <input
+                type="file"
+                id="file"
+                className="file"
+                onChange={handleChange}
+                accept="image/*"
+              />
+              <label htmlFor="file">
+                <div className="img-edit">Edit Profile Pic</div>
+              </label>
             </Box>
-            {name == auth.currentUser.displayName ? (
-              <Box>
-                <input
-                  type="file"
-                  id="file"
-                  className="file"
-                  onChange={handleChange}
-                  accept="image/*"
-                />
-                <label htmlFor="file">
-                  <div className="img-edit">Edit Profile Pic</div>
-                </label>
-              </Box>
-            ) : (
-              ""
-            )}
-            {visible && (
-              <Button
-                onClick={handleSave}
-                variant="outlined"
-                sx={{ marginTop: "1rem" }}
-              >
-                Save
-              </Button>
-            )}
-            <Divider sx={{ marginTop: "1rem" }} />
-            <Typography fontSize="1.3rem" fontWeight="600" fontFamily="serif">
-              {name}
-            </Typography>
-            <Divider />
-            <Typography fontSize="1.5rem" fontWeight="600" fontFamily="serif">
-              {email && email}
-            </Typography>
+          ) : (
+            ""
+          )}
+          {visible && (
             <Button
-              onClick={handleBack}
+              onClick={handleSave}
               variant="outlined"
               sx={{ marginTop: "1rem" }}
             >
-              Back
+              Save
             </Button>
-          </Box>
+          )}
           <Divider sx={{ marginTop: "1rem" }} />
-          <Typography variant="h5" fontWeight="600" fontFamily="Segoe UI">
+          <Typography fontSize="1.3rem" fontWeight="600" fontFamily="serif">
             {name}
           </Typography>
           <Divider />
-          <Typography variant="h6" fontWeight="400" fontFamily="Segoe UI">
+          <Typography fontSize="1.5rem" fontWeight="600" fontFamily="serif">
             {email && email}
           </Typography>
           <Button
