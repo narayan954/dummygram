@@ -76,7 +76,7 @@ function App() {
 
   const buttonStyle = {
     background: "linear-gradient(40deg, #e107c1, #59afc7)",
-    borderRadius: "20px",
+    borderRadius: "25px",
     ":hover": {
       background: "linear-gradient(-40deg, #59afc7, #e107c1)",
     },
@@ -218,7 +218,7 @@ function App() {
               color="secondary"
               variant="contained"
               sx={buttonStyle}
-              style={{ marginRight:"85px"}}
+              className="button_post"
             >
               <AddCircleOutlineIcon style={{ marginRight:"4"}} />
               New Post
