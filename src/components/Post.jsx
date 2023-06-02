@@ -27,6 +27,7 @@ import CommentIcon from "@mui/icons-material/Comment";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import DialogBox from "../reusableComponents/DialogBox";
 import EmojiPicker from "emoji-picker-react";
+import { FaSave } from "react-icons/fa";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import ImageSlider from "../reusableComponents/ImageSlider";
@@ -41,6 +42,7 @@ import firebase from "firebase/compat/app";
 import { red } from "@mui/material/colors";
 import { saveAs } from "file-saver";
 import useCreatedAt from "../hooks/useCreatedAt";
+import { useSnackbar } from "notistack";
 import { useTheme } from "@mui/material/styles";
 
 const ITEM_HEIGHT = 48;
@@ -48,7 +50,7 @@ const ITEM_HEIGHT = 48;
 function Post(prop) {
   const { postId, user, post, shareModal, setLink, setPostText } = prop;
   const { username, caption, imageUrl, avatar, likecount, timestamp } = post;
-  const time = useCreatedAt(timestamp);
+
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
   const [likesNo, setLikesNo] = useState(likecount ? likecount.length : 0);
@@ -58,17 +60,17 @@ function Post(prop) {
   const [Open, setOpen] = useState(false);
   const [openEditCaption, setOpenEditCaption] = useState(false);
   const [isCommentOpen, setisCommentOpen] = useState(false);
+  const [readMore, setReadMore] = useState(false);
   const [deleteCommentID, setDeleteCommentID] = useState("");
   const [openToDeleteComment, setOpenToDeleteComment] = useState(false);
-  const [readMore, setReadMore] = useState(false);
-  const navigate = useNavigate();
 
+  const time = useCreatedAt(timestamp);
   const theme = useTheme();
-
+  const navigate = useNavigate();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const { enqueueSnackbar } = useSnackbar();
 
   const open = Boolean(anchorEl);
-
   const docRef = doc(db, "posts", postId);
 
   useEffect(() => {
@@ -113,6 +115,23 @@ function Post(prop) {
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
     setComment("");
+  };
+
+  const save = async () => {
+    const localStoragePosts = JSON.parse(localStorage.getItem("posts")) || [];
+    const postIdExists = localStoragePosts.includes(postId);
+
+    if (!postIdExists) {
+      localStoragePosts.push(postId);
+      localStorage.setItem("posts", JSON.stringify(localStoragePosts));
+      enqueueSnackbar("Post added to favourites!", {
+        variant: "success",
+      });
+    } else {
+      enqueueSnackbar("Post is already in favourites!", {
+        variant: "error",
+      });
+    }
   };
 
   const deleteComment = async (event, commentRef) => {
@@ -160,7 +179,9 @@ function Post(prop) {
   // };
 
   const postHasImages = postImages.some((image) => Boolean(image.imageUrl));
+
   const tempLikeCount = likecount ? [...likecount] : [];
+
   const buttonStyle = {
     ":hover": {
       color: "#ff4d4d",
@@ -207,6 +228,7 @@ function Post(prop) {
     const urlimg = JSON.parse(imageUrl)[0].imageUrl;
     saveAs(urlimg, "image");
   };
+
   const handleClickOpenCaption = async () => {
     setOpenEditCaption(true);
   };
@@ -318,10 +340,10 @@ function Post(prop) {
               }}
             >
               {user && username == user.displayName && (
-                <>
-                  <MenuItem onClick={handleClickOpen}> Delete </MenuItem>
-                  <MenuItem onClick={handleClickOpenCaption}> Edit </MenuItem>
-                </>
+                <MenuItem onClick={handleClickOpen}> Delete </MenuItem>
+              )}
+              {user && username == user.displayName && (
+                <MenuItem onClick={handleClickOpenCaption}> Edit </MenuItem>
               )}
               <MenuItem onClick={handleDownload}> Download </MenuItem>
               <MenuItem
@@ -482,6 +504,12 @@ function Post(prop) {
                 Post
               </button>
               <div className="social__icons__wrapper">
+                <FaSave
+                  onClick={save}
+                  style={{ cursor: "pointer", fontSize: "22px" }}
+                  className="post_button"
+                />
+
                 <div
                   className="social__icon"
                   onClick={likesHandler}
