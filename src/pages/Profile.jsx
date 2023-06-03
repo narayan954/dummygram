@@ -6,11 +6,11 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { FaUserCircle } from "react-icons/fa";
 import { auth, db, storage } from "../lib/firebase";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import { FaUserCircle } from "react-icons/fa";
 import Post from "../components/Post";
 import ShareModal from "../components/ShareModal";
 import { useSnackbar } from "notistack";
@@ -91,14 +91,18 @@ function Profile() {
   return (
     <>
       <Box
-        width={isNonMobile ? "30%" : "80%"}
+        width={isNonMobile ? "30%" : "70%"}
         backgroundColor="#F4EEFF"
-        marginTop={6}
-        paddingY={6}
+        paddingY={5}
         paddingX={7}
-        sx={{ border: "none", boxShadow: "0 0 6px black" }}
+        sx={{
+          border: "none",
+          boxShadow: "0 0 6px black",
+          margin: "5.5rem auto 2.5rem",
+        }}
         display="flex"
-        justifyContent="center"
+        justifyContent={"center"}
+        alignItems={"center"}
         textAlign={"center"}
       >
         <Box display="flex" flexDirection="column" gap={1}>
@@ -133,7 +137,12 @@ function Profile() {
                 accept="image/*"
               />
               <label htmlFor="file">
-                <div className="img-edit">Edit Profile Pic</div>
+                <div
+                  className="img-edit"
+                  style={{ marginTop: "0.5rem", marginBottom: "0.5rem" }}
+                >
+                  Edit Profile Pic
+                </div>
               </label>
             </Box>
           ) : (
@@ -176,7 +185,7 @@ function Profile() {
       <Box>
         <div
           className="profile__favourites"
-          style={{ marginTop: "-5em" }}
+          style={{ marginTop: "1.5rem", marginBottom: "1.5rem" }}
           align="center"
         >
           {posts.length ? (
