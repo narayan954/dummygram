@@ -11,7 +11,6 @@ import { auth, db, storage } from "../lib/firebase";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { NoEncryptionTwoTone } from "@mui/icons-material";
 import Post from "../components/Post";
 import ShareModal from "../components/ShareModal";
 import { useSnackbar } from "notistack";
