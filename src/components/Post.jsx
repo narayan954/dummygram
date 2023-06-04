@@ -27,6 +27,7 @@ import CommentIcon from "@mui/icons-material/Comment";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import DialogBox from "../reusableComponents/DialogBox";
 import EmojiPicker from "emoji-picker-react";
+import { FaSave } from "react-icons/fa";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import ImageSlider from "../reusableComponents/ImageSlider";
@@ -39,7 +40,9 @@ import TextField from "@mui/material/TextField";
 import { db } from "../lib/firebase";
 import firebase from "firebase/compat/app";
 import { red } from "@mui/material/colors";
+import { saveAs } from "file-saver";
 import useCreatedAt from "../hooks/useCreatedAt";
+import { useSnackbar } from "notistack";
 import { useTheme } from "@mui/material/styles";
 
 const ITEM_HEIGHT = 48;
@@ -47,7 +50,7 @@ const ITEM_HEIGHT = 48;
 function Post(prop) {
   const { postId, user, post, shareModal, setLink, setPostText } = prop;
   const { username, caption, imageUrl, avatar, likecount, timestamp } = post;
-  const time = useCreatedAt(timestamp);
+
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
   const [likesNo, setLikesNo] = useState(likecount ? likecount.length : 0);
@@ -58,14 +61,16 @@ function Post(prop) {
   const [openEditCaption, setOpenEditCaption] = useState(false);
   const [isCommentOpen, setisCommentOpen] = useState(false);
   const [readMore, setReadMore] = useState(false);
-  const navigate = useNavigate();
+  const [deleteCommentID, setDeleteCommentID] = useState("");
+  const [openToDeleteComment, setOpenToDeleteComment] = useState(false);
 
+  const time = useCreatedAt(timestamp);
   const theme = useTheme();
-
+  const navigate = useNavigate();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const { enqueueSnackbar } = useSnackbar();
 
   const open = Boolean(anchorEl);
-
   const docRef = doc(db, "posts", postId);
 
   useEffect(() => {
@@ -110,6 +115,23 @@ function Post(prop) {
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
     setComment("");
+  };
+
+  const save = async () => {
+    const localStoragePosts = JSON.parse(localStorage.getItem("posts")) || [];
+    const postIdExists = localStoragePosts.includes(postId);
+
+    if (!postIdExists) {
+      localStoragePosts.push(postId);
+      localStorage.setItem("posts", JSON.stringify(localStoragePosts));
+      enqueueSnackbar("Post added to favourites!", {
+        variant: "success",
+      });
+    } else {
+      enqueueSnackbar("Post is already in favourites!", {
+        variant: "error",
+      });
+    }
   };
 
   const deleteComment = async (event, commentRef) => {
@@ -157,7 +179,9 @@ function Post(prop) {
   // };
 
   const postHasImages = postImages.some((image) => Boolean(image.imageUrl));
+
   const tempLikeCount = likecount ? [...likecount] : [];
+
   const buttonStyle = {
     ":hover": {
       color: "#ff4d4d",
@@ -199,13 +223,21 @@ function Post(prop) {
     setOpen(true);
     setAnchorEl(null);
   };
+
+  const handleDownload = () => {
+    const urlimg = JSON.parse(imageUrl)[0].imageUrl;
+    saveAs(urlimg, "image");
+  };
+
   const handleClickOpenCaption = async () => {
     setOpenEditCaption(true);
   };
+
   const handleClickClosedCaption = () => {
     setEditCaption(caption);
     setOpenEditCaption(false);
   };
+
   const handleSubmitCaption = async () => {
     const taskDocRef = doc(db, "posts", postId);
     try {
@@ -228,6 +260,10 @@ function Post(prop) {
 
   const handleCommentClose = () => {
     setisCommentOpen(false);
+  };
+
+  const handleCloseForDeleteComment = () => {
+    setOpenToDeleteComment(false);
   };
 
   const handleReadPost = () => {
@@ -288,26 +324,41 @@ function Post(prop) {
             >
               <MoreHorizOutlinedIcon />
             </IconButton>
-            {user && username == user.displayName && (
-              <Menu
-                id="long-menu"
-                MenuListProps={{
-                  "aria-labelledby": "long-button",
-                }}
-                anchorEl={anchorEl}
-                open={open}
-                onClose={() => setAnchorEl(null)}
-                PaperProps={{
-                  style: {
-                    maxHeight: ITEM_HEIGHT * 4.5,
-                    width: "20ch",
-                  },
+            <Menu
+              id="long-menu"
+              MenuListProps={{
+                "aria-labelledby": "long-button",
+              }}
+              anchorEl={anchorEl}
+              open={open}
+              onClose={() => setAnchorEl(null)}
+              PaperProps={{
+                style: {
+                  maxHeight: ITEM_HEIGHT * 4.5,
+                  width: "20ch",
+                },
+              }}
+            >
+              {user && username == user.displayName && (
+                <MenuItem onClick={handleClickOpen}> Delete </MenuItem>
+              )}
+              {user && username == user.displayName && (
+                <MenuItem onClick={handleClickOpenCaption}> Edit </MenuItem>
+              )}
+              <MenuItem onClick={handleDownload}> Download </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  navigate("/dummygram/profile", {
+                    state: {
+                      name: username,
+                      avatar: avatar,
+                    },
+                  });
                 }}
               >
-                <MenuItem onClick={handleClickOpen}> Delete </MenuItem>
-                <MenuItem onClick={handleClickOpenCaption}> Edit </MenuItem>
-              </Menu>
-            )}
+                Visit Profile
+              </MenuItem>
+            </Menu>
             <>
               <Dialog
                 fullWidth
@@ -398,7 +449,12 @@ function Post(prop) {
           </div>
           {user && (
             <form className="post__commentBox">
-              <div className="social__icon">
+              <div
+                className="social__icon"
+                style={{
+                  cursor: "pointer",
+                }}
+              >
                 <SentimentSatisfiedAltOutlinedIcon
                   onClick={() => {
                     setShowEmojis((val) => !val);
@@ -448,6 +504,12 @@ function Post(prop) {
                 Post
               </button>
               <div className="social__icons__wrapper">
+                <FaSave
+                  onClick={save}
+                  style={{ cursor: "pointer", fontSize: "22px" }}
+                  className="post_button"
+                />
+
                 <div
                   className="social__icon"
                   onClick={likesHandler}
@@ -548,20 +610,63 @@ function Post(prop) {
                                   <p key={userComment.id}>
                                     <strong>
                                       {userComment.content.username}
-                                    </strong>
+                                    </strong>{" "}
                                     {userComment.content.text}
                                     <span
-                                      onClick={(event) =>
-                                        deleteComment(event, userComment)
-                                      }
+                                      onClick={() => {
+                                        setOpenToDeleteComment(
+                                          !openToDeleteComment
+                                        );
+                                        setDeleteCommentID(userComment);
+                                      }}
                                     >
                                       {user &&
                                       userComment.content.username ===
                                         user.displayName ? (
-                                        <DeleteTwoToneIcon fontSize="small" />
+                                        <DeleteTwoToneIcon
+                                          fontSize="small"
+                                          style={{ color: "red" }}
+                                        />
                                       ) : (
                                         <></>
                                       )}
+                                      {
+                                        <Dialog
+                                          fullScreen={fullScreen}
+                                          open={openToDeleteComment}
+                                          onClose={handleCloseForDeleteComment}
+                                          aria-labelledby="responsive-dialog-title"
+                                        >
+                                          <DialogTitle id="responsive-dialog-title">
+                                            {"Delete Comment?"}
+                                          </DialogTitle>
+                                          <DialogContent>
+                                            <DialogContentText>
+                                              Are you sure you want to delete
+                                              this Comment?
+                                            </DialogContentText>
+                                          </DialogContent>
+                                          <DialogActions>
+                                            <Button
+                                              onClick={
+                                                handleCloseForDeleteComment
+                                              }
+                                            >
+                                              Cancel
+                                            </Button>
+                                            <Button
+                                              onClick={(event) =>
+                                                deleteComment(
+                                                  event,
+                                                  deleteCommentID
+                                                )
+                                              }
+                                            >
+                                              Delete
+                                            </Button>
+                                          </DialogActions>
+                                        </Dialog>
+                                      }
                                     </span>
                                     <hr />
                                   </p>
@@ -579,7 +684,12 @@ function Post(prop) {
 
                 {user && (
                   <form className="post__commentBox">
-                    <div className="social__icon">
+                    <div
+                      className="social__icon"
+                      style={{
+                        cursor: "pointer",
+                      }}
+                    >
                       <SentimentSatisfiedAltOutlinedIcon
                         onClick={() => {
                           setShowEmojis((val) => !val);

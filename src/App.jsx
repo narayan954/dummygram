@@ -81,7 +81,7 @@ function App() {
 
   const buttonStyle = {
     background: "linear-gradient(40deg, #e107c1, #59afc7)",
-    borderRadius: "20px",
+    borderRadius: "25px",
     ":hover": {
       background: "linear-gradient(-40deg, #59afc7, #e107c1)",
     },
@@ -223,6 +223,7 @@ function App() {
               color="secondary"
               variant="contained"
               sx={buttonStyle}
+              className="app__newpost__button"
             >
               <AddCircleOutlineIcon style={{ marginRight: "4" }} />
               New Post
@@ -335,11 +336,9 @@ function App() {
           }}
         >
           <AiOutlineClose
-            onClick={() => {
-              setOpenNewUpload(false);
-            }}
+            onClick={() => setOpenNewUpload(false)}
             size={25}
-            style={{ position: "absolute", right: "1rem" }}
+            style={{ position: "absolute", right: "1rem", cursor: "pointer" }}
           />
           <img
             src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"

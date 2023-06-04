@@ -72,6 +72,14 @@ input:focus {
   border-radius: 5px;
   margin-bottom: 20px;
   word-wrap: break-word;
+  transition: all;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+}
+
+.post:hover {
+  transform: scale(1.04);
+  color: blue;
 }
 
 /* Added media query in post for responsiveness */
@@ -313,12 +321,18 @@ input:focus {
   .scrollTop {
     left: 43%;
   }
+  .app__newpost__button {
+    left: -6%;
+  }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
   .scrollTop {
     left: 45.6%;
+  }
+  .app__newpost__button {
+    left: -4.8%;
   }
 }
 
@@ -327,6 +341,9 @@ input:focus {
   .scrollTop {
     left: 46.6%;
   }
+  .app__newpost__button {
+    left: -4.2%;
+  }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
@@ -334,12 +351,18 @@ input:focus {
   .scrollTop {
     left: 47.2%;
   }
+  .app__newpost__button {
+    left: -3.5%;
+  }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
   .scrollTop {
     left: 47.7%;
+  }
+  .app__newpost__button {
+    left: -3.2%;
   }
 }
 
@@ -402,6 +425,23 @@ div#picker {
   font-weight: bold;
   cursor: pointer;
   transition: transform 0.2s ease-out;
+}
+
+.img-edit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  border-radius: 1.303rem;
+  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  color: blue;
+  border-style: solid;
+}
+
+.img-edit:hover {
+  background: linear-gradient(40deg, #e107c1, #59afc7);
+  transition: transform 0.5s ease-out;
 }
 
 ::-webkit-scrollbar {
