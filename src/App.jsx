@@ -12,7 +12,6 @@ import { FaArrowCircleUp, FaUserCircle } from "react-icons/fa";
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
-
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineClose } from "react-icons/ai";
 import AnimatedButton from "./components/AnimatedButton";
@@ -28,9 +27,6 @@ import SignupScreen from "./pages/Signup";
 import logo from "./assets/logo.png";
 import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
-import Camera from "./components/Camera";
-
-
 
 
 export function getModalStyle() {
