@@ -15,7 +15,6 @@ import { auth, db } from "./lib/firebase";
 
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineClose } from "react-icons/ai";
-import AllCameraimg from "./components/AllCameraimg";
 import AnimatedButton from "./components/AnimatedButton";
 import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
@@ -469,11 +468,6 @@ function App() {
         <Route path="/dummygram/login" element={<LoginScreen />} />
 
         <Route path="/dummygram/signup" element={<SignupScreen />} />
-        <Route path="/dummygram/camera" element={<Camera />}></Route>
-        <Route path="/dummygram/imgUpload" element={<ImgUpload />}></Route>
-
-        
-
         <Route
           path="/dummygram/posts/:id"
           element={
