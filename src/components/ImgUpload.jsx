@@ -3,8 +3,6 @@ import "./imgPreview.css";
 import { LinearProgress, TextField } from "@mui/material";
 import React, { useRef, useState } from "react";
 import { db, handleMultiUpload, storage } from "../lib/firebase";
-
-import AllCameraimg from "./AllCameraimg";
 import AnimatedButton from "./AnimatedButton";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";

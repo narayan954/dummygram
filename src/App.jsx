@@ -28,7 +28,6 @@ import logo from "./assets/logo.png";
 import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
 
-
 export function getModalStyle() {
   const top = 50;
   const left = 50;
