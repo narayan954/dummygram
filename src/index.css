@@ -78,7 +78,14 @@ input:focus {
   transform: scale(1.04);
   color: blue;
 }
-
+@media only screen and (min-width: 800px) {
+  .app__posts{
+    display:flex;
+    flex-wrap:wrap;
+    gap:2rem;
+    justify-content:center;
+  }
+}
 /* Added media query in post for responsiveness */
 @media only screen and (max-width: 460px) {
   .post {
