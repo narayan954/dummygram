@@ -623,7 +623,10 @@ function Post(prop) {
                                       {user &&
                                       userComment.content.username ===
                                         user.displayName ? (
-                                        <DeleteTwoToneIcon fontSize="small" />
+                                        <DeleteTwoToneIcon
+                                          fontSize="small"
+                                          style={{ color: "red" }}
+                                        />
                                       ) : (
                                         <></>
                                       )}
