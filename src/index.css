@@ -3,7 +3,6 @@
 * {
   margin: 0;
   font-family: "Poppins", sans-serif;
-  box-sizing:border-box;
   white-space: normal;
 
 }
@@ -214,7 +213,7 @@ input:focus {
 }
 
 .post_caption {
-  text-align: right;
+
   padding: 8px;
   font-weight: 200;
   font-size: 15px;

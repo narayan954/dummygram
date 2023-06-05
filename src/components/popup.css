@@ -8,21 +8,22 @@
     z-index: 1000;
     max-height: 550px; /* Adjust the height as needed */
     overflow-y: auto;
-     
     
 }
 
 .popup-inner{
     position: relative;
     padding: 44px;
-    width: 100%;
+    width: 350px;
     max-width: 640px;
     background-color: white;
+    align-items: center;
 }
 
 .popup-inner .close-btn{
+   
     position: absolute;
-    top: 16px;
-    right: 1px;
+    top: 1px;
+    right: -16px;
     
 }
