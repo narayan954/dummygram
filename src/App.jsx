@@ -12,6 +12,7 @@ import { FaArrowCircleUp, FaUserCircle } from "react-icons/fa";
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
+
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineClose } from "react-icons/ai";
 import AnimatedButton from "./components/AnimatedButton";
