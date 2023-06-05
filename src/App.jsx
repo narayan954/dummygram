@@ -28,6 +28,7 @@ import SignupScreen from "./pages/Signup";
 import logo from "./assets/logo.png";
 import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
+import Navbar from "./components/Navbar";
 
 export function getModalStyle() {
   const top = 50;
@@ -196,7 +197,7 @@ function App() {
         <img
           src={logo}
           alt="dummygram"
-          className="app__header__img w-100"
+          className="app__header__img"
           onClick={() => {
             if (
               location.pathname !== "/dummygram/login" &&
@@ -415,10 +416,11 @@ function App() {
               <div
                 style={{
                   display: "flex",
-                  alignContent: "center",
                   justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
+                <Navbar />
                 <div
                   style={
                     !loadingPosts
@@ -435,19 +437,19 @@ function App() {
                   {loadingPosts ? (
                     <Loader />
                   ) : (
-                    <div className="app__posts">
-                      {posts.map(({ id, post }) => (
-                        <Post
-                          key={id}
-                          postId={id}
-                          user={user}
-                          post={post}
-                          shareModal={setOpenShareModal}
-                          setLink={setCurrentPostLink}
-                          setPostText={setPostText}
-                        />
-                      ))}
-                    </div>
+                      <div className="app__posts">
+                        {posts.map(({ id, post }) => (
+                          <Post
+                            key={id}
+                            postId={id}
+                            user={user}
+                            post={post}
+                            shareModal={setOpenShareModal}
+                            setLink={setCurrentPostLink}
+                            setPostText={setPostText}
+                          />
+                        ))}
+                      </div>
                   )}
                 </div>
               </div>
