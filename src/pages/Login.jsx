@@ -10,12 +10,14 @@ import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
+
 const LoginScreen = () => {
   const classes = useStyles();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState(null);
 
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
@@ -34,13 +36,15 @@ const LoginScreen = () => {
           variant: "success",
         });
       })
-      .catch((error) =>
-        enqueueSnackbar(error.message, {
+      .catch((error) => {
+        enqueueSnackbar("Please try again with correct information!", {
           variant: "error",
         })
+      }
       )
-      .finally(() => {});
+      .finally(() => { });
   };
+
 
   const signInWithGoogle = (e) => {
     e.preventDefault();
@@ -52,11 +56,11 @@ const LoginScreen = () => {
         });
       })
       .catch((error) =>
-        enqueueSnackbar(error.message, {
+        enqueueSnackbar("Something went wrong. Make sure you already have an account linked with this email-id!", {
           variant: "error",
         })
       )
-      .finally(() => {});
+      .finally(() => { });
   };
 
   const signInWithFacebook = (e) => {
@@ -69,11 +73,11 @@ const LoginScreen = () => {
         });
       })
       .catch((error) =>
-        enqueueSnackbar(error.message, {
+        enqueueSnackbar("Make sure your account is linked to your facebook account", {
           variant: "error",
         })
       )
-      .finally(() => {});
+      .finally(() => { });
   };
 
   const navigateToSignup = () => {
@@ -81,6 +85,7 @@ const LoginScreen = () => {
   };
 
   return (
+
     <div
       style={{
         display: "flex",
@@ -178,6 +183,7 @@ const LoginScreen = () => {
         </form>
       </div>
     </div>
+
   );
 };
 
