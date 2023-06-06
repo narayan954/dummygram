@@ -17,7 +17,6 @@ const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState(null);
 
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
@@ -37,11 +36,36 @@ const LoginScreen = () => {
         });
       })
       .catch((error) => {
-        enqueueSnackbar("Please try again with correct information!", {
-          variant: "error",
-        })
-      }
-      )
+       
+        if (error.code === 'auth/invalid-email') {
+          
+          enqueueSnackbar('Invalid email address', {
+            variant: "error",
+          })
+        } else if (error.code === 'auth/user-not-found') {
+          
+          enqueueSnackbar('User not found', {
+            variant: "error",
+          })
+        } else if (error.code === 'auth/wrong-password') {
+         
+          enqueueSnackbar('Wrong password', {
+            variant: "error",
+          })
+        } else if (error.code === 'auth/account-exists-with-different-credential') {
+          enqueueSnackbar('Account exists with a different credential', {
+            variant: "error",
+          })
+          
+        } else {
+          enqueueSnackbar("Error Occured!", {
+            variant: "error",
+          })
+        }
+      })
+
+    
+      
       .finally(() => { });
   };
 
@@ -56,9 +80,20 @@ const LoginScreen = () => {
         });
       })
       .catch((error) =>
-        enqueueSnackbar("Something went wrong. Make sure you already have an account linked with this email-id!", {
-          variant: "error",
-        })
+        // enqueueSnackbar(error.message, {
+        //   variant: "error",
+        // })
+        {
+          if (error.code === 'auth/account-exists-with-different-credential') {
+            enqueueSnackbar('Account exists with a different credential', {
+              variant: "error",
+            })
+          } else {
+            enqueueSnackbar('An error occcured!', {
+              variant: "error",
+            })
+          }
+        }
       )
       .finally(() => { });
   };
@@ -73,9 +108,17 @@ const LoginScreen = () => {
         });
       })
       .catch((error) =>
-        enqueueSnackbar("Make sure your account is linked to your facebook account", {
-          variant: "error",
-        })
+       {
+        if (error.code === 'auth/account-exists-with-different-credential') {
+          enqueueSnackbar('Account exists with a different credential', {
+            variant: "error",
+          })
+        } else {
+          enqueueSnackbar('An error occcured!', {
+            variant: "error",
+          })
+        }
+       }
       )
       .finally(() => { });
   };
