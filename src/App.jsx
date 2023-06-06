@@ -8,7 +8,6 @@ import {
   Modal,
   Typography,
 } from "@mui/material";
-import {AiOutlineInsertRowAbove} from "react-icons/ai" 
 import { FaArrowCircleUp, FaUserCircle } from "react-icons/fa";
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
@@ -16,6 +15,7 @@ import { auth, db } from "./lib/firebase";
 
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineInsertRowAbove } from "react-icons/ai";
 import AnimatedButton from "./components/AnimatedButton";
 import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
@@ -194,9 +194,7 @@ function App() {
 
   return (
     <div className="app">
-      
       <div className="app__header">
-    
         <img
           src={logo}
           alt="dummygram"
@@ -214,7 +212,7 @@ function App() {
             cursor: "pointer",
           }}
         />
-         
+
         {user ? (
           <>
             <Button
@@ -226,64 +224,76 @@ function App() {
               <AddCircleOutlineIcon style={{ marginRight: "4" }} />
               New Post
             </Button>
-            <div style={{display:'flex',flexDirection:'row',justifyContent:'center'}}>
-            <div className="rowConvert"  onClick={()=>{setrow(!row)}}><AiOutlineInsertRowAbove size={30}/></div>
-            <ClickAwayListener onClickAway={() => setOpen(false)}>
-              <Button
-                onClick={() => setOpen((cur) => !cur)}
-                color="secondary"
-                variant="contained"
-                sx={{ ...buttonStyle, marginRight: "10px" }}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+              }}
+            >
+              <div
+                className="rowConvert"
+                onClick={() => {
+                  setrow(!row);
+                }}
               >
-                
-                <FaUserCircle fontSize="large" />
-                {open && (
-                  <Box
-                    backgroundColor="#fff"
-                    color="black"
-                    padding="2px"
-                    position="absolute"
-                    borderRadius="4px"
-                    marginTop={16}
-                    marginRight={3}
-                    sx={{
-                      vertical: "top",
-                      border: "1px solid black",
-                    }}
-                  >
+                <AiOutlineInsertRowAbove size={30} />
+              </div>
+              <ClickAwayListener onClickAway={() => setOpen(false)}>
+                <Button
+                  onClick={() => setOpen((cur) => !cur)}
+                  color="secondary"
+                  variant="contained"
+                  sx={{ ...buttonStyle, marginRight: "10px" }}
+                >
+                  <FaUserCircle fontSize="large" />
+                  {open && (
                     <Box
-                      display="flex"
-                      padding="0.5rem"
-                      sx={{ cursor: "pointer" }}
-                      onClick={() =>
-                        navigate("/dummygram/profile", {
-                          state: {
-                            name: user.toJSON().displayName,
-                            email: user.toJSON().email,
-                            avatar: user.toJSON().photoURL,
-                          },
-                        })
-                      }
+                      backgroundColor="#fff"
+                      color="black"
+                      padding="2px"
+                      position="absolute"
+                      borderRadius="4px"
+                      marginTop={16}
+                      marginRight={3}
+                      sx={{
+                        vertical: "top",
+                        border: "1px solid black",
+                      }}
                     >
-                      <Typography fontFamily="serif" fontSize="1rem">
-                        Profile
-                      </Typography>
+                      <Box
+                        display="flex"
+                        padding="0.5rem"
+                        sx={{ cursor: "pointer" }}
+                        onClick={() =>
+                          navigate("/dummygram/profile", {
+                            state: {
+                              name: user.toJSON().displayName,
+                              email: user.toJSON().email,
+                              avatar: user.toJSON().photoURL,
+                            },
+                          })
+                        }
+                      >
+                        <Typography fontFamily="serif" fontSize="1rem">
+                          Profile
+                        </Typography>
+                      </Box>
+                      <Divider />
+                      <Box
+                        display="flex"
+                        padding="0.5rem"
+                        sx={{ cursor: "pointer" }}
+                        onClick={() => setLogout(true)}
+                      >
+                        <Typography fontFamily="serif" fontSize="0.9rem">
+                          Log Out
+                        </Typography>
+                      </Box>
                     </Box>
-                    <Divider />
-                    <Box
-                      display="flex"
-                      padding="0.5rem"
-                      sx={{ cursor: "pointer" }}
-                      onClick={() => setLogout(true)}
-                    >
-                      <Typography fontFamily="serif" fontSize="0.9rem">
-                        Log Out
-                      </Typography>
-                    </Box>
-                  </Box>
-                )}
-              </Button>
-            </ClickAwayListener>
+                  )}
+                </Button>
+              </ClickAwayListener>
             </div>
           </>
         ) : (
@@ -314,7 +324,7 @@ function App() {
           </div>
         )}
       </div>
-     
+
       <ShareModal
         openShareModal={openShareModal}
         setOpenShareModal={setOpenShareModal}
@@ -445,10 +455,12 @@ function App() {
                   {loadingPosts ? (
                     <Loader />
                   ) : (
-                    <div className={`${row?"app__posts":"app_posts_normal"}`}>
+                    <div
+                      className={`${row ? "app__posts" : "app_posts_normal"}`}
+                    >
                       {posts.map(({ id, post }) => (
                         <Post
-                        row={row}
+                          row={row}
                           key={id}
                           postId={id}
                           user={user}
@@ -499,7 +511,6 @@ function App() {
           display: showScroll ? "flex" : "none",
         }}
       />
-       
     </div>
   );
 }

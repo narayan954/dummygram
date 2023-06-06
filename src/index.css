@@ -107,25 +107,23 @@ input:focus {
   }
 }
 
-.rowConvert{
-  color:#ab4bc2;
+.rowConvert {
+  color: #ab4bc2;
   transition: all;
   transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
-  margin-right:12px;
-  display:flex
+  margin-right: 12px;
+  display: flex;
 }
-.rowConvert:hover{
-  cursor:pointer;
-  color:red;
+.rowConvert:hover {
+  cursor: pointer;
+  color: red;
   transform: scale(1.04);
-  
 }
-@media only screen and (max-width:900px){
-  .rowConvert{
-    display:none;
+@media only screen and (max-width: 900px) {
+  .rowConvert {
+    display: none;
   }
-
 }
 /* Added media query in post for responsiveness */
 @media only screen and (max-width: 460px) {
@@ -622,4 +620,3 @@ input {
   border-bottom: 2px solid rgb(104, 85, 224);
   cursor: pointer;
 }
-

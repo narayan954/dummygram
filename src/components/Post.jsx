@@ -48,7 +48,7 @@ import { useTheme } from "@mui/material/styles";
 const ITEM_HEIGHT = 48;
 
 function Post(prop) {
-  const { postId, user, post, shareModal, setLink, setPostText,row } = prop;
+  const { postId, user, post, shareModal, setLink, setPostText, row } = prop;
   const { username, caption, imageUrl, avatar, likecount, timestamp } = post;
 
   const [comments, setComments] = useState([]);
@@ -273,7 +273,7 @@ function Post(prop) {
   return (
     <ClickAwayListener onClickAway={() => setShowEmojis(false)}>
       <div
-        className={`${row?"post":"postNormal"}`}
+        className={`${row ? "post" : "postNormal"}`}
         style={{ boxShadow: "0px 0px 5px 1px rgba(0, 0, 0, 0.4)" }}
       >
         <div className="post__header">
