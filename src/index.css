@@ -3,11 +3,6 @@
 * {
   margin: 0;
   font-family: "Poppins", sans-serif;
-<<<<<<< HEAD
-=======
-  box-sizing: border-box;
->>>>>>> 552b2d35e1dfc3e4d7d7ade3069f851b077a7d12
-  white-space: normal;
 }
 
 /* App styles */
@@ -216,9 +211,9 @@ input:focus {
 }
 
 .post_caption {
-
+  text-align: center;
   padding: 8px;
-  font-weight: 200;
+  font-weight: 400;
   font-size: 15px;
   color: black;
 }
@@ -591,6 +586,7 @@ input {
   border-radius: 20px;
   cursor: pointer;
 }
+
 .takePic {
   margin-top: 25px;
   font-size: 25px;
@@ -607,12 +603,12 @@ input {
   min-height: 20vh;
   box-sizing: border-box;
 }
+
 .openpopup {
   top: 46%;
   left: 41.5%;
   width: 100%;
   height: 100%;
-
   background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
   z-index: 999;
 }

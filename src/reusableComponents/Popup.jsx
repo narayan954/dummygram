@@ -1,4 +1,4 @@
-import "./popup.css";
+import "./Popup.css";
 
 import React from "react";
 
