@@ -8,6 +8,7 @@ import {
   Modal,
   Typography,
 } from "@mui/material";
+import {AiOutlineInsertRowAbove} from "react-icons/ai" 
 import { FaArrowCircleUp, FaUserCircle } from "react-icons/fa";
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
@@ -73,10 +74,11 @@ function App() {
   const [openShareModal, setOpenShareModal] = useState(false);
   const [currentPostLink, setCurrentPostLink] = useState("");
   const [postText, setPostText] = useState("");
+  const [row, setrow] = useState(false);
 
   const buttonStyle = {
     background: "linear-gradient(40deg, #e107c1, #59afc7)",
-    borderRadius: "25px",
+    borderRadius: "20px",
     ":hover": {
       background: "linear-gradient(-40deg, #59afc7, #e107c1)",
     },
@@ -192,7 +194,9 @@ function App() {
 
   return (
     <div className="app">
+      
       <div className="app__header">
+    
         <img
           src={logo}
           alt="dummygram"
@@ -210,7 +214,7 @@ function App() {
             cursor: "pointer",
           }}
         />
-
+         
         {user ? (
           <>
             <Button
@@ -218,11 +222,12 @@ function App() {
               color="secondary"
               variant="contained"
               sx={buttonStyle}
-              className="app__newpost__button"
             >
               <AddCircleOutlineIcon style={{ marginRight: "4" }} />
               New Post
             </Button>
+            <div style={{display:'flex',flexDirection:'row',justifyContent:'center'}}>
+            <div className="rowConvert"  onClick={()=>{setrow(!row)}}><AiOutlineInsertRowAbove size={30}/></div>
             <ClickAwayListener onClickAway={() => setOpen(false)}>
               <Button
                 onClick={() => setOpen((cur) => !cur)}
@@ -230,6 +235,7 @@ function App() {
                 variant="contained"
                 sx={{ ...buttonStyle, marginRight: "10px" }}
               >
+                
                 <FaUserCircle fontSize="large" />
                 {open && (
                   <Box
@@ -278,6 +284,7 @@ function App() {
                 )}
               </Button>
             </ClickAwayListener>
+            </div>
           </>
         ) : (
           <div className="login__container">
@@ -307,7 +314,7 @@ function App() {
           </div>
         )}
       </div>
-
+     
       <ShareModal
         openShareModal={openShareModal}
         setOpenShareModal={setOpenShareModal}
@@ -330,9 +337,11 @@ function App() {
           }}
         >
           <AiOutlineClose
-            onClick={() => setOpenNewUpload(false)}
+            onClick={() => {
+              setOpenNewUpload(false);
+            }}
             size={25}
-            style={{ position: "absolute", right: "1rem", cursor: "pointer" }}
+            style={{ position: "absolute", right: "1rem" }}
           />
           <img
             src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
@@ -436,9 +445,10 @@ function App() {
                   {loadingPosts ? (
                     <Loader />
                   ) : (
-                    <div className="app__posts">
+                    <div className={`${row?"app__posts":"app_posts_normal"}`}>
                       {posts.map(({ id, post }) => (
                         <Post
+                        row={row}
                           key={id}
                           postId={id}
                           user={user}
@@ -489,6 +499,7 @@ function App() {
           display: showScroll ? "flex" : "none",
         }}
       />
+       
     </div>
   );
 }
