@@ -58,6 +58,8 @@ export const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const PAGESIZE = 10;
+
 function App() {
   const classes = useStyles();
 
@@ -67,14 +69,13 @@ function App() {
   const [user, setUser] = useState(null);
   const [open, setOpen] = useState();
   const [loadingPosts, setLoadingPosts] = useState(true);
-  const [pageSize, setPageSize] = useState(10);
   const [loadMorePosts, setLoadMorePosts] = useState(false);
   const [openNewUpload, setOpenNewUpload] = useState(false);
   const [logout, setLogout] = useState(false);
   const [openShareModal, setOpenShareModal] = useState(false);
   const [currentPostLink, setCurrentPostLink] = useState("");
   const [postText, setPostText] = useState("");
-  const [row, setrow] = useState(false);
+  const [rowMode, setRowMode] = useState(false);
 
   const buttonStyle = {
     background: "linear-gradient(40deg, #e107c1, #59afc7)",
@@ -143,7 +144,7 @@ function App() {
     window.addEventListener("scroll", handleMouseScroll);
     db.collection("posts")
       .orderBy("timestamp", "desc")
-      .limit(pageSize)
+      .limit(PAGESIZE)
       .onSnapshot((snapshot) => {
         setLoadingPosts(false);
         setPosts(
@@ -169,7 +170,7 @@ function App() {
       db.collection("posts")
         .orderBy("timestamp", "desc")
         .startAfter(posts[posts.length - 1].post.timestamp)
-        .limit(pageSize)
+        .limit(PAGESIZE)
         .onSnapshot((snapshot) => {
           setPosts((loadedPosts) => {
             return [
@@ -220,6 +221,7 @@ function App() {
               color="secondary"
               variant="contained"
               sx={buttonStyle}
+              className="app__newpost__button"
             >
               <AddCircleOutlineIcon style={{ marginRight: "4" }} />
               New Post
@@ -234,7 +236,7 @@ function App() {
               <div
                 className="rowConvert"
                 onClick={() => {
-                  setrow(!row);
+                  setRowMode(!rowMode);
                 }}
               >
                 <AiOutlineInsertRowAbove size={30} />
@@ -351,7 +353,7 @@ function App() {
               setOpenNewUpload(false);
             }}
             size={25}
-            style={{ position: "absolute", right: "1rem" }}
+            style={{ position: "absolute", right: "1rem", cursor: "pointer" }}
           />
           <img
             src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
@@ -456,11 +458,13 @@ function App() {
                     <Loader />
                   ) : (
                     <div
-                      className={`${row ? "app__posts" : "app_posts_normal"}`}
+                      className={`${
+                        rowMode ? "app__posts" : "app_posts_column"
+                      }`}
                     >
                       {posts.map(({ id, post }) => (
                         <Post
-                          row={row}
+                          rowMode={rowMode}
                           key={id}
                           postId={id}
                           user={user}
