@@ -10,16 +10,14 @@ import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
-
 const LoginScreen = () => {
-  const classes = useStyles();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
+  const classes = useStyles();
 
   const handleShowPassword = (e) => {
     e.preventDefault();
@@ -36,39 +34,31 @@ const LoginScreen = () => {
         });
       })
       .catch((error) => {
-       
-        if (error.code === 'auth/invalid-email') {
-          
-          enqueueSnackbar('Invalid email address', {
+        if (error.code === "auth/invalid-email") {
+          enqueueSnackbar("Invalid email address", {
             variant: "error",
-          })
-        } else if (error.code === 'auth/user-not-found') {
-          
-          enqueueSnackbar('User not found', {
+          });
+        } else if (error.code === "auth/user-not-found") {
+          enqueueSnackbar("User not found", {
             variant: "error",
-          })
-        } else if (error.code === 'auth/wrong-password') {
-         
-          enqueueSnackbar('Wrong password', {
+          });
+        } else if (error.code === "auth/wrong-password") {
+          enqueueSnackbar("Wrong password", {
             variant: "error",
-          })
-        } else if (error.code === 'auth/account-exists-with-different-credential') {
-          enqueueSnackbar('Account exists with a different credential', {
+          });
+        } else if (
+          error.code === "auth/account-exists-with-different-credential"
+        ) {
+          enqueueSnackbar("Account exists with a different credential", {
             variant: "error",
-          })
-          
+          });
         } else {
           enqueueSnackbar("Error Occured!", {
             variant: "error",
-          })
+          });
         }
-      })
-
-    
-      
-      .finally(() => { });
+      });
   };
-
 
   const signInWithGoogle = (e) => {
     e.preventDefault();
@@ -84,18 +74,17 @@ const LoginScreen = () => {
         //   variant: "error",
         // })
         {
-          if (error.code === 'auth/account-exists-with-different-credential') {
-            enqueueSnackbar('Account exists with a different credential', {
+          if (error.code === "auth/account-exists-with-different-credential") {
+            enqueueSnackbar("Account exists with a different credential", {
               variant: "error",
-            })
+            });
           } else {
-            enqueueSnackbar('An error occcured!', {
+            enqueueSnackbar("An error occcured!", {
               variant: "error",
-            })
+            });
           }
         }
-      )
-      .finally(() => { });
+      );
   };
 
   const signInWithFacebook = (e) => {
@@ -107,20 +96,17 @@ const LoginScreen = () => {
           variant: "success",
         });
       })
-      .catch((error) =>
-       {
-        if (error.code === 'auth/account-exists-with-different-credential') {
-          enqueueSnackbar('Account exists with a different credential', {
+      .catch((error) => {
+        if (error.code === "auth/account-exists-with-different-credential") {
+          enqueueSnackbar("Account exists with a different credential", {
             variant: "error",
-          })
+          });
         } else {
-          enqueueSnackbar('An error occcured!', {
+          enqueueSnackbar("An error occcured!", {
             variant: "error",
-          })
+          });
         }
-       }
-      )
-      .finally(() => { });
+      });
   };
 
   const navigateToSignup = () => {
@@ -128,7 +114,6 @@ const LoginScreen = () => {
   };
 
   return (
-
     <div
       style={{
         display: "flex",
@@ -226,7 +211,6 @@ const LoginScreen = () => {
         </form>
       </div>
     </div>
-
   );
 };
 
