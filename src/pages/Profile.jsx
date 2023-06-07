@@ -91,80 +91,89 @@ function Profile() {
   return (
     <>
       <Box
-        height="100vh"
+        width={isNonMobile ? "30%" : "70%"}
+        backgroundColor="#F4EEFF"
+        paddingY={5}
+        paddingX={7}
+        sx={{
+          border: "none",
+          boxShadow: "0 0 6px black",
+          margin: "5.5rem auto 2.5rem",
+        }}
         display="flex"
-        justifyContent="center"
-        alignItems="center"
+        justifyContent={"center"}
+        alignItems={"center"}
+        textAlign={"center"}
       >
-        <Box
-          width={isNonMobile ? "30%" : "80%"}
-          paddingY={3}
-          sx={{ border: "1px solid gray", borderRadius: "10px" }}
-          display="flex"
-          justifyContent="center"
-        >
-          <Box display="flex" flexDirection="column" gap={1}>
-            <Box marginX="auto" fontSize="600%">
-              {profilepic ? (
-                <Avatar
-                  alt={name}
-                  src={profilepic}
-                  sx={{
-                    width: "30vh",
-                    height: "30vh",
-                    // bgcolor: "royalblue",
-                    border: "2px solid transparent",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    cursor: "pointer",
-                  }}
-                />
-              ) : (
-                <FaUserCircle style={{ width: "25vh", height: "25vh" }} />
-              )}
-            </Box>
-            {name == auth.currentUser.displayName ? (
-              <Box>
-                <input
-                  type="file"
-                  id="file"
-                  className="file"
-                  onChange={handleChange}
-                  accept="image/*"
-                />
-                <label htmlFor="file">
-                  <div className="img-edit">Edit Profile Pic</div>
-                </label>
-              </Box>
+        <Box display="flex" flexDirection="column" gap={1}>
+          <Box marginX="auto" fontSize="600%">
+            {avatar ? (
+              <Avatar
+                alt={name}
+                src={avatar}
+                sx={{
+                  width: "23vh",
+                  height: "23vh",
+                  bgcolor: "black",
+                  border: "none",
+                  boxShadow: "0 0 4px black",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  cursor: "pointer",
+                }}
+              />
             ) : (
-              ""
+              <FaUserCircle style={{ width: "23vh", height: "23vh" }} />
             )}
-            {visible && (
-              <Button
-                onClick={handleSave}
-                variant="outlined"
-                sx={{ marginTop: "1rem" }}
-              >
-                Save
-              </Button>
-            )}
-            <Divider sx={{ marginTop: "1rem" }} />
-            <Typography fontSize="1.3rem" fontWeight="600" fontFamily="serif">
-              {name}
-            </Typography>
-            <Divider />
-            <Typography fontSize="1.5rem" fontWeight="600" fontFamily="serif">
-              {email && email}
-            </Typography>
+          </Box>
+          {name == auth.currentUser.displayName ? (
+            <Box>
+              <input
+                type="file"
+                id="file"
+                className="file"
+                onChange={handleChange}
+                accept="image/*"
+              />
+              <label htmlFor="file">
+                <div
+                  className="img-edit"
+                  style={{ marginTop: "0.5rem", marginBottom: "0.5rem" }}
+                >
+                  Edit Profile Pic
+                </div>
+              </label>
+            </Box>
+          ) : (
+            ""
+          )}
+          {visible && (
             <Button
-              onClick={handleBack}
+              onClick={handleSave}
               variant="outlined"
               sx={{ marginTop: "1rem" }}
             >
-              Back
+              Save
             </Button>
-          </Box>
+          )}
+          <Divider sx={{ marginTop: "1rem" }} />
+          <Typography fontSize="1.3rem" fontWeight="600" fontFamily="serif">
+            {name}
+          </Typography>
+          <Divider />
+          <Typography fontSize="1.5rem" fontWeight="600" fontFamily="serif">
+            {email && email}
+          </Typography>
+          <Button
+            onClick={handleBack}
+            variant="contained"
+            color="primary"
+            sx={{ marginTop: "1rem" }}
+            fontSize="1.2rem"
+          >
+            Back
+          </Button>
         </Box>
       </Box>
       <ShareModal
@@ -176,7 +185,7 @@ function Profile() {
       <Box>
         <div
           className="profile__favourites"
-          style={{ marginTop: "-5em" }}
+          style={{ marginTop: "1.5rem", marginBottom: "1.5rem" }}
           align="center"
         >
           {posts.length ? (
