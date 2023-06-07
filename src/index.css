@@ -59,6 +59,10 @@ input:focus {
   padding: 20px;
   padding-top: 5.5em;
 }
+.app_posts_column {
+  padding: 20px;
+  padding-top: 5.5em;
+}
 
 /* Post style */
 .post {
@@ -69,11 +73,67 @@ input:focus {
   border-radius: 5px;
   margin-bottom: 20px;
   word-wrap: break-word;
+  transition: all;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
 }
 
+.post:hover {
+  transform: scale(1.03);
+}
+
+.postColumn {
+  max-width: 400px;
+  margin-top: 20px;
+  padding: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.373);
+  border-radius: 5px;
+  margin-bottom: 20px;
+  word-wrap: break-word;
+  transition: all;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+}
+
+.postColumn:hover {
+  transform: scale(1.03);
+}
+
+@media only screen and (min-width: 800px) {
+  .app__posts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+  }
+}
+
+.rowConvert {
+  color: #ab4bc2;
+  transition: all;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+  margin-right: 12px;
+  display: flex;
+}
+.rowConvert:hover {
+  cursor: pointer;
+  color: red;
+  transform: scale(1.04);
+}
+@media only screen and (max-width: 900px) {
+  .rowConvert {
+    display: none;
+  }
+}
 /* Added media query in post for responsiveness */
 @media only screen and (max-width: 460px) {
   .post {
+    max-width: 320px;
+    padding: 5px;
+    margin-top: 25px;
+  }
+  .postColumn {
     max-width: 320px;
     padding: 5px;
     margin-top: 25px;
@@ -315,12 +375,18 @@ input:focus {
   .scrollTop {
     left: 43%;
   }
+  .app__newpost__button {
+    left: -6%;
+  }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
   .scrollTop {
     left: 45.6%;
+  }
+  .app__newpost__button {
+    left: -4.8%;
   }
 }
 
@@ -329,6 +395,9 @@ input:focus {
   .scrollTop {
     left: 46.6%;
   }
+  .app__newpost__button {
+    left: -4.2%;
+  }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
@@ -336,12 +405,18 @@ input:focus {
   .scrollTop {
     left: 47.2%;
   }
+  .app__newpost__button {
+    left: -2.5%;
+  }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
   .scrollTop {
     left: 47.7%;
+  }
+  .app__newpost__button {
+    left: -1.2%;
   }
 }
 
@@ -404,6 +479,23 @@ div#picker {
   font-weight: bold;
   cursor: pointer;
   transition: transform 0.2s ease-out;
+}
+
+.img-edit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  border-radius: 1.303rem;
+  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  color: blue;
+  border-style: solid;
+}
+
+.img-edit:hover {
+  background: linear-gradient(40deg, #e107c1, #59afc7);
+  transition: transform 0.5s ease-out;
 }
 
 ::-webkit-scrollbar {
