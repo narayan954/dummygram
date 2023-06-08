@@ -61,10 +61,6 @@ export const useStyles = makeStyles((theme) => ({
 const PAGESIZE = 10;
 
 function App() {
-  const classes = useStyles();
-
-  const navigate = useNavigate();
-
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState(null);
   const [open, setOpen] = useState();
@@ -76,6 +72,11 @@ function App() {
   const [currentPostLink, setCurrentPostLink] = useState("");
   const [postText, setPostText] = useState("");
   const [rowMode, setRowMode] = useState(false);
+  const [showScroll, setShowScroll] = useState(false);
+
+  const classes = useStyles();
+  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
 
   const buttonStyle = {
     background: "linear-gradient(40deg, #e107c1, #59afc7)",
@@ -84,9 +85,6 @@ function App() {
       background: "linear-gradient(-40deg, #59afc7, #e107c1)",
     },
   };
-
-  const { enqueueSnackbar } = useSnackbar();
-  const [showScroll, setShowScroll] = useState(false);
 
   const checkScrollTop = () => {
     if (!showScroll && window.pageYOffset > 400) {
@@ -390,6 +388,7 @@ function App() {
           </DialogContent>
         </div>
       </Dialog>
+
       <Modal open={logout} onClose={() => setLogout(false)}>
         <div style={getModalStyle()} className={classes.paper}>
           <form className="modal__signup">
