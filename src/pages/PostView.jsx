@@ -30,7 +30,9 @@ const PostView = (props) => {
   }, [post]);
 
   return (
-    <div style={{ marginTop: "100px", marginLeft: "600px" }}>
+    <div
+      style={{ display: "flex", justifyContent: "center", marginTop: "10vh" }}
+    >
       {post && user ? (
         <Post
           key={id}

@@ -11,14 +11,13 @@ import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
 const LoginScreen = () => {
-  const classes = useStyles();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
+  const classes = useStyles();
 
   const handleShowPassword = (e) => {
     e.preventDefault();
@@ -34,12 +33,31 @@ const LoginScreen = () => {
           variant: "success",
         });
       })
-      .catch((error) =>
-        enqueueSnackbar(error.message, {
-          variant: "error",
-        })
-      )
-      .finally(() => {});
+      .catch((error) => {
+        if (error.code === "auth/invalid-email") {
+          enqueueSnackbar("Invalid email address", {
+            variant: "error",
+          });
+        } else if (error.code === "auth/user-not-found") {
+          enqueueSnackbar("User not found", {
+            variant: "error",
+          });
+        } else if (error.code === "auth/wrong-password") {
+          enqueueSnackbar("Wrong password", {
+            variant: "error",
+          });
+        } else if (
+          error.code === "auth/account-exists-with-different-credential"
+        ) {
+          enqueueSnackbar("Account exists with a different credential", {
+            variant: "error",
+          });
+        } else {
+          enqueueSnackbar("Error Occured!", {
+            variant: "error",
+          });
+        }
+      });
   };
 
   const signInWithGoogle = (e) => {
@@ -52,11 +70,21 @@ const LoginScreen = () => {
         });
       })
       .catch((error) =>
-        enqueueSnackbar(error.message, {
-          variant: "error",
-        })
-      )
-      .finally(() => {});
+        // enqueueSnackbar(error.message, {
+        //   variant: "error",
+        // })
+        {
+          if (error.code === "auth/account-exists-with-different-credential") {
+            enqueueSnackbar("Account exists with a different credential", {
+              variant: "error",
+            });
+          } else {
+            enqueueSnackbar("An error occcured!", {
+              variant: "error",
+            });
+          }
+        }
+      );
   };
 
   const signInWithFacebook = (e) => {
@@ -68,12 +96,17 @@ const LoginScreen = () => {
           variant: "success",
         });
       })
-      .catch((error) =>
-        enqueueSnackbar(error.message, {
-          variant: "error",
-        })
-      )
-      .finally(() => {});
+      .catch((error) => {
+        if (error.code === "auth/account-exists-with-different-credential") {
+          enqueueSnackbar("Account exists with a different credential", {
+            variant: "error",
+          });
+        } else {
+          enqueueSnackbar("An error occcured!", {
+            variant: "error",
+          });
+        }
+      });
   };
 
   const navigateToSignup = () => {
