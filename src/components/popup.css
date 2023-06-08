@@ -1,34 +1,3 @@
-<<<<<<< HEAD
-.popup{
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    padding: 20px;
-    z-index: 1000;
-    max-height: 550px; /* Adjust the height as needed */
-    overflow-y: auto;
-    
-}
-
-.popup-inner{
-    position: relative;
-    padding: 44px;
-    width: 350px;
-    max-width: 640px;
-    background-color: white;
-    align-items: center;
-}
-
-.popup-inner .close-btn{
-   
-    position: absolute;
-    top: 1px;
-    right: -16px;
-    
-}
-=======
 .popup {
   position: fixed;
   top: 50%;
@@ -44,7 +13,7 @@
 .popup-inner {
   position: relative;
   padding: 44px;
-  width: 100%;
+  width: 350px;
   max-width: 640px;
   background-color: white;
 }
@@ -54,4 +23,3 @@
   top: 16px;
   right: 1px;
 }
->>>>>>> 552b2d35e1dfc3e4d7d7ade3069f851b077a7d12

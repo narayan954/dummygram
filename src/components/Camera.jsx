@@ -17,7 +17,13 @@ export default function Camera() {
   }, [webcamRef]);
 
   const onUserMedia = (e) => {
-    console.log(e);
+  
+  };
+  const handleSave = () => {
+    const downloadLink = document.createElement('a');
+    downloadLink.href = url;
+    downloadLink.download = 'captured_image.png';
+    downloadLink.click();
   };
   return (
     <>
@@ -36,11 +42,19 @@ export default function Camera() {
       <div className="cameraBtn">
         <button onClick={capturePhoto}>Capture</button>
         <button onClick={() => setUrl(null)}>Refesh</button>
+          
       </div>
 
+    
       {url && (
         <div>
           <img src={url} alt="Screenshot"></img>
+
+          <div>
+            <url src={url} alt="captured" />
+            <button onClick={handleSave}>Save</button>
+          </div>
+         
         </div>
       )}
     </>
