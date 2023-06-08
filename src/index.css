@@ -161,6 +161,7 @@ input:focus {
   padding: 5px 15px;
   font-size: 15px;
   text-align: left;
+  white-space: pre-line;
 }
 
 .post__username {
@@ -273,6 +274,7 @@ input:focus {
   font-weight: 400;
   font-size: 15px;
   color: black;
+  white-space: pre-line;
 }
 
 .post__comments {
