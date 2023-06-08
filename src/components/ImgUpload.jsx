@@ -6,7 +6,7 @@ import { db, handleMultiUpload, storage } from "../lib/firebase";
 
 import AnimatedButton from "./AnimatedButton";
 import Camera from "./Camera";
-import Popup from "./Popup";
+import Popup from "../reusableComponents/Popup";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
 
@@ -18,6 +18,9 @@ export default function ImgUpload(props) {
   const imgInput = useRef(null);
   const [imagePreviews, setImagePreviews] = useState([]);
   const [isValidimage, setisValidimage] = useState(true);
+  const [buttonPopup, setButtonPopup] = useState(false);
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleChange = (e) => {
     if (!e.target.files[0]) {
@@ -51,8 +54,6 @@ export default function ImgUpload(props) {
 
     setImagePreviews(images);
   };
-
-  const { enqueueSnackbar } = useSnackbar();
 
   const savePost = (imageUrl = "") => {
     db.collection("posts")
@@ -141,7 +142,6 @@ export default function ImgUpload(props) {
       });
   }
 
-  const [buttonPopup, setButtonPopup] = useState(false);
   return (
     <div className="imageUpload">
       {uploadingPost && image && (
