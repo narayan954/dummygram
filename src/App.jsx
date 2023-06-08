@@ -29,6 +29,7 @@ import SignupScreen from "./pages/Signup";
 import logo from "./assets/logo.png";
 import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
+import Favourites from "./pages/Favourites";
 
 export function getModalStyle() {
   const top = 50;
@@ -259,6 +260,8 @@ function App() {
                       marginTop={16}
                       marginRight={3}
                       sx={{
+                        mt:"10rem",
+                        mr:"4rem",
                         vertical: "top",
                         border: "1px solid black",
                       }}
@@ -279,6 +282,26 @@ function App() {
                       >
                         <Typography fontFamily="serif" fontSize="1rem">
                           Profile
+                        </Typography>
+                      </Box>
+                      <Divider />
+                      <Box
+                        display="flex"
+                        padding="0.5rem"
+                        sx={{ cursor: "pointer" }}
+                        onClick={() =>
+                          navigate("/dummygram/favourites", {
+                            state: {
+                              rowMode:rowMode,
+                              name: user.toJSON().displayName,
+                              email: user.toJSON().email,
+                              avatar: user.toJSON().photoURL,
+                            },
+                          })
+                        }
+                      >
+                        <Typography fontFamily="serif" fontSize="1rem">
+                        Favourites
                         </Typography>
                       </Box>
                       <Divider />
@@ -489,6 +512,7 @@ function App() {
         <Route path="/dummygram/login" element={<LoginScreen />} />
 
         <Route path="/dummygram/signup" element={<SignupScreen />} />
+        <Route path="/dummygram/favourites" element={<Favourites rowMode={rowMode} />} />
 
         <Route
           path="/dummygram/posts/:id"
