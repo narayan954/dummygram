@@ -578,8 +578,8 @@ function Post(prop) {
               {comments.length > 1
                 ? `View all ${comments.length} comments`
                 : comments.length === 1
-                  ? `View 1 comment`
-                  : "No comments yet"}
+                ? `View 1 comment`
+                : "No comments yet"}
             </Button>
             <DialogBox
               open={isCommentOpen}
@@ -620,7 +620,7 @@ function Post(prop) {
                                     }}
                                   >
                                     {user &&
-                                      userComment.content.username ===
+                                    userComment.content.username ===
                                       user.displayName ? (
                                       <DeleteTwoToneIcon
                                         fontSize="small"
