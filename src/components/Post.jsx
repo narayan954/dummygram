@@ -426,7 +426,7 @@ function Post(prop) {
               </>
             ) : (
               <>
-                <p style={{ whiteSpace: 'pre-line' }} className="post_caption">{caption}</p>
+                <p className="post_caption">{caption}</p>
                 {caption.length >= 700 && (
                   <button
                     className="post__less_btn"
@@ -439,7 +439,7 @@ function Post(prop) {
             )}
           </div>
         )}
-        <div style={{ whiteSpace: 'pre-line' }} className="post__text">
+        <div className="post__text">
           {caption && postHasImages && (
             <>
               {/* <strong style={{ color: "royalblue" }}>{username} </strong> */}
