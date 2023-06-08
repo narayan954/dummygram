@@ -57,6 +57,10 @@ export const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
     color: "var(--color)",
   },
+  logout: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
 }));
 
 const PAGESIZE = 10;
@@ -82,6 +86,7 @@ function App() {
   const buttonStyle = {
     background: "linear-gradient(40deg, #e107c1, #59afc7)",
     borderRadius: "20px",
+    margin: "10px",
     ":hover": {
       background: "linear-gradient(-40deg, #59afc7, #e107c1)",
     },
@@ -415,15 +420,26 @@ function App() {
               Are you sure you want to Logout?
             </p>
 
-            <AnimatedButton
-              type="submit"
-              onClick={signOut}
-              variant="contained"
-              color="primary"
-              sx={buttonStyle}
-            >
-              Logout
-            </AnimatedButton>
+            <div className={classes.logout}>
+              <AnimatedButton
+                type="submit"
+                onClick={signOut}
+                variant="contained"
+                color="primary"
+                sx={buttonStyle}
+              >
+                Logout
+              </AnimatedButton>
+              <AnimatedButton
+                type="submit"
+                onClick={() => setLogout(false)}
+                variant="contained"
+                color="primary"
+                sx={buttonStyle}
+              >
+                Cancel
+              </AnimatedButton>
+            </div>
           </form>
         </div>
       </Modal>
