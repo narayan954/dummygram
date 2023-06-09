@@ -1,6 +1,6 @@
-/* navbar styling */
+/* sidebar styling */
 
-.nav-bar {
+.sidebar {
   background: #fff;
   position: fixed;
   width: 17vw;
@@ -10,14 +10,18 @@
   border-right: 1px solid rgb(219, 219, 219);
 }
 
-.nav-bar ul {
+.sidebar ul {
   display: flex;
   flex-direction: column;
   list-style: none;
   padding: 0 20px;
 }
 
-.nav-bar ul li {
+.active {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.sidebar ul li {
   cursor: pointer;
   padding: 10px;
   margin: 10px 0;
@@ -25,48 +29,48 @@
   transition: all 0.5s ease;
 }
 
-.nav-bar ul li:hover {
+.sidebar ul li:hover {
   background: rgba(0, 0, 0, 0.05);
 }
 
-.nav-bar ul li a {
+.sidebar ul li a, .profile {
   display: flex;
   align-items: center;
   color: black;
   text-decoration: none;
 }
 
-.nav-bar .icon {
+.sidebar .icon {
   font-size: 30px;
   transition: all 0.2s ease;
 }
 
-.nav-bar ul li:hover .icon {
+.sidebar ul li:hover .icon {
   transform: scale(1.1);
 }
 
-.nav-bar ul li span {
+.sidebar ul li span {
   margin-left: 15px;
 }
 
 /* media query */
 
 @media screen and (max-width: 1200px) {
-  .nav-bar {
+  .sidebar {
     width: 8vw;
   }
 
-  .nav-bar ul li a {
+  .sidebar ul li a, .profile {
     justify-content: center;
   }
 
-  .nav-bar ul li a span {
+  .sidebar ul li a span, .profile span {
     display: none;
   }
 }
 
 @media screen and (max-width: 800px) {
-  .nav-bar {
+  .sidebar {
     border-top: 1px solid rgb(219, 219, 219);
     border-right: none;
     width: 100vw;
@@ -75,13 +79,13 @@
     z-index: 2;
   }
 
-  .nav-bar ul {
+  .sidebar ul {
     justify-content: space-around;
     flex-direction: row;
     height: 8vh;
   }
 
-  .nav-bar ul li {
+  .sidebar ul li {
     margin: auto;
   }
 }

@@ -29,7 +29,8 @@ import SignupScreen from "./pages/Signup";
 import logo from "./assets/logo.png";
 import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
-import Navbar from "./components/Navbar";
+import SideBar from "./components/SideBar";
+import Favorite from "./components/Favorite";
 
 export function getModalStyle() {
   const top = 50;
@@ -442,7 +443,7 @@ function App() {
                   alignItems: "center",
                 }}
               >
-                <Navbar />
+                <SideBar user={user}/>
                 <div
                   style={
                     !loadingPosts
@@ -505,6 +506,7 @@ function App() {
         />
 
         <Route path="*" element={<NotFoundPage />} />
+        <Route path="/dummygram/favourites" element={<Favorite />} />
       </Routes>
 
       <FaArrowCircleUp
