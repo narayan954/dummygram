@@ -26,6 +26,7 @@ function Profile() {
   const [image, setImage] = useState("");
   const [profilepic, setProfilePic] = useState(avatar);
   const [visible, setVisibile] = useState(false);
+  const [favoritePosts, setFavoritePosts] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,6 +43,7 @@ function Profile() {
         }
       });
       setPosts(posts);
+      setFavoritePosts(posts); //  to populate favoritePosts
     };
     fetchPosts();
   }, []);
@@ -87,6 +89,14 @@ function Profile() {
     );
     setVisibile(false);
   };
+
+  const handleDeletePost = async (postId) => {
+    await db.collection("posts").doc(postId).delete();
+    setFavoritePosts((prevPosts) =>
+      prevPosts.filter((post) => post.id !== postId)
+    );
+  };
+  
 
   return (
     <>
@@ -188,24 +198,33 @@ function Profile() {
           style={{ marginTop: "1.5rem", marginBottom: "1.5rem" }}
           align="center"
         >
-          {posts.length ? (
+          {favoritePosts.length ? (
             <>
               <h1>Your Favourites</h1>
-              {posts.map(({ id, post }) => (
-                <Post
-                  key={id}
-                  postId={id}
-                  user={auth.currentUser}
-                  post={post}
-                  shareModal={setOpenShareModal}
-                  setLink={setCurrentPostLink}
-                  setPostText={setPostText}
-                />
+              {favoritePosts.map(({ id, post }) => (
+                <div key={id}>
+                  <Post
+                    postId={id}
+                    user={auth.currentUser}
+                    post={post}
+                    shareModal={setOpenShareModal}
+                    setLink={setCurrentPostLink}
+                    setPostText={setPostText}
+                  />
+                  <Button
+                    variant="outlined"
+                    color="error" 
+                    onClick={() => handleDeletePost(id)}
+                  >
+                    Delete
+                  </Button>
+                </div>
               ))}
             </>
           ) : (
-            <>You have nothing in favourites</>
+            <>You have nothing in favorites</>
           )}
+
         </div>
       </Box>
     </>
