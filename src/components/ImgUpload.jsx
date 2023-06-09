@@ -5,10 +5,12 @@ import React, { useRef, useState } from "react";
 import { db, handleMultiUpload, storage } from "../lib/firebase";
 
 import AnimatedButton from "./AnimatedButton";
+import Camera from "./Camera";
+import Popup from "../reusableComponents/Popup";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
 
-function ImgUpload(props) {
+export default function ImgUpload(props) {
   const [image, setImage] = useState(null);
   const [caption, setCaption] = useState("");
   const [progress, setProgress] = useState(0);
@@ -16,6 +18,9 @@ function ImgUpload(props) {
   const imgInput = useRef(null);
   const [imagePreviews, setImagePreviews] = useState([]);
   const [isValidimage, setisValidimage] = useState(true);
+  const [buttonPopup, setButtonPopup] = useState(false);
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleChange = (e) => {
     if (!e.target.files[0]) {
@@ -49,8 +54,6 @@ function ImgUpload(props) {
 
     setImagePreviews(images);
   };
-
-  const { enqueueSnackbar } = useSnackbar();
 
   const savePost = (imageUrl = "") => {
     db.collection("posts")
@@ -160,6 +163,17 @@ function ImgUpload(props) {
                 disabled={uploadingPost}
               />
               <label htmlFor="file">Upload Picture</label>
+              <main className="popupMain">
+                <button
+                  className="openpopup"
+                  onClick={() => setButtonPopup(true)}
+                >
+                  Take Picture
+                </button>
+                <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+                  <Camera />
+                </Popup>
+              </main>
             </div>
           </center>
         </>
@@ -209,5 +223,3 @@ function ImgUpload(props) {
     </div>
   );
 }
-
-export default ImgUpload;
