@@ -338,59 +338,57 @@ function App() {
       />
 
       <Dialog
-        sx={{ borderRadius: "100px" }}
+        PaperProps={{
+          sx: {
+            width: "60vw",
+            height: "60vh"
+          }
+        }}
         open={openNewUpload}
         onClose={() => setOpenNewUpload(false)}
       >
         <div
           style={{
             backgroundColor: "var(--bg-color)",
-            padding: "20px",
             textAlign: "center",
-            color: "var(--color)",
-            border: "2px solid var(--color)",
+            color: "var(--color)"
           }}
         >
           <AiOutlineClose
             onClick={() => {
               setOpenNewUpload(false);
             }}
-            size={25}
-            style={{ position: "absolute", right: "1rem", cursor: "pointer" }}
+            size={18}
+            style={{ position: "absolute", right: "1rem", top: "1rem", cursor: "pointer" }}
           />
-          <img
+          {/* <img
             src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
             alt="instagram"
             className="modal__signup__img"
             style={{ width: "50%", filter: "invert(var(--val))" }}
-          />
+          /> */}
           <p
             style={{
-              fontSize: "25px",
-              fontFamily: "monospace",
+              fontSize: "17px",
+              fontWeight: 500,
               color: "var(--color)",
+              marginTop: "10px",
+              marginBottom: "8px"
             }}
           >
-            New Post
+            Create new post
           </p>
+          <hr />
 
-          <DialogContent
-            sx={
-              {
-                // backgroundColor: "var(--bg-color)",
-              }
-            }
-          >
-            {!loadingPosts &&
-              (user ? (
-                <ImgUpload
-                  user={user}
-                  onUploadComplete={() => setOpenNewUpload(false)}
-                />
-              ) : (
-                <h3>Sorry you need to login to upload posts</h3>
-              ))}
-          </DialogContent>
+          {!loadingPosts &&
+            (user ? (
+              <ImgUpload
+                user={user}
+                onUploadComplete={() => setOpenNewUpload(false)}
+              />
+            ) : (
+              <h3>Sorry you need to login to upload posts</h3>
+            ))}
         </div>
       </Dialog>
 
@@ -461,21 +459,20 @@ function App() {
                     !loadingPosts
                       ? {}
                       : {
-                          width: "100%",
-                          minHeight: "100vh",
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }
+                        width: "100%",
+                        minHeight: "100vh",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }
                   }
                 >
                   {loadingPosts ? (
                     <Loader />
                   ) : (
                     <div
-                      className={`${
-                        rowMode ? "app__posts" : "app_posts_column"
-                      }`}
+                      className={`${rowMode ? "app__posts" : "app_posts_column"
+                        }`}
                     >
                       {posts.map(({ id, post }) => (
                         <Post

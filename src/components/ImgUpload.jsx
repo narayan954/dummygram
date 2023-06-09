@@ -1,16 +1,30 @@
 import "./imgPreview.css";
 
-import { LinearProgress, TextField } from "@mui/material";
+import { LinearProgress, TextField, Avatar } from "@mui/material";
 import React, { useRef, useState } from "react";
 import { db, handleMultiUpload, storage } from "../lib/firebase";
-
+import { Link } from "react-router-dom";
 import AnimatedButton from "./AnimatedButton";
 import Camera from "./Camera";
 import Popup from "../reusableComponents/Popup";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
+import ImageSlider from "../reusableComponents/ImageSlider";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 
 export default function ImgUpload(props) {
+  const [current, setCurrent] = useState(0);
+  const prevStep = () => {
+    setCurrent(current === 0 ? imagePreviews.length - 1 : current - 1);
+  };
+  const nextStep = () => {
+    setCurrent(current === imagePreviews.length - 1 ? 0 : current + 1);
+  };
+  const jsonString = localStorage.getItem('user');
+  const jsonObject = JSON.parse(jsonString);
+  const username = jsonObject.username;
+  const avatar = jsonObject.img;
   const [image, setImage] = useState(null);
   const [caption, setCaption] = useState("");
   const [progress, setProgress] = useState(0);
@@ -147,79 +161,124 @@ export default function ImgUpload(props) {
       {uploadingPost && image && (
         <LinearProgress variant="determinate" value={progress} />
       )}
-      {(!uploadingPost || (uploadingPost && image)) && (
-        <>
-          <center>
-            <div className="file-input">
-              <input
-                type="file"
-                className="file"
-                name="file"
-                id="file"
-                onChange={handleChange}
-                multiple
-                accept="image/*"
-                ref={imgInput}
-                disabled={uploadingPost}
-              />
-              <label htmlFor="file">Upload Picture</label>
-              <main className="popupMain">
-                <button
-                  className="openpopup"
-                  onClick={() => setButtonPopup(true)}
-                >
-                  Take Picture
-                </button>
-                <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-                  <Camera />
-                </Popup>
-              </main>
-            </div>
-          </center>
-        </>
-      )}
-      {imagePreviews && (
-        <div>
-          {imagePreviews.map((img, i) => {
-            return (
-              <center>
-                <img
-                  id="imgPreview"
-                  className="preview"
-                  src={img}
-                  alt={`image-${i}`}
-                  key={i}
-                />
-              </center>
-            );
-          })}
+      {!image && (
+        <div className="file-input">
+          <input
+            type="file"
+            className="file"
+            name="file"
+            id="file"
+            onChange={handleChange}
+            multiple
+            accept="image/*"
+            ref={imgInput}
+            disabled={uploadingPost}
+          />
+          <label htmlFor="file">Upload Picture</label>
+          <main className="popupMain">
+            <button
+              className="openpopup"
+              onClick={() => setButtonPopup(true)}
+            >
+              Take Picture
+            </button>
+            <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+              <Camera />
+            </Popup>
+          </main>
         </div>
       )}
-      <TextField
-        onChange={(e) => setCaption(e.target.value)}
-        value={caption}
-        variant="filled"
-        placeholder="Enter a Caption.."
-        label="Caption"
-        multiline
-        rows={4}
-        disabled={uploadingPost}
-        sx={{
-          backgroundColor: "white",
-          borderRadius: "8px",
-
-          "& .MuiFormLabel-root.Mui-focused": {
-            fontWeight: "bold",
-          },
-        }}
-      />
-      <AnimatedButton
-        onClick={handleUpload}
-        loading={uploadingPost}
-        style={{ fontWeight: "bold" }}
-      >
-        Upload
-      </AnimatedButton>
+      {image && (
+        <div className="slider__View">
+          {imagePreviews.map((imageUrl, index) => (
+            <div
+              style={{ display: index === current ? "contents" : "none" }}
+              className={index === current ? "slide active" : "slide"}
+              key={index}
+            >
+              <LazyLoadImage
+                className="image"
+                src={imageUrl}
+                effect="blur"
+                alt={" upload"}
+                delayTime={1000}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  // height: "14rem",
+                  objectFit: "contain",
+                }}
+              />
+              {imagePreviews.length > 1 ? (
+                <div className="sliders_button">
+                  <FaChevronCircleLeft
+                    className="slider_circle"
+                    style={{position:"absolute",left:"20px"}}
+                    onClick={prevStep}
+                  />
+                  <FaChevronCircleRight
+                    className="slider_chevron"
+                    onClick={nextStep}
+                  />
+                </div>
+              ) : (
+                <></>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+      <div className="post__caption_section">
+        <div className="post__header">
+          {avatar && username && <> <Avatar
+            className="post__avatar"
+            alt={username}
+            src={avatar}
+            sx={{
+              bgcolor: "royalblue",
+              border: "2px solid transparent",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              cursor: "pointer",
+              "&:hover": {
+                boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 17px 0px",
+                border: "2px solid black",
+                scale: "1.1",
+              },
+            }}
+          />
+            <Link style={{ textDecoration: "none" }}>
+              <h3 className="post__username">{username}</h3>
+            </Link></>}
+        </div>
+        <TextField
+          onChange={(e) => setCaption(e.target.value)}
+          value={caption}
+          variant="filled"
+          // placeholder="Write a Caption..."
+          label="Write a caption..."
+          multiline
+          rows={12}
+          disabled={uploadingPost}
+          sx={{
+            width: "100%",
+            "& .MuiFormLabel-root.Mui-focused": {
+              fontWeight: "bold",
+            },
+            "& .MuiFilledInput-root": {
+              background: "transparent"
+            }
+          }}
+        />
+        <AnimatedButton
+          onClick={handleUpload}
+          loading={uploadingPost}
+          style={{ fontWeight: "bold" }}
+        >
+          Share
+        </AnimatedButton>
+      </div>
     </div>
   );
 }
