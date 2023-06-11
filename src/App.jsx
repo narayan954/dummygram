@@ -17,6 +17,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineClose } from "react-icons/ai";
 import { AiOutlineInsertRowAbove } from "react-icons/ai";
 import AnimatedButton from "./components/AnimatedButton";
+import Favorite from "./components/Favorite";
 import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
 import LoginScreen from "./pages/Login";
@@ -25,6 +26,7 @@ import Post from "./components/Post";
 import PostView from "./pages/PostView";
 import Profile from "./pages/Profile";
 import ShareModal from "./components/ShareModal";
+import SideBar from "./components/SideBar";
 import SignupScreen from "./pages/Signup";
 import logo from "./assets/logo.png";
 import { makeStyles } from "@mui/styles";
@@ -202,7 +204,7 @@ function App() {
         <img
           src={logo}
           alt="dummygram"
-          className="app__header__img w-100"
+          className="app__header__img"
           onClick={() => {
             if (
               location.pathname !== "/dummygram/login" &&
@@ -450,10 +452,11 @@ function App() {
               <div
                 style={{
                   display: "flex",
-                  alignContent: "center",
                   justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
+                <SideBar user={user} />
                 <div
                   style={
                     !loadingPosts
@@ -515,6 +518,7 @@ function App() {
         />
 
         <Route path="*" element={<NotFoundPage />} />
+        <Route path="/dummygram/favourites" element={<Favorite />} />
       </Routes>
 
       <FaArrowCircleUp
