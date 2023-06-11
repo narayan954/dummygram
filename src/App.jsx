@@ -15,7 +15,9 @@ import { auth, db } from "./lib/firebase";
 
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineInsertRowAbove } from "react-icons/ai";
 import AnimatedButton from "./components/AnimatedButton";
+import Favorite from "./components/Favorite";
 import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
 import LoginScreen from "./pages/Login";
@@ -24,6 +26,7 @@ import Post from "./components/Post";
 import PostView from "./pages/PostView";
 import Profile from "./pages/Profile";
 import ShareModal from "./components/ShareModal";
+import SideBar from "./components/SideBar";
 import SignupScreen from "./pages/Signup";
 import logo from "./assets/logo.png";
 import { makeStyles } from "@mui/styles";
@@ -55,35 +58,40 @@ export const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
     color: "var(--color)",
   },
+  logout: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
 }));
 
+const PAGESIZE = 10;
+
 function App() {
-  const classes = useStyles();
-
-  const navigate = useNavigate();
-
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState(null);
   const [open, setOpen] = useState();
   const [loadingPosts, setLoadingPosts] = useState(true);
-  const [pageSize, setPageSize] = useState(10);
   const [loadMorePosts, setLoadMorePosts] = useState(false);
   const [openNewUpload, setOpenNewUpload] = useState(false);
   const [logout, setLogout] = useState(false);
   const [openShareModal, setOpenShareModal] = useState(false);
   const [currentPostLink, setCurrentPostLink] = useState("");
   const [postText, setPostText] = useState("");
+  const [rowMode, setRowMode] = useState(false);
+  const [showScroll, setShowScroll] = useState(false);
+
+  const classes = useStyles();
+  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
 
   const buttonStyle = {
     background: "linear-gradient(40deg, #e107c1, #59afc7)",
-    borderRadius: "25px",
+    borderRadius: "20px",
+    margin: "10px",
     ":hover": {
       background: "linear-gradient(-40deg, #59afc7, #e107c1)",
     },
   };
-
-  const { enqueueSnackbar } = useSnackbar();
-  const [showScroll, setShowScroll] = useState(false);
 
   const checkScrollTop = () => {
     if (!showScroll && window.pageYOffset > 400) {
@@ -141,7 +149,7 @@ function App() {
     window.addEventListener("scroll", handleMouseScroll);
     db.collection("posts")
       .orderBy("timestamp", "desc")
-      .limit(pageSize)
+      .limit(PAGESIZE)
       .onSnapshot((snapshot) => {
         setLoadingPosts(false);
         setPosts(
@@ -167,7 +175,7 @@ function App() {
       db.collection("posts")
         .orderBy("timestamp", "desc")
         .startAfter(posts[posts.length - 1].post.timestamp)
-        .limit(pageSize)
+        .limit(PAGESIZE)
         .onSnapshot((snapshot) => {
           setPosts((loadedPosts) => {
             return [
@@ -196,7 +204,7 @@ function App() {
         <img
           src={logo}
           alt="dummygram"
-          className="app__header__img w-100"
+          className="app__header__img"
           onClick={() => {
             if (
               location.pathname !== "/dummygram/login" &&
@@ -223,61 +231,77 @@ function App() {
               <AddCircleOutlineIcon style={{ marginRight: "4" }} />
               New Post
             </Button>
-            <ClickAwayListener onClickAway={() => setOpen(false)}>
-              <Button
-                onClick={() => setOpen((cur) => !cur)}
-                color="secondary"
-                variant="contained"
-                sx={{ ...buttonStyle, marginRight: "10px" }}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+              }}
+            >
+              <div
+                className="rowConvert"
+                onClick={() => {
+                  setRowMode(!rowMode);
+                }}
               >
-                <FaUserCircle fontSize="large" />
-                {open && (
-                  <Box
-                    backgroundColor="#fff"
-                    color="black"
-                    padding="2px"
-                    position="absolute"
-                    borderRadius="4px"
-                    marginTop={16}
-                    marginRight={3}
-                    sx={{
-                      vertical: "top",
-                      border: "1px solid black",
-                    }}
-                  >
+                <AiOutlineInsertRowAbove size={30} />
+              </div>
+              <ClickAwayListener onClickAway={() => setOpen(false)}>
+                <Button
+                  onClick={() => setOpen((cur) => !cur)}
+                  color="secondary"
+                  variant="contained"
+                  sx={{ ...buttonStyle, marginRight: "10px" }}
+                >
+                  <FaUserCircle fontSize="large" />
+                  {open && (
                     <Box
-                      display="flex"
-                      padding="0.5rem"
-                      sx={{ cursor: "pointer" }}
-                      onClick={() =>
-                        navigate("/dummygram/profile", {
-                          state: {
-                            name: user.toJSON().displayName,
-                            email: user.toJSON().email,
-                            avatar: user.toJSON().photoURL,
-                          },
-                        })
-                      }
+                      backgroundColor="#fff"
+                      color="black"
+                      padding="2px"
+                      position="absolute"
+                      borderRadius="4px"
+                      marginTop={16}
+                      marginRight={3}
+                      sx={{
+                        vertical: "top",
+                        border: "1px solid black",
+                      }}
                     >
-                      <Typography fontFamily="serif" fontSize="1rem">
-                        Profile
-                      </Typography>
+                      <Box
+                        display="flex"
+                        padding="0.5rem"
+                        sx={{ cursor: "pointer" }}
+                        onClick={() =>
+                          navigate("/dummygram/profile", {
+                            state: {
+                              name: user.toJSON().displayName,
+                              email: user.toJSON().email,
+                              avatar: user.toJSON().photoURL,
+                            },
+                          })
+                        }
+                      >
+                        <Typography fontFamily="serif" fontSize="1rem">
+                          Profile
+                        </Typography>
+                      </Box>
+                      <Divider />
+                      <Box
+                        display="flex"
+                        padding="0.5rem"
+                        sx={{ cursor: "pointer" }}
+                        onClick={() => setLogout(true)}
+                      >
+                        <Typography fontFamily="serif" fontSize="0.9rem">
+                          Log Out
+                        </Typography>
+                      </Box>
                     </Box>
-                    <Divider />
-                    <Box
-                      display="flex"
-                      padding="0.5rem"
-                      sx={{ cursor: "pointer" }}
-                      onClick={() => setLogout(true)}
-                    >
-                      <Typography fontFamily="serif" fontSize="0.9rem">
-                        Log Out
-                      </Typography>
-                    </Box>
-                  </Box>
-                )}
-              </Button>
-            </ClickAwayListener>
+                  )}
+                </Button>
+              </ClickAwayListener>
+            </div>
           </>
         ) : (
           <div className="login__container">
@@ -330,7 +354,9 @@ function App() {
           }}
         >
           <AiOutlineClose
-            onClick={() => setOpenNewUpload(false)}
+            onClick={() => {
+              setOpenNewUpload(false);
+            }}
             size={25}
             style={{ position: "absolute", right: "1rem", cursor: "pointer" }}
           />
@@ -369,6 +395,7 @@ function App() {
           </DialogContent>
         </div>
       </Dialog>
+
       <Modal open={logout} onClose={() => setLogout(false)}>
         <div style={getModalStyle()} className={classes.paper}>
           <form className="modal__signup">
@@ -394,15 +421,26 @@ function App() {
               Are you sure you want to Logout?
             </p>
 
-            <AnimatedButton
-              type="submit"
-              onClick={signOut}
-              variant="contained"
-              color="primary"
-              sx={buttonStyle}
-            >
-              Logout
-            </AnimatedButton>
+            <div className={classes.logout}>
+              <AnimatedButton
+                type="submit"
+                onClick={signOut}
+                variant="contained"
+                color="primary"
+                sx={buttonStyle}
+              >
+                Logout
+              </AnimatedButton>
+              <AnimatedButton
+                type="submit"
+                onClick={() => setLogout(false)}
+                variant="contained"
+                color="primary"
+                sx={buttonStyle}
+              >
+                Cancel
+              </AnimatedButton>
+            </div>
           </form>
         </div>
       </Modal>
@@ -416,10 +454,11 @@ function App() {
               <div
                 style={{
                   display: "flex",
-                  alignContent: "center",
                   justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
+                <SideBar user={user} />
                 <div
                   style={
                     !loadingPosts
@@ -436,9 +475,14 @@ function App() {
                   {loadingPosts ? (
                     <Loader />
                   ) : (
-                    <div className="app__posts">
+                    <div
+                      className={`${
+                        rowMode ? "app__posts" : "app_posts_column"
+                      }`}
+                    >
                       {posts.map(({ id, post }) => (
                         <Post
+                          rowMode={rowMode}
                           key={id}
                           postId={id}
                           user={user}
@@ -477,6 +521,7 @@ function App() {
         />
 
         <Route path="*" element={<NotFoundPage />} />
+        <Route path="/dummygram/favourites" element={<Favorite />} />
       </Routes>
 
       <FaArrowCircleUp
