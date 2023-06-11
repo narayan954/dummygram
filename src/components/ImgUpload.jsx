@@ -1,17 +1,18 @@
 import "./imgPreview.css";
 
-import { LinearProgress, TextField, Avatar } from "@mui/material";
+import { Avatar, LinearProgress, TextField } from "@mui/material";
+import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import React, { useRef, useState } from "react";
 import { db, handleMultiUpload, storage } from "../lib/firebase";
-import { Link } from "react-router-dom";
+
 import AnimatedButton from "./AnimatedButton";
 import Camera from "./Camera";
+import ImageSlider from "../reusableComponents/ImageSlider";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import { Link } from "react-router-dom";
 import Popup from "../reusableComponents/Popup";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
-import ImageSlider from "../reusableComponents/ImageSlider";
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 
 export default function ImgUpload(props) {
   const [current, setCurrent] = useState(0);
@@ -21,7 +22,7 @@ export default function ImgUpload(props) {
   const nextStep = () => {
     setCurrent(current === imagePreviews.length - 1 ? 0 : current + 1);
   };
-  const jsonString = localStorage.getItem('user');
+  const jsonString = localStorage.getItem("user");
   const jsonObject = JSON.parse(jsonString);
   const username = jsonObject.username;
   const avatar = jsonObject.img;
@@ -176,10 +177,7 @@ export default function ImgUpload(props) {
           />
           <label htmlFor="file">Upload Picture</label>
           <main className="popupMain">
-            <button
-              className="openpopup"
-              onClick={() => setButtonPopup(true)}
-            >
+            <button className="openpopup" onClick={() => setButtonPopup(true)}>
               Take Picture
             </button>
             <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
@@ -213,7 +211,7 @@ export default function ImgUpload(props) {
                 <div className="sliders_button">
                   <FaChevronCircleLeft
                     className="slider_circle"
-                    style={{position:"absolute",left:"20px"}}
+                    style={{ position: "absolute", left: "20px" }}
                     onClick={prevStep}
                   />
                   <FaChevronCircleRight
@@ -230,27 +228,32 @@ export default function ImgUpload(props) {
       )}
       <div className="post__caption_section">
         <div className="post__header">
-          {avatar && username && <> <Avatar
-            className="post__avatar"
-            alt={username}
-            src={avatar}
-            sx={{
-              bgcolor: "royalblue",
-              border: "2px solid transparent",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              cursor: "pointer",
-              "&:hover": {
-                boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 17px 0px",
-                border: "2px solid black",
-                scale: "1.1",
-              },
-            }}
-          />
-            <Link style={{ textDecoration: "none" }}>
-              <h3 className="post__username">{username}</h3>
-            </Link></>}
+          {avatar && username && (
+            <>
+              {" "}
+              <Avatar
+                className="post__avatar"
+                alt={username}
+                src={avatar}
+                sx={{
+                  bgcolor: "royalblue",
+                  border: "2px solid transparent",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  cursor: "pointer",
+                  "&:hover": {
+                    boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 17px 0px",
+                    border: "2px solid black",
+                    scale: "1.1",
+                  },
+                }}
+              />
+              <Link style={{ textDecoration: "none" }}>
+                <h3 className="post__username">{username}</h3>
+              </Link>
+            </>
+          )}
         </div>
         <TextField
           onChange={(e) => setCaption(e.target.value)}
@@ -267,8 +270,8 @@ export default function ImgUpload(props) {
               fontWeight: "bold",
             },
             "& .MuiFilledInput-root": {
-              background: "transparent"
-            }
+              background: "transparent",
+            },
           }}
         />
         <AnimatedButton

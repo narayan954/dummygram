@@ -343,8 +343,8 @@ function App() {
         PaperProps={{
           sx: {
             width: "60vw",
-            height: "60vh"
-          }
+            height: "60vh",
+          },
         }}
         open={openNewUpload}
         onClose={() => setOpenNewUpload(false)}
@@ -353,7 +353,7 @@ function App() {
           style={{
             backgroundColor: "var(--bg-color)",
             textAlign: "center",
-            color: "var(--color)"
+            color: "var(--color)",
           }}
         >
           <AiOutlineClose
@@ -361,7 +361,12 @@ function App() {
               setOpenNewUpload(false);
             }}
             size={18}
-            style={{ position: "absolute", right: "1rem", top: "1rem", cursor: "pointer" }}
+            style={{
+              position: "absolute",
+              right: "1rem",
+              top: "1rem",
+              cursor: "pointer",
+            }}
           />
           {/* <img
             src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
@@ -375,7 +380,7 @@ function App() {
               fontWeight: 500,
               color: "var(--color)",
               marginTop: "10px",
-              marginBottom: "8px"
+              marginBottom: "8px",
             }}
           >
             Create new post
@@ -462,20 +467,21 @@ function App() {
                     !loadingPosts
                       ? {}
                       : {
-                        width: "100%",
-                        minHeight: "100vh",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }
+                          width: "100%",
+                          minHeight: "100vh",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }
                   }
                 >
                   {loadingPosts ? (
                     <Loader />
                   ) : (
                     <div
-                      className={`${rowMode ? "app__posts" : "app_posts_column"
-                        }`}
+                      className={`${
+                        rowMode ? "app__posts" : "app_posts_column"
+                      }`}
                     >
                       {posts.map(({ id, post }) => (
                         <Post

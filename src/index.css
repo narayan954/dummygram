@@ -510,19 +510,19 @@ div#picker {
   align-items: center;
 }
 
-.slider_circle{
+.slider_circle {
   position: absolute;
-  margin:auto;
+  margin: auto;
   color: grey;
   font-size: 18px;
 }
 
-.slider_chevron{
+.slider_chevron {
   position: absolute;
   color: grey;
-  margin:auto;
+  margin: auto;
   font-size: 18px;
-  right:50%;
+  right: 50%;
 }
 .img-edit {
   display: flex;
@@ -675,9 +675,11 @@ input {
   margin: 6px;
   padding: 0px;
   background: rgb(223, 95, 218);
-  background: linear-gradient(40deg,
-      rgba(223, 95, 218, 1) 53%,
-      rgba(104, 197, 213, 1) 100%);
+  background: linear-gradient(
+    40deg,
+    rgba(223, 95, 218, 1) 53%,
+    rgba(104, 197, 213, 1) 100%
+  );
   /* border: 1px solid var(--color); */
   border: none;
   box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
