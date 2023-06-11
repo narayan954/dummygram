@@ -17,6 +17,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineClose } from "react-icons/ai";
 import { AiOutlineInsertRowAbove } from "react-icons/ai";
 import AnimatedButton from "./components/AnimatedButton";
+import Favorite from "./components/Favorite";
 import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
 import LoginScreen from "./pages/Login";
@@ -25,12 +26,11 @@ import Post from "./components/Post";
 import PostView from "./pages/PostView";
 import Profile from "./pages/Profile";
 import ShareModal from "./components/ShareModal";
+import SideBar from "./components/SideBar";
 import SignupScreen from "./pages/Signup";
 import logo from "./assets/logo.png";
 import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
-import SideBar from "./components/SideBar";
-import Favorite from "./components/Favorite";
 
 export function getModalStyle() {
   const top = 50;
@@ -458,7 +458,7 @@ function App() {
                   alignItems: "center",
                 }}
               >
-                <SideBar user={user}/>
+                <SideBar user={user} />
                 <div
                   style={
                     !loadingPosts

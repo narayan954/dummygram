@@ -1,12 +1,14 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
 // custom css import
 import "./SideBar.css";
+
+import { Link, useNavigate } from "react-router-dom";
+
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 // icons import
 import HomeIcon from "@mui/icons-material/Home";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import React from "react";
 
 function SideBar(props) {
   const navigate = useNavigate();

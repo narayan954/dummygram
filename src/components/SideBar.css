@@ -33,7 +33,8 @@
   background: rgba(0, 0, 0, 0.05);
 }
 
-.sidebar ul li a, .profile {
+.sidebar ul li a,
+.profile {
   display: flex;
   align-items: center;
   color: black;
@@ -60,11 +61,13 @@
     width: 8vw;
   }
 
-  .sidebar ul li a, .profile {
+  .sidebar ul li a,
+  .profile {
     justify-content: center;
   }
 
-  .sidebar ul li a span, .profile span {
+  .sidebar ul li a span,
+  .profile span {
     display: none;
   }
 }

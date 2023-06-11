@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Box } from "@mui/material";
 import { auth, db } from "../lib/firebase";
+
+import { Box } from "@mui/material";
 import Post from "../components/Post";
-import SideBar from "../components/SideBar";
 import ShareModal from "../components/ShareModal";
+import SideBar from "../components/SideBar";
 
 function Favorite() {
   const [openShareModal, setOpenShareModal] = useState(false);

@@ -7,12 +7,12 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { auth, storage } from "../lib/firebase";
-import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { FaUserCircle } from "react-icons/fa";
-import { useSnackbar } from "notistack";
 import SideBar from "../components/SideBar";
+import { useSnackbar } from "notistack";
+import { useState } from "react";
 
 function Profile() {
   const { name, email, avatar } = useLocation().state;
