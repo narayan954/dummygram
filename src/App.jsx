@@ -18,6 +18,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { AiOutlineInsertRowAbove } from "react-icons/ai";
 import AnimatedButton from "./components/AnimatedButton";
 import Favorite from "./components/Favorite";
+import Feedback from "./pages/Feedback";
 import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
 import LoginScreen from "./pages/Login";
@@ -507,6 +508,8 @@ function App() {
         <Route path="/dummygram/login" element={<LoginScreen />} />
 
         <Route path="/dummygram/signup" element={<SignupScreen />} />
+
+        <Route path="/dummygram/feedback" element={<Feedback />} />
 
         <Route
           path="/dummygram/posts/:id"

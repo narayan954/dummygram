@@ -6,6 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import Feedback from "../pages/Feedback";
+import { FeedbackOutlined } from "@mui/icons-material";
 // icons import
 import HomeIcon from "@mui/icons-material/Home";
 import React from "react";
@@ -45,6 +47,11 @@ function SideBar(props) {
           <div className="profile">
             <AccountCircleIcon className="icon" /> <span>Profile</span>
           </div>
+        </li>
+        <li>
+          <Link to="/dummygram/feedback">
+            <FeedbackOutlined className="icon" /> <span>Feedback</span>
+          </Link>
         </li>
       </ul>
     </div>
