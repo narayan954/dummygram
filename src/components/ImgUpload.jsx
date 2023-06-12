@@ -3,13 +3,13 @@ import "./imgPreview.css";
 import { Avatar, LinearProgress, TextField } from "@mui/material";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import React, { useRef, useState } from "react";
-import { db, handleMultiUpload, storage } from "../lib/firebase";
+import { db, handleMultiUpload, storage, auth } from "../lib/firebase";
 
 import AnimatedButton from "./AnimatedButton";
 import Camera from "./Camera";
 import ImageSlider from "../reusableComponents/ImageSlider";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Popup from "../reusableComponents/Popup";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
@@ -22,10 +22,8 @@ export default function ImgUpload(props) {
   const nextStep = () => {
     setCurrent(current === imagePreviews.length - 1 ? 0 : current + 1);
   };
-  const jsonString = localStorage.getItem("user");
-  const jsonObject = JSON.parse(jsonString);
-  const username = jsonObject.username;
-  const avatar = jsonObject.img;
+  const username = auth.currentUser.displayName;
+  const avatar = auth.currentUser.photoURL;
   const [image, setImage] = useState(null);
   const [caption, setCaption] = useState("");
   const [progress, setProgress] = useState(0);
