@@ -6,20 +6,15 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { auth, db, storage } from "../lib/firebase";
-import { useEffect, useState } from "react";
+import { auth, storage } from "../lib/firebase";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { FaUserCircle } from "react-icons/fa";
-import Post from "../components/Post";
-import ShareModal from "../components/ShareModal";
+import SideBar from "../components/SideBar";
 import { useSnackbar } from "notistack";
+import { useState } from "react";
 
 function Profile() {
-  const [openShareModal, setOpenShareModal] = useState(false);
-  const [currentPostLink, setCurrentPostLink] = useState("");
-  const [postText, setPostText] = useState("");
-  const [posts, setPosts] = useState([]);
   const { name, email, avatar } = useLocation().state;
   const isNonMobile = useMediaQuery("(min-width: 768px)");
   const { enqueueSnackbar } = useSnackbar();
@@ -28,6 +23,7 @@ function Profile() {
   const [visible, setVisibile] = useState(false);
   const [favoritePosts, setFavoritePosts] = useState([]);
   const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -47,6 +43,7 @@ function Profile() {
     };
     fetchPosts();
   }, []);
+
   const handleBack = () => {
     navigate("/dummygram"); // Use navigate function to change the URL
   };
@@ -100,6 +97,7 @@ function Profile() {
 
   return (
     <>
+      <SideBar />
       <Box
         width={isNonMobile ? "30%" : "70%"}
         backgroundColor="#F4EEFF"
@@ -186,6 +184,7 @@ function Profile() {
           </Button>
         </Box>
       </Box>
+
       <ShareModal
         openShareModal={openShareModal}
         setOpenShareModal={setOpenShareModal}
@@ -227,6 +226,7 @@ function Profile() {
 
         </div>
       </Box>
+
     </>
   );
 }
