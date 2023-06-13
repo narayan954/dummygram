@@ -492,12 +492,15 @@ div#picker {
   box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
   cursor: pointer;
   color: blue;
-  border-style: solid;
+  border: 2px solid blue;
+  transition: all 0.4s;
 }
 
 .img-edit:hover {
+  opacity: 1;
   background: linear-gradient(40deg, #e107c1, #59afc7);
-  transition: transform 0.5s ease-out;
+  /* transition: transform 0.5s ease-out; */
+  color: white;
 }
 
 ::-webkit-scrollbar {
