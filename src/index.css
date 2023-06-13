@@ -58,6 +58,7 @@ input:focus {
 .app__posts {
   padding: 20px;
   padding-top: 5.5em;
+  padding-left: 17vw;
 }
 .app_posts_column {
   padding: 20px;
@@ -121,6 +122,13 @@ input:focus {
   color: red;
   transform: scale(1.04);
 }
+
+@media only screen and (max-width: 1200px){
+  .app__posts{
+    padding-left: 9vw;
+  }
+}
+
 @media only screen and (max-width: 900px) {
   .rowConvert {
     display: none;
