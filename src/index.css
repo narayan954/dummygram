@@ -81,7 +81,7 @@ input:focus {
 }
 
 .post:hover {
-  transform: scale(1.03);
+  transform: scale(1.01);
 }
 
 .postColumn {
@@ -98,7 +98,7 @@ input:focus {
 }
 
 .postColumn:hover {
-  transform: scale(1.03);
+  transform: scale(1.01);
 }
 
 @media only screen and (min-width: 800px) {

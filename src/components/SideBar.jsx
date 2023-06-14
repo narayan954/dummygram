@@ -2,28 +2,17 @@
 import "./SideBar.css";
 
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { auth, db } from "../lib/firebase";
-import {
-  Box,
-  Button,
-  ClickAwayListener,
-  Dialog,
-  DialogContent,
-  Divider,
-  Modal,
-  Typography,
-} from "@mui/material";
-import ImgUpload from "../components/ImgUpload";
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { AiOutlineClose } from "react-icons/ai";
-// icons import
+import { Dialog } from "@mui/material";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import HomeIcon from "@mui/icons-material/Home";
+import ImgUpload from "../components/ImgUpload";
 import React from "react";
-
+import { auth } from "../lib/firebase";
+import { useState } from "react";
 
 function SideBar(props) {
   const navigate = useNavigate();
