@@ -34,7 +34,7 @@
 }
 
 .sidebar ul li a,
-.profile {
+.sidebar_align {
   display: flex;
   align-items: center;
   color: black;
@@ -62,12 +62,12 @@
   }
 
   .sidebar ul li a,
-  .profile {
+  .sidebar_align {
     justify-content: center;
   }
 
   .sidebar ul li a span,
-  .profile span {
+  .sidebar_align span {
     display: none;
   }
 }
