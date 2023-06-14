@@ -166,11 +166,11 @@ function Profile() {
             </Button>
           )}
           <Divider sx={{ marginTop: "1rem" }} />
-          <Typography fontSize="1.3rem" fontWeight="600" fontFamily="serif">
+          <Typography fontSize="1.3rem" fontWeight="600" fontFamily="Poppins">
             {name}
           </Typography>
           <Divider />
-          <Typography fontSize="1.5rem" fontWeight="600" fontFamily="serif">
+          <Typography fontSize="1.5rem" fontWeight="600" fontFamily="Poppins">
             {email && email}
           </Typography>
           <Button

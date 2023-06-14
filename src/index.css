@@ -48,6 +48,7 @@ input:focus {
     object-fit: contain;
     width: 120px;
   }
+
   .app__header {
     width: 100%;
     padding: 10px;
@@ -56,9 +57,9 @@ input:focus {
 }
 
 .app__posts {
-  padding: 20px;
-  padding-top: 5.5em;
+  padding: 5.5em 20px 20px 17vw;
 }
+
 .app_posts_column {
   padding: 20px;
   padding-top: 5.5em;
@@ -79,7 +80,7 @@ input:focus {
 }
 
 .post:hover {
-  transform: scale(1.03);
+  transform: scale(1.01);
 }
 
 .postColumn {
@@ -96,7 +97,7 @@ input:focus {
 }
 
 .postColumn:hover {
-  transform: scale(1.03);
+  transform: scale(1.01);
 }
 
 @media only screen and (min-width: 800px) {
@@ -116,16 +117,25 @@ input:focus {
   margin-right: 12px;
   display: flex;
 }
+
 .rowConvert:hover {
   cursor: pointer;
   color: red;
   transform: scale(1.04);
 }
+
+@media only screen and (max-width: 1200px) {
+  .app__posts {
+    padding-left: 9vw;
+  }
+}
+
 @media only screen and (max-width: 900px) {
   .rowConvert {
     display: none;
   }
 }
+
 /* Added media query in post for responsiveness */
 @media only screen and (max-width: 460px) {
   .post {
@@ -133,6 +143,7 @@ input:focus {
     padding: 5px;
     margin-top: 25px;
   }
+
   .postColumn {
     max-width: 320px;
     padding: 5px;
@@ -169,10 +180,15 @@ input:focus {
   font-weight: 600;
 }
 
+.post__caption_section {
+  width: 48%;
+  border-left: 2px solid rgb(192, 191, 191);
+}
+
 .post__header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   padding: 10px;
   flex-wrap: wrap;
 }
@@ -337,15 +353,11 @@ input:focus {
 /* image upload css */
 .imageUpload {
   position: sticky;
-  bottom: 0px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  gap: 10px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 10px;
-  margin-bottom: 10px;
 }
 
 .imageUpload-progress {
@@ -377,6 +389,7 @@ input:focus {
   .scrollTop {
     left: 43%;
   }
+
   .app__newpost__button {
     left: -6%;
   }
@@ -387,6 +400,7 @@ input:focus {
   .scrollTop {
     left: 45.6%;
   }
+
   .app__newpost__button {
     left: -4.8%;
   }
@@ -397,6 +411,7 @@ input:focus {
   .scrollTop {
     left: 46.6%;
   }
+
   .app__newpost__button {
     left: -4.2%;
   }
@@ -407,6 +422,7 @@ input:focus {
   .scrollTop {
     left: 47.2%;
   }
+
   .app__newpost__button {
     left: -2.5%;
   }
@@ -417,6 +433,7 @@ input:focus {
   .scrollTop {
     left: 47.7%;
   }
+
   .app__newpost__button {
     left: -1.2%;
   }
@@ -465,11 +482,16 @@ div#picker {
   position: absolute;
 }
 
+.file-input {
+  width: 55%;
+}
+
 .file-input label {
   display: block;
   position: relative;
   margin-top: 15px;
   width: 200px;
+  margin: auto;
   height: 40px;
   border-radius: 20px;
   background: linear-gradient(40deg, #e107c1, #59afc7);
@@ -483,6 +505,30 @@ div#picker {
   transition: transform 0.2s ease-out;
 }
 
+.slider__View {
+  width: 55%;
+  height: 66%;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.slider_circle {
+  position: absolute;
+  margin: auto;
+  color: grey;
+  font-size: 18px;
+}
+
+.slider_chevron {
+  position: absolute;
+  color: grey;
+  margin: auto;
+  font-size: 18px;
+  right: 50%;
+}
 .img-edit {
   display: flex;
   align-items: center;
@@ -492,12 +538,17 @@ div#picker {
   box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
   cursor: pointer;
   color: blue;
-  border-style: solid;
+  border: 2px solid blue;
+  filter: invert(0%) !important;
+  transition: color 0.4s;
 }
 
 .img-edit:hover {
+  opacity: 1;
   background: linear-gradient(40deg, #e107c1, #59afc7);
-  transition: transform 0.5s ease-out;
+  filter: invert(0%) !important;
+  /* transition: transform 0.5s ease-out; */
+  color: white;
 }
 
 ::-webkit-scrollbar {
@@ -668,7 +719,8 @@ input {
   left: 41.5%;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Semi-transparent black overlay */
   z-index: 999;
 }
 
@@ -687,4 +739,5 @@ input {
   transition: transform 0.2s ease-out;
   border: none;
 }
+
 /* end */
