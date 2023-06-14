@@ -246,6 +246,7 @@ function App() {
                       backgroundColor="#fff"
                       color="black"
                       padding="2px"
+                      width="80px"
                       position="absolute"
                       borderRadius="4px"
                       marginTop={16}
@@ -269,7 +270,7 @@ function App() {
                           })
                         }
                       >
-                        <Typography fontFamily="serif" fontSize="1rem">
+                        <Typography fontFamily="Poppins" fontSize="1rem">
                           Profile
                         </Typography>
                       </Box>
@@ -280,7 +281,7 @@ function App() {
                         sx={{ cursor: "pointer" }}
                         onClick={() => setLogout(true)}
                       >
-                        <Typography fontFamily="serif" fontSize="0.9rem">
+                        <Typography fontFamily="Poppins" fontSize="0.9rem">
                           Log Out
                         </Typography>
                       </Box>
