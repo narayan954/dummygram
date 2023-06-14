@@ -41,7 +41,7 @@ export default function Camera() {
       />
       <div className="cameraBtn">
         <button onClick={capturePhoto}>Capture</button>
-        <button onClick={() => setUrl(null)}>Refesh</button>
+        <button onClick={() => setUrl(null)}>Refresh</button>
       </div>
 
       {url && (
