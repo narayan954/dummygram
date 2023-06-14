@@ -57,8 +57,7 @@ input:focus {
 }
 
 .app__posts {
-  padding: 20px;
-  padding-top: 5.5em;
+  padding: 5.5em 20px 20px 17vw;
 }
 
 .app_posts_column {
@@ -123,6 +122,12 @@ input:focus {
   cursor: pointer;
   color: red;
   transform: scale(1.04);
+}
+
+@media only screen and (max-width: 1200px) {
+  .app__posts {
+    padding-left: 9vw;
+  }
 }
 
 @media only screen and (max-width: 900px) {
