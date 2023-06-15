@@ -409,7 +409,7 @@ function Post(prop) {
       </div>
       <div className="post__container">
         {postHasImages ? (
-          <ImageSlider slides={postImages} isCommentBox={false} />
+          <ImageSlider slides={postImages} isCommentBox={false} onDoubleClick={likesHandler} /> 
         ) : (
           <div className="post__background">
             {caption.length >= 700 && readMore == false ? (

@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
-const ImageSlider = ({ slides, isCommentBox }) => {
+const ImageSlider = ({ slides, isCommentBox, onDoubleClick }) => {
   const [current, setCurrent] = useState(0);
 
   //destructure  slides.length to get const { length } = slides;
@@ -27,7 +27,7 @@ const ImageSlider = ({ slides, isCommentBox }) => {
   // }, [slides]);
 
   return slides.length ? (
-    <div className="slider">
+    <div className="slider" onDoubleClick={onDoubleClick}>
       {slides.map(({ imageUrl, imageWidth, imageHeight, thumbnail }, index) => (
         <div
           style={{ display: index === current ? "contents" : "none" }}
