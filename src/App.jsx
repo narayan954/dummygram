@@ -14,11 +14,9 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { AiOutlineClose } from "react-icons/ai";
 import { AiOutlineInsertRowAbove } from "react-icons/ai";
 import AnimatedButton from "./components/AnimatedButton";
 import Favorite from "./components/Favorite";
-import ImgUpload from "./components/ImgUpload";
 import Loader from "./components/Loader";
 import LoginScreen from "./pages/Login";
 import NotFoundPage from "./components/NotFound";
@@ -73,7 +71,6 @@ function App() {
   const [open, setOpen] = useState();
   const [loadingPosts, setLoadingPosts] = useState(true);
   const [loadMorePosts, setLoadMorePosts] = useState(false);
-  const [openNewUpload, setOpenNewUpload] = useState(false);
   const [logout, setLogout] = useState(false);
   const [openShareModal, setOpenShareModal] = useState(false);
   const [currentPostLink, setCurrentPostLink] = useState("");
@@ -222,16 +219,6 @@ function App() {
 
         {user ? (
           <>
-            <Button
-              onClick={() => setOpenNewUpload(true)}
-              color="secondary"
-              variant="contained"
-              sx={buttonStyle}
-              className="app__newpost__button"
-            >
-              <AddCircleOutlineIcon style={{ marginRight: "4" }} />
-              New Post
-            </Button>
             <div
               style={{
                 display: "flex",
@@ -362,63 +349,6 @@ function App() {
         currentPostLink={currentPostLink}
         postText={postText}
       />
-
-      <Dialog
-        sx={{ borderRadius: "100px" }}
-        open={openNewUpload}
-        onClose={() => setOpenNewUpload(false)}
-      >
-        <div
-          style={{
-            backgroundColor: "var(--bg-color)",
-            padding: "20px",
-            textAlign: "center",
-            color: "var(--color)",
-            border: "2px solid var(--color)",
-          }}
-        >
-          <AiOutlineClose
-            onClick={() => {
-              setOpenNewUpload(false);
-            }}
-            size={25}
-            style={{ position: "absolute", right: "1rem", cursor: "pointer" }}
-          />
-          <img
-            src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
-            alt="instagram"
-            className="modal__signup__img"
-            style={{ width: "50%", filter: "invert(var(--val))" }}
-          />
-          <p
-            style={{
-              fontSize: "25px",
-              fontFamily: "monospace",
-              color: "var(--color)",
-            }}
-          >
-            New Post
-          </p>
-
-          <DialogContent
-            sx={
-              {
-                // backgroundColor: "var(--bg-color)",
-              }
-            }
-          >
-            {!loadingPosts &&
-              (user ? (
-                <ImgUpload
-                  user={user}
-                  onUploadComplete={() => setOpenNewUpload(false)}
-                />
-              ) : (
-                <h3>Sorry you need to login to upload posts</h3>
-              ))}
-          </DialogContent>
-        </div>
-      </Dialog>
 
       <Modal open={logout} onClose={() => setLogout(false)}>
         <div style={getModalStyle()} className={classes.paper}>
