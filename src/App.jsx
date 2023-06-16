@@ -29,7 +29,6 @@ import SignupScreen from "./pages/Signup";
 import logo from "./assets/logo.png";
 import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
-import Favourites from "./pages/Favourites";
 
 export function getModalStyle() {
   const top = 50;
@@ -232,7 +231,7 @@ function App() {
                   setRowMode(!rowMode);
                 }}
               >
-                <AiOutlineInsertRowAbove size={30} />
+                <AiOutlineInsertRowAbove style={{ margin: "auto" }} size={30} />
               </div>
               <ClickAwayListener onClickAway={() => setOpen(false)}>
                 <Button
@@ -253,8 +252,9 @@ function App() {
                       marginTop={16}
                       marginRight={3}
                       sx={{
-                        mt:"10rem",
-                        mr:"4rem",
+                        width: "fit-content",
+                        mt: "10rem",
+                        mr: "4rem",
                         vertical: "top",
                         border: "1px solid black",
                       }}
@@ -282,19 +282,10 @@ function App() {
                         display="flex"
                         padding="0.5rem"
                         sx={{ cursor: "pointer" }}
-                        onClick={() =>
-                          navigate("/dummygram/favourites", {
-                            state: {
-                              rowMode:rowMode,
-                              name: user.toJSON().displayName,
-                              email: user.toJSON().email,
-                              avatar: user.toJSON().photoURL,
-                            },
-                          })
-                        }
+                        onClick={() => navigate("/dummygram/favourites")}
                       >
                         <Typography fontFamily="serif" fontSize="1rem">
-                        Favourites
+                          Favourites
                         </Typography>
                       </Box>
                       <Divider />
@@ -461,7 +452,6 @@ function App() {
         <Route path="/dummygram/login" element={<LoginScreen />} />
 
         <Route path="/dummygram/signup" element={<SignupScreen />} />
-        <Route path="/dummygram/favourites" element={<Favourites rowMode={rowMode} />} />
 
         <Route
           path="/dummygram/posts/:id"
