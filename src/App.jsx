@@ -2,8 +2,6 @@ import {
   Box,
   Button,
   ClickAwayListener,
-  Dialog,
-  DialogContent,
   Divider,
   Modal,
   Typography,
@@ -13,7 +11,6 @@ import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineInsertRowAbove } from "react-icons/ai";
 import AnimatedButton from "./components/AnimatedButton";
 import Favorite from "./components/Favorite";
