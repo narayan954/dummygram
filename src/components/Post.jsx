@@ -73,7 +73,6 @@ function Post(prop) {
 
   const open = Boolean(anchorEl);
   const docRef = doc(db, "posts", postId);
-
   useEffect(() => {
     let unsubscribe;
 
