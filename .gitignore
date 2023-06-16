@@ -20,6 +20,7 @@ dist-ssr
 *.sln
 *.sw?
 *.lock
+vite.config.js.*
 
 # testing
 /coverage
