@@ -101,12 +101,71 @@ input:focus {
 }
 
 @media only screen and (min-width: 800px) {
+  .dialogStyle {
+    width: 60vw;
+    margin: auto;
+  }
+
   .app__posts {
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
     justify-content: center;
   }
+
+  .imageUpload {
+    width: 100%;
+    flex-direction: row;
+  }
+
+  .file-input {
+    width: 45%;
+  }
+
+  .post__caption_section {
+    width: 55%;
+    border-left: 2px solid rgb(192, 191, 191);
+  }
+
+  .file-input {
+    gap: 5rem;
+  }
+
+  .slider__View {
+    width: 45%;
+  }
+
+  .sliders_button {
+    width: 38%;
+  }
+
+}
+
+@media only screen and (max-width:800px) {
+  .imageUpload {
+    width: 50vw;
+    flex-direction: column;
+  }
+
+  .file-input {
+    width: 50vw;
+    padding-top: 20px;
+    gap: 2rem;
+  }
+
+  .post__caption_section {
+    width: 48vw;
+  }
+
+  .sliders_button {
+    width: 80%;
+  }
+
+  .slider__View {
+    height: 13rem;
+    width: 16rem;
+  }
+
 }
 
 .rowConvert {
@@ -181,8 +240,7 @@ input:focus {
 }
 
 .post__caption_section {
-  width: 48%;
-  border-left: 2px solid rgb(192, 191, 191);
+  height: 100%;
 }
 
 .post__header {
@@ -354,10 +412,9 @@ input:focus {
 .imageUpload {
   position: sticky;
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  /* width: 100%; */
 }
 
 .imageUpload-progress {
@@ -483,7 +540,11 @@ div#picker {
 }
 
 .file-input {
-  width: 55%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 500;
+  font-size: 1rem;
 }
 
 .file-input label {
@@ -500,35 +561,36 @@ div#picker {
   align-items: center;
   justify-content: center;
   color: #ffffff;
-  font-weight: bold;
+  font-weight: 500;
+  font-size: 1rem;
   cursor: pointer;
   transition: transform 0.2s ease-out;
 }
 
 .slider__View {
-  width: 55%;
-  height: 66%;
-  text-align: center;
   display: flex;
   flex-direction: row;
+  text-align: center;
   justify-content: center;
   align-items: center;
 }
 
-.slider_circle {
+.sliders_button {
   position: absolute;
-  margin: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.slider_circle {
   color: grey;
   font-size: 18px;
 }
 
 .slider_chevron {
-  position: absolute;
   color: grey;
-  margin: auto;
   font-size: 18px;
-  right: 50%;
 }
+
 .img-edit {
   display: flex;
   align-items: center;
@@ -685,11 +747,9 @@ input {
   margin: 6px;
   padding: 0px;
   background: rgb(223, 95, 218);
-  background: linear-gradient(
-    40deg,
-    rgba(223, 95, 218, 1) 53%,
-    rgba(104, 197, 213, 1) 100%
-  );
+  background: linear-gradient(40deg,
+      rgba(223, 95, 218, 1) 53%,
+      rgba(104, 197, 213, 1) 100%);
   /* border: 1px solid var(--color); */
   border: none;
   box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
@@ -705,12 +765,13 @@ input {
 }
 
 .popupMain {
-  padding: 32px;
+  padding-left: 32px;
+  padding-right: 32px;
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
   justify-content: center;
-  min-height: 20vh;
+  /* min-height: 20vh; */
   box-sizing: border-box;
 }
 
@@ -734,7 +795,8 @@ input {
   align-items: center;
   justify-content: center;
   color: #ffffff;
-  font-weight: bold;
+  font-weight: 500;
+  font-size: 1rem;
   cursor: pointer;
   transition: transform 0.2s ease-out;
   border: none;

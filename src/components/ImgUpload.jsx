@@ -161,26 +161,28 @@ export default function ImgUpload(props) {
       )}
       {!image && (
         <div className="file-input">
-          <input
-            type="file"
-            className="file"
-            name="file"
-            id="file"
-            onChange={handleChange}
-            multiple
-            accept="image/*"
-            ref={imgInput}
-            disabled={uploadingPost}
-          />
-          <label htmlFor="file">Upload Picture</label>
-          <main className="popupMain">
+          <div className="upload-picture">
+            <input
+              type="file"
+              className="file"
+              name="file"
+              id="file"
+              onChange={handleChange}
+              multiple
+              accept="image/*"
+              ref={imgInput}
+              disabled={uploadingPost}
+            />
+            <label htmlFor="file">Upload Picture</label>
+          </div>
+          <div className="popupMain">
             <button className="openpopup" onClick={() => setButtonPopup(true)}>
               Take Picture
             </button>
             <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
               <Camera />
             </Popup>
-          </main>
+          </div>
         </div>
       )}
       {image && (
@@ -200,15 +202,13 @@ export default function ImgUpload(props) {
                 style={{
                   width: "100%",
                   height: "100%",
-                  // height: "14rem",
-                  objectFit: "contain",
+                  objectFit: "cover",
                 }}
               />
               {imagePreviews.length > 1 ? (
                 <div className="sliders_button">
                   <FaChevronCircleLeft
                     className="slider_circle"
-                    style={{ position: "absolute", left: "20px" }}
                     onClick={prevStep}
                   />
                   <FaChevronCircleRight
