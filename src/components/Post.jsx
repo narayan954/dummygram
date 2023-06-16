@@ -73,7 +73,6 @@ function Post(prop) {
 
   const open = Boolean(anchorEl);
   const docRef = doc(db, "posts", postId);
-
   useEffect(() => {
     let unsubscribe;
 
@@ -409,7 +408,11 @@ function Post(prop) {
       </div>
       <div className="post__container">
         {postHasImages ? (
-          <ImageSlider slides={postImages} isCommentBox={false} />
+          <ImageSlider
+            slides={postImages}
+            isCommentBox={false}
+            doubleClickHandler={likesHandler}
+          />
         ) : (
           <div className="post__background">
             {caption.length >= 700 && readMore === false ? (
