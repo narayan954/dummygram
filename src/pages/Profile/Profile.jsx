@@ -6,13 +6,14 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { auth, storage } from "../lib/firebase";
+import { auth, storage } from "../../lib/firebase";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { FaUserCircle } from "react-icons/fa";
-import SideBar from "../components/SideBar";
+import SideBar from "../../components/SideBar/SideBar";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
+import "./Profile.css"
 
 function Profile() {
   const { name, email, avatar } = useLocation().state;

@@ -1,0 +1,9 @@
+.read__more__less {
+    text-decoration: underline;
+    cursor: pointer;
+    color: rgba(17, 3, 46, 0.4);
+  }
+  
+  .read__more__less:hover {
+    color: rgb(6, 33, 115);
+  }
