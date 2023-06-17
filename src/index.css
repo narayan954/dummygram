@@ -162,7 +162,7 @@ input:focus {
 
   .slider__View {
     height: 13rem;
-    width: 16rem;
+    /* width: 16rem; */
   }
 }
 
@@ -179,6 +179,76 @@ input:focus {
   cursor: pointer;
   color: red;
   transform: scale(1.04);
+}
+
+
+@media only screen and (max-width:500px) {
+  .createNewPost {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color);
+    margin-Top: 10px;
+    margin-Bottom: 8px;
+  }
+
+  .popupMain button {
+    font-size: 0.8rem;
+    padding: 0.4rem 1rem;
+  }
+
+  .file-input label {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+}
+
+@media only screen and (min-width:500px) {
+  .createNewPost {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color);
+    margin-Top: 10px;
+    margin-Bottom: 8px;
+  }
+
+  .crossIcon {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    cursor: pointer;
+  }
+
+  .popupMain button {
+    font-size: 1.1rem;
+    padding: 0.5rem 1.5rem;
+  }
+
+  .file-input label {
+    font-size: 1.1rem;
+    padding: 0.5rem 0.9rem;
+  }
+}
+
+@media only screen and (min-width:363px) and (max-width:500px) {
+  .crossIcon {
+    position: absolute;
+    right: 0.6rem;
+    top: 0.7rem;
+    cursor: pointer;
+  }
+}
+
+@media only screen and (max-width:363px) {
+  .crossIcon {
+    position: absolute;
+    right:0px;
+    cursor: pointer;
+    /* display: block; */
+    border-bottom-left-radius: 20%;
+    background-color: grey;
+    color:white;
+  }
 }
 
 @media only screen and (max-width: 1200px) {
@@ -548,10 +618,6 @@ div#picker {
 .file-input label {
   display: block;
   position: relative;
-  margin-top: 15px;
-  width: 200px;
-  margin: auto;
-  height: 40px;
   border-radius: 20px;
   background: linear-gradient(40deg, #e107c1, #59afc7);
   box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
@@ -560,7 +626,6 @@ div#picker {
   justify-content: center;
   color: #ffffff;
   font-weight: 500;
-  font-size: 1rem;
   cursor: pointer;
   transition: transform 0.2s ease-out;
 }
@@ -745,11 +810,9 @@ input {
   margin: 6px;
   padding: 0px;
   background: rgb(223, 95, 218);
-  background: linear-gradient(
-    40deg,
-    rgba(223, 95, 218, 1) 53%,
-    rgba(104, 197, 213, 1) 100%
-  );
+  background: linear-gradient(40deg,
+      rgba(223, 95, 218, 1) 53%,
+      rgba(104, 197, 213, 1) 100%);
   /* border: 1px solid var(--color); */
   border: none;
   box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
@@ -765,8 +828,6 @@ input {
 }
 
 .popupMain {
-  padding-left: 32px;
-  padding-right: 32px;
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
@@ -786,8 +847,6 @@ input {
 }
 
 .popupMain button {
-  width: 200px;
-  height: 40px;
   border-radius: 20px;
   background: linear-gradient(40deg, #e107c1, #59afc7);
   box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
@@ -796,7 +855,6 @@ input {
   justify-content: center;
   color: #ffffff;
   font-weight: 500;
-  font-size: 1rem;
   cursor: pointer;
   transition: transform 0.2s ease-out;
   border: none;
