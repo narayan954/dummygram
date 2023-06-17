@@ -26,6 +26,7 @@ import SignupScreen from "./pages/Signup";
 import logo from "./assets/logo.png";
 import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
+import Navbar from "./components/Navbar";
 
 export function getModalStyle() {
   const top = 50;
@@ -194,142 +195,15 @@ function App() {
 
   return (
     <div className="app">
-      <div className="app__header">
-        <img
-          src={logo}
-          alt="dummygram"
-          className="app__header__img"
-          onClick={() => {
-            if (
-              location.pathname !== "/dummygram/login" &&
-              location.pathname !== "/dummygram/signup"
-            ) {
-              navigate("/dummygram/");
-            }
-            window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-          }}
-          style={{
-            cursor: "pointer",
-          }}
-        />
-
-        {user ? (
-          <>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-              }}
-            >
-              <div
-                className="rowConvert"
-                onClick={() => {
-                  setRowMode(!rowMode);
-                }}
-              >
-                <AiOutlineInsertRowAbove style={{ margin: "auto" }} size={30} />
-              </div>
-              <ClickAwayListener onClickAway={() => setOpen(false)}>
-                <Button
-                  onClick={() => setOpen((cur) => !cur)}
-                  color="secondary"
-                  variant="contained"
-                  sx={{ ...buttonStyle, marginRight: "10px" }}
-                >
-                  <FaUserCircle fontSize="large" />
-                  {open && (
-                    <Box
-                      backgroundColor="#fff"
-                      color="black"
-                      padding="2px"
-                      width="80px"
-                      position="absolute"
-                      borderRadius="4px"
-                      marginTop={16}
-                      marginRight={3}
-                      sx={{
-                        width: "fit-content",
-                        mt: "10rem",
-                        mr: "4rem",
-                        vertical: "top",
-                        border: "1px solid black",
-                      }}
-                    >
-                      <Box
-                        display="flex"
-                        padding="0.5rem"
-                        sx={{ cursor: "pointer" }}
-                        onClick={() =>
-                          navigate("/dummygram/profile", {
-                            state: {
-                              name: user.toJSON().displayName,
-                              email: user.toJSON().email,
-                              avatar: user.toJSON().photoURL,
-                            },
-                          })
-                        }
-                      >
-                        <Typography fontFamily="Poppins" fontSize="1rem">
-                          Profile
-                        </Typography>
-                      </Box>
-                      <Divider />
-                      <Box
-                        display="flex"
-                        padding="0.5rem"
-                        sx={{ cursor: "pointer" }}
-                        onClick={() => navigate("/dummygram/favourites")}
-                      >
-                        <Typography fontFamily="serif" fontSize="1rem">
-                          Favourites
-                        </Typography>
-                      </Box>
-                      <Divider />
-                      <Box
-                        display="flex"
-                        padding="0.5rem"
-                        sx={{ cursor: "pointer" }}
-                        onClick={() => setLogout(true)}
-                      >
-                        <Typography fontFamily="Poppins" fontSize="0.9rem">
-                          Log Out
-                        </Typography>
-                      </Box>
-                    </Box>
-                  )}
-                </Button>
-              </ClickAwayListener>
-            </div>
-          </>
-        ) : (
-          <div className="login__container">
-            <Button
-              onClick={() => {
-                navigate("/dummygram/login");
-              }}
-              color="primary"
-              variant="contained"
-              style={{ margin: 5 }}
-              sx={buttonStyle}
-            >
-              Log In
-            </Button>
-
-            <Button
-              onClick={() => {
-                navigate("/dummygram/signup");
-              }}
-              color="primary"
-              variant="contained"
-              style={{ margin: 5 }}
-              sx={buttonStyle}
-            >
-              Sign Up
-            </Button>
-          </div>
-        )}
-      </div>
+      <Navbar
+        row={rowMode}
+        setRow={setRowMode}
+        user={user}
+        setUser={setUser}
+        open={open}
+        setOpen={setOpen}
+        setLogout={setLogout}
+      />
 
       <ShareModal
         openShareModal={openShareModal}
