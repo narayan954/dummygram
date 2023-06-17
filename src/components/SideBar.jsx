@@ -2,14 +2,14 @@
 import "./SideBar.css";
 
 import { Link, useNavigate } from "react-router-dom";
-import NewPost from "./NewPost";
+
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import HomeIcon from "@mui/icons-material/Home";
-import { useState } from "react";
+import NewPost from "./NewPost";
 import React from "react";
-
+import { useState } from "react";
 
 function SideBar(props) {
   const navigate = useNavigate();
@@ -47,7 +47,12 @@ function SideBar(props) {
             <AccountCircleIcon className="icon" /> <span>Profile</span>
           </div>
         </li>
-        {openNewUpload && <NewPost openNewUpload={openNewUpload} setOpenNewUpload={setOpenNewUpload} />}
+        {openNewUpload && (
+          <NewPost
+            openNewUpload={openNewUpload}
+            setOpenNewUpload={setOpenNewUpload}
+          />
+        )}
       </ul>
     </div>
   );
