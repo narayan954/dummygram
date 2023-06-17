@@ -1,5 +1,54 @@
 /* sidebar styling */
 
+.sidebar span {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.sidebar ul li ul {
+  padding-left: 20px;
+}
+
+.sidebar ul li ul li {
+  margin-bottom: 6px;
+}
+
+.sidebar ul li ul li button {
+  margin-left: 10px;
+  font-size: 12px;
+  color: #888;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.sidebar ul li ul li button:hover {
+  color: #555;
+}
+
+.sidebar .notifications {
+  margin-top: 10px;
+}
+
+.sidebar .notifications li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.sidebar .notifications li button {
+  margin-left: 10px;
+  font-size: 12px;
+  color: #888;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.sidebar .notifications li button:hover {
+  color: #555;
+}
+
 .sidebar {
   background: #fff;
   position: fixed;
