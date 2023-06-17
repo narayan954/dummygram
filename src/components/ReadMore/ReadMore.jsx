@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import React from "react";
 import "./ReadMore.css"
+import "../Caption"
 
 function ReadMore({ caption }) {
   const [desc, setDesc] = useState("");

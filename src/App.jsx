@@ -2,8 +2,6 @@ import {
   Box,
   Button,
   ClickAwayListener,
-  Dialog,
-  DialogContent,
   Divider,
   Modal,
   Typography,
@@ -13,7 +11,6 @@ import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineInsertRowAbove } from "react-icons/ai";
 import AnimatedButton from "./components/AnimatedButton";
 import Favorite from "./components/Favorite";
@@ -231,7 +228,7 @@ function App() {
                   setRowMode(!rowMode);
                 }}
               >
-                <AiOutlineInsertRowAbove size={30} />
+                <AiOutlineInsertRowAbove style={{ margin: "auto" }} size={30} />
               </div>
               <ClickAwayListener onClickAway={() => setOpen(false)}>
                 <Button
@@ -252,6 +249,9 @@ function App() {
                       marginTop={16}
                       marginRight={3}
                       sx={{
+                        width: "fit-content",
+                        mt: "10rem",
+                        mr: "4rem",
                         vertical: "top",
                         border: "1px solid black",
                       }}
@@ -272,6 +272,17 @@ function App() {
                       >
                         <Typography fontFamily="Poppins" fontSize="1rem">
                           Profile
+                        </Typography>
+                      </Box>
+                      <Divider />
+                      <Box
+                        display="flex"
+                        padding="0.5rem"
+                        sx={{ cursor: "pointer" }}
+                        onClick={() => navigate("/dummygram/favourites")}
+                      >
+                        <Typography fontFamily="serif" fontSize="1rem">
+                          Favourites
                         </Typography>
                       </Box>
                       <Divider />

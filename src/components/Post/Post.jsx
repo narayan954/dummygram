@@ -16,7 +16,6 @@ import {
   Menu,
   MenuItem,
   Paper,
-  SvgIcon,
   styled,
   useMediaQuery,
 } from "@mui/material";
@@ -24,6 +23,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { doc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
+import Caption from "../Caption";
 import CommentIcon from "@mui/icons-material/Comment";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import DialogBox from "../../reusableComponents/DialogBox";
@@ -74,7 +74,6 @@ function Post(prop) {
 
   const open = Boolean(anchorEl);
   const docRef = doc(db, "posts", postId);
-
   useEffect(() => {
     let unsubscribe;
 
@@ -102,7 +101,7 @@ function Post(prop) {
   }, [postId]);
 
   const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#FFF",
     ...theme.typography.body2,
     padding: theme.spacing(1),
     textAlign: "center",
@@ -186,7 +185,7 @@ function Post(prop) {
 
   const buttonStyle = {
     ":hover": {
-      color: "#ff4d4d",
+      color: "#FF4D4D",
       fontSize: "29px",
     },
   };
@@ -340,10 +339,10 @@ function Post(prop) {
               },
             }}
           >
-            {user && username == user.displayName && (
+            {user && username === user.displayName && (
               <MenuItem onClick={handleClickOpen}> Delete </MenuItem>
             )}
-            {user && username == user.displayName && (
+            {user && username === user.displayName && (
               <MenuItem onClick={handleClickOpenCaption}> Edit </MenuItem>
             )}
             <MenuItem onClick={handleDownload}> Download </MenuItem>
@@ -410,13 +409,17 @@ function Post(prop) {
       </div>
       <div className="post__container">
         {postHasImages ? (
-          <ImageSlider slides={postImages} isCommentBox={false} />
+          <ImageSlider
+            slides={postImages}
+            isCommentBox={false}
+            doubleClickHandler={likesHandler}
+          />
         ) : (
           <div className="post__background">
-            {caption.length >= 700 && readMore == false ? (
+            {caption.length >= 700 && readMore === false ? (
               <>
                 <p className="post_caption">
-                  {caption.substr(0, 700)}
+                  <Caption caption={caption.substr(0, 700)} />
                   <button
                     className="post__btn"
                     onClick={() => handleReadPost()}
@@ -427,7 +430,9 @@ function Post(prop) {
               </>
             ) : (
               <>
-                <p className="post_caption">{caption}</p>
+                <p className="post_caption">
+                  <Caption caption={caption} />
+                </p>
                 {caption.length >= 700 && (
                   <button
                     className="post__less_btn"
