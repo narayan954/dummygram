@@ -1,7 +1,6 @@
 import React from "react";
 
 function NotificationPopup({ requests, acceptRequest, rejectRequest }) {
-
   return (
     <div className="notification-popup">
       <ul>

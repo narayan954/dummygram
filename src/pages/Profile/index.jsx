@@ -27,7 +27,7 @@ function Profile() {
   const [friendRequestSent, setFriendRequestSent] = useState(false);
 
   const handleAddFriendRequest = () => {
-    alert('Friend request sent!');
+    alert("Friend request sent!");
     setFriendRequestSent(true);
   };
   const handleBack = () => {
@@ -152,11 +152,15 @@ function Profile() {
             {email && email}
           </Typography>
           {!friendRequestSent && (
-            <Button onClick={handleAddFriendRequest}
+            <Button
+              onClick={handleAddFriendRequest}
               variant="contained"
               color="primary"
               sx={{ marginTop: "1rem" }}
-              fontSize="1.2rem">Add Friend Request</Button>
+              fontSize="1.2rem"
+            >
+              Add Friend Request
+            </Button>
           )}
           <Button
             onClick={handleBack}

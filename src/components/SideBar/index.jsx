@@ -10,14 +10,13 @@ import { Dialog } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import HomeIcon from "@mui/icons-material/Home";
 import ImgUpload from "../ImgUpload";
+import NotificationPopup from "../../reusableComponents/NotificationPopup";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 import React from "react";
 import { auth } from "../../lib/firebase";
 import { useState } from "react";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import NotificationPopup from "../components/NotificationPopup";
 
 function SideBar(props) {
-
   const navigate = useNavigate();
   const [openNewUpload, setOpenNewUpload] = useState(false);
   const user = auth.currentUser;
