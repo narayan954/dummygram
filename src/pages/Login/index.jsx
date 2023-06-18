@@ -1,3 +1,5 @@
+import "./index.css";
+
 import React, { useState } from "react";
 import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
 import { auth, facebookProvider, googleProvider } from "../../lib/firebase";

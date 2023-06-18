@@ -1,4 +1,4 @@
-import "./Profile.css";
+import "./index.css";
 
 import {
   Avatar,
@@ -12,7 +12,7 @@ import { auth, storage } from "../../lib/firebase";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { FaUserCircle } from "react-icons/fa";
-import SideBar from "../../components/SideBar/SideBar";
+import SideBar from "../../components/SideBar";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
 

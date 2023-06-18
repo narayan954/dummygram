@@ -1,4 +1,4 @@
-import "./ReadMore.css";
+import "./index.css";
 import "../Caption";
 
 import { useEffect, useState } from "react";

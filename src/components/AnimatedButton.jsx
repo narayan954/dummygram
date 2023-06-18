@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import Loader from "./Loader/Loader";
+import Loader from "./Loader";
 
 export default function AnimatedButton(props) {
   const { loading, children, ..._props } = props;

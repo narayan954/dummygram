@@ -1,4 +1,4 @@
-import "./Camera.css";
+import "./index.css";
 
 import React, { useCallback, useRef, useState } from "react";
 

@@ -1,5 +1,5 @@
 import "react-lazy-load-image-component/src/effects/blur.css";
-import "./Post.css";
+import "./index.css";
 
 import {
   Avatar,
@@ -31,9 +31,9 @@ import EmojiPicker from "emoji-picker-react";
 import { FaSave } from "react-icons/fa";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
-import ImageSlider from "../../reusableComponents/ImageSlider/ImageSlider";
+import ImageSlider from "../../reusableComponents/ImageSlider";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
-import ReadMore from "../ReadMore/ReadMore";
+import ReadMore from "../ReadMore";
 import ReplyRoundedIcon from "@mui/icons-material/ReplyRounded";
 import Scroll from "../../reusableComponents/Scroll";
 import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
