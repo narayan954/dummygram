@@ -1,3 +1,5 @@
+import "./Navbar.css";
+
 import {
   Box,
   Button,
@@ -5,14 +7,13 @@ import {
   Divider,
   Typography,
 } from "@mui/material";
-import { FaUserCircle } from "react-icons/fa";
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { auth } from "../lib/firebase";
-import "./Navbar.css";
-import { AiOutlineInsertRowAbove } from "react-icons/ai";
 
+import { AiOutlineInsertRowAbove } from "react-icons/ai";
+import { FaUserCircle } from "react-icons/fa";
+import { auth } from "../lib/firebase";
 import logo from "../assets/logo.png";
+import { useNavigate } from "react-router-dom";
 
 function Navbar({ setRow, row, open, setOpen, user, setUser, setLogout }) {
   const navigate = useNavigate();
@@ -62,7 +63,7 @@ function Navbar({ setRow, row, open, setOpen, user, setUser, setLogout }) {
         }}
       />
 
-      {user ? (
+      {user && (
         <>
           <div
             style={{
@@ -151,32 +152,6 @@ function Navbar({ setRow, row, open, setOpen, user, setUser, setLogout }) {
             </ClickAwayListener>
           </div>
         </>
-      ) : (
-        <div className="login__container">
-          <Button
-            onClick={() => {
-              navigate("/dummygram/login");
-            }}
-            color="primary"
-            variant="contained"
-            style={{ margin: 5 }}
-            sx={buttonStyle}
-          >
-            Log In
-          </Button>
-
-          <Button
-            onClick={() => {
-              navigate("/dummygram/signup");
-            }}
-            color="primary"
-            variant="contained"
-            style={{ margin: 5 }}
-            sx={buttonStyle}
-          >
-            Sign Up
-          </Button>
-        </div>
       )}
     </div>
   );

@@ -1,21 +1,14 @@
-import {
-  Box,
-  Button,
-  ClickAwayListener,
-  Divider,
-  Modal,
-  Typography,
-} from "@mui/material";
-import { FaArrowCircleUp, FaUserCircle } from "react-icons/fa";
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
-import { AiOutlineInsertRowAbove } from "react-icons/ai";
 import AnimatedButton from "./components/AnimatedButton";
+import { FaArrowCircleUp } from "react-icons/fa";
 import Favorite from "./components/Favorite";
 import Loader from "./components/Loader";
 import LoginScreen from "./pages/Login";
+import Modal from "@mui/material/Modal";
+import Navbar from "./components/Navbar";
 import NotFoundPage from "./components/NotFound";
 import Post from "./components/Post";
 import PostView from "./pages/PostView";
@@ -23,10 +16,8 @@ import Profile from "./pages/Profile";
 import ShareModal from "./components/ShareModal";
 import SideBar from "./components/SideBar";
 import SignupScreen from "./pages/Signup";
-import logo from "./assets/logo.png";
 import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
-import Navbar from "./components/Navbar";
 
 export function getModalStyle() {
   const top = 50;
