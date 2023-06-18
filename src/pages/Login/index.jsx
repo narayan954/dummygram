@@ -1,11 +1,13 @@
+import "./index.css";
+
 import React, { useState } from "react";
 import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
-import { auth, facebookProvider, googleProvider } from "../lib/firebase";
+import { auth, facebookProvider, googleProvider } from "../../lib/firebase";
 import { faGoogle, faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
-import { getModalStyle, useStyles } from "../App";
+import { getModalStyle, useStyles } from "../../App";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Logo from "../assets/logo.png";
+import Logo from "../../assets/logo.png";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";

@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from "react";
+import "./index.css";
+import "../Caption";
 
-import Caption from "./Caption.jsx";
+import { useEffect, useState } from "react";
 
-/**
- *
- * @param caption
- * @returns {JSX.Element}
- * @constructor
- */
-export default function ReadMore({ caption }) {
+import React from "react";
+
+function ReadMore({ caption }) {
   const [desc, setDesc] = useState("");
   const [size, setSize] = useState("");
   const [expand, setExpand] = useState(false);
@@ -26,42 +23,43 @@ export default function ReadMore({ caption }) {
   };
 
   useEffect(() => {
-    const splitDesc = caption.split(" ");
-    const sz = splitDesc.length;
+    const split_desc = caption.split(" ");
+    const sz = split_desc.length;
     setSize(sz);
     if (sz > 14) {
-      setDesc(splitDesc.splice(0, 14).join(" "));
+      setDesc(split_desc.splice(0, 14).join(" "));
     } else {
       setDesc(caption);
     }
   }, [caption]);
 
   return (
-    <>
+    <span>
       {size > 14 ? (
         <>
           {expand === false ? (
             <>
-              <Caption caption={desc} />
-              ...
+              {desc}...
               <span className="read__more__less" onClick={handleReadMore}>
+                {" "}
                 Read More
               </span>
             </>
           ) : (
             <>
-              <Caption caption={caption} />
+              {caption}
               <span className="read__more__less" onClick={handleReadLess}>
+                {" "}
                 Read Less
               </span>
             </>
           )}
         </>
       ) : (
-        <>
-          <Caption caption={caption} />
-        </>
+        <>{caption}</>
       )}
-    </>
+    </span>
   );
 }
+
+export default ReadMore;
