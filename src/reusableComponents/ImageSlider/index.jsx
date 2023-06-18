@@ -1,4 +1,4 @@
-import "./ImageSlider.css";
+import "./index.css";
 
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import React, { useEffect, useState } from "react";

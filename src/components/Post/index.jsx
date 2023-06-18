@@ -1,4 +1,5 @@
 import "react-lazy-load-image-component/src/effects/blur.css";
+import "./index.css";
 
 import {
   Avatar,
@@ -22,26 +23,26 @@ import { Link, useNavigate } from "react-router-dom";
 import { doc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
-import Caption from "./Caption.jsx";
+import Caption from "../Caption";
 import CommentIcon from "@mui/icons-material/Comment";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
-import DialogBox from "../reusableComponents/DialogBox";
+import DialogBox from "../../reusableComponents/DialogBox";
 import EmojiPicker from "emoji-picker-react";
 import { FaSave } from "react-icons/fa";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
-import ImageSlider from "../reusableComponents/ImageSlider";
+import ImageSlider from "../../reusableComponents/ImageSlider";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
-import ReadMore from "./ReadMore";
+import ReadMore from "../ReadMore";
 import ReplyRoundedIcon from "@mui/icons-material/ReplyRounded";
-import Scroll from "../reusableComponents/Scroll";
+import Scroll from "../../reusableComponents/Scroll";
 import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
 import TextField from "@mui/material/TextField";
-import { db } from "../lib/firebase";
+import { db } from "../../lib/firebase";
 import firebase from "firebase/compat/app";
 import { red } from "@mui/material/colors";
 import { saveAs } from "file-saver";
-import useCreatedAt from "../hooks/useCreatedAt";
+import useCreatedAt from "../../hooks/useCreatedAt";
 import { useSnackbar } from "notistack";
 import { useTheme } from "@mui/material/styles";
 

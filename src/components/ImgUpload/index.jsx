@@ -1,15 +1,15 @@
-import "./imgPreview.css";
+import "./index.css";
 
 import { Avatar, LinearProgress, TextField } from "@mui/material";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import React, { useRef, useState } from "react";
-import { auth, db, handleMultiUpload } from "../lib/firebase";
+import { auth, db, handleMultiUpload } from "../../lib/firebase";
 
-import AnimatedButton from "./AnimatedButton";
-import Camera from "./Camera";
+import AnimatedButton from "../AnimatedButton";
+import Camera from "../Camera";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
-import Popup from "../reusableComponents/Popup";
+import Popup from "../../reusableComponents/Popup";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
 

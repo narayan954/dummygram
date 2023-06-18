@@ -1,3 +1,5 @@
+import "./index.css";
+
 import React, { useState } from "react";
 import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
 import {
@@ -5,9 +7,9 @@ import {
   facebookProvider,
   googleProvider,
   storage,
-} from "../lib/firebase";
+} from "../../lib/firebase";
 import { faGoogle, faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
-import { getModalStyle, useStyles } from "../App";
+import { getModalStyle, useStyles } from "../../App";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
