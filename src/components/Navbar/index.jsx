@@ -1,4 +1,4 @@
-import "./Navbar.css";
+import "./index.css";
 
 import {
   Box,
@@ -11,8 +11,8 @@ import React, { useEffect } from "react";
 
 import { AiOutlineInsertRowAbove } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
-import { auth } from "../lib/firebase";
-import logo from "../assets/logo.png";
+import { auth } from "../../lib/firebase";
+import logo from "../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
 
 function Navbar({ setRow, row, open, setOpen, user, setUser, setLogout }) {
