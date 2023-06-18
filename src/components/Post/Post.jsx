@@ -1,5 +1,5 @@
 import "react-lazy-load-image-component/src/effects/blur.css";
-import "./Post.css"
+import "./Post.css";
 
 import {
   Avatar,

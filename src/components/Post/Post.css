@@ -1,45 +1,45 @@
 .post {
-    max-width: 400px;
-    margin-top: 20px;
-    padding: 5px;
-    border: 1px solid rgba(0, 0, 0, 0.373);
-    border-radius: 5px;
-    margin-bottom: 20px;
-    word-wrap: break-word;
-    transition: all;
-    transition-duration: 200ms;
-    transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
-  }
+  max-width: 400px;
+  margin-top: 20px;
+  padding: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.373);
+  border-radius: 5px;
+  margin-bottom: 20px;
+  word-wrap: break-word;
+  transition: all;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+}
 
-  .post:hover {
-    transform: scale(1.01);
-  }
-  
-  .postColumn {
-    max-width: 400px;
-    margin-top: 20px;
-    padding: 5px;
-    border: 1px solid rgba(0, 0, 0, 0.373);
-    border-radius: 5px;
-    margin-bottom: 20px;
-    word-wrap: break-word;
-    transition: all;
-    transition-duration: 200ms;
-    transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
-  }
-  
-  .postColumn:hover {
-    transform: scale(1.01);
-  }
+.post:hover {
+  transform: scale(1.01);
+}
 
-  .social__icon__last {
-    padding: 10px;
-    margin-left: auto !important;
-  }
+.postColumn {
+  max-width: 400px;
+  margin-top: 20px;
+  padding: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.373);
+  border-radius: 5px;
+  margin-bottom: 20px;
+  word-wrap: break-word;
+  transition: all;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+}
 
-  .post__background {
-    min-height: 250px;
-    /* background: linear-gradient(
+.postColumn:hover {
+  transform: scale(1.01);
+}
+
+.social__icon__last {
+  padding: 10px;
+  margin-left: auto !important;
+}
+
+.post__background {
+  min-height: 250px;
+  /* background: linear-gradient(
       45deg,
       #abdb10,
       #cbdb51,
@@ -48,16 +48,16 @@
       #30e19d,
       #a1d9c9
     ); */
-    background: url(./images/postbg.avif);
-    background-size: cover;
-    /* color: rgb(145, 230, 227); */
-    color: black;
-    justify-content: center;
-    align-items: center;
-    font-weight: 600;
-    position: relative;
-  }
-  
+  background: url(./images/postbg.avif);
+  background-size: cover;
+  /* color: rgb(145, 230, 227); */
+  color: black;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  position: relative;
+}
+
 .post_caption {
   text-align: center;
   padding: 8px;

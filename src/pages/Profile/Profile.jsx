@@ -1,3 +1,5 @@
+import "./Profile.css";
+
 import {
   Avatar,
   Box,
@@ -13,7 +15,6 @@ import { FaUserCircle } from "react-icons/fa";
 import SideBar from "../../components/SideBar/SideBar";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
-import "./Profile.css"
 
 function Profile() {
   const { name, email, avatar } = useLocation().state;

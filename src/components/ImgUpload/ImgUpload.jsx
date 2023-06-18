@@ -3,10 +3,10 @@ import "./ImgUpload.css";
 import { Avatar, LinearProgress, TextField } from "@mui/material";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import React, { useRef, useState } from "react";
-import { auth, db, handleMultiUpload } from "../../lib/firebase"
+import { auth, db, handleMultiUpload } from "../../lib/firebase";
 
 import AnimatedButton from "../AnimatedButton";
-import Camera from "../Camera/Camera"
+import Camera from "../Camera/Camera";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
 import Popup from "../../reusableComponents/Popup/Popup";

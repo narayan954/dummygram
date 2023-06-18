@@ -9,9 +9,9 @@ import { AiOutlineClose } from "react-icons/ai";
 import { Dialog } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import HomeIcon from "@mui/icons-material/Home";
-import ImgUpload from "../ImgUpload/ImgUpload"
+import ImgUpload from "../ImgUpload/ImgUpload";
 import React from "react";
-import { auth } from "../../lib/firebase"
+import { auth } from "../../lib/firebase";
 import { useState } from "react";
 
 function SideBar(props) {

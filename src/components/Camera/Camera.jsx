@@ -1,5 +1,6 @@
+import "./Camera.css";
+
 import React, { useCallback, useRef, useState } from "react";
-import "./Camera.css"
 
 import Webcam from "react-webcam";
 

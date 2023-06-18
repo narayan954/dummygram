@@ -1,22 +1,21 @@
-
 .img-edit {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 40px;
-    border-radius: 1.303rem;
-    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
-    cursor: pointer;
-    color: blue;
-    border: 2px solid blue;
-    filter: invert(0%) !important;
-    transition: color 0.4s;
-  }
-  
-  .img-edit:hover {
-    opacity: 1;
-    background: linear-gradient(40deg, #e107c1, #59afc7);
-    filter: invert(0%) !important;
-    /* transition: transform 0.5s ease-out; */
-    color: white;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  border-radius: 1.303rem;
+  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  color: blue;
+  border: 2px solid blue;
+  filter: invert(0%) !important;
+  transition: color 0.4s;
+}
+
+.img-edit:hover {
+  opacity: 1;
+  background: linear-gradient(40deg, #e107c1, #59afc7);
+  filter: invert(0%) !important;
+  /* transition: transform 0.5s ease-out; */
+  color: white;
+}

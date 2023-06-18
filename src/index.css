@@ -55,6 +55,7 @@ input:focus {
   }
 }
 
+/* Post style */
 .app__posts {
   padding: 5.5em 20px 20px 17vw;
 }
@@ -63,8 +64,6 @@ input:focus {
   padding: 20px;
   padding-top: 5.5em;
 }
-
-/* Post style */
 
 @media only screen and (min-width: 800px) {
   .app__posts {
@@ -102,7 +101,6 @@ input:focus {
   }
 }
 
-
 .post__img {
   object-position: top;
   max-width: 100%;
@@ -118,7 +116,6 @@ input:focus {
   border-top: 1px solid rgba(215, 208, 208, 0.845);
   border-bottom: 1px solid rgba(72, 6, 91, 0.281);
 }
-
 
 .post__username {
   font-size: 14px;
@@ -264,7 +261,7 @@ div#picker {
 .file {
   opacity: 0;
   width: 0.1px;
-  height: 0.1px; 
+  height: 0.1px;
   position: absolute;
 }
 
