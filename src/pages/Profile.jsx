@@ -149,12 +149,16 @@ function Profile() {
           <Typography fontSize="1.5rem" fontWeight="600" fontFamily="Poppins">
             {email && email}
           </Typography>
-          {!friendRequestSent && (
-            <Button onClick={handleAddFriendRequest}
+          {!friendRequestSent && name !== auth.currentUser.displayName && (
+            <Button
+              onClick={handleAddFriendRequest}
               variant="contained"
               color="primary"
               sx={{ marginTop: "1rem" }}
-              fontSize="1.2rem">Add Friend Request</Button>
+              fontSize="1.2rem"
+            >
+              Add Friend Request
+            </Button>
           )}
           <Button
             onClick={handleBack}
