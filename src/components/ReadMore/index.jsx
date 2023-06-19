@@ -1,3 +1,6 @@
+import "./index.css";
+import "../Caption";
+
 import { useEffect, useState } from "react";
 
 import React from "react";

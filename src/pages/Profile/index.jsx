@@ -1,3 +1,5 @@
+import "./index.css";
+
 import {
   Avatar,
   Box,
@@ -6,11 +8,11 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { auth, storage } from "../lib/firebase";
+import { auth, storage } from "../../lib/firebase";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { FaUserCircle } from "react-icons/fa";
-import SideBar from "../components/SideBar";
+import SideBar from "../../components/SideBar";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
 
@@ -25,7 +27,7 @@ function Profile() {
   const [friendRequestSent, setFriendRequestSent] = useState(false);
 
   const handleAddFriendRequest = () => {
-    alert('Friend request sent!');
+    alert("Friend request sent!");
     setFriendRequestSent(true);
   };
   const handleBack = () => {

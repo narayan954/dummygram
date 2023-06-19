@@ -1,5 +1,5 @@
 // custom css import
-import "./SideBar.css";
+import "./index.css";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -9,15 +9,14 @@ import { AiOutlineClose } from "react-icons/ai";
 import { Dialog } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import HomeIcon from "@mui/icons-material/Home";
-import ImgUpload from "../components/ImgUpload";
-import React from "react";
-import { auth } from "../lib/firebase";
-import { useState } from "react";
+import ImgUpload from "../ImgUpload";
+import NotificationPopup from "../../reusableComponents/NotificationPopup";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import NotificationPopup from "../components/NotificationPopup";
+import React from "react";
+import { auth } from "../../lib/firebase";
+import { useState } from "react";
 
 function SideBar(props) {
-
   const navigate = useNavigate();
   const [openNewUpload, setOpenNewUpload] = useState(false);
   const user = auth.currentUser;

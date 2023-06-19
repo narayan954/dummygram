@@ -1,11 +1,11 @@
-import "./ImageSlider.css";
+import "./index.css";
 
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import React, { useEffect, useState } from "react";
 
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
-const ImageSlider = ({ slides, isCommentBox }) => {
+const ImageSlider = ({ slides, isCommentBox, doubleClickHandler }) => {
   const [current, setCurrent] = useState(0);
 
   //destructure  slides.length to get const { length } = slides;
@@ -27,7 +27,7 @@ const ImageSlider = ({ slides, isCommentBox }) => {
   // }, [slides]);
 
   return slides.length ? (
-    <div className="slider">
+    <div className="slider" onDoubleClick={doubleClickHandler}>
       {slides.map(({ imageUrl, imageWidth, imageHeight, thumbnail }, index) => (
         <div
           style={{ display: index === current ? "contents" : "none" }}
