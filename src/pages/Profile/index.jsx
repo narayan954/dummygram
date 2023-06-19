@@ -24,7 +24,12 @@ function Profile() {
   const [profilepic, setProfilePic] = useState(avatar);
   const [visible, setVisibile] = useState(false);
   const navigate = useNavigate();
+  const [friendRequestSent, setFriendRequestSent] = useState(false);
 
+  const handleAddFriendRequest = () => {
+    alert("Friend request sent!");
+    setFriendRequestSent(true);
+  };
   const handleBack = () => {
     navigate("/dummygram"); // Use navigate function to change the URL
   };
@@ -146,6 +151,17 @@ function Profile() {
           <Typography fontSize="1.5rem" fontWeight="600" fontFamily="Poppins">
             {email && email}
           </Typography>
+          {!friendRequestSent && name !== auth.currentUser.displayName && (
+            <Button
+              onClick={handleAddFriendRequest}
+              variant="contained"
+              color="primary"
+              sx={{ marginTop: "1rem" }}
+              fontSize="1.2rem"
+            >
+              Add Friend Request
+            </Button>
+          )}
           <Button
             onClick={handleBack}
             variant="contained"

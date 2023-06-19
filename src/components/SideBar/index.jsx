@@ -10,6 +10,8 @@ import { Dialog } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import HomeIcon from "@mui/icons-material/Home";
 import ImgUpload from "../ImgUpload";
+import NotificationPopup from "../../reusableComponents/NotificationPopup";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 import React from "react";
 import { auth } from "../../lib/firebase";
 import { useState } from "react";
@@ -18,7 +20,19 @@ function SideBar(props) {
   const navigate = useNavigate();
   const [openNewUpload, setOpenNewUpload] = useState(false);
   const user = auth.currentUser;
+  const [openNotificationPopup, setOpenNotificationPopup] = useState(false);
+  const handleOpenNotificationPopup = () => {
+    setOpenNotificationPopup(true);
+  };
+  const [requests, setRequests] = useState([]);
 
+  const acceptRequest = (request) => {
+    setRequests(requests.filter((req) => req.id !== request.id));
+  };
+
+  const rejectRequest = (request) => {
+    setRequests(requests.filter((req) => req.id !== request.id));
+  };
   return (
     <div className="sidebar">
       <ul>
@@ -35,6 +49,11 @@ function SideBar(props) {
         <li onClick={() => navigate("/dummygram/favourites")}>
           <div className="sidebar_align">
             <FavoriteBorderIcon className="icon" /> <span>Favourites</span>
+          </div>
+        </li>
+        <li onClick={handleOpenNotificationPopup}>
+          <div className="sidebar_align">
+            <NotificationsIcon className="icon" /> <span>Notifications</span>
           </div>
         </li>
         <li
@@ -97,6 +116,54 @@ function SideBar(props) {
           <ImgUpload
             user={user}
             onUploadComplete={() => setOpenNewUpload(false)}
+          />
+        </div>
+      </Dialog>
+      <Dialog
+        PaperProps={{
+          sx: {
+            width: "60vw",
+            height: "60vh",
+          },
+        }}
+        open={openNotificationPopup}
+        onClose={() => setOpenNotificationPopup(false)}
+      >
+        <div
+          style={{
+            backgroundColor: "var(--bg-color)",
+            textAlign: "center",
+            color: "var(--color)",
+          }}
+        >
+          <AiOutlineClose
+            onClick={() => {
+              setOpenNotificationPopup(false);
+            }}
+            size={18}
+            style={{
+              position: "absolute",
+              right: "1rem",
+              top: "1rem",
+              cursor: "pointer",
+            }}
+          />
+          <p
+            style={{
+              fontSize: "17px",
+              fontWeight: 500,
+              color: "var(--color)",
+              marginTop: "10px",
+              marginBottom: "8px",
+            }}
+          >
+            Notifications
+          </p>
+          <hr />
+          <NotificationPopup
+            requests={requests}
+            acceptRequest={acceptRequest}
+            rejectRequest={rejectRequest}
           />
         </div>
       </Dialog>
