@@ -5,16 +5,17 @@ import {
   Box,
   Button,
   Divider,
+  Modal,
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { auth, storage } from "../../lib/firebase";
 import { useLocation, useNavigate } from "react-router-dom";
+import { auth, storage } from "../../lib/firebase";
 
-import { FaUserCircle } from "react-icons/fa";
-import SideBar from "../../components/SideBar";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
+import { FaUserCircle } from "react-icons/fa";
+import SideBar from "../../components/SideBar";
 
 function Profile() {
   const { name, email, avatar } = useLocation().state;
@@ -23,6 +24,8 @@ function Profile() {
   const [image, setImage] = useState("");
   const [profilepic, setProfilePic] = useState(avatar);
   const [visible, setVisibile] = useState(false);
+  const [open, setOpen] = useState(false);
+  const handleClose = () => setOpen(false);
   const navigate = useNavigate();
 
   const handleBack = () => {
@@ -71,6 +74,24 @@ function Profile() {
   return (
     <>
       <SideBar />
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={{
+          position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+          width: 450, height: 450, boxShadow: 24, p: 4, backdropFilter: 'blur(4rem)', border: '1px solid #fff', zIndex: '1000'
+        }}>
+          <img style={{
+            objectFit: "cover", borderRadius: "50%", marginLeft: `${isNonMobile ? "3vw" : "20vw"}`,
+            marginTop: `${isNonMobile ? "6vh" : "10vh"}`
+          }} width={isNonMobile ? "80%" : "70%"} height={isNonMobile ? "80%" : "70%"}
+            src={profilepic} alt="user" />
+        </Box>
+      </Modal>
+
       <Box
         width={isNonMobile ? "30%" : "70%"}
         backgroundColor="#F4EEFF"
@@ -89,9 +110,9 @@ function Profile() {
         <Box display="flex" flexDirection="column" gap={1}>
           <Box marginX="auto" fontSize="600%">
             {avatar ? (
-              <Avatar
+              <Avatar onClick={() => setOpen((on) => !on)}
                 alt={name}
-                src={avatar}
+                src={profilepic}
                 sx={{
                   width: "23vh",
                   height: "23vh",
@@ -108,7 +129,8 @@ function Profile() {
               <FaUserCircle style={{ width: "23vh", height: "23vh" }} />
             )}
           </Box>
-          {name == auth.currentUser.displayName ? (
+
+          {name == auth.currentUser?.displayName ? (
             <Box>
               <input
                 type="file"
