@@ -115,7 +115,7 @@ function Profile() {
       </Modal>
 
       <Box
-        width={isNonMobile ? "20%" : "70%"}
+        width={isNonMobile ? "30%" : "70%"}
         backgroundColor="#F4EEFF"
         paddingY={5}
         paddingX={6}
