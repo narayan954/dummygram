@@ -1,5 +1,6 @@
 import "./index.css";
 
+import { useState, useEffect } from "react";
 import {
   Avatar,
   Box,
@@ -8,13 +9,11 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { auth, storage } from "../../lib/firebase";
+import { db, auth, storage } from "../../lib/firebase";
 import { useLocation, useNavigate } from "react-router-dom";
-
 import { FaUserCircle } from "react-icons/fa";
 import SideBar from "../../components/SideBar";
 import { useSnackbar } from "notistack";
-import { useState } from "react";
 
 function Profile() {
   const { name, email, avatar } = useLocation().state;
@@ -22,28 +21,48 @@ function Profile() {
   const { enqueueSnackbar } = useSnackbar();
   const [image, setImage] = useState("");
   const [profilepic, setProfilePic] = useState(avatar);
-  const [visible, setVisibile] = useState(false);
+  const [visible, setVisible] = useState(false);
   const navigate = useNavigate();
+  const [friendRequestSent, setFriendRequestSent] = useState(false);
+
+  useEffect(() => {
+    const checkFriendRequestSent = async () => {
+      const currentUser = auth.currentUser;
+      const currentUserUid = currentUser.uid;
+      const targetUserUid = currentUserUid; // Assuming the friend request is sent to the current user itself
+
+      const friendRequestsRef = db.collection("friendRequests");
+      const query = friendRequestsRef
+        .where("sender", "==", currentUserUid)
+        .where("recipient", "==", targetUserUid)
+        .limit(1);
+
+      const snapshot = await query.get();
+      if (!snapshot.empty) {
+        setFriendRequestSent(true);
+      }
+    };
+
+    checkFriendRequestSent();
+  }, []);
 
   const handleBack = () => {
-    navigate("/dummygram"); // Use navigate function to change the URL
+    navigate("/dummygram");
   };
 
   const handleChange = (e) => {
     if (e.target.files[0]) {
       setProfilePic(URL.createObjectURL(e.target.files[0]));
       setImage(e.target.files[0]);
-      setVisibile(true);
+      setVisible(true);
     }
   };
+
   const handleSave = async () => {
     const uploadTask = storage.ref(`images/${image?.name}`).put(image);
     await uploadTask.on(
       "state_changed",
-      () => {
-        // // progress function ...
-        // setProgress(Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100));
-      },
+      () => {},
       (error) => {
         enqueueSnackbar(error.message, {
           variant: "error",
@@ -65,7 +84,30 @@ function Profile() {
           });
       }
     );
-    setVisibile(false);
+    setVisible(false);
+  };
+
+  const handleSendFriendRequest = () => {
+    const currentUser = auth.currentUser;
+    const currentUserUid = currentUser.uid;
+    const targetUserUid = currentUserUid; 
+    db.collection("friendRequests")
+      .add({
+        sender: currentUserUid,
+        recipient: targetUserUid,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      })
+      .then(() => {
+        setFriendRequestSent(true);
+        enqueueSnackbar("Friend request sent!", {
+          variant: "success",
+        });
+      })
+      .catch((error) => {
+        enqueueSnackbar(error.message, {
+          variant: "error",
+        });
+      });
   };
 
   return (
@@ -108,7 +150,7 @@ function Profile() {
               <FaUserCircle style={{ width: "23vh", height: "23vh" }} />
             )}
           </Box>
-          {name == auth.currentUser.displayName ? (
+          {name === auth.currentUser.displayName && (
             <Box>
               <input
                 type="file"
@@ -126,8 +168,6 @@ function Profile() {
                 </div>
               </label>
             </Box>
-          ) : (
-            ""
           )}
           {visible && (
             <Button
@@ -146,6 +186,16 @@ function Profile() {
           <Typography fontSize="1.5rem" fontWeight="600" fontFamily="Poppins">
             {email && email}
           </Typography>
+          {!friendRequestSent && name !== auth.currentUser.displayName && (
+            <Button
+              onClick={handleSendFriendRequest}
+              variant="contained"
+              color="primary"
+              sx={{ marginTop: "1rem" }}
+            >
+              Add Friend
+            </Button>
+          )}
           <Button
             onClick={handleBack}
             variant="contained"

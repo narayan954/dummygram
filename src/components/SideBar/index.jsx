@@ -1,4 +1,3 @@
-// custom css import
 import "./index.css";
 
 import { Link, useNavigate } from "react-router-dom";
@@ -10,6 +9,7 @@ import { Dialog } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import HomeIcon from "@mui/icons-material/Home";
 import ImgUpload from "../ImgUpload";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 import React from "react";
 import { auth } from "../../lib/firebase";
 import { useState } from "react";
@@ -35,6 +35,11 @@ function SideBar(props) {
         <li onClick={() => navigate("/dummygram/favourites")}>
           <div className="sidebar_align">
             <FavoriteBorderIcon className="icon" /> <span>Favourites</span>
+          </div>
+        </li>
+        <li onClick={() => navigate("/dummygram/notifications")}>
+          <div className="sidebar_align">
+            <NotificationsIcon className="icon" /> <span>Notifications</span>
           </div>
         </li>
         <li
