@@ -5,7 +5,7 @@ import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import React, { useRef, useState } from "react";
 import { auth, db, handleMultiUpload } from "../../lib/firebase";
 
-import AnimatedButton from "../AnimatedButton";
+import AnimatedButton from "../../reusableComponents/AnimatedButton";
 import Camera from "../Camera";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
