@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
-import { RowModeContext } from "./hooks/useRowMode";
-
 import AnimatedButton from "./components/AnimatedButton";
 import { FaArrowCircleUp } from "react-icons/fa";
 import Favorite from "./components/Favorite";
@@ -15,6 +13,7 @@ import NotFoundPage from "./components/NotFound";
 import Post from "./components/Post";
 import PostView from "./pages/PostView";
 import Profile from "./pages/Profile";
+import { RowModeContext } from "./hooks/useRowMode";
 import ShareModal from "./components/ShareModal";
 import SideBar from "./components/SideBar";
 import SignupScreen from "./pages/Signup";
@@ -274,21 +273,21 @@ function App() {
                       !loadingPosts
                         ? {}
                         : {
-                          width: "100%",
-                          minHeight: "100vh",
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }
+                            width: "100%",
+                            minHeight: "100vh",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }
                     }
                   >
                     {loadingPosts ? (
                       <Loader />
                     ) : (
                       <div
-                      className={`${
-                        rowMode ? "app__posts" : "app_posts_column"
-                          }`}
+                        className={`${
+                          rowMode ? "app__posts" : "app_posts_column"
+                        }`}
                       >
                         {posts.map(({ id, post }) => (
                           <Post
