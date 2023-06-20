@@ -4,7 +4,7 @@ import { auth, db } from "../lib/firebase";
 import { Box } from "@mui/material";
 import Post from "./Post";
 import { RowModeContext } from "../hooks/useRowMode";
-import ShareModal from "./ShareModal";
+import ShareModal from "../reusableComponents/ShareModal";
 import SideBar from "./SideBar";
 
 function Favorite() {
