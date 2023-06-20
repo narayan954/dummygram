@@ -10,6 +10,7 @@ import LoginScreen from "./pages/Login";
 import Modal from "@mui/material/Modal";
 import Navbar from "./components/Navbar";
 import NotFoundPage from "./components/NotFound";
+import Notifications from "./components/Notifications";
 import Post from "./components/Post";
 import PostView from "./pages/PostView";
 import Profile from "./pages/Profile";
@@ -18,7 +19,6 @@ import SideBar from "./components/SideBar";
 import SignupScreen from "./pages/Signup";
 import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
-import Notifications from "./components/Notifications";
 
 export function getModalStyle() {
   const top = 50;
@@ -272,20 +272,21 @@ function App() {
                     !loadingPosts
                       ? {}
                       : {
-                        width: "100%",
-                        minHeight: "100vh",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }
+                          width: "100%",
+                          minHeight: "100vh",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }
                   }
                 >
                   {loadingPosts ? (
                     <Loader />
                   ) : (
                     <div
-                      className={`${rowMode ? "app__posts" : "app_posts_column"
-                        }`}
+                      className={`${
+                        rowMode ? "app__posts" : "app_posts_column"
+                      }`}
                     >
                       {posts.map(({ id, post }) => (
                         <Post

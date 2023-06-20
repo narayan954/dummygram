@@ -1,6 +1,5 @@
 import "./index.css";
 
-import { useState, useEffect } from "react";
 import {
   Avatar,
   Box,
@@ -9,8 +8,10 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { db, auth, storage } from "../../lib/firebase";
+import { auth, db, storage } from "../../lib/firebase";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+
 import { FaUserCircle } from "react-icons/fa";
 import SideBar from "../../components/SideBar";
 import { useSnackbar } from "notistack";
@@ -90,7 +91,7 @@ function Profile() {
   const handleSendFriendRequest = () => {
     const currentUser = auth.currentUser;
     const currentUserUid = currentUser.uid;
-    const targetUserUid = currentUserUid; 
+    const targetUserUid = currentUserUid;
     db.collection("friendRequests")
       .add({
         sender: currentUserUid,
