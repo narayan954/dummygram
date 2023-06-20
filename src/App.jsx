@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
-import { RowModeContext } from "./hooks/useRowMode";
-
-import AnimatedButton from "./components/AnimatedButton";
+import AnimatedButton from "./reusableComponents/AnimatedButton";
 import { FaArrowCircleUp } from "react-icons/fa";
 import Favorite from "./components/Favorite";
 import Loader from "./components/Loader";
@@ -15,7 +13,8 @@ import NotFoundPage from "./components/NotFound";
 import Post from "./components/Post";
 import PostView from "./pages/PostView";
 import Profile from "./pages/Profile";
-import ShareModal from "./components/ShareModal";
+import { RowModeContext } from "./hooks/useRowMode";
+import ShareModal from "./reusableComponents/ShareModal";
 import SideBar from "./components/SideBar";
 import SignupScreen from "./pages/Signup";
 import { makeStyles } from "@mui/styles";
@@ -267,27 +266,27 @@ function App() {
                     alignItems: "center",
                   }}
                 >
-                  <SideBar user={user} />
+                  <SideBar />
                   <div
                     style={
                       !loadingPosts
                         ? {}
                         : {
-                          width: "100%",
-                          minHeight: "100vh",
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }
+                            width: "100%",
+                            minHeight: "100vh",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }
                     }
                   >
                     {loadingPosts ? (
                       <Loader />
                     ) : (
                       <div
-                      className={`${
-                        rowMode ? "app__posts" : "app_posts_column"
-                          }`}
+                        className={`${
+                          rowMode ? "app__posts" : "app_posts_column"
+                        }`}
                       >
                         {posts.map(({ id, post }) => (
                           <Post
