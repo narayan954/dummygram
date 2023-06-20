@@ -7,16 +7,18 @@ import {
   Divider,
   Typography,
 } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 
 import { AiOutlineInsertRowAbove } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
 import { auth } from "../../lib/firebase";
 import logo from "../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
+import { RowModeContext } from "../../hooks/useRowMode";
 
-function Navbar({ setRow, row, open, setOpen, user, setUser, setLogout }) {
+function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
   const navigate = useNavigate();
+  const rowMode = useContext(RowModeContext);
 
   const buttonStyle = {
     background: "linear-gradient(40deg, #e107c1, #59afc7)",
@@ -74,9 +76,7 @@ function Navbar({ setRow, row, open, setOpen, user, setUser, setLogout }) {
           >
             <div
               className="rowConvert"
-              onClick={() => {
-                setRow(!row);
-              }}
+              onClick={ onClick }
             >
               <AiOutlineInsertRowAbove style={{ margin: "auto" }} size={30} />
             </div>
