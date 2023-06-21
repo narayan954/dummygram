@@ -2,6 +2,12 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import "./index.css";
 
 import {
+  ChatBubbleOutlineRounded,
+  FavoriteBorderOutlined,
+  FavoriteOutlined,
+  ShareOutlined,
+} from "@mui/icons-material";
+import {
   Avatar,
   Box,
   Button,
@@ -21,34 +27,28 @@ import {
   styled,
   useMediaQuery,
 } from "@mui/material";
-import {
-  ChatBubbleOutlineRounded,
-  FavoriteBorderOutlined,
-  FavoriteOutlined,
-  ShareOutlined,
-} from "@mui/icons-material";
-import { Link, useNavigate } from "react-router-dom";
 import { doc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
-import DialogBox from "../../reusableComponents/DialogBox";
-import EmojiPicker from "emoji-picker-react";
-import { FaSave } from "react-icons/fa";
-import Flexbetween from "../Flexbetween";
-import ImageSlider from "../../reusableComponents/ImageSlider";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
-import Scroll from "../../reusableComponents/Scroll";
 import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
 import TextField from "@mui/material/TextField";
-import { db } from "../../lib/firebase";
-import firebase from "firebase/compat/app";
-import { saveAs } from "file-saver";
-import useCreatedAt from "../../hooks/useCreatedAt";
-import { useSnackbar } from "notistack";
 import { useTheme } from "@mui/material/styles";
+import EmojiPicker from "emoji-picker-react";
+import { saveAs } from "file-saver";
+import firebase from "firebase/compat/app";
+import { useSnackbar } from "notistack";
+import { FaSave } from "react-icons/fa";
+import useCreatedAt from "../../hooks/useCreatedAt";
+import { db } from "../../lib/firebase";
+import DialogBox from "../../reusableComponents/DialogBox";
+import ImageSlider from "../../reusableComponents/ImageSlider";
+import Scroll from "../../reusableComponents/Scroll";
+import Flexbetween from "../Flexbetween";
+import ReadMore from "../ReadMore";
 
-// import ReadMore from "../ReadMore";
 
 const ITEM_HEIGHT = 48;
 
@@ -441,12 +441,12 @@ function Post(prop) {
         <Flexbetween>
           <Typography
             marginLeft={1}
-            fontFamily="serif"
+            fontSize={13}
             sx={{ color: "skyblue" }}
           >
             {likesNo} {likesNo > 1 ? "Likes" : "Like"}
           </Typography>
-          <Typography sx={{ color: "skyblue" }} fontFamily="serif">
+          <Typography sx={{ color: "skyblue" }} fontSize={13}>
             {comments.length} {comments.length > 1 ? "comments" : "comment"}
           </Typography>
         </Flexbetween>
@@ -454,20 +454,7 @@ function Post(prop) {
 
         {user && (
           <form className="post__commentBox">
-            <Flexbetween gap={!fullScreen && "1.8rem"}>
-              <Flexbetween sx={{ cursor: "pointer" }} onClick={save}>
-                <IconButton>
-                  <FaSave
-                    onClick={save}
-                    style={{ cursor: "pointer", fontSize: "22px" }}
-                    className="post_button"
-                  />
-                </IconButton>
-                <Typography fontFamily="serif" fontSize={15}>
-                  Save
-                </Typography>
-              </Flexbetween>
-
+            <Flexbetween gap={!fullScreen && "1.6rem"}>
               <Flexbetween sx={{ cursor: "pointer" }} onClick={likesHandler}>
                 <IconButton>
                   {tempLikeCount.indexOf(user.uid) != -1 ? (
@@ -476,7 +463,7 @@ function Post(prop) {
                     <FavoriteBorderOutlined />
                   )}
                 </IconButton>
-                <Typography fontFamily="serif" fontSize={15}>
+                <Typography fontSize={14}>
                   Like
                 </Typography>
               </Flexbetween>
@@ -490,7 +477,7 @@ function Post(prop) {
                 <IconButton>
                   <ChatBubbleOutlineRounded />
                 </IconButton>
-                <Typography fontFamily="serif" fontSize={15}>
+                <Typography fontSize={14}>
                   Comment
                 </Typography>
               </Flexbetween>
@@ -506,8 +493,21 @@ function Post(prop) {
                 <IconButton>
                   <ShareOutlined />
                 </IconButton>
-                <Typography fontFamily="serif" fontSize={15}>
+                <Typography fontSize={14}>
                   Share
+                </Typography>
+              </Flexbetween>
+
+              <Flexbetween sx={{ cursor: "pointer" }} onClick={save}>
+                <IconButton>
+                  <FaSave
+                    onClick={save}
+                    style={{ cursor: "pointer", fontSize: "22px" }}
+                    className="post_button"
+                  />
+                </IconButton>
+                <Typography fontSize={14}>
+                  Save
                 </Typography>
               </Flexbetween>
             </Flexbetween>
@@ -605,7 +605,7 @@ function Post(prop) {
                                     }}
                                   >
                                     {user &&
-                                    userComment.content.username ===
+                                      userComment.content.username ===
                                       user.displayName ? (
                                       <DeleteTwoToneIcon
                                         fontSize="small"
@@ -729,25 +729,5 @@ function Post(prop) {
   );
 }
 
-const ReadMore = ({ children, picCap = false }) => {
-  let text = children;
-
-  const [isReadMore, setIsReadMore] = useState(true);
-  const toggleReadMore = () => setIsReadMore((prev) => !prev);
-
-  return (
-    <div>
-      {isReadMore ? (picCap ? text.slice(0, 300) : text.slice(0, 100)) : text}
-      {text.length >= 300 && (
-        <span
-          onClick={toggleReadMore}
-          style={{ color: "black", fontWeight: "bold" }}
-        >
-          {isReadMore ? " ...read more" : " ...show less"}
-        </span>
-      )}
-    </div>
-  );
-};
 
 export default Post;
