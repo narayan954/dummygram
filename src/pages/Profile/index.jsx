@@ -1,6 +1,5 @@
 import "./index.css";
 
-import { useState, useEffect } from "react";
 import {
   Avatar,
   Box,
@@ -9,8 +8,10 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { db, auth, storage } from "../../lib/firebase";
+import { auth, db, storage } from "../../lib/firebase";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+
 import { FaUserCircle } from "react-icons/fa";
 import SideBar from "../../components/SideBar";
 import { useSnackbar } from "notistack";
@@ -114,6 +115,32 @@ function Profile() {
     setVisible(false);
   };
 
+<<<<<<< HEAD
+=======
+  const handleSendFriendRequest = () => {
+    const currentUser = auth.currentUser;
+    const currentUserUid = currentUser.uid;
+    const targetUserUid = currentUserUid;
+    db.collection("friendRequests")
+      .add({
+        sender: currentUserUid,
+        recipient: targetUserUid,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      })
+      .then(() => {
+        setFriendRequestSent(true);
+        enqueueSnackbar("Friend request sent!", {
+          variant: "success",
+        });
+      })
+      .catch((error) => {
+        enqueueSnackbar(error.message, {
+          variant: "error",
+        });
+      });
+  };
+
+>>>>>>> 7f4b99c1f5b1a5f2d72f950522421c807e28f26f
   return (
     <>
       <SideBar />

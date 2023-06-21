@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { auth, db } from "../lib/firebase";
+
 import { Box } from "@mui/material";
 import Post from "./Post";
 import ShareModal from "./ShareModal";
