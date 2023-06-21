@@ -11,10 +11,10 @@ import React, { useContext, useEffect } from "react";
 
 import { AiOutlineInsertRowAbove } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
+import { RowModeContext } from "../../hooks/useRowMode";
 import { auth } from "../../lib/firebase";
 import logo from "../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
-import { RowModeContext } from "../../hooks/useRowMode";
 
 function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
   const navigate = useNavigate();
@@ -74,10 +74,7 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
               justifyContent: "center",
             }}
           >
-            <div
-              className="rowConvert"
-              onClick={ onClick }
-            >
+            <div className="rowConvert" onClick={onClick}>
               <AiOutlineInsertRowAbove style={{ margin: "auto" }} size={30} />
             </div>
             <ClickAwayListener onClickAway={() => setOpen(false)}>

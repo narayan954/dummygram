@@ -189,7 +189,7 @@ function App() {
     <RowModeContext.Provider value={rowMode}>
       <div className="app">
         <Navbar
-          onClick={() => setRowMode(prev => !prev)}
+          onClick={() => setRowMode((prev) => !prev)}
           user={user}
           setUser={setUser}
           open={open}
