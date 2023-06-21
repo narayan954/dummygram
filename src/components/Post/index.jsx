@@ -21,27 +21,33 @@ import {
   styled,
   useMediaQuery,
 } from "@mui/material";
+import {
+  ChatBubbleOutlineRounded,
+  FavoriteBorderOutlined,
+  FavoriteOutlined,
+  ShareOutlined,
+} from "@mui/icons-material";
+import { Link, useNavigate } from "react-router-dom";
 import { doc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 
-import { ChatBubbleOutlineRounded, FavoriteBorderOutlined, FavoriteOutlined, ShareOutlined } from "@mui/icons-material";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
+import DialogBox from "../../reusableComponents/DialogBox";
+import EmojiPicker from "emoji-picker-react";
+import { FaSave } from "react-icons/fa";
+import Flexbetween from "../Flexbetween";
+import ImageSlider from "../../reusableComponents/ImageSlider";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
+import Scroll from "../../reusableComponents/Scroll";
 import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
 import TextField from "@mui/material/TextField";
-import { useTheme } from "@mui/material/styles";
-import EmojiPicker from "emoji-picker-react";
-import { saveAs } from "file-saver";
-import firebase from "firebase/compat/app";
-import { useSnackbar } from "notistack";
-import { FaSave } from "react-icons/fa";
-import useCreatedAt from "../../hooks/useCreatedAt";
 import { db } from "../../lib/firebase";
-import DialogBox from "../../reusableComponents/DialogBox";
-import ImageSlider from "../../reusableComponents/ImageSlider";
-import Scroll from "../../reusableComponents/Scroll";
-import Flexbetween from "../Flexbetween";
+import firebase from "firebase/compat/app";
+import { saveAs } from "file-saver";
+import useCreatedAt from "../../hooks/useCreatedAt";
+import { useSnackbar } from "notistack";
+import { useTheme } from "@mui/material/styles";
+
 // import ReadMore from "../ReadMore";
 
 const ITEM_HEIGHT = 48;
@@ -417,9 +423,7 @@ function Post(prop) {
             {caption.length >= 300 && (
               <>
                 <p className="post_caption">
-                  <ReadMore picCap>
-                    {caption}
-                  </ReadMore>
+                  <ReadMore picCap>{caption}</ReadMore>
                 </p>
               </>
             )}
@@ -428,17 +432,23 @@ function Post(prop) {
         <div className="post__text">
           {caption && postHasImages && caption.length >= 300 && (
             <>
-              <ReadMore>
-                {caption}
-              </ReadMore>
+              <ReadMore>{caption}</ReadMore>
             </>
           )}
         </div>
 
         <Divider />
         <Flexbetween>
-          <Typography marginLeft={1} fontFamily="serif" sx={{ color: "skyblue" }}>{likesNo} {likesNo > 1 ? "Likes" : "Like"}</Typography>
-          <Typography sx={{ color: "skyblue" }} fontFamily="serif">{comments.length} {comments.length > 1 ? "comments" : "comment"}</Typography>
+          <Typography
+            marginLeft={1}
+            fontFamily="serif"
+            sx={{ color: "skyblue" }}
+          >
+            {likesNo} {likesNo > 1 ? "Likes" : "Like"}
+          </Typography>
+          <Typography sx={{ color: "skyblue" }} fontFamily="serif">
+            {comments.length} {comments.length > 1 ? "comments" : "comment"}
+          </Typography>
         </Flexbetween>
         <Divider />
 
@@ -453,7 +463,9 @@ function Post(prop) {
                     className="post_button"
                   />
                 </IconButton>
-                <Typography fontFamily="serif" fontSize={15}>Save</Typography>
+                <Typography fontFamily="serif" fontSize={15}>
+                  Save
+                </Typography>
               </Flexbetween>
 
               <Flexbetween sx={{ cursor: "pointer" }} onClick={likesHandler}>
@@ -464,27 +476,39 @@ function Post(prop) {
                     <FavoriteBorderOutlined />
                   )}
                 </IconButton>
-                <Typography fontFamily="serif" fontSize={15} >Like</Typography>
+                <Typography fontFamily="serif" fontSize={15}>
+                  Like
+                </Typography>
               </Flexbetween>
 
-              <Flexbetween sx={{ cursor: "pointer" }} onClick={() => {
-                setisCommentOpen(!Open);
-              }}>
+              <Flexbetween
+                sx={{ cursor: "pointer" }}
+                onClick={() => {
+                  setisCommentOpen(!Open);
+                }}
+              >
                 <IconButton>
                   <ChatBubbleOutlineRounded />
                 </IconButton>
-                <Typography fontFamily="serif" fontSize={15}>Comment</Typography>
+                <Typography fontFamily="serif" fontSize={15}>
+                  Comment
+                </Typography>
               </Flexbetween>
 
-              <Flexbetween sx={{ cursor: "pointer" }} onClick={() => {
-                setLink(`https://narayan954.github.io/dummygram/${postId}`);
-                setPostText(caption);
-                shareModal(true);
-              }}>
+              <Flexbetween
+                sx={{ cursor: "pointer" }}
+                onClick={() => {
+                  setLink(`https://narayan954.github.io/dummygram/${postId}`);
+                  setPostText(caption);
+                  shareModal(true);
+                }}
+              >
                 <IconButton>
                   <ShareOutlined />
                 </IconButton>
-                <Typography fontFamily="serif" fontSize={15}>Share</Typography>
+                <Typography fontFamily="serif" fontSize={15}>
+                  Share
+                </Typography>
               </Flexbetween>
             </Flexbetween>
 
@@ -581,7 +605,7 @@ function Post(prop) {
                                     }}
                                   >
                                     {user &&
-                                      userComment.content.username ===
+                                    userComment.content.username ===
                                       user.displayName ? (
                                       <DeleteTwoToneIcon
                                         fontSize="small"
@@ -706,7 +730,6 @@ function Post(prop) {
 }
 
 const ReadMore = ({ children, picCap = false }) => {
-
   let text = children;
 
   const [isReadMore, setIsReadMore] = useState(true);
@@ -714,12 +737,15 @@ const ReadMore = ({ children, picCap = false }) => {
 
   return (
     <div>
-      {isReadMore ? picCap ? text.slice(0, 300) : text.slice(0, 100) : text}
-      {text.length >= 300 &&
-        <span onClick={toggleReadMore} style={{ color: "black", fontWeight: "bold" }}>
-          {isReadMore ? ' ...read more' : ' ...show less'}
+      {isReadMore ? (picCap ? text.slice(0, 300) : text.slice(0, 100)) : text}
+      {text.length >= 300 && (
+        <span
+          onClick={toggleReadMore}
+          style={{ color: "black", fontWeight: "bold" }}
+        >
+          {isReadMore ? " ...read more" : " ...show less"}
         </span>
-      }
+      )}
     </div>
   );
 };
