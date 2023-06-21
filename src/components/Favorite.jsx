@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { auth, db } from "../lib/firebase";
 
 import { Box } from "@mui/material";
 import Post from "./Post";
+import { RowModeContext } from "../hooks/useRowMode";
 import ShareModal from "../reusableComponents/ShareModal";
 import SideBar from "./SideBar";
 
@@ -11,6 +12,7 @@ function Favorite() {
   const [currentPostLink, setCurrentPostLink] = useState("");
   const [postText, setPostText] = useState("");
   const [posts, setPosts] = useState([]);
+  const rowMode = useContext(RowModeContext);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -48,17 +50,20 @@ function Favorite() {
           {posts.length ? (
             <>
               <h1>Your Favourites</h1>
-              {posts.map(({ id, post }) => (
-                <Post
-                  key={id}
-                  postId={id}
-                  user={auth.currentUser}
-                  post={post}
-                  shareModal={setOpenShareModal}
-                  setLink={setCurrentPostLink}
-                  setPostText={setPostText}
-                />
-              ))}
+              <div className={`${rowMode ? "app__posts" : "app_posts_column"}`}>
+                {posts.map(({ id, post }) => (
+                  <Post
+                    rowMode={true}
+                    key={id}
+                    postId={id}
+                    user={auth.currentUser}
+                    post={post}
+                    shareModal={setOpenShareModal}
+                    setLink={setCurrentPostLink}
+                    setPostText={setPostText}
+                  />
+                ))}
+              </div>
             </>
           ) : (
             <>You have nothing in favourites</>
