@@ -12,21 +12,18 @@ function Notifications() {
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
-    const fetchNotifications = async () => {
-      const snapshot = await db
-        .collection("notifications")
-        .orderBy("timestamp", "desc")
-        .get();
+    const unsubscribe = db
+      .collection("notifications")
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snapshot) => {
+        const fetchedNotifications = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setNotifications(fetchedNotifications);
+      });
 
-      const fetchedNotifications = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-
-      setNotifications(fetchedNotifications);
-    };
-
-    fetchNotifications();
+    return () => unsubscribe(); 
   }, []);
 
   return (
