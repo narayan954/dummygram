@@ -9,13 +9,15 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { auth, storage } from "../../lib/firebase";
+import { auth, storage, db } from "../../lib/firebase";
+import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { FaUserCircle } from "react-icons/fa";
 import SideBar from "../../components/SideBar";
+import Post from "../../components/Post";
 import { useSnackbar } from "notistack";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Profile() {
   const { name, email, avatar } = useLocation().state;
@@ -25,8 +27,43 @@ function Profile() {
   const [profilepic, setProfilePic] = useState(avatar);
   const [visible, setVisibile] = useState(false);
   const [open, setOpen] = useState(false);
+  const [user, setUser] = useState(null)
   const handleClose = () => setOpen(false);
   const navigate = useNavigate();
+  const [feed, setFeed] = useState([])
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        setUser(authUser);
+        // navigate("/dummygram/");
+      } else {
+        setUser(null);
+        // navigate("/dummygram/login");
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [user]);
+
+
+  const q = query(collection(db, "posts"), where("username", "==", name));
+  useEffect(() => {
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const userPosts = [];
+      querySnapshot.forEach((doc) => {
+        userPosts.push({
+          id: doc.id,
+          post: doc.data(),
+      });
+      });
+      setFeed(userPosts)
+    });
+
+  }, [])
+
 
   const handleBack = () => {
     navigate("/dummygram"); // Use navigate function to change the URL
@@ -201,6 +238,23 @@ function Profile() {
             Back
           </Button>
         </Box>
+
+      </Box>
+      <Box className="flex feed-main-container">
+        <div className="app__posts" id="feed-sub-container">
+          {feed.map(({post, id}) => (
+            <Post
+              rowMode={true}
+              key={id}
+              postId={id}
+              user={user}
+              post={post}
+              shareModal={true}
+              setLink="/"
+              setPostText=""
+            />
+          ))}
+          </div>
       </Box>
     </>
   );
