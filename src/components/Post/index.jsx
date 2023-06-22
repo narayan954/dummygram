@@ -44,9 +44,9 @@ import { FaSave } from "react-icons/fa";
 import useCreatedAt from "../../hooks/useCreatedAt";
 import { db } from "../../lib/firebase";
 import DialogBox from "../../reusableComponents/DialogBox";
+import Flexbetween from "../../reusableComponents/Flexbetween";
 import ImageSlider from "../../reusableComponents/ImageSlider";
 import Scroll from "../../reusableComponents/Scroll";
-import Flexbetween from "../Flexbetween";
 import ReadMore from "../ReadMore";
 
 
@@ -66,7 +66,6 @@ function Post(prop) {
   const [Open, setOpen] = useState(false);
   const [openEditCaption, setOpenEditCaption] = useState(false);
   const [isCommentOpen, setisCommentOpen] = useState(false);
-  // const [readMore, setReadMore] = useState(false);
   const [deleteCommentID, setDeleteCommentID] = useState("");
   const [openToDeleteComment, setOpenToDeleteComment] = useState(false);
 
@@ -271,9 +270,6 @@ function Post(prop) {
     setOpenToDeleteComment(false);
   };
 
-  // const handleReadPost = () => {
-  //   setReadMore(!readMore);
-  // };
 
   return (
     <div
