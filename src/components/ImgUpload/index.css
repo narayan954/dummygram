@@ -45,6 +45,7 @@
   cursor: pointer;
   transition: transform 0.2s ease-out;
   border: none;
+  font-size: 16px;
 }
 
 .openpopup {
