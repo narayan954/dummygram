@@ -115,32 +115,6 @@ function Profile() {
     setVisible(false);
   };
 
-<<<<<<< HEAD
-=======
-  const handleSendFriendRequest = () => {
-    const currentUser = auth.currentUser;
-    const currentUserUid = currentUser.uid;
-    const targetUserUid = currentUserUid;
-    db.collection("friendRequests")
-      .add({
-        sender: currentUserUid,
-        recipient: targetUserUid,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      })
-      .then(() => {
-        setFriendRequestSent(true);
-        enqueueSnackbar("Friend request sent!", {
-          variant: "success",
-        });
-      })
-      .catch((error) => {
-        enqueueSnackbar(error.message, {
-          variant: "error",
-        });
-      });
-  };
-
->>>>>>> 7f4b99c1f5b1a5f2d72f950522421c807e28f26f
   return (
     <>
       <SideBar />
