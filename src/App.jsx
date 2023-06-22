@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, lazy, Suspense } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
 import AnimatedButton from "./reusableComponents/AnimatedButton";
 import { FaArrowCircleUp } from "react-icons/fa";
-import Favorite from "./components/Favorite";
+const Favorite = lazy(() => import("./components/Favorite"));
 import Loader from "./components/Loader";
-import LoginScreen from "./pages/Login";
+const LoginScreen = lazy(() => import("./pages/Login"));
 import Modal from "@mui/material/Modal";
 import Navbar from "./components/Navbar";
-import NotFoundPage from "./components/NotFound";
-import Post from "./components/Post";
-import PostView from "./pages/PostView";
-import Profile from "./pages/Profile";
+const NotFoundPage = lazy(() => import("./components/NotFound"));
+const Post = lazy(() => import("./components/Post"));
+const PostView = lazy(() => import("./pages/PostView"));
+const Profile = lazy(() => import("./pages/Profile"));
 import { RowModeContext } from "./hooks/useRowMode";
 import ShareModal from "./reusableComponents/ShareModal";
 import SideBar from "./components/SideBar";
-import SignupScreen from "./pages/Signup";
+const SignupScreen = lazy(() => import("./pages/Signup"));
 import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
 
@@ -252,7 +252,7 @@ function App() {
             </form>
           </div>
         </Modal>
-
+      <Suspense fallback={Loader}>
         <Routes>
           <Route
             exact
@@ -331,6 +331,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/dummygram/favourites" element={<Favorite />} />
         </Routes>
+      </Suspense>
 
         <FaArrowCircleUp
           fill="#777"
