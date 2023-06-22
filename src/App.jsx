@@ -5,7 +5,7 @@ import { auth, db } from "./lib/firebase";
 import AnimatedButton from "./reusableComponents/AnimatedButton";
 import { FaArrowCircleUp } from "react-icons/fa";
 import Favorite from "./components/Favorite";
-import Loader from "./components/Loader";
+import Loader from "./reusableComponents/Loader";
 import LoginScreen from "./pages/Login";
 import Modal from "@mui/material/Modal";
 import Navbar from "./components/Navbar";
