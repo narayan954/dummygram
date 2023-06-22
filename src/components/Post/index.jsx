@@ -2,12 +2,6 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import "./index.css";
 
 import {
-  ChatBubbleOutlineRounded,
-  FavoriteBorderOutlined,
-  FavoriteOutlined,
-  ShareOutlined,
-} from "@mui/icons-material";
-import {
   Avatar,
   Box,
   Button,
@@ -27,27 +21,33 @@ import {
   styled,
   useMediaQuery,
 } from "@mui/material";
+import {
+  ChatBubbleOutlineRounded,
+  FavoriteBorderOutlined,
+  FavoriteOutlined,
+  ShareOutlined,
+} from "@mui/icons-material";
+import { Link, useNavigate } from "react-router-dom";
 import { doc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
-import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
-import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
-import TextField from "@mui/material/TextField";
-import { useTheme } from "@mui/material/styles";
-import EmojiPicker from "emoji-picker-react";
-import { saveAs } from "file-saver";
-import firebase from "firebase/compat/app";
-import { useSnackbar } from "notistack";
-import { FaSave } from "react-icons/fa";
-import useCreatedAt from "../../hooks/useCreatedAt";
-import { db } from "../../lib/firebase";
 import DialogBox from "../../reusableComponents/DialogBox";
+import EmojiPicker from "emoji-picker-react";
+import { FaSave } from "react-icons/fa";
 import Flexbetween from "../../reusableComponents/Flexbetween";
 import ImageSlider from "../../reusableComponents/ImageSlider";
-import Scroll from "../../reusableComponents/Scroll";
+import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import ReadMore from "../ReadMore";
+import Scroll from "../../reusableComponents/Scroll";
+import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
+import TextField from "@mui/material/TextField";
+import { db } from "../../lib/firebase";
+import firebase from "firebase/compat/app";
+import { saveAs } from "file-saver";
+import useCreatedAt from "../../hooks/useCreatedAt";
+import { useSnackbar } from "notistack";
+import { useTheme } from "@mui/material/styles";
 
 const ITEM_HEIGHT = 48;
 
@@ -423,9 +423,7 @@ function Post(prop) {
                 </p>
               </>
             ) : (
-              <p className="post_caption">
-                {caption}
-              </p>
+              <p className="post_caption">{caption}</p>
             )}
           </div>
         )}
@@ -434,10 +432,8 @@ function Post(prop) {
             <>
               <ReadMore>{caption}</ReadMore>
             </>
-          ) : caption && postHasImages && (
-            <p className="">
-              {caption}
-            </p>
+          ) : (
+            caption && postHasImages && <p className="">{caption}</p>
           )}
         </div>
 
@@ -597,7 +593,7 @@ function Post(prop) {
                                     }}
                                   >
                                     {user &&
-                                      userComment.content.username ===
+                                    userComment.content.username ===
                                       user.displayName ? (
                                       <DeleteTwoToneIcon
                                         fontSize="small"
