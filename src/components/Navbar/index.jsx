@@ -128,7 +128,7 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
                       sx={{ cursor: "pointer" }}
                       onClick={() => navigate("/dummygram/favourites")}
                     >
-                      <Typography fontFamily="serif" fontSize="1rem">
+                      <Typography fontFamily="Poppins" fontSize="1rem">
                         Favourites
                       </Typography>
                     </Box>
