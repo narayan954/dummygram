@@ -11,36 +11,39 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Divider,
   Grid,
   IconButton,
   Menu,
   MenuItem,
   Paper,
+  Typography,
   styled,
   useMediaQuery,
 } from "@mui/material";
+import {
+  ChatBubbleOutlineRounded,
+  FavoriteBorderOutlined,
+  FavoriteOutlined,
+  ShareOutlined,
+} from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import { doc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
-import Caption from "../Caption";
-import CommentIcon from "@mui/icons-material/Comment";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import DialogBox from "../../reusableComponents/DialogBox";
 import EmojiPicker from "emoji-picker-react";
 import { FaSave } from "react-icons/fa";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
+import Flexbetween from "../../reusableComponents/Flexbetween";
 import ImageSlider from "../../reusableComponents/ImageSlider";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import ReadMore from "../ReadMore";
-import ReplyRoundedIcon from "@mui/icons-material/ReplyRounded";
 import Scroll from "../../reusableComponents/Scroll";
 import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
 import TextField from "@mui/material/TextField";
 import { db } from "../../lib/firebase";
 import firebase from "firebase/compat/app";
-import { red } from "@mui/material/colors";
 import { saveAs } from "file-saver";
 import useCreatedAt from "../../hooks/useCreatedAt";
 import { useSnackbar } from "notistack";
@@ -62,7 +65,6 @@ function Post(prop) {
   const [Open, setOpen] = useState(false);
   const [openEditCaption, setOpenEditCaption] = useState(false);
   const [isCommentOpen, setisCommentOpen] = useState(false);
-  const [readMore, setReadMore] = useState(false);
   const [deleteCommentID, setDeleteCommentID] = useState("");
   const [openToDeleteComment, setOpenToDeleteComment] = useState(false);
 
@@ -267,10 +269,6 @@ function Post(prop) {
     setOpenToDeleteComment(false);
   };
 
-  const handleReadPost = () => {
-    setReadMore(!readMore);
-  };
-
   return (
     <div
       className={`${rowMode ? "post" : "postColumn"}`}
@@ -345,7 +343,9 @@ function Post(prop) {
             {user && username === user.displayName && (
               <MenuItem onClick={handleClickOpenCaption}> Edit </MenuItem>
             )}
-            <MenuItem onClick={handleDownload}> Download </MenuItem>
+            {postHasImages && (
+              <MenuItem onClick={handleDownload}> Download </MenuItem>
+            )}
             <MenuItem
               onClick={() => {
                 navigate("/dummygram/profile", {
@@ -416,45 +416,90 @@ function Post(prop) {
           />
         ) : (
           <div className="post__background" onDoubleClick={likesHandler}>
-            {caption.length >= 700 && readMore === false ? (
+            {caption.length >= 300 ? (
               <>
                 <p className="post_caption">
-                  <Caption caption={caption.substr(0, 700)} />
-                  <button
-                    className="post__btn"
-                    onClick={() => handleReadPost()}
-                  >
-                    ... Read More
-                  </button>
+                  <ReadMore picCap>{caption}</ReadMore>
                 </p>
               </>
             ) : (
-              <>
-                <p className="post_caption">
-                  <Caption caption={caption} />
-                </p>
-                {caption.length >= 700 && (
-                  <button
-                    className="post__less_btn"
-                    onClick={() => handleReadPost()}
-                  >
-                    ... Read Less
-                  </button>
-                )}
-              </>
+              <p className="post_caption">{caption}</p>
             )}
           </div>
         )}
         <div className="post__text">
-          {caption && postHasImages && (
+          {caption && postHasImages && caption.length >= 300 ? (
             <>
-              {/* <strong style={{ color: "royalblue" }}>{username} </strong> */}
-              <ReadMore caption={caption} />
+              <ReadMore>{caption}</ReadMore>
             </>
+          ) : (
+            caption && postHasImages && <p className="">{caption}</p>
           )}
         </div>
+
+        <Divider />
+        <Flexbetween>
+          <Typography marginLeft={1} fontSize={13} sx={{ color: "skyblue" }}>
+            {likesNo} {likesNo > 1 ? "Likes" : "Like"}
+          </Typography>
+          <Typography sx={{ color: "skyblue" }} fontSize={13}>
+            {comments.length} {comments.length > 1 ? "comments" : "comment"}
+          </Typography>
+        </Flexbetween>
+        <Divider />
+
         {user && (
           <form className="post__commentBox">
+            <Flexbetween gap={!fullScreen && "1.6rem"}>
+              <Flexbetween sx={{ cursor: "pointer" }} onClick={likesHandler}>
+                <IconButton>
+                  {tempLikeCount.indexOf(user.uid) != -1 ? (
+                    <FavoriteOutlined sx={{ color: "red" }} />
+                  ) : (
+                    <FavoriteBorderOutlined />
+                  )}
+                </IconButton>
+                <Typography fontSize={14}>Like</Typography>
+              </Flexbetween>
+
+              <Flexbetween
+                sx={{ cursor: "pointer" }}
+                onClick={() => {
+                  setisCommentOpen(!Open);
+                }}
+              >
+                <IconButton>
+                  <ChatBubbleOutlineRounded />
+                </IconButton>
+                <Typography fontSize={14}>Comment</Typography>
+              </Flexbetween>
+
+              <Flexbetween
+                sx={{ cursor: "pointer" }}
+                onClick={() => {
+                  setLink(`https://narayan954.github.io/dummygram/${postId}`);
+                  setPostText(caption);
+                  shareModal(true);
+                }}
+              >
+                <IconButton>
+                  <ShareOutlined />
+                </IconButton>
+                <Typography fontSize={14}>Share</Typography>
+              </Flexbetween>
+
+              <Flexbetween sx={{ cursor: "pointer" }} onClick={save}>
+                <IconButton>
+                  <FaSave
+                    onClick={save}
+                    style={{ cursor: "pointer", fontSize: "22px" }}
+                    className="post_button"
+                  />
+                </IconButton>
+                <Typography fontSize={14}>Save</Typography>
+              </Flexbetween>
+            </Flexbetween>
+
             <ClickAwayListener onClickAway={() => setShowEmojis(false)}>
               <div className="social__icon">
                 <div className="emoji__icon">
@@ -508,85 +553,7 @@ function Post(prop) {
             >
               Post
             </button>
-            <div className="social__icons__wrapper">
-              <FaSave
-                onClick={save}
-                style={{ cursor: "pointer", fontSize: "22px" }}
-                className="post_button"
-              />
 
-              <div
-                className="social__icon"
-                onClick={likesHandler}
-                style={{ cursor: "pointer" }}
-              >
-                {user ? (
-                  tempLikeCount.indexOf(user.uid) != -1 ? (
-                    <FavoriteOutlinedIcon
-                      sx={{ color: red[500], fontSize: "30px" }}
-                    />
-                  ) : (
-                    <FavoriteBorderIcon sx={buttonStyle} />
-                  )
-                ) : (
-                  <FavoriteBorderIcon sx={buttonStyle} />
-                )}
-              </div>
-              <span style={{ marginLeft: "", fontWeight: "bold" }}>
-                {likecount !== 0 ? `${likesNo} Likes` : " "}{" "}
-                {/* <span style={{ fontWeight: "bold" }}>Likes</span> */}
-              </span>
-              <IconButton
-                aria-label="share"
-                id="share-button"
-                aria-haspopup="true"
-                onClick={() => {
-                  setLink(`https://narayan954.github.io/dummygram/${postId}`);
-                  setPostText(caption);
-                  shareModal(true);
-                }}
-                sx={{
-                  color: "var(--color)",
-                  marginX: "4px",
-                }}
-              >
-                <ReplyRoundedIcon htmlColor="var(--color)" />
-              </IconButton>
-              {/* comment button */}
-              {/* <div className="social__icon">
-                      <ModeCommentOutlinedIcon />
-                    </div> */}
-              {/* share button */}
-              {/* <div className="social__icon">
-                      <SendOutlinedIcon />
-                    </div> */}
-              {/* save button */}
-              {/* <div className="social__icon__last">
-                      <BookmarkBorderOutlinedIcon />
-                    </div> */}
-            </div>
-            <Button
-              onClick={() => {
-                setisCommentOpen(!Open);
-              }}
-              startIcon={<CommentIcon />}
-              sx={{
-                backgroundColor: "rgba(	135, 206, 235, 0.2)",
-                margin: "12px 8px",
-                fontSize: "12px",
-                fontWeight: "bold",
-                "&.Mui-disabled": {
-                  color: "#616161",
-                },
-              }}
-              disabled={comments.length !== 0 ? false : true}
-            >
-              {comments.length > 1
-                ? `View all ${comments.length} comments`
-                : comments.length === 1
-                ? `View 1 comment`
-                : "No comments yet"}
-            </Button>
             <DialogBox
               open={isCommentOpen}
               onClose={handleCommentClose}
