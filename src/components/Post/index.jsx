@@ -415,7 +415,7 @@ function Post(prop) {
             doubleClickHandler={likesHandler}
           />
         ) : (
-          <div className="post__background">
+          <div className="post__background" onDoubleClick={likesHandler}>
             {caption.length >= 700 && readMore === false ? (
               <>
                 <p className="post_caption">
