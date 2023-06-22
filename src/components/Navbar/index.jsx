@@ -31,7 +31,7 @@ function Navbar({ setRow, row, open, setOpen, user, setUser, setLogout }) {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         setUser(authUser);
-        navigate("/dummygram/");
+        // navigate("/dummygram/");
       } else {
         setUser(null);
         navigate("/dummygram/login");

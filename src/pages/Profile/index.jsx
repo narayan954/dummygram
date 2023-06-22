@@ -15,10 +15,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
 import SideBar from "../../components/SideBar";
 import { useSnackbar } from "notistack";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Profile() {
-  const { name, email, avatar } = useLocation().state;
+  const [user, setUser] = useState(null);
+  const location = useLocation();
+  let name = location?.state?.name || user?.displayName;
+  let email = location?.state?.email || user?.email;
+  let avatar = location?.state?.avatar || user?.photoURL;
   const isNonMobile = useMediaQuery("(min-width: 768px)");
   const { enqueueSnackbar } = useSnackbar();
   const [image, setImage] = useState("");
@@ -31,6 +35,24 @@ function Profile() {
   const handleBack = () => {
     navigate("/dummygram"); // Use navigate function to change the URL
   };
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        setUser(authUser);
+        name = authUser.displayName;
+        avatar = authUser.photoURL;
+        email = authUser.email;
+      } else {
+        setUser(null);
+        navigate("/dummygram/login");
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [user]);
 
   const handleChange = (e) => {
     if (e.target.files[0]) {
