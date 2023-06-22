@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { ImageSlider } from '../../reusableComponents'
-import { Caption, ReadMore } from "../index"
+import { ReadMore } from "../index"
 
-const ImgBox = ({ postHasImages, postImages, likesHandler, caption}) => {
+const ImgBox = ({ postHasImages, postImages, likesHandler, caption }) => {
     const [readMore, setReadMore] = useState(false);
 
-    const handleReadPost = () => {
-        setReadMore(!readMore);
-      };
+    // const handleReadPost = () => {
+    //     setReadMore(!readMore);
+    // };
 
     return (
         <div>
@@ -18,41 +18,25 @@ const ImgBox = ({ postHasImages, postImages, likesHandler, caption}) => {
                     doubleClickHandler={likesHandler}
                 />
             ) : (
-                <div className="post__background">
-                    {caption.length >= 700 && readMore === false ? (
+                <div className="post__background" onDoubleClick={likesHandler}>
+                    {caption.length >= 300 ? (
                         <>
                             <p className="post_caption">
-                                <Caption caption={caption.substr(0, 700)} />
-                                <button
-                                    className="post__btn"
-                                    onClick={() => handleReadPost()}
-                                >
-                                    ... Read More
-                                </button>
+                                <ReadMore picCap>{caption}</ReadMore>
                             </p>
                         </>
                     ) : (
-                        <>
-                            <p className="post_caption">
-                                <Caption caption={caption} />
-                            </p>
-                            {caption.length >= 700 && (
-                                <button
-                                    className="post__less_btn"
-                                    onClick={() => handleReadPost()}
-                                >
-                                    ... Read Less
-                                </button>
-                            )}
-                        </>
+                        <p className="post_caption">{caption}</p>
                     )}
                 </div>
             )}
             <div className="post__text">
-                {caption && postHasImages && (
+                {caption && postHasImages && caption.length >= 300 ? (
                     <>
-                        <ReadMore caption={caption} />
+                        <ReadMore>{caption}</ReadMore>
                     </>
+                ) : (
+                    caption && postHasImages && <p className="">{caption}</p>
                 )}
             </div>
         </div>

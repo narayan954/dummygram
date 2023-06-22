@@ -2,7 +2,7 @@ import React from 'react'
 import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
 import EmojiPicker, { Emoji } from "emoji-picker-react";
 
-const CommentBox = () => {
+const CommentBox = ({ user, showEmojis, setShowEmojis, onEmojiClick, comment, setComment, postComment}) => {
   return (
     <div>
       {user && (

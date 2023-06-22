@@ -1,0 +1,28 @@
+.share-modal-container{
+    background-color: var(--bg-color);
+    padding: 20px;
+    text-align: center;
+    color: var(--color);
+    border: 2px solid var(--color)
+}
+
+.share-modal-container > img{
+    width: 40%;
+    filter: invert(var(--val));
+}
+
+.share-modal-container > p{
+    font-size: 1rem;
+    color: var(--color);
+}
+
+.share-modal-container-input{
+    width: 80%;
+    margin: 1rem;
+    color: white;
+    background-color: white;
+    border-radius: 8px;
+    overflow: auto;
+    padding: 0 6px;
+    box-sizing: border-box;
+}

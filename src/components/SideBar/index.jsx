@@ -1,18 +1,17 @@
 // custom css import
 import "./index.css";
 
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AiOutlineClose } from "react-icons/ai";
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { AiOutlineClose } from "react-icons/ai";
 import { Dialog } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import HomeIcon from "@mui/icons-material/Home";
 import ImgUpload from "../ImgUpload";
-import React from "react";
 import { auth } from "../../lib/firebase";
-import { useState } from "react";
 
 function SideBar() {
   const navigate = useNavigate();

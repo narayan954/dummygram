@@ -20,10 +20,11 @@ import TextField from "@mui/material/TextField";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-const PostHeader = ({ user, postData } ) => {
-    const { postId, time, fullScreen, Open, setOpen } = user
+const PostHeader = ({ postId, user, postData, postHasImages }) => {
+    const { time, fullScreen } = user
     const { username, caption, imageUrl, avatar } = postData;
-
+    
+    const [Open, setOpen] = useState(false)
     const [anchorEl, setAnchorEl] = useState(false);
     const [openEditCaption, setOpenEditCaption] = useState(false);
     const [editCaption, setEditCaption] = useState(caption);
@@ -52,6 +53,7 @@ const PostHeader = ({ user, postData } ) => {
 
     const handleSubmitCaption = async () => {
         const taskDocRef = doc(db, "posts", postId);
+        const navigate = useNavigate()
         try {
             await updateDoc(taskDocRef, {
                 caption: editCaption,
@@ -127,7 +129,9 @@ const PostHeader = ({ user, postData } ) => {
                     {user && username === user.displayName && (
                         <MenuItem onClick={handleClickOpenCaption}> Edit </MenuItem>
                     )}
-                    <MenuItem onClick={handleDownload}> Download </MenuItem>
+                    {postHasImages && (
+                        <MenuItem onClick={handleDownload}> Download </MenuItem>
+                    )}
                     <MenuItem
                         onClick={() => {
                             navigate("/dummygram/profile", {

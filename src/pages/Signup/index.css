@@ -41,3 +41,34 @@
   box-shadow: 0 0 20px rgba(104, 85, 224, 0.6);
   background-color: rgb(255, 255, 255);
 }
+
+.password-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(104, 85, 224, 1);
+  box-sizing: border-box;
+  margin-top: 10px;
+  background-color: white;
+  box-shadow: 0 0 20px rgba(104, 85, 224, 0.2);
+  border-radius: 4px;
+}
+
+.password-input{
+  width: 100%;
+  border: none;
+  margin: 0;
+  box-shadow: none;
+}
+
+.show-password{
+  height: 100%;
+  width: 50px;
+  margin: 0;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}

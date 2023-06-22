@@ -2,14 +2,15 @@ import "./index.css";
 
 import React, { useState } from "react";
 import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
+
 import { auth, facebookProvider, googleProvider } from "../../lib/firebase";
 import { faGoogle, faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
+import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { getModalStyle, useStyles } from "../../App";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Logo from "../../assets/logo.png";
-import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
 const LoginScreen = () => {
@@ -116,13 +117,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignContent: "center",
-        justifyContent: "center",
-      }}
-    >
+    <div className="flex">
       <div style={getModalStyle()} className={classes.paper}>
         <form className="modal__signup">
           <img
@@ -140,45 +135,16 @@ const LoginScreen = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              width: "100%",
-              border: "1px solid rgba(104, 85, 224, 1)",
-              height: "100%",
-              boxSizing: "border-box",
-              marginTop: "10px",
-              backgroundColor: "white",
-              boxShadow: "0 0 20px rgba(104, 85, 224, 0.2)",
-              borderRadius: "4px",
-            }}
-          >
+          <div className="password_container" >
             <input
               type={showPassword ? "text" : "password"}
               placeholder=" Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              style={{
-                width: "100%",
-                border: "none",
-                margin: 0,
-                boxShadow: "none",
-              }}
-            />
+              className="password-input"/>
             <button
               onClick={(e) => handleShowPassword(e)}
-              style={{
-                height: "100%",
-                width: "50px",
-                margin: 0,
-                background: "transparent",
-                outline: "none",
-                border: "none",
-                cursor: "pointer",
-              }}
-            >
+              className="show-password">
               {showPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
             </button>
           </div>

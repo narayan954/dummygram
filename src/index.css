@@ -61,6 +61,10 @@ input:focus {
 }
 
 .app_posts_column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   padding: 20px;
   padding-top: 5.5em;
 }
@@ -374,3 +378,13 @@ input {
   cursor: pointer;
 }
 /* end */
+
+.button-style{
+  background: linear-gradient(40deg, #e107c1, #59afc7);
+    border-radius: 20px,;
+    margin: 10px;
+}
+
+.button-style:hover{
+  background: linear-gradient(-40deg, #59afc7, #e107c1);
+}

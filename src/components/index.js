@@ -1,6 +1,6 @@
 import ImgUpload from "./ImgUpload";
 import Navbar from "./Navbar";
-import Post from "./Post";
+import Post from "./Post"
 import ReadMore from "./ReadMore";
 import SideBar from "./SideBar";
 import Caption from "./Caption";
@@ -19,3 +19,5 @@ export {
     LandingAnimation,
     NotFound,
 }
+
+export default Post

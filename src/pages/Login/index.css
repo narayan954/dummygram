@@ -3,3 +3,32 @@
   background-color: rgba(255, 255, 255, 1);
   border: 1px solid rgba(104, 85, 224, 1);
 }
+
+.password-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border: 1px solid rgba(104, 85, 224, 1);
+  margin-top: 10px;
+  background-color: white;
+  box-shadow: 0 0 20px rgba(104, 85, 224, 0.2);
+  border-radius: 4px;
+}
+
+.password-input{
+  width: 100%;
+  border: none;
+  margin: 0;
+  box-shadow: none;
+}
+
+.show-password{
+  height: 100%;
+  width: 50px;
+  margin: 0;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
