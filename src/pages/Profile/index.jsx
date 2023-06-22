@@ -39,10 +39,13 @@ function Profile() {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         setUser(authUser);
+        name = location?.state?.name || authUser.displayName;
+        avatar = location?.state?.avatar || authUser.photoURL;
+        email = location?.state?.email || authUser.email;
         // navigate("/dummygram/");
       } else {
         setUser(null);
-        // navigate("/dummygram/login");
+        navigate("/dummygram/login");
       }
     });
 
@@ -51,19 +54,24 @@ function Profile() {
     };
   }, [user]);
 
-  const q = query(collection(db, "posts"), where("username", "==", name));
   useEffect(() => {
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const userPosts = [];
-      querySnapshot.forEach((doc) => {
-        userPosts.push({
-          id: doc.id,
-          post: doc.data(),
+    setTimeout(() => {
+      const q = query(
+        collection(db, "posts"),
+        where("username", "==", location?.state?.name || name)
+      );
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const userPosts = [];
+        querySnapshot.forEach((doc) => {
+          userPosts.push({
+            id: doc.id,
+            post: doc.data(),
+          });
         });
+        setFeed(userPosts);
       });
-      setFeed(userPosts);
-    });
-  }, []);
+    }, 1000);
+  }, [user, name]);
 
   const handleBack = () => {
     navigate("/dummygram"); // Use navigate function to change the URL
