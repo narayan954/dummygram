@@ -2,12 +2,6 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import "./index.css";
 
 import {
-  ChatBubbleOutlineRounded,
-  FavoriteBorderOutlined,
-  FavoriteOutlined,
-  ShareOutlined,
-} from "@mui/icons-material";
-import {
   Avatar,
   Box,
   Button,
@@ -27,28 +21,33 @@ import {
   styled,
   useMediaQuery,
 } from "@mui/material";
+import {
+  ChatBubbleOutlineRounded,
+  FavoriteBorderOutlined,
+  FavoriteOutlined,
+  ShareOutlined,
+} from "@mui/icons-material";
+import { Link, useNavigate } from "react-router-dom";
 import { doc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
-import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
-import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
-import TextField from "@mui/material/TextField";
-import { useTheme } from "@mui/material/styles";
-import EmojiPicker from "emoji-picker-react";
-import { saveAs } from "file-saver";
-import firebase from "firebase/compat/app";
-import { useSnackbar } from "notistack";
-import { FaSave } from "react-icons/fa";
-import useCreatedAt from "../../hooks/useCreatedAt";
-import { db } from "../../lib/firebase";
 import DialogBox from "../../reusableComponents/DialogBox";
+import EmojiPicker from "emoji-picker-react";
+import { FaSave } from "react-icons/fa";
 import Flexbetween from "../../reusableComponents/Flexbetween";
 import ImageSlider from "../../reusableComponents/ImageSlider";
-import Scroll from "../../reusableComponents/Scroll";
+import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import ReadMore from "../ReadMore";
-
+import Scroll from "../../reusableComponents/Scroll";
+import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
+import TextField from "@mui/material/TextField";
+import { db } from "../../lib/firebase";
+import firebase from "firebase/compat/app";
+import { saveAs } from "file-saver";
+import useCreatedAt from "../../hooks/useCreatedAt";
+import { useSnackbar } from "notistack";
+import { useTheme } from "@mui/material/styles";
 
 const ITEM_HEIGHT = 48;
 
@@ -270,7 +269,6 @@ function Post(prop) {
     setOpenToDeleteComment(false);
   };
 
-
   return (
     <div
       className={`${rowMode ? "post" : "postColumn"}`}
@@ -435,11 +433,7 @@ function Post(prop) {
 
         <Divider />
         <Flexbetween>
-          <Typography
-            marginLeft={1}
-            fontSize={13}
-            sx={{ color: "skyblue" }}
-          >
+          <Typography marginLeft={1} fontSize={13} sx={{ color: "skyblue" }}>
             {likesNo} {likesNo > 1 ? "Likes" : "Like"}
           </Typography>
           <Typography sx={{ color: "skyblue" }} fontSize={13}>
@@ -459,9 +453,7 @@ function Post(prop) {
                     <FavoriteBorderOutlined />
                   )}
                 </IconButton>
-                <Typography fontSize={14}>
-                  Like
-                </Typography>
+                <Typography fontSize={14}>Like</Typography>
               </Flexbetween>
 
               <Flexbetween
@@ -473,9 +465,7 @@ function Post(prop) {
                 <IconButton>
                   <ChatBubbleOutlineRounded />
                 </IconButton>
-                <Typography fontSize={14}>
-                  Comment
-                </Typography>
+                <Typography fontSize={14}>Comment</Typography>
               </Flexbetween>
 
               <Flexbetween
@@ -489,9 +479,7 @@ function Post(prop) {
                 <IconButton>
                   <ShareOutlined />
                 </IconButton>
-                <Typography fontSize={14}>
-                  Share
-                </Typography>
+                <Typography fontSize={14}>Share</Typography>
               </Flexbetween>
 
               <Flexbetween sx={{ cursor: "pointer" }} onClick={save}>
@@ -502,9 +490,7 @@ function Post(prop) {
                     className="post_button"
                   />
                 </IconButton>
-                <Typography fontSize={14}>
-                  Save
-                </Typography>
+                <Typography fontSize={14}>Save</Typography>
               </Flexbetween>
             </Flexbetween>
 
@@ -601,7 +587,7 @@ function Post(prop) {
                                     }}
                                   >
                                     {user &&
-                                      userComment.content.username ===
+                                    userComment.content.username ===
                                       user.displayName ? (
                                       <DeleteTwoToneIcon
                                         fontSize="small"
@@ -724,6 +710,5 @@ function Post(prop) {
     </div>
   );
 }
-
 
 export default Post;
