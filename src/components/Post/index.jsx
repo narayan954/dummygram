@@ -343,7 +343,9 @@ function Post(prop) {
             {user && username === user.displayName && (
               <MenuItem onClick={handleClickOpenCaption}> Edit </MenuItem>
             )}
-            <MenuItem onClick={handleDownload}> Download </MenuItem>
+            {postHasImages && (
+              <MenuItem onClick={handleDownload}> Download </MenuItem>
+            )}
             <MenuItem
               onClick={() => {
                 navigate("/dummygram/profile", {
