@@ -13,6 +13,7 @@ import NotFoundPage from "./components/NotFound";
 import Post from "./components/Post";
 import PostView from "./pages/PostView";
 import Profile from "./pages/Profile";
+import { RowModeContext } from "./hooks/useRowMode";
 import ShareModal from "./reusableComponents/ShareModal";
 import SideBar from "./components/SideBar";
 import SignupScreen from "./pages/Signup";
@@ -185,163 +186,164 @@ function App() {
   };
 
   return (
-    <div className="app">
-      <Navbar
-        row={rowMode}
-        setRow={setRowMode}
-        user={user}
-        setUser={setUser}
-        open={open}
-        setOpen={setOpen}
-        setLogout={setLogout}
-      />
+    <RowModeContext.Provider value={rowMode}>
+      <div className="app">
+        <Navbar
+          onClick={() => setRowMode((prev) => !prev)}
+          user={user}
+          setUser={setUser}
+          open={open}
+          setOpen={setOpen}
+          setLogout={setLogout}
+        />
 
-      <ShareModal
-        openShareModal={openShareModal}
-        setOpenShareModal={setOpenShareModal}
-        currentPostLink={currentPostLink}
-        postText={postText}
-      />
+        <ShareModal
+          openShareModal={openShareModal}
+          setOpenShareModal={setOpenShareModal}
+          currentPostLink={currentPostLink}
+          postText={postText}
+        />
 
-      <Modal open={logout} onClose={() => setLogout(false)}>
-        <div style={getModalStyle()} className={classes.paper}>
-          <form className="modal__signup">
-            <img
-              src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
-              alt="dummygram"
-              className="modal__signup__img"
-              style={{
-                width: "80%",
-                marginLeft: "10%",
-                filter: "invert(var(--val))",
-              }}
-            />
-
-            <p
-              style={{
-                fontSize: "15px",
-                fontFamily: "monospace",
-                padding: "10%",
-                color: "var(--color)",
-              }}
-            >
-              Are you sure you want to Logout?
-            </p>
-
-            <div className={classes.logout}>
-              <AnimatedButton
-                type="submit"
-                onClick={signOut}
-                variant="contained"
-                color="primary"
-                sx={buttonStyle}
-              >
-                Logout
-              </AnimatedButton>
-              <AnimatedButton
-                type="submit"
-                onClick={() => setLogout(false)}
-                variant="contained"
-                color="primary"
-                sx={buttonStyle}
-              >
-                Cancel
-              </AnimatedButton>
-            </div>
-          </form>
-        </div>
-      </Modal>
-
-      <Routes>
-        <Route
-          exact
-          path="/dummygram/"
-          element={
-            user ? (
-              <div
+        <Modal open={logout} onClose={() => setLogout(false)}>
+          <div style={getModalStyle()} className={classes.paper}>
+            <form className="modal__signup">
+              <img
+                src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
+                alt="dummygram"
+                className="modal__signup__img"
                 style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
+                  width: "80%",
+                  marginLeft: "10%",
+                  filter: "invert(var(--val))",
+                }}
+              />
+
+              <p
+                style={{
+                  fontSize: "15px",
+                  fontFamily: "monospace",
+                  padding: "10%",
+                  color: "var(--color)",
                 }}
               >
-                <SideBar />
-                <div
-                  style={
-                    !loadingPosts
-                      ? {}
-                      : {
-                          width: "100%",
-                          minHeight: "100vh",
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }
-                  }
+                Are you sure you want to Logout?
+              </p>
+
+              <div className={classes.logout}>
+                <AnimatedButton
+                  type="submit"
+                  onClick={signOut}
+                  variant="contained"
+                  color="primary"
+                  sx={buttonStyle}
                 >
-                  {loadingPosts ? (
-                    <Loader />
-                  ) : (
-                    <div
-                      className={`${
-                        rowMode ? "app__posts" : "app_posts_column"
-                      }`}
-                    >
-                      {posts.map(({ id, post }) => (
-                        <Post
-                          rowMode={rowMode}
-                          key={id}
-                          postId={id}
-                          user={user}
-                          post={post}
-                          shareModal={setOpenShareModal}
-                          setLink={setCurrentPostLink}
-                          setPostText={setPostText}
-                        />
-                      ))}
-                    </div>
-                  )}
-                </div>
+                  Logout
+                </AnimatedButton>
+                <AnimatedButton
+                  type="submit"
+                  onClick={() => setLogout(false)}
+                  variant="contained"
+                  color="primary"
+                  sx={buttonStyle}
+                >
+                  Cancel
+                </AnimatedButton>
               </div>
-            ) : (
-              <></>
-            )
-          }
+            </form>
+          </div>
+        </Modal>
+
+        <Routes>
+          <Route
+            exact
+            path="/dummygram/"
+            element={
+              user ? (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <SideBar />
+                  <div
+                    style={
+                      !loadingPosts
+                        ? {}
+                        : {
+                            width: "100%",
+                            minHeight: "100vh",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }
+                    }
+                  >
+                    {loadingPosts ? (
+                      <Loader />
+                    ) : (
+                      <div
+                        className={`${
+                          rowMode ? "app__posts" : "app_posts_column"
+                        }`}
+                      >
+                        {posts.map(({ id, post }) => (
+                          <Post
+                            rowMode={rowMode}
+                            key={id}
+                            postId={id}
+                            user={user}
+                            post={post}
+                            shareModal={setOpenShareModal}
+                            setLink={setCurrentPostLink}
+                            setPostText={setPostText}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <></>
+              )
+            }
+          />
+
+          <Route path="/dummygram/profile" element={<Profile />} />
+
+          <Route path="/dummygram/login" element={<LoginScreen />} />
+
+          <Route path="/dummygram/signup" element={<SignupScreen />} />
+
+          <Route
+            path="/dummygram/posts/:id"
+            element={
+              <PostView
+                user={user}
+                shareModal={setOpenShareModal}
+                setLink={setCurrentPostLink}
+                setPostText={setPostText}
+              />
+            }
+          />
+
+          <Route path="*" element={<NotFoundPage />} />
+          <Route path="/dummygram/favourites" element={<Favorite />} />
+        </Routes>
+
+        <FaArrowCircleUp
+          fill="#777"
+          // stroke="30"
+          className="scrollTop"
+          onClick={scrollTop}
+          style={{
+            height: 50,
+            display: showScroll ? "flex" : "none",
+          }}
         />
-
-        <Route path="/dummygram/profile" element={<Profile />} />
-
-        <Route path="/dummygram/login" element={<LoginScreen />} />
-
-        <Route path="/dummygram/signup" element={<SignupScreen />} />
-
-        <Route
-          path="/dummygram/posts/:id"
-          element={
-            <PostView
-              user={user}
-              shareModal={setOpenShareModal}
-              setLink={setCurrentPostLink}
-              setPostText={setPostText}
-            />
-          }
-        />
-
-        <Route path="*" element={<NotFoundPage />} />
-        <Route path="/dummygram/favourites" element={<Favorite />} />
-      </Routes>
-
-      <FaArrowCircleUp
-        fill="#777"
-        // stroke="30"
-        className="scrollTop"
-        onClick={scrollTop}
-        style={{
-          height: 50,
-          display: showScroll ? "flex" : "none",
-        }}
-      />
-    </div>
+      </div>
+    </RowModeContext.Provider>
   );
 }
 

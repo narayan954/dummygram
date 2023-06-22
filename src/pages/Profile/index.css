@@ -19,3 +19,12 @@
   /* transition: transform 0.5s ease-out; */
   color: white;
 }
+
+.feed-main-container {
+  flex-direction: column;
+  margin-top: 50px;
+  margin-bottom: 0;
+  border-top: 1px solid #a5a4a4;
+  align-items: flex-start;
+  margin-left: 30px;
+}
