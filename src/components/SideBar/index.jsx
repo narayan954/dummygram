@@ -14,7 +14,7 @@ import React from "react";
 import { auth } from "../../lib/firebase";
 import { useState } from "react";
 
-function SideBar(props) {
+function SideBar() {
   const navigate = useNavigate();
   const [openNewUpload, setOpenNewUpload] = useState(false);
   const user = auth.currentUser;
@@ -46,9 +46,9 @@ function SideBar(props) {
           onClick={() =>
             navigate("/dummygram/profile", {
               state: {
-                name: props.user.toJSON().displayName,
-                email: props.user.toJSON().email,
-                avatar: props.user.toJSON().photoURL,
+                name: user.displayName,
+                email: user.email,
+                avatar: user.photoURL,
               },
             })
           }

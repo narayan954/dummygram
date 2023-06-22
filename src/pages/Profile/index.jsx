@@ -5,6 +5,7 @@ import {
   Box,
   Button,
   Divider,
+  Modal,
   Typography,
   useMediaQuery,
 } from "@mui/material";
@@ -23,6 +24,8 @@ function Profile() {
   const [image, setImage] = useState("");
   const [profilepic, setProfilePic] = useState(avatar);
   const [visible, setVisible] = useState(false);
+  const [open, setOpen] = useState(false);
+  const handleClose = () => setOpen(false);
   const navigate = useNavigate();
   const [friendRequestSent, setFriendRequestSent] = useState(false);
 
@@ -118,15 +121,55 @@ function Profile() {
   return (
     <>
       <SideBar />
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            position: "relative",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: `${isNonMobile ? "40vw" : "80vw"}`,
+            height: `${isNonMobile ? "40vw" : "80vw"}`,
+            boxShadow: 24,
+            backdropFilter: "blur(7px)",
+            border: "1px solid #fff",
+            zIndex: "1000",
+            textAlign: "center",
+            borderRadius: "5%",
+          }}
+        >
+          <img
+            style={{
+              objectFit: "cover",
+              borderRadius: "50%",
+              margin: 0,
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+            }}
+            width={isNonMobile ? "50%" : "50%"}
+            height={isNonMobile ? "50%" : "50%"}
+            src={profilepic}
+            alt="user"
+          />
+        </Box>
+      </Modal>
+
       <Box
         width={isNonMobile ? "30%" : "70%"}
         backgroundColor="#F4EEFF"
         paddingY={5}
-        paddingX={7}
+        paddingX={6}
         sx={{
           border: "none",
           boxShadow: "0 0 6px black",
-          margin: "5.5rem auto 2.5rem",
+          margin: "8rem auto 2.5rem",
         }}
         display="flex"
         justifyContent={"center"}
@@ -137,11 +180,12 @@ function Profile() {
           <Box marginX="auto" fontSize="600%">
             {avatar ? (
               <Avatar
+                onClick={() => setOpen((on) => !on)}
                 alt={name}
-                src={avatar}
+                src={profilepic}
                 sx={{
-                  width: "23vh",
-                  height: "23vh",
+                  width: "22vh",
+                  height: "22vh",
                   bgcolor: "black",
                   border: "none",
                   boxShadow: "0 0 4px black",
@@ -152,7 +196,7 @@ function Profile() {
                 }}
               />
             ) : (
-              <FaUserCircle style={{ width: "23vh", height: "23vh" }} />
+              <FaUserCircle style={{ width: "22vh", height: "22vh" }} />
             )}
           </Box>
           {name === auth.currentUser.displayName && (
