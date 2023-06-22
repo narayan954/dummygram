@@ -18,7 +18,6 @@ import { FaUserCircle } from "react-icons/fa";
 import Post from "../../components/Post";
 import SideBar from "../../components/SideBar";
 import { useSnackbar } from "notistack";
-import { useEffect, useState } from "react";
 
 function Profile() {
   const [user, setUser] = useState(null);
@@ -32,7 +31,6 @@ function Profile() {
   const [profilepic, setProfilePic] = useState(avatar);
   const [visible, setVisibile] = useState(false);
   const [open, setOpen] = useState(false);
-  const [user, setUser] = useState(null);
   const handleClose = () => setOpen(false);
   const navigate = useNavigate();
   const [feed, setFeed] = useState([]);
