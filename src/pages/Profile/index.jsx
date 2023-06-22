@@ -77,24 +77,6 @@ function Profile() {
     navigate("/dummygram"); // Use navigate function to change the URL
   };
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((authUser) => {
-      if (authUser) {
-        setUser(authUser);
-        name = authUser.displayName;
-        avatar = authUser.photoURL;
-        email = authUser.email;
-      } else {
-        setUser(null);
-        navigate("/dummygram/login");
-      }
-    });
-
-    return () => {
-      unsubscribe();
-    };
-  }, [user]);
-
   const handleChange = (e) => {
     if (e.target.files[0]) {
       setProfilePic(URL.createObjectURL(e.target.files[0]));
