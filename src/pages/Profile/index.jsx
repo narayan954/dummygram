@@ -22,7 +22,7 @@ function Profile() {
   const [user, setUser] = useState(null);
   const [image, setImage] = useState("");
   const [feed, setFeed] = useState([]);
-  const [profilepic, setProfilePic] = useState(avatar);
+  const [profilepic, setProfilePic] = useState("");
   const [visible, setVisibile] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -36,6 +36,15 @@ function Profile() {
   let avatar = location?.state?.avatar || user?.photoURL;
 
   const handleClose = () => setOpen(false);
+
+  useEffect(() => {
+    if (auth.currentUser) {
+      setUser(auth.currentUser);
+      setProfilePic(auth.currentUser.photoURL);
+    } else {
+      navigate("/dummygram/login");
+    }
+  }, []);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
