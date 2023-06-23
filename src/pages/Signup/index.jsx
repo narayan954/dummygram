@@ -79,6 +79,7 @@ const SignupScreen = () => {
                 variant: "success",
               }
             );
+            navigate("/dummygram");
           })
           .catch((error) => {
             enqueueSnackbar(error.message, {
@@ -123,6 +124,7 @@ const SignupScreen = () => {
         setSigningUp(false);
       });
   };
+
   const signInWithGoogle = (e) => {
     e.preventDefault();
     auth
@@ -131,6 +133,7 @@ const SignupScreen = () => {
         enqueueSnackbar("Signin successful!", {
           variant: "success",
         });
+        navigate("/dummygram");
       })
       .catch((error) =>
         enqueueSnackbar(error.message, {
@@ -147,6 +150,7 @@ const SignupScreen = () => {
         enqueueSnackbar("Signin successful!", {
           variant: "success",
         });
+        navigate("/dummygram");
       })
       .catch((error) =>
         enqueueSnackbar(error.message, {
