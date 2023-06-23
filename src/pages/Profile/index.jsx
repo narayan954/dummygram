@@ -21,19 +21,22 @@ import { useSnackbar } from "notistack";
 
 function Profile() {
   const [user, setUser] = useState(null);
-  const location = useLocation();
-  let name = location?.state?.name || user?.displayName;
-  let email = location?.state?.email || user?.email;
-  let avatar = location?.state?.avatar || user?.photoURL;
-  const isNonMobile = useMediaQuery("(min-width: 768px)");
-  const { enqueueSnackbar } = useSnackbar();
   const [image, setImage] = useState("");
+  const [feed, setFeed] = useState([]);
   const [profilepic, setProfilePic] = useState(avatar);
   const [visible, setVisibile] = useState(false);
   const [open, setOpen] = useState(false);
-  const handleClose = () => setOpen(false);
+
   const navigate = useNavigate();
-  const [feed, setFeed] = useState([]);
+  const location = useLocation();
+  const isNonMobile = useMediaQuery("(min-width: 768px)");
+  const { enqueueSnackbar } = useSnackbar();
+
+  let name = location?.state?.name || user?.displayName;
+  let email = location?.state?.email || user?.email;
+  let avatar = location?.state?.avatar || user?.photoURL;
+
+  const handleClose = () => setOpen(false);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -42,7 +45,6 @@ function Profile() {
         name = location?.state?.name || authUser.displayName;
         avatar = location?.state?.avatar || authUser.photoURL;
         email = location?.state?.email || authUser.email;
-        // navigate("/dummygram/");
       } else {
         setUser(null);
         navigate("/dummygram/login");
@@ -74,7 +76,7 @@ function Profile() {
   }, [user, name]);
 
   const handleBack = () => {
-    navigate("/dummygram"); // Use navigate function to change the URL
+    navigate("/dummygram");
   };
 
   const handleChange = (e) => {
@@ -84,6 +86,7 @@ function Profile() {
       setVisibile(true);
     }
   };
+
   const handleSave = async () => {
     const uploadTask = storage.ref(`images/${image?.name}`).put(image);
     await uploadTask.on(
