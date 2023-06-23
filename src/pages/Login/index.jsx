@@ -2,15 +2,14 @@ import "./index.css";
 
 import React, { useState } from "react";
 import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useNavigate } from "react-router-dom";
-
 import { auth, facebookProvider, googleProvider } from "../../lib/firebase";
 import { faGoogle, faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
-import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { getModalStyle, useStyles } from "../../App";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Logo from "../../assets/logo.png";
+import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
 const LoginScreen = () => {
@@ -135,16 +134,18 @@ const LoginScreen = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <div className="password_container" >
+          <div className="password_container">
             <input
               type={showPassword ? "text" : "password"}
               placeholder=" Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="password-input"/>
+              className="password-input"
+            />
             <button
               onClick={(e) => handleShowPassword(e)}
-              className="show-password">
+              className="show-password"
+            >
               {showPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
             </button>
           </div>

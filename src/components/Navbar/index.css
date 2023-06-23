@@ -19,24 +19,24 @@
   background-color: var(--bg-color);
 }
 
-.container{
+.container {
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
-.button-style{
+.button-style {
   background: linear-gradient(40deg, #e107c1, #59afc7);
   border-radius: 20px;
   margin: 10px;
   margin-right: 10px !important;
 }
 
-.button-style:hover{
+.button-style:hover {
   background: linear-gradient(-40deg, #59afc7, #e107c1);
 }
 
-.nav-menu{
+.nav-menu {
   background-color: #fff;
   color: black;
   padding: 2px;
@@ -49,7 +49,7 @@
   border: 1px solid black;
 }
 
-.nav-menu-item{
+.nav-menu-item {
   display: flex;
   padding: 0.5rem;
   cursor: pointer;

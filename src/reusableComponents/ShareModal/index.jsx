@@ -1,4 +1,5 @@
-import "./index.css"
+import "./index.css";
+
 import { Dialog, IconButton, Input } from "@mui/material";
 
 import logo from "../../assets/logo.png";
@@ -17,10 +18,7 @@ const ShareModal = (props) => {
       onClose={() => setOpenShareModal(false)}
     >
       <div className="share-modal-container">
-        <img
-          src={logo}
-          alt="dummygram"
-        />
+        <img src={logo} alt="dummygram" />
         <p>Share Post</p>
 
         <div className="mx-2">

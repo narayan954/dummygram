@@ -379,12 +379,12 @@ input {
 }
 /* end */
 
-.button-style{
+.button-style {
   background: linear-gradient(40deg, #e107c1, #59afc7);
-    border-radius: 20px,;
-    margin: 10px;
+  border-radius: 20px;
+  margin: 10px;
 }
 
-.button-style:hover{
+.button-style:hover {
   background: linear-gradient(-40deg, #59afc7, #e107c1);
 }

@@ -4,7 +4,7 @@
   border: 1px solid rgba(104, 85, 224, 1);
 }
 
-.password-container{
+.password-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -16,14 +16,14 @@
   border-radius: 4px;
 }
 
-.password-input{
+.password-input {
   width: 100%;
   border: none;
   margin: 0;
   box-shadow: none;
 }
 
-.show-password{
+.show-password {
   height: 100%;
   width: 50px;
   margin: 0;

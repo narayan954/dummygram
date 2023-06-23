@@ -1,21 +1,20 @@
 import "./index.css";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
 
+import React, { useState } from "react";
+import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
 import {
   auth,
   facebookProvider,
   googleProvider,
   storage,
 } from "../../lib/firebase";
-import { updateProfile } from "firebase/auth";
-
 import { faGoogle, faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { getModalStyle, useStyles } from "../../App";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
+import { updateProfile } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
 const SignupScreen = () => {
@@ -161,7 +160,7 @@ const SignupScreen = () => {
   };
 
   return (
-    <div className="flex" >
+    <div className="flex">
       <div style={modalStyle} className={classes.paper}>
         <form className="modal__signup">
           <input
@@ -203,7 +202,8 @@ const SignupScreen = () => {
               placeholder=" Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="password-input"/>
+              className="password-input"
+            />
             <button
               onClick={(e) => handleShowPassword(e)}
               className="show-password"

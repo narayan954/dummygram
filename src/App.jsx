@@ -1,15 +1,16 @@
-import "./index.css"
+import "./index.css";
+
+import { AnimatedButton, Loader, ShareModal } from "./reusableComponents";
+import { Favorite, Navbar, NotFound, Post, SideBar } from "./components";
+import { LoginScreen, PostView, Profile, SignupScreen } from "./pages";
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { FaArrowCircleUp } from "react-icons/fa";
 import { auth, db } from "./lib/firebase";
 
-import { Favorite, Navbar, NotFound, Post, SideBar } from "./components";
-import { AnimatedButton ,Loader, ShareModal } from "./reusableComponents"
-import { LoginScreen, PostView, Profile, SignupScreen } from "./pages"
+import { FaArrowCircleUp } from "react-icons/fa";
+import Modal from "@mui/material/Modal";
 import { RowModeContext } from "./hooks/useRowMode";
 import { makeStyles } from "@mui/styles";
-import Modal from "@mui/material/Modal";
 import { useSnackbar } from "notistack";
 
 export function getModalStyle() {

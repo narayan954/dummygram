@@ -1,7 +1,7 @@
 import "react-lazy-load-image-component/src/effects/blur.css";
 import "./index.css";
 
-import { useEffect, useState } from "react";
+import { DialogBox, Flexbetween } from "../../reusableComponents";
 import {
   Divider,
   Paper,
@@ -9,25 +9,24 @@ import {
   styled,
   useMediaQuery,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-
-import CommentBox from "./CommentBox"
-import CommentDialogBox from "./CommentDialogBox"
-import CommentHolder from "./CommentHolder"
-import ImgBox from "./ImgBox"
-import PostHeader from "./PostHeader"
-import PostNav from "./PostNav"
-
 import { doc, updateDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
+
+import CommentBox from "./CommentBox";
+import CommentDialogBox from "./CommentDialogBox";
+import CommentHolder from "./CommentHolder";
+import ImgBox from "./ImgBox";
+import PostHeader from "./PostHeader";
+import PostNav from "./PostNav";
 import { db } from "../../lib/firebase";
 import firebase from "firebase/compat/app";
-import { DialogBox, Flexbetween } from "../../reusableComponents"
+import { useTheme } from "@mui/material/styles";
 
 function Post(prop) {
   const { postId, user, post, shareModal, setLink, setPostText, rowMode } =
     prop;
   const { caption, imageUrl, likecount, timestamp } = post;
-  
+
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
   const [likesNo, setLikesNo] = useState(likecount ? likecount.length : 0);
@@ -83,8 +82,6 @@ function Post(prop) {
     });
     setComment("");
   };
-
-  
 
   const deleteComment = async (event, commentRef) => {
     event.preventDefault();
@@ -173,14 +170,14 @@ function Post(prop) {
       className={`${rowMode ? "post" : "postColumn"}`}
       style={{ boxShadow: "0px 0px 5px 1px rgba(0, 0, 0, 0.4)" }}
     >
-      <PostHeader 
+      <PostHeader
         user={user}
         postData={post}
         postHasImages={postHasImages}
         postId={postId}
       />
       <div className="post__container">
-        <ImgBox 
+        <ImgBox
           postHasImages={postHasImages}
           postImages={postImages}
           likesHandler={likesHandler}
@@ -200,9 +197,9 @@ function Post(prop) {
 
         {user && (
           <form className="post__commentBox">
-            <PostNav 
-              fullScreen={fullScreen} 
-              likesHandler={likesHandler} 
+            <PostNav
+              fullScreen={fullScreen}
+              likesHandler={likesHandler}
               user={user}
               tempLikeCount={tempLikeCount}
               setisCommentOpen={setisCommentOpen}
@@ -213,7 +210,7 @@ function Post(prop) {
               caption={caption}
             />
 
-            <CommentHolder 
+            <CommentHolder
               showEmojis={showEmojis}
               setShowEmojis={setShowEmojis}
               onEmojiClick={onEmojiClick}
@@ -243,7 +240,7 @@ function Post(prop) {
                 deleteComment={deleteComment}
                 deleteCommentID={deleteCommentID}
               />
-              <CommentBox 
+              <CommentBox
                 setShowEmojis={setShowEmojis}
                 showEmojis={showEmojis}
                 onEmojiClick={onEmojiClick}

@@ -1,17 +1,15 @@
 import "./index.css";
 
 import { Avatar, LinearProgress, TextField } from "@mui/material";
-
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import React, { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { auth, db, handleMultiUpload } from "../../lib/firebase";
 
 import AnimatedButton from "../../reusableComponents/AnimatedButton";
-import Popup from "../../reusableComponents/Popup";
 import Camera from "./Camera";
-
-import { auth, db, handleMultiUpload } from "../../lib/firebase";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import { Link } from "react-router-dom";
+import Popup from "../../reusableComponents/Popup";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
 
