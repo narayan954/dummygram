@@ -21,7 +21,7 @@ import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
 
 export function getModalStyle() {
-  const top = 50;
+  const top = 56;
   const left = 50;
   const padding = 2;
   const radius = 3;
