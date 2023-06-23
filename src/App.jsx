@@ -13,7 +13,7 @@ import Modal from "@mui/material/Modal";
 import { useSnackbar } from "notistack";
 
 export function getModalStyle() {
-  const top = 50;
+  const top = 56;
   const left = 50;
   const padding = 2;
   const radius = 3;
@@ -81,7 +81,6 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         setUser(authUser);
-        navigate("/dummygram/");
       } else {
         setUser(null);
         navigate("/dummygram/login");

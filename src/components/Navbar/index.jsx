@@ -7,31 +7,27 @@ import {
   Divider,
   Typography,
 } from "@mui/material";
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 
 import { AiOutlineInsertRowAbove } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
-import { RowModeContext } from "../../hooks/useRowMode";
 import { auth } from "../../lib/firebase";
 import logo from "../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
 
 function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
   const navigate = useNavigate();
-  const rowMode = useContext(RowModeContext);
 
   
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         setUser(authUser);
-        navigate("/dummygram/");
       } else {
         setUser(null);
         navigate("/dummygram/login");
       }
     });
-
     return () => {
       unsubscribe();
     };
