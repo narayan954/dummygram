@@ -1,24 +1,25 @@
-import React, { useEffect, useState, lazy, Suspense } from "react";
+import React, { Suspense, lazy, useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
 import AnimatedButton from "./reusableComponents/AnimatedButton";
 import { FaArrowCircleUp } from "react-icons/fa";
-const Favorite = lazy(() => import("./components/Favorite"));
 import Loader from "./components/Loader";
-const LoginScreen = lazy(() => import("./pages/Login"));
 import Modal from "@mui/material/Modal";
 import Navbar from "./components/Navbar";
+import { RowModeContext } from "./hooks/useRowMode";
+import ShareModal from "./reusableComponents/ShareModal";
+import SideBar from "./components/SideBar";
+import { makeStyles } from "@mui/styles";
+import { useSnackbar } from "notistack";
+
+const Favorite = lazy(() => import("./components/Favorite"));
+const LoginScreen = lazy(() => import("./pages/Login"));
 const NotFoundPage = lazy(() => import("./components/NotFound"));
 const Post = lazy(() => import("./components/Post"));
 const PostView = lazy(() => import("./pages/PostView"));
 const Profile = lazy(() => import("./pages/Profile"));
-import { RowModeContext } from "./hooks/useRowMode";
-import ShareModal from "./reusableComponents/ShareModal";
-import SideBar from "./components/SideBar";
 const SignupScreen = lazy(() => import("./pages/Signup"));
-import { makeStyles } from "@mui/styles";
-import { useSnackbar } from "notistack";
 
 export function getModalStyle() {
   const top = 50;
@@ -252,86 +253,86 @@ function App() {
             </form>
           </div>
         </Modal>
-      <Suspense fallback={Loader}>
-        <Routes>
-          <Route
-            exact
-            path="/dummygram/"
-            element={
-              user ? (
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <SideBar />
+        <Suspense fallback={Loader}>
+          <Routes>
+            <Route
+              exact
+              path="/dummygram/"
+              element={
+                user ? (
                   <div
-                    style={
-                      !loadingPosts
-                        ? {}
-                        : {
-                            width: "100%",
-                            minHeight: "100vh",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }
-                    }
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
                   >
-                    {loadingPosts ? (
-                      <Loader />
-                    ) : (
-                      <div
-                        className={`${
-                          rowMode ? "app__posts" : "app_posts_column"
-                        }`}
-                      >
-                        {posts.map(({ id, post }) => (
-                          <Post
-                            rowMode={rowMode}
-                            key={id}
-                            postId={id}
-                            user={user}
-                            post={post}
-                            shareModal={setOpenShareModal}
-                            setLink={setCurrentPostLink}
-                            setPostText={setPostText}
-                          />
-                        ))}
-                      </div>
-                    )}
+                    <SideBar />
+                    <div
+                      style={
+                        !loadingPosts
+                          ? {}
+                          : {
+                              width: "100%",
+                              minHeight: "100vh",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }
+                      }
+                    >
+                      {loadingPosts ? (
+                        <Loader />
+                      ) : (
+                        <div
+                          className={`${
+                            rowMode ? "app__posts" : "app_posts_column"
+                          }`}
+                        >
+                          {posts.map(({ id, post }) => (
+                            <Post
+                              rowMode={rowMode}
+                              key={id}
+                              postId={id}
+                              user={user}
+                              post={post}
+                              shareModal={setOpenShareModal}
+                              setLink={setCurrentPostLink}
+                              setPostText={setPostText}
+                            />
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ) : (
-                <></>
-              )
-            }
-          />
+                ) : (
+                  <></>
+                )
+              }
+            />
 
-          <Route path="/dummygram/profile" element={<Profile />} />
+            <Route path="/dummygram/profile" element={<Profile />} />
 
-          <Route path="/dummygram/login" element={<LoginScreen />} />
+            <Route path="/dummygram/login" element={<LoginScreen />} />
 
-          <Route path="/dummygram/signup" element={<SignupScreen />} />
+            <Route path="/dummygram/signup" element={<SignupScreen />} />
 
-          <Route
-            path="/dummygram/posts/:id"
-            element={
-              <PostView
-                user={user}
-                shareModal={setOpenShareModal}
-                setLink={setCurrentPostLink}
-                setPostText={setPostText}
-              />
-            }
-          />
+            <Route
+              path="/dummygram/posts/:id"
+              element={
+                <PostView
+                  user={user}
+                  shareModal={setOpenShareModal}
+                  setLink={setCurrentPostLink}
+                  setPostText={setPostText}
+                />
+              }
+            />
 
-          <Route path="*" element={<NotFoundPage />} />
-          <Route path="/dummygram/favourites" element={<Favorite />} />
-        </Routes>
-      </Suspense>
+            <Route path="*" element={<NotFoundPage />} />
+            <Route path="/dummygram/favourites" element={<Favorite />} />
+          </Routes>
+        </Suspense>
 
         <FaArrowCircleUp
           fill="#777"
