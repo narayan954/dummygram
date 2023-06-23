@@ -272,21 +272,20 @@ function App() {
                         !loadingPosts
                           ? {}
                           : {
-                              width: "100%",
-                              minHeight: "100vh",
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                            }
+                            width: "100%",
+                            minHeight: "100vh",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }
                       }
                     >
                       {loadingPosts ? (
                         <Loader />
                       ) : (
                         <div
-                          className={`${
-                            rowMode ? "app__posts" : "app_posts_column"
-                          }`}
+                          className={`${rowMode ? "app__posts" : "app_posts_column"
+                            }`}
                         >
                           {posts.map(({ id, post }) => (
                             <Post
@@ -333,16 +332,33 @@ function App() {
           </Routes>
         </Suspense>
 
-        <FaArrowCircleUp
-          fill="#777"
-          // stroke="30"
-          className="scrollTop"
-          onClick={scrollTop}
-          style={{
-            height: 50,
-            display: showScroll ? "flex" : "none",
-          }}
-        />
+        {location.pathname === "/dummygram/" || location.pathname === "/dummygram/favourites" ? (
+          <div>
+            <FaArrowCircleUp
+              fill="#777"
+              className="scrollTop"
+              onClick={scrollTop}
+              style={{
+                height: 50,
+                display: showScroll ? "flex" : "none",
+                position: "fixed",
+              }}
+            />
+          </div>
+        ) : (
+          <div>
+            <FaArrowCircleUp
+              fill="#777"
+              className="scrollTop sideToTop"
+              onClick={scrollTop}
+              style={{
+                height: 50,
+                display: showScroll ? "flex" : "none",
+                position: "fixed",
+              }}
+            />
+          </div>
+        )}
       </div>
     </RowModeContext.Provider>
   );
