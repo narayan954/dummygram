@@ -10,6 +10,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { auth, db, storage } from "../../lib/firebase";
+import ViewsCounter from "./ViewsCounter";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -241,6 +242,10 @@ function Profile() {
             </Button>
           )}
           <Divider sx={{ marginTop: "1rem" }} />
+          <Typography fontSize="1.3rem" fontWeight="600" fontFamily="Poppins">
+            <ViewsCounter />
+          </Typography>
+          <Divider />
           <Typography fontSize="1.3rem" fontWeight="600" fontFamily="Poppins">
             {name}
           </Typography>
