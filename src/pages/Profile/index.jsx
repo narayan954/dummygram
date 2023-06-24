@@ -20,26 +20,43 @@ import SideBar from "../../components/SideBar";
 import { useSnackbar } from "notistack";
 
 function Profile() {
-  const { name, email, avatar } = useLocation().state;
-  const isNonMobile = useMediaQuery("(min-width: 768px)");
-  const { enqueueSnackbar } = useSnackbar();
+  const [user, setUser] = useState(null);
   const [image, setImage] = useState("");
-  const [profilepic, setProfilePic] = useState(avatar);
+  const [feed, setFeed] = useState([]);
+  const [profilepic, setProfilePic] = useState("");
   const [visible, setVisibile] = useState(false);
   const [open, setOpen] = useState(false);
-  const [user, setUser] = useState(null);
-  const handleClose = () => setOpen(false);
+
   const navigate = useNavigate();
-  const [feed, setFeed] = useState([]);
+  const location = useLocation();
+  const isNonMobile = useMediaQuery("(min-width: 768px)");
+  const { enqueueSnackbar } = useSnackbar();
+
+  let name = location?.state?.name || user?.displayName;
+  let email = location?.state?.email || user?.email;
+  let avatar = location?.state?.avatar || user?.photoURL;
+
+  const handleClose = () => setOpen(false);
+
+  useEffect(() => {
+    if (auth.currentUser) {
+      setUser(auth.currentUser);
+      setProfilePic(auth.currentUser.photoURL);
+    } else {
+      navigate("/dummygram/login");
+    }
+  }, []);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         setUser(authUser);
-        // navigate("/dummygram/");
+        name = location?.state?.name || authUser.displayName;
+        avatar = location?.state?.avatar || authUser.photoURL;
+        email = location?.state?.email || authUser.email;
       } else {
         setUser(null);
-        // navigate("/dummygram/login");
+        navigate("/dummygram/login");
       }
     });
 
@@ -48,22 +65,27 @@ function Profile() {
     };
   }, [user]);
 
-  const q = query(collection(db, "posts"), where("username", "==", name));
   useEffect(() => {
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const userPosts = [];
-      querySnapshot.forEach((doc) => {
-        userPosts.push({
-          id: doc.id,
-          post: doc.data(),
+    setTimeout(() => {
+      const q = query(
+        collection(db, "posts"),
+        where("username", "==", location?.state?.name || name)
+      );
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const userPosts = [];
+        querySnapshot.forEach((doc) => {
+          userPosts.push({
+            id: doc.id,
+            post: doc.data(),
+          });
         });
+        setFeed(userPosts);
       });
-      setFeed(userPosts);
-    });
-  }, []);
+    }, 1000);
+  }, [user, name]);
 
   const handleBack = () => {
-    navigate("/dummygram"); // Use navigate function to change the URL
+    navigate("/dummygram");
   };
 
   const handleChange = (e) => {
@@ -73,6 +95,7 @@ function Profile() {
       setVisibile(true);
     }
   };
+
   const handleSave = async () => {
     const uploadTask = storage.ref(`images/${image?.name}`).put(image);
     await uploadTask.on(
