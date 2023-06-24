@@ -26,12 +26,14 @@ function Profile() {
   const [profilepic, setProfilePic] = useState("");
   const [visible, setVisibile] = useState(false);
   const [open, setOpen] = useState(false);
+  const [username, setUsername] = useState("");
 
   const navigate = useNavigate();
   const location = useLocation();
   const isNonMobile = useMediaQuery("(min-width: 768px)");
   const { enqueueSnackbar } = useSnackbar();
 
+  
   let name = location?.state?.name || user?.displayName;
   let email = location?.state?.email || user?.email;
   let avatar = location?.state?.avatar || user?.photoURL;
@@ -65,6 +67,17 @@ function Profile() {
     };
   }, [user]);
 
+  //Get username from usernames collection
+  useEffect(() => {
+    const usernameQ = query(collection(db, "usernames"), where("uid", "==", auth.currentUser.uid));
+    const unsubscribe = onSnapshot(usernameQ, (querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        setUsername(doc.id)
+      });
+    })
+  }, [])
+
+ // Get user's posts from posts collection
   useEffect(() => {
     setTimeout(() => {
       const q = query(
@@ -241,6 +254,10 @@ function Profile() {
             </Button>
           )}
           <Divider sx={{ marginTop: "1rem" }} />
+          <Typography fontSize="1.3rem" fontWeight="600" fontFamily="Poppins">
+            {username}
+          </Typography>
+          <Divider />
           <Typography fontSize="1.3rem" fontWeight="600" fontFamily="Poppins">
             {name}
           </Typography>

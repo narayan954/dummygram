@@ -41,3 +41,11 @@
   box-shadow: 0 0 20px rgba(104, 85, 224, 0.6);
   background-color: rgb(255, 255, 255);
 }
+
+.username-available{
+  border: 2px solid green;
+}
+
+.username-not-available{
+  border: 2px solid red;
+}
