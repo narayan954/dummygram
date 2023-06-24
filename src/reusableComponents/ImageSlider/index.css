@@ -1,44 +1,58 @@
 .slider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	margin: 0 auto;
+	position: relative;
+	width: 100%;
 }
 
 .slide {
-  margin-top: 50%;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+	align-items: center;
+	display: flex;
+	height: 100%;
+	justify-content: center;
+	margin-top: 50%;
+	position: relative;
+	width: 100%;
+}
+
+.slider__actions {
+	width: 100%;
+
 }
 
 .slide.active {
-  opacity: 1;
+	opacity: 1;
 }
 
 .image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -1;
+	height: 100%;
+	object-fit: cover;
+	width: 100%;
+	z-index: -1;
+}
+
+.slider-action {
+	display: flex;
+	height: 100%;
+	justify-content: space-between;
+	position: absolute;
+	width: 100%;
 }
 
 .circle {
-  font-size: 24px;
-  position: absolute;
-  top: 50%;
-  right: 180px;
-  color: silver;
+	color: transparent;
+	cursor: pointer;
+	font-size: 24px;
+	height: 100%;
+	width: 30%;
 }
 
 .chevron {
-  font-size: 24px;
-  position: absolute;
-  top: 50%;
-  left: 180px;
-  cursor: pointer;
-  color: silver;
+	color: transparent;
+	cursor: pointer;
+	font-size: 24px;
+	height: 100%;
+	width: 30%;
 }
