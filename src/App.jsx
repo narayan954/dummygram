@@ -1,7 +1,14 @@
 import "./index.css";
 
 import { AnimatedButton, Loader, ShareModal } from "./reusableComponents";
-import { Favorite, Navbar, NotFound, Post, SideBar } from "./components";
+import {
+  Favorite,
+  Navbar,
+  NotFound,
+  Notifications,
+  Post,
+  SideBar,
+} from "./components";
 import { LoginScreen, PostView, Profile, SignupScreen } from "./pages";
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
@@ -292,6 +299,8 @@ function App() {
           <Route path="/dummygram/login" element={<LoginScreen />} />
 
           <Route path="/dummygram/signup" element={<SignupScreen />} />
+
+          <Route path="/dummygram/notifications" element={<Notifications />} />
 
           <Route
             path="/dummygram/posts/:id"
