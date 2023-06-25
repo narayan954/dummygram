@@ -19,11 +19,13 @@ import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import TextField from "@mui/material/TextField";
 import { db } from "../../lib/firebase";
 import { saveAs } from "file-saver";
+import useCreatedAt from "../../hooks/useCreatedAt";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-const PostHeader = ({ postId, user, postData, postHasImages }) => {
-  const { time, fullScreen } = user;
+const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
+  const time = useCreatedAt(timestamp);
+  const { fullScreen } = user; // needs fixing
   const { username, caption, imageUrl, avatar } = postData;
 
   const [Open, setOpen] = useState(false);
@@ -55,7 +57,7 @@ const PostHeader = ({ postId, user, postData, postHasImages }) => {
 
   const handleSubmitCaption = async () => {
     const taskDocRef = doc(db, "posts", postId);
-    const navigate = useNavigate();
+
     try {
       await updateDoc(taskDocRef, {
         caption: editCaption,

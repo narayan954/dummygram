@@ -1,7 +1,14 @@
 import "./index.css";
 
 import { AnimatedButton, Loader, ShareModal } from "./reusableComponents";
-import { Favorite, Navbar, NotFound, Post, SideBar } from "./components";
+import {
+  Favorite,
+  Navbar,
+  NotFound,
+  Notifications,
+  Post,
+  SideBar,
+} from "./components";
 import { LoginScreen, PostView, Profile, SignupScreen } from "./pages";
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
@@ -166,6 +173,7 @@ function App() {
     enqueueSnackbar("Logged out Successfully !", {
       variant: "info",
     });
+    navigate("/dummygram/login");
   };
 
   return (
@@ -293,6 +301,8 @@ function App() {
 
           <Route path="/dummygram/signup" element={<SignupScreen />} />
 
+          <Route path="/dummygram/notifications" element={<Notifications />} />
+
           <Route
             path="/dummygram/posts/:id"
             element={
@@ -309,16 +319,34 @@ function App() {
           <Route path="/dummygram/favourites" element={<Favorite />} />
         </Routes>
 
-        <FaArrowCircleUp
-          fill="#777"
-          // stroke="30"
-          className="scrollTop"
-          onClick={scrollTop}
-          style={{
-            height: 50,
-            display: showScroll ? "flex" : "none",
-          }}
-        />
+        {location.pathname === "/dummygram/" ||
+        location.pathname === "/dummygram/favourites" ? (
+          <div>
+            <FaArrowCircleUp
+              fill="#777"
+              className="scrollTop"
+              onClick={scrollTop}
+              style={{
+                height: 50,
+                display: showScroll ? "flex" : "none",
+                position: "fixed",
+              }}
+            />
+          </div>
+        ) : (
+          <div>
+            <FaArrowCircleUp
+              fill="#777"
+              className="scrollTop sideToTop"
+              onClick={scrollTop}
+              style={{
+                height: 50,
+                display: showScroll ? "flex" : "none",
+                position: "fixed",
+              }}
+            />
+          </div>
+        )}
       </div>
     </RowModeContext.Provider>
   );

@@ -43,6 +43,17 @@
 }
 
 .circle {
+  font-size: 24px;
+  position: absolute;
+  top: 50%;
+  right: 180px;
+  color: silver;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.circle:hover {
+  /*color: #ab4bc2;*/
 	color: transparent;
 	cursor: pointer;
 	font-size: 24px;
@@ -56,4 +67,73 @@
 	font-size: 24px;
 	height: 100%;
 	width: 30%;
+  transition: color 0.3s ease;
+}
+
+.chevron:hover {
+  color: #ab4bc2;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.slide:hover .overlay {
+  opacity: 1;
+}
+
+.overlay-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+}
+
+.overlay-content h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.overlay-content p {
+  font-size: 16px;
+}
+
+.slide-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ab4bc2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.slide-button:hover {
+  opacity: 1;
+}
+
+.slide-button.left {
+  left: 20px;
+}
+
+.slide-button.right {
+  right: 20px;
 }
