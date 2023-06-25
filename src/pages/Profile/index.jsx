@@ -9,14 +9,13 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
+import { Post, SideBar } from "../../components";
 import { auth, db, storage } from "../../lib/firebase";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { FaUserCircle } from "react-icons/fa";
-import Post from "../../components/Post";
-import SideBar from "../../components/SideBar";
 import { useSnackbar } from "notistack";
 
 function Profile() {

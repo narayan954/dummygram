@@ -10,7 +10,6 @@ import { Dialog } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import HomeIcon from "@mui/icons-material/Home";
 import ImgUpload from "../ImgUpload";
-import React from "react";
 import { auth } from "../../lib/firebase";
 import { useState } from "react";
 
