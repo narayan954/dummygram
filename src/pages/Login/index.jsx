@@ -137,7 +137,7 @@ const LoginScreen = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <div className="password_container">
+          <div className="password-container">
             <input
               type={showPassword ? "text" : "password"}
               placeholder=" Password"
