@@ -7,39 +7,26 @@ import {
   Divider,
   Typography,
 } from "@mui/material";
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 
 import { AiOutlineInsertRowAbove } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
-import { RowModeContext } from "../../hooks/useRowMode";
 import { auth } from "../../lib/firebase";
 import logo from "../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
 
 function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
   const navigate = useNavigate();
-  const rowMode = useContext(RowModeContext);
-
-  const buttonStyle = {
-    background: "linear-gradient(40deg, #e107c1, #59afc7)",
-    borderRadius: "20px",
-    margin: "10px",
-    ":hover": {
-      background: "linear-gradient(-40deg, #59afc7, #e107c1)",
-    },
-  };
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         setUser(authUser);
-        navigate("/dummygram/");
       } else {
         setUser(null);
         navigate("/dummygram/login");
       }
     });
-
     return () => {
       unsubscribe();
     };
@@ -67,13 +54,7 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
 
       {user && (
         <>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-            }}
-          >
+          <div className="container">
             <div className="rowConvert" onClick={onClick}>
               <AiOutlineInsertRowAbove style={{ margin: "auto" }} size={30} />
             </div>
@@ -82,31 +63,13 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
                 onClick={() => setOpen((cur) => !cur)}
                 color="secondary"
                 variant="contained"
-                sx={{ ...buttonStyle, marginRight: "10px" }}
+                className="button-style"
               >
                 <FaUserCircle fontSize="large" />
                 {open && (
-                  <Box
-                    backgroundColor="#fff"
-                    color="black"
-                    padding="2px"
-                    width="80px"
-                    position="absolute"
-                    borderRadius="4px"
-                    marginTop={16}
-                    marginRight={3}
-                    sx={{
-                      width: "fit-content",
-                      mt: "10rem",
-                      mr: "4rem",
-                      vertical: "top",
-                      border: "1px solid black",
-                    }}
-                  >
+                  <Box className="nav-menu">
                     <Box
-                      display="flex"
-                      padding="0.5rem"
-                      sx={{ cursor: "pointer" }}
+                      className="nav-menu-item"
                       onClick={() =>
                         navigate("/dummygram/profile", {
                           state: {
@@ -123,9 +86,7 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
                     </Box>
                     <Divider />
                     <Box
-                      display="flex"
-                      padding="0.5rem"
-                      sx={{ cursor: "pointer" }}
+                      className="nav-menu-item"
                       onClick={() => navigate("/dummygram/favourites")}
                     >
                       <Typography fontFamily="serif" fontSize="1rem">
@@ -134,9 +95,7 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
                     </Box>
                     <Divider />
                     <Box
-                      display="flex"
-                      padding="0.5rem"
-                      sx={{ cursor: "pointer" }}
+                      className="nav-menu-item"
                       onClick={() => setLogout(true)}
                     >
                       <Typography fontFamily="Poppins" fontSize="0.9rem">
