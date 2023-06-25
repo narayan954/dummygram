@@ -1,10 +1,10 @@
 import "./index.css";
 
-import React, { useState, useRef } from "react";
+import React, { useRef, useState } from "react";
 import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
 import {
-  db,
   auth,
+  db,
   facebookProvider,
   googleProvider,
   storage,
@@ -31,9 +31,9 @@ const SignupScreen = () => {
   const [address, setAddress] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [usernameAvailable, setUsernameAvailable] = useState(false)
-  const [username, setUsername] = useState("")
-  const usernameRef = useRef(null)
+  const [usernameAvailable, setUsernameAvailable] = useState(false);
+  const [username, setUsername] = useState("");
+  const usernameRef = useRef(null);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
@@ -41,26 +41,27 @@ const SignupScreen = () => {
     let timer;
     return (...args) => {
       clearTimeout(timer);
-      timer = setTimeout(() => { func.apply(this, args); }, timeout);
+      timer = setTimeout(() => {
+        func.apply(this, args);
+      }, timeout);
     };
   }
 
   const checkUsername = () => {
-    const name = usernameRef.current
+    const name = usernameRef.current;
     const regex = /^[A-Za-z][A-Za-z0-9_]{4,17}$/gi;
     if (!regex.test(name)) {
-      setUsernameAvailable(false)
+      setUsernameAvailable(false);
+    } else {
+      debounce(findUsernameInDB());
     }
-    else{
-      debounce(findUsernameInDB())
-    }
-  }
+  };
 
   const findUsernameInDB = async () => {
-      const ref = await db.doc(`usernames/${usernameRef.current}`);
-      const { exists } = await ref.get();
-      setUsernameAvailable(!exists)
-  }
+    const ref = await db.doc(`usernames/${usernameRef.current}`);
+    const { exists } = await ref.get();
+    setUsernameAvailable(!exists);
+  };
 
   const handleShowPassword = (e) => {
     e.preventDefault();
@@ -238,11 +239,15 @@ const SignupScreen = () => {
             placeholder="Username"
             value={username}
             onChange={(e) => {
-              usernameRef.current = e.target.value.trim()
-              setUsername(e.target.value.trim())
-              checkUsername()
+              usernameRef.current = e.target.value.trim();
+              setUsername(e.target.value.trim());
+              checkUsername();
             }}
-            className={usernameAvailable ? "username-available" : "username-not-available"}
+            className={
+              usernameAvailable
+                ? "username-available"
+                : "username-not-available"
+            }
           />
           <input
             type="text"

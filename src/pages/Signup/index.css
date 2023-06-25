@@ -42,10 +42,10 @@
   background-color: rgb(255, 255, 255);
 }
 
-.username-available{
+.username-available {
   border: 2px solid green;
 }
 
-.username-not-available{
+.username-not-available {
   border: 2px solid red;
 }

@@ -33,7 +33,6 @@ function Profile() {
   const isNonMobile = useMediaQuery("(min-width: 768px)");
   const { enqueueSnackbar } = useSnackbar();
 
-  
   let name = location?.state?.name || user?.displayName;
   let email = location?.state?.email || user?.email;
   let avatar = location?.state?.avatar || user?.photoURL;
@@ -69,15 +68,18 @@ function Profile() {
 
   //Get username from usernames collection
   useEffect(() => {
-    const usernameQ = query(collection(db, "usernames"), where("uid", "==", auth.currentUser.uid));
+    const usernameQ = query(
+      collection(db, "usernames"),
+      where("uid", "==", auth.currentUser.uid)
+    );
     const unsubscribe = onSnapshot(usernameQ, (querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        setUsername(doc.id)
+        setUsername(doc.id);
       });
-    })
-  }, [])
+    });
+  }, []);
 
- // Get user's posts from posts collection
+  // Get user's posts from posts collection
   useEffect(() => {
     setTimeout(() => {
       const q = query(
