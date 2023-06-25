@@ -1,7 +1,9 @@
+import "./index.css";
+
 import { Dialog, IconButton, Input } from "@mui/material";
 
 import React from "react";
-import logo from "../assets/logo.webp";
+import logo from "../../assets/logo.webp";
 import { useSnackbar } from "notistack";
 
 const ShareModal = (props) => {
@@ -16,28 +18,9 @@ const ShareModal = (props) => {
       open={openShareModal}
       onClose={() => setOpenShareModal(false)}
     >
-      <div
-        style={{
-          backgroundColor: "var(--bg-color)",
-          padding: "20px",
-          textAlign: "center",
-          color: "var(--color)",
-          border: "2px solid var(--color)",
-        }}
-      >
-        <img
-          src={logo}
-          alt="dummygram"
-          style={{ width: "40%", filter: "invert(var(--val))" }}
-        />
-        <p
-          style={{
-            fontSize: "1rem",
-            color: "var(--color)",
-          }}
-        >
-          Share Post
-        </p>
+      <div className="share-modal-container">
+        <img src={logo} alt="dummygram" />
+        <p>Share Post</p>
 
         <div className="mx-2">
           <IconButton
@@ -97,16 +80,7 @@ const ShareModal = (props) => {
               variant: "success",
             });
           }}
-          sx={{
-            width: "80%",
-            margin: "1rem",
-            color: "white",
-            backgroundColor: "white",
-            borderRadius: "8px",
-            overflow: "auto",
-            padding: "0 6px",
-            boxSizing: "border-box",
-          }}
+          className="share-modal-container-input"
         />
       </div>
     </Dialog>

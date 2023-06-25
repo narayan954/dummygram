@@ -1,9 +1,10 @@
 import "./index.css";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
 import {
   auth,
+  db,
   facebookProvider,
   googleProvider,
   storage,
@@ -21,7 +22,7 @@ const SignupScreen = () => {
   const classes = useStyles();
 
   const [modalStyle] = useState(getModalStyle);
-  const [username, setUsername] = useState("");
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -30,9 +31,37 @@ const SignupScreen = () => {
   const [address, setAddress] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
+  const [usernameAvailable, setUsernameAvailable] = useState(true);
+  const [username, setUsername] = useState("");
+  const usernameRef = useRef(null);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
+
+  function debounce(func, timeout = 300) {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        func.apply(this, args);
+      }, timeout);
+    };
+  }
+
+  const checkUsername = () => {
+    const name = usernameRef.current;
+    const regex = /^[A-Za-z][A-Za-z0-9_]{4,17}$/gi;
+    if (!regex.test(name)) {
+      setUsernameAvailable(false);
+    } else {
+      debounce(findUsernameInDB());
+    }
+  };
+
+  const findUsernameInDB = async () => {
+    const ref = await db.doc(`usernames/${usernameRef.current}`);
+    const { exists } = await ref.get();
+    setUsernameAvailable(!exists);
+  };
 
   const handleShowPassword = (e) => {
     e.preventDefault();
@@ -54,8 +83,14 @@ const SignupScreen = () => {
   const signUp = async (e) => {
     e.preventDefault();
     setSigningUp(true);
-    if (username === "") {
-      enqueueSnackbar("Username cannot be blank", {
+    if (!usernameAvailable) {
+      enqueueSnackbar("Username not available!", {
+        variant: "error",
+      });
+      return;
+    }
+    if (fullName === "") {
+      enqueueSnackbar("Name cannot be blank", {
         variant: "error",
       });
       return;
@@ -66,15 +101,20 @@ const SignupScreen = () => {
       });
       return;
     }
+
+    const usernameDoc = db.doc(`usernames/${username}`);
+    const batch = db.batch();
     await auth
       .createUserWithEmailAndPassword(email, password)
       .then(async (authUser) => {
         await updateProfile(auth.currentUser, {
-          displayName: username,
+          displayName: fullName,
         })
+          .then(batch.set(usernameDoc, { uid: auth.currentUser.uid }))
+          .then(batch.commit())
           .then(() => {
             enqueueSnackbar(
-              `Congratulations ${username},you have joined Dummygram`,
+              `Congratulations ${fullName},you have joined Dummygram`,
               {
                 variant: "success",
               }
@@ -105,7 +145,7 @@ const SignupScreen = () => {
               .getDownloadURL()
               .then((url) => {
                 authUser.user.updateProfile({
-                  displayName: username,
+                  displayName: fullName,
                   photoURL: url,
                 });
                 enqueueSnackbar("Signup Successful!", {
@@ -164,13 +204,7 @@ const SignupScreen = () => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignContent: "center",
-        justifyContent: "center",
-      }}
-    >
+    <div className="flex">
       <div style={modalStyle} className={classes.paper}>
         <form className="modal__signup">
           <input
@@ -198,7 +232,22 @@ const SignupScreen = () => {
             type="text"
             placeholder="Username"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => {
+              usernameRef.current = e.target.value.trim();
+              setUsername(e.target.value.trim());
+              checkUsername();
+            }}
+            className={
+              usernameAvailable
+                ? "username-available"
+                : "username-not-available"
+            }
+          />
+          <input
+            type="text"
+            placeholder="Full Name"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
           />
           <input
             type="email"
@@ -206,90 +255,34 @@ const SignupScreen = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              width: "100%",
-              border: "1px solid rgba(104, 85, 224, 1)",
-              height: "100%",
-              boxSizing: "border-box",
-              marginTop: "10px",
-              backgroundColor: "white",
-              boxShadow: "0 0 20px rgba(104, 85, 224, 0.2)",
-              borderRadius: "4px",
-              // padding: "10px",
-            }}
-          >
+          <div className="password-container">
             <input
               type={showPassword ? "text" : "password"}
               placeholder=" Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              style={{
-                width: "100%",
-                border: "none",
-                margin: 0,
-                boxShadow: "none",
-              }}
+              className="password-input"
             />
             <button
               onClick={(e) => handleShowPassword(e)}
-              style={{
-                height: "100%",
-                width: "50px",
-                margin: 0,
-                background: "transparent",
-                outline: "none",
-                border: "none",
-                cursor: "pointer",
-              }}
+              className="show-password"
             >
               {showPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
             </button>
           </div>
 
           {/* Confirm password */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              width: "100%",
-              border: "1px solid rgba(104, 85, 224, 1)",
-              height: "100%",
-              boxSizing: "border-box",
-              marginTop: "10px",
-              backgroundColor: "white",
-              boxShadow: "0 0 20px rgba(104, 85, 224, 0.2)",
-              borderRadius: "4px",
-              // padding: "10px",
-            }}
-          >
+          <div className="password-container">
             <input
               type={showConfirmPassword ? "text" : "password"}
               placeholder="Confirm Password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              style={{
-                width: "100%",
-                border: "none",
-                margin: 0,
-                boxShadow: "none",
-              }}
+              className="password-input"
             />
             <button
               onClick={(e) => handleShowConfirmPassword(e)}
-              style={{
-                height: "100%",
-                width: "50px",
-                margin: 0,
-                background: "transparent",
-                outline: "none",
-                border: "none",
-                cursor: "pointer",
-              }}
+              className="show-password"
             >
               {showConfirmPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
             </button>
