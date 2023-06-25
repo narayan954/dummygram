@@ -15,6 +15,17 @@
   transform: scale(1.01);
 }
 
+.avatar {
+  border: 2px solid royalblue;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.avatar:hover {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 17px 0px;
+  border: 2px solid black;
+  scale: 1.1;
+}
+
 .postColumn {
   max-width: 400px;
   margin-top: 20px;
@@ -93,8 +104,9 @@
 
 .post__commentBox {
   display: flex;
-  margin-top: 10px;
-  border-top: 1px solid rgba(0, 0, 0, 0.373);
+  margin-top: 2px;
+  margin-bottom: 10px;
+  /* border-top: 1px solid rgba(0, 0, 0, 0.373); */
   flex-wrap: wrap;
 }
 

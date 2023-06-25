@@ -1,28 +1,21 @@
+import "./index.css";
+
+import { AnimatedButton, Loader, ShareModal } from "./reusableComponents";
+import { Favorite, Navbar, NotFound, Post, SideBar } from "./components";
+import { LoginScreen, PostView, Profile, SignupScreen } from "./pages";
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
-import AnimatedButton from "./reusableComponents/AnimatedButton";
 import { FaArrowCircleUp } from "react-icons/fa";
-import Favorite from "./components/Favorite";
-import Loader from "./components/Loader";
-import LoginScreen from "./pages/Login";
 import Modal from "@mui/material/Modal";
-import Navbar from "./components/Navbar";
-import NotFoundPage from "./components/NotFound";
 import Notifications from "./components/Notifications";
-import Post from "./components/Post";
-import PostView from "./pages/PostView";
-import Profile from "./pages/Profile";
 import { RowModeContext } from "./hooks/useRowMode";
-import ShareModal from "./reusableComponents/ShareModal";
-import SideBar from "./components/SideBar";
-import SignupScreen from "./pages/Signup";
 import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
 
 export function getModalStyle() {
-  const top = 50;
+  const top = 56;
   const left = 50;
   const padding = 2;
   const radius = 3;
@@ -72,15 +65,6 @@ function App() {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
-  const buttonStyle = {
-    background: "linear-gradient(40deg, #e107c1, #59afc7)",
-    borderRadius: "20px",
-    margin: "10px",
-    ":hover": {
-      background: "linear-gradient(-40deg, #59afc7, #e107c1)",
-    },
-  };
-
   const checkScrollTop = () => {
     if (!showScroll && window.pageYOffset > 400) {
       setShowScroll(true);
@@ -99,7 +83,6 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         setUser(authUser);
-        navigate("/dummygram/");
       } else {
         setUser(null);
         navigate("/dummygram/login");
@@ -236,7 +219,7 @@ function App() {
                   onClick={signOut}
                   variant="contained"
                   color="primary"
-                  sx={buttonStyle}
+                  className="button-style"
                 >
                   Logout
                 </AnimatedButton>
@@ -245,7 +228,7 @@ function App() {
                   onClick={() => setLogout(false)}
                   variant="contained"
                   color="primary"
-                  sx={buttonStyle}
+                  className="button-style"
                 >
                   Cancel
                 </AnimatedButton>
@@ -260,13 +243,7 @@ function App() {
             path="/dummygram/"
             element={
               user ? (
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
+                <div className="flex">
                   <SideBar />
                   <div
                     style={
@@ -286,7 +263,7 @@ function App() {
                     ) : (
                       <div
                         className={`${
-                          rowMode ? "app__posts" : "app_posts_column"
+                          rowMode ? "app__posts" : "app_posts_column flex"
                         }`}
                       >
                         {posts.map(({ id, post }) => (
@@ -331,7 +308,7 @@ function App() {
             }
           />
 
-          <Route path="*" element={<NotFoundPage />} />
+          <Route path="*" element={<NotFound />} />
           <Route path="/dummygram/favourites" element={<Favorite />} />
         </Routes>
 

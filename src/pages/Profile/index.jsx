@@ -9,24 +9,24 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
+import { Post, SideBar } from "../../components";
 import { auth, db, storage } from "../../lib/firebase";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { FaUserCircle } from "react-icons/fa";
-import SideBar from "../../components/SideBar";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
 
 function Profile() {
-  const { name, email, avatar } = useLocation().state;
-  const isNonMobile = useMediaQuery("(min-width: 768px)");
-  const { enqueueSnackbar } = useSnackbar();
+  const [user, setUser] = useState(null);
   const [image, setImage] = useState("");
-  const [profilepic, setProfilePic] = useState(avatar);
   const [visible, setVisible] = useState(false);
+  const [feed, setFeed] = useState([]);
+  const [profilepic, setProfilePic] = useState("");
   const [open, setOpen] = useState(false);
-  const handleClose = () => setOpen(false);
+
   const navigate = useNavigate();
   const [friendRequestSent, setFriendRequestSent] = useState(false);
 
@@ -76,6 +76,61 @@ function Profile() {
     };
     checkFriendRequestSent();
   }, []);
+  const location = useLocation();
+  const isNonMobile = useMediaQuery("(min-width: 768px)");
+  const { enqueueSnackbar } = useSnackbar();
+
+  let name = location?.state?.name || user?.displayName;
+  let email = location?.state?.email || user?.email;
+  let avatar = location?.state?.avatar || user?.photoURL;
+
+  const handleClose = () => setOpen(false);
+
+  useEffect(() => {
+    if (auth.currentUser) {
+      setUser(auth.currentUser);
+      setProfilePic(auth.currentUser.photoURL);
+    } else {
+      navigate("/dummygram/login");
+    }
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        setUser(authUser);
+        name = location?.state?.name || authUser.displayName;
+        avatar = location?.state?.avatar || authUser.photoURL;
+        email = location?.state?.email || authUser.email;
+      } else {
+        setUser(null);
+        navigate("/dummygram/login");
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [user]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      const q = query(
+        collection(db, "posts"),
+        where("username", "==", location?.state?.name || name)
+      );
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const userPosts = [];
+        querySnapshot.forEach((doc) => {
+          userPosts.push({
+            id: doc.id,
+            post: doc.data(),
+          });
+        });
+        setFeed(userPosts);
+      });
+    }, 1000);
+  }, [user, name]);
 
   const handleBack = () => {
     navigate("/dummygram");
@@ -255,6 +310,22 @@ function Profile() {
             Back
           </Button>
         </Box>
+      </Box>
+      <Box className="flex feed-main-container">
+        <div className="app__posts" id="feed-sub-container">
+          {feed.map(({ post, id }) => (
+            <Post
+              rowMode={true}
+              key={id}
+              postId={id}
+              user={user}
+              post={post}
+              shareModal={true}
+              setLink="/"
+              setPostText=""
+            />
+          ))}
+        </div>
       </Box>
     </>
   );
