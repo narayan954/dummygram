@@ -34,6 +34,8 @@ import { useEffect, useState } from "react";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import DialogBox from "../../reusableComponents/DialogBox";
 import EmojiPicker from "emoji-picker-react";
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import { FaSave } from "react-icons/fa";
 import Flexbetween from "../../reusableComponents/Flexbetween";
 import ImageSlider from "../../reusableComponents/ImageSlider";
@@ -73,7 +75,18 @@ function Post(prop) {
   const navigate = useNavigate();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const { enqueueSnackbar } = useSnackbar();
+  const [isFavorite, setIsFavorite] = useState(false);
 
+  const handleToggleFavorite = () => {
+    setIsFavorite(!isFavorite);
+  };
+  const renderFavoriteIcon = () => {
+    if (isFavorite) {
+      return <BookmarksIcon onClick={handleToggleFavorite} />;
+    } else {
+      return <BookmarkBorderIcon onClick={handleToggleFavorite} />;
+    }
+  };
   const open = Boolean(anchorEl);
   const docRef = doc(db, "posts", postId);
   useEffect(() => {
@@ -119,11 +132,13 @@ function Post(prop) {
     });
     setComment("");
   };
+  
+  
 
   const save = async () => {
-    const localStoragePosts = JSON.parse(localStorage.getItem("posts")) || [];
-    const postIdExists = localStoragePosts.includes(postId);
-
+  const localStoragePosts = JSON.parse(localStorage.getItem("posts")) || [];
+  const postIdExists = localStoragePosts.includes(postId);
+  
     if (!postIdExists) {
       localStoragePosts.push(postId);
       localStorage.setItem("posts", JSON.stringify(localStoragePosts));
@@ -217,7 +232,7 @@ function Post(prop) {
         });
     }
   }
-
+ 
   async function deletePost() {
     await db.collection("posts").doc(postId).delete();
   }
@@ -490,16 +505,12 @@ function Post(prop) {
 
               <Flexbetween sx={{ cursor: "pointer" }} onClick={save}>
                 <IconButton>
-                  <FaSave
-                    onClick={save}
-                    style={{ cursor: "pointer", fontSize: "22px" }}
-                    className="post_button"
-                  />
+                {renderFavoriteIcon()}
                 </IconButton>
                 <Typography fontSize={14}>Save</Typography>
               </Flexbetween>
             </Flexbetween>
-
+        
             <ClickAwayListener onClickAway={() => setShowEmojis(false)}>
               <div className="social__icon">
                 <div className="emoji__icon">
