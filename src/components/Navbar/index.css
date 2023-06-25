@@ -18,3 +18,55 @@
   flex-wrap: wrap;
   background-color: var(--bg-color);
 }
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.button-style {
+  background: linear-gradient(40deg, #e107c1, #59afc7);
+  border-radius: 20px;
+  margin: 10px;
+  margin-right: 10px !important;
+}
+
+.button-style:hover {
+  background: linear-gradient(-40deg, #59afc7, #e107c1);
+}
+
+.nav-menu {
+  background-color: #fff;
+  color: black;
+  padding: 2px;
+  width: fit-content;
+  position: absolute;
+  border-radius: 4px;
+  margin-top: 10rem;
+  margin-right: 4rem;
+  vertical-align: top;
+  border: 1px solid black;
+}
+
+.nav-menu-item {
+  display: flex;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+/* backgroundColor="#fff"
+                    color="black"
+                    padding="2px"
+                    width="80px"
+                    position="absolute"
+                    borderRadius="4px"
+                    marginTop={16}
+                    marginRight={3}
+                    sx={{
+                      width: "fit-content",
+                      mt: "10rem",
+                      mr: "4rem",
+                      vertical: "top",
+                      border: "1px solid black",
+                    }} */
