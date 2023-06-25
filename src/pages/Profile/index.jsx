@@ -10,7 +10,6 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { auth, db, storage } from "../../lib/firebase";
-import ViewsCounter from "./ViewsCounter";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -18,6 +17,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
 import Post from "../../components/Post";
 import SideBar from "../../components/SideBar";
+import ViewsCounter from "../../reusableComponents/ViewsCounter";
 import { useSnackbar } from "notistack";
 
 function Profile() {
