@@ -1,0 +1,132 @@
+import React, { useState } from "react";
+import { auth, facebookProvider, googleProvider } from "../lib/firebase";
+import { getModalStyle, useStyles } from "../App";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Logo from "../assets/logo.png";
+import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "notistack";
+// import {useToast} from "@chakra-ui/react"
+import { useToast } from '@chakra-ui/react'
+
+
+const ForgotPassword = () => {
+  const toast = useToast()
+  const [email, setEmail] = useState("");
+
+  const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
+  const classes = useStyles();
+
+  const signIn = (e) => {
+    e.preventDefault();
+    auth
+      .sendPasswordResetEmail(email)
+      .then(() => {
+        toast({
+          title: 'Mail sent.',
+          description: "Check your mail and change the pasword.",
+          status: 'success',
+          duration: 4000,
+          isClosable: true,
+        })
+      })
+      .catch((error) => {
+        if (error.code === "auth/invalid-email") {
+          enqueueSnackbar("Invalid email address", {
+            variant: "error",
+          });
+        } else if (error.code === "auth/user-not-found") {
+          enqueueSnackbar("User not found", {
+            variant: "error",
+          });
+        } else if (error.code === "auth/wrong-password") {
+          enqueueSnackbar("Wrong password", {
+            variant: "error",
+          });
+        } else if (
+          error.code === "auth/account-exists-with-different-credential"
+        ) {
+          enqueueSnackbar("Account exists with a different credential", {
+            variant: "error",
+          });
+        } else {
+          enqueueSnackbar("Error Occured!", {
+            variant: "error",
+          });
+        }
+      });
+  };
+
+  
+
+
+
+  const navigateToSignin = () => {
+    navigate("/dummygram/login");
+  };
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignContent: "center",
+        justifyContent: "center",
+      }}
+    >
+      <div style={getModalStyle()} className={classes.paper}>
+        <form className="modal__signup">
+          <img
+            src={Logo}
+            alt="dummygram"
+            className="modal__signup__img"
+            style={{
+              width: "80%",
+              filter: "invert(var(--val))",
+            }}
+          />
+          <input
+            type="email"
+            placeholder=" Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              width: "100%",
+              border: "1px solid rgba(104, 85, 224, 1)",
+              height: "100%",
+              boxSizing: "border-box",
+              marginTop: "10px",
+              backgroundColor: "white",
+              boxShadow: "0 0 20px rgba(104, 85, 224, 0.2)",
+              borderRadius: "4px",
+              // padding: "10px",
+            }}
+          >
+            
+            
+          
+          </div>
+          <button type="submit" onClick={signIn} className="button log">
+            RESET PASSWORD 
+            {/* <FontAwesomeIcon icon={faRightToBracket} /> */}
+          </button>
+
+          
+          <div className="have-account">
+            Already have a account?{" "}
+            <span role={"button"} onClick={navigateToSignin}>
+              Sign in
+            </span>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default ForgotPassword;

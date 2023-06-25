@@ -11,8 +11,11 @@ import Logo from "../../assets/logo.png";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+// import { useNavigate } from "react-router-dom";
 
 const LoginScreen = () => {
+  // const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -74,20 +77,20 @@ const LoginScreen = () => {
         navigate("/dummygram");
       })
       .catch((error) =>
-        // enqueueSnackbar(error.message, {
-        //   variant: "error",
-        // })
-        {
-          if (error.code === "auth/account-exists-with-different-credential") {
-            enqueueSnackbar("Account exists with a different credential", {
-              variant: "error",
-            });
-          } else {
-            enqueueSnackbar(error.message, {
-              variant: "error",
-            });
-          }
+      // enqueueSnackbar(error.message, {
+      //   variant: "error",
+      // })
+      {
+        if (error.code === "auth/account-exists-with-different-credential") {
+          enqueueSnackbar("Account exists with a different credential", {
+            variant: "error",
+          });
+        } else {
+          enqueueSnackbar(error.message, {
+            variant: "error",
+          });
         }
+      }
       );
   };
 
@@ -114,6 +117,9 @@ const LoginScreen = () => {
       });
   };
 
+  const navigateToForgot = () => {
+    navigate("/dummygram/forgot-password");
+  };
   const navigateToSignup = () => {
     navigate("/dummygram/signup");
   };
@@ -206,10 +212,12 @@ const LoginScreen = () => {
               <FontAwesomeIcon icon={faSquareFacebook} />
             </button>
           </div>
-          <div className="have-account">
-            Need an account{" "}
+          <div className="">
+            <span role={"button"} onClick={navigateToForgot}>
+              Forgot Password
+            </span> <br></br>
             <span role={"button"} onClick={navigateToSignup}>
-              Sign up
+              Create an account
             </span>
           </div>
         </form>

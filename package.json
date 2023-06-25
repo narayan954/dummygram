@@ -13,6 +13,7 @@
     "cypress:open": "cypress open"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.7.1",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fortawesome/fontawesome-svg-core": "^6.3.0",
@@ -25,6 +26,7 @@
     "emoji-picker-react": "^4.4.7",
     "file-saver": "^2.0.5",
     "firebase": "^9.18.0",
+    "framer-motion": "^10.12.17",
     "notistack": "^3.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

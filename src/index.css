@@ -330,7 +330,8 @@ div#picker {
 
 /* Input */
 input {
-  width: 230px;
+  /* width: 230px; */
+  width: 100%;
   cursor: pointer;
   border: 0;
   border-radius: 4px;

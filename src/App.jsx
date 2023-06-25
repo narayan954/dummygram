@@ -13,6 +13,9 @@ import SideBar from "./components/SideBar";
 import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
 
+import ForgotPassword from "./pages/ForgotPassword"
+
+
 const Favorite = lazy(() => import("./components/Favorite"));
 const LoginScreen = lazy(() => import("./pages/Login"));
 const NotFoundPage = lazy(() => import("./components/NotFound"));
@@ -21,8 +24,9 @@ const PostView = lazy(() => import("./pages/PostView"));
 const Profile = lazy(() => import("./pages/Profile"));
 const SignupScreen = lazy(() => import("./pages/Signup"));
 
+
 export function getModalStyle() {
-  const top = 56;
+  const top = 0;
   const left = 50;
   const padding = 2;
   const radius = 3;
@@ -42,6 +46,7 @@ export const useStyles = makeStyles((theme) => ({
   paper: {
     position: "absolute",
     width: 250,
+    marginTop:300,
     borderRadius: theme.shape.borderRadius,
     boxShadow: "var(--color-shadow) 0px 5px 15px",
     padding: theme.spacing(2, 4, 3),
@@ -224,6 +229,7 @@ function App() {
                   fontFamily: "monospace",
                   padding: "10%",
                   color: "var(--color)",
+                  // marginBottom:800
                 }}
               >
                 Are you sure you want to Logout?
@@ -315,6 +321,9 @@ function App() {
             <Route path="/dummygram/login" element={<LoginScreen />} />
 
             <Route path="/dummygram/signup" element={<SignupScreen />} />
+
+        <Route path="/dummygram/forgot-password" element={<ForgotPassword />} />
+
 
             <Route
               path="/dummygram/posts/:id"
