@@ -26,6 +26,7 @@ function Profile() {
   const [feed, setFeed] = useState([]);
   const [profilepic, setProfilePic] = useState("");
   const [open, setOpen] = useState(false);
+  const [username, setUsername] = useState("");
 
   const navigate = useNavigate();
   const [friendRequestSent, setFriendRequestSent] = useState(false);
@@ -115,6 +116,20 @@ function Profile() {
     };
   }, [user]);
 
+  //Get username from usernames collection
+  useEffect(() => {
+    const usernameQ = query(
+      collection(db, "usernames"),
+      where("uid", "==", auth.currentUser.uid)
+    );
+    const unsubscribe = onSnapshot(usernameQ, (querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        setUsername(doc.id);
+      });
+    });
+  }, []);
+
+  // Get user's posts from posts collection
   useEffect(() => {
     setTimeout(() => {
       const q = query(
@@ -285,6 +300,10 @@ function Profile() {
             </Button>
           )}
           <Divider sx={{ marginTop: "1rem" }} />
+          <Typography fontSize="1.3rem" fontWeight="600" fontFamily="Poppins">
+            {username}
+          </Typography>
+          <Divider />
           <Typography fontSize="1.3rem" fontWeight="600" fontFamily="Poppins">
             {name}
           </Typography>

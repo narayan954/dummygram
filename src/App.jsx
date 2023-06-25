@@ -173,6 +173,7 @@ function App() {
     enqueueSnackbar("Logged out Successfully !", {
       variant: "info",
     });
+    navigate("/dummygram/login");
   };
 
   return (
