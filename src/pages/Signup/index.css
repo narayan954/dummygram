@@ -42,6 +42,14 @@
   background-color: rgb(255, 255, 255);
 }
 
+.username-available {
+  border: 2px solid green;
+}
+
+.username-not-available {
+  border: 2px solid red;
+}
+
 .password-container {
   display: flex;
   justify-content: space-between;
