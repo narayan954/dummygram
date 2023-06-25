@@ -318,16 +318,34 @@ function App() {
           <Route path="/dummygram/favourites" element={<Favorite />} />
         </Routes>
 
-        <FaArrowCircleUp
-          fill="#777"
-          // stroke="30"
-          className="scrollTop"
-          onClick={scrollTop}
-          style={{
-            height: 50,
-            display: showScroll ? "flex" : "none",
-          }}
-        />
+        {location.pathname === "/dummygram/" ||
+        location.pathname === "/dummygram/favourites" ? (
+          <div>
+            <FaArrowCircleUp
+              fill="#777"
+              className="scrollTop"
+              onClick={scrollTop}
+              style={{
+                height: 50,
+                display: showScroll ? "flex" : "none",
+                position: "fixed",
+              }}
+            />
+          </div>
+        ) : (
+          <div>
+            <FaArrowCircleUp
+              fill="#777"
+              className="scrollTop sideToTop"
+              onClick={scrollTop}
+              style={{
+                height: 50,
+                display: showScroll ? "flex" : "none",
+                position: "fixed",
+              }}
+            />
+          </div>
+        )}
       </div>
     </RowModeContext.Provider>
   );

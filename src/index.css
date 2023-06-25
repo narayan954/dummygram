@@ -208,6 +208,10 @@ input:focus {
     left: 46.6%;
   }
 
+  .sideToTop {
+    left: 19.6%;
+  }
+
   .app__newpost__button {
     left: -4.2%;
   }
@@ -219,6 +223,10 @@ input:focus {
     left: 47.2%;
   }
 
+  .sideToTop {
+    left: 19.6%;
+  }
+
   .app__newpost__button {
     left: -2.5%;
   }
@@ -228,6 +236,10 @@ input:focus {
 @media only screen and (min-width: 1200px) {
   .scrollTop {
     left: 47.7%;
+  }
+
+  .sideToTop {
+    left: 19.6%;
   }
 
   .app__newpost__button {
@@ -376,6 +388,7 @@ input {
   border-bottom: 2px solid rgb(104, 85, 224);
   cursor: pointer;
 }
+
 /* end */
 
 .button-style {
