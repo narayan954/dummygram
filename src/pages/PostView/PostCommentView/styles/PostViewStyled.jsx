@@ -10,7 +10,7 @@ export const PostViewGrid = styled(Grid)(({theme}) => ({
     height: "70%",
     // -webkit-box-shadow: -7px 7px 52px 0px rgba(0,0,0,0.75);
     // -mozbox-shadow: -7px 7px 52px 0px rgba(0,0,0,0.75);
-    boxShadow: "-7px 7px 52px 0px rgba(0,0,0,0.75)",
+    boxShadow: "-5px 5px 5px 5px rgba(0,0,0,0.75)",
     [theme.breakpoints.down('xs')]: {
         width: '90%'
     },
@@ -44,7 +44,6 @@ export const PostGridItem = styled("div")(({
             width: '100%',
             height: "100%",
             marginTop: "2rem"
-            // Two rows
         },
 
     }),
@@ -58,14 +57,11 @@ export const PostGridItem = styled("div")(({
     }),
     ...(postActions && {
         display: "flex",
-        justifyContent: "center"
+        justifyContent: "center",
+        height: "fit-content"
     })
 }));
 export const PostHeader = styled(CardHeader)(({theme}) => ({
-    // border: "0.009rem solid #000"
-    // backgroundColor: "#0E0EBA",
-    borderBottom: "1px soild",
-    // borderRadius: "0.8rem 0.8rem 0"
     '& .MuiCardHeader-title': {
         fontWeight: "bold",
         fontSize: "1.2rem"
@@ -77,34 +73,42 @@ export const PostCaption = styled("div")(({theme}) => ({
     paddingBottom: "1rem"
 }))
 export const PostContentText = styled("div")(({theme}) => ({
-    background: "url(../../../../assets/postbg.avif)",
+    background: `url(/assest/postbg.avif)`,
     backgroundSize: "cover",
     TextAlign: "center",
     height: "100%",
-    // backgroundColor: theme.palette.secondary.main,
     padding: 0,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     whiteSpace: "pre-line",
-    borderRight: "1px solid"
+    borderRight: "1px solid",
+    minHeight: "242px"
 }))
 export const CommentForm = styled("div")(({theme}) => ({
     display: "flex",
 }))
 export const CommentItem = styled("div")(({theme, empty}) => ({
-    margin: "2rem",
+    margin: "0 2rem",
     // width: "100%",
-    height: "3rem",
+    minHeight: "3rem",
     display: "flex",
     alignItems: "center",
 
     '& .post_comment_details': {
+        margin: " 0.5rem 0",
         '& span': {
-            // boxShadow: "-7px 7px 52px 0px rgba(0,0,0,0.75)",
-            color: theme.palette.primary.main,
+            color: theme.palette.primary,
             fontWeight: "bold",
+            marginRight: "0.5rem"
         },
+
+        '& .comment_text': {
+            color: "#fff3a",
+            fontWeight: "200",
+            fontSize: "1rem"
+        }
+
     },
     '& .post_comment_actions': {
         background: theme.palette.secondary

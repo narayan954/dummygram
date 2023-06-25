@@ -1,12 +1,22 @@
-import React, {useState} from 'react'
+import React from 'react'
 import Flexbetween from "../../../../reusableComponents/Flexbetween.jsx";
 import {IconButton, Typography} from "@mui/material";
 import {FavoriteBorderOutlined, FavoriteOutlined, ShareOutlined} from "@mui/icons-material";
 
-const PostDetails = ({user, postId, likecount, likesHandler, shareModal, caption, fullScreen}) => {
+const PostDetails = ({
+                         user,
+                         postId,
+                         likecount,
+                         likesHandler,
+                         setFetchAgain,
+                         fetchAgain,
+                         shareModal,
+                         setPostText,
+                         setLink,
+                         caption,
+                         fullScreen
+                     }) => {
     const tempLikeCount = likecount ? [...likecount] : [];
-    const [link, setLink] = React.useState("")
-    const [postText, setPostText] = useState("")
     return (
         <> <Flexbetween gap={!fullScreen && "1.6rem"}>
             <Flexbetween sx={{cursor: "pointer"}} onClick={likesHandler}>
@@ -39,7 +49,7 @@ const PostDetails = ({user, postId, likecount, likesHandler, shareModal, caption
                 }}
             >
                 <IconButton>
-                    <ShareOutlined/>
+                    <ShareOutlined color={"#FFF"}/>
                 </IconButton>
                 <Typography fontSize={14}>Share</Typography>
             </Flexbetween>

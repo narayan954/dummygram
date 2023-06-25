@@ -25,16 +25,16 @@ import {useTheme} from "@mui/material/styles";
 import PostDetails from "./component/PostDetails.jsx";
 
 
-export const PostCommentView = ({
-                                    setFetchAgain,
-                                    shareModal,
-                                    fetchAgain,
-                                    postId,
-                                    user,
-                                    post,
-                                    setLink,
-                                    setPostText
-                                }) => {
+const PostCommentView = ({
+                             setFetchAgain,
+                             shareModal,
+                             fetchAgain,
+                             postId,
+                             user,
+                             post,
+                             setLink,
+                             setPostText,
+                         }) => {
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
     const {username, caption, imageUrl, avatar, likecount, timestamp} = post;
@@ -82,8 +82,9 @@ export const PostCommentView = ({
         });
         commentRef.current = null;
     };
+
     useEffect(() => {
-        setFetchAgain(true)
+        setFetchAgain(!fetchAgain)
     }, [])
 
     useEffect(() => {
@@ -202,6 +203,7 @@ export const PostCommentView = ({
                                 caption={caption}
                                 postId={postId}
                                 setFetchAgain={setFetchAgain}
+                                fetchAgain={fetchAgain}
                                 imageUrl={imageUrl}
                                 fullScreen={fullScreen}
                             />
@@ -215,6 +217,21 @@ export const PostCommentView = ({
                                 <ReadMore>{caption}</ReadMore>
                             </Typography>
                         </PostCaption> : null}
+                </PostGridItem>
+                <PostGridItem postActions>
+                    <PostDetails
+                        user={user}
+                        postId={postId}
+                        likecount={likecount}
+                        likesHandler={likesHandler}
+                        fullScreen={fullScreen}
+                        caption={caption}
+                        shareModal={shareModal}
+                        setLink={setLink}
+                        setPostText={setPostText}
+                        setFetchAgain={setFetchAgain}
+                        fetchAgain={fetchAgain}
+                    />
                 </PostGridItem>
                 <PostGridItem isComments={true}>
                     <CommentForm>
@@ -276,11 +293,10 @@ export const PostCommentView = ({
                             {comments.map((userComment) => (
                                 <CommentItem key={userComment.id}>
                                     <div className={"post_comment_details"}>
-                                    <span>
+                                        <span>
                                         {userComment.content.username}
-                                    </span>
-                                        {" "}
-                                        {userComment.content.text}
+                                        </span>
+                                        <span className="comment_text">{userComment.content.text}</span>
                                     </div>
                                     <div className={"post_comment_actions"}>
                                         <PostViewComments
@@ -294,26 +310,19 @@ export const PostCommentView = ({
                             ))}
                         </Scroll>
                     ) : (
-                        <CommentItem empty={true}>
-                            <Typography variant="body2" color="text.secondary">
-                                No Comments to Show!!
-                            </Typography>
-                        </CommentItem>
+                        <Scroll>
+                            <CommentItem empty={true}>
+                                <Typography variant="body2" color="text.secondary">
+                                    No Comments to Show!!
+                                </Typography>
+                            </CommentItem>
+                        </Scroll>
                     )}
                 </PostGridItem>
-                <div style={{flexGrow: 1}}/>
-                <PostGridItem postActions>
-                    <PostDetails
-                        user={user}
-                        postId={postId}
-                        likecount={likecount}
-                        likesHandler={likesHandler}
-                        fullScreen={fullScreen}
-                        caption={caption}
-                        shareModal={shareModal}
-                    />
-                </PostGridItem>
+                {/*<div style={{flexGrow: 1}}/>*/}
+
             </PostGridItemContainer>
         </PostViewGrid>
     )
 }
+export default PostCommentView

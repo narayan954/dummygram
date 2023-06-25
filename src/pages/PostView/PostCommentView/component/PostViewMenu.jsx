@@ -26,23 +26,17 @@ const PostViewMenu = ({
                           username,
                           caption,
                           setFetchAgain,
+                          fetchAgain,
                           imageUrl
                       }) => {
     const navigate = useNavigate()
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl)
     const [editCaption, setEditCaption] = useState(caption);
-    const [showEmojis, setShowEmojis] = useState(false);
     const [Open, setOpen] = useState(false);
-    const [isCommentOpen, setisCommentOpen] = useState(false);
-    const [deleteCommentID, setDeleteCommentID] = useState("");
-    const [openToDeleteComment, setOpenToDeleteComment] = useState(false);
     const [openEditCaption, setOpenEditCaption] = useState(false);
     const [deleteDialog, setDeleteDialog] = useState(false)
-    const handleClickOpen = () => {
-        setOpen(true);
-        setAnchorEl(null);
-    };
+
 
     const handleDownload = () => {
         const urlimg = JSON.parse(imageUrl)[0].imageUrl;
@@ -66,7 +60,7 @@ const PostViewMenu = ({
         } catch (err) {
             alert(err);
         }
-        setFetchAgain(true)
+        setFetchAgain(!fetchAgain)
         setOpenEditCaption(false);
     };
     const handleClose = () => {
