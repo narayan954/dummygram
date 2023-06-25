@@ -59,7 +59,7 @@ function Profile() {
         });
       });
   };
-  
+
   useEffect(() => {
     const checkFriendRequestSent = async () => {
       const currentUser = auth.currentUser;
@@ -77,7 +77,7 @@ function Profile() {
     };
     checkFriendRequestSent();
   }, []);
-  
+
   const location = useLocation();
   const isNonMobile = useMediaQuery("(min-width: 768px)");
   const { enqueueSnackbar } = useSnackbar();
