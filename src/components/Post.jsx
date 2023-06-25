@@ -22,7 +22,8 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { doc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
-
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import CommentIcon from "@mui/icons-material/Comment";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import DialogBox from "../reusableComponents/DialogBox";
@@ -63,7 +64,7 @@ function Post(prop) {
   const [readMore, setReadMore] = useState(false);
   const [deleteCommentID, setDeleteCommentID] = useState("");
   const [openToDeleteComment, setOpenToDeleteComment] = useState(false);
-
+  const [isFavorite, setIsFavorite] = useState(false);
   const time = useCreatedAt(timestamp);
   const theme = useTheme();
   const navigate = useNavigate();
@@ -117,9 +118,10 @@ function Post(prop) {
     setComment("");
   };
 
+  const localStoragePosts = JSON.parse(localStorage.getItem("posts")) || [];
   const save = async () => {
-    const localStoragePosts = JSON.parse(localStorage.getItem("posts")) || [];
     const postIdExists = localStoragePosts.includes(postId);
+       setIsFavorite(!isFavorite);
 
     if (!postIdExists) {
       localStoragePosts.push(postId);
@@ -130,7 +132,7 @@ function Post(prop) {
     } else {
       enqueueSnackbar("Post is already in favourites!", {
         variant: "error",
-      });
+      } );
     }
   };
 
@@ -503,12 +505,28 @@ function Post(prop) {
               >
                 Post
               </button>
-              <div className="social__icons__wrapper">
-                <FaSave
+
+              <div className="social__icons__wrapper"              >
+              {/* <IconButton onClick={save} style={{ cursor: "pointer" }}> */}
+                 {!isFavorite  ? (
+                    localStoragePosts.includes(postId) ? (
+                  <BookmarksIcon
                   onClick={save}
                   style={{ cursor: "pointer", fontSize: "22px" }}
-                  className="post_button"
-                />
+                  className="post_button"/>
+                ) :(
+                  <BookmarkBorderIcon
+                  onClick={save}
+                  style={{ cursor: "pointer", fontSize: "22px" }}
+                  className="post_button"/>
+                )
+                ) : (
+                  <BookmarkBorderIcon
+                  onClick={save}
+                  style={{ cursor: "pointer", fontSize: "22px" }}
+                  className="post_button"/>
+                )}
+                {/* </IconButton> */}
 
                 <div
                   className="social__icon"
@@ -623,8 +641,14 @@ function Post(prop) {
                                       {user &&
                                       userComment.content.username ===
                                         user.displayName ? (
+
                                         <DeleteTwoToneIcon fontSize="small" 
-                                        style={{ color: "red" }}/>
+                                        style={{ color: "red" }}/> ==
+                                        <DeleteTwoToneIcon
+                                          fontSize="small"
+                                          style={{ color: "red" }}
+                                        />
+
                                       ) : (
                                         <></>
                                       )}
