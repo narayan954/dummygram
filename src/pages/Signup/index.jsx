@@ -31,7 +31,7 @@ const SignupScreen = () => {
   const [address, setAddress] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [usernameAvailable, setUsernameAvailable] = useState(false);
+  const [usernameAvailable, setUsernameAvailable] = useState(true);
   const [username, setUsername] = useState("");
   const usernameRef = useRef(null);
   const { enqueueSnackbar } = useSnackbar();
