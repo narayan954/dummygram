@@ -2,7 +2,6 @@ import "./index.css";
 
 import { Dialog, IconButton, Input } from "@mui/material";
 
-import React from "react";
 import logo from "../../assets/logo.webp";
 import { useSnackbar } from "notistack";
 
