@@ -1,7 +1,14 @@
 import "./index.css";
 
 import { AnimatedButton, Loader, ShareModal } from "./reusableComponents";
-import { Favorite, Navbar, NotFound, Post, SideBar } from "./components";
+import {
+  Favorite,
+  Navbar,
+  NotFound,
+  Notifications,
+  Post,
+  SideBar,
+} from "./components";
 import { LoginScreen, PostView, Profile, SignupScreen } from "./pages";
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
@@ -9,7 +16,6 @@ import { auth, db } from "./lib/firebase";
 
 import { FaArrowCircleUp } from "react-icons/fa";
 import Modal from "@mui/material/Modal";
-import Notifications from "./components/Notifications";
 import { RowModeContext } from "./hooks/useRowMode";
 import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";

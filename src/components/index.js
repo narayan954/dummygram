@@ -1,9 +1,10 @@
-import Caption from "./Caption";
+import Caption from "./Post/Caption";
 import Favorite from "./Favorite";
 import ImgUpload from "./ImgUpload";
 import LandingAnimation from "./LandingAnimation";
 import Navbar from "./Navbar";
 import NotFound from "./NotFound";
+import Notifications from "./Notifications";
 import Post from "./Post";
 import ReadMore from "./ReadMore";
 import SideBar from "./SideBar";
@@ -18,6 +19,7 @@ export {
   Favorite,
   LandingAnimation,
   NotFound,
+  Notifications,
 };
 
 export default Post;

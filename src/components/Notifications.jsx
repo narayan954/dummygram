@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { Box } from "@mui/material";
-import ShareModal from "../reusableComponents/ShareModal";
+import ShareModal from "../reusableComponents";
 import SideBar from "./SideBar";
 import { db } from "../lib/firebase";
 

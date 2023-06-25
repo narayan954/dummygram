@@ -175,6 +175,7 @@ function Post(prop) {
         postData={post}
         postHasImages={postHasImages}
         postId={postId}
+        timestamp={timestamp}
       />
       <div className="post__container">
         <ImgBox
