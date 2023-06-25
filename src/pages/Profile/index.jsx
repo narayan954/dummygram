@@ -15,6 +15,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import { FaUserCircle } from "react-icons/fa";
 import SideBar from "../../components/SideBar";
+import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
 
 function Profile() {
@@ -29,37 +30,36 @@ function Profile() {
   const navigate = useNavigate();
   const [friendRequestSent, setFriendRequestSent] = useState(false);
 
-  useEffect(() => {
-    const handleSendFriendRequest = () => {
-      const currentUser = auth.currentUser;
-      const currentUserUid = currentUser.uid;
-      const targetUserUid = currentUserUid;
-      const friendRequestData = {
-        sender: currentUserUid,
-        recipient: targetUserUid,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      };
-      db.collection("friendRequests")
-        .add(friendRequestData)
-        .then(() => {
-          setFriendRequestSent(true);
-          enqueueSnackbar("Friend request sent!", {
-            variant: "success",
-          });
-          const notificationData = { 
-            recipient: targetUserUid,
-            message: "You have received a friend request.",
-            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-          };
-          db.collection("notifications").add(notificationData);
-        })
-        .catch((error) => {
-          enqueueSnackbar(error.message, {
-            variant: "error",
-          });
-        });
+  const handleSendFriendRequest = () => {
+    const currentUser = auth.currentUser;
+    const currentUserUid = currentUser.uid;
+    const targetUserUid = currentUserUid;
+    const friendRequestData = {
+      sender: currentUserUid,
+      recipient: targetUserUid,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     };
-
+    db.collection("friendRequests")
+      .add(friendRequestData)
+      .then(() => {
+        setFriendRequestSent(true);
+        enqueueSnackbar("Friend request sent!", {
+          variant: "success",
+        });
+        const notificationData = {
+          recipient: targetUserUid,
+          message: "You have received a friend request.",
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        };
+        db.collection("notifications").add(notificationData);
+      })
+      .catch((error) => {
+        enqueueSnackbar(error.message, {
+          variant: "error",
+        });
+      });
+  };
+  useEffect(() => {
     const checkFriendRequestSent = async () => {
       const currentUser = auth.currentUser;
       const currentUserUid = currentUser.uid;
@@ -93,7 +93,7 @@ function Profile() {
     const uploadTask = storage.ref(`images/${image?.name}`).put(image);
     await uploadTask.on(
       "state_changed",
-      () => { },
+      () => {},
       (error) => {
         enqueueSnackbar(error.message, {
           variant: "error",

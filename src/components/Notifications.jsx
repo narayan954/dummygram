@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { auth, db } from "../lib/firebase";
 
 import { Box } from "@mui/material";
-import Post from "./Post";
-import ShareModal from "./ShareModal";
+import ShareModal from "../reusableComponents/ShareModal";
 import SideBar from "./SideBar";
+import { db } from "../lib/firebase";
 
 function Notifications() {
   const [openShareModal, setOpenShareModal] = useState(false);
@@ -24,7 +23,7 @@ function Notifications() {
         setNotifications(fetchedNotifications);
       });
 
-    return () => unsubscribe(); 
+    return () => unsubscribe();
   }, []);
 
   return (

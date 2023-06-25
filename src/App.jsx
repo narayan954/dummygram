@@ -317,7 +317,7 @@ function App() {
 
           <Route path="/dummygram/signup" element={<SignupScreen />} />
 
-        <Route path="/dummygram/notifications" element={<Notifications />} />
+          <Route path="/dummygram/notifications" element={<Notifications />} />
 
           <Route
             path="/dummygram/posts/:id"
