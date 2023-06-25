@@ -9,25 +9,76 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
+import { Post, SideBar } from "../../components";
 import { auth, db, storage } from "../../lib/firebase";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { FaUserCircle } from "react-icons/fa";
-import Post from "../../components/Post";
-import SideBar from "../../components/SideBar";
+import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
 
 function Profile() {
   const [user, setUser] = useState(null);
   const [image, setImage] = useState("");
+  const [visible, setVisible] = useState(false);
   const [feed, setFeed] = useState([]);
   const [profilepic, setProfilePic] = useState("");
-  const [visible, setVisibile] = useState(false);
   const [open, setOpen] = useState(false);
+  const [username, setUsername] = useState("");
 
   const navigate = useNavigate();
+  const [friendRequestSent, setFriendRequestSent] = useState(false);
+
+  const handleSendFriendRequest = () => {
+    const currentUser = auth.currentUser;
+    const currentUserUid = currentUser.uid;
+    const targetUserUid = currentUserUid;
+    const friendRequestData = {
+      sender: currentUserUid,
+      recipient: targetUserUid,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    };
+    db.collection("friendRequests")
+      .add(friendRequestData)
+      .then(() => {
+        setFriendRequestSent(true);
+        enqueueSnackbar("Friend request sent!", {
+          variant: "success",
+        });
+        const notificationData = {
+          recipient: targetUserUid,
+          message: "You have received a friend request.",
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        };
+        db.collection("notifications").add(notificationData);
+      })
+      .catch((error) => {
+        enqueueSnackbar(error.message, {
+          variant: "error",
+        });
+      });
+  };
+
+  useEffect(() => {
+    const checkFriendRequestSent = async () => {
+      const currentUser = auth.currentUser;
+      const currentUserUid = currentUser.uid;
+      const targetUserUid = currentUserUid;
+      const friendRequestsRef = db.collection("friendRequests");
+      const query = friendRequestsRef
+        .where("sender", "==", currentUserUid)
+        .where("recipient", "==", targetUserUid)
+        .limit(1);
+      const snapshot = await query.get();
+      if (!snapshot.empty) {
+        setFriendRequestSent(true);
+      }
+    };
+    checkFriendRequestSent();
+  }, []);
+
   const location = useLocation();
   const isNonMobile = useMediaQuery("(min-width: 768px)");
   const { enqueueSnackbar } = useSnackbar();
@@ -65,6 +116,20 @@ function Profile() {
     };
   }, [user]);
 
+  //Get username from usernames collection
+  useEffect(() => {
+    const usernameQ = query(
+      collection(db, "usernames"),
+      where("uid", "==", auth.currentUser.uid)
+    );
+    const unsubscribe = onSnapshot(usernameQ, (querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        setUsername(doc.id);
+      });
+    });
+  }, []);
+
+  // Get user's posts from posts collection
   useEffect(() => {
     setTimeout(() => {
       const q = query(
@@ -92,7 +157,7 @@ function Profile() {
     if (e.target.files[0]) {
       setProfilePic(URL.createObjectURL(e.target.files[0]));
       setImage(e.target.files[0]);
-      setVisibile(true);
+      setVisible(true);
     }
   };
 
@@ -100,10 +165,7 @@ function Profile() {
     const uploadTask = storage.ref(`images/${image?.name}`).put(image);
     await uploadTask.on(
       "state_changed",
-      () => {
-        // // progress function ...
-        // setProgress(Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100));
-      },
+      () => {},
       (error) => {
         enqueueSnackbar(error.message, {
           variant: "error",
@@ -125,7 +187,7 @@ function Profile() {
           });
       }
     );
-    setVisibile(false);
+    setVisible(false);
   };
 
   return (
@@ -209,8 +271,7 @@ function Profile() {
               <FaUserCircle style={{ width: "22vh", height: "22vh" }} />
             )}
           </Box>
-
-          {name == auth.currentUser?.displayName ? (
+          {name === auth.currentUser.displayName && (
             <Box>
               <input
                 type="file"
@@ -228,8 +289,6 @@ function Profile() {
                 </div>
               </label>
             </Box>
-          ) : (
-            ""
           )}
           {visible && (
             <Button
@@ -242,12 +301,26 @@ function Profile() {
           )}
           <Divider sx={{ marginTop: "1rem" }} />
           <Typography fontSize="1.3rem" fontWeight="600" fontFamily="Poppins">
+            {username}
+          </Typography>
+          <Divider />
+          <Typography fontSize="1.3rem" fontWeight="600" fontFamily="Poppins">
             {name}
           </Typography>
           <Divider />
           <Typography fontSize="1.5rem" fontWeight="600" fontFamily="Poppins">
             {email && email}
           </Typography>
+          {!friendRequestSent && name !== auth.currentUser.displayName && (
+            <Button
+              onClick={handleSendFriendRequest}
+              variant="contained"
+              color="primary"
+              sx={{ marginTop: "1rem" }}
+            >
+              Add Friend
+            </Button>
+          )}
           <Button
             onClick={handleBack}
             variant="contained"
