@@ -16,8 +16,6 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { FaUserCircle } from "react-icons/fa";
-import Post from "../../components/Post";
-import SideBar from "../../components/SideBar";
 import ViewsCounter from "../../reusableComponents/ViewsCounter";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
