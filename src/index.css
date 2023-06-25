@@ -51,7 +51,7 @@ input:focus {
   .app__header {
     width: 100%;
     padding: 10px;
-    font-size: "8px";
+    font-size: 8px;
   }
 }
 
@@ -61,6 +61,10 @@ input:focus {
 }
 
 .app_posts_column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   padding: 20px;
   padding-top: 5.5em;
 }
@@ -125,7 +129,6 @@ input:focus {
 .post__header {
   display: flex;
   align-items: center;
-  /* justify-content: space-between; */
   padding: 10px;
   flex-wrap: wrap;
 }
@@ -205,6 +208,10 @@ input:focus {
     left: 46.6%;
   }
 
+  .sideToTop {
+    left: 19.6%;
+  }
+
   .app__newpost__button {
     left: -4.2%;
   }
@@ -216,6 +223,10 @@ input:focus {
     left: 47.2%;
   }
 
+  .sideToTop {
+    left: 19.6%;
+  }
+
   .app__newpost__button {
     left: -2.5%;
   }
@@ -225,6 +236,10 @@ input:focus {
 @media only screen and (min-width: 1200px) {
   .scrollTop {
     left: 47.7%;
+  }
+
+  .sideToTop {
+    left: 19.6%;
   }
 
   .app__newpost__button {
@@ -343,7 +358,7 @@ input {
   transition: 0.4s;
 }
 
-/*login screen sapration line */
+/*login screen separation line */
 .or {
   width: 230px;
   display: flex;
@@ -374,4 +389,15 @@ input {
   border-bottom: 2px solid rgb(104, 85, 224);
   cursor: pointer;
 }
+
 /* end */
+
+.button-style {
+  background: linear-gradient(40deg, #e107c1, #59afc7);
+  border-radius: 20px;
+  margin: 10px;
+}
+
+.button-style:hover {
+  background: linear-gradient(-40deg, #59afc7, #e107c1);
+}
