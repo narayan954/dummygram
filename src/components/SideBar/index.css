@@ -10,7 +10,7 @@
   border-right: 1px solid rgb(219, 219, 219);
 }
 
-.container{
+.container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -61,7 +61,7 @@
   margin-left: 15px;
 }
 
-footer{
+footer {
   margin-block: auto;
   padding-left: 20px;
   padding-block: 12px;
@@ -78,7 +78,7 @@ footer{
   padding: 0;
 }
 
-.sidebar-footer-container > li{
+.sidebar-footer-container > li {
   margin-right: 10px;
 }
 
@@ -90,7 +90,7 @@ footer{
   text-decoration: underline;
 }
 
-.copyright{
+.copyright {
   margin-top: 10px;
 }
 
@@ -111,7 +111,7 @@ footer{
     display: none;
   }
 
-  footer{
+  footer {
     font-size: 10px;
     padding-left: 8px;
   }
@@ -137,7 +137,7 @@ footer{
     margin: auto;
   }
 
-  footer{
+  footer {
     display: none;
   }
 }

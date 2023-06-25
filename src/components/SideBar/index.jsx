@@ -5,10 +5,10 @@ import { Link, useNavigate } from "react-router-dom";
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import GitHubIcon from '@mui/icons-material/GitHub';
 import { AiOutlineClose } from "react-icons/ai";
 import { Dialog } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import GitHubIcon from "@mui/icons-material/GitHub";
 import HomeIcon from "@mui/icons-material/Home";
 import ImgUpload from "../ImgUpload";
 import React from "react";
@@ -22,7 +22,7 @@ function SideBar() {
 
   return (
     <div className="sidebar">
-    <div className="container">
+      <div className="container">
         <ul className="sidebar-links">
           <li>
             <Link to="/dummygram">
@@ -58,15 +58,35 @@ function SideBar() {
 
         <footer>
           <ul className="sidebar-footer-container">
-            <li><a href="https://github.com/narayan954/dummygram" target="_blank"><GitHubIcon/></a></li>
-            <li><Link to="/about" className="footer-link">about</Link></li>
-            <li><Link to="/help-center" className="footer-link">help-center</Link></li>
-            <li><Link to="/guidelines" className="footer-link">Guidelines</Link></li>
-            <li><Link to="/guidelines" className="footer-link">policy</Link></li>
+            <li>
+              <a href="https://github.com/narayan954/dummygram" target="_blank">
+                <GitHubIcon />
+              </a>
+            </li>
+            <li>
+              <Link to="/about" className="footer-link">
+                about
+              </Link>
+            </li>
+            <li>
+              <Link to="/help-center" className="footer-link">
+                help-center
+              </Link>
+            </li>
+            <li>
+              <Link to="/guidelines" className="footer-link">
+                Guidelines
+              </Link>
+            </li>
+            <li>
+              <Link to="/guidelines" className="footer-link">
+                policy
+              </Link>
+            </li>
           </ul>
           <p className="copyright">&#169; MIT license since 2023</p>
         </footer>
-    </div>
+      </div>
       <Dialog
         PaperProps={{
           sx: {
