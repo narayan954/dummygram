@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
-
-import Loader from "../../reusableComponents/Loader";
-import Post from "../../components/Post";
 import { db } from "../../lib/firebase";
 import { useParams } from "react-router-dom";
+import PostCommentView from "../../components/postView/index.jsx";
+import { Loader } from "../../reusableComponents/index.js";
 
 const PostView = (props) => {
   const { id } = useParams();
   const { user, shareModal, setLink, setPostText } = props;
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [fetchAgain, setFetchAgain] = useState(false);
   useEffect(() => {
     setLoading(true);
     if (loading) {
@@ -27,14 +27,14 @@ const PostView = (props) => {
           setLoading(false);
         });
     }
-  }, [post]);
+  }, [post, fetchAgain]);
 
   return (
     <div
-      style={{ display: "flex", justifyContent: "center", marginTop: "10vh" }}
+      style={{ height: "100vh", display: "flex", justifyContent: "center" }}
     >
       {post && user ? (
-        <Post
+        <PostCommentView
           key={id}
           postId={id}
           user={user}
@@ -42,6 +42,8 @@ const PostView = (props) => {
           shareModal={shareModal}
           setLink={setLink}
           setPostText={setPostText}
+          setFetchAgain={setFetchAgain}
+          fetchAgain={fetchAgain}
         />
       ) : (
         <Loader />

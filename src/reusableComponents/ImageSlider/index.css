@@ -1,18 +1,25 @@
 .slider {
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: center;
+  margin: 0 auto;
+  min-height: 240px;
   position: relative;
+  width: 100%;
 }
 
 .slide {
-  margin-top: 50%;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
   align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  margin-top: 50%;
   position: relative;
+  width: 100%;
+}
+
+.slider__actions {
+  width: 90%;
 }
 
 .slide.active {
@@ -20,100 +27,101 @@
 }
 
 .image {
-  width: 100%;
   height: 100%;
   object-fit: cover;
+  width: 100%;
   z-index: -1;
 }
 
-.circle {
-  font-size: 24px;
-  position: absolute;
-  top: 50%;
-  right: 180px;
-  color: silver;
-  transition: color 0.3s ease;
-  cursor: pointer;
-}
-
-.circle:hover {
-  color: #ab4bc2;
-}
-
-.chevron {
-  font-size: 24px;
-  position: absolute;
-  top: 50%;
-  left: 180px;
-  cursor: pointer;
-  color: silver;
-  transition: color 0.3s ease;
-}
-
-.chevron:hover {
-  color: #ab4bc2;
-}
-
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.slide:hover .overlay {
-  opacity: 1;
-}
-
-.overlay-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  color: white;
-}
-
-.overlay-content h3 {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-.overlay-content p {
-  font-size: 16px;
-}
-
-.slide-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #ab4bc2;
+.slider-action {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  font-size: 20px;
+  /*height: 100%;*/
+  justify-content: space-between;
+  position: absolute;
+  width: 90%;
+}
+
+.circle, .chevron {
+  color: grey;
   cursor: pointer;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  font-size: 24px;
+  height: 100%;
+  transform: scale(1.5);
+  transition: ease-in 3ms;
+  width: 5%;
 }
 
-.slide-button:hover {
-  opacity: 1;
+
+/*.chevron:hover, .circle:hover {*/
+/*    !*color: #ab4bc2;*!*/
+/*    transform: scale(1.2);*/
+/*}*/
+
+.chevron:active, .circle:active {
+  transform: scale(1);
+  z-index: 9;
 }
 
-.slide-button.left {
-  left: 20px;
-}
+/*.overlay {*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    background-color: rgba(0, 0, 0, 0.5);*/
+/*    z-index: 1;*/
+/*    opacity: 0;*/
+/*    transition: opacity 0.3s ease;*/
+/*}*/
 
-.slide-button.right {
-  right: 20px;
-}
+/*.slide:hover .overlay {*/
+/*    opacity: 1;*/
+/*}*/
+
+/*.overlay-content {*/
+/*    position: absolute;*/
+/*    top: 50%;*/
+/*    left: 50%;*/
+/*    transform: translate(-50%, -50%);*/
+/*    text-align: center;*/
+/*    color: white;*/
+/*}*/
+
+/*.overlay-content h3 {*/
+/*    font-size: 24px;*/
+/*    margin-bottom: 10px;*/
+/*}*/
+
+/*.overlay-content p {*/
+/*    font-size: 16px;*/
+/*}*/
+
+/*.slide-button {*/
+/*    position: absolute;*/
+/*    top: 50%;*/
+/*    transform: translateY(-50%);*/
+/*    width: 40px;*/
+/*    height: 40px;*/
+/*    border-radius: 50%;*/
+/*    background-color: #ab4bc2;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    color: white;*/
+/*    font-size: 20px;*/
+/*    cursor: pointer;*/
+/*    opacity: 0;*/
+/*    transition: opacity 0.3s ease;*/
+/*}*/
+
+/*.slide-button:hover {*/
+/*    opacity: 1;*/
+/*}*/
+
+/*.slide-button.left {*/
+/*    left: 20px;*/
+/*}*/
+
+/*.slide-button.right {*/
+/*    right: 20px;*/
+/*}*/
