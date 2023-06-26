@@ -27,6 +27,8 @@ import {
   FavoriteOutlined,
   ShareOutlined,
 } from "@mui/icons-material";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import { Link, useNavigate } from "react-router-dom";
 import { doc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
@@ -67,6 +69,9 @@ function Post(prop) {
   const [isCommentOpen, setisCommentOpen] = useState(false);
   const [deleteCommentID, setDeleteCommentID] = useState("");
   const [openToDeleteComment, setOpenToDeleteComment] = useState(false);
+  const [favoritePosts, setFavoritePosts] = useState(
+    JSON.parse(localStorage.getItem("posts")) || []
+  );
 
   const time = useCreatedAt(timestamp);
   const theme = useTheme();
@@ -121,7 +126,7 @@ function Post(prop) {
   };
 
   const save = async () => {
-    const localStoragePosts = JSON.parse(localStorage.getItem("posts")) || [];
+    let localStoragePosts = JSON.parse(localStorage.getItem("posts")) || [];
     const postIdExists = localStoragePosts.includes(postId);
 
     if (!postIdExists) {
@@ -131,10 +136,13 @@ function Post(prop) {
         variant: "success",
       });
     } else {
-      enqueueSnackbar("Post is already in favourites!", {
-        variant: "error",
+      localStoragePosts = localStoragePosts.filter((post) => post !== postId);
+      localStorage.setItem("posts", JSON.stringify(localStoragePosts));
+      enqueueSnackbar("Post is removed from favourites!", {
+        variant: "success",
       });
     }
+    setFavoritePosts(JSON.parse(localStorage.getItem("posts")));
   };
 
   const deleteComment = async (event, commentRef) => {
@@ -490,11 +498,11 @@ function Post(prop) {
 
               <Flexbetween sx={{ cursor: "pointer" }} onClick={save}>
                 <IconButton>
-                  <FaSave
-                    onClick={save}
-                    style={{ cursor: "pointer", fontSize: "22px" }}
-                    className="post_button"
-                  />
+                  {favoritePosts.indexOf(postId) !== -1 ? (
+                    <BookmarkIcon sx={{ color: "green" }} />
+                  ) : (
+                    <BookmarkBorderIcon />
+                  )}
                 </IconButton>
                 <Typography fontSize={14}>Save</Typography>
               </Flexbetween>
