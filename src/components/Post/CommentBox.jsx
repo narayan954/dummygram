@@ -1,7 +1,9 @@
-import EmojiPicker, { Emoji } from "emoji-picker-react";
+import EmojiPicker from "emoji-picker-react";
 
-import React from "react";
+import { Send } from "@mui/icons-material";
 import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
+import { IconButton } from "@mui/material";
+import React from "react";
 
 const CommentBox = ({
   user,
@@ -15,7 +17,7 @@ const CommentBox = ({
   return (
     <div>
       {user && (
-        <form className="post__commentBox">
+        <form className="modal__commentBox">
           <div
             className="social__icon"
             style={{
@@ -55,7 +57,8 @@ const CommentBox = ({
               marginTop: "4px",
             }}
           />
-          <button
+
+          <IconButton
             className="post__button"
             disabled={!comment}
             type="submit"
@@ -65,8 +68,8 @@ const CommentBox = ({
               textTransform: "uppercase",
             }}
           >
-            Comment
-          </button>
+            <Send />
+          </IconButton>
         </form>
       )}
     </div>

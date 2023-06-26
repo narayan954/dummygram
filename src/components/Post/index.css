@@ -104,10 +104,18 @@
 
 .post__commentBox {
   display: flex;
-  margin-top: 2px;
+  /* margin-top: 2px; */
   margin-bottom: 10px;
   /* border-top: 1px solid rgba(0, 0, 0, 0.373); */
   flex-wrap: wrap;
+}
+
+.modal__commentBox {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1rem;
 }
 
 .social__icon {
@@ -152,6 +160,21 @@
 .social__icons__wrapper {
   display: flex;
   align-items: center;
+}
+
+
+@media only screen and (max-width: 800px) {
+  .post__commentBox input {
+    width: 200px;
+  }
+
+  .modal__commentBox {
+    gap: 0;
+  }
+
+  .modal__commentBox input {
+    width: 100px;
+  }
 }
 
 @media only screen and (max-width: 460px) {
