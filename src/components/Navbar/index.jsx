@@ -80,7 +80,7 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
                         })
                       }
                     >
-                      <Typography fontFamily="Poppins" fontSize="1rem">
+                      <Typography fontSize="1rem">
                         Profile
                       </Typography>
                     </Box>
@@ -89,7 +89,7 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
                       className="nav-menu-item"
                       onClick={() => navigate("/dummygram/favourites")}
                     >
-                      <Typography fontFamily="Poppins" fontSize="1rem">
+                      <Typography fontSize="1rem">
                         Favourites
                       </Typography>
                     </Box>
@@ -98,7 +98,7 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
                       className="nav-menu-item"
                       onClick={() => setLogout(true)}
                     >
-                      <Typography fontFamily="Poppins" fontSize="0.9rem">
+                      <Typography fontSize="0.9rem">
                         Log Out
                       </Typography>
                     </Box>
