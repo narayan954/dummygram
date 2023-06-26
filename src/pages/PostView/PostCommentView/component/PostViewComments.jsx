@@ -1,11 +1,22 @@
 import React, {useState} from 'react'
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
-import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton} from "@mui/material";
+import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    IconButton,
+    Typography
+} from "@mui/material";
 import {db} from "../../../../lib/firebase.js";
+import useCreatedAt from "../../../../hooks/useCreatedAt.jsx";
 
 
 export const PostViewComments = ({fullScreen, postId, user, userComment}) => {
-
+    const {timestamp} = userComment.content
+    const time = useCreatedAt(timestamp)
     const [open, setOpen] = React.useState(false)
     const [commentId, setCommentId] = useState("")
     const deleteComment = async (event, commentRef) => {
@@ -18,9 +29,10 @@ export const PostViewComments = ({fullScreen, postId, user, userComment}) => {
             .delete();
     };
     const handleClose = () => setOpen(!open)
-
+    console.log({time, timestamp: userComment.content.timestamp, "User Comment": userComment})
     return (
         <>
+            <Typography variant={"body1"}>{time}</Typography>
             {user && userComment.content.username === user.displayName ? (
                 <IconButton onClick={() => {
                     setOpen(!open)

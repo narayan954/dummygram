@@ -94,11 +94,12 @@ export const CommentItem = styled("div")(({theme, empty}) => ({
     minHeight: "3rem",
     display: "flex",
     alignItems: "center",
-
+    // boxShadow: "-0.02rem 0.02rem 0.02rem 0.02rem rgba(0,0,0,0.75)",
+    flexDirection: "column",
     '& .post_comment_details': {
         margin: " 0.5rem 0",
         '& span': {
-            color: theme.palette.primary,
+            // color: theme.palette.primary,
             fontWeight: "bold",
             marginRight: "0.5rem"
         },
@@ -111,7 +112,10 @@ export const CommentItem = styled("div")(({theme, empty}) => ({
 
     },
     '& .post_comment_actions': {
-        background: theme.palette.secondary
+        background: theme.palette.secondary,
+        display: "flex",
+        justifyContent: "space-between",
+        width: "100%"
     },
     ...(empty && {
         display: "grid",

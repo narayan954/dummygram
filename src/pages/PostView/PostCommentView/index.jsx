@@ -12,7 +12,7 @@ import {
 import {Avatar, ClickAwayListener, Typography, useMediaQuery} from "@mui/material";
 import ReadMore from "../../../components/ReadMore";
 import useCreatedAt from "../../../hooks/useCreatedAt.jsx";
-import ImageSlider from "../../../reusableComponents/ImageSlider/index.jsx";
+import ImageSlider from "../../../reusableComponents/ImageSlider";
 import {db} from "../../../lib/firebase.js";
 import PostViewMenu from "./component/PostViewMenu.jsx";
 import {doc, updateDoc} from "firebase/firestore";
@@ -39,6 +39,7 @@ const PostCommentView = ({
     const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
     const {username, caption, imageUrl, avatar, likecount, timestamp} = post;
     const time = useCreatedAt(timestamp);
+
     const [comments, setComments] = React.useState(null)
     const [likesNo, setLikesNo] = React.useState(likecount ? likecount.length : 0)
     const tempLikeCount = likecount ? [...likecount] : [];
