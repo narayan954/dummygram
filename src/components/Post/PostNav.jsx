@@ -7,8 +7,8 @@ import {
 import { IconButton, Typography } from "@mui/material";
 import React, { useState } from "react";
 
-import BookmarkIcon from "@mui/icons-material/Bookmark";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import Flexbetween from "../../reusableComponents/Flexbetween";
 import { useSnackbar } from "notistack";
 
@@ -29,6 +29,7 @@ const PostNav = ({
   const [favoritePosts, setFavoritePosts] = useState(
     JSON.parse(localStorage.getItem("posts")) || []
   );
+  const [isSaved, setisSaved] = useState(false);
 
   const save = async () => {
     let localStoragePosts = JSON.parse(localStorage.getItem("posts")) || [];
@@ -48,6 +49,18 @@ const PostNav = ({
       });
     }
     setFavoritePosts(JSON.parse(localStorage.getItem("posts")));
+  };
+
+  const handleToggleFavorite = () => {
+    setisSaved(!isSaved);
+  };
+
+  const renderFavoriteIcon = () => {
+    if (isSaved) {
+      return <BookmarksIcon onClick={handleToggleFavorite} />;
+    } else {
+      return <BookmarkBorderIcon onClick={handleToggleFavorite} />;
+    }
   };
 
   return (
