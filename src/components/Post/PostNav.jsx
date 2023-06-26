@@ -45,7 +45,7 @@ const PostNav = ({
       localStoragePosts = localStoragePosts.filter((post) => post !== postId);
       localStorage.setItem("posts", JSON.stringify(localStoragePosts));
       enqueueSnackbar("Post is removed from favourites!", {
-        variant: "success",
+        variant: "info",
       });
     }
     setFavoritePosts(JSON.parse(localStorage.getItem("posts")));
@@ -105,7 +105,7 @@ const PostNav = ({
       <Flexbetween sx={{ cursor: "pointer" }} onClick={save}>
         <IconButton>
           {favoritePosts.indexOf(postId) !== -1 ? (
-            <BookmarkIcon sx={{ color: "green" }} />
+            <BookmarksIcon sx={{ color: "green" }} />
           ) : (
             <BookmarkBorderIcon />
           )}
