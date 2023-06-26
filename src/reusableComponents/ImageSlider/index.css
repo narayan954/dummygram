@@ -1,139 +1,127 @@
 .slider {
-	align-items: center;
-	display: flex;
-	justify-content: center;
-	margin: 0 auto;
-	min-height: 240px;
-	position: relative;
-	width: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    min-height: 240px;
+    position: relative;
+    width: 100%;
 }
 
 .slide {
-	align-items: center;
-	display: flex;
-	height: 100%;
-	justify-content: center;
-	margin-top: 50%;
-	position: relative;
-	width: 100%;
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    margin-top: 50%;
+    position: relative;
+    width: 100%;
 }
 
 .slider__actions {
-	width: 100%;
-
+    width: 90%;
 }
 
 .slide.active {
-	opacity: 1;
+    opacity: 1;
 }
 
 .image {
-	height: 100%;
-	object-fit: cover;
-	width: 100%;
-	z-index: -1;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+    z-index: -1;
 }
 
 .slider-action {
-	display: flex;
-	height: 100%;
-	justify-content: space-between;
-	position: absolute;
-	width: 100%;
+    display: flex;
+    /*height: 100%;*/
+    justify-content: space-between;
+    position: absolute;
+    width: 90%;
 }
 
-.circle {
-  font-size: 24px;
-  position: absolute;
-  top: 50%;
-  right: 180px;
-  color: silver;
-  transition: color 0.3s ease;
-  cursor: pointer;
+.circle, .chevron {
+    color: grey;
+    cursor: pointer;
+    font-size: 24px;
+    height: 100%;
+    width: 5%;
+    transition: ease-in 3ms;
+    transform: scale(1.5);
 }
 
-.circle:hover {
-  /*color: #ab4bc2;*/
-	color: transparent;
-	cursor: pointer;
-	font-size: 24px;
-	height: 100%;
-	width: 30%;
+
+/*.chevron:hover, .circle:hover {*/
+/*    !*color: #ab4bc2;*!*/
+/*    transform: scale(1.2);*/
+/*}*/
+
+.chevron:active, .circle:active {
+    z-index: 9;
+    transform: scale(1);
 }
 
-.chevron {
-	color: transparent;
-	cursor: pointer;
-	font-size: 24px;
-	height: 100%;
-	width: 30%;
-  transition: color 0.3s ease;
-}
+/*.overlay {*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    background-color: rgba(0, 0, 0, 0.5);*/
+/*    z-index: 1;*/
+/*    opacity: 0;*/
+/*    transition: opacity 0.3s ease;*/
+/*}*/
 
-.chevron:hover {
-  color: #ab4bc2;
-}
+/*.slide:hover .overlay {*/
+/*    opacity: 1;*/
+/*}*/
 
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
+/*.overlay-content {*/
+/*    position: absolute;*/
+/*    top: 50%;*/
+/*    left: 50%;*/
+/*    transform: translate(-50%, -50%);*/
+/*    text-align: center;*/
+/*    color: white;*/
+/*}*/
 
-.slide:hover .overlay {
-  opacity: 1;
-}
+/*.overlay-content h3 {*/
+/*    font-size: 24px;*/
+/*    margin-bottom: 10px;*/
+/*}*/
 
-.overlay-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  color: white;
-}
+/*.overlay-content p {*/
+/*    font-size: 16px;*/
+/*}*/
 
-.overlay-content h3 {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
+/*.slide-button {*/
+/*    position: absolute;*/
+/*    top: 50%;*/
+/*    transform: translateY(-50%);*/
+/*    width: 40px;*/
+/*    height: 40px;*/
+/*    border-radius: 50%;*/
+/*    background-color: #ab4bc2;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    color: white;*/
+/*    font-size: 20px;*/
+/*    cursor: pointer;*/
+/*    opacity: 0;*/
+/*    transition: opacity 0.3s ease;*/
+/*}*/
 
-.overlay-content p {
-  font-size: 16px;
-}
+/*.slide-button:hover {*/
+/*    opacity: 1;*/
+/*}*/
 
-.slide-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #ab4bc2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  font-size: 20px;
-  cursor: pointer;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
+/*.slide-button.left {*/
+/*    left: 20px;*/
+/*}*/
 
-.slide-button:hover {
-  opacity: 1;
-}
-
-.slide-button.left {
-  left: 20px;
-}
-
-.slide-button.right {
-  right: 20px;
-}
+/*.slide-button.right {*/
+/*    right: 20px;*/
+/*}*/

@@ -29,7 +29,6 @@ export const PostViewComments = ({fullScreen, postId, user, userComment}) => {
             .delete();
     };
     const handleClose = () => setOpen(!open)
-    console.log({time, timestamp: userComment.content.timestamp, "User Comment": userComment})
     return (
         <>
             <Typography variant={"body1"}>{time}</Typography>

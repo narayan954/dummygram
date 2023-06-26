@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 
 const useCreatedAt = (postTimestamp) => {
     const [time, setTime] = useState("");
-    console.log(postTimestamp)
+
     useEffect(() => {
         const calculateTime = () => {
             if (!postTimestamp) return ""; // Handle null or undefined case

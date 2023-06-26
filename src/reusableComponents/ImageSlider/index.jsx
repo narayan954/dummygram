@@ -5,7 +5,7 @@ import React, {useEffect, useState} from "react";
 
 import {LazyLoadImage} from "react-lazy-load-image-component";
 
-const ImageSlider = ({slides, isCommentBox, doubleClickHandler}) => {
+const ImageSlider = ({slides, doubleClickHandler}) => {
     const [current, setCurrent] = useState(0);
 
     //destructure  slides.length to get const { length } = slides;
@@ -53,12 +53,14 @@ const ImageSlider = ({slides, isCommentBox, doubleClickHandler}) => {
                             <FaChevronCircleLeft
                                 className="circle"
                                 onClick={prevStep}
-                                style={isCommentBox ? {width: "60%"} : {width: "60%"}}
+                                title={"View Previous Image"}
+                                // style={isCommentBox ? {width: "60%"} : {width: "60%"}}
                             />
                             <FaChevronCircleRight
                                 className="chevron"
                                 onClick={nextStep}
-                                style={isCommentBox ? {width: "60%"} : {width: "60%"}}
+                                title={"View Next Image"}
+                                // style={isCommentBox ? {width: "60%"} : {width: "60%"}}
                             />
 
                         </div>
