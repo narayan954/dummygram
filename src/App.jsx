@@ -5,6 +5,7 @@ import { auth, db } from "./lib/firebase";
 import AnimatedButton from "./reusableComponents/AnimatedButton";
 import { FaArrowCircleUp } from "react-icons/fa";
 import Favorite from "./components/Favorite";
+import SearchFile from "./components/SearchFile";
 import Loader from "./components/Loader";
 import LoginScreen from "./pages/Login";
 import Modal from "@mui/material/Modal";
@@ -330,6 +331,7 @@ function App() {
 
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/dummygram/favourites" element={<Favorite />} />
+          <Route path="/dummygram/search" element={<SearchFile />} />
         </Routes>
 
         <FaArrowCircleUp

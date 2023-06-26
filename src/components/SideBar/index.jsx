@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import SearchIcon from '@mui/icons-material/Search';
 import { AiOutlineClose } from "react-icons/ai";
 import { Dialog } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -13,6 +14,7 @@ import ImgUpload from "../ImgUpload";
 import React from "react";
 import { auth } from "../../lib/firebase";
 import { useState } from "react";
+import SearchFile from "../SearchFile";
 
 function SideBar() {
   const navigate = useNavigate();
@@ -21,7 +23,13 @@ function SideBar() {
 
   return (
     <div className="sidebar">
-      <ul>
+      <SearchFile/>
+    <ul>
+      <li onClick={() => navigate("/dummygram/search")}>
+          <div className="sidebar_align">
+            <SearchIcon className="icon" /> <span>Search</span>
+          </div>
+        </li>
         <li>
           <Link to="/dummygram">
             <HomeIcon className="icon" /> <span>Home</span>
