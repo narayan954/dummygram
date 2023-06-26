@@ -80,27 +80,21 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
                         })
                       }
                     >
-                      <Typography fontSize="1rem">
-                        Profile
-                      </Typography>
+                      <Typography fontSize="1rem">Profile</Typography>
                     </Box>
                     <Divider />
                     <Box
                       className="nav-menu-item"
                       onClick={() => navigate("/dummygram/favourites")}
                     >
-                      <Typography fontSize="1rem">
-                        Favourites
-                      </Typography>
+                      <Typography fontSize="1rem">Favourites</Typography>
                     </Box>
                     <Divider />
                     <Box
                       className="nav-menu-item"
                       onClick={() => setLogout(true)}
                     >
-                      <Typography fontSize="0.9rem">
-                        Log Out
-                      </Typography>
+                      <Typography fontSize="0.9rem">Log Out</Typography>
                     </Box>
                   </Box>
                 )}
