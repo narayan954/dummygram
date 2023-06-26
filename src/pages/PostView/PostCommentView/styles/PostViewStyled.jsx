@@ -97,6 +97,7 @@ export const CommentItem = styled("div")(({theme, empty}) => ({
     // boxShadow: "-0.02rem 0.02rem 0.02rem 0.02rem rgba(0,0,0,0.75)",
     flexDirection: "column",
     '& .post_comment_details': {
+        width: "100%",
         margin: " 0.5rem 0",
         '& span': {
             // color: theme.palette.primary,

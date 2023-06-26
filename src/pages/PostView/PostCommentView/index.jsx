@@ -76,13 +76,17 @@ const PostCommentView = ({
 
     const postComment = (event) => {
         event.preventDefault();
-        db.collection("posts").doc(postId).collection("comments").add({
-            text: commentRef?.current?.value,
-            username: user.displayName,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        });
-        commentRef.current = null;
+        const commentValue = commentRef?.current?.value;
+        if (commentValue) {
+            db.collection("posts").doc(postId).collection("comments").add({
+                text: commentValue,
+                username: user.displayName,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            });
+            commentRef.current.value = "";
+        }
     };
+
 
     useEffect(() => {
         setFetchAgain(!fetchAgain)
@@ -138,7 +142,10 @@ const PostCommentView = ({
 
     const postHasImages = postImages.some((image) => Boolean(image.imageUrl));
     const onEmojiClick = (emojiObject, event) => {
-        setComment((prevInput) => prevInput + emojiObject.emoji);
+        if (commentRef && commentRef.current) {
+            const commentValue = commentRef.current.value || "";
+            commentRef.current.value = commentValue + emojiObject.emoji;
+        }
         setShowEmojis(false);
     };
 
