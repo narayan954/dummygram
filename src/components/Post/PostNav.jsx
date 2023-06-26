@@ -7,7 +7,8 @@ import {
 import { IconButton, Typography } from "@mui/material";
 import React, { useState } from "react";
 
-import { FaSave } from "react-icons/fa";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import Flexbetween from "../../reusableComponents/Flexbetween";
 import { useSnackbar } from "notistack";
 
@@ -25,6 +26,8 @@ const PostNav = ({
 }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [Open, setOpen] = useState(false);
+  const [isSaved, setisSaved] = useState(false);
+
   const save = async () => {
     const localStoragePosts = JSON.parse(localStorage.getItem("posts")) || [];
     const postIdExists = localStoragePosts.includes(postId);
@@ -39,6 +42,18 @@ const PostNav = ({
       enqueueSnackbar("Post is already in favourites!", {
         variant: "error",
       });
+    }
+  };
+
+  const handleToggleFavorite = () => {
+    setisSaved(!isSaved);
+  };
+
+  const renderFavoriteIcon = () => {
+    if (isSaved) {
+      return <BookmarksIcon onClick={handleToggleFavorite} />;
+    } else {
+      return <BookmarkBorderIcon onClick={handleToggleFavorite} />;
     }
   };
 
@@ -82,13 +97,7 @@ const PostNav = ({
       </Flexbetween>
 
       <Flexbetween sx={{ cursor: "pointer" }} onClick={save}>
-        <IconButton>
-          <FaSave
-            onClick={save}
-            style={{ cursor: "pointer", fontSize: "22px" }}
-            className="post_button"
-          />
-        </IconButton>
+        <IconButton>{renderFavoriteIcon()}</IconButton>
         <Typography fontSize={14}>Save</Typography>
       </Flexbetween>
     </Flexbetween>
