@@ -21,7 +21,7 @@ function SideBar() {
 
   return (
     <div className="sidebar">
-      <div className="container">
+      <div className="sidebar-container">
         <ul className="sidebar-links">
           <li>
             <Link to="/dummygram">

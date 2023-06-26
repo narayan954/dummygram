@@ -10,11 +10,10 @@
   border-right: 1px solid rgb(219, 219, 219);
 }
 
-.container {
+.sidebar-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  /* overflow-y: scroll; */
 }
 
 .sidebar-links {
