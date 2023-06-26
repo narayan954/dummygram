@@ -2,7 +2,7 @@ import "./index.css";
 
 import { Dialog, IconButton, Input } from "@mui/material";
 
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo.webp";
 import { useSnackbar } from "notistack";
 
 const ShareModal = (props) => {
