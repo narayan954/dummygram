@@ -9,13 +9,6 @@ import {
   styled,
   useMediaQuery,
 } from "@mui/material";
-import {
-  ChatBubbleOutlineRounded,
-  FavoriteBorderOutlined,
-  FavoriteOutlined,
-  ShareOutlined,
-} from "@mui/icons-material";
-import { Link, useNavigate } from "react-router-dom";
 import { doc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
