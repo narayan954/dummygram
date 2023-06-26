@@ -1,6 +1,7 @@
 import "react-lazy-load-image-component/src/effects/blur.css";
 import "./index.css";
 
+import { DialogBox, Flexbetween } from "../../reusableComponents";
 import {
   Divider,
   Paper,
@@ -10,17 +11,16 @@ import {
 } from "@mui/material";
 import { doc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { DialogBox, Flexbetween } from "../../reusableComponents";
 
-import { useTheme } from "@mui/material/styles";
-import firebase from "firebase/compat/app";
-import { db } from "../../lib/firebase";
 import CommentBox from "./CommentBox";
 import CommentDialogBox from "./CommentDialogBox";
 import CommentHolder from "./CommentHolder";
 import ImgBox from "./ImgBox";
 import PostHeader from "./PostHeader";
 import PostNav from "./PostNav";
+import { db } from "../../lib/firebase";
+import firebase from "firebase/compat/app";
+import { useTheme } from "@mui/material/styles";
 
 function Post(prop) {
   const { postId, user, post, shareModal, setLink, setPostText, rowMode } =
@@ -190,7 +190,11 @@ function Post(prop) {
           <Typography marginLeft={1} fontSize={13} sx={{ color: "skyblue" }}>
             {likesNo} {likesNo > 1 ? "Likes" : "Like"}
           </Typography>
-          <Typography sx={{ color: "skyblue", cursor: "pointer" }} fontSize={13} onClick={() => setisCommentOpen((prev) => !prev)}>
+          <Typography
+            sx={{ color: "skyblue", cursor: "pointer" }}
+            fontSize={13}
+            onClick={() => setisCommentOpen((prev) => !prev)}
+          >
             {comments.length} {comments.length > 1 ? "comments" : "comment"}
           </Typography>
         </Flexbetween>

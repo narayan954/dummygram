@@ -6,7 +6,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Divider
+  Divider,
 } from "@mui/material";
 
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
@@ -25,22 +25,46 @@ const CommentDialogBox = ({
   deleteCommentID,
 }) => {
   return (
-    <Box sx={{
-      overflowY: "scroll", '&::-webkit-scrollbar': {
-        width: 0,
-      }
-    }} borderRadius="16px" maxHeight="30vh">
+    <Box
+      sx={{
+        overflowY: "scroll",
+        "&::-webkit-scrollbar": {
+          width: 0,
+        },
+      }}
+      borderRadius="16px"
+      maxHeight="30vh"
+    >
       {comments.length ? (
         <>
           {comments.map((userComment) => (
             <div key={userComment.id}>
-              <div style={{ padding: "0.4rem 1rem", marginTop: "0.3rem", marginBottom: "0.3rem", display: "flex", justifyContent: "space-between", background: "lightgray", borderRadius: "10px" }}>
-                <div style={{ fontSize: "1.1rem", fontWeight: "600", color: "black" }}>{userComment.content.username}<span style={{ fontSize: "0.9rem" }}><ReadMore>{userComment.content.text}</ReadMore></span></div>
+              <div
+                style={{
+                  padding: "0.4rem 1rem",
+                  marginTop: "0.3rem",
+                  marginBottom: "0.3rem",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  background: "lightgray",
+                  borderRadius: "10px",
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: "1.1rem",
+                    fontWeight: "600",
+                    color: "black",
+                  }}
+                >
+                  {userComment.content.username}
+                  <span style={{ fontSize: "0.9rem" }}>
+                    <ReadMore>{userComment.content.text}</ReadMore>
+                  </span>
+                </div>
                 <div
                   onClick={() => {
-                    setOpenToDeleteComment(
-                      !openToDeleteComment
-                    );
+                    setOpenToDeleteComment(!openToDeleteComment);
                     setDeleteCommentID(userComment);
                   }}
                 >
@@ -63,24 +87,16 @@ const CommentDialogBox = ({
                       </DialogTitle>
                       <DialogContent>
                         <DialogContentText>
-                          Are you sure you want to delete this
-                          Comment?
+                          Are you sure you want to delete this Comment?
                         </DialogContentText>
                       </DialogContent>
                       <DialogActions>
-                        <Button
-                          onClick={
-                            handleCloseForDeleteComment
-                          }
-                        >
+                        <Button onClick={handleCloseForDeleteComment}>
                           Cancel
                         </Button>
                         <Button
                           onClick={(event) =>
-                            deleteComment(
-                              event,
-                              deleteCommentID
-                            )
+                            deleteComment(event, deleteCommentID)
                           }
                         >
                           Delete

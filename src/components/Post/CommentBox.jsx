@@ -1,9 +1,8 @@
 import EmojiPicker from "emoji-picker-react";
-
-import { Send } from "@mui/icons-material";
-import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
 import { IconButton } from "@mui/material";
 import React from "react";
+import { Send } from "@mui/icons-material";
+import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
 
 const CommentBox = ({
   user,
