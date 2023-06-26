@@ -15,9 +15,9 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
 import { FaArrowCircleUp } from "react-icons/fa";
-import SearchFile from "./components/SearchFile";
 import Modal from "@mui/material/Modal";
 import { RowModeContext } from "./hooks/useRowMode";
+import SearchBar from "./components/SearchBar";
 import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
 
@@ -318,7 +318,7 @@ function App() {
 
           <Route path="*" element={<NotFound />} />
           <Route path="/dummygram/favourites" element={<Favorite />} />
-          <Route path="/dummygram/search" element={<SearchFile />} />
+          <Route path="/dummygram/search" element={<SearchBar />} />
         </Routes>
 
         {location.pathname === "/dummygram/" ||

@@ -5,15 +5,14 @@ import React, { useState } from "react";
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import SearchIcon from '@mui/icons-material/Search';
 import { AiOutlineClose } from "react-icons/ai";
 import { Dialog } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import HomeIcon from "@mui/icons-material/Home";
 import ImgUpload from "../ImgUpload";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import SearchIcon from "@mui/icons-material/Search";
 import { auth } from "../../lib/firebase";
-import SearchFile from "../SearchFile";
 
 function SideBar() {
   const navigate = useNavigate();
@@ -22,13 +21,7 @@ function SideBar() {
 
   return (
     <div className="sidebar">
-      <SearchFile/>
-    <ul>
-      <li onClick={() => navigate("/dummygram/search")}>
-          <div className="sidebar_align">
-            <SearchIcon className="icon" /> <span>Search</span>
-          </div>
-        </li>
+      <ul>
         <li>
           <Link to="/dummygram">
             <HomeIcon className="icon" /> <span>Home</span>
@@ -37,6 +30,11 @@ function SideBar() {
         <li onClick={() => setOpenNewUpload(true)}>
           <div className="sidebar_align">
             <AddCircleOutlineIcon className="icon" /> <span>New Post</span>
+          </div>
+        </li>
+        <li onClick={() => navigate("/dummygram/search")}>
+          <div className="sidebar_align">
+            <SearchIcon className="icon" /> <span>Search</span>
           </div>
         </li>
         <li onClick={() => navigate("/dummygram/favourites")}>

@@ -7,6 +7,7 @@ import NotFound from "./NotFound";
 import Notifications from "./Notifications";
 import Post from "./Post";
 import ReadMore from "./ReadMore";
+import SearchBar from "./SearchBar";
 import SideBar from "./SideBar";
 
 export {
@@ -20,6 +21,7 @@ export {
   LandingAnimation,
   NotFound,
   Notifications,
+  SearchBar,
 };
 
 export default Post;
