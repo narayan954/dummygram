@@ -11,8 +11,6 @@ import {
   Divider,
 } from "@mui/material";
 
-import React from "react";
-
 const DialogBox = (props) => {
   return (
     <Dialog

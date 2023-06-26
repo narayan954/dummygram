@@ -1,65 +1,24 @@
-import "./index.css";
-import "../Caption";
+import React, { useState } from "react";
 
-import { useEffect, useState } from "react";
+const ReadMore = ({ children, picCap = false }) => {
+  let text = children;
 
-import React from "react";
-
-function ReadMore({ caption }) {
-  const [desc, setDesc] = useState("");
-  const [size, setSize] = useState("");
-  const [expand, setExpand] = useState(false);
-
-  const handleReadMore = (e) => {
-    e.preventDefault();
-    setExpand(true);
-    setDesc(caption);
-  };
-
-  const handleReadLess = (e) => {
-    e.preventDefault();
-    setExpand(false);
-    setDesc(caption.split(" ").splice(0, 14).join(" "));
-  };
-
-  useEffect(() => {
-    const split_desc = caption.split(" ");
-    const sz = split_desc.length;
-    setSize(sz);
-    if (sz > 14) {
-      setDesc(split_desc.splice(0, 14).join(" "));
-    } else {
-      setDesc(caption);
-    }
-  }, [caption]);
+  const [isReadMore, setIsReadMore] = useState(true);
+  const toggleReadMore = () => setIsReadMore((prev) => !prev);
 
   return (
-    <span>
-      {size > 14 ? (
-        <>
-          {expand === false ? (
-            <>
-              {desc}...
-              <span className="read__more__less" onClick={handleReadMore}>
-                {" "}
-                Read More
-              </span>
-            </>
-          ) : (
-            <>
-              {caption}
-              <span className="read__more__less" onClick={handleReadLess}>
-                {" "}
-                Read Less
-              </span>
-            </>
-          )}
-        </>
-      ) : (
-        <>{caption}</>
+    <div>
+      {isReadMore ? (picCap ? text.slice(0, 300) : text.slice(0, 100)) : text}
+      {text.length >= 300 && (
+        <span
+          onClick={toggleReadMore}
+          style={{ color: "black", fontWeight: "bold", cursor: "pointer" }}
+        >
+          {isReadMore ? " ...read more" : " ...show less"}
+        </span>
       )}
-    </span>
+    </div>
   );
-}
+};
 
 export default ReadMore;

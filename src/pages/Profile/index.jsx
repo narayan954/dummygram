@@ -9,44 +9,163 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { auth, storage } from "../../lib/firebase";
+import { Post, SideBar } from "../../components";
+import { auth, db, storage } from "../../lib/firebase";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { FaUserCircle } from "react-icons/fa";
-import SideBar from "../../components/SideBar";
+import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
-import { useState } from "react";
 
 function Profile() {
-  const { name, email, avatar } = useLocation().state;
+  const [user, setUser] = useState(null);
+  const [image, setImage] = useState("");
+  const [visible, setVisible] = useState(false);
+  const [feed, setFeed] = useState([]);
+  const [profilepic, setProfilePic] = useState("");
+  const [open, setOpen] = useState(false);
+  const [username, setUsername] = useState("");
+
+  const navigate = useNavigate();
+  const [friendRequestSent, setFriendRequestSent] = useState(false);
+
+  const handleSendFriendRequest = () => {
+    const currentUser = auth.currentUser;
+    const currentUserUid = currentUser.uid;
+    const targetUserUid = currentUserUid;
+    const friendRequestData = {
+      sender: currentUserUid,
+      recipient: targetUserUid,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    };
+    db.collection("friendRequests")
+      .add(friendRequestData)
+      .then(() => {
+        setFriendRequestSent(true);
+        enqueueSnackbar("Friend request sent!", {
+          variant: "success",
+        });
+        const notificationData = {
+          recipient: targetUserUid,
+          message: "You have received a friend request.",
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        };
+        db.collection("notifications").add(notificationData);
+      })
+      .catch((error) => {
+        enqueueSnackbar(error.message, {
+          variant: "error",
+        });
+      });
+  };
+
+  useEffect(() => {
+    const checkFriendRequestSent = async () => {
+      const currentUser = auth.currentUser;
+      const currentUserUid = currentUser.uid;
+      const targetUserUid = currentUserUid;
+      const friendRequestsRef = db.collection("friendRequests");
+      const query = friendRequestsRef
+        .where("sender", "==", currentUserUid)
+        .where("recipient", "==", targetUserUid)
+        .limit(1);
+      const snapshot = await query.get();
+      if (!snapshot.empty) {
+        setFriendRequestSent(true);
+      }
+    };
+    checkFriendRequestSent();
+  }, []);
+
+  const location = useLocation();
   const isNonMobile = useMediaQuery("(min-width: 768px)");
   const { enqueueSnackbar } = useSnackbar();
-  const [image, setImage] = useState("");
-  const [profilepic, setProfilePic] = useState(avatar);
-  const [visible, setVisibile] = useState(false);
-  const [open, setOpen] = useState(false);
+
+  let name = location?.state?.name || user?.displayName;
+  let email = location?.state?.email || user?.email;
+  let avatar = location?.state?.avatar || user?.photoURL;
+
   const handleClose = () => setOpen(false);
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (auth.currentUser) {
+      setUser(auth.currentUser);
+      setProfilePic(auth.currentUser.photoURL);
+    } else {
+      navigate("/dummygram/login");
+    }
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        setUser(authUser);
+        name = location?.state?.name || authUser.displayName;
+        avatar = location?.state?.avatar || authUser.photoURL;
+        email = location?.state?.email || authUser.email;
+      } else {
+        setUser(null);
+        navigate("/dummygram/login");
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [user]);
+
+  //Get username from usernames collection
+  useEffect(() => {
+    const usernameQ = query(
+      collection(db, "usernames"),
+      where("uid", "==", auth.currentUser.uid)
+    );
+    const unsubscribe = onSnapshot(usernameQ, (querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        setUsername(doc.id);
+      });
+    });
+  }, []);
+
+  // Get user's posts from posts collection
+  useEffect(() => {
+    setTimeout(() => {
+      const q = query(
+        collection(db, "posts"),
+        where("username", "==", location?.state?.name || name)
+      );
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const userPosts = [];
+        querySnapshot.forEach((doc) => {
+          userPosts.push({
+            id: doc.id,
+            post: doc.data(),
+          });
+        });
+        setFeed(userPosts);
+      });
+    }, 1000);
+  }, [user, name]);
 
   const handleBack = () => {
-    navigate("/dummygram"); // Use navigate function to change the URL
+    navigate("/dummygram");
   };
 
   const handleChange = (e) => {
     if (e.target.files[0]) {
       setProfilePic(URL.createObjectURL(e.target.files[0]));
       setImage(e.target.files[0]);
-      setVisibile(true);
+      setVisible(true);
     }
   };
+
   const handleSave = async () => {
     const uploadTask = storage.ref(`images/${image?.name}`).put(image);
     await uploadTask.on(
       "state_changed",
-      () => {
-        // // progress function ...
-        // setProgress(Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100));
-      },
+      () => {},
       (error) => {
         enqueueSnackbar(error.message, {
           variant: "error",
@@ -68,7 +187,7 @@ function Profile() {
           });
       }
     );
-    setVisibile(false);
+    setVisible(false);
   };
 
   return (
@@ -152,8 +271,7 @@ function Profile() {
               <FaUserCircle style={{ width: "22vh", height: "22vh" }} />
             )}
           </Box>
-
-          {name == auth.currentUser?.displayName ? (
+          {name === auth.currentUser.displayName && (
             <Box>
               <input
                 type="file"
@@ -171,8 +289,6 @@ function Profile() {
                 </div>
               </label>
             </Box>
-          ) : (
-            ""
           )}
           {visible && (
             <Button
@@ -185,12 +301,26 @@ function Profile() {
           )}
           <Divider sx={{ marginTop: "1rem" }} />
           <Typography fontSize="1.3rem" fontWeight="600" fontFamily="Poppins">
+            {username}
+          </Typography>
+          <Divider />
+          <Typography fontSize="1.3rem" fontWeight="600" fontFamily="Poppins">
             {name}
           </Typography>
           <Divider />
           <Typography fontSize="1.5rem" fontWeight="600" fontFamily="Poppins">
             {email && email}
           </Typography>
+          {!friendRequestSent && name !== auth.currentUser.displayName && (
+            <Button
+              onClick={handleSendFriendRequest}
+              variant="contained"
+              color="primary"
+              sx={{ marginTop: "1rem" }}
+            >
+              Add Friend
+            </Button>
+          )}
           <Button
             onClick={handleBack}
             variant="contained"
@@ -201,6 +331,22 @@ function Profile() {
             Back
           </Button>
         </Box>
+      </Box>
+      <Box className="flex feed-main-container">
+        <div className="app__posts" id="feed-sub-container">
+          {feed.map(({ post, id }) => (
+            <Post
+              rowMode={true}
+              key={id}
+              postId={id}
+              user={user}
+              post={post}
+              shareModal={true}
+              setLink="/"
+              setPostText=""
+            />
+          ))}
+        </div>
       </Box>
     </>
   );
