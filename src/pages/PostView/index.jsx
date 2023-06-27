@@ -3,6 +3,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../lib/firebase";
 import { useParams } from "react-router-dom";
 import PostCommentView from "../../components/postView/index.jsx";
+import { PostViewContainer } from "./PostViewStyled.jsx";
 import { Loader } from "../../reusableComponents/index.js";
 
 const PostView = (props) => {
@@ -30,9 +31,7 @@ const PostView = (props) => {
   }, [post, fetchAgain]);
 
   return (
-    <div
-      style={{ height: "100vh", display: "flex", justifyContent: "center" }}
-    >
+    <PostViewContainer>
       {post && user ? (
         <PostCommentView
           key={id}
@@ -48,7 +47,7 @@ const PostView = (props) => {
       ) : (
         <Loader />
       )}
-    </div>
+    </PostViewContainer>
   );
 };
 

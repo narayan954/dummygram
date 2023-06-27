@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import {
   CommentForm,
   CommentItem,
@@ -10,20 +10,20 @@ import {
   PostViewGrid
 } from "../../pages/PostView/PostViewStyled.jsx";
 import { Avatar, ClickAwayListener, Typography, useMediaQuery } from "@mui/material";
-import ReadMore from "../ReadMore/index.jsx";
-import useCreatedAt from "../../hooks/useCreatedAt.jsx";
-import ImageSlider from "../../reusableComponents/ImageSlider/index.jsx";
 import { db } from "../../lib/firebase.js";
-import PostViewMenu from "./PostViewMenu.jsx";
 import { doc, updateDoc } from "firebase/firestore";
 import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
 import EmojiPicker from "emoji-picker-react";
 import firebase from "firebase/compat/app";
-import { PostViewComments } from "./PostViewComments.jsx";
 import { useTheme } from "@mui/material/styles";
-import PostDetails from "./PostDetails.jsx";
 import { useNavigate } from "react-router-dom";
+import useCreatedAt from "../../hooks/useCreatedAt.jsx";
 
+const PostDetails = React.lazy(() => import("./PostDetails.jsx"));
+const PostViewComments = React.lazy(() => import ("./PostViewComments.jsx"));
+const PostViewMenu = React.lazy(() => import("./PostViewMenu.jsx"));
+const ImageSlider = React.lazy(() => import("../../reusableComponents/ImageSlider"));
+const ReadMore = React.lazy(() => import("../ReadMore"));
 const PostCommentView = ({
                            setFetchAgain,
                            shareModal,
@@ -150,188 +150,189 @@ const PostCommentView = ({
   };
 
   return (
-    <PostViewGrid container>
-      <PostGridItemContainer item xs={12} sm={6}>
-        <PostGridItem postHasImages={postHasImages} textPost={!postHasImages && caption}>
-          {postHasImages ? (
-            <ImageSlider
-              slides={postImages}
-              isCommentBox={true}
-              doubleClickHandler={likesHandler}
-            />
-          ) : (
-            <PostContentText>
-              {caption.length >= 300 ? (
-                <Typography variant="body3" color="text.secondary">
-                  <ReadMore picCap>{caption}</ReadMore>
-                </Typography>
-              ) : (
-                <Typography variant="h5" color="text.secondary">{caption}</Typography>
-              )}
-            </PostContentText>
-          )}
-        </PostGridItem>
-      </PostGridItemContainer>
-      <PostGridItemContainer item xs={12} sm={6} style={{ display: "flex", flexDirection: "column" }}
-                             isDetails={true}>
-        <PostGridItem isHeader={true}>
-          <PostHeader
-            avatar={
-              <Avatar
-                // className="post__avatar"
-                alt={username}
-                src={avatar}
-                sx={{
-                  bgcolor: "royalblue",
-                  border: "2px solid transparent",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  cursor: "pointer",
-                  "&:hover": {
-                    boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 17px 0px",
-                    border: "2px solid black",
-                    scale: "1.1"
-                  }
-                }}
-                onClick={() => {
-                  navigate("/dummygram/profile", {
-                    state: {
-                      name: username,
-                      avatar: avatar
-                    }
-                  });
-                }}
-              />}
-            action={
-              <PostViewMenu
-                postHasImages={postHasImages}
-                user={user}
-                username={username}
-                avatar={avatar}
-                caption={caption}
-                postId={postId}
-                setFetchAgain={setFetchAgain}
-                fetchAgain={fetchAgain}
-                imageUrl={imageUrl}
-                fullScreen={fullScreen}
+    <Suspense fallback={<>Loading</>}>
+      <PostViewGrid container>
+        <PostGridItemContainer item xs={12} sm={6}>
+          <PostGridItem postHasImages={postHasImages} textPost={!postHasImages && caption}>
+            {postHasImages ? (
+              <ImageSlider
+                slides={postImages}
+                isCommentBox={true}
+                doubleClickHandler={likesHandler}
               />
-            }
-            title={username}
-            subheader={time}
-          />
-          {postHasImages && caption ?
-            <PostCaption>
-              <Typography variant="body2" color="text.secondary">
-                <ReadMore>{caption}</ReadMore>
-              </Typography>
-            </PostCaption> : null}
-        </PostGridItem>
-        <PostGridItem postActions>
-          <PostDetails
-            user={user}
-            postId={postId}
-            likecount={likecount}
-            likesHandler={likesHandler}
-            fullScreen={fullScreen}
-            caption={caption}
-            shareModal={shareModal}
-            setLink={setLink}
-            setPostText={setPostText}
-            setFetchAgain={setFetchAgain}
-            fetchAgain={fetchAgain}
-          />
-        </PostGridItem>
-        <PostGridItem isComments={true}>
-          <CommentForm>
-            <ClickAwayListener onClickAway={() => setShowEmojis(false)}>
-              <div className="social__icon">
-                <div className="emoji__icon">
-                  <SentimentSatisfiedAltOutlinedIcon
-                    onClick={() => {
-                      setShowEmojis((val) => !val);
-                    }}
-                  />
-                </div>
-                {showEmojis && (
-                  <div id="picker">
-                    <EmojiPicker
-                      emojiStyle="native"
-                      height={330}
-                      searchDisabled
-                      style={{ zIndex: 999 }}
-                      onEmojiClick={onEmojiClick}
-                      previewConfig={{
-                        showPreview: false
-                      }}
-                    />
-                  </div>
+            ) : (
+              <PostContentText>
+                {caption.length >= 300 ? (
+                  <Typography variant="body3" color="text.secondary">
+                    <ReadMore picCap>{caption}</ReadMore>
+                  </Typography>
+                ) : (
+                  <Typography variant="h5" color="text.secondary">{caption}</Typography>
                 )}
-              </div>
-            </ClickAwayListener>
-            <input
-              className="post__input"
-              type="text"
-              placeholder={
-                comments?.length !== 0
-                  ? "Add a comment..."
-                  : "Be the first one to comment..."
+              </PostContentText>
+            )}
+          </PostGridItem>
+        </PostGridItemContainer>
+        <PostGridItemContainer item xs={12} sm={6} style={{ display: "flex", flexDirection: "column" }}
+                               isDetails={true}>
+          <PostGridItem isHeader={true}>
+            <PostHeader
+              avatar={
+                <Avatar
+                  // className="post__avatar"
+                  alt={username}
+                  src={avatar}
+                  sx={{
+                    bgcolor: "royalblue",
+                    border: "2px solid transparent",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    cursor: "pointer",
+                    "&:hover": {
+                      boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 17px 0px",
+                      border: "2px solid black",
+                      scale: "1.1"
+                    }
+                  }}
+                  onClick={() => {
+                    navigate("/dummygram/profile", {
+                      state: {
+                        name: username,
+                        avatar: avatar
+                      }
+                    });
+                  }}
+                />}
+              action={
+                <PostViewMenu
+                  postHasImages={postHasImages}
+                  user={user}
+                  username={username}
+                  avatar={avatar}
+                  caption={caption}
+                  postId={postId}
+                  setFetchAgain={setFetchAgain}
+                  fetchAgain={fetchAgain}
+                  imageUrl={imageUrl}
+                  fullScreen={fullScreen}
+                />
               }
-              ref={commentRef}
-              style={{
-                backgroundColor: "var(--bg-color)",
-                color: "var(--color)",
-                borderRadius: "22px",
-                margin: "4px 0px"
-              }}
+              title={username}
+              subheader={time}
             />
-            <button
-              className="post__button"
-              disabled={commentRef?.current?.value === null}
-              type="submit"
-              onClick={postComment}
-              style={{
-                fontWeight: "bold",
-                textTransform: "uppercase"
-              }}
-            >
-              Post
-            </button>
-          </CommentForm>
-          {comments?.length ? (
-            <>
-              {comments.map((userComment) => (
-                <CommentItem key={userComment.id}>
-                  <div className={"post_comment_details"}>
+            {postHasImages && caption ?
+              <PostCaption>
+                <Typography variant="body2" color="text.secondary">
+                  <ReadMore>{caption}</ReadMore>
+                </Typography>
+              </PostCaption> : null}
+          </PostGridItem>
+          <PostGridItem postActions>
+            <PostDetails
+              user={user}
+              postId={postId}
+              likecount={likecount}
+              likesHandler={likesHandler}
+              fullScreen={fullScreen}
+              caption={caption}
+              shareModal={shareModal}
+              setLink={setLink}
+              setPostText={setPostText}
+              setFetchAgain={setFetchAgain}
+              fetchAgain={fetchAgain}
+            />
+          </PostGridItem>
+          <PostGridItem isComments={comments?.length > 0}>
+            <CommentForm>
+              <ClickAwayListener onClickAway={() => setShowEmojis(false)}>
+                <div className="social__icon">
+                  <div className="emoji__icon">
+                    <SentimentSatisfiedAltOutlinedIcon onClick={() => {
+                      setShowEmojis((val) => !val);
+                    }} />
+                  </div>
+                  {showEmojis && (
+                    <div id="picker">
+                      <EmojiPicker
+                        emojiStyle="native"
+                        height={330}
+                        searchDisabled
+                        style={{ zIndex: 999 }}
+                        onEmojiClick={onEmojiClick}
+                        previewConfig={{
+                          showPreview: false
+                        }}
+                      />
+                    </div>
+                  )}
+                </div>
+              </ClickAwayListener>
+              <input
+                className="post__input"
+                type="text"
+                placeholder={
+                  comments?.length !== 0
+                    ? "Add a comment..."
+                    : "Be the first one to comment..."
+                }
+                ref={commentRef}
+                style={{
+                  backgroundColor: "var(--bg-color)",
+                  color: "var(--color)",
+                  borderRadius: "22px",
+                  margin: "4px 0px"
+                }}
+              />
+              <button
+                className="post__button"
+                disabled={commentRef?.current?.value === null}
+                type="submit"
+                onClick={postComment}
+                style={{
+                  fontWeight: "bold",
+                  textTransform: "uppercase"
+                }}
+              >
+                Post
+              </button>
+            </CommentForm>
+            {comments?.length ? (
+              <>
+                {comments.map((userComment) => (
+                  <CommentItem key={userComment.id}>
+                    <div className={"post_comment_details"}>
                                         <span>
                                         {userComment.content.username}
                                         </span>
-                    <span className="comment_text">{userComment.content.text}</span>
-                  </div>
-                  <div className={"post_comment_actions"}>
-                    <PostViewComments
-                      fullScreen={fullScreen}
-                      postId={postId}
-                      user={user}
-                      userComment={userComment}
-                    />
-                  </div>
+                      <ReadMore>{userComment.content.text}</ReadMore>
+
+                    </div>
+                    <div className={"post_comment_actions"}>
+                      <PostViewComments
+                        fullScreen={fullScreen}
+                        postId={postId}
+                        user={user}
+                        userComment={userComment}
+                      />
+                    </div>
+                  </CommentItem>
+                ))}
+              </>
+            ) : (
+              <>
+                <CommentItem empty={true}>
+                  <Typography variant="body2" color="text.secondary">
+                    No Comments to Show!!
+                  </Typography>
                 </CommentItem>
-              ))}
-            </>
-          ) : (
-            <>
-              <CommentItem empty={true}>
-                <Typography variant="body2" color="text.secondary">
-                  No Comments to Show!!
-                </Typography>
-              </CommentItem>
-            </>
-          )}
-        </PostGridItem>
-        {/*<div style={{flexGrow: 1}}/>*/}
-      </PostGridItemContainer>
-    </PostViewGrid>
+              </>
+            )}
+          </PostGridItem>
+          {/*<div style={{flexGrow: 1}}/>*/}
+        </PostGridItemContainer>
+      </PostViewGrid>
+    </Suspense>
   );
 };
 export default PostCommentView;

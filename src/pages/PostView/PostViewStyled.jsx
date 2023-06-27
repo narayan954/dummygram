@@ -2,6 +2,17 @@ import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import { CardHeader } from "@mui/material";
 
+export const PostViewContainer = styled("div")(({ theme }) => ({
+  height: "100vh",
+  display: "flex",
+  justifyContent: "center",
+  [theme.breakpoints.down("sm")]: {
+    width: "100%",
+    height: "100%"
+    // marginTop: "1.5rem"
+    // Two rows
+  }
+}));
 export const PostViewGrid = styled(Grid)(({ theme }) => ({
   width: "80%",
   margin: "auto",
@@ -17,20 +28,23 @@ export const PostViewGrid = styled(Grid)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     width: "100%",
     height: "100%",
-    marginTop: "2rem"
+    marginTop: "72.05px"
     // Two rows
-  },
-  [theme.breakpoints.down("md")]: {
-    height: "100%",
-    overflow: "auto",
-    overflowX: "hidden",
-    scrollbarWidth: "thin",
-    scrollbarColor: "transparent transparent"
   }
+  // [theme.breakpoints.down("md")]: {
+  //   height: "100%",
+  //   overflow: "auto",
+  //   overflowX: "hidden",
+  //   scrollbarWidth: "thin",
+  //   scrollbarColor: "transparent transparent"
+  // }
 }));
 export const PostGridItemContainer = styled(Grid)(({ theme, isDetails }) => ({
   // flexBasics: 6,
-  backgroundColor: "#000",
+  // backgroundColor: "#000",
+  [theme.breakpoints.down("sm")]: {
+    height: "auto"
+  },
   ...(isDetails && {
     [theme.breakpoints.up("md")]: {
       height: "100%",
@@ -40,7 +54,6 @@ export const PostGridItemContainer = styled(Grid)(({ theme, isDetails }) => ({
   })
 }));
 export const PostGridItem = styled("div")
-
 (({
     theme,
     postHasImages = false,
@@ -76,7 +89,8 @@ export const PostGridItem = styled("div")
   ...(isComments && {
     display: "flex",
     flexDirection: "column",
-    gap: "0.5rem"
+    height: "auto"
+    // gap: "0.5rem"
   }),
   ...(postActions && {
     display: "flex",
@@ -96,7 +110,7 @@ export const PostCaption = styled("div")(({ theme }) => ({
   paddingBottom: "1rem"
 }));
 export const PostContentText = styled("div")(({ theme }) => ({
-  background: `url(/assest/postbg.avif)`,
+  background: `url(/asset/postbg.webp)`,
   backgroundSize: "cover",
   TextAlign: "center",
   padding: 0,
@@ -105,7 +119,7 @@ export const PostContentText = styled("div")(({ theme }) => ({
   alignItems: "center",
   whiteSpace: "pre-line",
   borderRight: "1px solid",
-  minHeight: "242px",
+  minHeight: "100%",
   [theme.breakpoints.down("md")]: {
     marginTop: "1.3rem"
   },
@@ -150,7 +164,8 @@ export const CommentItem = styled("div")(({ theme, empty }) => ({
     background: theme.palette.secondary,
     display: "flex",
     justifyContent: "space-between",
-    width: "100%"
+    width: "100%",
+    alignItems: "center"
   },
   ...(empty && {
     display: "grid",
