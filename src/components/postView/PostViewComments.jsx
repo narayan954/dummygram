@@ -14,7 +14,7 @@ import { db } from "../../lib/firebase.js";
 import useCreatedAt from "../../hooks/useCreatedAt.jsx";
 
 
-export const PostViewComments = ({ fullScreen, postId, user, userComment }) => {
+const PostViewComments = ({ fullScreen, postId, user, userComment }) => {
   const { timestamp } = userComment.content;
   const time = useCreatedAt(timestamp);
   const [open, setOpen] = React.useState(false);
@@ -80,3 +80,5 @@ export const PostViewComments = ({ fullScreen, postId, user, userComment }) => {
     </>
   );
 };
+
+export default PostViewComments;
