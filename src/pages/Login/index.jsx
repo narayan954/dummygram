@@ -34,7 +34,7 @@ const LoginScreen = () => {
         enqueueSnackbar("Login successful!", {
           variant: "success",
         });
-        navigate("/dummygram");
+        navigate("/dummygram/username");
       })
       .catch((error) => {
         if (error.code === "auth/invalid-email") {
@@ -71,7 +71,7 @@ const LoginScreen = () => {
         enqueueSnackbar("Login successful!", {
           variant: "success",
         });
-        navigate("/dummygram");
+        navigate("/dummygram/username");
       })
       .catch((error) =>
         // enqueueSnackbar(error.message, {
@@ -99,7 +99,7 @@ const LoginScreen = () => {
         enqueueSnackbar("Login successful!", {
           variant: "success",
         });
-        navigate("/dummygram");
+        navigate("/dummygram/username");
       })
       .catch((error) => {
         if (error.code === "auth/account-exists-with-different-credential") {

@@ -19,6 +19,7 @@ import Modal from "@mui/material/Modal";
 import { RowModeContext } from "./hooks/useRowMode";
 import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
+import Username from "./pages/Username";
 
 export function getModalStyle() {
   const top = 56;
@@ -294,6 +295,8 @@ function App() {
               )
             }
           />
+
+          <Route path="/dummygram/username" element={<Username user={user}/>} />
 
           <Route path="/dummygram/profile" element={<Profile />} />
 

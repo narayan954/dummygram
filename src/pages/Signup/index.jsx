@@ -31,7 +31,7 @@ const SignupScreen = () => {
   const [address, setAddress] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [usernameAvailable, setUsernameAvailable] = useState(true);
+  const [usernameAvailable, setUsernameAvailable] = useState(false);
   const [username, setUsername] = useState("");
   const usernameRef = useRef(null);
   const { enqueueSnackbar } = useSnackbar();
@@ -173,7 +173,7 @@ const SignupScreen = () => {
         enqueueSnackbar("Signin successful!", {
           variant: "success",
         });
-        navigate("/dummygram");
+        navigate("/dummygram/username");
       })
       .catch((error) =>
         enqueueSnackbar(error.message, {
@@ -190,7 +190,7 @@ const SignupScreen = () => {
         enqueueSnackbar("Signin successful!", {
           variant: "success",
         });
-        navigate("/dummygram");
+        navigate("/dummygram/username");
       })
       .catch((error) =>
         enqueueSnackbar(error.message, {
