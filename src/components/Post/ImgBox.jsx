@@ -22,9 +22,9 @@ const ImgBox = ({ postHasImages, postImages, likesHandler, caption }) => {
         <div className="post__background" onDoubleClick={likesHandler}>
           {caption.length >= 300 ? (
             <>
-              <p className="post_caption">
+              <div className="post_caption">
                 <ReadMore picCap>{caption}</ReadMore>
-              </p>
+              </div>
             </>
           ) : (
             <p className="post_caption">{caption}</p>
