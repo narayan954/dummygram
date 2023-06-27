@@ -22,7 +22,7 @@ import firebase from "firebase/compat/app";
 import { PostViewComments } from "./PostViewComments.jsx";
 import { useTheme } from "@mui/material/styles";
 import PostDetails from "./PostDetails.jsx";
-
+import { useNavigate } from "react-router-dom";
 
 const PostCommentView = ({
                            setFetchAgain,
@@ -34,6 +34,7 @@ const PostCommentView = ({
                            setLink,
                            setPostText
                          }) => {
+  const navigate = useNavigate();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const { username, caption, imageUrl, avatar, likecount, timestamp } = post;
@@ -258,6 +259,7 @@ const PostCommentView = ({
                       emojiStyle="native"
                       height={330}
                       searchDisabled
+                      style={{ zIndex: 999 }}
                       onEmojiClick={onEmojiClick}
                       previewConfig={{
                         showPreview: false

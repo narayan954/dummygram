@@ -99,7 +99,6 @@ export const PostContentText = styled("div")(({ theme }) => ({
   background: `url(/assest/postbg.avif)`,
   backgroundSize: "cover",
   TextAlign: "center",
-  height: "100%",
   padding: 0,
   display: "flex",
   justifyContent: "center",
@@ -107,12 +106,17 @@ export const PostContentText = styled("div")(({ theme }) => ({
   whiteSpace: "pre-line",
   borderRight: "1px solid",
   minHeight: "242px",
-  overflow: "auto",
   [theme.breakpoints.down("md")]: {
-    marginTop: "1rem"
+    marginTop: "1.3rem"
   },
+  [theme.breakpoints.up("md")]: {
+    height: "100%",
+    margin: "auto"
+  },
+
   "& .MuiTypography-body3": {
-    margin: "1rem"
+    margin: "1rem",
+    height: "100%"
   }
 }));
 export const CommentForm = styled("div")(({ theme }) => ({
@@ -137,8 +141,8 @@ export const CommentItem = styled("div")(({ theme, empty }) => ({
 
     "& .comment_text": {
       color: "#fff3a",
-      fontWeight: "200",
-      fontSize: "1rem"
+      fontWeight: "400",
+      fontSize: "0.7rem"
     }
 
   },
