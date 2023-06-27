@@ -38,6 +38,11 @@ function SideBar() {
               <FavoriteBorderIcon className="icon" /> <span>Favourites</span>
             </div>
           </li>
+          <li onClick={() => navigate("/dummygram/notifications")}>
+            <div className="sidebar_align">
+              <NotificationsIcon className="icon" /> <span>Notifications</span>
+            </div>
+          </li>
           <li
             onClick={() =>
               navigate("/dummygram/profile", {
