@@ -1,4 +1,9 @@
-import React, { Suspense, useEffect } from "react";
+import {
+  Avatar,
+  ClickAwayListener,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import {
   CommentForm,
   CommentItem,
@@ -7,33 +12,36 @@ import {
   PostGridItem,
   PostGridItemContainer,
   PostHeader,
-  PostViewGrid
+  PostViewGrid,
 } from "../../pages/PostView/PostViewStyled.jsx";
-import { Avatar, ClickAwayListener, Typography, useMediaQuery } from "@mui/material";
-import { db } from "../../lib/firebase.js";
+import React, { Suspense, useEffect } from "react";
 import { doc, updateDoc } from "firebase/firestore";
-import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
+
 import EmojiPicker from "emoji-picker-react";
+import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
+import { db } from "../../lib/firebase.js";
 import firebase from "firebase/compat/app";
-import { useTheme } from "@mui/material/styles";
-import { useNavigate } from "react-router-dom";
 import useCreatedAt from "../../hooks/useCreatedAt.jsx";
+import { useNavigate } from "react-router-dom";
+import { useTheme } from "@mui/material/styles";
 
 const PostDetails = React.lazy(() => import("./PostDetails.jsx"));
-const PostViewComments = React.lazy(() => import ("./PostViewComments.jsx"));
+const PostViewComments = React.lazy(() => import("./PostViewComments.jsx"));
 const PostViewMenu = React.lazy(() => import("./PostViewMenu.jsx"));
-const ImageSlider = React.lazy(() => import("../../reusableComponents/ImageSlider"));
+const ImageSlider = React.lazy(() =>
+  import("../../reusableComponents/ImageSlider")
+);
 const ReadMore = React.lazy(() => import("../ReadMore"));
 const PostCommentView = ({
-                           setFetchAgain,
-                           shareModal,
-                           fetchAgain,
-                           postId,
-                           user,
-                           post,
-                           setLink,
-                           setPostText
-                         }) => {
+  setFetchAgain,
+  shareModal,
+  fetchAgain,
+  postId,
+  user,
+  post,
+  setLink,
+  setPostText,
+}) => {
   const navigate = useNavigate();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -41,7 +49,9 @@ const PostCommentView = ({
   const time = useCreatedAt(timestamp);
 
   const [comments, setComments] = React.useState(null);
-  const [likesNo, setLikesNo] = React.useState(likecount ? likecount.length : 0);
+  const [likesNo, setLikesNo] = React.useState(
+    likecount ? likecount.length : 0
+  );
   const tempLikeCount = likecount ? [...likecount] : [];
   const [showEmojis, setShowEmojis] = React.useState(false);
   const commentRef = React.useRef(null);
@@ -61,9 +71,10 @@ const PostCommentView = ({
 
       // console.log(tempLikeCount);
       const data = {
-        likecount: tempLikeCount
+        likecount: tempLikeCount,
       };
-      await updateDoc(docRef, data).then(() => setFetchAgain(!fetchAgain))
+      await updateDoc(docRef, data)
+        .then(() => setFetchAgain(!fetchAgain))
         // .then((docRef) => {
         //   console.log("like added");
         // })
@@ -71,7 +82,6 @@ const PostCommentView = ({
           // console.log(error);
         });
     }
-
   }
 
   const postComment = (event) => {
@@ -81,12 +91,11 @@ const PostCommentView = ({
       db.collection("posts").doc(postId).collection("comments").add({
         text: commentValue,
         username: user.displayName,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       });
       commentRef.current.value = "";
     }
   };
-
 
   useEffect(() => {
     setFetchAgain(!fetchAgain);
@@ -105,7 +114,7 @@ const PostCommentView = ({
           setComments(
             snapshot.docs.map((doc) => ({
               id: doc.id,
-              content: doc.data()
+              content: doc.data(),
             }))
           );
         });
@@ -136,7 +145,7 @@ const PostCommentView = ({
       imageUrl: url,
       imageWidth: 0,
       imageHeight: 0,
-      thumbnail: null
+      thumbnail: null,
     }));
   }
 
@@ -153,7 +162,10 @@ const PostCommentView = ({
     <Suspense fallback={<>Loading</>}>
       <PostViewGrid container>
         <PostGridItemContainer item xs={12} sm={6}>
-          <PostGridItem postHasImages={postHasImages} textPost={!postHasImages && caption}>
+          <PostGridItem
+            postHasImages={postHasImages}
+            textPost={!postHasImages && caption}
+          >
             {postHasImages ? (
               <ImageSlider
                 slides={postImages}
@@ -167,14 +179,21 @@ const PostCommentView = ({
                     <ReadMore picCap>{caption}</ReadMore>
                   </Typography>
                 ) : (
-                  <Typography variant="h5" color="text.secondary">{caption}</Typography>
+                  <Typography variant="h5" color="text.secondary">
+                    {caption}
+                  </Typography>
                 )}
               </PostContentText>
             )}
           </PostGridItem>
         </PostGridItemContainer>
-        <PostGridItemContainer item xs={12} sm={6} style={{ display: "flex", flexDirection: "column" }}
-                               isDetails={true}>
+        <PostGridItemContainer
+          item
+          xs={12}
+          sm={6}
+          style={{ display: "flex", flexDirection: "column" }}
+          isDetails={true}
+        >
           <PostGridItem isHeader={true}>
             <PostHeader
               avatar={
@@ -192,18 +211,19 @@ const PostCommentView = ({
                     "&:hover": {
                       boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 17px 0px",
                       border: "2px solid black",
-                      scale: "1.1"
-                    }
+                      scale: "1.1",
+                    },
                   }}
                   onClick={() => {
                     navigate("/dummygram/profile", {
                       state: {
                         name: username,
-                        avatar: avatar
-                      }
+                        avatar: avatar,
+                      },
                     });
                   }}
-                />}
+                />
+              }
               action={
                 <PostViewMenu
                   postHasImages={postHasImages}
@@ -221,12 +241,13 @@ const PostCommentView = ({
               title={username}
               subheader={time}
             />
-            {postHasImages && caption ?
+            {postHasImages && caption ? (
               <PostCaption>
                 <Typography variant="body2" color="text.secondary">
                   <ReadMore>{caption}</ReadMore>
                 </Typography>
-              </PostCaption> : null}
+              </PostCaption>
+            ) : null}
           </PostGridItem>
           <PostGridItem postActions>
             <PostDetails
@@ -248,9 +269,11 @@ const PostCommentView = ({
               <ClickAwayListener onClickAway={() => setShowEmojis(false)}>
                 <div className="social__icon">
                   <div className="emoji__icon">
-                    <SentimentSatisfiedAltOutlinedIcon onClick={() => {
-                      setShowEmojis((val) => !val);
-                    }} />
+                    <SentimentSatisfiedAltOutlinedIcon
+                      onClick={() => {
+                        setShowEmojis((val) => !val);
+                      }}
+                    />
                   </div>
                   {showEmojis && (
                     <div id="picker">
@@ -261,7 +284,7 @@ const PostCommentView = ({
                         style={{ zIndex: 999 }}
                         onEmojiClick={onEmojiClick}
                         previewConfig={{
-                          showPreview: false
+                          showPreview: false,
                         }}
                       />
                     </div>
@@ -281,7 +304,7 @@ const PostCommentView = ({
                   backgroundColor: "var(--bg-color)",
                   color: "var(--color)",
                   borderRadius: "22px",
-                  margin: "4px 0px"
+                  margin: "4px 0px",
                 }}
               />
               <button
@@ -291,7 +314,7 @@ const PostCommentView = ({
                 onClick={postComment}
                 style={{
                   fontWeight: "bold",
-                  textTransform: "uppercase"
+                  textTransform: "uppercase",
                 }}
               >
                 Post
@@ -302,11 +325,8 @@ const PostCommentView = ({
                 {comments.map((userComment) => (
                   <CommentItem key={userComment.id}>
                     <div className={"post_comment_details"}>
-                                        <span>
-                                        {userComment.content.username}
-                                        </span>
+                      <span>{userComment.content.username}</span>
                       <ReadMore>{userComment.content.text}</ReadMore>
-
                     </div>
                     <div className={"post_comment_actions"}>
                       <PostViewComments

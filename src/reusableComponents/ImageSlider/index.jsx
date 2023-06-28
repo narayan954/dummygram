@@ -28,10 +28,12 @@ const ImageSlider = ({ slides, doubleClickHandler }) => {
 
   return slides.length ? (
     <div className="slider" onDoubleClick={doubleClickHandler}>
-
       {slides.map(({ imageUrl, imageWidth, imageHeight, thumbnail }, index) => (
         <div
-          style={{ display: index === current ? "contents" : "none", width: "100%" }}
+          style={{
+            display: index === current ? "contents" : "none",
+            width: "100%",
+          }}
           className={index === current ? "slide active" : "slide"}
           key={index}
         >
@@ -45,7 +47,7 @@ const ImageSlider = ({ slides, doubleClickHandler }) => {
             style={{
               width: "100%",
               aspectRatio: "3/2",
-              objectFit: "contain"
+              objectFit: "contain",
             }}
           />
           {slides.length > 1 ? (
@@ -68,7 +70,6 @@ const ImageSlider = ({ slides, doubleClickHandler }) => {
           )}
         </div>
       ))}
-
     </div>
   ) : null;
 };

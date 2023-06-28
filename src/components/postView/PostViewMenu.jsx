@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   Button,
   Dialog,
@@ -8,27 +7,29 @@ import {
   DialogTitle,
   IconButton,
   Menu,
-  MenuItem
+  MenuItem,
 } from "@mui/material";
+import React, { useState } from "react";
+import { doc, updateDoc } from "firebase/firestore";
+
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import TextField from "@mui/material/TextField";
-import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../lib/firebase.js";
 import { useNavigate } from "react-router-dom";
 
 const ITEM_HEIGHT = 48;
 const PostViewMenu = ({
-                        fullScreen,
-                        postId,
-                        postHasImages,
-                        user,
-                        avatar,
-                        username,
-                        caption,
-                        setFetchAgain,
-                        fetchAgain,
-                        imageUrl
-                      }) => {
+  fullScreen,
+  postId,
+  postHasImages,
+  user,
+  avatar,
+  username,
+  caption,
+  setFetchAgain,
+  fetchAgain,
+  imageUrl,
+}) => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -36,7 +37,6 @@ const PostViewMenu = ({
   const [Open, setOpen] = useState(false);
   const [openEditCaption, setOpenEditCaption] = useState(false);
   const [deleteDialog, setDeleteDialog] = useState(false);
-
 
   const handleDownload = () => {
     const urlimg = JSON.parse(imageUrl)[0].imageUrl;
@@ -55,7 +55,7 @@ const PostViewMenu = ({
     const taskDocRef = doc(db, "posts", postId);
     try {
       await updateDoc(taskDocRef, {
-        caption: editCaption
+        caption: editCaption,
       });
     } catch (err) {
       alert(err);
@@ -86,7 +86,7 @@ const PostViewMenu = ({
         aria-haspopup="true"
         onClick={(event) => setAnchorEl(event.currentTarget)}
         sx={{
-          color: "var(--color)"
+          color: "var(--color)",
         }}
       >
         <MoreVertIcon />
@@ -95,7 +95,7 @@ const PostViewMenu = ({
       <Menu
         id="long-menu"
         MenuListProps={{
-          "aria-labelledby": "long-button"
+          "aria-labelledby": "long-button",
         }}
         anchorEl={anchorEl}
         open={open}
@@ -103,8 +103,8 @@ const PostViewMenu = ({
         PaperProps={{
           style: {
             maxHeight: ITEM_HEIGHT * 4.5,
-            width: "20ch"
-          }
+            width: "20ch",
+          },
         }}
       >
         {user && username === user.displayName && (
@@ -121,8 +121,8 @@ const PostViewMenu = ({
             navigate("/dummygram/profile", {
               state: {
                 name: username,
-                avatar: avatar
-              }
+                avatar: avatar,
+              },
             });
           }}
         >
@@ -160,9 +160,7 @@ const PostViewMenu = ({
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
       >
-        <DialogTitle id="responsive-dialog-title">
-          {"Delete Post?"}
-        </DialogTitle>
+        <DialogTitle id="responsive-dialog-title">{"Delete Post?"}</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Are you sure you want to delete this post?

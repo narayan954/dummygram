@@ -79,7 +79,7 @@ input:focus {
 }
 
 .rowConvert {
-  color: #AB4BC2;
+  color: #ab4bc2;
   display: flex;
   margin-right: 12px;
   transition: all;
@@ -291,7 +291,7 @@ div#picker {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(40deg, #E107C1, #59AFC7);
+  background: linear-gradient(40deg, #e107c1, #59afc7);
   border: 2px black solid;
   border-radius: 10px;
 }
@@ -394,11 +394,11 @@ input {
 /* end */
 
 .button-style {
-  background: linear-gradient(40deg, #E107C1, #59AFC7);
+  background: linear-gradient(40deg, #e107c1, #59afc7);
   border-radius: 20px;
   margin: 10px;
 }
 
 .button-style:hover {
-  background: linear-gradient(-40deg, #59AFC7, #E107C1);
+  background: linear-gradient(-40deg, #59afc7, #e107c1);
 }

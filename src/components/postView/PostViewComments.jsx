@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import {
   Button,
   Dialog,
@@ -8,11 +6,13 @@ import {
   DialogContentText,
   DialogTitle,
   IconButton,
-  Typography
+  Typography,
 } from "@mui/material";
+import React, { useState } from "react";
+
+import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import { db } from "../../lib/firebase.js";
 import useCreatedAt from "../../hooks/useCreatedAt.jsx";
-
 
 const PostViewComments = ({ fullScreen, postId, user, userComment }) => {
   const { timestamp } = userComment.content;
@@ -33,14 +33,13 @@ const PostViewComments = ({ fullScreen, postId, user, userComment }) => {
     <>
       <Typography variant={"body1"}>{time}</Typography>
       {user && userComment.content.username === user.displayName ? (
-        <IconButton onClick={() => {
-          setOpen(!open);
-          setCommentId(userComment);
-        }}>
-          <DeleteTwoToneIcon
-            fontSize="small"
-            style={{ color: "red" }}
-          />
+        <IconButton
+          onClick={() => {
+            setOpen(!open);
+            setCommentId(userComment);
+          }}
+        >
+          <DeleteTwoToneIcon fontSize="small" style={{ color: "red" }} />
         </IconButton>
       ) : null}
       <Dialog
@@ -49,30 +48,17 @@ const PostViewComments = ({ fullScreen, postId, user, userComment }) => {
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
       >
-        <DialogTitle
-          id="responsive-dialog-title">
+        <DialogTitle id="responsive-dialog-title">
           {"Delete Comment?"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete
-            this
-            Comment?
+            Are you sure you want to delete this Comment?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}
-          >
-            Cancel
-          </Button>
-          <Button
-            onClick={(event) =>
-              deleteComment(
-                event,
-                commentId
-              )
-            }
-          >
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={(event) => deleteComment(event, commentId)}>
             Delete
           </Button>
         </DialogActions>
