@@ -235,18 +235,19 @@ function Profile() {
 
       <Box
         width={isNonMobile ? "30%" : "70%"}
-        backgroundColor="#F4EEFF"
+        backgroundColor="var(--profile-container)"
         paddingY={5}
         paddingX={6}
         sx={{
           border: "none",
-          boxShadow: "0 0 6px black",
+          boxShadow: "var(--profile-box-shadow)",
           margin: "8rem auto 2.5rem",
         }}
         display="flex"
         justifyContent={"center"}
         alignItems={"center"}
         textAlign={"center"}
+        color="var(--color)"
       >
         <Box display="flex" flexDirection="column" gap={1}>
           <Box marginX="auto" fontSize="600%">
@@ -283,7 +284,7 @@ function Profile() {
               <label htmlFor="file">
                 <div
                   className="img-edit"
-                  style={{ marginTop: "0.5rem", marginBottom: "0.5rem" }}
+                  style={{ marginTop: "0.5rem", marginBottom: "0.5rem", color: "var(--text-primary)"}}
                 >
                   Edit Profile Pic
                 </div>
@@ -299,15 +300,15 @@ function Profile() {
               Save
             </Button>
           )}
-          <Divider sx={{ marginTop: "1rem" }} />
+          <Divider sx={{ marginTop: "1rem", background: "var(--profile-divider)" }} />
           <Typography fontSize="1.3rem" fontWeight="600" fontFamily="Poppins">
             {username}
           </Typography>
-          <Divider />
+          <Divider style={{ background: "var(--profile-divider)" }} />
           <Typography fontSize="1.3rem" fontWeight="600" fontFamily="Poppins">
             {name}
           </Typography>
-          <Divider />
+          <Divider style={{ background: "var(--profile-divider)" }} />
           <Typography fontSize="1.5rem" fontWeight="600" fontFamily="Poppins">
             {email && email}
           </Typography>

@@ -12,37 +12,6 @@ const options = {
   autoMatchOsTheme: true, // default: true
 };
 
-const darkmode = new Darkmode(options);
-darkmode.showWidget();
-
 document.getElementById("scrollbar_style").innerHTML =
   "body::-webkit-scrollbar { width: 10px; } /* Track */ body::-webkit-scrollbar-track { background: white; } /* Handle */ body::-webkit-scrollbar-thumb { background: linear-gradient( 45deg, #405de6,#5851db,#833ab4,#c13584,#e1306c,#fd1d1d ); border-radius: 10px; }";
 
-document
-  .querySelector("button.darkmode-toggle")
-  .addEventListener("click", () => {
-    if (document.body.classList.contains("darkmode--activated")) {
-      document.getElementsByClassName("app__header__img").item(0).style.filter =
-        "invert(100%)";
-      document.body.style.setProperty("--color", "white");
-      document.body.style.setProperty("--bg-light", "#505050");
-      document.body.style.setProperty(
-        "--color-shadow",
-        "rgba(255, 255, 255, 0.35)"
-      );
-      document.body.style.setProperty("--bg-color", "black");
-      window.document.body.style.setProperty("--val", 1);
-      document.getElementById("scrollbar_style").innerHTML =
-        "body::-webkit-scrollbar { width: 10px; } /* Track */ body::-webkit-scrollbar-track { background: black; } /* Handle */ body::-webkit-scrollbar-thumb { background: linear-gradient( 45deg, #f4f80c, #addb51, #a2b43a, #51c135, #5ce130, #1dfddf ); border-radius: 10px; }";
-    } else {
-      document.getElementsByClassName("app__header__img").item(0).style.filter =
-        "invert(0%)";
-      document.body.style.setProperty("--color", "black");
-      document.body.style.setProperty("--bg-light", "white");
-      document.body.style.setProperty("--color-shadow", "rgba(0, 0, 0, 0.35)");
-      document.body.style.setProperty("--bg-color", "white");
-      window.document.body.style.setProperty("--val", 0);
-      document.getElementById("scrollbar_style").innerHTML =
-        "body::-webkit-scrollbar { width: 10px; } /* Track */ body::-webkit-scrollbar-track { background: white; } /* Handle */ body::-webkit-scrollbar-thumb { background: linear-gradient( 45deg, #405de6,#5851db,#833ab4,#c13584,#e1306c,#fd1d1d ); border-radius: 10px; }";
-    }
-  });

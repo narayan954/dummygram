@@ -68,12 +68,15 @@ const PostNav = ({
       <Flexbetween sx={{ cursor: "pointer" }} onClick={likesHandler}>
         <IconButton>
           {tempLikeCount.indexOf(user.uid) != -1 ? (
-            <FavoriteOutlined sx={{ color: "red" }} />
+            <FavoriteOutlined  
+            sx={{ 
+              color: "red", 
+            }} />
           ) : (
-            <FavoriteBorderOutlined />
+            <FavoriteBorderOutlined style={{ color: "var(--post-nav-icons)" }} />
           )}
         </IconButton>
-        <Typography fontSize={14}>Like</Typography>
+        <Typography fontSize={14} className="post-nav-item">Like</Typography>
       </Flexbetween>
 
       <Flexbetween
@@ -83,9 +86,9 @@ const PostNav = ({
         }}
       >
         <IconButton>
-          <ChatBubbleOutlineRounded />
+          <ChatBubbleOutlineRounded style={{ color: "var(--post-nav-icons)" }} />
         </IconButton>
-        <Typography fontSize={14}>Comment</Typography>
+        <Typography fontSize={14} className="post-nav-item">Comment</Typography>
       </Flexbetween>
 
       <Flexbetween
@@ -97,9 +100,9 @@ const PostNav = ({
         }}
       >
         <IconButton>
-          <ShareOutlined />
+          <ShareOutlined style={{ color: "var(--post-nav-icons)" }} />
         </IconButton>
-        <Typography fontSize={14}>Share</Typography>
+        <Typography fontSize={14} className="post-nav-item">Share</Typography>
       </Flexbetween>
 
       <Flexbetween sx={{ cursor: "pointer" }} onClick={save}>
@@ -107,10 +110,10 @@ const PostNav = ({
           {favoritePosts.indexOf(postId) !== -1 ? (
             <BookmarksIcon sx={{ color: "green" }} />
           ) : (
-            <BookmarkBorderIcon />
+            <BookmarkBorderIcon style={{ color: "var(--post-nav-icons)" }} />
           )}
         </IconButton>
-        <Typography fontSize={14}>Save</Typography>
+        <Typography fontSize={14} className="post-nav-item">Save</Typography>
       </Flexbetween>
     </Flexbetween>
   );

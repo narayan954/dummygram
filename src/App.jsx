@@ -1,6 +1,6 @@
 import "./index.css";
 
-import { AnimatedButton, Loader, ShareModal } from "./reusableComponents";
+import { AnimatedButton, Loader, ShareModal, Darkmode } from "./reusableComponents";
 import {
   Favorite,
   Navbar,
@@ -101,28 +101,6 @@ function App() {
   }, [user]);
 
   useEffect(() => {
-    if (document.body.classList.contains("darkmode--activated")) {
-      window.document.body.style.setProperty("--bg-color", "black");
-      window.document.body.style.setProperty(
-        "--color-shadow",
-        "rgba(255, 255, 255, 0.35)"
-      );
-      window.document.body.style.setProperty("--color", "white");
-      window.document.body.style.setProperty("--val", 1);
-      document.getElementsByClassName("app__header__img").item(0).style.filter =
-        "invert(100%)";
-    } else {
-      window.document.body.style.setProperty("--bg-color", "white");
-      window.document.body.style.setProperty(
-        "--color-shadow",
-        "rgba(0, 0, 0, 0.35)"
-      );
-      window.document.body.style.setProperty("--color", "#2B1B17");
-      window.document.body.style.setProperty("--val", 0);
-      document.getElementsByClassName("app__header__img").item(0).style.filter =
-        "invert(0%)";
-    }
-
     window.addEventListener("scroll", handleMouseScroll);
     db.collection("posts")
       .orderBy("timestamp", "desc")
@@ -244,6 +222,7 @@ function App() {
           </div>
         </Modal>
 
+          <Darkmode />
         <Routes>
           <Route
             exact
@@ -318,6 +297,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
           <Route path="/dummygram/favourites" element={<Favorite />} />
         </Routes>
+
 
         {location.pathname === "/dummygram/" ||
         location.pathname === "/dummygram/favourites" ? (

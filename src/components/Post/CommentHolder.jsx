@@ -21,6 +21,7 @@ const CommentHolder = ({
         <div className="social__icon">
           <div className="emoji__icon">
             <SentimentSatisfiedAltOutlinedIcon
+              className="emoji-picker-btn"
               onClick={() => {
                 setShowEmojis((val) => !val);
               }}

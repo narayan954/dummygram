@@ -49,7 +49,7 @@ function Favorite() {
         >
           {posts.length ? (
             <>
-              <h1>Your Favourites</h1>
+              <h1 style={{color: "var(--color)"}}>Your Favourites</h1>
               <div className={`${rowMode ? "app__posts" : "app_posts_column"}`}>
                 {posts.map(({ id, post }) => (
                   <Post
@@ -66,7 +66,7 @@ function Favorite() {
               </div>
             </>
           ) : (
-            <>You have nothing in favourites</>
+            <p style={{color: "var(--color)"}}>You have nothing in favourites</p>
           )}
         </div>
       </Box>
