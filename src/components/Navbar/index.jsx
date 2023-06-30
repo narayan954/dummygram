@@ -49,8 +49,10 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
         }}
         style={{
           cursor: "pointer",
+          display: "none"
         }}
       />
+      <p id="logooo">dummygram</p>
 
       {user && (
         <>
