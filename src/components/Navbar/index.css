@@ -57,14 +57,15 @@
   cursor: pointer;
 }
 
-#logooo{
+#dummygram-logo{
   color: transparent;
   font-family: 'Dancing Script', cursive;
   font-size: 32px;
   font-weight: 700;
-  text-shadow: 0 0 10px #eeeeee, 0 0 20px #ff4da6, 0 0 30px #ff4da6;
+  text-shadow: var(--logo-text-shadow);
   background: linear-gradient(40deg, #ea18cb, #f404d0, #59afc7);
   -webkit-background-clip: text;
   background-clip: text;
   margin-left: 20px;
+  cursor: pointer;
 }
