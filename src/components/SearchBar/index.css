@@ -1,22 +1,16 @@
 /* search file css */
 .search-bar input {
-  width: 25%;
+  width: 30%;
+ 
+  
 }
 
 .search-bar {
   display: flex;
-  margin: 100px auto;
+  margin: 0px auto;
   text-align: center;
   align-items: center;
   justify-content: center;
 }
 
-.search-bar button {
-  border: none;
-  background: #0685f5;
-  color: white;
-  text-align: center;
-  padding: 10px;
-  border-radius: 0px 20px;
-  margin-left: 2px;
-}
+

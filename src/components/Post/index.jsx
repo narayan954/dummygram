@@ -22,6 +22,8 @@ import { db } from "../../lib/firebase";
 import firebase from "firebase/compat/app";
 import { useTheme } from "@mui/material/styles";
 
+
+
 function Post(prop) {
   const { postId, user, post, shareModal, setLink, setPostText, rowMode } =
     prop;
@@ -170,6 +172,7 @@ function Post(prop) {
       className={`${rowMode ? "post" : "postColumn"}`}
       style={{ boxShadow: "0px 0px 5px 1px rgba(0, 0, 0, 0.4)" }}
     >
+
       <PostHeader
         user={user}
         postData={post}
@@ -255,6 +258,7 @@ function Post(prop) {
         )}
       </div>
     </div>
+
   );
 }
 

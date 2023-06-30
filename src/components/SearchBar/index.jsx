@@ -1,51 +1,53 @@
 import "./index.css";
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import { auth, db } from "../../lib/firebase";
 
 import { Box } from "@mui/material";
 import Post from "../Post";
-import { RowModeContext } from "../../hooks/useRowMode";
 import ShareModal from "../../reusableComponents";
 import SideBar from "../SideBar";
 
+const MemoizedPost = memo(Post);
+
 function SearchBar() {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchText, setSearchText] = useState("");
   const [openShareModal, setOpenShareModal] = useState(false);
   const [currentPostLink, setCurrentPostLink] = useState("");
   const [postText, setPostText] = useState("");
   const [posts, setPosts] = useState([]);
-  const rowMode = useContext(RowModeContext);
 
   const handleSearch = (e) => {
-    setSearchQuery(e.target.value);
-    const filteredPosts = posts.filter((post) =>
-      post.post.username.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    setPosts(filteredPosts);
+    setSearchText(e.target.value);
   };
+
+  // Code to fetch posts from database
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const postsRef = db.collection("posts");
-      const snapshot = await postsRef.get();
-      const posts = [];
-      snapshot.forEach((doc) => {
-        if (
-          localStorage.getItem("posts") &&
-          localStorage.getItem("posts").includes(doc.id) &&
-          doc.data().username.toLowerCase().includes(searchQuery.toLowerCase())
-        ) {
-          posts.push({ id: doc.id, post: doc.data() });
-        }
-      });
-      setPosts(posts);
+      db.collection("posts")
+        .orderBy("timestamp", "desc")
+        .onSnapshot((snapshot) => {
+          const fetchedPosts = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            post: doc.data(),
+          }));
+
+          setPosts(fetchedPosts);
+        });
     };
+
     fetchPosts();
-  }, [searchQuery]);
+  }, []);
+
+  // code to filter posts accornding to searchtext
+
+  const filteredPosts = posts.filter((post) =>
+    post.post.username.toLowerCase().includes(searchText.toLowerCase())
+  );
 
   return (
-    <div style={{ position: "sticky", marginBottom: "0px" }}>
+    <div style={{marginTop:"-150px"}}>
       <SideBar />
       <ShareModal
         openShareModal={openShareModal}
@@ -56,38 +58,29 @@ function SearchBar() {
       <div className="search-bar">
         <input
           type="search"
-          value={searchQuery}
+          value={searchText}
           placeholder="Search Here..."
           onChange={handleSearch}
         />
-        <button onClick={handleSearch} className="search-button">
-          Search
-        </button>
       </div>
       <Box>
-        <div
-          style={{ marginTop: "5px", marginBottom: "1.5rem" }}
-          align="center"
-        >
-          {posts.length ? (
+        <div style={{ marginTop: "5px", marginBottom: "1.5rem" }} align="center">
+          {filteredPosts.length ? (
             <>
-              <div className={`${rowMode ? "app__posts" : "app_posts_column"}`}>
-                {posts.map(({ id, post }) => (
-                  <Post
-                    rowMode={true}
-                    key={id}
-                    postId={id}
-                    post={post}
-                    user={auth.currentUser}
-                    shareModal={setOpenShareModal}
-                    setLink={setCurrentPostLink}
-                    setPostText={setPostText}
-                  />
-                ))}
-              </div>
+              {filteredPosts.map(({ id, post }) => (
+                <MemoizedPost
+                  key={id}
+                  postId={id}
+                  post={post}
+                  user={auth.currentUser}
+                  shareModal={setOpenShareModal}
+                  setLink={setCurrentPostLink}
+                  setPostText={setPostText}
+                />
+              ))}
             </>
           ) : (
-            "nothing to search"
+            "Nothing to search"
           )}
         </div>
       </Box>
@@ -96,3 +89,5 @@ function SearchBar() {
 }
 
 export default SearchBar;
+
+
