@@ -244,20 +244,21 @@ function App() {
                       !loadingPosts
                         ? {}
                         : {
-                          width: "100%",
-                          minHeight: "100vh",
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }
+                            width: "100%",
+                            minHeight: "100vh",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }
                     }
                   >
                     {loadingPosts ? (
                       <Loader />
                     ) : (
                       <div
-                        className={`${rowMode ? "app__posts" : "app_posts_column flex"
-                          }`}
+                        className={`${
+                          rowMode ? "app__posts" : "app_posts_column flex"
+                        }`}
                       >
                         {posts.map(({ id, post }) => (
                           <Post
@@ -306,7 +307,7 @@ function App() {
         </Routes>
 
         {location.pathname === "/dummygram/" ||
-          location.pathname === "/dummygram/favourites" ? (
+        location.pathname === "/dummygram/favourites" ? (
           <div>
             <FaArrowCircleUp
               fill="#777"

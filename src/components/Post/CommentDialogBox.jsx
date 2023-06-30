@@ -47,7 +47,8 @@ const CommentDialogBox = ({
                     color: "black",
                   }}
                 >
-                  {userComment.content.username}{"  "}
+                  {userComment.content.username}
+                  {"  "}
                   <span style={{ fontSize: "0.9rem" }}>
                     <ReadMore>{userComment.content.text}</ReadMore>
                   </span>
