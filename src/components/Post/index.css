@@ -83,7 +83,7 @@
   padding: 8px;
   font-weight: 400;
   font-size: 15px;
-  color: black;
+  color: var(--text-secondary);
   white-space: pre-line;
 }
 

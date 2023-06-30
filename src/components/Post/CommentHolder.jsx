@@ -1,10 +1,8 @@
 import "./index.css";
 
-import EmojiPicker, { Emoji } from "emoji-picker-react";
-
 import { ClickAwayListener } from "@mui/material";
+import EmojiPicker from "emoji-picker-react";
 import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
-import { useState } from "react";
 
 const CommentHolder = ({
   showEmojis,

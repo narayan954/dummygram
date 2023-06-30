@@ -3,6 +3,7 @@
 :root {
   --bg-color: rgb(249, 248, 248);
   --text-primary: blue;
+  --text-secondary: black; /* TODO: Fix */
   --color: black;
   --filter-img: none;
   --sidebar-link-hover: rgba(0, 0, 0, 0.05);
@@ -17,6 +18,7 @@
 .darkmode {
   --bg-color: #1c2128;
   --text-primary: white;
+  --text-secondary: black; /* TODO: Fix */
   --color: rgb(226, 226, 226);
   --filter-img: invert(100%);
   --sidebar-link-hover: rgba(255, 255, 255, 0.15);

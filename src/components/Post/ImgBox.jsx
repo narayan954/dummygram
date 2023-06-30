@@ -4,12 +4,6 @@ import { ImageSlider } from "../../reusableComponents";
 import { ReadMore } from "../index";
 
 const ImgBox = ({ postHasImages, postImages, likesHandler, caption }) => {
-  const [readMore, setReadMore] = useState(false);
-
-  // const handleReadPost = () => {
-  //     setReadMore(!readMore);
-  // };
-
   return (
     <div>
       {postHasImages ? (

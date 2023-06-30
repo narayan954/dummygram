@@ -14,7 +14,6 @@ import {
   Post,
   SideBar,
 } from "./components";
-import logo from "./assets/logo.webp"
 import { LoginScreen, PostView, Profile, SignupScreen } from "./pages";
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
@@ -23,6 +22,7 @@ import { auth, db } from "./lib/firebase";
 import { FaArrowCircleUp } from "react-icons/fa";
 import Modal from "@mui/material/Modal";
 import { RowModeContext } from "./hooks/useRowMode";
+import logo from "./assets/logo.webp";
 import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
 
@@ -157,7 +157,7 @@ function App() {
     enqueueSnackbar("Logged out Successfully !", {
       variant: "info",
     });
-    navigate("/dummygram");
+    navigate("/dummygram/");
   };
 
   return (
