@@ -84,7 +84,10 @@ function Profile() {
   const { enqueueSnackbar } = useSnackbar();
 
   let name = location?.state?.name || user?.displayName;
-  let email = location?.state?.email || user?.email;
+  let email =
+    location?.state?.name === user?.displayName
+      ? location?.state?.email || user?.email
+      : "";
   let avatar = location?.state?.avatar || user?.photoURL;
 
   const handleClose = () => setOpen(false);
@@ -104,7 +107,10 @@ function Profile() {
         setUser(authUser);
         name = location?.state?.name || authUser.displayName;
         avatar = location?.state?.avatar || authUser.photoURL;
-        email = location?.state?.email || authUser.email;
+        email =
+          location?.state?.name === authUser?.displayName
+            ? location?.state?.email || authUser.email
+            : "";
       } else {
         setUser(null);
         navigate("/dummygram/login");
