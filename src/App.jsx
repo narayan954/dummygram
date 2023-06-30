@@ -1,7 +1,5 @@
 import "./index.css";
 
-import React, { useEffect, useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
 import {
   AnimatedButton,
   Darkmode,
@@ -16,17 +14,17 @@ import {
   Post,
   SideBar,
 } from "./components";
-import { auth, db } from "./lib/firebase";
 import { LoginScreen, PostView, Profile, SignupScreen } from "./pages";
-import { AnimatedButton, Loader, ShareModal } from "./reusableComponents";
+import React, { useEffect, useState } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { auth, db } from "./lib/firebase";
 
+import { FaArrowCircleUp } from "react-icons/fa";
 import Modal from "@mui/material/Modal";
 import { RowModeContext } from "./hooks/useRowMode";
 import logo from "./assets/logo.webp";
 import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
-import { FaArrowCircleUp } from "react-icons/fa";
-import { RowModeContext } from "./hooks/useRowMode";
 
 export function getModalStyle() {
   const top = 56;
