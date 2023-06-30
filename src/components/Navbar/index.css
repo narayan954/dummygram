@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap");
+
 .app__header__img {
   object-fit: contain;
   width: 150px;
@@ -55,18 +57,15 @@
   cursor: pointer;
 }
 
-/* backgroundColor="#fff"
-                    color="black"
-                    padding="2px"
-                    width="80px"
-                    position="absolute"
-                    borderRadius="4px"
-                    marginTop={16}
-                    marginRight={3}
-                    sx={{
-                      width: "fit-content",
-                      mt: "10rem",
-                      mr: "4rem",
-                      vertical: "top",
-                      border: "1px solid black",
-                    }} */
+#dummygram-logo {
+  color: transparent;
+  font-family: "Dancing Script", cursive;
+  font-size: 32px;
+  font-weight: 700;
+  text-shadow: var(--logo-text-shadow);
+  background: linear-gradient(40deg, #ea18cb, #f404d0, #59afc7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  margin-left: 20px;
+  cursor: pointer;
+}

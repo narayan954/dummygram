@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
-const ImageSlider = ({ slides, isCommentBox, doubleClickHandler }) => {
+const ImageSlider = ({ slides, doubleClickHandler }) => {
   const [current, setCurrent] = useState(0);
 
   //destructure  slides.length to get const { length } = slides;
@@ -30,7 +30,10 @@ const ImageSlider = ({ slides, isCommentBox, doubleClickHandler }) => {
     <div className="slider" onDoubleClick={doubleClickHandler}>
       {slides.map(({ imageUrl, imageWidth, imageHeight, thumbnail }, index) => (
         <div
-          style={{ display: index === current ? "contents" : "none" }}
+          style={{
+            display: index === current ? "contents" : "none",
+            width: "100%",
+          }}
           className={index === current ? "slide active" : "slide"}
           key={index}
         >
@@ -43,23 +46,25 @@ const ImageSlider = ({ slides, isCommentBox, doubleClickHandler }) => {
             delayTime={1000}
             style={{
               width: "100%",
-              height: "14rem",
+              aspectRatio: "3/2",
               objectFit: "contain",
             }}
           />
           {slides.length > 1 ? (
-            <>
+            <div className={"slider-action"}>
               <FaChevronCircleLeft
                 className="circle"
                 onClick={prevStep}
-                style={isCommentBox ? { width: "50%" } : { width: "100%" }}
+                title={"View Previous Image"}
+                // style={isCommentBox ? {width: "60%"} : {width: "60%"}}
               />
               <FaChevronCircleRight
                 className="chevron"
                 onClick={nextStep}
-                style={isCommentBox ? { width: "50%" } : { width: "100%" }}
+                title={"View Next Image"}
+                // style={isCommentBox ? {width: "60%"} : {width: "60%"}}
               />
-            </>
+            </div>
           ) : (
             <></>
           )}

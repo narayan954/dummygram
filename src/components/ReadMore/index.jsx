@@ -7,17 +7,21 @@ const ReadMore = ({ children, picCap = false }) => {
   const toggleReadMore = () => setIsReadMore((prev) => !prev);
 
   return (
-    <div>
+    <>
       {isReadMore ? (picCap ? text.slice(0, 300) : text.slice(0, 100)) : text}
       {text.length >= 300 && (
         <span
           onClick={toggleReadMore}
-          style={{ color: "black", fontWeight: "bold", cursor: "pointer" }}
+          style={{
+            color: "var(--color)",
+            fontWeight: "bold",
+            cursor: "pointer",
+          }}
         >
           {isReadMore ? " ...read more" : " ...show less"}
         </span>
       )}
-    </div>
+    </>
   );
 };
 
