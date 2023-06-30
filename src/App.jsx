@@ -1,6 +1,11 @@
 import "./index.css";
 
-import { AnimatedButton, Loader, ShareModal } from "./reusableComponents";
+import {
+  AnimatedButton,
+  Darkmode,
+  Loader,
+  ShareModal,
+} from "./reusableComponents";
 import {
   Favorite,
   Navbar,
@@ -17,6 +22,7 @@ import { auth, db } from "./lib/firebase";
 import { FaArrowCircleUp } from "react-icons/fa";
 import Modal from "@mui/material/Modal";
 import { RowModeContext } from "./hooks/useRowMode";
+import logo from "./assets/logo.webp";
 import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
 
@@ -42,7 +48,7 @@ export const useStyles = makeStyles((theme) => ({
     position: "absolute",
     width: 250,
     borderRadius: theme.shape.borderRadius,
-    boxShadow: "var(--color-shadow) 0px 5px 15px",
+    boxShadow: "var(--profile-box-shadow)",
     padding: theme.spacing(2, 4, 3),
     color: "var(--color)",
   },
@@ -101,28 +107,6 @@ function App() {
   }, [user]);
 
   useEffect(() => {
-    if (document.body.classList.contains("darkmode--activated")) {
-      window.document.body.style.setProperty("--bg-color", "black");
-      window.document.body.style.setProperty(
-        "--color-shadow",
-        "rgba(255, 255, 255, 0.35)"
-      );
-      window.document.body.style.setProperty("--color", "white");
-      window.document.body.style.setProperty("--val", 1);
-      document.getElementsByClassName("app__header__img").item(0).style.filter =
-        "invert(100%)";
-    } else {
-      window.document.body.style.setProperty("--bg-color", "white");
-      window.document.body.style.setProperty(
-        "--color-shadow",
-        "rgba(0, 0, 0, 0.35)"
-      );
-      window.document.body.style.setProperty("--color", "#2B1B17");
-      window.document.body.style.setProperty("--val", 0);
-      document.getElementsByClassName("app__header__img").item(0).style.filter =
-        "invert(0%)";
-    }
-
     window.addEventListener("scroll", handleMouseScroll);
     db.collection("posts")
       .orderBy("timestamp", "desc")
@@ -173,7 +157,7 @@ function App() {
     enqueueSnackbar("Logged out Successfully !", {
       variant: "info",
     });
-    navigate("/dummygram");
+    navigate("/dummygram/");
   };
 
   return (
@@ -199,13 +183,13 @@ function App() {
           <div style={getModalStyle()} className={classes.paper}>
             <form className="modal__signup">
               <img
-                src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
+                src={logo}
                 alt="dummygram"
                 className="modal__signup__img"
                 style={{
                   width: "80%",
                   marginLeft: "10%",
-                  filter: "invert(var(--val))",
+                  filter: "var(--filter-img)",
                 }}
               />
 
@@ -244,6 +228,7 @@ function App() {
           </div>
         </Modal>
 
+        <Darkmode />
         <Routes>
           <Route
             exact

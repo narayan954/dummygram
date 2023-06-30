@@ -1,5 +1,4 @@
-import EmojiPicker, { Emoji } from "emoji-picker-react";
-
+import EmojiPicker from "emoji-picker-react";
 import React from "react";
 import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
 
@@ -23,6 +22,7 @@ const CommentBox = ({
             }}
           >
             <SentimentSatisfiedAltOutlinedIcon
+              className="emoji-picker-btn"
               onClick={() => {
                 setShowEmojis((val) => !val);
               }}

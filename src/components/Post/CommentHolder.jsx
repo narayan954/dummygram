@@ -1,10 +1,8 @@
 import "./index.css";
 
-import EmojiPicker, { Emoji } from "emoji-picker-react";
-
 import { ClickAwayListener } from "@mui/material";
+import EmojiPicker from "emoji-picker-react";
 import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
-import { useState } from "react";
 
 const CommentHolder = ({
   showEmojis,
@@ -21,6 +19,7 @@ const CommentHolder = ({
         <div className="social__icon">
           <div className="emoji__icon">
             <SentimentSatisfiedAltOutlinedIcon
+              className="emoji-picker-btn"
               onClick={() => {
                 setShowEmojis((val) => !val);
               }}
