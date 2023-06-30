@@ -15,7 +15,7 @@
 }
 
 .darkmode {
-  --bg-color: #313132;
+  --bg-color: #1c2128;
   --text-primary: white;
   --color: rgb(226, 226, 226);
   --filter-img: invert(100%);
