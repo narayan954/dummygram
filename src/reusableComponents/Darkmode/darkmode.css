@@ -1,36 +1,35 @@
 .darkmode-btn {
-    position: fixed;
-    right: 40px;
-    bottom: 40px;
-
+  position: fixed;
+  right: 40px;
+  bottom: 40px;
 }
 
 .darkmode-btn button {
-    border-radius: 50%;
-    width: 50px;
-    aspect-ratio: 1;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--color);
+  border-radius: 50%;
+  width: 50px;
+  aspect-ratio: 1;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color);
 }
 
 .darkmode-btn button span {
-    position: relative;
-    border-radius: 50%;
-    width: 20px;
-    aspect-ratio: 1;
-    background-color: gray;
-    border: 1px solid black;
+  position: relative;
+  border-radius: 50%;
+  width: 20px;
+  aspect-ratio: 1;
+  background-color: gray;
+  border: 1px solid black;
 }
 
 .darkmode-btn button span span {
-    position: absolute;
-    width: 10px;
-    height: 20px;
-    border-radius: 0 12rem 12rem 0;
-    background-color: rgb(244, 210, 41);
-    z-index: 333;
-    border: none;
+  position: absolute;
+  width: 10px;
+  height: 20px;
+  border-radius: 0 12rem 12rem 0;
+  background-color: rgb(244, 210, 41);
+  z-index: 333;
+  border: none;
 }

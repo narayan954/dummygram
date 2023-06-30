@@ -1,4 +1,5 @@
 import AnimatedButton from "./AnimatedButton";
+import Darkmode from "./Darkmode/Darkmode";
 import DialogBox from "./DialogBox";
 import Flexbetween from "./Flexbetween";
 import ImageSlider from "./ImageSlider";
@@ -7,7 +8,6 @@ import Popup from "./Popup";
 import Scroll from "./Scroll";
 import ShareModal from "./ShareModal";
 import SnackBar from "./SnackBar";
-import Darkmode from "./Darkmode/Darkmode"
 
 export {
   DialogBox,

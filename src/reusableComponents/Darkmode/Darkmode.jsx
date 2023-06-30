@@ -1,51 +1,50 @@
-import React from 'react'
-import "./darkmode.css"
+import "./darkmode.css";
+
+import React from "react";
 
 const Darkmode = () => {
-
-  let darkMode = localStorage.getItem('darkMode')
+  let darkMode = localStorage.getItem("darkMode");
 
   function enableDarkMode() {
     //add the class darkmode to the body
-    document.body.classList.add('darkmode')
+    document.body.classList.add("darkmode");
 
     //update darkmode in the localstorage
-    localStorage.setItem('darkMode', 'enabled')
+    localStorage.setItem("darkMode", "enabled");
   }
 
   function disableDarkMode() {
     //add the class darkmode to the body
-    document.body.classList.remove('darkmode')
+    document.body.classList.remove("darkmode");
 
     //update darkmode in the localstorage
-    localStorage.setItem('darkMode', null)
+    localStorage.setItem("darkMode", null);
   }
 
-  if(darkMode === 'enabled'){
+  if (darkMode === "enabled") {
     enableDarkMode();
   }
 
   const darkModeToggle = () => {
-    darkMode = localStorage.getItem('darkMode');
-    console.log(darkMode)
+    darkMode = localStorage.getItem("darkMode");
+    console.log(darkMode);
 
-    if(darkMode !== 'enabled'){
+    if (darkMode !== "enabled") {
       enableDarkMode();
-    }
-    else{
+    } else {
       disableDarkMode();
     }
-  }
+  };
 
   return (
-    <div className='darkmode-btn'>
+    <div className="darkmode-btn">
       <button onClick={darkModeToggle}>
         <span>
           <span></span>
         </span>
       </button>
     </div>
-  )
-}
+  );
+};
 
-export default Darkmode
+export default Darkmode;

@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
-:root{
+:root {
   --bg-color: rgb(249, 248, 248);
   --text-primary: blue;
   --color: black;
@@ -9,13 +9,13 @@
   --post-box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.4);
   --post-nav-icons: "";
   --emoji-btn: black;
-  --profile-container: #F4EEFF;
+  --profile-container: #f4eeff;
   --profile-box-shadow: 0 0 6px black;
   --profile-divider: "";
 }
 
-.darkmode{
-  --bg-color: #313132;
+.darkmode {
+  --bg-color: #1c2128;
   --text-primary: white;
   --color: rgb(226, 226, 226);
   --filter-img: invert(100%);
@@ -33,7 +33,7 @@
   margin: 0;
 }
 
-body{
+body {
   background-color: var(--bg-color) !important;
 }
 

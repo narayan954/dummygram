@@ -26,7 +26,8 @@
   scale: 1.1;
 }
 
-.post__username, .post__time{
+.post__username,
+.post__time {
   color: var(--text-primary);
 }
 
@@ -73,8 +74,8 @@
   position: relative;
 }
 
-.post-nav-item{
-  color: var(--color)
+.post-nav-item {
+  color: var(--color);
 }
 
 .post_caption {
@@ -118,7 +119,7 @@
   flex-wrap: wrap;
 }
 
-.emoji-picker-btn{
+.emoji-picker-btn {
   color: var(--emoji-btn);
 }
 

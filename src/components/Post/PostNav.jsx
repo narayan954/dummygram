@@ -68,15 +68,20 @@ const PostNav = ({
       <Flexbetween sx={{ cursor: "pointer" }} onClick={likesHandler}>
         <IconButton>
           {tempLikeCount.indexOf(user.uid) != -1 ? (
-            <FavoriteOutlined  
-            sx={{ 
-              color: "red", 
-            }} />
+            <FavoriteOutlined
+              sx={{
+                color: "red",
+              }}
+            />
           ) : (
-            <FavoriteBorderOutlined style={{ color: "var(--post-nav-icons)" }} />
+            <FavoriteBorderOutlined
+              style={{ color: "var(--post-nav-icons)" }}
+            />
           )}
         </IconButton>
-        <Typography fontSize={14} className="post-nav-item">Like</Typography>
+        <Typography fontSize={14} className="post-nav-item">
+          Like
+        </Typography>
       </Flexbetween>
 
       <Flexbetween
@@ -86,9 +91,13 @@ const PostNav = ({
         }}
       >
         <IconButton>
-          <ChatBubbleOutlineRounded style={{ color: "var(--post-nav-icons)" }} />
+          <ChatBubbleOutlineRounded
+            style={{ color: "var(--post-nav-icons)" }}
+          />
         </IconButton>
-        <Typography fontSize={14} className="post-nav-item">Comment</Typography>
+        <Typography fontSize={14} className="post-nav-item">
+          Comment
+        </Typography>
       </Flexbetween>
 
       <Flexbetween
@@ -102,7 +111,9 @@ const PostNav = ({
         <IconButton>
           <ShareOutlined style={{ color: "var(--post-nav-icons)" }} />
         </IconButton>
-        <Typography fontSize={14} className="post-nav-item">Share</Typography>
+        <Typography fontSize={14} className="post-nav-item">
+          Share
+        </Typography>
       </Flexbetween>
 
       <Flexbetween sx={{ cursor: "pointer" }} onClick={save}>
@@ -113,7 +124,9 @@ const PostNav = ({
             <BookmarkBorderIcon style={{ color: "var(--post-nav-icons)" }} />
           )}
         </IconButton>
-        <Typography fontSize={14} className="post-nav-item">Save</Typography>
+        <Typography fontSize={14} className="post-nav-item">
+          Save
+        </Typography>
       </Flexbetween>
     </Flexbetween>
   );
