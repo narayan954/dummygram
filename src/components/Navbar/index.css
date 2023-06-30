@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap");
 
 .app__header__img {
   object-fit: contain;
@@ -57,9 +57,9 @@
   cursor: pointer;
 }
 
-#dummygram-logo{
+#dummygram-logo {
   color: transparent;
-  font-family: 'Dancing Script', cursive;
+  font-family: "Dancing Script", cursive;
   font-size: 32px;
   font-weight: 700;
   text-shadow: var(--logo-text-shadow);
