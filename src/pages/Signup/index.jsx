@@ -17,6 +17,7 @@ import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import validate from "../../reusableComponents/validation";
 
 const SignupScreen = () => {
   const classes = useStyles();
@@ -33,6 +34,7 @@ const SignupScreen = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [usernameAvailable, setUsernameAvailable] = useState(true);
   const [username, setUsername] = useState("");
+  const [error, setError] = useState({});
   const usernameRef = useRef(null);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
@@ -203,6 +205,14 @@ const SignupScreen = () => {
     navigate("/dummygram/login");
   };
 
+  const handleError = (name, value) => {
+    let errorMessage = validate[name](value);
+    if(name === "confirmPassword") errorMessage = validate.confirmPassword(value, password)
+    setError((prev) => {
+      return { ...prev, ...errorMessage };
+    });
+  };
+
   return (
     <div className="flex">
       <div style={modalStyle} className={classes.paper}>
@@ -243,25 +253,50 @@ const SignupScreen = () => {
                 : "username-not-available"
             }
           />
+          {!usernameAvailable && <p className="error">Username not availaible</p>}
           <input
             type="text"
             placeholder="Full Name"
             value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
+            name="name"
+            onChange={(e) => {
+              setFullName(e.target.value);
+              handleError(e.target.name, e.target.value);
+            }}
+            className={
+              error.nameError? "username-not-available": null
+            }
           />
+          {error.name && error.nameError && (
+            <p className="error">{error.nameError}</p>
+          )}
           <input
             type="email"
             placeholder=" Email"
+            name="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              handleError(e.target.name, e.target.value);
+            }}
+            className={
+              error.emailError? "username-not-available": null
+            }
           />
-          <div className="password-container">
+            {error.email && error.emailError && (
+            <p className="error">{error.emailError}</p>
+          )}
+          <div className={(error.passwordError)?"username-not-available password-container": "password-container" } >
             <input
               type={showPassword ? "text" : "password"}
               placeholder=" Password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="password-input"
+              name="password"
+              onChange={(e) => {
+              setPassword(e.target.value);
+              handleError(e.target.name, e.target.value);
+            }}
+              className="password-input "
             />
             <button
               onClick={(e) => handleShowPassword(e)}
@@ -270,14 +305,21 @@ const SignupScreen = () => {
               {showPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
             </button>
           </div>
+          {error.password && error.passwordError && (
+            <p className="error">{error.passwordError}</p>
+          )}
 
           {/* Confirm password */}
-          <div className="password-container">
+          <div className={(error.confirmPasswordError)?"username-not-available password-container": "password-container"}>
             <input
               type={showConfirmPassword ? "text" : "password"}
               placeholder="Confirm Password"
               value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              name="confirmPassword"
+              onChange={(e) => {
+              setConfirmPassword(e.target.value);
+              handleError(e.target.name, e.target.value);
+            }}
               className="password-input"
             />
             <button
@@ -287,7 +329,9 @@ const SignupScreen = () => {
               {showConfirmPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
             </button>
           </div>
-
+          {error.confirmPassword && error.confirmPasswordError && (
+            <p className="error">{error.confirmPasswordError}</p>
+          )}
           <button type="submit" onClick={signUp} className="button signup">
             Sign Up <FontAwesomeIcon icon={faRightToBracket} />
           </button>

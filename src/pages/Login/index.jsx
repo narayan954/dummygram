@@ -11,12 +11,13 @@ import Logo from "../../assets/logo.webp";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import validate from "../../reusableComponents/validation";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
+  const [error, setError] = useState({})
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const classes = useStyles();
@@ -118,6 +119,13 @@ const LoginScreen = () => {
     navigate("/dummygram/signup");
   };
 
+  const handleError = (name, value)=>{
+    const errorMessage = validate[name](value);
+    setError((prev) => {
+      return { ...prev, ...errorMessage };
+    });
+  }
+
   return (
     <div className="flex">
       <div style={getModalStyle()} className={classes.paper}>
@@ -135,14 +143,26 @@ const LoginScreen = () => {
             type="email"
             placeholder=" Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            name="email"
+            onChange={(e) => {
+              setEmail(e.target.value);
+              handleError(e.target.name, e.target.value);
+            }}
+            className={
+              error.emailError? "username-not-available": null
+            }
           />
-          <div className="password-container">
+          {error.email && error.emailError && <p className="error">{error.emailError}</p>}
+          <div className={(error.passwordError)?"username-not-available password-container": "password-container" }>
             <input
+            name="password"
               type={showPassword ? "text" : "password"}
               placeholder=" Password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+              setPassword(e.target.value);
+              handleError(e.target.name, e.target.value);
+            }}
               className="password-input"
             />
             <button
@@ -152,6 +172,10 @@ const LoginScreen = () => {
               {showPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
             </button>
           </div>
+          {error.password && error.passwordError && (
+            <p className="error">{error.passwordError}</p>
+          )}
+
           <button type="submit" onClick={signIn} className="button log">
             LogIn <FontAwesomeIcon icon={faRightToBracket} />
           </button>
