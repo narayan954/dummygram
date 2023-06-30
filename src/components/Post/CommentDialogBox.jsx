@@ -32,7 +32,7 @@ const CommentDialogBox = ({
           width: 0,
         },
       }}
-      borderRadius="16px"
+      borderRadius="10px"
       maxHeight="30vh"
     >
       {comments.length ? (
@@ -49,7 +49,7 @@ const CommentDialogBox = ({
                 >
                   {userComment.content.username}
                   {"  "}
-                  <span style={{ fontSize: "0.9rem" }}>
+                  <span style={{ fontSize: "0.9rem", fontWeight: "400" }}>
                     <ReadMore>{userComment.content.text}</ReadMore>
                   </span>
                 </div>

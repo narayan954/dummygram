@@ -177,6 +177,7 @@ function Post(prop) {
         postId={postId}
         timestamp={timestamp}
       />
+      <Divider />
       <div className="post__container">
         <ImgBox
           postHasImages={postHasImages}
