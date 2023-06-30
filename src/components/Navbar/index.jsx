@@ -34,10 +34,8 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
 
   return (
     <div className="app__header">
-      <img
-        src={logo}
-        alt="dummygram"
-        className="app__header__img"
+      <p
+        id="dummygram-logo"
         onClick={() => {
           if (
             location.pathname !== "/dummygram/login" &&
@@ -46,11 +44,10 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
             navigate("/dummygram/");
           }
           window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-        }}
-        style={{
-          cursor: "pointer",
-        }}
-      />
+        }}        
+      >
+        dummygram
+      </p>
 
       {user && (
         <>
