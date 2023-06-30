@@ -88,7 +88,7 @@ function SideBar() {
               </Link>
             </li>
           </ul>
-          <p className="copyright">&#169; MIT license since 2023</p>
+          <p className="copyright">&#169; MIT license since 2022</p>
         </footer>
       </div>
       <Dialog
