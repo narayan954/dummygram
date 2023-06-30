@@ -20,6 +20,7 @@
   cursor: pointer;
   transition: all 0.2s;
 }
+
 .avatar:hover {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 17px 0px;
   border: 2px solid black;
@@ -34,7 +35,7 @@
 .postColumn {
   max-width: 400px;
   margin-top: 20px;
-  padding: 5px;
+  /* padding: 5px; */
   border: 1px solid rgba(0, 0, 0, 0.373);
   border-radius: 5px;
   margin-bottom: 20px;
@@ -113,10 +114,28 @@
 
 .post__commentBox {
   display: flex;
-  margin-top: 2px;
+  /* margin-top: 2px; */
   margin-bottom: 10px;
   /* border-top: 1px solid rgba(0, 0, 0, 0.373); */
   flex-wrap: wrap;
+}
+
+.modal__commentBox {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1rem;
+}
+
+.commentCard {
+  padding: 0.4rem 1rem;
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+  display: flex;
+  justify-content: space-between;
+  background: lightgray;
+  border-radius: 10px;
 }
 
 .emoji-picker-btn {
@@ -165,6 +184,20 @@
 .social__icons__wrapper {
   display: flex;
   align-items: center;
+}
+
+@media only screen and (max-width: 800px) {
+  .post__commentBox input {
+    width: 200px;
+  }
+
+  .modal__commentBox {
+    gap: 0;
+  }
+
+  .modal__commentBox input {
+    width: 100px;
+  }
 }
 
 @media only screen and (max-width: 460px) {
