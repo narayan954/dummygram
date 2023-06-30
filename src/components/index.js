@@ -3,7 +3,7 @@ import Favorite from "./Favorite";
 import ImgUpload from "./ImgUpload";
 import LandingAnimation from "./LandingAnimation";
 import Navbar from "./Navbar";
-import NotFound from "./NotFound";
+import NotFound from "../pages/NotFound";
 import Notifications from "./Notifications";
 import Post from "./Post";
 import ReadMore from "./ReadMore";
