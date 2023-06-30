@@ -309,7 +309,7 @@ function Profile() {
           </Typography>
           <Divider />
           <Typography fontSize="1.5rem" fontWeight="600" fontFamily="Poppins">
-            {email && email}
+            {email && name === auth.currentUser.displayName && email}
           </Typography>
           {!friendRequestSent && name !== auth.currentUser.displayName && (
             <Button
