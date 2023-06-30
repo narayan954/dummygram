@@ -9,6 +9,7 @@ import {
   Post,
   SideBar,
 } from "./components";
+import logo from "./assets/logo.webp"
 import { LoginScreen, PostView, Profile, SignupScreen } from "./pages";
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
@@ -42,7 +43,7 @@ export const useStyles = makeStyles((theme) => ({
     position: "absolute",
     width: 250,
     borderRadius: theme.shape.borderRadius,
-    boxShadow: "var(--color-shadow) 0px 5px 15px",
+    boxShadow: "var(--profile-box-shadow)",
     padding: theme.spacing(2, 4, 3),
     color: "var(--color)",
   },
@@ -177,13 +178,13 @@ function App() {
           <div style={getModalStyle()} className={classes.paper}>
             <form className="modal__signup">
               <img
-                src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
+                src={logo}
                 alt="dummygram"
                 className="modal__signup__img"
                 style={{
                   width: "80%",
                   marginLeft: "10%",
-                  filter: "invert(var(--val))",
+                  filter: "var(--filter-img)",
                 }}
               />
 
