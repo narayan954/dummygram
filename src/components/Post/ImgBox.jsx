@@ -4,12 +4,6 @@ import { ImageSlider } from "../../reusableComponents";
 import { ReadMore } from "../index";
 
 const ImgBox = ({ postHasImages, postImages, likesHandler, caption }) => {
-  const [readMore, setReadMore] = useState(false);
-
-  // const handleReadPost = () => {
-  //     setReadMore(!readMore);
-  // };
-
   return (
     <div>
       {postHasImages ? (
@@ -33,11 +27,12 @@ const ImgBox = ({ postHasImages, postImages, likesHandler, caption }) => {
       )}
       <div className="post__text">
         {caption && postHasImages && caption.length >= 300 ? (
-          <>
+          <p style={{ color: "var(--color)" }}>
             <ReadMore>{caption}</ReadMore>
-          </>
+          </p>
         ) : (
-          caption && postHasImages && <p className="">{caption}</p>
+          caption &&
+          postHasImages && <p style={{ color: "var(--color)" }}>{caption}</p>
         )}
       </div>
     </div>

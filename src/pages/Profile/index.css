@@ -17,7 +17,7 @@
   background: linear-gradient(40deg, #e107c1, #59afc7);
   filter: invert(0%) !important;
   /* transition: transform 0.5s ease-out; */
-  color: white;
+  color: white !important;
 }
 
 .feed-main-container {
