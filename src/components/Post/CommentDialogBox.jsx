@@ -39,17 +39,7 @@ const CommentDialogBox = ({
         <>
           {comments.map((userComment) => (
             <div key={userComment.id}>
-              <div
-                style={{
-                  padding: "0.4rem 1rem",
-                  marginTop: "0.3rem",
-                  marginBottom: "0.3rem",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  background: "lightgray",
-                  borderRadius: "10px",
-                }}
-              >
+              <div className="commentCard">
                 <div
                   style={{
                     fontSize: "1.1rem",
@@ -57,7 +47,7 @@ const CommentDialogBox = ({
                     color: "black",
                   }}
                 >
-                  {userComment.content.username}
+                  {userComment.content.username}{"  "}
                   <span style={{ fontSize: "0.9rem" }}>
                     <ReadMore>{userComment.content.text}</ReadMore>
                   </span>

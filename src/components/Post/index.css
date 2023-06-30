@@ -118,6 +118,16 @@
   gap: 1rem;
 }
 
+.commentCard {
+  padding: 0.4rem 1rem;
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+  display: flex;
+  justify-content: space-between;
+  background: lightgray;
+  border-radius: 10px;
+}
+
 .social__icon {
   padding: 10px;
   width: 24px;
