@@ -26,6 +26,11 @@
   scale: 1.1;
 }
 
+.post__username,
+.post__time {
+  color: var(--text-primary);
+}
+
 .postColumn {
   max-width: 400px;
   margin-top: 20px;
@@ -69,12 +74,16 @@
   position: relative;
 }
 
+.post-nav-item {
+  color: var(--color);
+}
+
 .post_caption {
   text-align: center;
   padding: 8px;
   font-weight: 400;
   font-size: 15px;
-  color: black;
+  color: var(--text-secondary);
   white-space: pre-line;
 }
 
@@ -126,6 +135,10 @@
   justify-content: space-between;
   background: lightgray;
   border-radius: 10px;
+}
+
+.emoji-picker-btn {
+  color: var(--emoji-btn);
 }
 
 .social__icon {

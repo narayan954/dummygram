@@ -43,15 +43,17 @@ function Notifications() {
         >
           {notifications.length ? (
             <>
-              <h1>Notifications</h1>
+              <h1 style={{ color: "var(--color)" }}>Notifications</h1>
               {notifications.map((notification) => (
                 <div key={notification.id}>
-                  <p>{notification.message}</p>
+                  <p style={{ color: "var(--color)" }}>
+                    {notification.message}
+                  </p>
                 </div>
               ))}
             </>
           ) : (
-            <>No notifications</>
+            <p style={{ color: "var(--color)" }}>No notifications</p>
           )}
         </div>
       </Box>

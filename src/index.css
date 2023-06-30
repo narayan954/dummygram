@@ -1,8 +1,42 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
+:root {
+  --bg-color: rgb(249, 248, 248);
+  --text-primary: blue;
+  --text-secondary: black; /* TODO: Fix */
+  --color: black;
+  --filter-img: none;
+  --sidebar-link-hover: rgba(0, 0, 0, 0.05);
+  --post-box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.4);
+  --post-nav-icons: "";
+  --emoji-btn: black;
+  --profile-container: #f4eeff;
+  --profile-box-shadow: 0 0 6px black;
+  --profile-divider: "";
+}
+
+.darkmode {
+  --bg-color: #1c2128;
+  --text-primary: white;
+  --text-secondary: black; /* TODO: Fix */
+  --color: rgb(226, 226, 226);
+  --filter-img: invert(100%);
+  --sidebar-link-hover: rgba(255, 255, 255, 0.15);
+  --post-box-shadow: 0px 0px 5px 1px rgba(255, 255, 255, 0.4);
+  --post-nav-icons: white;
+  --emoji-btn: rgb(240, 240, 123);
+  --profile-container: rgb(50, 48, 48);
+  --profile-box-shadow: 0 0 6px white;
+  --profile-divider: #898989;
+}
+
 * {
   font-family: "Poppins", sans-serif;
   margin: 0;
+}
+
+body {
+  background-color: var(--bg-color) !important;
 }
 
 /* App styles */
@@ -15,6 +49,7 @@
 .app__header__img {
   object-fit: contain;
   width: 150px;
+  filter: var(--filter-img);
 }
 
 .app__header {

@@ -12,7 +12,11 @@ const ReadMore = ({ children, picCap = false }) => {
       {text.length >= 300 && (
         <span
           onClick={toggleReadMore}
-          style={{ color: "black", fontWeight: "bold", cursor: "pointer" }}
+          style={{
+            color: "var(--color)",
+            fontWeight: "bold",
+            cursor: "pointer",
+          }}
         >
           {isReadMore ? " ...read more" : " ...show less"}
         </span>

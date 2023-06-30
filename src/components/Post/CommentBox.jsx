@@ -24,6 +24,7 @@ const CommentBox = ({
             }}
           >
             <SentimentSatisfiedAltOutlinedIcon
+              className="emoji-picker-btn"
               onClick={() => {
                 setShowEmojis((val) => !val);
               }}
