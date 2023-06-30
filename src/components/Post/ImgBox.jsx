@@ -23,7 +23,7 @@ const ImgBox = ({ postHasImages, postImages, likesHandler, caption }) => {
           {caption.length >= 300 ? (
             <>
               <p className="post_caption">
-                <ReadMore picCap >{caption}</ReadMore>
+                <ReadMore picCap>{caption}</ReadMore>
               </p>
             </>
           ) : (
@@ -33,11 +33,12 @@ const ImgBox = ({ postHasImages, postImages, likesHandler, caption }) => {
       )}
       <div className="post__text">
         {caption && postHasImages && caption.length >= 300 ? (
-          <p style={{color: "var(--color)"}}>
+          <p style={{ color: "var(--color)" }}>
             <ReadMore>{caption}</ReadMore>
           </p>
         ) : (
-          caption && postHasImages && <p style={{color: "var(--color)"}}>{caption}</p>
+          caption &&
+          postHasImages && <p style={{ color: "var(--color)" }}>{caption}</p>
         )}
       </div>
     </div>

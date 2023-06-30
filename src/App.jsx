@@ -1,6 +1,11 @@
 import "./index.css";
 
-import { AnimatedButton, Loader, ShareModal, Darkmode } from "./reusableComponents";
+import {
+  AnimatedButton,
+  Darkmode,
+  Loader,
+  ShareModal,
+} from "./reusableComponents";
 import {
   Favorite,
   Navbar,
@@ -222,7 +227,7 @@ function App() {
           </div>
         </Modal>
 
-          <Darkmode />
+        <Darkmode />
         <Routes>
           <Route
             exact
@@ -297,7 +302,6 @@ function App() {
           <Route path="*" element={<NotFound />} />
           <Route path="/dummygram/favourites" element={<Favorite />} />
         </Routes>
-
 
         {location.pathname === "/dummygram/" ||
         location.pathname === "/dummygram/favourites" ? (

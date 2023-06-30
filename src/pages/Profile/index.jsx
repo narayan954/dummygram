@@ -282,7 +282,11 @@ function Profile() {
               <label htmlFor="file">
                 <div
                   className="img-edit"
-                  style={{ marginTop: "0.5rem", marginBottom: "0.5rem", color: "var(--text-primary)"}}
+                  style={{
+                    marginTop: "0.5rem",
+                    marginBottom: "0.5rem",
+                    color: "var(--text-primary)",
+                  }}
                 >
                   Edit Profile Pic
                 </div>
@@ -298,16 +302,18 @@ function Profile() {
               Save
             </Button>
           )}
-          <Divider sx={{ marginTop: "1rem", background: "var(--profile-divider)" }} />
-          <Typography fontSize="1.3rem" fontWeight="600" >
+          <Divider
+            sx={{ marginTop: "1rem", background: "var(--profile-divider)" }}
+          />
+          <Typography fontSize="1.3rem" fontWeight="600">
             {username}
           </Typography>
           <Divider style={{ background: "var(--profile-divider)" }} />
-          <Typography fontSize="1.3rem" fontWeight="600" >
+          <Typography fontSize="1.3rem" fontWeight="600">
             {name}
           </Typography>
           <Divider style={{ background: "var(--profile-divider)" }} />
-          <Typography fontSize="1.5rem" fontWeight="600" >
+          <Typography fontSize="1.5rem" fontWeight="600">
             {name === auth.currentUser.displayName && email}
           </Typography>
           {!friendRequestSent && name !== auth.currentUser.displayName && (
