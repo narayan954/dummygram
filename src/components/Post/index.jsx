@@ -177,6 +177,7 @@ function Post(prop) {
         postId={postId}
         timestamp={timestamp}
       />
+      <Divider />
       <div className="post__container">
         <ImgBox
           postHasImages={postHasImages}
@@ -190,7 +191,11 @@ function Post(prop) {
           <Typography marginLeft={1} fontSize={13} sx={{ color: "skyblue" }}>
             {likesNo} {likesNo > 1 ? "Likes" : "Like"}
           </Typography>
-          <Typography sx={{ color: "skyblue" }} fontSize={13}>
+          <Typography
+            sx={{ color: "skyblue", cursor: "pointer" }}
+            fontSize={13}
+            onClick={() => setisCommentOpen((prev) => !prev)}
+          >
             {comments.length} {comments.length > 1 ? "comments" : "comment"}
           </Typography>
         </Flexbetween>
