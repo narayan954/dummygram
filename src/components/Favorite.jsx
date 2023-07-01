@@ -1,10 +1,10 @@
+import { Loader, ShareModal } from "../reusableComponents";
 import React, { useContext, useEffect, useState } from "react";
 import { auth, db } from "../lib/firebase";
 
 import { Box } from "@mui/material";
 import Post from "./Post";
 import { RowModeContext } from "../hooks/useRowMode";
-import { ShareModal, Loader } from "../reusableComponents";
 import SideBar from "./SideBar";
 
 function Favorite() {
@@ -38,7 +38,15 @@ function Favorite() {
     <>
       <SideBar />
       {loading ? (
-        <div style={{width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center"}}>
+        <div
+          style={{
+            width: "100vw",
+            height: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <Loader />
         </div>
       ) : (
@@ -58,7 +66,9 @@ function Favorite() {
               {posts.length ? (
                 <>
                   <h1 style={{ color: "var(--color)" }}>Your Favourites</h1>
-                  <div className={`${rowMode ? "app__posts" : "app_posts_column"}`}>
+                  <div
+                    className={`${rowMode ? "app__posts" : "app_posts_column"}`}
+                  >
                     {posts.map(({ id, post }) => (
                       <Post
                         rowMode={true}
@@ -81,8 +91,7 @@ function Favorite() {
             </div>
           </Box>
         </div>
-      )
-      }
+      )}
     </>
   );
 }
