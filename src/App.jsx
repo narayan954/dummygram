@@ -1,11 +1,7 @@
 import "./index.css";
 
-import {
-  AnimatedButton,
-  Darkmode,
-  Loader,
-  ShareModal,
-} from "./reusableComponents";
+import React, { useEffect, useState } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import {
   Favorite,
   Navbar,
@@ -14,17 +10,21 @@ import {
   Post,
   SideBar,
 } from "./components";
-import { LoginScreen, PostView, Profile, SignupScreen } from "./pages";
-import React, { useEffect, useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
+import { LoginScreen, PostView, Profile, SignupScreen } from "./pages";
+import {
+  AnimatedButton,
+  Darkmode,
+  Loader,
+  ShareModal,
+} from "./reusableComponents";
 
-import { FaArrowCircleUp } from "react-icons/fa";
 import Modal from "@mui/material/Modal";
-import { RowModeContext } from "./hooks/useRowMode";
-import logo from "./assets/logo.webp";
 import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
+import { FaArrowCircleUp } from "react-icons/fa";
+import logo from "./assets/logo.webp";
+import { RowModeContext } from "./hooks/useRowMode";
 
 export function getModalStyle() {
   const top = 56;
@@ -242,21 +242,20 @@ function App() {
                       !loadingPosts
                         ? {}
                         : {
-                            width: "100%",
-                            minHeight: "100vh",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }
+                          width: "100%",
+                          minHeight: "100vh",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }
                     }
                   >
                     {loadingPosts ? (
                       <Loader />
                     ) : (
                       <div
-                        className={`${
-                          rowMode ? "app__posts" : "app_posts_column flex"
-                        }`}
+                        className={`${rowMode ? "app__posts" : "app_posts_column flex"
+                          }`}
                       >
                         {posts.map(({ id, post }) => (
                           <Post
@@ -305,7 +304,7 @@ function App() {
         </Routes>
 
         {location.pathname === "/dummygram/" ||
-        location.pathname === "/dummygram/favourites" ? (
+          location.pathname === "/dummygram/favourites" ? (
           <div>
             <FaArrowCircleUp
               fill="#777"
