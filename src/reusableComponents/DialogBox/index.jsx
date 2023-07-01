@@ -11,8 +11,6 @@ import {
   Divider,
 } from "@mui/material";
 
-import React from "react";
-
 const DialogBox = (props) => {
   return (
     <Dialog
@@ -39,6 +37,8 @@ const DialogBox = (props) => {
       >
         <DialogContentText>{props.children}</DialogContentText>
       </DialogContent>
+
+      <Divider />
 
       <DialogActions sx={{ backgroundColor: "var(--bg-color)" }}>
         <Button

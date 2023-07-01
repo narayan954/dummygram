@@ -1,18 +1,18 @@
-// custom css import
 import "./index.css";
 
 import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineClose } from "react-icons/ai";
 import { Dialog } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import GitHubIcon from "@mui/icons-material/GitHub";
 import HomeIcon from "@mui/icons-material/Home";
 import ImgUpload from "../ImgUpload";
-import React from "react";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 import { auth } from "../../lib/firebase";
-import { useState } from "react";
 
 function SideBar() {
   const navigate = useNavigate();
@@ -21,38 +21,76 @@ function SideBar() {
 
   return (
     <div className="sidebar">
-      <ul>
-        <li>
-          <Link to="/dummygram">
-            <HomeIcon className="icon" /> <span>Home</span>
-          </Link>
-        </li>
-        <li onClick={() => setOpenNewUpload(true)}>
-          <div className="sidebar_align">
-            <AddCircleOutlineIcon className="icon" /> <span>New Post</span>
-          </div>
-        </li>
-        <li onClick={() => navigate("/dummygram/favourites")}>
-          <div className="sidebar_align">
-            <FavoriteBorderIcon className="icon" /> <span>Favourites</span>
-          </div>
-        </li>
-        <li
-          onClick={() =>
-            navigate("/dummygram/profile", {
-              state: {
-                name: user.displayName,
-                email: user.email,
-                avatar: user.photoURL,
-              },
-            })
-          }
-        >
-          <div className="sidebar_align">
-            <AccountCircleIcon className="icon" /> <span>Profile</span>
-          </div>
-        </li>
-      </ul>
+      <div className="sidebar-container">
+        <ul className="sidebar-links">
+          <li>
+            <Link to="/dummygram">
+              <HomeIcon className="icon" /> <span>Home</span>
+            </Link>
+          </li>
+          <li onClick={() => setOpenNewUpload(true)}>
+            <div className="sidebar_align">
+              <AddCircleOutlineIcon className="icon" /> <span>New Post</span>
+            </div>
+          </li>
+          <li onClick={() => navigate("/dummygram/favourites")}>
+            <div className="sidebar_align">
+              <FavoriteBorderIcon className="icon" /> <span>Favourites</span>
+            </div>
+          </li>
+          <li onClick={() => navigate("/dummygram/notifications")}>
+            <div className="sidebar_align">
+              <NotificationsIcon className="icon" /> <span>Notifications</span>
+            </div>
+          </li>
+          <li
+            onClick={() =>
+              navigate("/dummygram/profile", {
+                state: {
+                  name: user.displayName,
+                  email: user.email,
+                  avatar: user.photoURL,
+                },
+              })
+            }
+          >
+            <div className="sidebar_align">
+              <AccountCircleIcon className="icon" /> <span>Profile</span>
+            </div>
+          </li>
+        </ul>
+
+        <footer>
+          <ul className="sidebar-footer-container">
+            <li>
+              <a href="https://github.com/narayan954/dummygram" target="_blank">
+                <GitHubIcon />
+              </a>
+            </li>
+            <li>
+              <Link to="/about" className="footer-link">
+                about
+              </Link>
+            </li>
+            <li>
+              <Link to="/help-center" className="footer-link">
+                help-center
+              </Link>
+            </li>
+            <li>
+              <Link to="/guidelines" className="footer-link">
+                Guidelines
+              </Link>
+            </li>
+            <li>
+              <Link to="/guidelines" className="footer-link">
+                policy
+              </Link>
+            </li>
+          </ul>
+          <p className="copyright">&#169; MIT license since 2022</p>
+        </footer>
+      </div>
       <Dialog
         PaperProps={{
           sx: {

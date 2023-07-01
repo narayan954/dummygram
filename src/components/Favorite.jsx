@@ -4,7 +4,7 @@ import { auth, db } from "../lib/firebase";
 import { Box } from "@mui/material";
 import Post from "./Post";
 import { RowModeContext } from "../hooks/useRowMode";
-import ShareModal from "../reusableComponents/ShareModal";
+import { ShareModal } from "../reusableComponents";
 import SideBar from "./SideBar";
 
 function Favorite() {
@@ -49,7 +49,7 @@ function Favorite() {
         >
           {posts.length ? (
             <>
-              <h1>Your Favourites</h1>
+              <h1 style={{ color: "var(--color)" }}>Your Favourites</h1>
               <div className={`${rowMode ? "app__posts" : "app_posts_column"}`}>
                 {posts.map(({ id, post }) => (
                   <Post
@@ -66,7 +66,9 @@ function Favorite() {
               </div>
             </>
           ) : (
-            <>You have nothing in favourites</>
+            <p style={{ color: "var(--color)" }}>
+              You have nothing in favourites
+            </p>
           )}
         </div>
       </Box>

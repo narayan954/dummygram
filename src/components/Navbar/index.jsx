@@ -12,20 +12,11 @@ import React, { useEffect } from "react";
 import { AiOutlineInsertRowAbove } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
 import { auth } from "../../lib/firebase";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo.webp";
 import { useNavigate } from "react-router-dom";
 
 function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
   const navigate = useNavigate();
-
-  const buttonStyle = {
-    background: "linear-gradient(40deg, #e107c1, #59afc7)",
-    borderRadius: "20px",
-    margin: "10px",
-    ":hover": {
-      background: "linear-gradient(-40deg, #59afc7, #e107c1)",
-    },
-  };
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -43,10 +34,8 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
 
   return (
     <div className="app__header">
-      <img
-        src={logo}
-        alt="dummygram"
-        className="app__header__img"
+      <p
+        id="dummygram-logo"
         onClick={() => {
           if (
             location.pathname !== "/dummygram/login" &&
@@ -56,20 +45,13 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
           }
           window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
         }}
-        style={{
-          cursor: "pointer",
-        }}
-      />
+      >
+        dummygram
+      </p>
 
       {user && (
         <>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-            }}
-          >
+          <div className="container">
             <div className="rowConvert" onClick={onClick}>
               <AiOutlineInsertRowAbove style={{ margin: "auto" }} size={30} />
             </div>
@@ -78,31 +60,13 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
                 onClick={() => setOpen((cur) => !cur)}
                 color="secondary"
                 variant="contained"
-                sx={{ ...buttonStyle, marginRight: "10px" }}
+                className="button-style"
               >
                 <FaUserCircle fontSize="large" />
                 {open && (
-                  <Box
-                    backgroundColor="#fff"
-                    color="black"
-                    padding="2px"
-                    width="80px"
-                    position="absolute"
-                    borderRadius="4px"
-                    marginTop={16}
-                    marginRight={3}
-                    sx={{
-                      width: "fit-content",
-                      mt: "10rem",
-                      mr: "4rem",
-                      vertical: "top",
-                      border: "1px solid black",
-                    }}
-                  >
+                  <Box className="nav-menu">
                     <Box
-                      display="flex"
-                      padding="0.5rem"
-                      sx={{ cursor: "pointer" }}
+                      className="nav-menu-item"
                       onClick={() =>
                         navigate("/dummygram/profile", {
                           state: {
@@ -113,31 +77,21 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
                         })
                       }
                     >
-                      <Typography fontFamily="Poppins" fontSize="1rem">
-                        Profile
-                      </Typography>
+                      <Typography fontSize="1rem">Profile</Typography>
                     </Box>
                     <Divider />
                     <Box
-                      display="flex"
-                      padding="0.5rem"
-                      sx={{ cursor: "pointer" }}
+                      className="nav-menu-item"
                       onClick={() => navigate("/dummygram/favourites")}
                     >
-                      <Typography fontFamily="serif" fontSize="1rem">
-                        Favourites
-                      </Typography>
+                      <Typography fontSize="1rem">Favourites</Typography>
                     </Box>
                     <Divider />
                     <Box
-                      display="flex"
-                      padding="0.5rem"
-                      sx={{ cursor: "pointer" }}
+                      className="nav-menu-item"
                       onClick={() => setLogout(true)}
                     >
-                      <Typography fontFamily="Poppins" fontSize="0.9rem">
-                        Log Out
-                      </Typography>
+                      <Typography fontSize="0.9rem">Log Out</Typography>
                     </Box>
                   </Box>
                 )}

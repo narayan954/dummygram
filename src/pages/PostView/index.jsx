@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 
-import Loader from "../../components/Loader";
-import Post from "../../components/Post";
+import { Loader } from "../../reusableComponents/index.js";
+import PostCommentView from "../../components/postView/index.jsx";
+import { PostViewContainer } from "./PostViewStyled.jsx";
 import { db } from "../../lib/firebase";
 import { useParams } from "react-router-dom";
 
@@ -11,6 +12,7 @@ const PostView = (props) => {
   const { user, shareModal, setLink, setPostText } = props;
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [fetchAgain, setFetchAgain] = useState(false);
   useEffect(() => {
     setLoading(true);
     if (loading) {
@@ -27,14 +29,12 @@ const PostView = (props) => {
           setLoading(false);
         });
     }
-  }, [post]);
+  }, [post, fetchAgain]);
 
   return (
-    <div
-      style={{ display: "flex", justifyContent: "center", marginTop: "10vh" }}
-    >
+    <PostViewContainer>
       {post && user ? (
-        <Post
+        <PostCommentView
           key={id}
           postId={id}
           user={user}
@@ -42,11 +42,13 @@ const PostView = (props) => {
           shareModal={shareModal}
           setLink={setLink}
           setPostText={setPostText}
+          setFetchAgain={setFetchAgain}
+          fetchAgain={fetchAgain}
         />
       ) : (
         <Loader />
       )}
-    </div>
+    </PostViewContainer>
   );
 };
 

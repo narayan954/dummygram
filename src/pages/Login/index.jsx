@@ -7,7 +7,7 @@ import { faGoogle, faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
 import { getModalStyle, useStyles } from "../../App";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Logo from "../../assets/logo.png";
+import Logo from "../../assets/logo.webp";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
@@ -125,13 +125,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignContent: "center",
-        justifyContent: "center",
-      }}
-    >
+    <div className="flex">
       <div style={getModalStyle()} className={classes.paper}>
         <form className="modal__signup">
           <img
@@ -140,7 +134,7 @@ const LoginScreen = () => {
             className="modal__signup__img"
             style={{
               width: "80%",
-              filter: "invert(var(--val))",
+              filter: "var(--filter-img)",
             }}
           />
           <input
@@ -169,24 +163,11 @@ const LoginScreen = () => {
               placeholder=" Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              style={{
-                width: "100%",
-                border: "none",
-                margin: 0,
-                boxShadow: "none",
-              }}
+              className="password-input"
             />
             <button
               onClick={(e) => handleShowPassword(e)}
-              style={{
-                height: "100%",
-                width: "50px",
-                margin: 0,
-                background: "transparent",
-                outline: "none",
-                border: "none",
-                cursor: "pointer",
-              }}
+              className="show-password"
             >
               {showPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
             </button>

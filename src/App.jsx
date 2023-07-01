@@ -1,29 +1,32 @@
-import React, { Suspense, lazy, useEffect, useState } from "react";
+import "./index.css";
+
+import {
+  AnimatedButton,
+  Darkmode,
+  Loader,
+  ShareModal,
+} from "./reusableComponents";
+import {
+  Favorite,
+  Navbar,
+  NotFound,
+  Notifications,
+  Post,
+  SideBar,
+} from "./components";
+import { LoginScreen, PostView, Profile, SignupScreen } from "./pages";
+import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
-import AnimatedButton from "./reusableComponents/AnimatedButton";
 import { FaArrowCircleUp } from "react-icons/fa";
-import Loader from "./components/Loader";
 import Modal from "@mui/material/Modal";
-import Navbar from "./components/Navbar";
 import { RowModeContext } from "./hooks/useRowMode";
-import ShareModal from "./reusableComponents/ShareModal";
-import SideBar from "./components/SideBar";
+import logo from "./assets/logo.webp";
 import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
 
 import ForgotPassword from "./pages/ForgotPassword"
-
-
-const Favorite = lazy(() => import("./components/Favorite"));
-const LoginScreen = lazy(() => import("./pages/Login"));
-const NotFoundPage = lazy(() => import("./components/NotFound"));
-const Post = lazy(() => import("./components/Post"));
-const PostView = lazy(() => import("./pages/PostView"));
-const Profile = lazy(() => import("./pages/Profile"));
-const SignupScreen = lazy(() => import("./pages/Signup"));
-
 
 export function getModalStyle() {
   const top = 0;
@@ -48,7 +51,7 @@ export const useStyles = makeStyles((theme) => ({
     width: 250,
     marginTop:300,
     borderRadius: theme.shape.borderRadius,
-    boxShadow: "var(--color-shadow) 0px 5px 15px",
+    boxShadow: "var(--profile-box-shadow)",
     padding: theme.spacing(2, 4, 3),
     color: "var(--color)",
   },
@@ -76,15 +79,6 @@ function App() {
   const classes = useStyles();
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
-
-  const buttonStyle = {
-    background: "linear-gradient(40deg, #e107c1, #59afc7)",
-    borderRadius: "20px",
-    margin: "10px",
-    ":hover": {
-      background: "linear-gradient(-40deg, #59afc7, #e107c1)",
-    },
-  };
 
   const checkScrollTop = () => {
     if (!showScroll && window.pageYOffset > 400) {
@@ -116,28 +110,6 @@ function App() {
   }, [user]);
 
   useEffect(() => {
-    if (document.body.classList.contains("darkmode--activated")) {
-      window.document.body.style.setProperty("--bg-color", "black");
-      window.document.body.style.setProperty(
-        "--color-shadow",
-        "rgba(255, 255, 255, 0.35)"
-      );
-      window.document.body.style.setProperty("--color", "white");
-      window.document.body.style.setProperty("--val", 1);
-      document.getElementsByClassName("app__header__img").item(0).style.filter =
-        "invert(100%)";
-    } else {
-      window.document.body.style.setProperty("--bg-color", "white");
-      window.document.body.style.setProperty(
-        "--color-shadow",
-        "rgba(0, 0, 0, 0.35)"
-      );
-      window.document.body.style.setProperty("--color", "#2B1B17");
-      window.document.body.style.setProperty("--val", 0);
-      document.getElementsByClassName("app__header__img").item(0).style.filter =
-        "invert(0%)";
-    }
-
     window.addEventListener("scroll", handleMouseScroll);
     db.collection("posts")
       .orderBy("timestamp", "desc")
@@ -188,6 +160,7 @@ function App() {
     enqueueSnackbar("Logged out Successfully !", {
       variant: "info",
     });
+    navigate("/dummygram/");
   };
 
   return (
@@ -213,13 +186,13 @@ function App() {
           <div style={getModalStyle()} className={classes.paper}>
             <form className="modal__signup">
               <img
-                src="https://user-images.githubusercontent.com/27727921/185767526-a002a17d-c12e-4a6a-82a4-dd1a13a5ecda.png"
+                src={logo}
                 alt="dummygram"
                 className="modal__signup__img"
                 style={{
                   width: "80%",
                   marginLeft: "10%",
-                  filter: "invert(var(--val))",
+                  filter: "var(--filter-img)",
                 }}
               />
 
@@ -241,7 +214,7 @@ function App() {
                   onClick={signOut}
                   variant="contained"
                   color="primary"
-                  sx={buttonStyle}
+                  className="button-style"
                 >
                   Logout
                 </AnimatedButton>
@@ -250,7 +223,7 @@ function App() {
                   onClick={() => setLogout(false)}
                   variant="contained"
                   color="primary"
-                  sx={buttonStyle}
+                  className="button-style"
                 >
                   Cancel
                 </AnimatedButton>
@@ -258,100 +231,113 @@ function App() {
             </form>
           </div>
         </Modal>
-        <Suspense fallback={Loader}>
-          <Routes>
-            <Route
-              exact
-              path="/dummygram/"
-              element={
-                user ? (
+
+        <Darkmode />
+        <Routes>
+          <Route
+            exact
+            path="/dummygram/"
+            element={
+              user ? (
+                <div className="flex">
+                  <SideBar />
                   <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
+                    style={
+                      !loadingPosts
+                        ? {}
+                        : {
+                            width: "100%",
+                            minHeight: "100vh",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }
+                    }
                   >
-                    <SideBar />
-                    <div
-                      style={
-                        !loadingPosts
-                          ? {}
-                          : {
-                              width: "100%",
-                              minHeight: "100vh",
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                            }
-                      }
-                    >
-                      {loadingPosts ? (
-                        <Loader />
-                      ) : (
-                        <div
-                          className={`${
-                            rowMode ? "app__posts" : "app_posts_column"
-                          }`}
-                        >
-                          {posts.map(({ id, post }) => (
-                            <Post
-                              rowMode={rowMode}
-                              key={id}
-                              postId={id}
-                              user={user}
-                              post={post}
-                              shareModal={setOpenShareModal}
-                              setLink={setCurrentPostLink}
-                              setPostText={setPostText}
-                            />
-                          ))}
-                        </div>
-                      )}
-                    </div>
+                    {loadingPosts ? (
+                      <Loader />
+                    ) : (
+                      <div
+                        className={`${
+                          rowMode ? "app__posts" : "app_posts_column flex"
+                        }`}
+                      >
+                        {posts.map(({ id, post }) => (
+                          <Post
+                            rowMode={rowMode}
+                            key={id}
+                            postId={id}
+                            user={user}
+                            post={post}
+                            shareModal={setOpenShareModal}
+                            setLink={setCurrentPostLink}
+                            setPostText={setPostText}
+                          />
+                        ))}
+                      </div>
+                    )}
                   </div>
-                ) : (
-                  <></>
-                )
-              }
+                </div>
+              ) : (
+                <></>
+              )
+            }
+          />
+
+          <Route path="/dummygram/profile" element={<Profile />} />
+
+          <Route path="/dummygram/login" element={<LoginScreen />} />
+
+          <Route path="/dummygram/signup" element={<SignupScreen />} />
+
+          <Route path="/dummygram/forgot-password" element={<ForgotPassword />} />
+
+          <Route path="/dummygram/notifications" element={<Notifications />} />
+
+          <Route
+            path="/dummygram/posts/:id"
+            element={
+              <PostView
+                user={user}
+                shareModal={setOpenShareModal}
+                setLink={setCurrentPostLink}
+                setPostText={setPostText}
+              />
+            }
+          />
+
+          <Route path="*" element={<NotFound />} />
+          <Route path="/dummygram/favourites" element={<Favorite />} />
+        </Routes>
+
+        {location.pathname === "/dummygram/" ||
+        location.pathname === "/dummygram/favourites" ? (
+          <div>
+            <FaArrowCircleUp
+              fill="#777"
+              className="scrollTop"
+              onClick={scrollTop}
+              style={{
+                height: 50,
+                display: showScroll ? "flex" : "none",
+                position: "fixed",
+              }}
             />
-
-            <Route path="/dummygram/profile" element={<Profile />} />
-
-            <Route path="/dummygram/login" element={<LoginScreen />} />
-
-            <Route path="/dummygram/signup" element={<SignupScreen />} />
-
-        <Route path="/dummygram/forgot-password" element={<ForgotPassword />} />
-
-
-            <Route
-              path="/dummygram/posts/:id"
-              element={
-                <PostView
-                  user={user}
-                  shareModal={setOpenShareModal}
-                  setLink={setCurrentPostLink}
-                  setPostText={setPostText}
-                />
-              }
+          </div>
+        ) : (
+          <div>
+            <FaArrowCircleUp
+              fill="#777"
+              className="scrollTop sideToTop"
+              onClick={scrollTop}
+              style={{
+                height: 50,
+                display: showScroll ? "flex" : "none",
+                position: "fixed",
+              }}
             />
-
-            <Route path="*" element={<NotFoundPage />} />
-            <Route path="/dummygram/favourites" element={<Favorite />} />
-          </Routes>
-        </Suspense>
-
-        <FaArrowCircleUp
-          fill="#777"
-          // stroke="30"
-          className="scrollTop"
-          onClick={scrollTop}
-          style={{
-            height: 50,
-            display: showScroll ? "flex" : "none",
-          }}
-        />
+          </div>
+        )}
       </div>
     </RowModeContext.Provider>
   );
