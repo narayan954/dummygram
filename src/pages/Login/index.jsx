@@ -3,6 +3,7 @@ import "./index.css";
 import React, { useState } from "react";
 import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
 import { auth, facebookProvider, googleProvider } from "../../lib/firebase";
+import { errorSound, successSound } from "../../assets/sounds";
 import { faGoogle, faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
 import { getModalStyle, useStyles } from "../../App";
 
@@ -22,6 +23,14 @@ const LoginScreen = () => {
   const navigate = useNavigate();
   const classes = useStyles();
 
+  function playSuccessSound() {
+    new Audio(successSound).play();
+  }
+
+  function playErrorSound() {
+    new Audio(errorSound).play();
+  }
+
   const handleShowPassword = (e) => {
     e.preventDefault();
     setShowPassword(!showPassword);
@@ -33,6 +42,7 @@ const LoginScreen = () => {
       auth
         .signInWithEmailAndPassword(email, password)
         .then(() => {
+          playSuccessSound();
           enqueueSnackbar("Login successful!", {
             variant: "success",
           });
@@ -40,30 +50,36 @@ const LoginScreen = () => {
         })
         .catch((error) => {
           if (error.code === "auth/invalid-email") {
+            playErrorSound();
             enqueueSnackbar("Invalid email address", {
               variant: "error",
             });
           } else if (error.code === "auth/user-not-found") {
+            playErrorSound();
             enqueueSnackbar("User not found", {
               variant: "error",
             });
           } else if (error.code === "auth/wrong-password") {
+            playErrorSound();
             enqueueSnackbar("Wrong password", {
               variant: "error",
             });
           } else if (
             error.code === "auth/account-exists-with-different-credential"
           ) {
+            playErrorSound();
             enqueueSnackbar("Account exists with a different credential", {
               variant: "error",
             });
           } else {
+            playErrorSound();
             enqueueSnackbar(error.message, {
               variant: "error",
             });
           }
         });
     } else {
+      playErrorSound();
       enqueueSnackbar("Please fill all fields with valid data", {
         variant: "error",
       });
@@ -75,6 +91,7 @@ const LoginScreen = () => {
     auth
       .signInWithPopup(googleProvider)
       .then(() => {
+        playSuccessSound();
         enqueueSnackbar("Login successful!", {
           variant: "success",
         });
@@ -86,10 +103,12 @@ const LoginScreen = () => {
         // })
         {
           if (error.code === "auth/account-exists-with-different-credential") {
+            playErrorSound();
             enqueueSnackbar("Account exists with a different credential", {
               variant: "error",
             });
           } else {
+            playErrorSound();
             enqueueSnackbar(error.message, {
               variant: "error",
             });
@@ -103,12 +122,14 @@ const LoginScreen = () => {
     auth
       .signInWithPopup(facebookProvider)
       .then(() => {
+        playSuccessSound();
         enqueueSnackbar("Login successful!", {
           variant: "success",
         });
         navigate("/dummygram");
       })
       .catch((error) => {
+        playErrorSound();
         if (error.code === "auth/account-exists-with-different-credential") {
           enqueueSnackbar("Account exists with a different credential", {
             variant: "error",

@@ -6,6 +6,7 @@ import {
 } from "@mui/icons-material";
 import { IconButton, Typography } from "@mui/material";
 import React, { useState } from "react";
+import { errorSound, successSound } from "../../assets/sounds";
 
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
@@ -31,6 +32,14 @@ const PostNav = ({
   );
   const [isSaved, setisSaved] = useState(false);
 
+  function playSuccessSound() {
+    new Audio(successSound).play();
+  }
+
+  function playErrorSound() {
+    new Audio(errorSound).play();
+  }
+
   const save = async () => {
     let localStoragePosts = JSON.parse(localStorage.getItem("posts")) || [];
     const postIdExists = localStoragePosts.includes(postId);
@@ -38,12 +47,14 @@ const PostNav = ({
     if (!postIdExists) {
       localStoragePosts.push(postId);
       localStorage.setItem("posts", JSON.stringify(localStoragePosts));
+      playSuccessSound();
       enqueueSnackbar("Post added to favourites!", {
         variant: "success",
       });
     } else {
       localStoragePosts = localStoragePosts.filter((post) => post !== postId);
       localStorage.setItem("posts", JSON.stringify(localStoragePosts));
+      playSuccessSound();
       enqueueSnackbar("Post is removed from favourites!", {
         variant: "info",
       });
