@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import Popup from "../../reusableComponents/Popup";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
+import { successSound, errorSound } from "../../assets/sounds";
 
 export default function ImgUpload(props) {
   const [current, setCurrent] = useState(0);
@@ -34,6 +35,14 @@ export default function ImgUpload(props) {
 
   const { enqueueSnackbar } = useSnackbar();
 
+  function playSuccessSound(){
+    new Audio(successSound).play()
+  }
+
+  function playErrorSound(){
+    new Audio(errorSound).play()
+  }
+
   const handleChange = (e) => {
     if (!e.target.files[0]) {
       enqueueSnackbar("Select min 1 image!", {
@@ -45,6 +54,7 @@ export default function ImgUpload(props) {
     for (let i = 0; i < e.target.files.length; i++) {
       const img = e.target.files[i];
       if (!img.name.match(/\.(jpg|jpeg|png|gif)$/)) {
+        playErrorSound()
         enqueueSnackbar("Select a valid image!", {
           variant: "error",
         });
@@ -78,7 +88,8 @@ export default function ImgUpload(props) {
         likecount: [],
       })
       .then(() => {
-        enqueueSnackbar("Post was uploaded successfully!", {
+        playSuccessSound()
+        enqueueSnackbar("Post uploaded successfully!", {
           variant: "success",
         });
         setProgress(0);
@@ -93,6 +104,7 @@ export default function ImgUpload(props) {
         }
       })
       .catch((err) => {
+        playErrorSound()
         enqueueSnackbar(err.message, {
           variant: "error",
         });
@@ -108,6 +120,7 @@ export default function ImgUpload(props) {
 
   function handleUpload() {
     if ((!image && !caption) || !isValidimage) {
+      playErrorSound()
       enqueueSnackbar("Upload valid image and caption!", {
         variant: "error",
       });
@@ -138,6 +151,7 @@ export default function ImgUpload(props) {
         savePost(JSON.stringify(urls));
       })
       .catch((err) => {
+        playErrorSound()
         enqueueSnackbar(err.message, {
           variant: "error",
         });

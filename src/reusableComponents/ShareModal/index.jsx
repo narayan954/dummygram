@@ -4,12 +4,18 @@ import { Dialog, IconButton, Input } from "@mui/material";
 
 import logo from "../../assets/logo.webp";
 import { useSnackbar } from "notistack";
+import { successSound } from "../../assets/sounds";
 
 const ShareModal = (props) => {
   const { openShareModal, setOpenShareModal, currentPostLink, postText } =
     props;
 
   const { enqueueSnackbar } = useSnackbar();
+
+  
+  function playSuccessSound(){
+    new Audio(successSound).play()
+  }
 
   return (
     <Dialog
@@ -75,6 +81,7 @@ const ShareModal = (props) => {
           value={currentPostLink}
           onClick={() => {
             window.navigator.clipboard.writeText(currentPostLink);
+            playSuccessSound()
             enqueueSnackbar("Copied Post Link!", {
               variant: "success",
             });

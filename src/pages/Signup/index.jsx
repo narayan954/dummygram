@@ -17,6 +17,7 @@ import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import { successSound, errorSound } from "../../assets/sounds";
 
 const SignupScreen = () => {
   const classes = useStyles();
@@ -36,6 +37,15 @@ const SignupScreen = () => {
   const usernameRef = useRef(null);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
+
+
+  function playSuccessSound() {
+    new Audio(successSound).play()
+  }
+
+  function playErrorSound() {
+    new Audio(errorSound).play()
+  }
 
   function debounce(func, timeout = 300) {
     let timer;
@@ -84,18 +94,21 @@ const SignupScreen = () => {
     e.preventDefault();
     setSigningUp(true);
     if (!usernameAvailable) {
+      playErrorSound()
       enqueueSnackbar("Username not available!", {
         variant: "error",
       });
       return;
     }
     if (fullName === "") {
+      playErrorSound()
       enqueueSnackbar("Name cannot be blank", {
         variant: "error",
       });
       return;
     }
     if (password != confirmPassword) {
+      playErrorSound()
       enqueueSnackbar("Password dosen't match", {
         variant: "error",
       });
@@ -113,6 +126,7 @@ const SignupScreen = () => {
           .then(batch.set(usernameDoc, { uid: auth.currentUser.uid }))
           .then(batch.commit())
           .then(() => {
+            playSuccessSound()
             enqueueSnackbar(
               `Congratulations ${fullName},you have joined Dummygram`,
               {
@@ -122,6 +136,7 @@ const SignupScreen = () => {
             navigate("/dummygram");
           })
           .catch((error) => {
+            playErrorSound()
             enqueueSnackbar(error.message, {
               variant: "error",
             });
@@ -134,6 +149,7 @@ const SignupScreen = () => {
             // setProgress(Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100));
           },
           (error) => {
+            playErrorSound()
             enqueueSnackbar(error.message, {
               variant: "error",
             });
@@ -148,6 +164,7 @@ const SignupScreen = () => {
                   displayName: fullName,
                   photoURL: url,
                 });
+                playSuccessSound()
                 enqueueSnackbar("Signup Successful!", {
                   variant: "success",
                 });
@@ -155,11 +172,12 @@ const SignupScreen = () => {
           }
         );
       })
-      .catch((error) =>
+      .catch((error) => {
+        playErrorSound()
         enqueueSnackbar(error.message, {
           variant: "error",
         })
-      )
+      })
       .finally(() => {
         setSigningUp(false);
       });
@@ -170,16 +188,18 @@ const SignupScreen = () => {
     auth
       .signInWithPopup(googleProvider)
       .then(() => {
+        playSuccessSound()
         enqueueSnackbar("Signin successful!", {
           variant: "success",
         });
         navigate("/dummygram");
       })
-      .catch((error) =>
+      .catch((error) => {
+        playErrorSound()
         enqueueSnackbar(error.message, {
           variant: "error",
         })
-      );
+      });
   };
 
   const signInWithFacebook = (e) => {
@@ -187,16 +207,18 @@ const SignupScreen = () => {
     auth
       .signInWithPopup(facebookProvider)
       .then(() => {
+        playSuccessSound()
         enqueueSnackbar("Signin successful!", {
           variant: "success",
         });
         navigate("/dummygram");
       })
-      .catch((error) =>
+      .catch((error) => {
+        playErrorSound()
         enqueueSnackbar(error.message, {
           variant: "error",
         })
-      );
+      });
   };
 
   const navigateToLogin = () => {

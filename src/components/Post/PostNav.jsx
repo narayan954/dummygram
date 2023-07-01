@@ -11,6 +11,7 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import Flexbetween from "../../reusableComponents/Flexbetween";
 import { useSnackbar } from "notistack";
+import { successSound, errorSound } from "../../assets/sounds";
 
 const PostNav = ({
   caption,
@@ -31,6 +32,15 @@ const PostNav = ({
   );
   const [isSaved, setisSaved] = useState(false);
 
+  
+  function playSuccessSound(){
+    new Audio(successSound).play()
+  }
+
+  function playErrorSound(){
+    new Audio(errorSound).play()
+  }
+
   const save = async () => {
     let localStoragePosts = JSON.parse(localStorage.getItem("posts")) || [];
     const postIdExists = localStoragePosts.includes(postId);
@@ -38,12 +48,14 @@ const PostNav = ({
     if (!postIdExists) {
       localStoragePosts.push(postId);
       localStorage.setItem("posts", JSON.stringify(localStoragePosts));
+      playSuccessSound()
       enqueueSnackbar("Post added to favourites!", {
         variant: "success",
       });
     } else {
       localStoragePosts = localStoragePosts.filter((post) => post !== postId);
       localStorage.setItem("posts", JSON.stringify(localStoragePosts));
+      playSuccessSound()
       enqueueSnackbar("Post is removed from favourites!", {
         variant: "info",
       });

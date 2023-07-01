@@ -11,6 +11,7 @@ import Logo from "../../assets/logo.webp";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import { successSound, errorSound } from "../../assets/sounds";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -20,6 +21,15 @@ const LoginScreen = () => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const classes = useStyles();
+
+  
+  function playSuccessSound(){
+    new Audio(successSound).play()
+  }
+
+  function playErrorSound(){
+    new Audio(errorSound).play()
+  }
 
   const handleShowPassword = (e) => {
     e.preventDefault();
@@ -31,6 +41,7 @@ const LoginScreen = () => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
+        playSuccessSound()
         enqueueSnackbar("Login successful!", {
           variant: "success",
         });
@@ -38,6 +49,7 @@ const LoginScreen = () => {
       })
       .catch((error) => {
         if (error.code === "auth/invalid-email") {
+          playErrorSound()
           enqueueSnackbar("Invalid email address", {
             variant: "error",
           });
@@ -46,16 +58,19 @@ const LoginScreen = () => {
             variant: "error",
           });
         } else if (error.code === "auth/wrong-password") {
+          playErrorSound()
           enqueueSnackbar("Wrong password", {
             variant: "error",
           });
         } else if (
           error.code === "auth/account-exists-with-different-credential"
         ) {
+          playErrorSound()
           enqueueSnackbar("Account exists with a different credential", {
             variant: "error",
           });
         } else {
+          playErrorSound()
           enqueueSnackbar(error.message, {
             variant: "error",
           });
@@ -68,6 +83,7 @@ const LoginScreen = () => {
     auth
       .signInWithPopup(googleProvider)
       .then(() => {
+        playSuccessSound()
         enqueueSnackbar("Login successful!", {
           variant: "success",
         });
@@ -79,10 +95,12 @@ const LoginScreen = () => {
         // })
         {
           if (error.code === "auth/account-exists-with-different-credential") {
+            playErrorSound()
             enqueueSnackbar("Account exists with a different credential", {
               variant: "error",
             });
           } else {
+            playErrorSound()
             enqueueSnackbar(error.message, {
               variant: "error",
             });
@@ -96,12 +114,14 @@ const LoginScreen = () => {
     auth
       .signInWithPopup(facebookProvider)
       .then(() => {
+        playSuccessSound()
         enqueueSnackbar("Login successful!", {
           variant: "success",
         });
         navigate("/dummygram");
       })
       .catch((error) => {
+        playErrorSound()
         if (error.code === "auth/account-exists-with-different-credential") {
           enqueueSnackbar("Account exists with a different credential", {
             variant: "error",
