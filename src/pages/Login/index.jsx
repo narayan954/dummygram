@@ -17,7 +17,7 @@ const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState({email: true})
+  const [error, setError] = useState({ email: true });
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const classes = useStyles();
@@ -29,45 +29,41 @@ const LoginScreen = () => {
 
   const signIn = (e) => {
     e.preventDefault();
-    let submitable = true;
-    if(error.name || password===""){
-      submitable = false;
-    }
-    if(submitable){
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        enqueueSnackbar("Login successful!", {
-          variant: "success",
+    if (!error.email && password !== "") {
+      auth
+        .signInWithEmailAndPassword(email, password)
+        .then(() => {
+          enqueueSnackbar("Login successful!", {
+            variant: "success",
+          });
+          navigate("/dummygram");
+        })
+        .catch((error) => {
+          if (error.code === "auth/invalid-email") {
+            enqueueSnackbar("Invalid email address", {
+              variant: "error",
+            });
+          } else if (error.code === "auth/user-not-found") {
+            enqueueSnackbar("User not found", {
+              variant: "error",
+            });
+          } else if (error.code === "auth/wrong-password") {
+            enqueueSnackbar("Wrong password", {
+              variant: "error",
+            });
+          } else if (
+            error.code === "auth/account-exists-with-different-credential"
+          ) {
+            enqueueSnackbar("Account exists with a different credential", {
+              variant: "error",
+            });
+          } else {
+            enqueueSnackbar(error.message, {
+              variant: "error",
+            });
+          }
         });
-        navigate("/dummygram");
-      })
-      .catch((error) => {
-        if (error.code === "auth/invalid-email") {
-          enqueueSnackbar("Invalid email address", {
-            variant: "error",
-          });
-        } else if (error.code === "auth/user-not-found") {
-          enqueueSnackbar("User not found", {
-            variant: "error",
-          });
-        } else if (error.code === "auth/wrong-password") {
-          enqueueSnackbar("Wrong password", {
-            variant: "error",
-          });
-        } else if (
-          error.code === "auth/account-exists-with-different-credential"
-        ) {
-          enqueueSnackbar("Account exists with a different credential", {
-            variant: "error",
-          });
-        } else {
-          enqueueSnackbar(error.message, {
-            variant: "error",
-          });
-        }
-      });
-    }else{
+    } else {
       enqueueSnackbar("Please fill all fields with valid data", {
         variant: "error",
       });
@@ -129,12 +125,12 @@ const LoginScreen = () => {
     navigate("/dummygram/signup");
   };
 
-  const handleError = (name, value)=>{
+  const handleError = (name, value) => {
     const errorMessage = validate[name](value);
     setError((prev) => {
       return { ...prev, ...errorMessage };
     });
-  }
+  };
 
   return (
     <div className="flex">
@@ -158,18 +154,18 @@ const LoginScreen = () => {
               setEmail(e.target.value);
               handleError(e.target.name, e.target.value);
             }}
-            className={
-              error.emailError? "error-border": null
-            }
+            className={error.emailError ? "error-border" : null}
           />
-          {error.email && error.emailError && <p className="error">{error.emailError}</p>}
+          {error.email && error.emailError && (
+            <p className="error">{error.emailError}</p>
+          )}
           <div className="password-container">
             <input
-            name="password"
+              name="password"
               type={showPassword ? "text" : "password"}
               placeholder=" Password"
               value={password}
-              onChange={(e) =>setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               className="password-input"
             />
             <button

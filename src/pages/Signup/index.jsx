@@ -86,14 +86,14 @@ const SignupScreen = () => {
     e.preventDefault();
     setSigningUp(true);
     let submitable = true;
-    Object.values(error).forEach((err)=>{
-      if(err !== false){
-         submitable = false;
+    Object.values(error).forEach((err) => {
+      if (err !== false) {
+        submitable = false;
       }
-    })
+    });
 
-    if(username === "") submitable = false
-  
+    if (username === "") submitable = false;
+
     if (!usernameAvailable) {
       enqueueSnackbar("Username not available!", {
         variant: "error",
@@ -101,69 +101,69 @@ const SignupScreen = () => {
       return;
     }
 
-if(submitable){
-    const usernameDoc = db.doc(`usernames/${username}`);
-    const batch = db.batch();
-    await auth
-      .createUserWithEmailAndPassword(email, password)
-      .then(async (authUser) => {
-        await updateProfile(auth.currentUser, {
-          displayName: fullName,
-        })
-          .then(batch.set(usernameDoc, { uid: auth.currentUser.uid }))
-          .then(batch.commit())
-          .then(() => {
-            enqueueSnackbar(
-              `Congratulations ${fullName},you have joined Dummygram`,
-              {
-                variant: "success",
-              }
-            );
-            navigate("/dummygram");
+    if (submitable) {
+      const usernameDoc = db.doc(`usernames/${username}`);
+      const batch = db.batch();
+      await auth
+        .createUserWithEmailAndPassword(email, password)
+        .then(async (authUser) => {
+          await updateProfile(auth.currentUser, {
+            displayName: fullName,
           })
-          .catch((error) => {
-            enqueueSnackbar(error.message, {
-              variant: "error",
-            });
-          });
-        const uploadTask = storage.ref(`images/${image?.name}`).put(image);
-        uploadTask.on(
-          "state_changed",
-          () => {
-            // // progress function ...
-            // setProgress(Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100));
-          },
-          (error) => {
-            enqueueSnackbar(error.message, {
-              variant: "error",
-            });
-          },
-          () => {
-            storage
-              .ref("images")
-              .child(image?.name)
-              .getDownloadURL()
-              .then((url) => {
-                authUser.user.updateProfile({
-                  displayName: fullName,
-                  photoURL: url,
-                });
-                enqueueSnackbar("Signup Successful!", {
+            .then(batch.set(usernameDoc, { uid: auth.currentUser.uid }))
+            .then(batch.commit())
+            .then(() => {
+              enqueueSnackbar(
+                `Congratulations ${fullName},you have joined Dummygram`,
+                {
                   variant: "success",
-                });
+                }
+              );
+              navigate("/dummygram");
+            })
+            .catch((error) => {
+              enqueueSnackbar(error.message, {
+                variant: "error",
               });
-          }
-        );
-      })
-      .catch((error) =>
-        enqueueSnackbar(error.message, {
-          variant: "error",
+            });
+          const uploadTask = storage.ref(`images/${image?.name}`).put(image);
+          uploadTask.on(
+            "state_changed",
+            () => {
+              // // progress function ...
+              // setProgress(Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100));
+            },
+            (error) => {
+              enqueueSnackbar(error.message, {
+                variant: "error",
+              });
+            },
+            () => {
+              storage
+                .ref("images")
+                .child(image?.name)
+                .getDownloadURL()
+                .then((url) => {
+                  authUser.user.updateProfile({
+                    displayName: fullName,
+                    photoURL: url,
+                  });
+                  enqueueSnackbar("Signup Successful!", {
+                    variant: "success",
+                  });
+                });
+            }
+          );
         })
-      )
-      .finally(() => {
-        setSigningUp(false);
-      }); 
-    }else{
+        .catch((error) =>
+          enqueueSnackbar(error.message, {
+            variant: "error",
+          })
+        )
+        .finally(() => {
+          setSigningUp(false);
+        });
+    } else {
       enqueueSnackbar("Please fill all fields with valid data", {
         variant: "error",
       });
@@ -211,7 +211,8 @@ if(submitable){
 
   const handleError = (name, value) => {
     let errorMessage = validate[name](value);
-    if(name === "confirmPassword") errorMessage = validate.confirmPassword(value, password)
+    if (name === "confirmPassword")
+      errorMessage = validate.confirmPassword(value, password);
     setError((prev) => {
       return { ...prev, ...errorMessage };
     });
@@ -252,12 +253,12 @@ if(submitable){
               checkUsername();
             }}
             className={
-              usernameAvailable
-                ? "username-available"
-                : "error-border"
+              usernameAvailable ? "username-available" : "error-border"
             }
           />
-          {!usernameAvailable && <p className="error">Username not availaible</p>}
+          {!usernameAvailable && (
+            <p className="error">Username not availaible</p>
+          )}
           <input
             type="text"
             placeholder="Full Name"
@@ -267,9 +268,7 @@ if(submitable){
               setFullName(e.target.value);
               handleError(e.target.name, e.target.value);
             }}
-            className={
-              error.nameError? "error-border": null
-            }
+            className={error.nameError ? "error-border" : null}
           />
           {error.name && error.nameError && (
             <p className="error">{error.nameError}</p>
@@ -283,23 +282,27 @@ if(submitable){
               setEmail(e.target.value);
               handleError(e.target.name, e.target.value);
             }}
-            className={
-              error.emailError? "error-border": null
-            }
+            className={error.emailError ? "error-border" : null}
           />
-            {error.email && error.emailError && (
+          {error.email && error.emailError && (
             <p className="error">{error.emailError}</p>
           )}
-          <div className={(error.passwordError)?"error-border password-container": "password-container" } >
+          <div
+            className={
+              error.passwordError
+                ? "error-border password-container"
+                : "password-container"
+            }
+          >
             <input
               type={showPassword ? "text" : "password"}
               placeholder=" Password"
               value={password}
               name="password"
               onChange={(e) => {
-              setPassword(e.target.value);
-              handleError(e.target.name, e.target.value);
-            }}
+                setPassword(e.target.value);
+                handleError(e.target.name, e.target.value);
+              }}
               className="password-input "
             />
             <button
@@ -314,16 +317,22 @@ if(submitable){
           )}
 
           {/* Confirm password */}
-          <div className={(error.confirmPasswordError)?"error-border password-container": "password-container"}>
+          <div
+            className={
+              error.confirmPasswordError
+                ? "error-border password-container"
+                : "password-container"
+            }
+          >
             <input
               type={showConfirmPassword ? "text" : "password"}
               placeholder="Confirm Password"
               value={confirmPassword}
               name="confirmPassword"
               onChange={(e) => {
-              setConfirmPassword(e.target.value);
-              handleError(e.target.name, e.target.value);
-            }}
+                setConfirmPassword(e.target.value);
+                handleError(e.target.name, e.target.value);
+              }}
               className="password-input"
             />
             <button

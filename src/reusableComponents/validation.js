@@ -1,6 +1,6 @@
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$%#^&*])(?=.*[0-9]).{8,}$/;
-const emailRegex = /^\w+([\.-]?\w+)*@(gmail\.com|yahoo\.com|hotmail\.com|aol\.com|outlook\.com)$/;
-
+const emailRegex =
+  /^\w+([\.-]?\w+)*@(gmail\.com|yahoo\.com|hotmail\.com|aol\.com|outlook\.com)$/;
 
 const validate = {
   name: (value) => {
@@ -14,12 +14,11 @@ const validate = {
   email: (value) => {
     return emailRegex.test(value)
       ? { email: false, emailError: false }
-      : { email: true, emailError: "Please enter a valid email address" }
-
+      : { email: true, emailError: "Please enter a valid email address" };
   },
 
   password: (value) => {
-   return passwordRegex.test(value)
+    return passwordRegex.test(value)
       ? { password: false, passwordError: false }
       : {
           password: true,
@@ -28,21 +27,20 @@ const validate = {
         };
   },
 
-  confirmPassword: (value, password)=>{
-    return (value === password)
-    ? { confirmPassword: false, confirmPasswordError: false }
-    : {
-        confirmPassword: true,
-        confirmPasswordError:
-          "Password does not match",
-      };
+  confirmPassword: (value, password) => {
+    return value === password
+      ? { confirmPassword: false, confirmPasswordError: false }
+      : {
+          confirmPassword: true,
+          confirmPasswordError: "Password does not match",
+        };
   },
-  initialValue : {
+  initialValue: {
     name: true,
     email: true,
     password: true,
-    confirmPassword: true
-  }
+    confirmPassword: true,
+  },
 };
 
 export default validate;

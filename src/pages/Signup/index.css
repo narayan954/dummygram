@@ -46,7 +46,7 @@
   border: 2px solid green;
 }
 
-.error-border{
+.error-border {
   border: 2px solid red !important;
 }
 
@@ -81,7 +81,7 @@
   cursor: pointer;
 }
 
-.error{
+.error {
   font-size: 12px;
   color: red;
 }
