@@ -36,6 +36,10 @@ const validate = {
         confirmPasswordError:
           "Password does not match",
       };
+  },
+  initialValue : {
+    email: true,
+    password: true,
   }
 };
 

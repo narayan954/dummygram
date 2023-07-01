@@ -34,7 +34,7 @@ const SignupScreen = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [usernameAvailable, setUsernameAvailable] = useState(true);
   const [username, setUsername] = useState("");
-  const [error, setError] = useState({});
+  const [error, setError] = useState({...validate.initialValue, name: true, confirmPassword:true});
   const usernameRef = useRef(null);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
@@ -85,25 +85,20 @@ const SignupScreen = () => {
   const signUp = async (e) => {
     e.preventDefault();
     setSigningUp(true);
+    let submitable = true;
+    Object.values(error).forEach((err)=>{
+      if(err !== false){
+         submitable = false;
+      }
+    })
     if (!usernameAvailable) {
       enqueueSnackbar("Username not available!", {
         variant: "error",
       });
       return;
     }
-    if (fullName === "") {
-      enqueueSnackbar("Name cannot be blank", {
-        variant: "error",
-      });
-      return;
-    }
-    if (password != confirmPassword) {
-      enqueueSnackbar("Password dosen't match", {
-        variant: "error",
-      });
-      return;
-    }
-
+    
+if(submitable){
     const usernameDoc = db.doc(`usernames/${username}`);
     const batch = db.batch();
     await auth
@@ -164,7 +159,12 @@ const SignupScreen = () => {
       )
       .finally(() => {
         setSigningUp(false);
+      }); 
+    }else{
+      enqueueSnackbar("Please fill all fields with valid data", {
+        variant: "error",
       });
+    }
   };
 
   const signInWithGoogle = (e) => {
@@ -250,7 +250,7 @@ const SignupScreen = () => {
             className={
               usernameAvailable
                 ? "username-available"
-                : "username-not-available"
+                : "error-border"
             }
           />
           {!usernameAvailable && <p className="error">Username not availaible</p>}
@@ -264,7 +264,7 @@ const SignupScreen = () => {
               handleError(e.target.name, e.target.value);
             }}
             className={
-              error.nameError? "username-not-available": null
+              error.nameError? "error-border": null
             }
           />
           {error.name && error.nameError && (
@@ -280,13 +280,13 @@ const SignupScreen = () => {
               handleError(e.target.name, e.target.value);
             }}
             className={
-              error.emailError? "username-not-available": null
+              error.emailError? "error-border": null
             }
           />
             {error.email && error.emailError && (
             <p className="error">{error.emailError}</p>
           )}
-          <div className={(error.passwordError)?"username-not-available password-container": "password-container" } >
+          <div className={(error.passwordError)?"error-border password-container": "password-container" } >
             <input
               type={showPassword ? "text" : "password"}
               placeholder=" Password"
@@ -310,7 +310,7 @@ const SignupScreen = () => {
           )}
 
           {/* Confirm password */}
-          <div className={(error.confirmPasswordError)?"username-not-available password-container": "password-container"}>
+          <div className={(error.confirmPasswordError)?"error-border password-container": "password-container"}>
             <input
               type={showConfirmPassword ? "text" : "password"}
               placeholder="Confirm Password"

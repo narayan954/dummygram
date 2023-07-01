@@ -17,7 +17,7 @@ const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState({})
+  const [error, setError] = useState(validate.initialValue)
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const classes = useStyles();
@@ -29,6 +29,13 @@ const LoginScreen = () => {
 
   const signIn = (e) => {
     e.preventDefault();
+    let submitable = true;
+    Object.values(error).forEach((err)=>{
+      if(err !== false){
+        submitable = false;
+      }
+    })
+    if(submitable){
     auth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
@@ -62,6 +69,11 @@ const LoginScreen = () => {
           });
         }
       });
+    }else{
+      enqueueSnackbar("Please fill all fields with valid data", {
+        variant: "error",
+      });
+    }
   };
 
   const signInWithGoogle = (e) => {
@@ -149,11 +161,11 @@ const LoginScreen = () => {
               handleError(e.target.name, e.target.value);
             }}
             className={
-              error.emailError? "username-not-available": null
+              error.emailError? "error-border": null
             }
           />
           {error.email && error.emailError && <p className="error">{error.emailError}</p>}
-          <div className={(error.passwordError)?"username-not-available password-container": "password-container" }>
+          <div className={(error.passwordError)?"error-border password-container": "password-container" }>
             <input
             name="password"
               type={showPassword ? "text" : "password"}

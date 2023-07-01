@@ -46,7 +46,7 @@
   border: 2px solid green;
 }
 
-.username-not-available {
+.error-border{
   border: 2px solid red !important;
 }
 
