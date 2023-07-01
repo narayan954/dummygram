@@ -160,7 +160,7 @@ const LoginScreen = () => {
               boxSizing: "border-box",
               marginTop: "10px",
               backgroundColor: "white",
-              boxShadow: "0 0 20px rgba(104, 85, 224, 0.2)",
+              boxShadow: "0 0 30px 3px rgba(104, 85, 224, 0.2)",
               borderRadius: "4px",
             }}
           >

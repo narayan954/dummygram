@@ -27,14 +27,14 @@ const SignupScreen = lazy(() => import("./pages/Signup"));
 
 export function getModalStyle() {
   const top = 0;
-  const left = 50;
+  // const left = 50;
   const padding = 2;
   const radius = 3;
 
   return {
     top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
+    // left: `${left}%`,
+    transform: `translate(-${top}%, -50%)`,
     padding: `${padding}%`,
     borderRadius: `${radius}%`,
     textAlign: "center",
