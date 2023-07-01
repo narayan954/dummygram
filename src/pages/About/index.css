@@ -1,0 +1,131 @@
+.about-container {
+  position: relative;
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.grad {
+  display: inline-block;
+  position: absolute;
+  z-index: -1;
+  background-image: linear-gradient(109.6deg, #59afc7 11.2%, #e107c1 91.1%);
+}
+
+.grad1 {
+  top: 0%;
+  left: -10%;
+  width: 329px;
+  aspect-ratio: 3/2;
+  border-radius: 81% 19% 74% 26% / 69% 39% 61% 31%;
+}
+
+.grad2 {
+  bottom: 10%;
+  left: -10%;
+  width: 200px;
+  aspect-ratio: 1;
+  border-radius: 53% 47% 53% 47% / 52% 33% 67% 48%;
+}
+
+.grad3 {
+  top: 10%;
+  right: -10%;
+  width: 200px;
+  aspect-ratio: 1/2;
+  transform: rotateZ(15deg);
+  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
+}
+.grad4 {
+  top: 600px;
+  right: 10%;
+  width: 300px;
+  aspect-ratio: 1;
+  border-radius: 32% 68% 74% 26% / 20% 65% 35% 80%;
+}
+
+.about-sub-container {
+  position: relative;
+  border-radius: 150px;
+  margin-bottom: 50px;
+}
+
+.about-section {
+  position: relative;
+  width: 60vw;
+  min-height: 100vh;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 150px;
+  padding-bottom: 40px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0)
+  );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.about-headings {
+  margin-top: 100px;
+  margin-bottom: 20px;
+  font-size: 50px;
+  font-weight: 600;
+  color: rgb(61, 60, 60);
+}
+
+.about-section-text {
+  width: 90%;
+  max-width: 800px;
+  font-size: 20px;
+}
+
+.about-section-stats-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.about-section-stats {
+  font-size: 25px;
+}
+
+.about-stats {
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 1000px) {
+  .about-section {
+    width: 90vw;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .grad1 {
+    width: 209px;
+  }
+
+  .grad2 {
+    width: 200px;
+  }
+
+  .grad3 {
+    width: 150px;
+  }
+  .grad4 {
+    width: 200px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  #about-dummygram-logo {
+    width: 400px;
+  }
+}
