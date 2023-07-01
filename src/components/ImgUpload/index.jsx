@@ -77,45 +77,50 @@ export default function ImgUpload(props) {
     setImagePreviews(images);
   };
 
-  const savePost = (imageUrl = "") => {
-    db.collection("posts")
-      .add({
+  const savePost = async (imageUrl = "") => {
+    try {
+      const postRef = await db.collection("posts").add({
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         caption: caption,
         imageUrl,
         username: props.user.displayName,
         avatar: props.user.photoURL,
         likecount: [],
-      })
-      .then(() => {
-        playSuccessSound();
-        enqueueSnackbar("Post uploaded successfully!", {
-          variant: "success",
-        });
-        setProgress(0);
-        setCaption("");
-        setImage(null);
-        if (imgInput.current) {
-          imgInput.current.value = null;
-        }
-
-        if (props.onUploadComplete) {
-          props.onUploadComplete();
-        }
-      })
-      .catch((err) => {
-        playErrorSound();
-        enqueueSnackbar(err.message, {
-          variant: "error",
-        });
-
-        if (props.onUploadError) {
-          props.onUploadError(err);
-        }
-      })
-      .finally(() => {
-        setUploadingPost(false);
+        uid: auth?.currentUser?.uid
       });
+
+      const postId = postRef.id; // Store post ID in a separate variable
+
+      await db.collection("users").doc(props.user.uid).update({
+        posts: firebase.firestore.FieldValue.arrayUnion(postId) // Use postId instead of postRef.id
+      });
+
+      playErrorSound();
+      enqueueSnackbar("Post was uploaded successfully!", {
+        variant: "success",
+      });
+      setProgress(0);
+      setCaption("");
+      setImage(null);
+      if (imgInput.current) {
+        imgInput.current.value = null;
+      }
+
+      if (props.onUploadComplete) {
+        props.onUploadComplete();
+      }
+    } catch (err) {
+      playErrorSound();
+      enqueueSnackbar(err.message, {
+        variant: "error",
+      });
+
+      if (props.onUploadError) {
+        props.onUploadError(err);
+      }
+    } finally {
+      setUploadingPost(false);
+    };
   };
 
   function handleUpload() {

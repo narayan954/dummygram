@@ -45,7 +45,7 @@ const PostCommentView = ({
   const navigate = useNavigate();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
-  const { username, caption, imageUrl, avatar, likecount, timestamp } = post;
+  const { username, caption, imageUrl, avatar, likecount, timestamp, email } = post;
   const time = useCreatedAt(timestamp);
 
   const [comments, setComments] = React.useState(null);
@@ -219,6 +219,7 @@ const PostCommentView = ({
                       state: {
                         name: username,
                         avatar: avatar,
+                        email: email
                       },
                     });
                   }}

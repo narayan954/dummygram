@@ -35,6 +35,7 @@ const SignupScreen = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [usernameAvailable, setUsernameAvailable] = useState(true);
   const [username, setUsername] = useState("");
+  const [isOauthSignUp ,setIsOauthSignUp] = useState(false);
   const [error, setError] = useState(validate.initialValue);
   const usernameRef = useRef(null);
   const { enqueueSnackbar } = useSnackbar();
@@ -112,7 +113,7 @@ const SignupScreen = () => {
     }
 
     if (submitable) {
-      const usernameDoc = db.doc(`usernames/${username}`);
+      const usernameDoc = db.collection(`users`);
       const batch = db.batch();
       await auth
         .createUserWithEmailAndPassword(email, password)
@@ -120,8 +121,14 @@ const SignupScreen = () => {
           await updateProfile(auth.currentUser, {
             displayName: fullName,
           })
-            .then(batch.set(usernameDoc, { uid: auth.currentUser.uid }))
-            .then(batch.commit())
+            .then(
+              await usernameDoc.doc(auth.currentUser.uid).set({
+                uid: auth.currentUser.uid,
+                name: username,
+                photoURL: auth.currentUser.photoURL,
+                posts: []
+              })
+            )
             .then(() => {
               playSuccessSound();
               enqueueSnackbar(
@@ -190,31 +197,77 @@ const SignupScreen = () => {
     e.preventDefault();
     auth
       .signInWithPopup(googleProvider)
-      .then(() => {
-        playSuccessSound();
-        enqueueSnackbar("Signin successful!", {
-          variant: "success",
+      .then(async(val) => {
+        setFullName(val?.user?.displayName);
+        setEmail(val?.user?.email);
+        setIsOauthSignUp(true);
+        const usernameDoc = db.collection(`users`);
+        await usernameDoc.doc(auth.currentUser.uid).set({
+          uid: val.user.uid,
+          name: val.user.displayName,
+          photoURL:val.user.photoURL,
+          displayName:val.user.displayName,
+          Friends: [],
+          posts: []
+        }) .then(() => {
+          playSuccessSound();
+          enqueueSnackbar(
+            `Congratulations ${fullName},you have joined Dummygram`,
+            {
+              variant: "success",
+            }
+          );
+          navigate("/dummygram");
+        })
+        .catch((error) => {
+          playErrorSound();
+          enqueueSnackbar(error.message, {
+            variant: "error",
+          });
         });
-        navigate("/dummygram");
+
       })
-      .catch((error) => {
-        playErrorSound();
+      .catch((error) =>
         enqueueSnackbar(error.message, {
           variant: "error",
-        });
-      });
+        })
+      );
   };
+
 
   const signInWithFacebook = (e) => {
     e.preventDefault();
     auth
       .signInWithPopup(facebookProvider)
-      .then(() => {
-        playSuccessSound();
-        enqueueSnackbar("Signin successful!", {
-          variant: "success",
+      .then(async(val) => {
+        setFullName(val?.user?.displayName);
+        setEmail(val?.user?.email);
+        setIsOauthSignUp(true);
+        const usernameDoc = db.collection(`users`);
+        await usernameDoc.doc(auth.currentUser.uid).set({
+          uid: val.user.uid,
+          name: val.user.displayName,
+          photoURL:val.user.photoURL,
+          displayName:val.user.displayName,
+          Friends: [],
+          posts: []
+        }) .then(() => {
+          playSuccessSound();
+          enqueueSnackbar(
+            `Congratulations ${fullName},you have joined Dummygram`,
+            {
+              variant: "success",
+            }
+          );
+          navigate("/dummygram");
+        })
+        .catch((error) => {
+          playErrorSound();
+          enqueueSnackbar(error.message, {
+            variant: "error",
+          });
         });
-        navigate("/dummygram");
+
       })
       .catch((error) => {
         playErrorSound();

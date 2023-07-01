@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import ShareModal from "../reusableComponents";
 import SideBar from "./SideBar";
-import { db } from "../lib/firebase";
+import { auth, db } from "../lib/firebase";
 
 function Notifications() {
   const [openShareModal, setOpenShareModal] = useState(false);
@@ -13,8 +13,10 @@ function Notifications() {
 
   useEffect(() => {
     const unsubscribe = db
-      .collection("notifications")
-      .orderBy("timestamp", "desc")
+    .collection("users")
+    .doc(auth?.currentUser?.uid)
+    .collection("notifications")
+    .orderBy("timestamp", "desc")
       .onSnapshot((snapshot) => {
         const fetchedNotifications = snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -45,12 +47,14 @@ function Notifications() {
             <>
               <h1 style={{ color: "var(--color)" }}>Notifications</h1>
               {notifications.map((notification) => (
-                <div key={notification.id}>
-                  <p style={{ color: "var(--color)" }}>
-                    {notification.message}
-                  </p>
-                </div>
-              ))}
+                  <div key={notification.id} style={{
+                    width: "50%", backgroundColor: "grey",
+                    color: "white", borderRadius: "10px", padding: "5px",
+                    margin: "30px"
+                  }}>
+                    <p>{notification.message}</p>
+                  </div>
+                ))}
             </>
           ) : (
             <p style={{ color: "var(--color)" }}>No notifications</p>

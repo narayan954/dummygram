@@ -2,7 +2,7 @@ import "./index.css";
 
 import React, { useState } from "react";
 import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
-import { auth, facebookProvider, googleProvider } from "../../lib/firebase";
+import { auth, db, facebookProvider, googleProvider } from "../../lib/firebase";
 import { errorSound, successSound } from "../../assets/sounds";
 import { faGoogle, faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
 import { getModalStyle, useStyles } from "../../App";
@@ -90,7 +90,21 @@ const LoginScreen = () => {
     e.preventDefault();
     auth
       .signInWithPopup(googleProvider)
-      .then(() => {
+      .then(async(val) => {
+        const userRef = await db.collection('users').where("uid", "==", val?.user?.uid);
+        // alert(((await userRef.get()).docs.length))
+
+        if(((await userRef.get()).docs.length) < 1){
+          const usernameDoc = db.collection(`users`);
+        await usernameDoc.doc(auth.currentUser.uid).set({
+          uid: val.user.uid,
+          name: val.user.displayName,
+          photoURL:val.user.photoURL,
+          displayName:val.user.displayName,
+          Friends: [],
+          posts: []
+        })
+        }
         playSuccessSound();
         enqueueSnackbar("Login successful!", {
           variant: "success",
@@ -98,9 +112,6 @@ const LoginScreen = () => {
         navigate("/dummygram");
       })
       .catch((error) =>
-        // enqueueSnackbar(error.message, {
-        //   variant: "error",
-        // })
         {
           if (error.code === "auth/account-exists-with-different-credential") {
             playErrorSound();
@@ -121,7 +132,20 @@ const LoginScreen = () => {
     e.preventDefault();
     auth
       .signInWithPopup(facebookProvider)
-      .then(() => {
+      .then(async(val) => {
+        const userRef = await db.collection('users').where("uid", "==", val?.user?.uid);
+        // alert(((await userRef.get()).docs.length))
+        if(((await userRef.get()).docs.length) < 1){
+          const usernameDoc = db.collection(`users`);
+        await usernameDoc.doc(auth.currentUser.uid).set({
+          uid: val.user.uid,
+          name: val.user.displayName,
+          photoURL:val.user.photoURL,
+          displayName:val.user.displayName,
+          Friends: [],
+          posts: []
+        })
+        }
         playSuccessSound();
         enqueueSnackbar("Login successful!", {
           variant: "success",

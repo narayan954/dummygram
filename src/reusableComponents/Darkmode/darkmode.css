@@ -1,7 +1,8 @@
 .darkmode-btn {
   position: fixed;
-  right: 40px;
-  bottom: 40px;
+  right: 20px;
+  bottom: 50px;
+  z-index: 100;
 }
 
 .darkmode-btn button {

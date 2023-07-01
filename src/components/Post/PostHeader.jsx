@@ -26,7 +26,7 @@ import { useState } from "react";
 const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
   const time = useCreatedAt(timestamp);
   const { fullScreen } = user; // needs fixing
-  const { username, caption, imageUrl, avatar } = postData;
+  const { username, caption, imageUrl, uid, email, avatar } = postData;
 
   const [Open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(false);
@@ -142,6 +142,8 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
                 state: {
                   name: username,
                   avatar: avatar,
+                  uid: uid,
+                  email: email
                 },
               });
             }}
