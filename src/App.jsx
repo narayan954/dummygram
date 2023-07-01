@@ -14,7 +14,7 @@ import {
   Post,
   SideBar,
 } from "./components";
-import { LoginScreen, PostView, Profile, SignupScreen } from "./pages";
+import { LoginScreen, PostView, Profile, SignupScreen, About } from "./pages";
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
@@ -287,6 +287,8 @@ function App() {
           />
 
           <Route path="/dummygram/profile" element={<Profile />} />
+
+          <Route path="/dummygram/about" element={<About />} />
 
           <Route path="/dummygram/login" element={<LoginScreen />} />
 
