@@ -1,5 +1,6 @@
 import "./index.css";
 
+import { About, LoginScreen, PostView, Profile, SignupScreen } from "./pages";
 import {
   AnimatedButton,
   Darkmode,
@@ -14,7 +15,6 @@ import {
   Post,
   SideBar,
 } from "./components";
-import { LoginScreen, PostView, Profile, SignupScreen, About } from "./pages";
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
@@ -313,7 +313,8 @@ function App() {
         </Routes>
 
         {location.pathname === "/dummygram/" ||
-        location.pathname === "/dummygram/favourites" ? (
+        location.pathname === "/dummygram/favourites" ||
+        location.pathname === "/dummygram/about" ? (
           <div>
             <FaArrowCircleUp
               fill="#777"
