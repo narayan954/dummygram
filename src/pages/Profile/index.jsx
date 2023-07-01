@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { Post, SideBar } from "../../components";
 import { auth, db, storage } from "../../lib/firebase";
+import { backBtnSound, successSound } from "../../assets/sounds";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -37,6 +38,14 @@ function Profile() {
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState("");
 
+  function playSuccessSound() {
+    new Audio(successSound).play();
+  }
+
+  function playErrorSound() {
+    new Audio(errorSound).play();
+  }
+
   const handleClose = () => setOpen(false);
 
   const handleSendFriendRequest = () => {
@@ -51,6 +60,7 @@ function Profile() {
       .add(friendRequestData)
       .then(() => {
         setFriendRequestSent(true);
+        playSuccessSound();
         enqueueSnackbar("Friend request sent!", {
           variant: "success",
         });
@@ -62,6 +72,7 @@ function Profile() {
         db.collection("notifications").add(notificationData);
       })
       .catch((error) => {
+        playErrorSound();
         enqueueSnackbar(error.message, {
           variant: "error",
         });
@@ -148,6 +159,7 @@ function Profile() {
   }, [user, name]);
 
   const handleBack = () => {
+    new Audio(backBtnSound).play();
     navigate("/dummygram");
   };
 
@@ -165,6 +177,7 @@ function Profile() {
       "state_changed",
       () => {},
       (error) => {
+        playErrorSound();
         enqueueSnackbar(error.message, {
           variant: "error",
         });
@@ -179,6 +192,7 @@ function Profile() {
               displayName: name,
               photoURL: url,
             });
+            playSuccessSound();
             enqueueSnackbar("Upload Successful!!!", {
               variant: "success",
             });
