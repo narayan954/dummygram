@@ -4,7 +4,7 @@ import { auth, db } from "../lib/firebase";
 import { Box } from "@mui/material";
 import Post from "./Post";
 import { RowModeContext } from "../hooks/useRowMode";
-import { ShareModal } from "../reusableComponents";
+import { ShareModal, Loader } from "../reusableComponents";
 import SideBar from "./SideBar";
 
 function Favorite() {
@@ -12,6 +12,7 @@ function Favorite() {
   const [currentPostLink, setCurrentPostLink] = useState("");
   const [postText, setPostText] = useState("");
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const rowMode = useContext(RowModeContext);
 
   useEffect(() => {
@@ -27,52 +28,62 @@ function Favorite() {
           posts.push({ id: doc.id, post: doc.data() });
         }
       });
+      setLoading(false);
       setPosts(posts);
     };
     fetchPosts();
   }, []);
 
   return (
-    <div>
+    <>
       <SideBar />
-      <ShareModal
-        openShareModal={openShareModal}
-        setOpenShareModal={setOpenShareModal}
-        currentPostLink={currentPostLink}
-        postText={postText}
-      />
-      <Box>
-        <div
-          className="profile__favourites"
-          style={{ marginTop: "5.5rem", marginBottom: "1.5rem" }}
-          align="center"
-        >
-          {posts.length ? (
-            <>
-              <h1 style={{ color: "var(--color)" }}>Your Favourites</h1>
-              <div className={`${rowMode ? "app__posts" : "app_posts_column"}`}>
-                {posts.map(({ id, post }) => (
-                  <Post
-                    rowMode={true}
-                    key={id}
-                    postId={id}
-                    user={auth.currentUser}
-                    post={post}
-                    shareModal={setOpenShareModal}
-                    setLink={setCurrentPostLink}
-                    setPostText={setPostText}
-                  />
-                ))}
-              </div>
-            </>
-          ) : (
-            <p style={{ color: "var(--color)" }}>
-              You have nothing in favourites
-            </p>
-          )}
+      {loading ? (
+        <div style={{width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center"}}>
+          <Loader />
         </div>
-      </Box>
-    </div>
+      ) : (
+        <div>
+          <ShareModal
+            openShareModal={openShareModal}
+            setOpenShareModal={setOpenShareModal}
+            currentPostLink={currentPostLink}
+            postText={postText}
+          />
+          <Box>
+            <div
+              className="profile__favourites"
+              style={{ marginTop: "5.5rem", marginBottom: "1.5rem" }}
+              align="center"
+            >
+              {posts.length ? (
+                <>
+                  <h1 style={{ color: "var(--color)" }}>Your Favourites</h1>
+                  <div className={`${rowMode ? "app__posts" : "app_posts_column"}`}>
+                    {posts.map(({ id, post }) => (
+                      <Post
+                        rowMode={true}
+                        key={id}
+                        postId={id}
+                        user={auth.currentUser}
+                        post={post}
+                        shareModal={setOpenShareModal}
+                        setLink={setCurrentPostLink}
+                        setPostText={setPostText}
+                      />
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <p style={{ color: "var(--color)" }}>
+                  You have nothing in favourites
+                </p>
+              )}
+            </div>
+          </Box>
+        </div>
+      )
+      }
+    </>
   );
 }
 
