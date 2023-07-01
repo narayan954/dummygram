@@ -4,6 +4,7 @@ import { Avatar, LinearProgress, TextField } from "@mui/material";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import React, { useRef, useState } from "react";
 import { auth, db, handleMultiUpload } from "../../lib/firebase";
+import { errorSound, successSound } from "../../assets/sounds";
 
 import AnimatedButton from "../../reusableComponents/AnimatedButton";
 import Camera from "./Camera";
@@ -12,7 +13,6 @@ import { Link } from "react-router-dom";
 import Popup from "../../reusableComponents/Popup";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
-import { successSound, errorSound } from "../../assets/sounds";
 
 export default function ImgUpload(props) {
   const [current, setCurrent] = useState(0);
@@ -35,12 +35,12 @@ export default function ImgUpload(props) {
 
   const { enqueueSnackbar } = useSnackbar();
 
-  function playSuccessSound(){
-    new Audio(successSound).play()
+  function playSuccessSound() {
+    new Audio(successSound).play();
   }
 
-  function playErrorSound(){
-    new Audio(errorSound).play()
+  function playErrorSound() {
+    new Audio(errorSound).play();
   }
 
   const handleChange = (e) => {
@@ -54,7 +54,7 @@ export default function ImgUpload(props) {
     for (let i = 0; i < e.target.files.length; i++) {
       const img = e.target.files[i];
       if (!img.name.match(/\.(jpg|jpeg|png|gif)$/)) {
-        playErrorSound()
+        playErrorSound();
         enqueueSnackbar("Select a valid image!", {
           variant: "error",
         });
@@ -88,7 +88,7 @@ export default function ImgUpload(props) {
         likecount: [],
       })
       .then(() => {
-        playSuccessSound()
+        playSuccessSound();
         enqueueSnackbar("Post uploaded successfully!", {
           variant: "success",
         });
@@ -104,7 +104,7 @@ export default function ImgUpload(props) {
         }
       })
       .catch((err) => {
-        playErrorSound()
+        playErrorSound();
         enqueueSnackbar(err.message, {
           variant: "error",
         });
@@ -120,7 +120,7 @@ export default function ImgUpload(props) {
 
   function handleUpload() {
     if ((!image && !caption) || !isValidimage) {
-      playErrorSound()
+      playErrorSound();
       enqueueSnackbar("Upload valid image and caption!", {
         variant: "error",
       });
@@ -151,7 +151,7 @@ export default function ImgUpload(props) {
         savePost(JSON.stringify(urls));
       })
       .catch((err) => {
-        playErrorSound()
+        playErrorSound();
         enqueueSnackbar(err.message, {
           variant: "error",
         });

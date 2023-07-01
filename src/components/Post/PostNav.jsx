@@ -6,12 +6,12 @@ import {
 } from "@mui/icons-material";
 import { IconButton, Typography } from "@mui/material";
 import React, { useState } from "react";
+import { errorSound, successSound } from "../../assets/sounds";
 
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import Flexbetween from "../../reusableComponents/Flexbetween";
 import { useSnackbar } from "notistack";
-import { successSound, errorSound } from "../../assets/sounds";
 
 const PostNav = ({
   caption,
@@ -32,13 +32,12 @@ const PostNav = ({
   );
   const [isSaved, setisSaved] = useState(false);
 
-  
-  function playSuccessSound(){
-    new Audio(successSound).play()
+  function playSuccessSound() {
+    new Audio(successSound).play();
   }
 
-  function playErrorSound(){
-    new Audio(errorSound).play()
+  function playErrorSound() {
+    new Audio(errorSound).play();
   }
 
   const save = async () => {
@@ -48,14 +47,14 @@ const PostNav = ({
     if (!postIdExists) {
       localStoragePosts.push(postId);
       localStorage.setItem("posts", JSON.stringify(localStoragePosts));
-      playSuccessSound()
+      playSuccessSound();
       enqueueSnackbar("Post added to favourites!", {
         variant: "success",
       });
     } else {
       localStoragePosts = localStoragePosts.filter((post) => post !== postId);
       localStorage.setItem("posts", JSON.stringify(localStoragePosts));
-      playSuccessSound()
+      playSuccessSound();
       enqueueSnackbar("Post is removed from favourites!", {
         variant: "info",
       });
