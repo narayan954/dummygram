@@ -17,7 +17,7 @@ const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState(validate.initialValue)
+  const [error, setError] = useState({email: true})
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const classes = useStyles();
@@ -30,11 +30,9 @@ const LoginScreen = () => {
   const signIn = (e) => {
     e.preventDefault();
     let submitable = true;
-    Object.values(error).forEach((err)=>{
-      if(err !== false){
-        submitable = false;
-      }
-    })
+    if(error.name || password===""){
+      submitable = false;
+    }
     if(submitable){
     auth
       .signInWithEmailAndPassword(email, password)
@@ -165,16 +163,13 @@ const LoginScreen = () => {
             }
           />
           {error.email && error.emailError && <p className="error">{error.emailError}</p>}
-          <div className={(error.passwordError)?"error-border password-container": "password-container" }>
+          <div className="password-container">
             <input
             name="password"
               type={showPassword ? "text" : "password"}
               placeholder=" Password"
               value={password}
-              onChange={(e) => {
-              setPassword(e.target.value);
-              handleError(e.target.name, e.target.value);
-            }}
+              onChange={(e) =>setPassword(e.target.value)}
               className="password-input"
             />
             <button
@@ -184,9 +179,6 @@ const LoginScreen = () => {
               {showPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
             </button>
           </div>
-          {error.password && error.passwordError && (
-            <p className="error">{error.passwordError}</p>
-          )}
 
           <button type="submit" onClick={signIn} className="button log">
             LogIn <FontAwesomeIcon icon={faRightToBracket} />

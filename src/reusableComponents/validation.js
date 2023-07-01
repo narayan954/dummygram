@@ -38,8 +38,10 @@ const validate = {
       };
   },
   initialValue : {
+    name: true,
     email: true,
     password: true,
+    confirmPassword: true
   }
 };
 

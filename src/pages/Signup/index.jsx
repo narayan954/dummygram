@@ -34,7 +34,7 @@ const SignupScreen = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [usernameAvailable, setUsernameAvailable] = useState(true);
   const [username, setUsername] = useState("");
-  const [error, setError] = useState({...validate.initialValue, name: true, confirmPassword:true});
+  const [error, setError] = useState(validate.initialValue);
   const usernameRef = useRef(null);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
@@ -91,13 +91,16 @@ const SignupScreen = () => {
          submitable = false;
       }
     })
+
+    if(username === "") submitable = false
+  
     if (!usernameAvailable) {
       enqueueSnackbar("Username not available!", {
         variant: "error",
       });
       return;
     }
-    
+
 if(submitable){
     const usernameDoc = db.doc(`usernames/${username}`);
     const batch = db.batch();
@@ -164,6 +167,7 @@ if(submitable){
       enqueueSnackbar("Please fill all fields with valid data", {
         variant: "error",
       });
+      return;
     }
   };
 
