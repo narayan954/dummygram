@@ -20,21 +20,28 @@ import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
 
 function Profile() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isNonMobile = useMediaQuery("(min-width: 768px)");
+  const { enqueueSnackbar } = useSnackbar();
+
   const [user, setUser] = useState(null);
   const [image, setImage] = useState("");
   const [visible, setVisible] = useState(false);
   const [feed, setFeed] = useState([]);
-  const [profilepic, setProfilePic] = useState("");
+  const [profilePic, setProfilePic] = useState("");
   const [open, setOpen] = useState(false);
   const [username, setUsername] = useState("");
-
-  const navigate = useNavigate();
   const [friendRequestSent, setFriendRequestSent] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [avatar, setAvatar] = useState("");
+
+  const handleClose = () => setOpen(false);
 
   const handleSendFriendRequest = () => {
-    const currentUser = auth.currentUser;
-    const currentUserUid = currentUser.uid;
-    const targetUserUid = currentUserUid;
+    const currentUserUid = auth.currentUser.uid;
+    const targetUserUid = currentUserUid; // TODO: Change this to the user whose profile is being viewed
     const friendRequestData = {
       sender: currentUserUid,
       recipient: targetUserUid,
@@ -49,7 +56,7 @@ function Profile() {
         });
         const notificationData = {
           recipient: targetUserUid,
-          message: "You have received a friend request.",
+          message: `You have received a friend request from ${name}.`,
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         };
         db.collection("notifications").add(notificationData);
@@ -63,9 +70,8 @@ function Profile() {
 
   useEffect(() => {
     const checkFriendRequestSent = async () => {
-      const currentUser = auth.currentUser;
-      const currentUserUid = currentUser.uid;
-      const targetUserUid = currentUserUid;
+      const currentUserUid = auth.currentUser.uid;
+      const targetUserUid = currentUserUid; // TODO: Change this to the user whose profile is being viewed
       const friendRequestsRef = db.collection("friendRequests");
       const query = friendRequestsRef
         .where("sender", "==", currentUserUid)
@@ -79,20 +85,9 @@ function Profile() {
     checkFriendRequestSent();
   }, []);
 
-  const location = useLocation();
-  const isNonMobile = useMediaQuery("(min-width: 768px)");
-  const { enqueueSnackbar } = useSnackbar();
-
-  let name = location?.state?.name || user?.displayName;
-  let email = location?.state?.email || user?.email;
-  let avatar = location?.state?.avatar || user?.photoURL;
-
-  const handleClose = () => setOpen(false);
-
   useEffect(() => {
     if (auth.currentUser) {
       setUser(auth.currentUser);
-      setProfilePic(auth.currentUser.photoURL);
     } else {
       navigate("/dummygram/login");
     }
@@ -102,11 +97,14 @@ function Profile() {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         setUser(authUser);
-        name = location?.state?.name || authUser.displayName;
-        avatar = location?.state?.avatar || authUser.photoURL;
-        email = location?.state?.email || authUser.email;
+        setName(location?.state?.name || authUser.displayName);
+        setAvatar(location?.state?.avatar || authUser.photoURL);
+        setEmail(
+          location?.state?.name === authUser?.displayName
+            ? location?.state?.email || authUser.email
+            : ""
+        );
       } else {
-        setUser(null);
         navigate("/dummygram/login");
       }
     });
@@ -227,7 +225,7 @@ function Profile() {
             }}
             width={isNonMobile ? "50%" : "50%"}
             height={isNonMobile ? "50%" : "50%"}
-            src={profilepic}
+            src={profilePic}
             alt="user"
           />
         </Box>
@@ -235,18 +233,19 @@ function Profile() {
 
       <Box
         width={isNonMobile ? "30%" : "70%"}
-        backgroundColor="#F4EEFF"
+        backgroundColor="var(--profile-container)"
         paddingY={5}
         paddingX={6}
         sx={{
           border: "none",
-          boxShadow: "0 0 6px black",
+          boxShadow: "var(--profile-box-shadow)",
           margin: "8rem auto 2.5rem",
         }}
         display="flex"
         justifyContent={"center"}
         alignItems={"center"}
         textAlign={"center"}
+        color="var(--color)"
       >
         <Box display="flex" flexDirection="column" gap={1}>
           <Box marginX="auto" fontSize="600%">
@@ -254,7 +253,7 @@ function Profile() {
               <Avatar
                 onClick={() => setOpen((on) => !on)}
                 alt={name}
-                src={profilepic}
+                src={profilePic}
                 sx={{
                   width: "22vh",
                   height: "22vh",
@@ -283,7 +282,11 @@ function Profile() {
               <label htmlFor="file">
                 <div
                   className="img-edit"
-                  style={{ marginTop: "0.5rem", marginBottom: "0.5rem" }}
+                  style={{
+                    marginTop: "0.5rem",
+                    marginBottom: "0.5rem",
+                    color: "var(--text-primary)",
+                  }}
                 >
                   Edit Profile Pic
                 </div>
@@ -299,17 +302,19 @@ function Profile() {
               Save
             </Button>
           )}
-          <Divider sx={{ marginTop: "1rem" }} />
-          <Typography fontSize="1.3rem" fontWeight="600" fontFamily="Poppins">
+          <Divider
+            sx={{ marginTop: "1rem", background: "var(--profile-divider)" }}
+          />
+          <Typography fontSize="1.3rem" fontWeight="600">
             {username}
           </Typography>
-          <Divider />
-          <Typography fontSize="1.3rem" fontWeight="600" fontFamily="Poppins">
+          <Divider style={{ background: "var(--profile-divider)" }} />
+          <Typography fontSize="1.3rem" fontWeight="600">
             {name}
           </Typography>
-          <Divider />
-          <Typography fontSize="1.5rem" fontWeight="600" fontFamily="Poppins">
-            {email && email}
+          <Divider style={{ background: "var(--profile-divider)" }} />
+          <Typography fontSize="1.5rem" fontWeight="600">
+            {name === auth.currentUser.displayName && email}
           </Typography>
           {!friendRequestSent && name !== auth.currentUser.displayName && (
             <Button

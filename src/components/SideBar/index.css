@@ -36,7 +36,7 @@
 }
 
 .sidebar-links li:hover {
-  background: rgba(0, 0, 0, 0.05);
+  background: var(--sidebar-link-hover);
 }
 
 .sidebar-links li a,
