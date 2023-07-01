@@ -7,6 +7,36 @@ import appLogo from "../../assets/app-logo.png";
 const About = () => {
   const [forks, setForks] = useState(0);
   const [stars, setStars] = useState(0);
+  const [commits, setCommits] = useState(0);
+
+  const getCommitsCount = (url) => {
+    return fetch(url)
+      .then((response) => {
+        const linkHeader = response.headers.get("link");
+        const regex = /<([^>]*)>; rel="last"/;
+        const match = regex.exec(linkHeader);
+        if (match) {
+          const lastPageUrl = match[1];
+          const pageCount = new URLSearchParams(
+            new URL(lastPageUrl).search
+          ).get("page");
+          return parseInt(pageCount);
+        } else {
+          throw new Error("Unable to retrieve the link header");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
+  useEffect(() => {
+    getCommitsCount(
+      "https://api.github.com/repos/narayan954/dummygram/commits?sha=master&per_page=1&page=1"
+    ).then((pageCount) => {
+      setCommits(pageCount);
+    });
+  }, []);
 
   useEffect(() => {
     fetch("https://api.github.com/repos/narayan954/dummygram")
@@ -51,7 +81,7 @@ const About = () => {
           <h2 className="about-headings">STATS</h2>
           <div className="about-section-stats-container">
             <p className="about-section-stats">
-              <span className="about-stats">Total Commits:</span> 800+
+              <span className="about-stats">Total Commits:</span> {commits}
             </p>
             <p className="about-section-stats">
               <span className="about-stats">Forks:</span> {forks}
