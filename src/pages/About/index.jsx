@@ -8,8 +8,9 @@ const About = () => {
   const [forks, setForks] = useState(0);
   const [stars, setStars] = useState(0);
   const [commits, setCommits] = useState(0);
+  const [contributors, setContributors] = useState(0);
 
-  const getCommitsCount = (url) => {
+  const getCount = (url) => {
     return fetch(url)
       .then((response) => {
         const linkHeader = response.headers.get("link");
@@ -31,10 +32,15 @@ const About = () => {
   };
 
   useEffect(() => {
-    getCommitsCount(
+    getCount(
       "https://api.github.com/repos/narayan954/dummygram/commits?sha=master&per_page=1&page=1"
-    ).then((pageCount) => {
-      setCommits(pageCount);
+    ).then((count) => {
+      setCommits(count);
+    });
+    getCount(
+      "https://api.github.com/repos/narayan954/dummygram/contributors?per_page=1&anon=true"
+    ).then((count) => {
+      setContributors(count);
     });
   }, []);
 
@@ -73,9 +79,9 @@ const About = () => {
           <p className="about-section-text">
             Dummygram's development has been started by{" "}
             <a href="https://www.linkedin.com/in/narayan-soni/">Narayan Soni</a>{" "}
-            in September 2022 and now has over 80 contributors to success.
-            Together let's move ahead and make dummygram a huge success. Join us
-            today on{" "}
+            in September 2022 and now has over {contributors} contributors to
+            success. Together let's move ahead and make dummygram a huge
+            success. Join us today on{" "}
             <a href="https://github.com/narayan954/dummygram">GitHub!</a>
           </p>
           <h2 className="about-headings">STATS</h2>
