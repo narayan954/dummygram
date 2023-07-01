@@ -129,7 +129,7 @@ function Profile() {
 
   // Get user's posts from posts collection
   useEffect(() => {
-    setTimeout(() => {
+    // setTimeout(() => {
       const q = query(
         collection(db, "posts"),
         where("username", "==", location?.state?.name || name)
@@ -144,7 +144,7 @@ function Profile() {
         });
         setFeed(userPosts);
       });
-    }, 1000);
+    // }, 1000);
   }, [user, name]);
 
   const handleBack = () => {
@@ -302,15 +302,18 @@ function Profile() {
               Save
             </Button>
           )}
-          <Divider
+          {/* <Divider
             sx={{ marginTop: "1rem", background: "var(--profile-divider)" }}
-          />
+          /> */}
           <Typography fontSize="1.3rem" fontWeight="600">
             {username}
           </Typography>
           <Divider style={{ background: "var(--profile-divider)" }} />
           <Typography fontSize="1.3rem" fontWeight="600">
             {name}
+          </Typography>
+          <Typography fontSize="1rem" >
+            Total Posts: {feed.length}
           </Typography>
           <Divider style={{ background: "var(--profile-divider)" }} />
           <Typography fontSize="1.5rem" fontWeight="600">
