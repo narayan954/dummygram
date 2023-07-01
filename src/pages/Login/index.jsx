@@ -12,12 +12,13 @@ import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import { successSound, errorSound } from "../../assets/sounds";
+import validate from "../../reusableComponents/validation";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
+  const [error, setError] = useState({ email: true });
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const classes = useStyles();
@@ -38,6 +39,7 @@ const LoginScreen = () => {
 
   const signIn = (e) => {
     e.preventDefault();
+    if (!error.email && password !== "") {
     auth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
@@ -54,6 +56,7 @@ const LoginScreen = () => {
             variant: "error",
           });
         } else if (error.code === "auth/user-not-found") {
+          playErrorSound()
           enqueueSnackbar("User not found", {
             variant: "error",
           });
@@ -73,9 +76,13 @@ const LoginScreen = () => {
           playErrorSound()
           enqueueSnackbar(error.message, {
             variant: "error",
-          });
-        }
+          }
+        });
+    } else {
+      enqueueSnackbar("Please fill all fields with valid data", {
+        variant: "error",
       });
+    }
   };
 
   const signInWithGoogle = (e) => {
@@ -138,6 +145,13 @@ const LoginScreen = () => {
     navigate("/dummygram/signup");
   };
 
+  const handleError = (name, value) => {
+    const errorMessage = validate[name](value);
+    setError((prev) => {
+      return { ...prev, ...errorMessage };
+    });
+  };
+
   return (
     <div className="flex">
       <div style={getModalStyle()} className={classes.paper}>
@@ -155,10 +169,19 @@ const LoginScreen = () => {
             type="email"
             placeholder=" Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            name="email"
+            onChange={(e) => {
+              setEmail(e.target.value);
+              handleError(e.target.name, e.target.value);
+            }}
+            className={error.emailError ? "error-border" : null}
           />
+          {error.email && error.emailError && (
+            <p className="error">{error.emailError}</p>
+          )}
           <div className="password-container">
             <input
+              name="password"
               type={showPassword ? "text" : "password"}
               placeholder=" Password"
               value={password}
@@ -172,6 +195,7 @@ const LoginScreen = () => {
               {showPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
             </button>
           </div>
+
           <button type="submit" onClick={signIn} className="button log">
             LogIn <FontAwesomeIcon icon={faRightToBracket} />
           </button>
