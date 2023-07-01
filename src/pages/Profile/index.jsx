@@ -140,22 +140,20 @@ function Profile() {
 
   // Get user's posts from posts collection
   useEffect(() => {
-    setTimeout(() => {
-      const q = query(
-        collection(db, "posts"),
-        where("username", "==", location?.state?.name || name)
-      );
-      const unsubscribe = onSnapshot(q, (querySnapshot) => {
-        const userPosts = [];
-        querySnapshot.forEach((doc) => {
-          userPosts.push({
-            id: doc.id,
-            post: doc.data(),
-          });
+    const q = query(
+      collection(db, "posts"),
+      where("username", "==", location?.state?.name || name)
+    );
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const userPosts = [];
+      querySnapshot.forEach((doc) => {
+        userPosts.push({
+          id: doc.id,
+          post: doc.data(),
         });
-        setFeed(userPosts);
       });
-    }, 1000);
+      setFeed(userPosts);
+    });
   }, [user, name]);
 
   const handleBack = () => {
@@ -171,9 +169,9 @@ function Profile() {
     }
   };
 
-  const handleSave = async () => {
+  const handleSave = () => {
     const uploadTask = storage.ref(`images/${image?.name}`).put(image);
-    await uploadTask.on(
+    uploadTask.on(
       "state_changed",
       () => {},
       (error) => {
@@ -316,9 +314,9 @@ function Profile() {
               Save
             </Button>
           )}
-          <Divider
+          {/* <Divider
             sx={{ marginTop: "1rem", background: "var(--profile-divider)" }}
-          />
+          /> */}
           <Typography fontSize="1.3rem" fontWeight="600">
             {username}
           </Typography>
@@ -326,6 +324,7 @@ function Profile() {
           <Typography fontSize="1.3rem" fontWeight="600">
             {name}
           </Typography>
+          <Typography fontSize="1rem">Total Posts: {feed.length}</Typography>
           <Divider style={{ background: "var(--profile-divider)" }} />
           <Typography fontSize="1.5rem" fontWeight="600">
             {name === auth.currentUser.displayName && email}
