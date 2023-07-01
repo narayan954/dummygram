@@ -24,6 +24,7 @@ import Modal from "@mui/material/Modal";
 import { RowModeContext } from "./hooks/useRowMode";
 import logo from "./assets/logo.webp";
 import { makeStyles } from "@mui/styles";
+import { successSound } from "./assets/sounds";
 import { useSnackbar } from "notistack";
 
 import ForgotPassword from "./pages/ForgotPassword"
@@ -79,6 +80,10 @@ function App() {
   const classes = useStyles();
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
+
+  function playSuccessSound() {
+    new Audio(successSound).play();
+  }
 
   const checkScrollTop = () => {
     if (!showScroll && window.pageYOffset > 400) {
@@ -157,6 +162,7 @@ function App() {
 
   const signOut = () => {
     auth.signOut().finally();
+    playSuccessSound();
     enqueueSnackbar("Logged out Successfully !", {
       variant: "info",
     });
