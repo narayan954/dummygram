@@ -132,7 +132,7 @@ input:focus {
 
 @media only screen and (max-width: 1200px) {
   .app__posts {
-    padding-left: 9vw;
+    padding: 0px;
   }
 }
 
