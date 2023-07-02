@@ -1,6 +1,7 @@
 import { Loader, ShareModal } from "../reusableComponents";
 import React, { useContext, useEffect, useState } from "react";
 import { auth, db } from "../lib/firebase";
+import { doc, getDoc } from "firebase/firestore";
 
 import { Box } from "@mui/material";
 import Post from "./Post";
@@ -14,32 +15,38 @@ function Favorite() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const rowMode = useContext(RowModeContext);
-  const len = JSON.parse(localStorage.getItem("posts")).length
+  const savedPostsArr = JSON.parse(localStorage.getItem("posts"));
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const postsRef = db.collection("posts");
-      const snapshot = await postsRef.get();
       const posts = [];
-      snapshot.forEach((doc) => {
-        if (
-          localStorage.getItem("posts") &&
-          localStorage.getItem("posts").includes(doc.id)
-        ) {
+      const fetchPromises = savedPostsArr.map(async (id) => {
+        const docRef = doc(db, "posts", id);
+        try {
+          const doc = await getDoc(docRef);
           posts.push({ id: doc.id, post: doc.data() });
+        } catch (e) {
+          console.log("Error getting document:", e);
         }
       });
-      setLoading(false);
-      setPosts(posts);
+  
+      try {
+        await Promise.all(fetchPromises);
+        setPosts(posts);
+        setLoading(false);
+      } catch (error) {
+        console.log("Error fetching posts:", error);
+        setLoading(false);
+      }
     };
-
-    if(len === 0){
-      setLoading(false)
-    }
-    else{
+  
+    if (savedPostsArr.length === 0) {
+      setLoading(false);
+    } else {
       fetchPosts();
     }
   }, []);
+  
 
   return (
     <>
