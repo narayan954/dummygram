@@ -339,3 +339,27 @@ input {
   transition: transform 0.2s ease-out;
   border: none;
 }
+
+.close-btn {
+  margin: 6px;
+  padding: 10px;
+  background: rgb(223, 95, 218);
+  background: linear-gradient(
+    40deg,
+    rgba(223, 95, 218, 1) 53%,
+    rgba(104, 197, 213, 1) 100%
+  );
+  /* border: 1px solid var(--color); */
+  border: none;
+  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: large;
+}
+
+@media screen and (max-width: 500px) {
+  .close-btn {
+    margin-right: 50px;
+    font-size: 1.2em !important;
+  }
+}
