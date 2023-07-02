@@ -20,6 +20,7 @@ import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
 
 function Profile() {
+  
   const location = useLocation();
   const navigate = useNavigate();
   const isNonMobile = useMediaQuery("(min-width: 768px)");
@@ -29,7 +30,7 @@ function Profile() {
   const [image, setImage] = useState("");
   const [visible, setVisible] = useState(false);
   const [feed, setFeed] = useState([]);
-  const [profilePic, setProfilePic] = useState("");
+  const [profilePic, setProfilePic] = useState(location.state.avatar);
   const [open, setOpen] = useState(false);
   const [username, setUsername] = useState("");
   const [friendRequestSent, setFriendRequestSent] = useState(false);
