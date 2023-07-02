@@ -41,17 +41,19 @@ export default function Camera() {
         mirrored={true}
         screenshotQuality={10}
       />
-      <div className="cameraBtn">
-        <button onClick={capturePhoto}>Capture</button>
-        <button onClick={() => setUrl(null)}>Refresh</button>
-      </div>
-
-      {url && (
-        <div>
-          <img src={url} alt="Screenshot"></img>
-          <button onClick={handleSave}>Save</button>
+      <div className="buttonControls">
+        <div className="cameraBtn">
+          <button onClick={capturePhoto}>Capture</button>
+          <button onClick={() => setUrl(null)}>Refresh</button>
         </div>
-      )}
+
+        {url && (
+          <div className="outputContainer">
+            <img src={url} alt="Screenshot"></img>
+            <button onClick={handleSave}>Save</button>
+          </div>
+        )}
+      </div>
     </>
   );
 }
