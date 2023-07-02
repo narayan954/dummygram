@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { Post, SideBar } from "../../components";
 import { auth, db, storage } from "../../lib/firebase";
+import { backBtnSound, successSound } from "../../assets/sounds";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -38,6 +39,14 @@ function Profile() {
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState("");
 
+  function playSuccessSound() {
+    new Audio(successSound).play();
+  }
+
+  function playErrorSound() {
+    new Audio(errorSound).play();
+  }
+
   const handleClose = () => setOpen(false);
 
   const handleSendFriendRequest = () => {
@@ -52,6 +61,7 @@ function Profile() {
       .add(friendRequestData)
       .then(() => {
         setFriendRequestSent(true);
+        playSuccessSound();
         enqueueSnackbar("Friend request sent!", {
           variant: "success",
         });
@@ -63,6 +73,7 @@ function Profile() {
         db.collection("notifications").add(notificationData);
       })
       .catch((error) => {
+        playErrorSound();
         enqueueSnackbar(error.message, {
           variant: "error",
         });
@@ -130,25 +141,24 @@ function Profile() {
 
   // Get user's posts from posts collection
   useEffect(() => {
-    setTimeout(() => {
-      const q = query(
-        collection(db, "posts"),
-        where("username", "==", location?.state?.name || name)
-      );
-      const unsubscribe = onSnapshot(q, (querySnapshot) => {
-        const userPosts = [];
-        querySnapshot.forEach((doc) => {
-          userPosts.push({
-            id: doc.id,
-            post: doc.data(),
-          });
+    const q = query(
+      collection(db, "posts"),
+      where("username", "==", location?.state?.name || name)
+    );
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const userPosts = [];
+      querySnapshot.forEach((doc) => {
+        userPosts.push({
+          id: doc.id,
+          post: doc.data(),
         });
-        setFeed(userPosts);
       });
-    }, 1000);
+      setFeed(userPosts);
+    });
   }, [user, name]);
 
   const handleBack = () => {
+    new Audio(backBtnSound).play();
     navigate("/dummygram");
   };
 
@@ -160,12 +170,13 @@ function Profile() {
     }
   };
 
-  const handleSave = async () => {
+  const handleSave = () => {
     const uploadTask = storage.ref(`images/${image?.name}`).put(image);
-    await uploadTask.on(
+    uploadTask.on(
       "state_changed",
       () => {},
       (error) => {
+        playErrorSound();
         enqueueSnackbar(error.message, {
           variant: "error",
         });
@@ -180,6 +191,7 @@ function Profile() {
               displayName: name,
               photoURL: url,
             });
+            playSuccessSound();
             enqueueSnackbar("Upload Successful!!!", {
               variant: "success",
             });
@@ -303,9 +315,9 @@ function Profile() {
               Save
             </Button>
           )}
-          <Divider
+          {/* <Divider
             sx={{ marginTop: "1rem", background: "var(--profile-divider)" }}
-          />
+          /> */}
           <Typography fontSize="1.3rem" fontWeight="600">
             {username}
           </Typography>
@@ -313,6 +325,7 @@ function Profile() {
           <Typography fontSize="1.3rem" fontWeight="600">
             {name}
           </Typography>
+          <Typography fontSize="1rem">Total Posts: {feed.length}</Typography>
           <Divider style={{ background: "var(--profile-divider)" }} />
           <Typography fontSize="1.5rem" fontWeight="600">
             {name === auth.currentUser.displayName && email}
