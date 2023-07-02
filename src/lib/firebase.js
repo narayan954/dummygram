@@ -12,7 +12,6 @@ const firebaseApp = firebase.initializeApp({
   storageBucket: import.meta.env.VITE_DUMMYGRAM_STORAGEBUCKET,
   messagingSenderId: import.meta.env.VITE_DUMMYGRAM_MESSAGINGSENDERID,
   appId: import.meta.env.VITE_DUMMYGRAM_APPID,
-  // measurementId: import.meta.env.VITE_DUMMYGRAM_MEASUREMENTID,
 });
 
 // Use these for db & auth

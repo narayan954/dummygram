@@ -198,8 +198,6 @@ const SignupScreen = () => {
     auth
       .signInWithPopup(googleProvider)
       .then(async(val) => {
-        setFullName(val?.user?.displayName);
-        setEmail(val?.user?.email);
         setIsOauthSignUp(true);
         const usernameDoc = db.collection(`users`);
         await usernameDoc.doc(auth.currentUser.uid).set({

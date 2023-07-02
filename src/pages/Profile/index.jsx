@@ -67,6 +67,9 @@ function Profile() {
             .doc(currentUserUid)
             .delete()
             .then(() => {
+              enqueueSnackbar("Friend Request removed successfully!", {
+                variant: "success"
+              })
               setFriendRequestSent(false);
             })
         })
