@@ -1,12 +1,13 @@
 import React, { useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 const ReadMore = ({ children, picCap = false, postId, readMore = true }) => {
   const { id } = useParams();
-  
+
   const [isReadMore, setIsReadMore] = useState(readMore);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   let text = children;
   const toggleReadMore = () => setIsReadMore((prev) => !prev);
 
@@ -16,9 +17,9 @@ const ReadMore = ({ children, picCap = false, postId, readMore = true }) => {
       {text.length >= 300 && (
         <span
           onClick={() => {
-            toggleReadMore()
-            if(!id){
-              navigate(`/dummygram/posts/${postId}`)
+            toggleReadMore();
+            if (!id) {
+              navigate(`/dummygram/posts/${postId}`);
             }
           }}
           style={{
