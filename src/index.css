@@ -132,7 +132,7 @@ input:focus {
 
 @media only screen and (max-width: 1200px) {
   .app__posts {
-    padding-left: 9vw;
+    padding: 0px;
   }
 }
 
@@ -221,6 +221,7 @@ input:focus {
 @media only screen and (max-width: 600px) {
   .scrollTop {
     left: 43%;
+    margin-bottom: 2em;
   }
 
   .app__newpost__button {
