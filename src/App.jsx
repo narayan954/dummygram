@@ -1,6 +1,6 @@
 import "./index.css";
 
-import { About, LoginScreen, PostView, Profile, SignupScreen } from "./pages";
+import { About, Feedback, LoginScreen, PostView, Profile, SignupScreen } from "./pages";
 import {
   AnimatedButton,
   Darkmode,
@@ -289,6 +289,8 @@ function App() {
           <Route path="/dummygram/profile" element={<Profile />} />
 
           <Route path="/dummygram/about" element={<About />} />
+
+          <Route path="/dummygram/feedback" element={<Feedback />} />
 
           <Route path="/dummygram/login" element={<LoginScreen />} />
 
