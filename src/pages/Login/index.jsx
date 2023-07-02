@@ -97,24 +97,19 @@ const LoginScreen = () => {
         });
         navigate("/dummygram");
       })
-      .catch((error) =>
-        // enqueueSnackbar(error.message, {
-        //   variant: "error",
-        // })
-        {
-          if (error.code === "auth/account-exists-with-different-credential") {
-            playErrorSound();
-            enqueueSnackbar("Account exists with a different credential", {
-              variant: "error",
-            });
-          } else {
-            playErrorSound();
-            enqueueSnackbar(error.message, {
-              variant: "error",
-            });
-          }
+      .catch((error) => {
+        if (error.code === "auth/account-exists-with-different-credential") {
+          playErrorSound();
+          enqueueSnackbar("Account exists with a different credential", {
+            variant: "error",
+          });
+        } else {
+          playErrorSound();
+          enqueueSnackbar(error.message, {
+            variant: "error",
+          });
         }
-      );
+      });
   };
 
   const signInWithFacebook = (e) => {
@@ -142,6 +137,9 @@ const LoginScreen = () => {
       });
   };
 
+  const navigateToForgot = () => {
+    navigate("/dummygram/forgot-password");
+  };
   const navigateToSignup = () => {
     navigate("/dummygram/signup");
   };
@@ -218,11 +216,17 @@ const LoginScreen = () => {
               <FontAwesomeIcon icon={faSquareFacebook} />
             </button>
           </div>
-          <div className="have-account">
-            Need an account{" "}
-            <span role={"button"} onClick={navigateToSignup}>
-              Sign up
-            </span>
+          <div className="login-footer">
+            <div className="forgot-pasword">
+              <span role={"button"} onClick={navigateToForgot}>
+                Forgot Password
+              </span>
+            </div>
+            <div className="have-account">
+              <span role={"button"} onClick={navigateToSignup}>
+                Create an account
+              </span>
+            </div>
           </div>
         </form>
       </div>
