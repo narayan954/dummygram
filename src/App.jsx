@@ -19,7 +19,6 @@ import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
-import { AutoAwesomeMotionTwoTone } from "@mui/icons-material";
 import { FaArrowCircleUp } from "react-icons/fa";
 import ForgotPassword from "./pages/ForgotPassword";
 import Modal from "@mui/material/Modal";
