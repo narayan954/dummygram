@@ -96,7 +96,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
         style={{ textDecoration: "none" }}
       >
         <h3 className="post__username">{username}</h3>
-        <p>{time}</p>
+        <p className="post__time">{time}</p>
       </Link>
       <div className="social__icon__last">
         <IconButton
