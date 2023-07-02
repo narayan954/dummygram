@@ -431,7 +431,12 @@ input {
   cursor: pointer;
 }
 
-/* end */
+.login-footer {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 
 .button-style {
   background: linear-gradient(40deg, #e107c1, #59afc7);
@@ -442,3 +447,5 @@ input {
 .button-style:hover {
   background: linear-gradient(-40deg, #59afc7, #e107c1);
 }
+
+/* end */

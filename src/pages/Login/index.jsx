@@ -216,14 +216,17 @@ const LoginScreen = () => {
               <FontAwesomeIcon icon={faSquareFacebook} />
             </button>
           </div>
-          <div className="">
-            <span role={"button"} onClick={navigateToForgot}>
-              Forgot Password
-            </span>{" "}
-            <br></br>
-            <span role={"button"} onClick={navigateToSignup}>
-              Create an account
-            </span>
+          <div className="login-footer">
+            <div className="forgot-pasword">
+              <span role={"button"} onClick={navigateToForgot}>
+                Forgot Password
+              </span>
+            </div>
+            <div className="have-account">
+              <span role={"button"} onClick={navigateToSignup}>
+                Create an account
+              </span>
+            </div>
           </div>
         </form>
       </div>
