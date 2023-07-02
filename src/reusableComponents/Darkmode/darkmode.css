@@ -2,7 +2,7 @@
   position: fixed;
   right: 20px;
   bottom: 50px;
-  z-index: 100;
+  z-index: 1000;
 }
 
 .darkmode-btn button {
@@ -33,4 +33,11 @@
   background-color: rgb(244, 210, 41);
   z-index: 333;
   border: none;
+}
+
+@media screen and (max-width: 768px) {
+  .darkmode-btn {
+    margin-bottom: 1em;
+    right: 1.5em;
+  }
 }
