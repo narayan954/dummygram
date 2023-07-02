@@ -35,7 +35,7 @@ const SignupScreen = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [usernameAvailable, setUsernameAvailable] = useState(true);
   const [username, setUsername] = useState("");
-  const [isOauthSignUp ,setIsOauthSignUp] = useState(false);
+  const [isOauthSignUp, setIsOauthSignUp] = useState(false);
   const [error, setError] = useState(validate.initialValue);
   const usernameRef = useRef(null);
   const { enqueueSnackbar } = useSnackbar();
@@ -126,7 +126,7 @@ const SignupScreen = () => {
                 uid: auth.currentUser.uid,
                 name: username,
                 photoURL: auth.currentUser.photoURL,
-                posts: []
+                posts: [],
               })
             )
             .then(() => {
@@ -197,35 +197,37 @@ const SignupScreen = () => {
     e.preventDefault();
     auth
       .signInWithPopup(googleProvider)
-      .then(async(val) => {
+      .then(async (val) => {
         setFullName(val?.user?.displayName);
         setEmail(val?.user?.email);
         setIsOauthSignUp(true);
         const usernameDoc = db.collection(`users`);
-        await usernameDoc.doc(auth.currentUser.uid).set({
-          uid: val.user.uid,
-          name: val.user.displayName,
-          photoURL:val.user.photoURL,
-          displayName:val.user.displayName,
-          Friends: [],
-          posts: []
-        }) .then(() => {
-          playSuccessSound();
-          enqueueSnackbar(
-            `Congratulations ${fullName},you have joined Dummygram`,
-            {
-              variant: "success",
-            }
-          );
-          navigate("/dummygram");
-        })
-        .catch((error) => {
-          playErrorSound();
-          enqueueSnackbar(error.message, {
-            variant: "error",
+        await usernameDoc
+          .doc(auth.currentUser.uid)
+          .set({
+            uid: val.user.uid,
+            name: val.user.displayName,
+            photoURL: val.user.photoURL,
+            displayName: val.user.displayName,
+            Friends: [],
+            posts: [],
+          })
+          .then(() => {
+            playSuccessSound();
+            enqueueSnackbar(
+              `Congratulations ${fullName},you have joined Dummygram`,
+              {
+                variant: "success",
+              }
+            );
+            navigate("/dummygram");
+          })
+          .catch((error) => {
+            playErrorSound();
+            enqueueSnackbar(error.message, {
+              variant: "error",
+            });
           });
-        });
-
       })
       .catch((error) =>
         enqueueSnackbar(error.message, {
@@ -234,40 +236,41 @@ const SignupScreen = () => {
       );
   };
 
-
   const signInWithFacebook = (e) => {
     e.preventDefault();
     auth
       .signInWithPopup(facebookProvider)
-      .then(async(val) => {
+      .then(async (val) => {
         setFullName(val?.user?.displayName);
         setEmail(val?.user?.email);
         setIsOauthSignUp(true);
         const usernameDoc = db.collection(`users`);
-        await usernameDoc.doc(auth.currentUser.uid).set({
-          uid: val.user.uid,
-          name: val.user.displayName,
-          photoURL:val.user.photoURL,
-          displayName:val.user.displayName,
-          Friends: [],
-          posts: []
-        }) .then(() => {
-          playSuccessSound();
-          enqueueSnackbar(
-            `Congratulations ${fullName},you have joined Dummygram`,
-            {
-              variant: "success",
-            }
-          );
-          navigate("/dummygram");
-        })
-        .catch((error) => {
-          playErrorSound();
-          enqueueSnackbar(error.message, {
-            variant: "error",
+        await usernameDoc
+          .doc(auth.currentUser.uid)
+          .set({
+            uid: val.user.uid,
+            name: val.user.displayName,
+            photoURL: val.user.photoURL,
+            displayName: val.user.displayName,
+            Friends: [],
+            posts: [],
+          })
+          .then(() => {
+            playSuccessSound();
+            enqueueSnackbar(
+              `Congratulations ${fullName},you have joined Dummygram`,
+              {
+                variant: "success",
+              }
+            );
+            navigate("/dummygram");
+          })
+          .catch((error) => {
+            playErrorSound();
+            enqueueSnackbar(error.message, {
+              variant: "error",
+            });
           });
-        });
-
       })
       .catch((error) => {
         playErrorSound();

@@ -86,14 +86,17 @@ export default function ImgUpload(props) {
         username: props.user.displayName,
         avatar: props.user.photoURL,
         likecount: [],
-        uid: auth?.currentUser?.uid
+        uid: auth?.currentUser?.uid,
       });
 
       const postId = postRef.id; // Store post ID in a separate variable
 
-      await db.collection("users").doc(props.user.uid).update({
-        posts: firebase.firestore.FieldValue.arrayUnion(postId) // Use postId instead of postRef.id
-      });
+      await db
+        .collection("users")
+        .doc(props.user.uid)
+        .update({
+          posts: firebase.firestore.FieldValue.arrayUnion(postId), // Use postId instead of postRef.id
+        });
 
       playErrorSound();
       enqueueSnackbar("Post was uploaded successfully!", {
@@ -120,7 +123,7 @@ export default function ImgUpload(props) {
       }
     } finally {
       setUploadingPost(false);
-    };
+    }
   };
 
   function handleUpload() {

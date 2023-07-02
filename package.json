@@ -53,9 +53,9 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gitpugal/dummygram.git"
+    "url": "git+https://github.com/narayan954/dummygram.git"
   },
   "bugs": {
-    "url": "https://github.com/gitpugal/dummygram/issues"
+    "url": "https://github.com/narayan954/dummygram/issues"
   }
 }
