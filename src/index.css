@@ -221,6 +221,7 @@ input:focus {
 @media only screen and (max-width: 600px) {
   .scrollTop {
     left: 43%;
+    margin-bottom: 2em;
   }
 
   .app__newpost__button {

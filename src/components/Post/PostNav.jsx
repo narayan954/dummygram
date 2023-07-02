@@ -10,8 +10,8 @@ import { errorSound, successSound } from "../../assets/sounds";
 
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
-import { useSnackbar } from "notistack";
 import Flexbetween from "../../reusableComponents/Flexbetween";
+import { useSnackbar } from "notistack";
 
 const PostNav = ({
   caption,

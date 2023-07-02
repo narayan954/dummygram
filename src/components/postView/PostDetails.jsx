@@ -5,8 +5,8 @@ import {
 } from "@mui/icons-material";
 import { IconButton, Typography } from "@mui/material";
 
-import React from "react";
 import Flexbetween from "../../reusableComponents/Flexbetween.jsx";
+import React from "react";
 
 const PostDetails = ({
   user,
