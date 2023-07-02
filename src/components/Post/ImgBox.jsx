@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { ImageSlider } from "../../reusableComponents";
 import { ReadMore } from "../index";
 
-const ImgBox = ({ postHasImages, postImages, likesHandler, caption }) => {
+const ImgBox = ({ postHasImages, postImages, likesHandler, caption, postId }) => {
   return (
     <div>
       {postHasImages ? (
@@ -17,7 +17,7 @@ const ImgBox = ({ postHasImages, postImages, likesHandler, caption }) => {
           {caption.length >= 300 ? (
             <>
               <p className="post_caption">
-                <ReadMore picCap>{caption}</ReadMore>
+                <ReadMore picCap postId={postId}>{caption}</ReadMore>
               </p>
             </>
           ) : (
@@ -28,7 +28,7 @@ const ImgBox = ({ postHasImages, postImages, likesHandler, caption }) => {
       <div className="post__text">
         {caption && postHasImages && caption.length >= 300 ? (
           <p style={{ color: "var(--color)" }}>
-            <ReadMore>{caption}</ReadMore>
+            <ReadMore postId={postId}>{caption}</ReadMore>
           </p>
         ) : (
           caption &&

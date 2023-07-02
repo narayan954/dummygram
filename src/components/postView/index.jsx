@@ -176,7 +176,7 @@ const PostCommentView = ({
               <PostContentText>
                 {caption.length >= 300 ? (
                   <Typography variant="body3" color="text.secondary">
-                    <ReadMore picCap>{caption}</ReadMore>
+                    <ReadMore picCap readMore={false}>{caption}</ReadMore>
                   </Typography>
                 ) : (
                   <Typography variant="h5" color="text.secondary">
@@ -244,7 +244,7 @@ const PostCommentView = ({
             {postHasImages && caption ? (
               <PostCaption>
                 <Typography variant="body2" color="text.secondary">
-                  <ReadMore>{caption}</ReadMore>
+                  <ReadMore readMore={false}>{caption}</ReadMore>
                 </Typography>
               </PostCaption>
             ) : null}
@@ -326,7 +326,7 @@ const PostCommentView = ({
                   <CommentItem key={userComment.id}>
                     <div className={"post_comment_details"}>
                       <span>{userComment.content.username}</span>
-                      <ReadMore>{userComment.content.text}</ReadMore>
+                      <ReadMore readMore={false}>{userComment.content.text}</ReadMore>
                     </div>
                     <div className={"post_comment_actions"}>
                       <PostViewComments
