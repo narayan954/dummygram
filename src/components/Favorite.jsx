@@ -14,6 +14,7 @@ function Favorite() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const rowMode = useContext(RowModeContext);
+  const len = JSON.parse(localStorage.getItem("posts")).length
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -31,7 +32,13 @@ function Favorite() {
       setLoading(false);
       setPosts(posts);
     };
-    fetchPosts();
+
+    if(len === 0){
+      setLoading(false)
+    }
+    else{
+      fetchPosts();
+    }
   }, []);
 
   return (
