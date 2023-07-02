@@ -98,10 +98,11 @@ export default function ImgUpload(props) {
           posts: firebase.firestore.FieldValue.arrayUnion(postId), // Use postId instead of postRef.id
         });
 
-      playErrorSound();
+      playSuccessSound();
       enqueueSnackbar("Post was uploaded successfully!", {
         variant: "success",
       });
+
       setProgress(0);
       setCaption("");
       setImage(null);
