@@ -9,16 +9,16 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
+import { Post, SideBar } from "../../components";
+import { auth, db, storage } from "../../lib/firebase";
+import { backBtnSound, successSound } from "../../assets/sounds";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { backBtnSound, successSound } from "../../assets/sounds";
-import { Post, SideBar } from "../../components";
-import { auth, db, storage } from "../../lib/firebase";
 
+import { FaUserCircle } from "react-icons/fa";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
-import { FaUserCircle } from "react-icons/fa";
 
 function Profile() {
   const location = useLocation();
@@ -173,7 +173,7 @@ function Profile() {
     const uploadTask = storage.ref(`images/${image?.name}`).put(image);
     uploadTask.on(
       "state_changed",
-      () => { },
+      () => {},
       (error) => {
         playErrorSound();
         enqueueSnackbar(error.message, {
