@@ -1,5 +1,6 @@
 import "./index.css";
 
+import { About, LoginScreen, PostView, Profile, SignupScreen } from "./pages";
 import {
   AnimatedButton,
   Darkmode,
@@ -14,7 +15,6 @@ import {
   Post,
   SideBar,
 } from "./components";
-import { LoginScreen, PostView, Profile, SignupScreen } from "./pages";
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
@@ -24,6 +24,7 @@ import Modal from "@mui/material/Modal";
 import { RowModeContext } from "./hooks/useRowMode";
 import logo from "./assets/logo.webp";
 import { makeStyles } from "@mui/styles";
+import { successSound } from "./assets/sounds";
 import { useSnackbar } from "notistack";
 
 import ForgotPassword from "./pages/ForgotPassword"
@@ -81,6 +82,10 @@ function App() {
   const classes = useStyles();
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
+
+  function playSuccessSound() {
+    new Audio(successSound).play();
+  }
 
   const checkScrollTop = () => {
     if (!showScroll && window.pageYOffset > 400) {
@@ -159,6 +164,7 @@ function App() {
 
   const signOut = () => {
     auth.signOut().finally();
+    playSuccessSound();
     enqueueSnackbar("Logged out Successfully !", {
       variant: "info",
     });
@@ -288,6 +294,8 @@ function App() {
 
           <Route path="/dummygram/profile" element={<Profile />} />
 
+          <Route path="/dummygram/about" element={<About />} />
+
           <Route path="/dummygram/login" element={<LoginScreen />} />
 
           <Route path="/dummygram/signup" element={<SignupScreen />} />
@@ -313,7 +321,8 @@ function App() {
         </Routes>
 
         {location.pathname === "/dummygram/" ||
-        location.pathname === "/dummygram/favourites" ? (
+        location.pathname === "/dummygram/favourites" ||
+        location.pathname === "/dummygram/about" ? (
           <div>
             <FaArrowCircleUp
               fill="#777"
