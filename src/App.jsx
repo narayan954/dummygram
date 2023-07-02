@@ -1,6 +1,13 @@
 import "./index.css";
 
-import { About, Feedback, LoginScreen, PostView, Profile, SignupScreen } from "./pages";
+import {
+  About,
+  Feedback,
+  LoginScreen,
+  PostView,
+  Profile,
+  SignupScreen,
+} from "./pages";
 import {
   AnimatedButton,
   Darkmode,
