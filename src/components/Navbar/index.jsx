@@ -32,6 +32,11 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
     };
   }, [user]);
 
+
+  if(location.pathname ==="/dummygram/login" ||location.pathname === "/dummygram/signup"){
+    return null
+  }
+  else
   return (
     <div className="app__header">
       <p
