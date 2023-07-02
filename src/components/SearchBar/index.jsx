@@ -7,6 +7,7 @@ import { Box } from "@mui/material";
 import Post from "../Post";
 import ShareModal from "../../reusableComponents";
 import SideBar from "../SideBar";
+// import { query } from "firebase/firestore";
 
 const MemoizedPost = memo(Post);
 
@@ -22,23 +23,30 @@ function SearchBar() {
   };
 
   // Code to fetch posts from database
-
+  
   useEffect(() => {
     const fetchPosts = async () => {
-      db.collection("posts")
-        .orderBy("timestamp", "desc")
-        .onSnapshot((snapshot) => {
-          const fetchedPosts = snapshot.docs.map((doc) => ({
-            id: doc.id,
-            post: doc.data(),
-          }));
+      if (searchText.length > 0) {
+        const querySnapshot = await db
+          .collection("posts")
+          .where("username", ">=", searchText.charAt(0).toLowerCase())
+          .where("username", "<=", searchText.charAt(0).toLowerCase() + "\uf8ff")
+          .get();
 
-          setPosts(fetchedPosts);
-        });
+        const fetchedPosts = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          post: doc.data(),
+        }));
+
+        setPosts(fetchedPosts);
+      } else {
+        setPosts([]);
+      }
     };
 
     fetchPosts();
-  }, []);
+  }, [searchText]);
+
 
   // code to filter posts accornding to searchtext
 
