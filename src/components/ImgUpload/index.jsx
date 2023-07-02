@@ -3,10 +3,9 @@ import "./index.css";
 import { Avatar, LinearProgress, TextField } from "@mui/material";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import React, { useRef, useState } from "react";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { auth, db, handleMultiUpload } from "../../lib/firebase";
 
-import AnimatedButton from "../../reusableComponents/AnimatedButton";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Camera from "./Camera";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
@@ -20,7 +19,7 @@ export default function ImgUpload(props) {
 
   const ShiftToNextPage = () => {
     setNextPage(!nextPage);
-  }
+  };
   const prevStep = () => {
     setCurrent(current === 0 ? imagePreviews.length - 1 : current - 1);
   };
@@ -183,7 +182,10 @@ export default function ImgUpload(props) {
               <label htmlFor="file">Upload Picture</label>
             </div>
             <div className="popupMain">
-              <button className="openpopup" onClick={() => setButtonPopup(true)}>
+              <button
+                className="openpopup"
+                onClick={() => setButtonPopup(true)}
+              >
                 Take Picture
               </button>
               <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
@@ -305,7 +307,10 @@ export default function ImgUpload(props) {
               <label htmlFor="file">Upload Picture</label>
             </div>
             <div className="popupMain">
-              <button className="openpopup" onClick={() => setButtonPopup(true)}>
+              <button
+                className="openpopup"
+                onClick={() => setButtonPopup(true)}
+              >
                 Take Picture
               </button>
               <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
@@ -352,68 +357,75 @@ export default function ImgUpload(props) {
             ))}
           </div>
         )}
-        {!nextPage && <button
-          className="next_button" onClick={ShiftToNextPage}
-        >
-          Let's Write Some Text...
-        </button>}
-        {nextPage && <div className="back_button" onClick={ShiftToNextPage}><ArrowBackIcon fontSize="1rem" />&nbsp; Image</div>}
-        {nextPage && <div className="post__caption_section">
-          <div className="post__header">
-            {avatar && username && (
-              <>
-                {" "}
-                <Avatar
-                  className="post__avatar"
-                  alt={username}
-                  src={avatar}
-                  sx={{
-                    bgcolor: "royalblue",
-                    border: "2px solid transparent",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    cursor: "pointer",
-                    "&:hover": {
-                      boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 17px 0px",
-                      border: "2px solid black",
-                      scale: "1.1",
-                    },
-                  }}
-                />
-                <Link style={{ textDecoration: "none" }}>
-                  <h3 className="post__username">{username}</h3>
-                </Link>
-              </>
-            )}
-          </div>
-          <TextField
-            onChange={(e) => setCaption(e.target.value)}
-            value={caption}
-            variant="filled"
-            // placeholder="Write a Caption..."
-            label="Write a caption..."
-            multiline
-            rows={12}
-            disabled={uploadingPost}
-            sx={{
-              width: "100%",
-              "& .MuiFormLabel-root.Mui-focused": {
-                fontWeight: "bold",
-              },
-              "& .MuiFilledInput-root": {
-                background: "transparent",
-              },
-            }}
-          />
-          <button
-            onClick={handleUpload}
-            disabled={uploadingPost}
-            className="share__button"
-          >
-            Share
+        {!nextPage && (
+          <button className="next_button" onClick={ShiftToNextPage}>
+            Let's Write Some Text...
           </button>
-        </div>}
+        )}
+        {nextPage && (
+          <div className="back_button" onClick={ShiftToNextPage}>
+            <ArrowBackIcon fontSize="1rem" />
+            &nbsp; Image
+          </div>
+        )}
+        {nextPage && (
+          <div className="post__caption_section">
+            <div className="post__header">
+              {avatar && username && (
+                <>
+                  {" "}
+                  <Avatar
+                    className="post__avatar"
+                    alt={username}
+                    src={avatar}
+                    sx={{
+                      bgcolor: "royalblue",
+                      border: "2px solid transparent",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      cursor: "pointer",
+                      "&:hover": {
+                        boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 17px 0px",
+                        border: "2px solid black",
+                        scale: "1.1",
+                      },
+                    }}
+                  />
+                  <Link style={{ textDecoration: "none" }}>
+                    <h3 className="post__username">{username}</h3>
+                  </Link>
+                </>
+              )}
+            </div>
+            <TextField
+              onChange={(e) => setCaption(e.target.value)}
+              value={caption}
+              variant="filled"
+              // placeholder="Write a Caption..."
+              label="Write a caption..."
+              multiline
+              rows={12}
+              disabled={uploadingPost}
+              sx={{
+                width: "100%",
+                "& .MuiFormLabel-root.Mui-focused": {
+                  fontWeight: "bold",
+                },
+                "& .MuiFilledInput-root": {
+                  background: "transparent",
+                },
+              }}
+            />
+            <button
+              onClick={handleUpload}
+              disabled={uploadingPost}
+              className="share__button"
+            >
+              Share
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

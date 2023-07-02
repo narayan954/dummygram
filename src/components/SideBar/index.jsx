@@ -112,9 +112,7 @@ function SideBar() {
             size={"1rem"}
             className="crossIcon"
           />
-          <p className="createNewPost">
-            Create new post
-          </p>
+          <p className="createNewPost">Create new post</p>
           <hr />
           <ImgUpload
             user={user}
