@@ -10,8 +10,8 @@ import { errorSound, successSound } from "../../assets/sounds";
 
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
-import Flexbetween from "../../reusableComponents/Flexbetween";
 import { useSnackbar } from "notistack";
+import Flexbetween from "../../reusableComponents/Flexbetween";
 
 const PostNav = ({
   caption,
@@ -114,7 +114,7 @@ const PostNav = ({
       <Flexbetween
         sx={{ cursor: "pointer" }}
         onClick={() => {
-          setLink(`https://narayan954.github.io/dummygram/${postId}`);
+          setLink(`https://narayan954.github.io/dummygram/posts/${postId}`);
           setPostText(caption);
           shareModal(true);
         }}

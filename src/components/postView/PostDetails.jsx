@@ -5,8 +5,8 @@ import {
 } from "@mui/icons-material";
 import { IconButton, Typography } from "@mui/material";
 
-import Flexbetween from "../../reusableComponents/Flexbetween.jsx";
 import React from "react";
+import Flexbetween from "../../reusableComponents/Flexbetween.jsx";
 
 const PostDetails = ({
   user,
@@ -52,7 +52,7 @@ const PostDetails = ({
         <Flexbetween
           sx={{ cursor: "pointer" }}
           onClick={() => {
-            setLink(`https://narayan954.github.io/dummygram/${postId}`);
+            setLink(`https://narayan954.github.io/dummygram/posts/${postId}`);
             setPostText(caption);
             shareModal(true);
           }}
