@@ -27,6 +27,7 @@ import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
 
 import ForgotPassword from "./pages/ForgotPassword"
+import { AutoAwesomeMotionTwoTone } from "@mui/icons-material";
 
 export function getModalStyle() {
   const top = 0;
@@ -47,13 +48,14 @@ export function getModalStyle() {
 
 export const useStyles = makeStyles((theme) => ({
   paper: {
-    position: "absolute",
+    
     width: 250,
     marginTop:300,
     borderRadius: theme.shape.borderRadius,
     boxShadow: "var(--profile-box-shadow)",
     padding: theme.spacing(2, 4, 3),
     color: "var(--color)",
+    margin:"auto"
   },
   logout: {
     display: "flex",

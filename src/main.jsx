@@ -10,13 +10,13 @@ import { IconButton } from "@mui/material";
 import LandingAnimation from "./components/LandingAnimation";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { ChakraProvider } from '@chakra-ui/react'
+
 
 const theme = createTheme();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ChakraProvider>
+  
 
       <LandingAnimation />
       <ThemeProvider theme={theme}>
@@ -47,7 +47,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           </BrowserRouter>
         </SnackbarProvider>
       </ThemeProvider>
-    </ChakraProvider>
+    
 
   </React.StrictMode>
 );

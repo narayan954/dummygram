@@ -6,12 +6,12 @@ import Logo from "../assets/logo.png";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
-// import {useToast} from "@chakra-ui/react"
-import { useToast } from '@chakra-ui/react'
+// import { useSnackbar } from "notistack";
+
 
 
 const ForgotPassword = () => {
-  const toast = useToast()
+ 
   const [email, setEmail] = useState("");
 
   const { enqueueSnackbar } = useSnackbar();
@@ -23,12 +23,8 @@ const ForgotPassword = () => {
     auth
       .sendPasswordResetEmail(email)
       .then(() => {
-        toast({
-          title: 'Mail sent.',
-          description: "Check your mail and change the pasword.",
-          status: 'success',
-          duration: 4000,
-          isClosable: true,
+        enqueueSnackbar("Check your mail and change the pasword.", {
+          variant: "success",
         })
       })
       .catch((error) => {
