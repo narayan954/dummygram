@@ -1,17 +1,12 @@
 import React, { useState } from "react";
-import { auth, facebookProvider, googleProvider } from "../lib/firebase";
 import { getModalStyle, useStyles } from "../App";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import Logo from "../assets/logo.png";
-import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
+import { auth } from "../lib/firebase";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
-// import { useSnackbar } from "notistack";
-
-
 
 const ForgotPassword = () => {
- 
   const [email, setEmail] = useState("");
 
   const { enqueueSnackbar } = useSnackbar();
@@ -25,7 +20,7 @@ const ForgotPassword = () => {
       .then(() => {
         enqueueSnackbar("Check your mail and change the pasword.", {
           variant: "success",
-        })
+        });
       })
       .catch((error) => {
         if (error.code === "auth/invalid-email") {
@@ -53,10 +48,6 @@ const ForgotPassword = () => {
         }
       });
   };
-
-  
-
-
 
   const navigateToSignin = () => {
     navigate("/dummygram/login");
@@ -100,19 +91,12 @@ const ForgotPassword = () => {
               backgroundColor: "white",
               boxShadow: "0 0 20px rgba(104, 85, 224, 0.2)",
               borderRadius: "4px",
-              // padding: "10px",
             }}
-          >
-            
-            
-          
-          </div>
+          ></div>
           <button type="submit" onClick={signIn} className="button log">
-            RESET PASSWORD 
-            {/* <FontAwesomeIcon icon={faRightToBracket} /> */}
+            RESET PASSWORD
           </button>
 
-          
           <div className="have-account">
             Already have a account?{" "}
             <span role={"button"} onClick={navigateToSignin}>

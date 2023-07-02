@@ -19,16 +19,15 @@ import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
+import { AutoAwesomeMotionTwoTone } from "@mui/icons-material";
 import { FaArrowCircleUp } from "react-icons/fa";
+import ForgotPassword from "./pages/ForgotPassword";
 import Modal from "@mui/material/Modal";
 import { RowModeContext } from "./hooks/useRowMode";
 import logo from "./assets/logo.webp";
 import { makeStyles } from "@mui/styles";
 import { successSound } from "./assets/sounds";
 import { useSnackbar } from "notistack";
-
-import ForgotPassword from "./pages/ForgotPassword"
-import { AutoAwesomeMotionTwoTone } from "@mui/icons-material";
 
 export function getModalStyle() {
   const top = 0;
@@ -49,14 +48,13 @@ export function getModalStyle() {
 
 export const useStyles = makeStyles((theme) => ({
   paper: {
-    
     width: 250,
-    marginTop:300,
+    marginTop: 300,
     borderRadius: theme.shape.borderRadius,
     boxShadow: "var(--profile-box-shadow)",
     padding: theme.spacing(2, 4, 3),
     color: "var(--color)",
-    margin:"auto"
+    margin: "auto",
   },
   logout: {
     display: "flex",
@@ -300,7 +298,10 @@ function App() {
 
           <Route path="/dummygram/signup" element={<SignupScreen />} />
 
-          <Route path="/dummygram/forgot-password" element={<ForgotPassword />} />
+          <Route
+            path="/dummygram/forgot-password"
+            element={<ForgotPassword />}
+          />
 
           <Route path="/dummygram/notifications" element={<Notifications />} />
 

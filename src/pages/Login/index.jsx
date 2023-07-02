@@ -12,12 +12,9 @@ import Logo from "../../assets/logo.webp";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
-// import { useNavigate } from "react-router-dom";
 import validate from "../../reusableComponents/validation";
 
 const LoginScreen = () => {
-  // const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -100,25 +97,19 @@ const LoginScreen = () => {
         });
         navigate("/dummygram");
       })
-      .catch((error) =>
-        // enqueueSnackbar(error.message, {
-        //   variant: "error",
-        // })
-        {
-          if (error.code === "auth/account-exists-with-different-credential") {
-            playErrorSound();
-            enqueueSnackbar("Account exists with a different credential", {
-              variant: "error",
-            });
-          } else {
-            playErrorSound();
-            enqueueSnackbar(error.message, {
-              variant: "error",
-            });
-          }
+      .catch((error) => {
+        if (error.code === "auth/account-exists-with-different-credential") {
+          playErrorSound();
+          enqueueSnackbar("Account exists with a different credential", {
+            variant: "error",
+          });
+        } else {
+          playErrorSound();
+          enqueueSnackbar(error.message, {
+            variant: "error",
+          });
         }
-      }
-      );
+      });
   };
 
   const signInWithFacebook = (e) => {
@@ -228,7 +219,8 @@ const LoginScreen = () => {
           <div className="">
             <span role={"button"} onClick={navigateToForgot}>
               Forgot Password
-            </span> <br></br>
+            </span>{" "}
+            <br></br>
             <span role={"button"} onClick={navigateToSignup}>
               Create an account
             </span>
