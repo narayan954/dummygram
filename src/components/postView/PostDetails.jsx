@@ -52,7 +52,7 @@ const PostDetails = ({
         <Flexbetween
           sx={{ cursor: "pointer" }}
           onClick={() => {
-            setLink(`https://narayan954.github.io/dummygram/${postId}`);
+            setLink(`https://narayan954.github.io/dummygram/posts/${postId}`);
             setPostText(caption);
             shareModal(true);
           }}
