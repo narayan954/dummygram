@@ -90,20 +90,22 @@ const LoginScreen = () => {
     e.preventDefault();
     auth
       .signInWithPopup(googleProvider)
-      .then(async(val) => {
-        const userRef = await db.collection('users').where("uid", "==", val?.user?.uid);
+      .then(async (val) => {
+        const userRef = await db
+          .collection("users")
+          .where("uid", "==", val?.user?.uid);
         // alert(((await userRef.get()).docs.length))
 
-        if(((await userRef.get()).docs.length) < 1){
+        if ((await userRef.get()).docs.length < 1) {
           const usernameDoc = db.collection(`users`);
-        await usernameDoc.doc(auth.currentUser.uid).set({
-          uid: val.user.uid,
-          name: val.user.displayName,
-          photoURL:val.user.photoURL,
-          displayName:val.user.displayName,
-          Friends: [],
-          posts: []
-        })
+          await usernameDoc.doc(auth.currentUser.uid).set({
+            uid: val.user.uid,
+            name: val.user.displayName,
+            photoURL: val.user.photoURL,
+            displayName: val.user.displayName,
+            Friends: [],
+            posts: [],
+          });
         }
         playSuccessSound();
         enqueueSnackbar("Login successful!", {
@@ -111,40 +113,40 @@ const LoginScreen = () => {
         });
         navigate("/dummygram");
       })
-      .catch((error) =>
-        {
-          if (error.code === "auth/account-exists-with-different-credential") {
-            playErrorSound();
-            enqueueSnackbar("Account exists with a different credential", {
-              variant: "error",
-            });
-          } else {
-            playErrorSound();
-            enqueueSnackbar(error.message, {
-              variant: "error",
-            });
-          }
+      .catch((error) => {
+        if (error.code === "auth/account-exists-with-different-credential") {
+          playErrorSound();
+          enqueueSnackbar("Account exists with a different credential", {
+            variant: "error",
+          });
+        } else {
+          playErrorSound();
+          enqueueSnackbar(error.message, {
+            variant: "error",
+          });
         }
-      );
+      });
   };
 
   const signInWithFacebook = (e) => {
     e.preventDefault();
     auth
       .signInWithPopup(facebookProvider)
-      .then(async(val) => {
-        const userRef = await db.collection('users').where("uid", "==", val?.user?.uid);
+      .then(async (val) => {
+        const userRef = await db
+          .collection("users")
+          .where("uid", "==", val?.user?.uid);
         // alert(((await userRef.get()).docs.length))
-        if(((await userRef.get()).docs.length) < 1){
+        if ((await userRef.get()).docs.length < 1) {
           const usernameDoc = db.collection(`users`);
-        await usernameDoc.doc(auth.currentUser.uid).set({
-          uid: val.user.uid,
-          name: val.user.displayName,
-          photoURL:val.user.photoURL,
-          displayName:val.user.displayName,
-          Friends: [],
-          posts: []
-        })
+          await usernameDoc.doc(auth.currentUser.uid).set({
+            uid: val.user.uid,
+            name: val.user.displayName,
+            photoURL: val.user.photoURL,
+            displayName: val.user.displayName,
+            Friends: [],
+            posts: [],
+          });
         }
         playSuccessSound();
         enqueueSnackbar("Login successful!", {

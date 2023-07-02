@@ -22,7 +22,6 @@
     "@mui/icons-material": "^5.11.11",
     "@mui/material": "^5.13.5",
     "@mui/styles": "^5.13.2",
-    "create-vite": "^4.3.2",
     "emoji-picker-react": "^4.4.7",
     "file-saver": "^2.0.5",
     "firebase": "^9.18.0",
@@ -53,9 +52,9 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gitpugal/dummygram.git"
+    "url": "git+https://github.com/narayan954/dummygram.git"
   },
   "bugs": {
-    "url": "https://github.com/gitpugal/dummygram/issues"
+    "url": "https://github.com/narayan954/dummygram/issues"
   }
 }

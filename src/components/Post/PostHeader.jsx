@@ -143,7 +143,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
                   name: username,
                   avatar: avatar,
                   uid: uid,
-                  email: email
+                  email: email,
                 },
               });
             }}

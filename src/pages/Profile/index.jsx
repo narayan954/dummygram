@@ -71,8 +71,8 @@ function Profile() {
                 variant: "success"
               })
               setFriendRequestSent(false);
-            })
-        })
+            });
+        });
     } else {
       const friendRequestData = {
         sender: currentUserUid,
@@ -100,7 +100,7 @@ function Profile() {
             .doc(targetUserUid)
             .collection("notifications")
             .doc(currentUserUid)
-            .set(notificationData)
+            .set(notificationData);
         })
         .catch((error) => {
           playErrorSound();
@@ -109,23 +109,21 @@ function Profile() {
           });
         });
     }
-
   };
-
 
   useEffect(() => {
     const checkFriendRequestSent = async () => {
       const currentUser = auth.currentUser;
       const currentUserUid = currentUser.uid;
       const targetUserUid = uid;
-      const friendRequestsRef = db.collection("users")
+      const friendRequestsRef = db
+        .collection("users")
         .doc(targetUserUid)
         .collection("friendRequests");
       const query = friendRequestsRef
         .where("sender", "==", currentUserUid)
         .where("recipient", "==", targetUserUid)
         .limit(1);
-
 
       const snapshot = await query.get();
       if (!snapshot.empty) {
@@ -213,7 +211,7 @@ function Profile() {
     const uploadTask = storage.ref(`images/${image?.name}`).put(image);
     uploadTask.on(
       "state_changed",
-      () => { },
+      () => {},
       (error) => {
         playErrorSound();
         enqueueSnackbar(error.message, {

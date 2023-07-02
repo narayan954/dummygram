@@ -132,7 +132,7 @@ input:focus {
 
 @media only screen and (max-width: 1200px) {
   .app__posts {
-    padding-left: 9vw;
+    padding: 0px;
   }
 }
 
@@ -193,7 +193,7 @@ input:focus {
 }
 
 /* notification card */
-.notification_card{
+.notification_card {
   width: 100%;
   margin: 5px 10px;
   background-color: rgb(193, 0, 0);
@@ -231,6 +231,7 @@ input:focus {
 @media only screen and (max-width: 600px) {
   .scrollTop {
     left: 43%;
+    margin-bottom: 2em;
   }
 
   .app__newpost__button {
