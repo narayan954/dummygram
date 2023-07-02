@@ -29,7 +29,7 @@ function Favorite() {
           console.log("Error getting document:", e);
         }
       });
-  
+
       try {
         await Promise.all(fetchPromises);
         setPosts(posts);
@@ -39,14 +39,13 @@ function Favorite() {
         setLoading(false);
       }
     };
-  
+
     if (savedPostsArr.length === 0) {
       setLoading(false);
     } else {
       fetchPosts();
     }
   }, []);
-  
 
   return (
     <>
