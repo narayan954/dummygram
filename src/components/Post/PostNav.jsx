@@ -6,8 +6,10 @@ import {
 } from "@mui/icons-material";
 import { IconButton, Typography } from "@mui/material";
 import React, { useState } from "react";
+import { errorSound, successSound } from "../../assets/sounds";
 
-import { FaSave } from "react-icons/fa";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import Flexbetween from "../../reusableComponents/Flexbetween";
 import { useSnackbar } from "notistack";
 
@@ -25,20 +27,50 @@ const PostNav = ({
 }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [Open, setOpen] = useState(false);
+  const [favoritePosts, setFavoritePosts] = useState(
+    JSON.parse(localStorage.getItem("posts")) || []
+  );
+  const [isSaved, setisSaved] = useState(false);
+
+  function playSuccessSound() {
+    new Audio(successSound).play();
+  }
+
+  function playErrorSound() {
+    new Audio(errorSound).play();
+  }
+
   const save = async () => {
-    const localStoragePosts = JSON.parse(localStorage.getItem("posts")) || [];
+    let localStoragePosts = JSON.parse(localStorage.getItem("posts")) || [];
     const postIdExists = localStoragePosts.includes(postId);
 
     if (!postIdExists) {
       localStoragePosts.push(postId);
       localStorage.setItem("posts", JSON.stringify(localStoragePosts));
+      playSuccessSound();
       enqueueSnackbar("Post added to favourites!", {
         variant: "success",
       });
     } else {
-      enqueueSnackbar("Post is already in favourites!", {
-        variant: "error",
+      localStoragePosts = localStoragePosts.filter((post) => post !== postId);
+      localStorage.setItem("posts", JSON.stringify(localStoragePosts));
+      playSuccessSound();
+      enqueueSnackbar("Post is removed from favourites!", {
+        variant: "info",
       });
+    }
+    setFavoritePosts(JSON.parse(localStorage.getItem("posts")));
+  };
+
+  const handleToggleFavorite = () => {
+    setisSaved(!isSaved);
+  };
+
+  const renderFavoriteIcon = () => {
+    if (isSaved) {
+      return <BookmarksIcon onClick={handleToggleFavorite} />;
+    } else {
+      return <BookmarkBorderIcon onClick={handleToggleFavorite} />;
     }
   };
 
@@ -47,12 +79,20 @@ const PostNav = ({
       <Flexbetween sx={{ cursor: "pointer" }} onClick={likesHandler}>
         <IconButton>
           {tempLikeCount.indexOf(user.uid) != -1 ? (
-            <FavoriteOutlined sx={{ color: "red" }} />
+            <FavoriteOutlined
+              sx={{
+                color: "red",
+              }}
+            />
           ) : (
-            <FavoriteBorderOutlined />
+            <FavoriteBorderOutlined
+              style={{ color: "var(--post-nav-icons)" }}
+            />
           )}
         </IconButton>
-        <Typography fontSize={14}>Like</Typography>
+        <Typography fontSize={14} className="post-nav-item">
+          Like
+        </Typography>
       </Flexbetween>
 
       <Flexbetween
@@ -62,34 +102,42 @@ const PostNav = ({
         }}
       >
         <IconButton>
-          <ChatBubbleOutlineRounded />
+          <ChatBubbleOutlineRounded
+            style={{ color: "var(--post-nav-icons)" }}
+          />
         </IconButton>
-        <Typography fontSize={14}>Comment</Typography>
+        <Typography fontSize={14} className="post-nav-item">
+          Comment
+        </Typography>
       </Flexbetween>
 
       <Flexbetween
         sx={{ cursor: "pointer" }}
         onClick={() => {
-          setLink(`https://narayan954.github.io/dummygram/${postId}`);
+          setLink(`https://narayan954.github.io/dummygram/posts/${postId}`);
           setPostText(caption);
           shareModal(true);
         }}
       >
         <IconButton>
-          <ShareOutlined />
+          <ShareOutlined style={{ color: "var(--post-nav-icons)" }} />
         </IconButton>
-        <Typography fontSize={14}>Share</Typography>
+        <Typography fontSize={14} className="post-nav-item">
+          Share
+        </Typography>
       </Flexbetween>
 
       <Flexbetween sx={{ cursor: "pointer" }} onClick={save}>
         <IconButton>
-          <FaSave
-            onClick={save}
-            style={{ cursor: "pointer", fontSize: "22px" }}
-            className="post_button"
-          />
+          {favoritePosts.indexOf(postId) !== -1 ? (
+            <BookmarksIcon sx={{ color: "green" }} />
+          ) : (
+            <BookmarkBorderIcon style={{ color: "var(--post-nav-icons)" }} />
+          )}
         </IconButton>
-        <Typography fontSize={14}>Save</Typography>
+        <Typography fontSize={14} className="post-nav-item">
+          Save
+        </Typography>
       </Flexbetween>
     </Flexbetween>
   );

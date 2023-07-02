@@ -34,10 +34,8 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
 
   return (
     <div className="app__header">
-      <img
-        src={logo}
-        alt="dummygram"
-        className="app__header__img"
+      <p
+        id="dummygram-logo"
         onClick={() => {
           if (
             location.pathname !== "/dummygram/login" &&
@@ -47,10 +45,9 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
           }
           window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
         }}
-        style={{
-          cursor: "pointer",
-        }}
-      />
+      >
+        dummygram
+      </p>
 
       {user && (
         <>
@@ -80,27 +77,21 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
                         })
                       }
                     >
-                      <Typography fontFamily="Poppins" fontSize="1rem">
-                        Profile
-                      </Typography>
+                      <Typography fontSize="1rem">Profile</Typography>
                     </Box>
                     <Divider />
                     <Box
                       className="nav-menu-item"
                       onClick={() => navigate("/dummygram/favourites")}
                     >
-                      <Typography fontFamily="serif" fontSize="1rem">
-                        Favourites
-                      </Typography>
+                      <Typography fontSize="1rem">Favourites</Typography>
                     </Box>
                     <Divider />
                     <Box
                       className="nav-menu-item"
                       onClick={() => setLogout(true)}
                     >
-                      <Typography fontFamily="Poppins" fontSize="0.9rem">
-                        Log Out
-                      </Typography>
+                      <Typography fontSize="0.9rem">Log Out</Typography>
                     </Box>
                   </Box>
                 )}

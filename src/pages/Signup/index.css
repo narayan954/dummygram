@@ -5,7 +5,7 @@
   height: 120px;
   width: 120px;
   border-radius: 50%;
-  box-shadow: 0 0 20px var(--color-shadow);
+  box-shadow: var(--profile-box-shadow);
   cursor: pointer;
 }
 
@@ -46,8 +46,8 @@
   border: 2px solid green;
 }
 
-.username-not-available {
-  border: 2px solid red;
+.error-border {
+  border: 2px solid red !important;
 }
 
 .password-container {
@@ -79,4 +79,9 @@
   border: none;
   outline: none;
   cursor: pointer;
+}
+
+.error {
+  font-size: 12px;
+  color: red;
 }

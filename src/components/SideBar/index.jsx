@@ -8,6 +8,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineClose } from "react-icons/ai";
 import { Dialog } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import Footer from "./Footer";
 import HomeIcon from "@mui/icons-material/Home";
 import ImgUpload from "../ImgUpload";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -20,43 +21,46 @@ function SideBar() {
 
   return (
     <div className="sidebar">
-      <ul>
-        <li>
-          <Link to="/dummygram">
-            <HomeIcon className="icon" /> <span>Home</span>
-          </Link>
-        </li>
-        <li onClick={() => setOpenNewUpload(true)}>
-          <div className="sidebar_align">
-            <AddCircleOutlineIcon className="icon" /> <span>New Post</span>
-          </div>
-        </li>
-        <li onClick={() => navigate("/dummygram/favourites")}>
-          <div className="sidebar_align">
-            <FavoriteBorderIcon className="icon" /> <span>Favourites</span>
-          </div>
-        </li>
-        <li onClick={() => navigate("/dummygram/notifications")}>
-          <div className="sidebar_align">
-            <NotificationsIcon className="icon" /> <span>Notifications</span>
-          </div>
-        </li>
-        <li
-          onClick={() =>
-            navigate("/dummygram/profile", {
-              state: {
-                name: user.displayName,
-                email: user.email,
-                avatar: user.photoURL,
-              },
-            })
-          }
-        >
-          <div className="sidebar_align">
-            <AccountCircleIcon className="icon" /> <span>Profile</span>
-          </div>
-        </li>
-      </ul>
+      <div className="sidebar-container">
+        <ul className="sidebar-links">
+          <li>
+            <Link to="/dummygram">
+              <HomeIcon className="icon" /> <span>Home</span>
+            </Link>
+          </li>
+          <li onClick={() => setOpenNewUpload(true)}>
+            <div className="sidebar_align">
+              <AddCircleOutlineIcon className="icon" /> <span>New Post</span>
+            </div>
+          </li>
+          <li onClick={() => navigate("/dummygram/favourites")}>
+            <div className="sidebar_align">
+              <FavoriteBorderIcon className="icon" /> <span>Favourites</span>
+            </div>
+          </li>
+          <li onClick={() => navigate("/dummygram/notifications")}>
+            <div className="sidebar_align">
+              <NotificationsIcon className="icon" /> <span>Notifications</span>
+            </div>
+          </li>
+          <li
+            onClick={() =>
+              navigate("/dummygram/profile", {
+                state: {
+                  name: user.displayName,
+                  email: user.email,
+                  avatar: user.photoURL,
+                },
+              })
+            }
+          >
+            <div className="sidebar_align">
+              <AccountCircleIcon className="icon" /> <span>Profile</span>
+            </div>
+          </li>
+        </ul>
+        <Footer />
+      </div>
       <Dialog
         PaperProps={{
           sx: {
