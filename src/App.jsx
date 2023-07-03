@@ -7,6 +7,7 @@ import {
   PostView,
   Profile,
   SignupScreen,
+  Settings,
 } from "./pages";
 import {
   AnimatedButton,
@@ -32,7 +33,7 @@ import Modal from "@mui/material/Modal";
 import { RowModeContext } from "./hooks/useRowMode";
 import logo from "./assets/logo.webp";
 import { makeStyles } from "@mui/styles";
-import { successSound } from "./assets/sounds";
+import { playSuccessSound } from "./js/sounds";
 import { useSnackbar } from "notistack";
 
 export function getModalStyle() {
@@ -86,10 +87,6 @@ function App() {
   const classes = useStyles();
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
-
-  function playSuccessSound() {
-    new Audio(successSound).play();
-  }
 
   const checkScrollTop = () => {
     if (!showScroll && window.pageYOffset > 400) {
@@ -299,6 +296,8 @@ function App() {
           <Route path="/dummygram/profile" element={<Profile />} />
 
           <Route path="/dummygram/about" element={<About />} />
+
+          <Route path="/dummygram/settings" element={<Settings />} />
 
           <Route path="/dummygram/feedback" element={<Feedback />} />
 
