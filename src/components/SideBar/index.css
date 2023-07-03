@@ -60,6 +60,12 @@
   margin-left: 15px;
 }
 
+.sidebar .profile-picture {
+  height: 30px;
+  width: 30px;
+  border-radius: 100%;
+}
+
 footer {
   margin-block: auto;
   padding-left: 20px;
