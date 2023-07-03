@@ -38,6 +38,8 @@ function Profile() {
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState("");
 
+  let uid = location?.state?.uid || user?.uid;
+
   function playSuccessSound() {
     new Audio(successSound).play();
   }
@@ -49,45 +51,80 @@ function Profile() {
   const handleClose = () => setOpen(false);
 
   const handleSendFriendRequest = () => {
-    const currentUserUid = auth.currentUser.uid;
-    const targetUserUid = currentUserUid; // TODO: Change this to the user whose profile is being viewed
-    const friendRequestData = {
-      sender: currentUserUid,
-      recipient: targetUserUid,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    };
-    db.collection("friendRequests")
-      .add(friendRequestData)
-      .then(() => {
-        setFriendRequestSent(true);
-        playSuccessSound();
-        enqueueSnackbar("Friend request sent!", {
-          variant: "success",
+    const currentUser = auth.currentUser;
+    const currentUserUid = currentUser.uid;
+    const targetUserUid = uid;
+    if (friendRequestSent) {
+      db.collection("users")
+        .doc(targetUserUid)
+        .collection("friendRequests")
+        .doc(currentUserUid)
+        .delete()
+        .then(() => {
+          db.collection("users")
+            .doc(targetUserUid)
+            .collection("notifications")
+            .doc(currentUserUid)
+            .delete()
+            .then(() => {
+              enqueueSnackbar("Friend Request removed successfully!", {
+                variant: "success",
+              });
+              setFriendRequestSent(false);
+            });
         });
-        const notificationData = {
-          recipient: targetUserUid,
-          message: `You have received a friend request from ${name}.`,
-          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        };
-        db.collection("notifications").add(notificationData);
-      })
-      .catch((error) => {
-        playErrorSound();
-        enqueueSnackbar(error.message, {
-          variant: "error",
+    } else {
+      const friendRequestData = {
+        sender: currentUserUid,
+        recipient: targetUserUid,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      };
+      db.collection("users")
+        .doc(targetUserUid)
+        .collection("friendRequests")
+        .doc(currentUserUid)
+        .set(friendRequestData)
+        .then(() => {
+          setFriendRequestSent(true);
+          playSuccessSound();
+          enqueueSnackbar("Friend request sent!", {
+            variant: "success",
+          });
+          const notificationData = {
+            recipient: targetUserUid,
+            sender: currentUserUid,
+            message: `You have received a friend request from ${auth?.currentUser?.displayName}.`,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          };
+          db.collection("users")
+            .doc(targetUserUid)
+            .collection("notifications")
+            .doc(currentUserUid)
+            .set(notificationData);
+        })
+        .catch((error) => {
+          playErrorSound();
+          enqueueSnackbar(error.message, {
+            variant: "error",
+          });
         });
-      });
+    }
   };
 
   useEffect(() => {
     const checkFriendRequestSent = async () => {
-      const currentUserUid = auth.currentUser.uid;
-      const targetUserUid = currentUserUid; // TODO: Change this to the user whose profile is being viewed
-      const friendRequestsRef = db.collection("friendRequests");
+      const currentUser = auth.currentUser;
+      const currentUserUid = currentUser.uid;
+      const targetUserUid = uid;
+      const friendRequestsRef = db
+        .collection("users")
+        .doc(targetUserUid)
+        .collection("friendRequests");
       const query = friendRequestsRef
         .where("sender", "==", currentUserUid)
         .where("recipient", "==", targetUserUid)
         .limit(1);
+
       const snapshot = await query.get();
       if (!snapshot.empty) {
         setFriendRequestSent(true);
@@ -115,6 +152,7 @@ function Profile() {
             ? location?.state?.email || authUser.email
             : ""
         );
+        uid = location?.state?.uid || authUser.uid;
       } else {
         navigate("/dummygram/login");
       }
@@ -128,12 +166,12 @@ function Profile() {
   //Get username from usernames collection
   useEffect(() => {
     const usernameQ = query(
-      collection(db, "usernames"),
+      collection(db, "users"),
       where("uid", "==", auth.currentUser.uid)
     );
     const unsubscribe = onSnapshot(usernameQ, (querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        setUsername(doc.id);
+        setUsername(doc.username);
       });
     });
   }, []);
@@ -251,7 +289,7 @@ function Profile() {
         sx={{
           border: "none",
           boxShadow: "var(--profile-box-shadow)",
-          margin: "8rem auto 2.5rem",
+          margin: "6rem auto 2.5rem",
         }}
         display="flex"
         justifyContent={"center"}
@@ -329,14 +367,14 @@ function Profile() {
           <Typography fontSize="1.5rem" fontWeight="600">
             {name === auth.currentUser.displayName && email}
           </Typography>
-          {!friendRequestSent && name !== auth.currentUser.displayName && (
+          {name !== auth.currentUser.displayName && (
             <Button
               onClick={handleSendFriendRequest}
               variant="contained"
               color="primary"
               sx={{ marginTop: "1rem" }}
             >
-              Add Friend
+              {friendRequestSent ? "Remove friend request" : "Add Friend"}
             </Button>
           )}
           <Button

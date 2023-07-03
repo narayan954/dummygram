@@ -2,7 +2,7 @@ import "./index.css";
 
 import React, { useState } from "react";
 import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
-import { auth, facebookProvider, googleProvider } from "../../lib/firebase";
+import { auth, db, facebookProvider, googleProvider } from "../../lib/firebase";
 import { errorSound, successSound } from "../../assets/sounds";
 import { faGoogle, faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
 
@@ -19,6 +19,7 @@ const LoginScreen = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState({ email: true });
+
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
@@ -89,38 +90,64 @@ const LoginScreen = () => {
     e.preventDefault();
     auth
       .signInWithPopup(googleProvider)
-      .then(() => {
+      .then(async (val) => {
+        const userRef = await db
+          .collection("users")
+          .where("uid", "==", val?.user?.uid);
+        // alert(((await userRef.get()).docs.length))
+
+        if ((await userRef.get()).docs.length < 1) {
+          const usernameDoc = db.collection(`users`);
+          await usernameDoc.doc(auth.currentUser.uid).set({
+            uid: val.user.uid,
+            name: val.user.displayName,
+            photoURL: val.user.photoURL,
+            displayName: val.user.displayName,
+            Friends: [],
+            posts: [],
+          });
+        }
         playSuccessSound();
         enqueueSnackbar("Login successful!", {
           variant: "success",
         });
         navigate("/dummygram");
       })
-      .catch((error) =>
-        // enqueueSnackbar(error.message, {
-        //   variant: "error",
-        // })
-        {
-          if (error.code === "auth/account-exists-with-different-credential") {
-            playErrorSound();
-            enqueueSnackbar("Account exists with a different credential", {
-              variant: "error",
-            });
-          } else {
-            playErrorSound();
-            enqueueSnackbar(error.message, {
-              variant: "error",
-            });
-          }
+      .catch((error) => {
+        if (error.code === "auth/account-exists-with-different-credential") {
+          playErrorSound();
+          enqueueSnackbar("Account exists with a different credential", {
+            variant: "error",
+          });
+        } else {
+          playErrorSound();
+          enqueueSnackbar(error.message, {
+            variant: "error",
+          });
         }
-      );
+      });
   };
 
   const signInWithFacebook = (e) => {
     e.preventDefault();
     auth
       .signInWithPopup(facebookProvider)
-      .then(() => {
+      .then(async (val) => {
+        const userRef = await db
+          .collection("users")
+          .where("uid", "==", val?.user?.uid);
+        // alert(((await userRef.get()).docs.length))
+        if ((await userRef.get()).docs.length < 1) {
+          const usernameDoc = db.collection(`users`);
+          await usernameDoc.doc(auth.currentUser.uid).set({
+            uid: val.user.uid,
+            name: val.user.displayName,
+            photoURL: val.user.photoURL,
+            displayName: val.user.displayName,
+            Friends: [],
+            posts: [],
+          });
+        }
         playSuccessSound();
         enqueueSnackbar("Login successful!", {
           variant: "success",
@@ -141,6 +168,9 @@ const LoginScreen = () => {
       });
   };
 
+  const navigateToForgot = () => {
+    navigate("/dummygram/forgot-password");
+  };
   const navigateToSignup = () => {
     navigate("/dummygram/signup");
   };
@@ -223,8 +253,13 @@ const LoginScreen = () => {
             </button>
           </div>
           </div>
+          <div className="forgot-pasword">
+            <span role={"button"} onClick={navigateToForgot}>
+              Forgot Password
+            </span>
+          </div>
           <div className="no__acct">
-            New User? 
+              New User? 
             <span role={"button"} onClick={navigateToSignup}> Sign up!</span>
           </div>
           </div>

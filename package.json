@@ -13,6 +13,7 @@
     "cypress:open": "cypress open"
   },
   "dependencies": {
+    "@emailjs/browser": "^3.11.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fortawesome/fontawesome-svg-core": "^6.3.0",
@@ -43,11 +44,18 @@
     "react-error-overlay": "^6.0.11",
     "vite": "^4.2.0"
   },
-  "description": "",
+  "description": "<div id=\"top\"></div>\r <div align=\"center\">",
   "main": "index.js",
   "keywords": [
     "dummygram"
   ],
   "author": "narayan954",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/narayan954/dummygram.git"
+  },
+  "bugs": {
+    "url": "https://github.com/narayan954/dummygram/issues"
+  }
 }

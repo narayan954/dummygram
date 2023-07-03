@@ -28,6 +28,7 @@
   outline: none;
   cursor: pointer;
 }
+
 .login__section{
   display: grid;
   font-family: 'DM Sans', sans-serif;
@@ -152,7 +153,21 @@
   height: 100%;
 
 }
+/* forgot password */
 
+.forgot-pasword {
+  width: 100%;
+  text-align: center;
+  color: var(--color);
+  font-size: 13px;
+  margin: 0;
+}
+
+.forgot-pasword span {
+  border-bottom: 2px solid rgb(104, 85, 224);
+  color: rgb(104, 85, 224);
+  cursor: pointer;
+}
 
 
 /* media query for 840px */
@@ -199,9 +214,6 @@
   }
   .login__right {  
     display: none;
-  }
-  
-  
-  
-  
+  }  
 }
+
