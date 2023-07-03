@@ -1,5 +1,5 @@
 import AnimatedButton from "./AnimatedButton";
-import Darkmode from "./Darkmode/Darkmode";
+import Darkmode from "./Darkmode";
 import DialogBox from "./DialogBox";
 import Flexbetween from "./Flexbetween";
 import ImageSlider from "./ImageSlider";

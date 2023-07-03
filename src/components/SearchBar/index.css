@@ -1,0 +1,12 @@
+/* search file css */
+.search-bar input {
+  width: 30%;
+}
+
+.search-bar {
+  display: flex;
+  margin: 0px auto;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
