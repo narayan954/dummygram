@@ -8,12 +8,12 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineClose } from "react-icons/ai";
 import { Dialog } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import Footer from "./Footer";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import HomeIcon from "@mui/icons-material/Home";
 import ImgUpload from "../ImgUpload";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { auth } from "../../lib/firebase";
-import Footer from "./Footer";
 
 function SideBar() {
   const navigate = useNavigate();
@@ -60,8 +60,10 @@ function SideBar() {
             </div>
           </li>
         </ul>
-        <Footer>
+        <hr />
+        <Footer />
       </div>
+
       <Dialog
         PaperProps={{
           className: "dialogStyle",
