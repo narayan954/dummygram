@@ -36,7 +36,7 @@
 }
 
 .sidebar-links li:hover {
-  background: var(--sidebar-link-hover);
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .sidebar-links li a,
@@ -85,6 +85,7 @@ footer {
   text-decoration: none;
   color: #8f8f8f;
 }
+
 .footer-link:hover {
   text-decoration: underline;
 }

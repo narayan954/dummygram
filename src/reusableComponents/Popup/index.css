@@ -24,3 +24,7 @@
   top: 1px;
   right: -16px;
 }
+
+.popup-inner .close-btn:hover {
+  transform: scale(1.1);
+}
