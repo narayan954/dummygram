@@ -4,9 +4,10 @@ import { auth, db } from "../lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
 
 import { Box } from "@mui/material";
-import Post from "./Post";
+import Post from "./index";
 import { RowModeContext } from "../hooks/useRowMode";
 import SideBar from "./SideBar";
+import { useSnackbar } from "notistack";
 
 function Favorite() {
   const [openShareModal, setOpenShareModal] = useState(false);
@@ -15,7 +16,13 @@ function Favorite() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const rowMode = useContext(RowModeContext);
-  const savedPostsArr = JSON.parse(localStorage.getItem("posts"));
+  const { enqueueSnackbar } = useSnackbar();
+
+  let savedPostsArr = [];
+
+  if(localStorage.getItem("posts")){
+    savedPostsArr = JSON.parse(localStorage.getItem("posts"));
+  }
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -26,7 +33,9 @@ function Favorite() {
           const doc = await getDoc(docRef);
           posts.push({ id: doc.id, post: doc.data() });
         } catch (e) {
-          console.log("Error getting document:", e);
+          enqueueSnackbar("Error while getting post", {
+            variant: "error",
+          });
         }
       });
   
@@ -35,7 +44,9 @@ function Favorite() {
         setPosts(posts);
         setLoading(false);
       } catch (error) {
-        console.log("Error fetching posts:", error);
+        enqueueSnackbar("Error while fetching posts", {
+          variant: "error",
+        });
         setLoading(false);
       }
     };
