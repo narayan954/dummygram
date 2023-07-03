@@ -85,11 +85,13 @@ export default function ImgUpload(props) {
       });
 
       const postId = postRef.id; // Store post ID in a separate variable
-   
 
-      await db.collection("users").doc(props.user.uid).set({
-        posts: firebase.firestore.FieldValue.arrayUnion(postId) // Use postId instead of postRef.id
-      });
+      await db
+        .collection("users")
+        .doc(props.user.uid)
+        .set({
+          posts: firebase.firestore.FieldValue.arrayUnion(postId), // Use postId instead of postRef.id
+        });
 
       playSuccessSound();
       enqueueSnackbar("Post was uploaded successfully!", {

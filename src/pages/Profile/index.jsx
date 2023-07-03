@@ -68,8 +68,8 @@ function Profile() {
             .delete()
             .then(() => {
               enqueueSnackbar("Friend Request removed successfully!", {
-                variant: "success"
-              })
+                variant: "success",
+              });
               setFriendRequestSent(false);
             });
         });

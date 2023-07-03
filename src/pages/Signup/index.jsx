@@ -197,7 +197,7 @@ const SignupScreen = () => {
     e.preventDefault();
     auth
       .signInWithPopup(googleProvider)
-      .then(async(val) => {
+      .then(async (val) => {
         setIsOauthSignUp(true);
         const usernameDoc = db.collection(`users`);
         await usernameDoc

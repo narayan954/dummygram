@@ -19,6 +19,7 @@ const LoginScreen = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState({ email: true });
+
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const classes = useStyles();
