@@ -44,11 +44,18 @@
     "react-error-overlay": "^6.0.11",
     "vite": "^4.2.0"
   },
-  "description": "",
+  "description": "<div id=\"top\"></div>\r <div align=\"center\">",
   "main": "index.js",
   "keywords": [
     "dummygram"
   ],
   "author": "narayan954",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/narayan954/dummygram.git"
+  },
+  "bugs": {
+    "url": "https://github.com/narayan954/dummygram/issues"
+  }
 }

@@ -1,4 +1,4 @@
-import "./darkmode.css";
+import "./index.css";
 
 import React from "react";
 
