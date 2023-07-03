@@ -237,7 +237,7 @@ const LoginScreen = () => {
           <div className="other__login__method">
           <div className="or option__divider">
             <div className="line" />
-            <div style={{ padding: "9px" }}>or</div>
+            <div style={{ padding: "9px 0" }}>or</div>
             <div className="line" />
           </div>
           <div className="google__fb--login">

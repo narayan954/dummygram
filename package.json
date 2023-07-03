@@ -24,6 +24,7 @@
     "@mui/material": "^5.13.5",
     "@mui/styles": "^5.13.2",
     "emoji-picker-react": "^4.4.7",
+    "esbuild": "^0.18.11",
     "file-saver": "^2.0.5",
     "firebase": "^9.18.0",
     "notistack": "^3.0.1",
