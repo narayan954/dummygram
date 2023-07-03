@@ -4,6 +4,7 @@ import { Avatar, LinearProgress, TextField } from "@mui/material";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import React, { useRef, useState } from "react";
 import { auth, db, handleMultiUpload } from "../../lib/firebase";
+import { errorSound, successSound } from "../../assets/sounds";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Camera from "./Camera";
@@ -17,6 +18,13 @@ export default function ImgUpload(props) {
   const [current, setCurrent] = useState(0);
   const [nextPage, setNextPage] = useState(false);
 
+  function playSuccessSound() {
+    new Audio(successSound).play();
+  }
+
+  function playErrorSound() {
+    new Audio(errorSound).play();
+  }
   const ShiftToNextPage = () => {
     setNextPage(!nextPage);
   };
@@ -72,43 +80,54 @@ export default function ImgUpload(props) {
     setImagePreviews(images);
   };
 
-  const savePost = (imageUrl = "") => {
-    db.collection("posts")
-      .add({
+  const savePost = async (imageUrl = "") => {
+    try {
+      const postRef = await db.collection("posts").add({
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         caption: caption,
         imageUrl,
         username: props.user.displayName,
         avatar: props.user.photoURL,
         likecount: [],
-      })
-      .then(() => {
-        enqueueSnackbar("Post was uploaded successfully!", {
-          variant: "success",
-        });
-        setProgress(0);
-        setCaption("");
-        setImage(null);
-        if (imgInput.current) {
-          imgInput.current.value = null;
-        }
-
-        if (props.onUploadComplete) {
-          props.onUploadComplete();
-        }
-      })
-      .catch((err) => {
-        enqueueSnackbar(err.message, {
-          variant: "error",
-        });
-
-        if (props.onUploadError) {
-          props.onUploadError(err);
-        }
-      })
-      .finally(() => {
-        setUploadingPost(false);
+        uid: auth?.currentUser?.uid,
       });
+
+      const postId = postRef.id; // Store post ID in a separate variable
+
+      await db
+        .collection("users")
+        .doc(props.user.uid)
+        .set({
+          posts: firebase.firestore.FieldValue.arrayUnion(postId), // Use postId instead of postRef.id
+        });
+
+      playSuccessSound();
+      enqueueSnackbar("Post was uploaded successfully!", {
+        variant: "success",
+      });
+
+      setProgress(0);
+      setCaption("");
+      setImage(null);
+      if (imgInput.current) {
+        imgInput.current.value = null;
+      }
+
+      if (props.onUploadComplete) {
+        props.onUploadComplete();
+      }
+    } catch (err) {
+      playErrorSound();
+      enqueueSnackbar(err.message, {
+        variant: "error",
+      });
+
+      if (props.onUploadError) {
+        props.onUploadError(err);
+      }
+    } finally {
+      setUploadingPost(false);
+    }
   };
 
   function handleUpload() {
