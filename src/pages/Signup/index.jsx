@@ -65,12 +65,12 @@ const SignupScreen = () => {
     if (!regex.test(name)) {
       setUsernameAvailable(false);
     } else {
-      debounce(findUsernameInDB());
+      debounce(findUsernameInDB);
     }
   };
 
   const findUsernameInDB = async () => {
-    const ref = await db.doc(`usernames/${usernameRef.current}`);
+    const ref = db.doc(`usernames/${usernameRef.current}`);
     const { exists } = await ref.get();
     setUsernameAvailable(!exists);
   };
@@ -114,7 +114,6 @@ const SignupScreen = () => {
 
     if (submitable) {
       const usernameDoc = db.collection(`users`);
-      const batch = db.batch();
       await auth
         .createUserWithEmailAndPassword(email, password)
         .then(async (authUser) => {
