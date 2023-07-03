@@ -192,6 +192,16 @@ input:focus {
   margin-top: 10px;
 }
 
+/* notification card */
+.notification_card {
+  width: 100%;
+  margin: 5px 10px;
+  background-color: rgb(193, 0, 0);
+  color: white;
+  border-radius: 10px;
+  padding: 5px;
+}
+
 /* image upload css */
 .imageUpload-progress {
   width: 100%;

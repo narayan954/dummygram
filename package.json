@@ -21,7 +21,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.3.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/icons-material": "^5.11.11",
-    "@mui/material": "^5.13.5",
+    "@mui/material": "^5.13.6",
     "@mui/styles": "^5.13.2",
     "emoji-picker-react": "^4.4.7",
     "file-saver": "^2.0.5",
@@ -44,11 +44,18 @@
     "react-error-overlay": "^6.0.11",
     "vite": "^4.2.0"
   },
-  "description": "",
+  "description": "<div id=\"top\"></div>\r <div align=\"center\">",
   "main": "index.js",
   "keywords": [
     "dummygram"
   ],
   "author": "narayan954",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/narayan954/dummygram.git"
+  },
+  "bugs": {
+    "url": "https://github.com/narayan954/dummygram/issues"
+  }
 }
