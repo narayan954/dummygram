@@ -1,12 +1,11 @@
 import { Loader, ShareModal } from "../reusableComponents";
+import { Post, SideBar } from "./index";
 import React, { useContext, useEffect, useState } from "react";
 import { auth, db } from "../lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
 
 import { Box } from "@mui/material";
-import Post from "./index";
 import { RowModeContext } from "../hooks/useRowMode";
-import SideBar from "./SideBar";
 import { useSnackbar } from "notistack";
 
 function Favorite() {
@@ -15,12 +14,13 @@ function Favorite() {
   const [postText, setPostText] = useState("");
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+
   const rowMode = useContext(RowModeContext);
   const { enqueueSnackbar } = useSnackbar();
 
   let savedPostsArr = [];
 
-  if(localStorage.getItem("posts")){
+  if (localStorage.getItem("posts")) {
     savedPostsArr = JSON.parse(localStorage.getItem("posts"));
   }
 
@@ -31,7 +31,7 @@ function Favorite() {
         const docRef = doc(db, "posts", id);
         try {
           const doc = await getDoc(docRef);
-          posts.push({ id: doc.id, post: doc.data() });
+          doc.data() && posts.push({ id: doc.id, post: doc.data() });
         } catch (e) {
           enqueueSnackbar("Error while getting post", {
             variant: "error",
