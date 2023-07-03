@@ -292,7 +292,7 @@ const SignupScreen = () => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex signup-container">
       <div style={modalStyle} className={classes.paper}>
         <form className="modal__signup">
           <input

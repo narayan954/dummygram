@@ -8,7 +8,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineClose } from "react-icons/ai";
 import { Dialog } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import Footer from "./Footer";
+import GitHubIcon from "@mui/icons-material/GitHub";
 import HomeIcon from "@mui/icons-material/Home";
 import ImgUpload from "../ImgUpload";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -59,14 +59,41 @@ function SideBar() {
             </div>
           </li>
         </ul>
-        <Footer />
+
+        <footer>
+          <ul className="sidebar-footer-container">
+            <li>
+              <a href="https://github.com/narayan954/dummygram" target="_blank">
+                <GitHubIcon />
+              </a>
+            </li>
+            <li>
+              <Link to="/about" className="footer-link">
+                about
+              </Link>
+            </li>
+            <li>
+              <Link to="/help-center" className="footer-link">
+                help-center
+              </Link>
+            </li>
+            <li>
+              <Link to="/guidelines" className="footer-link">
+                Guidelines
+              </Link>
+            </li>
+            <li>
+              <Link to="/guidelines" className="footer-link">
+                policy
+              </Link>
+            </li>
+          </ul>
+          <p className="copyright">&#169; MIT license since 2023</p>
+        </footer>
       </div>
       <Dialog
         PaperProps={{
-          sx: {
-            width: "60vw",
-            height: "60vh",
-          },
+          className: "dialogStyle",
         }}
         open={openNewUpload}
         onClose={() => setOpenNewUpload(false)}
@@ -82,25 +109,10 @@ function SideBar() {
             onClick={() => {
               setOpenNewUpload(false);
             }}
-            size={18}
-            style={{
-              position: "absolute",
-              right: "1rem",
-              top: "1rem",
-              cursor: "pointer",
-            }}
+            size={"1rem"}
+            className="crossIcon"
           />
-          <p
-            style={{
-              fontSize: "17px",
-              fontWeight: 500,
-              color: "var(--color)",
-              marginTop: "10px",
-              marginBottom: "8px",
-            }}
-          >
-            Create new post
-          </p>
+          <p className="createNewPost">Create new post</p>
           <hr />
           <ImgUpload
             user={user}

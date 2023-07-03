@@ -289,7 +289,7 @@ function Profile() {
         sx={{
           border: "none",
           boxShadow: "var(--profile-box-shadow)",
-          margin: "8rem auto 2.5rem",
+          margin: "6rem auto 2.5rem",
         }}
         display="flex"
         justifyContent={"center"}
