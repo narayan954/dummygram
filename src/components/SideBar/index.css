@@ -71,7 +71,7 @@ footer {
   padding-left: 20px;
   padding-block: 12px;
   font-size: 13px;
-  background-color: #fafafa;
+  background-color: var(--bg-color);
 }
 
 .sidebar-footer-container {
@@ -98,6 +98,7 @@ footer {
 
 .copyright {
   margin-top: 10px;
+  color: var(--color);;
 }
 
 /* media query */
