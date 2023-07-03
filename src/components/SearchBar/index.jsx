@@ -7,7 +7,6 @@ import { Box } from "@mui/material";
 import Post from "../Post";
 import ShareModal from "../../reusableComponents";
 import SideBar from "../SideBar";
-// import { query } from "firebase/firestore";
 
 const MemoizedPost = memo(Post);
 
@@ -23,7 +22,7 @@ function SearchBar() {
   };
 
   // Code to fetch posts from database
-  
+
   useEffect(() => {
     const fetchPosts = async () => {
       if (searchText.length > 0) {
@@ -55,7 +54,7 @@ function SearchBar() {
   );
 
   return (
-    <div style={{marginTop:"-150px"}}>
+    <div style={{ marginTop: "-150px" }}>
       <SideBar />
       <ShareModal
         openShareModal={openShareModal}
@@ -92,6 +91,8 @@ function SearchBar() {
           )}
         </div>
       </Box>
+
+
     </div>
   );
 }
