@@ -12,7 +12,6 @@ import React, { useEffect } from "react";
 import { AiOutlineInsertRowAbove } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
 import { auth } from "../../lib/firebase";
-import logo from "../../assets/logo.webp";
 import { useNavigate } from "react-router-dom";
 
 function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
@@ -34,7 +33,8 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
 
   return (
     <div className="app__header">
-      <p
+      <img
+        src="https://github-production-user-asset-6210df.s3.amazonaws.com/98682478/250519521-2bc77bdc-2dfe-40f1-ad9a-adabe921fb78.jpeg"
         id="dummygram-logo"
         onClick={() => {
           if (
@@ -45,9 +45,7 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
           }
           window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
         }}
-      >
-        dummygram
-      </p>
+/>
 
       {user && (
         <>

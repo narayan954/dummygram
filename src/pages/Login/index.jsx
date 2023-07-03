@@ -8,7 +8,6 @@ import { faGoogle, faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
 import { getModalStyle, useStyles } from "../../App";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Logo from "../../assets/logo.webp";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
@@ -188,7 +187,7 @@ const LoginScreen = () => {
       <div style={getModalStyle()} className={classes.paper}>
         <form className="modal__signup">
           <img
-            src={Logo}
+            src="https://github-production-user-asset-6210df.s3.amazonaws.com/98682478/250519521-2bc77bdc-2dfe-40f1-ad9a-adabe921fb78.jpeg"
             alt="dummygram"
             className="modal__signup__img"
             style={{
