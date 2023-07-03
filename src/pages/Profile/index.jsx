@@ -404,15 +404,15 @@ function Profile() {
               {name === auth.currentUser.displayName && email}
             </Typography>
             {name !== auth.currentUser.displayName && (
-            <Button
-              onClick={handleSendFriendRequest}
-              variant="contained"
-              color="primary"
-              sx={{ marginTop: "1rem" }}
-            >
-              {friendRequestSent ? "Remove friend request" : "Add Friend"}
-            </Button>
-          )}
+              <Button
+                onClick={handleSendFriendRequest}
+                variant="contained"
+                color="primary"
+                sx={{ marginTop: "1rem" }}
+              >
+                {friendRequestSent ? "Remove friend request" : "Add Friend"}
+              </Button>
+            )}
           </Box>
         </Box>
       </Box>
@@ -436,4 +436,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default Profile;
