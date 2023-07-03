@@ -9,6 +9,7 @@ import {
   googleProvider,
   storage,
 } from "../../lib/firebase";
+import { errorSound, successSound } from "../../assets/sounds";
 import { faGoogle, faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
 import { getModalStyle, useStyles } from "../../App";
 
@@ -17,6 +18,7 @@ import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import validate from "../../reusableComponents/validation";
 
 const SignupScreen = () => {
   const classes = useStyles();
@@ -33,6 +35,8 @@ const SignupScreen = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [usernameAvailable, setUsernameAvailable] = useState(true);
   const [username, setUsername] = useState("");
+  const [isOauthSignUp, setIsOauthSignUp] = useState(false);
+  const [error, setError] = useState(validate.initialValue);
   const usernameRef = useRef(null);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
@@ -47,18 +51,26 @@ const SignupScreen = () => {
     };
   }
 
+  function playSuccessSound() {
+    new Audio(successSound).play();
+  }
+
+  function playErrorSound() {
+    new Audio(errorSound).play();
+  }
+
   const checkUsername = () => {
     const name = usernameRef.current;
     const regex = /^[A-Za-z][A-Za-z0-9_]{4,17}$/gi;
     if (!regex.test(name)) {
       setUsernameAvailable(false);
     } else {
-      debounce(findUsernameInDB());
+      debounce(findUsernameInDB);
     }
   };
 
   const findUsernameInDB = async () => {
-    const ref = await db.doc(`usernames/${usernameRef.current}`);
+    const ref = db.doc(`usernames/${usernameRef.current}`);
     const { exists } = await ref.get();
     setUsernameAvailable(!exists);
   };
@@ -83,36 +95,122 @@ const SignupScreen = () => {
   const signUp = async (e) => {
     e.preventDefault();
     setSigningUp(true);
+    let submitable = true;
+    Object.values(error).forEach((err) => {
+      if (err !== false) {
+        submitable = false;
+      }
+    });
+
+    if (username === "") submitable = false;
+
     if (!usernameAvailable) {
+      playErrorSound();
       enqueueSnackbar("Username not available!", {
         variant: "error",
       });
       return;
     }
-    if (fullName === "") {
-      enqueueSnackbar("Name cannot be blank", {
-        variant: "error",
-      });
-      return;
-    }
-    if (password != confirmPassword) {
-      enqueueSnackbar("Password dosen't match", {
-        variant: "error",
-      });
-      return;
-    }
 
-    const usernameDoc = db.doc(`usernames/${username}`);
-    const batch = db.batch();
-    await auth
-      .createUserWithEmailAndPassword(email, password)
-      .then(async (authUser) => {
-        await updateProfile(auth.currentUser, {
-          displayName: fullName,
+    if (submitable) {
+      const usernameDoc = db.collection(`users`);
+      await auth
+        .createUserWithEmailAndPassword(email, password)
+        .then(async (authUser) => {
+          await updateProfile(auth.currentUser, {
+            displayName: fullName,
+          })
+            .then(
+              await usernameDoc.doc(auth.currentUser.uid).set({
+                uid: auth.currentUser.uid,
+                name: username,
+                photoURL: auth.currentUser.photoURL,
+                posts: [],
+              })
+            )
+            .then(() => {
+              playSuccessSound();
+              enqueueSnackbar(
+                `Congratulations ${fullName},you have joined Dummygram`,
+                {
+                  variant: "success",
+                }
+              );
+              navigate("/dummygram");
+            })
+            .catch((error) => {
+              playErrorSound();
+              enqueueSnackbar(error.message, {
+                variant: "error",
+              });
+            });
+          const uploadTask = storage.ref(`images/${image?.name}`).put(image);
+          uploadTask.on(
+            "state_changed",
+            () => {
+              // // progress function ...
+              // setProgress(Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100));
+            },
+            (error) => {
+              playErrorSound();
+              enqueueSnackbar(error.message, {
+                variant: "error",
+              });
+            },
+            () => {
+              storage
+                .ref("images")
+                .child(image?.name)
+                .getDownloadURL()
+                .then((url) => {
+                  authUser.user.updateProfile({
+                    displayName: fullName,
+                    photoURL: url,
+                  });
+                  playSuccessSound();
+                  enqueueSnackbar("Signup Successful!", {
+                    variant: "success",
+                  });
+                });
+            }
+          );
         })
-          .then(batch.set(usernameDoc, { uid: auth.currentUser.uid }))
-          .then(batch.commit())
+        .catch((error) => {
+          playErrorSound();
+          enqueueSnackbar(error.message, {
+            variant: "error",
+          });
+        })
+        .finally(() => {
+          setSigningUp(false);
+        });
+    } else {
+      enqueueSnackbar("Please fill all fields with valid data", {
+        variant: "error",
+      });
+      return;
+    }
+  };
+
+  const signInWithGoogle = (e) => {
+    e.preventDefault();
+    auth
+      .signInWithPopup(googleProvider)
+      .then(async (val) => {
+        setIsOauthSignUp(true);
+        const usernameDoc = db.collection(`users`);
+        await usernameDoc
+          .doc(auth.currentUser.uid)
+          .set({
+            uid: val.user.uid,
+            name: val.user.displayName,
+            photoURL: val.user.photoURL,
+            displayName: val.user.displayName,
+            Friends: [],
+            posts: [],
+          })
           .then(() => {
+            playSuccessSound();
             enqueueSnackbar(
               `Congratulations ${fullName},you have joined Dummygram`,
               {
@@ -122,58 +220,11 @@ const SignupScreen = () => {
             navigate("/dummygram");
           })
           .catch((error) => {
+            playErrorSound();
             enqueueSnackbar(error.message, {
               variant: "error",
             });
           });
-        const uploadTask = storage.ref(`images/${image?.name}`).put(image);
-        uploadTask.on(
-          "state_changed",
-          () => {
-            // // progress function ...
-            // setProgress(Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100));
-          },
-          (error) => {
-            enqueueSnackbar(error.message, {
-              variant: "error",
-            });
-          },
-          () => {
-            storage
-              .ref("images")
-              .child(image?.name)
-              .getDownloadURL()
-              .then((url) => {
-                authUser.user.updateProfile({
-                  displayName: fullName,
-                  photoURL: url,
-                });
-                enqueueSnackbar("Signup Successful!", {
-                  variant: "success",
-                });
-              });
-          }
-        );
-      })
-      .catch((error) =>
-        enqueueSnackbar(error.message, {
-          variant: "error",
-        })
-      )
-      .finally(() => {
-        setSigningUp(false);
-      });
-  };
-
-  const signInWithGoogle = (e) => {
-    e.preventDefault();
-    auth
-      .signInWithPopup(googleProvider)
-      .then(() => {
-        enqueueSnackbar("Signin successful!", {
-          variant: "success",
-        });
-        navigate("/dummygram");
       })
       .catch((error) =>
         enqueueSnackbar(error.message, {
@@ -186,25 +237,61 @@ const SignupScreen = () => {
     e.preventDefault();
     auth
       .signInWithPopup(facebookProvider)
-      .then(() => {
-        enqueueSnackbar("Signin successful!", {
-          variant: "success",
-        });
-        navigate("/dummygram");
+      .then(async (val) => {
+        setFullName(val?.user?.displayName);
+        setEmail(val?.user?.email);
+        setIsOauthSignUp(true);
+        const usernameDoc = db.collection(`users`);
+        await usernameDoc
+          .doc(auth.currentUser.uid)
+          .set({
+            uid: val.user.uid,
+            name: val.user.displayName,
+            photoURL: val.user.photoURL,
+            displayName: val.user.displayName,
+            Friends: [],
+            posts: [],
+          })
+          .then(() => {
+            playSuccessSound();
+            enqueueSnackbar(
+              `Congratulations ${fullName},you have joined Dummygram`,
+              {
+                variant: "success",
+              }
+            );
+            navigate("/dummygram");
+          })
+          .catch((error) => {
+            playErrorSound();
+            enqueueSnackbar(error.message, {
+              variant: "error",
+            });
+          });
       })
-      .catch((error) =>
+      .catch((error) => {
+        playErrorSound();
         enqueueSnackbar(error.message, {
           variant: "error",
-        })
-      );
+        });
+      });
   };
 
   const navigateToLogin = () => {
     navigate("/dummygram/login");
   };
 
+  const handleError = (name, value) => {
+    let errorMessage = validate[name](value);
+    if (name === "confirmPassword")
+      errorMessage = validate.confirmPassword(value, password);
+    setError((prev) => {
+      return { ...prev, ...errorMessage };
+    });
+  };
+
   return (
-    <div className="flex">
+    <div className="flex signup-container">
       <div style={modalStyle} className={classes.paper}>
         <form className="modal__signup">
           <input
@@ -238,30 +325,57 @@ const SignupScreen = () => {
               checkUsername();
             }}
             className={
-              usernameAvailable
-                ? "username-available"
-                : "username-not-available"
+              usernameAvailable ? "username-available" : "error-border"
             }
           />
+          {!usernameAvailable && (
+            <p className="error">Username not availaible</p>
+          )}
           <input
             type="text"
             placeholder="Full Name"
             value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
+            name="name"
+            onChange={(e) => {
+              setFullName(e.target.value);
+              handleError(e.target.name, e.target.value);
+            }}
+            className={error.nameError ? "error-border" : null}
           />
+          {error.name && error.nameError && (
+            <p className="error">{error.nameError}</p>
+          )}
           <input
             type="email"
             placeholder=" Email"
+            name="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              handleError(e.target.name, e.target.value);
+            }}
+            className={error.emailError ? "error-border" : null}
           />
-          <div className="password-container">
+          {error.email && error.emailError && (
+            <p className="error">{error.emailError}</p>
+          )}
+          <div
+            className={
+              error.passwordError
+                ? "error-border password-container"
+                : "password-container"
+            }
+          >
             <input
               type={showPassword ? "text" : "password"}
               placeholder=" Password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="password-input"
+              name="password"
+              onChange={(e) => {
+                setPassword(e.target.value);
+                handleError(e.target.name, e.target.value);
+              }}
+              className="password-input "
             />
             <button
               onClick={(e) => handleShowPassword(e)}
@@ -270,14 +384,27 @@ const SignupScreen = () => {
               {showPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
             </button>
           </div>
+          {error.password && error.passwordError && (
+            <p className="error">{error.passwordError}</p>
+          )}
 
           {/* Confirm password */}
-          <div className="password-container">
+          <div
+            className={
+              error.confirmPasswordError
+                ? "error-border password-container"
+                : "password-container"
+            }
+          >
             <input
               type={showConfirmPassword ? "text" : "password"}
               placeholder="Confirm Password"
               value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              name="confirmPassword"
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+                handleError(e.target.name, e.target.value);
+              }}
               className="password-input"
             />
             <button
@@ -287,7 +414,9 @@ const SignupScreen = () => {
               {showConfirmPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
             </button>
           </div>
-
+          {error.confirmPassword && error.confirmPasswordError && (
+            <p className="error">{error.confirmPasswordError}</p>
+          )}
           <button type="submit" onClick={signUp} className="button signup">
             Sign Up <FontAwesomeIcon icon={faRightToBracket} />
           </button>

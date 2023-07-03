@@ -73,6 +73,7 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
                             name: user.toJSON().displayName,
                             email: user.toJSON().email,
                             avatar: user.toJSON().photoURL,
+                            uid: user.toJSON().uid,
                           },
                         })
                       }
