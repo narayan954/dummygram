@@ -11,7 +11,7 @@ export default function LandingAnimation() {
   }, []);
 
   return (
-    <div>
+    <div style={{ position: "relative", top: "300px" }}>
       {showAnimation && (
         <div>
           <svg

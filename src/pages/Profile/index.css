@@ -28,10 +28,14 @@
   margin-bottom: 0;
   border-top: 1px solid #a5a4a4;
   /* align-items: flex-start; */
-  /* margin-left: 24px; */
+  margin-left: 3em;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 600px) {
+  .right-profile-section{padding-top: 0 !important;}
+}
+
+  @media screen and (max-width: 768px) {
   .inner-profile-section {
     width: 100%;
   }
@@ -63,7 +67,7 @@
 }
   @media screen and (min-width: 1201px) {
   .profile-section {
-    width: calc(100% - 20vw) !important;
+    width: calc(100% - 22vw) !important;
   }
   .back-btn {
     margin-left: 5rem !important;

@@ -1,6 +1,13 @@
 import "./index.css";
 
-import { About, LoginScreen, PostView, Profile, SignupScreen } from "./pages";
+import {
+  About,
+  Feedback,
+  LoginScreen,
+  PostView,
+  Profile,
+  SignupScreen,
+} from "./pages";
 import {
   AnimatedButton,
   Darkmode,
@@ -20,23 +27,25 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
 import { FaArrowCircleUp } from "react-icons/fa";
+import ForgotPassword from "./pages/ForgotPassword";
 import Modal from "@mui/material/Modal";
 import { RowModeContext } from "./hooks/useRowMode";
+import SearchBar from "./components/SearchBar";
 import logo from "./assets/logo.webp";
 import { makeStyles } from "@mui/styles";
 import { successSound } from "./assets/sounds";
 import { useSnackbar } from "notistack";
 
 export function getModalStyle() {
-  const top = 56;
-  const left = 50;
+  const top = 0;
+  // const left = 50;
   const padding = 2;
   const radius = 3;
 
   return {
     top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
+    // left: `${left}%`,
+    transform: `translate(-${top}%, -50%)`,
     padding: `${padding}%`,
     borderRadius: `${radius}%`,
     textAlign: "center",
@@ -46,12 +55,13 @@ export function getModalStyle() {
 
 export const useStyles = makeStyles((theme) => ({
   paper: {
-    position: "absolute",
     width: 250,
+    marginTop: 300,
     borderRadius: theme.shape.borderRadius,
     boxShadow: "var(--profile-box-shadow)",
     padding: theme.spacing(2, 4, 3),
     color: "var(--color)",
+    margin: "auto",
   },
   logout: {
     display: "flex",
@@ -205,6 +215,7 @@ function App() {
                   fontFamily: "monospace",
                   padding: "10%",
                   color: "var(--color)",
+                  // marginBottom:800
                 }}
               >
                 Are you sure you want to Logout?
@@ -290,9 +301,16 @@ function App() {
 
           <Route path="/dummygram/about" element={<About />} />
 
+          <Route path="/dummygram/feedback" element={<Feedback />} />
+
           <Route path="/dummygram/login" element={<LoginScreen />} />
 
           <Route path="/dummygram/signup" element={<SignupScreen />} />
+
+          <Route
+            path="/dummygram/forgot-password"
+            element={<ForgotPassword />}
+          />
 
           <Route path="/dummygram/notifications" element={<Notifications />} />
 
@@ -310,6 +328,7 @@ function App() {
 
           <Route path="*" element={<NotFound />} />
           <Route path="/dummygram/favourites" element={<Favorite />} />
+          <Route path="/dummygram/search" element={<SearchBar />} />
         </Routes>
 
         {location.pathname === "/dummygram/" ||

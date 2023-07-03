@@ -182,6 +182,7 @@ function Post(prop) {
         <ImgBox
           postHasImages={postHasImages}
           postImages={postImages}
+          postId={postId}
           likesHandler={likesHandler}
           caption={caption}
         />
