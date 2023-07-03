@@ -26,14 +26,16 @@ function SearchBar() {
   useEffect(() => {
     const fetchPosts = async () => {
       if (searchText.length > 0) {
+        const firstChar = searchText.charAt(0).toLowerCase();
+        const lastChar =
+          firstChar === searchText.charAt(0)
+            ? firstChar
+            : firstChar.toUpperCase();
+
         const querySnapshot = await db
           .collection("posts")
-          .where("username", ">=", searchText.charAt(0).toLowerCase())
-          .where(
-            "username",
-            "<=",
-            searchText.charAt(0).toLowerCase() + "\uf8ff"
-          )
+          .where("username", ">=", firstChar)
+          .where("username", "<=", lastChar + "\uf8ff")
           .get();
 
         const fetchedPosts = querySnapshot.docs.map((doc) => ({
