@@ -8,6 +8,7 @@ import { auth, db } from "./lib/firebase";
 import { FaArrowCircleUp } from "react-icons/fa";
 import Modal from "@mui/material/Modal";
 import { RowModeContext } from "./hooks/useRowMode";
+import SearchBar from "./components/SearchBar";
 import logo from "./assets/logo.webp";
 import { makeStyles } from "@mui/styles";
 import { successSound } from "./assets/sounds";
@@ -118,7 +119,7 @@ function App() {
         setPosts(
           snapshot.docs.map((doc) => ({
             id: doc.id,
-            post: doc.data()
+            post: doc.data(),
           }))
         );
       });
@@ -348,7 +349,8 @@ function App() {
 
             <Route path="*" element={<NotFound />} />
             <Route path="/dummygram/favourites" element={<ErrorBoundary inApp={true}><Favorite /></ErrorBoundary>} />
-          </Routes>
+          <Route path="/dummygram/search" element={<SearchBar />} />
+        </Routes>
 
           {location.pathname === "/dummygram/" ||
           location.pathname === "/dummygram/favourites" ||

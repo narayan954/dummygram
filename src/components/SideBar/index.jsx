@@ -8,9 +8,11 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineClose } from "react-icons/ai";
 import { Dialog } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import GitHubIcon from "@mui/icons-material/GitHub";
 import HomeIcon from "@mui/icons-material/Home";
 import ImgUpload from "../ImgUpload";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import SearchIcon from "@mui/icons-material/Search";
 import { auth } from "../../lib/firebase";
 import { ErrorBoundary } from "../../reusableComponents/errorBoundary";
 
@@ -35,6 +37,11 @@ function SideBar() {
               <AddCircleOutlineIcon className="icon" /> <span>New Post</span>
             </div>
           </li>
+          <li onClick={() => navigate("/dummygram/search")}>
+            <div className="sidebar_align">
+              <SearchIcon className="icon" /> <span>Search</span>
+            </div>
+          </li>
           <li onClick={() => navigate("/dummygram/favourites")}>
             <div className="sidebar_align">
               <FavoriteBorderIcon className="icon" /> <span>Favourites</span>
@@ -57,7 +64,16 @@ function SideBar() {
             }
           >
             <div className="sidebar_align">
-              <AccountCircleIcon className="icon" /> <span>Profile</span>
+              {user.photoURL ? (
+                <img
+                  src={user.photoURL}
+                  alt="profile picture"
+                  className="profile-picture"
+                />
+              ) : (
+                <AccountCircleIcon className="icon" />
+              )}{" "}
+              <span>Profile</span>
             </div>
           </li>
         </ul>
