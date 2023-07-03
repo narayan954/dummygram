@@ -22,7 +22,6 @@
     "@mui/icons-material": "^5.11.11",
     "@mui/material": "^5.13.6",
     "@mui/styles": "^5.13.2",
-    "elasticsearch": "^16.7.3",
     "emoji-picker-react": "^4.4.7",
     "file-saver": "^2.0.5",
     "firebase": "^9.18.0",

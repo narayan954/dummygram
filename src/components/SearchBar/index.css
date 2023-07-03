@@ -1,8 +1,6 @@
 /* search file css */
 .search-bar input {
   width: 30%;
- 
-  
 }
 
 .search-bar {
@@ -12,5 +10,3 @@
   align-items: center;
   justify-content: center;
 }
-
-

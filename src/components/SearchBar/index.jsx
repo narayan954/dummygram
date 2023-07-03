@@ -1,6 +1,6 @@
 import "./index.css";
 
-import React, { useEffect, useState, memo } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { auth, db } from "../../lib/firebase";
 
 import { Box } from "@mui/material";
@@ -29,7 +29,11 @@ function SearchBar() {
         const querySnapshot = await db
           .collection("posts")
           .where("username", ">=", searchText.charAt(0).toLowerCase())
-          .where("username", "<=", searchText.charAt(0).toLowerCase() + "\uf8ff")
+          .where(
+            "username",
+            "<=",
+            searchText.charAt(0).toLowerCase() + "\uf8ff"
+          )
           .get();
 
         const fetchedPosts = querySnapshot.docs.map((doc) => ({
@@ -45,7 +49,6 @@ function SearchBar() {
 
     fetchPosts();
   }, [searchText]);
-
 
   // code to filter posts accornding to searchtext
 
@@ -71,7 +74,10 @@ function SearchBar() {
         />
       </div>
       <Box>
-        <div style={{ marginTop: "5px", marginBottom: "1.5rem" }} align="center">
+        <div
+          style={{ marginTop: "5px", marginBottom: "1.5rem" }}
+          align="center"
+        >
           {filteredPosts.length ? (
             <>
               {filteredPosts.map(({ id, post }) => (
@@ -91,12 +97,8 @@ function SearchBar() {
           )}
         </div>
       </Box>
-
-
     </div>
   );
 }
 
 export default SearchBar;
-
-
