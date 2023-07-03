@@ -32,3 +32,15 @@
   outline: none;
   cursor: pointer;
 }
+
+.forgot-pasword {
+  color: var(--color);
+  font-size: 13px;
+  margin: 10px 5px;
+}
+
+.forgot-pasword span {
+  border-bottom: 2px solid rgb(104, 85, 224);
+  color: rgb(104, 85, 224);
+  cursor: pointer;
+}

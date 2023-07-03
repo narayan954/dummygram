@@ -11,7 +11,7 @@
   --post-nav-icons: "";
   --emoji-btn: black;
   --profile-container: #f4eeff;
-  --profile-box-shadow: 0 0 6px black;
+  --profile-box-shadow: 0 0 6px 0 black;
   --profile-divider: "";
   --logo-text-shadow: none;
 }
@@ -385,6 +385,8 @@ div#picker {
 
 /* Input */
 input {
+  /* width: 230px; */
+  width: 100%;
   border: 0;
   border: 1px solid rgba(104, 85, 224, 1);
   border-radius: 4px;
@@ -429,7 +431,12 @@ input {
   cursor: pointer;
 }
 
-/* end */
+.login-footer {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 
 .button-style {
   background: linear-gradient(40deg, #e107c1, #59afc7);
@@ -440,3 +447,5 @@ input {
 .button-style:hover {
   background: linear-gradient(-40deg, #59afc7, #e107c1);
 }
+
+/* end */
