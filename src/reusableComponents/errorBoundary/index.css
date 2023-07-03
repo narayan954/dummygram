@@ -1,0 +1,22 @@
+.error-boundary-app {
+  align-items: center;
+  backdrop-filter: blur(40px);
+  display: grid;
+  inset: 0;
+  justify-content: center;
+  position: fixed;
+  z-index: 9999;
+}
+
+.error-app {
+  display: grid;
+  justify-content: center;
+}
+
+.error-app h3 {
+  color: var(--color)
+}
+
+.error-app p {
+  color: #E6078F;
+}

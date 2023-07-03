@@ -10,17 +10,16 @@ import {
   DialogTitle,
   IconButton,
   Menu,
-  MenuItem,
+  MenuItem
 } from "@mui/material";
 import { doc, updateDoc } from "firebase/firestore";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import TextField from "@mui/material/TextField";
 import { db } from "../../lib/firebase";
 import { saveAs } from "file-saver";
 import useCreatedAt from "../../hooks/useCreatedAt";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
@@ -60,7 +59,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
 
     try {
       await updateDoc(taskDocRef, {
-        caption: editCaption,
+        caption: editCaption
       });
     } catch (err) {
       alert(err);
@@ -86,8 +85,8 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
           navigate("/dummygram/profile", {
             state: {
               name: username,
-              avatar: avatar,
-            },
+              avatar: avatar
+            }
           });
         }}
       />
@@ -107,7 +106,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
           aria-haspopup="true"
           onClick={(event) => setAnchorEl(event.currentTarget)}
           sx={{
-            color: "var(--color)",
+            color: "var(--color)"
           }}
         >
           <MoreHorizOutlinedIcon />
@@ -115,7 +114,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
         <Menu
           id="long-menu"
           MenuListProps={{
-            "aria-labelledby": "long-button",
+            "aria-labelledby": "long-button"
           }}
           anchorEl={anchorEl}
           open={open}
@@ -123,8 +122,8 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
           PaperProps={{
             style: {
               maxHeight: ITEM_HEIGHT * 4.5,
-              width: "20ch",
-            },
+              width: "20ch"
+            }
           }}
         >
           {user && username === user.displayName && (
@@ -143,8 +142,8 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
                   name: username,
                   avatar: avatar,
                   uid: uid,
-                  email: email,
-                },
+                  email: email
+                }
               });
             }}
           >

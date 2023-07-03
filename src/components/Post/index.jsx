@@ -1,26 +1,20 @@
-import "react-lazy-load-image-component/src/effects/blur.css";
-import "./index.css";
-
 import { DialogBox, Flexbetween } from "../../reusableComponents";
-import {
-  Divider,
-  Paper,
-  Typography,
-  styled,
-  useMediaQuery,
-} from "@mui/material";
+import { Divider, Paper, styled, Typography, useMediaQuery } from "@mui/material";
 import { doc, updateDoc } from "firebase/firestore";
-import { useEffect, useState } from "react";
-
-import CommentBox from "./CommentBox";
-import CommentDialogBox from "./CommentDialogBox";
-import CommentHolder from "./CommentHolder";
-import ImgBox from "./ImgBox";
-import PostHeader from "./PostHeader";
-import PostNav from "./PostNav";
+import { lazy, useEffect, useState } from "react";
 import { db } from "../../lib/firebase";
 import firebase from "firebase/compat/app";
 import { useTheme } from "@mui/material/styles";
+import "react-lazy-load-image-component/src/effects/blur.css";
+import "./index.css";
+import { ErrorBoundary } from "../../reusableComponents/errorBoundary";
+
+const PostHeader = lazy(() => import("./PostHeader"));
+const CommentBox = lazy(() => import("./CommentBox"));
+const CommentDialogBox = lazy(() => import("./CommentDialogBox"));
+const CommentHolder = lazy(() => import("./CommentHolder"));
+const ImgBox = lazy(() => import("./ImgBox"));
+const PostNav = lazy(() => import("./PostNav"));
 
 function Post(prop) {
   const { postId, user, post, shareModal, setLink, setPostText, rowMode } =
@@ -52,7 +46,7 @@ function Post(prop) {
           setComments(
             snapshot.docs.map((doc) => ({
               id: doc.id,
-              content: doc.data(),
+              content: doc.data()
             }))
           );
         });
@@ -70,7 +64,7 @@ function Post(prop) {
     ...theme.typography.body2,
     padding: theme.spacing(1),
     textAlign: "center",
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.secondary
   }));
 
   const postComment = (event) => {
@@ -78,7 +72,7 @@ function Post(prop) {
     db.collection("posts").doc(postId).collection("comments").add({
       text: comment,
       username: user.displayName,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
     });
     setComment("");
   };
@@ -116,7 +110,7 @@ function Post(prop) {
       imageUrl: url,
       imageWidth: 0,
       imageHeight: 0,
-      thumbnail: null,
+      thumbnail: null
     }));
   }
 
@@ -127,8 +121,8 @@ function Post(prop) {
   const buttonStyle = {
     ":hover": {
       color: "#FF4D4D",
-      fontSize: "29px",
-    },
+      fontSize: "29px"
+    }
   };
 
   async function likesHandler() {
@@ -145,7 +139,7 @@ function Post(prop) {
 
       // console.log(tempLikeCount);
       const data = {
-        likecount: tempLikeCount,
+        likecount: tempLikeCount
       };
       await updateDoc(docRef, data)
         // .then((docRef) => {
@@ -170,23 +164,26 @@ function Post(prop) {
       className={`${rowMode ? "post" : "postColumn"}`}
       style={{ boxShadow: "var(--post-box-shadow)" }}
     >
-      <PostHeader
-        user={user}
-        postData={post}
-        postHasImages={postHasImages}
-        postId={postId}
-        timestamp={timestamp}
-      />
+      <ErrorBoundary>
+        <PostHeader
+          user={user}
+          postData={post}
+          postHasImages={postHasImages}
+          postId={postId}
+          timestamp={timestamp}
+        />
+      </ErrorBoundary>
       <Divider />
       <div className="post__container">
-        <ImgBox
-          postHasImages={postHasImages}
-          postImages={postImages}
-          postId={postId}
-          likesHandler={likesHandler}
-          caption={caption}
-        />
-
+        <ErrorBoundary>
+          <ImgBox
+            postHasImages={postHasImages}
+            postImages={postImages}
+            postId={postId}
+            likesHandler={likesHandler}
+            caption={caption}
+          />
+        </ErrorBoundary>
         <Divider />
         <Flexbetween>
           <Typography marginLeft={1} fontSize={13} sx={{ color: "skyblue" }}>
@@ -204,58 +201,64 @@ function Post(prop) {
 
         {user && (
           <form className="post__commentBox">
-            <PostNav
-              fullScreen={fullScreen}
-              likesHandler={likesHandler}
-              user={user}
-              tempLikeCount={tempLikeCount}
-              setisCommentOpen={setisCommentOpen}
-              setLink={setLink}
-              postId={postId}
-              setPostText={setPostText}
-              shareModal={shareModal}
-              caption={caption}
-            />
-
-            <CommentHolder
-              showEmojis={showEmojis}
-              setShowEmojis={setShowEmojis}
-              onEmojiClick={onEmojiClick}
-              comments={comments}
-              comment={comment}
-              setComment={setComment}
-              postComment={postComment}
-            />
-
+            <ErrorBoundary>
+              <PostNav
+                fullScreen={fullScreen}
+                likesHandler={likesHandler}
+                user={user}
+                tempLikeCount={tempLikeCount}
+                setisCommentOpen={setisCommentOpen}
+                setLink={setLink}
+                postId={postId}
+                setPostText={setPostText}
+                shareModal={shareModal}
+                caption={caption}
+              />
+            </ErrorBoundary>
+            <ErrorBoundary>
+              <CommentHolder
+                showEmojis={showEmojis}
+                setShowEmojis={setShowEmojis}
+                onEmojiClick={onEmojiClick}
+                comments={comments}
+                comment={comment}
+                setComment={setComment}
+                postComment={postComment}
+              />
+            </ErrorBoundary>
             <DialogBox
               open={isCommentOpen}
               onClose={handleCommentClose}
               title="All Comments"
             >
-              <CommentDialogBox
-                Item={Item}
-                postHasImages={postHasImages}
-                postImages={postImages}
-                caption={caption}
-                comments={comments}
-                setOpenToDeleteComment={setOpenToDeleteComment}
-                openToDeleteComment={openToDeleteComment}
-                setDeleteCommentID={setDeleteCommentID}
-                user={user}
-                fullScreen={fullScreen}
-                handleCloseForDeleteComment={handleCloseForDeleteComment}
-                deleteComment={deleteComment}
-                deleteCommentID={deleteCommentID}
-              />
-              <CommentBox
-                setShowEmojis={setShowEmojis}
-                showEmojis={showEmojis}
-                onEmojiClick={onEmojiClick}
-                comment={comment}
-                setComment={setComment}
-                postComment={postComment}
-                user={user}
-              />
+              <ErrorBoundary>
+                <CommentDialogBox
+                  Item={Item}
+                  postHasImages={postHasImages}
+                  postImages={postImages}
+                  caption={caption}
+                  comments={comments}
+                  setOpenToDeleteComment={setOpenToDeleteComment}
+                  openToDeleteComment={openToDeleteComment}
+                  setDeleteCommentID={setDeleteCommentID}
+                  user={user}
+                  fullScreen={fullScreen}
+                  handleCloseForDeleteComment={handleCloseForDeleteComment}
+                  deleteComment={deleteComment}
+                  deleteCommentID={deleteCommentID}
+                />
+              </ErrorBoundary>
+              <ErrorBoundary>
+                <CommentBox
+                  setShowEmojis={setShowEmojis}
+                  showEmojis={showEmojis}
+                  onEmojiClick={onEmojiClick}
+                  comment={comment}
+                  setComment={setComment}
+                  postComment={postComment}
+                  user={user}
+                />
+              </ErrorBoundary>
             </DialogBox>
           </form>
         )}

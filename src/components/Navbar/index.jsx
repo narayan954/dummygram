@@ -1,18 +1,11 @@
 import "./index.css";
 
-import {
-  Box,
-  Button,
-  ClickAwayListener,
-  Divider,
-  Typography,
-} from "@mui/material";
+import { Box, Button, ClickAwayListener, Divider, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 
 import { AiOutlineInsertRowAbove } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
 import { auth } from "../../lib/firebase";
-import logo from "../../assets/logo.webp";
 import { useNavigate } from "react-router-dom";
 
 function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
@@ -73,8 +66,8 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
                             name: user.toJSON().displayName,
                             email: user.toJSON().email,
                             avatar: user.toJSON().photoURL,
-                            uid: user.toJSON().uid,
-                          },
+                            uid: user.toJSON().uid
+                          }
                         })
                       }
                     >
