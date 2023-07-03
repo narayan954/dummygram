@@ -237,7 +237,7 @@ const LoginScreen = () => {
           <div className="other__login__method">
           <div className="or option__divider">
             <div className="line" />
-            <div style={{ padding: "9px 0" }}>or</div>
+            <div style={{ padding: "5px 9px" }}>or</div>
             <div className="line" />
           </div>
           <div className="google__fb--login">
@@ -253,6 +253,7 @@ const LoginScreen = () => {
             </button>
           </div>
           </div>
+          <div className="forgot__new">
           <div className="forgot-pasword">
             <span role={"button"} onClick={navigateToForgot}>
               Forgot Password
@@ -262,8 +263,9 @@ const LoginScreen = () => {
               New User? 
             <span role={"button"} onClick={navigateToSignup}> Sign up!</span>
           </div>
+        </div>
           </div>
-        </form>
+      </form>
       </div>
       <div className="login__right">
         <img src={loginRight} alt="" />
