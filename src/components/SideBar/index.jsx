@@ -13,6 +13,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import ImgUpload from "../ImgUpload";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { auth } from "../../lib/firebase";
+import Footer from "./Footer";
 
 function SideBar() {
   const navigate = useNavigate();
@@ -59,37 +60,7 @@ function SideBar() {
             </div>
           </li>
         </ul>
-
-        <footer>
-          <ul className="sidebar-footer-container">
-            <li>
-              <a href="https://github.com/narayan954/dummygram" target="_blank">
-                <GitHubIcon />
-              </a>
-            </li>
-            <li>
-              <Link to="/about" className="footer-link">
-                about
-              </Link>
-            </li>
-            <li>
-              <Link to="/help-center" className="footer-link">
-                help-center
-              </Link>
-            </li>
-            <li>
-              <Link to="/guidelines" className="footer-link">
-                Guidelines
-              </Link>
-            </li>
-            <li>
-              <Link to="/guidelines" className="footer-link">
-                policy
-              </Link>
-            </li>
-          </ul>
-          <p className="copyright">&#169; MIT license since 2023</p>
-        </footer>
+        <Footer>
       </div>
       <Dialog
         PaperProps={{
