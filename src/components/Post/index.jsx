@@ -25,10 +25,11 @@ import { useTheme } from "@mui/material/styles";
 function Post(prop) {
   const { postId, user, post, shareModal, setLink, setPostText, rowMode } =
     prop;
-  const { caption, imageUrl, likecount, timestamp } = post;
-
+    const { caption, imageUrl, likecount, timestamp } = post;
+    
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
+  const [likesArr, setlikesArr] = useState(likecount)
   const [likesNo, setLikesNo] = useState(likecount ? likecount.length : 0);
   const [showEmojis, setShowEmojis] = useState(false);
   const [isCommentOpen, setisCommentOpen] = useState(false);
@@ -64,6 +65,25 @@ function Post(prop) {
       }
     };
   }, [postId]);
+
+  //For updating like count on Favourite page
+  useEffect(() => {
+    let unsubscribe;
+    if (postId) {
+      unsubscribe = db
+        .collection("posts")
+        .doc(postId)
+        .onSnapshot((snapshot) => {
+          setlikesArr(snapshot.data().likecount)
+        });
+    }
+
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    };
+  }, [likesArr]);
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#FFF",
@@ -122,7 +142,7 @@ function Post(prop) {
 
   const postHasImages = postImages.some((image) => Boolean(image.imageUrl));
 
-  const tempLikeCount = likecount ? [...likecount] : [];
+  const tempLikeCount = likesArr ? [...likesArr] : [];
 
   const buttonStyle = {
     ":hover": {
@@ -132,7 +152,7 @@ function Post(prop) {
   };
 
   async function likesHandler() {
-    if (user && likecount !== undefined) {
+    if (user && likesArr !== undefined) {
       let ind = tempLikeCount.indexOf(user.uid);
 
       if (ind !== -1) {
