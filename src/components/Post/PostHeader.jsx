@@ -77,19 +77,37 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
 
   return (
     <div className="post__header">
-      <Avatar
-        className="post__avatar avatar flex"
-        alt={username}
-        src={avatar}
-        onClick={() => {
-          navigate(`/dummygram/profile/${postData.uid}`, {
-            state: {
-              name: username,
-              avatar: avatar,
-            },
-          });
-        }}
-      />
+      {user && username === user.displayName && (
+          <Avatar
+          className="post__avatar avatar flex"
+          alt={username}
+          src={avatar}
+          onClick={() => {
+            navigate(`/dummygram/myprofile`, {
+              state: {
+                name: username,
+                avatar: avatar,
+              },
+            });
+          }}
+        />
+      )}
+      {user && username !== user.displayName && (
+          <Avatar
+          className="post__avatar avatar flex"
+          alt={username}
+          src={avatar}
+          onClick={() => {
+            navigate(`/dummygram/profile/${postData.uid}`, {
+              state: {
+                name: username,
+                avatar: avatar,
+              },
+            });
+          }}
+        />
+      )}
+      
       <Link
         to={`/dummygram/posts/${postId}`}
         style={{ textDecoration: "none" }}
