@@ -6,6 +6,7 @@ export const PostViewContainer = styled("div")(({ theme }) => ({
   height: "100vh",
   display: "flex",
   justifyContent: "center",
+  color: "var(--color)",
   [theme.breakpoints.down("sm")]: {
     width: "100%",
     height: "100%",
@@ -21,7 +22,7 @@ export const PostViewGrid = styled(Grid)(({ theme }) => ({
   height: "70%",
   // -webkit-box-shadow: -7px 7px 52px 0px rgba(0,0,0,0.75);
   // -mozbox-shadow: -7px 7px 52px 0px rgba(0,0,0,0.75);
-  boxShadow: "-5px 5px 5px 5px rgba(0,0,0,0.75)",
+  boxShadow: "-5px 5px 5px 5px var(--color)",
   [theme.breakpoints.down("xs")]: {
     width: "90%",
   },
@@ -62,7 +63,7 @@ export const PostGridItem = styled("div")(
     postActions = false,
     textPost = false,
   }) => ({
-    backgroundColor: "#FBFBFB",
+    backgroundColor: "var(--bg-color)",
 
     height: "100%",
     ...(postHasImages && {
