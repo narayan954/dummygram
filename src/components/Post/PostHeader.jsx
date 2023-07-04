@@ -1,7 +1,17 @@
 import "./index.css";
 
-import { Avatar, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Menu, MenuItem,}
-      from "@mui/material";
+import {
+  Avatar,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  IconButton,
+  Menu,
+  MenuItem,
+} from "@mui/material";
 import { doc, updateDoc } from "firebase/firestore";
 
 import { Link } from "react-router-dom";

@@ -168,7 +168,10 @@ function Post(prop) {
   return (
     <div
       className={`${rowMode ? "post" : "postColumn"}`}
-      style={{ boxShadow: "rgba(144, 93, 185, 0.8) 0px 3px 6px, rgba(144, 93, 185, 0.8) 0px 3px 6px" }}
+      style={{
+        boxShadow:
+          "rgba(144, 93, 185, 0.8) 0px 3px 6px, rgba(144, 93, 185, 0.8) 0px 3px 6px",
+      }}
     >
       <PostHeader
         user={user}
@@ -188,7 +191,12 @@ function Post(prop) {
         />
 
         <Flexbetween>
-          <Typography marginLeft={1} fontSize={13} padding={1} sx={{ color: "grey" }}>
+          <Typography
+            marginLeft={1}
+            fontSize={13}
+            padding={1}
+            sx={{ color: "grey" }}
+          >
             {likesNo} {likesNo > 1 ? "Likes" : "Like"}
           </Typography>
           <Typography
@@ -204,60 +212,60 @@ function Post(prop) {
         {user && (
           <form className="post__commentBox">
             <>
-            <PostNav
-              fullScreen={fullScreen}
-              likesHandler={likesHandler}
-              user={user}
-              tempLikeCount={tempLikeCount}
-              setisCommentOpen={setisCommentOpen}
-              setLink={setLink}
-              postId={postId}
-              setPostText={setPostText}
-              shareModal={shareModal}
-              caption={caption}
+              <PostNav
+                fullScreen={fullScreen}
+                likesHandler={likesHandler}
+                user={user}
+                tempLikeCount={tempLikeCount}
+                setisCommentOpen={setisCommentOpen}
+                setLink={setLink}
+                postId={postId}
+                setPostText={setPostText}
+                shareModal={shareModal}
+                caption={caption}
               />
             </>
             <>
-            <CommentHolder
-              showEmojis={showEmojis}
-              setShowEmojis={setShowEmojis}
-              onEmojiClick={onEmojiClick}
-              comments={comments}
-              comment={comment}
-              setComment={setComment}
-              postComment={postComment}
-            />
-
-            <DialogBox
-              open={isCommentOpen}
-              onClose={handleCommentClose}
-              title="All Comments"
-            >
-              <CommentDialogBox
-                Item={Item}
-                postHasImages={postHasImages}
-                postImages={postImages}
-                caption={caption}
-                comments={comments}
-                setOpenToDeleteComment={setOpenToDeleteComment}
-                openToDeleteComment={openToDeleteComment}
-                setDeleteCommentID={setDeleteCommentID}
-                user={user}
-                fullScreen={fullScreen}
-                handleCloseForDeleteComment={handleCloseForDeleteComment}
-                deleteComment={deleteComment}
-                deleteCommentID={deleteCommentID}
-              />
-              <CommentBox
-                setShowEmojis={setShowEmojis}
+              <CommentHolder
                 showEmojis={showEmojis}
+                setShowEmojis={setShowEmojis}
                 onEmojiClick={onEmojiClick}
+                comments={comments}
                 comment={comment}
                 setComment={setComment}
                 postComment={postComment}
-                user={user}
               />
-            </DialogBox>
+
+              <DialogBox
+                open={isCommentOpen}
+                onClose={handleCommentClose}
+                title="All Comments"
+              >
+                <CommentDialogBox
+                  Item={Item}
+                  postHasImages={postHasImages}
+                  postImages={postImages}
+                  caption={caption}
+                  comments={comments}
+                  setOpenToDeleteComment={setOpenToDeleteComment}
+                  openToDeleteComment={openToDeleteComment}
+                  setDeleteCommentID={setDeleteCommentID}
+                  user={user}
+                  fullScreen={fullScreen}
+                  handleCloseForDeleteComment={handleCloseForDeleteComment}
+                  deleteComment={deleteComment}
+                  deleteCommentID={deleteCommentID}
+                />
+                <CommentBox
+                  setShowEmojis={setShowEmojis}
+                  showEmojis={showEmojis}
+                  onEmojiClick={onEmojiClick}
+                  comment={comment}
+                  setComment={setComment}
+                  postComment={postComment}
+                  user={user}
+                />
+              </DialogBox>
             </>
           </form>
         )}

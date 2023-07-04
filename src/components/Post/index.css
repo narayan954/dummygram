@@ -1,3 +1,7 @@
+.p-0 {
+  padding: 0%;
+}
+
 .post {
   max-width: 400px;
   margin-top: 20px;
@@ -152,7 +156,7 @@
 .emoji__icon:hover {
   opacity: 60%;
   cursor: pointer;
-  padding-top:auto;
+  padding-top: auto;
 }
 
 .post__input {
@@ -160,7 +164,7 @@
   flex: 1;
   padding: 10px;
   padding-bottom: 7px;
-  padding-top:    7px;
+  padding-top: 7px;
   font-size: 16px;
   box-shadow: none;
 }
