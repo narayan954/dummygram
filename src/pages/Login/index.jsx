@@ -192,7 +192,7 @@ const LoginScreen = () => {
             className="modal__signup__img"
             style={{
               width: "80%",
-              filter: "var(--filter-img)",
+              // filter: "var(--filter-img)",
             }}
           />
           <input
