@@ -1,28 +1,34 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
 import { AnimatedButton, Darkmode, Loader, ShareModal } from "./reusableComponents";
-import { Favorite, Navbar, NotFound, Notifications, Post, SideBar } from "./components";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
 import { FaArrowCircleUp } from "react-icons/fa";
 import Modal from "@mui/material/Modal";
 import { RowModeContext } from "./hooks/useRowMode";
-import SearchBar from "./components/SearchBar";
 import logo from "./assets/logo.webp";
 import { makeStyles } from "@mui/styles";
 import { successSound } from "./assets/sounds";
 import { useSnackbar } from "notistack";
 import { ErrorBoundary } from "./reusableComponents/errorBoundary";
-
-
+// ------------------------------------ Pages ----------------------------------------------------
 const About = React.lazy(() => import("./pages/About"));
+const SearchBar = React.lazy(() => import("./components/SearchBar"));
 const Feedback = React.lazy(() => import("./pages/Feedback"));
 const LoginScreen = React.lazy(() => import("./pages/Login"));
 const PostView = React.lazy(() => import("./pages/PostView"));
 const Profile = React.lazy(() => import("./pages/Profile"));
 const SignupScreen = React.lazy(() => import("./pages/Signup"));
 const ForgotPassword = React.lazy(() => import("./pages/ForgotPassword"));
+const NotFound = React.lazy(() => import("./pages/NotFound"));
+// ------------------------------------- Components ------------------------------------------------
+const Favorite = React.lazy(() => import("./components/Favorite.jsx"));
+const Notifications = React.lazy(() => import("./components/Notifications.jsx"));
+const Post = React.lazy(() => import("./components/Post"));
+const SideBar = React.lazy(() => import("./components/SideBar"));
+const Navbar = React.lazy(() => import("./components/Navbar"));
+
 
 export function getModalStyle() {
   const top = 0;
@@ -119,7 +125,7 @@ function App() {
         setPosts(
           snapshot.docs.map((doc) => ({
             id: doc.id,
-            post: doc.data(),
+            post: doc.data()
           }))
         );
       });
@@ -349,8 +355,8 @@ function App() {
 
             <Route path="*" element={<NotFound />} />
             <Route path="/dummygram/favourites" element={<ErrorBoundary inApp={true}><Favorite /></ErrorBoundary>} />
-          <Route path="/dummygram/search" element={<SearchBar />} />
-        </Routes>
+            <Route path="/dummygram/search" element={<ErrorBoundary inApp={true}><SearchBar /></ErrorBoundary>} />
+          </Routes>
 
           {location.pathname === "/dummygram/" ||
           location.pathname === "/dummygram/favourites" ||
