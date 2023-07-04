@@ -1,8 +1,9 @@
 import "./index.css";
+import "../design.css";
 
 import { useEffect, useState } from "react";
 
-import logo from "../../assets/logo.webp";
+import logo from "../../../assets/logo.webp";
 
 const About = () => {
   const [forks, setForks] = useState(0);
@@ -60,7 +61,7 @@ const About = () => {
         <span className="grad2 grad"></span>
         <span className="grad3 grad"></span>
         <span className="grad4 grad"></span>
-        <div className="about-section">
+        <div className="about-section glassmorphism-effect">
           <img
             className="about-logo"
             src={logo}

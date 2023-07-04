@@ -3,7 +3,7 @@ import "./index.css";
 import React, { useState } from "react";
 import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
 import { auth, db, facebookProvider, googleProvider } from "../../lib/firebase";
-import { errorSound, successSound } from "../../assets/sounds";
+import { playSuccessSound, playErrorSound } from "../../js/sounds";
 import { faGoogle, faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -25,14 +25,6 @@ const LoginScreen = () => {
 
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
-
-  function playSuccessSound() {
-    new Audio(successSound).play();
-  }
-
-  function playErrorSound() {
-    new Audio(errorSound).play();
-  }
 
   const handleShowPassword = (e) => {
     e.preventDefault();
