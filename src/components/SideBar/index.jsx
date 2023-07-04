@@ -53,7 +53,7 @@ function SideBar() {
           </li>
           <li
             onClick={() =>
-              navigate("/dummygram/profile", {
+              navigate("/dummygram/myprofile", {
                 state: {
                   name: user.displayName,
                   email: user.email,

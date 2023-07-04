@@ -116,9 +116,10 @@ const PostViewMenu = ({
         {postHasImages && (
           <MenuItem onClick={handleDownload}> Download </MenuItem>
         )}
-        <MenuItem
+        {user && username === user.displayName && (
+          <MenuItem
           onClick={() => {
-            navigate("/dummygram/profile", {
+            navigate("/dummygram/myprofile", {
               state: {
                 name: username,
                 avatar: avatar,
@@ -128,6 +129,21 @@ const PostViewMenu = ({
         >
           Visit Profile
         </MenuItem>
+        )}
+        {user && username !== user.displayName && (
+          <MenuItem
+          onClick={() => {
+            navigate(`/dummygram/profile/${user.uid}`, {
+              state: {
+                name: username,
+                avatar: avatar,
+              },
+            });
+          }}
+        >
+          Visit Profile
+        </MenuItem>
+        )}
       </Menu>
       <Dialog
         fullWidth

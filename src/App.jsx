@@ -27,6 +27,7 @@ const Feedback = React.lazy(() => import("./pages/FooterPages/Feedback"));
 const LoginScreen = React.lazy(() => import("./pages/Login"));
 const PostView = React.lazy(() => import("./pages/PostView"));
 const Profile = React.lazy(() => import("./pages/Profile"));
+const Myprofile = React.lazy(() => import("./pages/Profile/myprofile"));
 const SignupScreen = React.lazy(() => import("./pages/Signup"));
 const ForgotPassword = React.lazy(() => import("./pages/ForgotPassword"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
@@ -304,10 +305,19 @@ function App() {
             />
 
             <Route
-              path="/dummygram/profile"
+              path="/dummygram/profile/:id"
               element={
                 <ErrorBoundary inApp={true}>
                   <Profile />
+                </ErrorBoundary>
+              }
+            />
+
+            <Route
+              path="/dummygram/myprofile"
+              element={
+                <ErrorBoundary inApp={true}>
+                  <Myprofile />
                 </ErrorBoundary>
               }
             />

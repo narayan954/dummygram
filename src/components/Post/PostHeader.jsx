@@ -82,7 +82,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
         alt={username}
         src={avatar}
         onClick={() => {
-          navigate("/dummygram/profile", {
+          navigate(`/dummygram/profile/${postData.uid}`, {
             state: {
               name: username,
               avatar: avatar,
@@ -135,9 +135,10 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
           {postHasImages && (
             <MenuItem onClick={handleDownload}> Download </MenuItem>
           )}
-          <MenuItem
+          {user && username === user.displayName && (
+            <MenuItem
             onClick={() => {
-              navigate("/dummygram/profile", {
+              navigate("/dummygram/myprofile", {
                 state: {
                   name: username,
                   avatar: avatar,
@@ -149,6 +150,23 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
           >
             Visit Profile
           </MenuItem>
+          )}
+          {user && username !== user.displayName && (
+            <MenuItem
+            onClick={() => {
+              navigate(`/dummygram/profile/${user.uid}`, {
+                state: {
+                  name: username,
+                  avatar: avatar,
+                  uid: uid,
+                  email: email,
+                },
+              });
+            }}
+          >
+            Visit Profile
+          </MenuItem>
+          )}
         </Menu>
         <>
           <Dialog

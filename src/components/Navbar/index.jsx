@@ -64,7 +64,7 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
                       <Box
                         className="nav-menu-item"
                         onClick={() =>
-                          navigate("/dummygram/profile", {
+                          navigate("/dummygram/myprofile", {
                             state: {
                               name: user.toJSON().displayName,
                               email: user.toJSON().email,

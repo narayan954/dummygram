@@ -200,6 +200,7 @@ const PostCommentView = ({
       >
         <PostGridItem isHeader={true}>
           <ErrorBoundary>
+          {username === user.displayName && (
             <PostHeader
               avatar={
                 <Avatar
@@ -220,7 +221,7 @@ const PostCommentView = ({
                     },
                   }}
                   onClick={() => {
-                    navigate("/dummygram/profile", {
+                    navigate(`/dummygram/myprofile`, {
                       state: {
                         name: username,
                         avatar: avatar,
@@ -247,6 +248,57 @@ const PostCommentView = ({
               title={username}
               subheader={time}
             />
+            
+          )}
+          {username !== user.displayName && (
+            <PostHeader
+            avatar={
+              <Avatar
+                // className="post__avatar"
+                alt={username}
+                src={avatar}
+                sx={{
+                  bgcolor: "royalblue",
+                  border: "2px solid transparent",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  cursor: "pointer",
+                  "&:hover": {
+                    boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 17px 0px",
+                    border: "2px solid black",
+                    scale: "1.1",
+                  },
+                }}
+                onClick={() => {
+                  navigate(`/dummygram/profile/${post.uid}`, {
+                    state: {
+                      name: username,
+                      avatar: avatar,
+                      email: email,
+                    },
+                  });
+                }}
+              />
+            }
+            action={
+              <PostViewMenu
+                postHasImages={postHasImages}
+                user={user}
+                username={username}
+                avatar={avatar}
+                caption={caption}
+                postId={postId}
+                setFetchAgain={setFetchAgain}
+                fetchAgain={fetchAgain}
+                imageUrl={imageUrl}
+                fullScreen={fullScreen}
+              />
+            }
+            title={username}
+            subheader={time}
+          />
+          )}
           </ErrorBoundary>
           {postHasImages && caption ? (
             <ErrorBoundary>
