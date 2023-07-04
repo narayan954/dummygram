@@ -18,7 +18,7 @@ import React, { useEffect } from "react";
 import { doc, updateDoc } from "firebase/firestore";
 
 import EmojiPicker from "emoji-picker-react";
-import { ErrorBoundary } from "../../reusableComponents/errorBoundary";
+import ErrorBoundary from "../../reusableComponents";
 import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
 import { db } from "../../lib/firebase.js";
 import firebase from "firebase/compat/app";

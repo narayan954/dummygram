@@ -7,7 +7,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineClose } from "react-icons/ai";
 import { Dialog } from "@mui/material";
-import { ErrorBoundary } from "../../reusableComponents/errorBoundary";
+import ErrorBoundary from "../../reusableComponents";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import HomeIcon from "@mui/icons-material/Home";
 import ImgUpload from "../ImgUpload";

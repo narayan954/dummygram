@@ -15,7 +15,7 @@ import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { lazy, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { ErrorBoundary } from "../../reusableComponents/errorBoundary";
+import ErrorBoundary from "../../reusableComponents";
 import { FaUserCircle } from "react-icons/fa";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";

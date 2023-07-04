@@ -48,7 +48,7 @@ const ErrorFallBack = ({ error, info, resetErrorBoundary, inApp }) => {
     </div>
   );
 };
-export const ErrorBoundary = ({ children, inApp }) => {
+export default function ErrorBoundary({ children, inApp }) {
   const [hasError, setHasError] = useState(false);
   const [info, setErrorInfo] = useState(null);
 
@@ -77,4 +77,4 @@ export const ErrorBoundary = ({ children, inApp }) => {
       <React.Suspense fallback={<Loader />}>{children}</React.Suspense>
     </Error>
   );
-};
+}

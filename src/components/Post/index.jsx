@@ -12,7 +12,7 @@ import {
 import { doc, updateDoc } from "firebase/firestore";
 import { lazy, useEffect, useState } from "react";
 
-import { ErrorBoundary } from "../../reusableComponents/errorBoundary";
+import ErrorBoundary from "../../reusableComponents";
 import { db } from "../../lib/firebase";
 import firebase from "firebase/compat/app";
 import { useTheme } from "@mui/material/styles";
