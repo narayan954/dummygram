@@ -62,7 +62,16 @@ function SideBar() {
             }
           >
             <div className="sidebar_align">
-              <AccountCircleIcon className="icon" /> <span>Profile</span>
+              {user.photoURL ? (
+                <img
+                  src={user.photoURL}
+                  alt="profile picture"
+                  className="profile-picture"
+                />
+              ) : (
+                <AccountCircleIcon className="icon" />
+              )}{" "}
+              <span>Profile</span>
             </div>
           </li>
         </ul>

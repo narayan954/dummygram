@@ -60,12 +60,18 @@
   margin-left: 15px;
 }
 
+.sidebar .profile-picture {
+  height: 30px;
+  width: 30px;
+  border-radius: 100%;
+}
+
 footer {
   margin-block: auto;
   padding-left: 20px;
   padding-block: 12px;
   font-size: 13px;
-  background-color: #fafafa;
+  background-color: var(--bg-color);
 }
 
 .sidebar-footer-container {
@@ -92,6 +98,7 @@ footer {
 
 .copyright {
   margin-top: 10px;
+  color: var(--color);
 }
 
 /* media query */
