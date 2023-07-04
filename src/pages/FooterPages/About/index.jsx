@@ -1,8 +1,9 @@
 import "./index.css";
-import "../design.css"
+import "../design.css";
 
 import { useEffect, useState } from "react";
-import appLogo from "../../../assets/app-logo.png"
+
+import appLogo from "../../../assets/app-logo.png";
 
 const About = () => {
   const [forks, setForks] = useState(0);

@@ -1,76 +1,76 @@
-.guidlines-container{
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 40px;
-    margin-top: 60px;
+.guidlines-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  margin-top: 60px;
 }
 
-.guidelines-sub-container{
-    position: relative;
-    width: 70vw;
-    padding: 40px;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 80px;
+.guidelines-sub-container {
+  position: relative;
+  width: 70vw;
+  padding: 40px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 80px;
 }
 
-.guidelines-heading{
-    align-self: center;
-    font-size: 50px;
-    font-weight: 600;
-    color: rgb(76, 75, 75);
-    text-decoration: underline;
+.guidelines-heading {
+  align-self: center;
+  font-size: 50px;
+  font-weight: 600;
+  color: rgb(76, 75, 75);
+  text-decoration: underline;
 }
 
-.guidelines{
-    /* border: 1px solid red; */
-    max-width: 80%;
+.guidelines {
+  /* border: 1px solid red; */
+  max-width: 80%;
 }
 
-.guidelines-sub-heading{
-    color: rgb(76, 75, 75);
-    margin-bottom: 20px;
-    font-weight: 600;
+.guidelines-sub-heading {
+  color: rgb(76, 75, 75);
+  margin-bottom: 20px;
+  font-weight: 600;
 }
 
-.guidelines-box{
-    list-style-type: none;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    list-style-type: circle;
+.guidelines-box {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style-type: circle;
 }
 
-.guidelines-box > li{
-    font-size: 18px;
+.guidelines-box > li {
+  font-size: 18px;
 }
 
-.guidelines-box > li > span{
-    color: rgb(76, 75, 75);
-    font-weight: bold;
+.guidelines-box > li > span {
+  color: rgb(76, 75, 75);
+  font-weight: bold;
 }
 
-@media only screen and (max-width: 1000px){
-    .about-grad{
-        display: none;
-    }
-    .guidelines{
-        max-width: 95%;
-    }
+@media only screen and (max-width: 1000px) {
+  .about-grad {
+    display: none;
+  }
+  .guidelines {
+    max-width: 95%;
+  }
 }
 
-@media only screen and (max-width: 500px){
-    .guidelines-sub-container{
-        width: 95vw;
-        padding: 20px;
-    }
+@media only screen and (max-width: 500px) {
+  .guidelines-sub-container {
+    width: 95vw;
+    padding: 20px;
+  }
 
-    .guidelines-heading{
-        margin-top: 20px;
-    }
+  .guidelines-heading {
+    margin-top: 20px;
+  }
 }
