@@ -216,10 +216,10 @@ const LoginScreen = () => {
             </div>
             <div className="input__group">
               <label htmlFor="password">Password</label>
-              {/* <div
+              <div
                 id="password-container"
-                className="password-container pass__input__container"
-              > */}
+                className="pass__input__container"
+              >
                 <input
                   name="password"
                   type={showPassword ? "text" : "password"}
@@ -229,13 +229,13 @@ const LoginScreen = () => {
                   id="password"
                   required
                 />
-                {/* <button
+                <button
                   onClick={(e) => handleShowPassword(e)}
-                  className="show-password"
+                  className="show__hide--pass"
                 >
                   {showPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
-                </button> */}
-              {/* </div> */}
+                </button>
+              </div>
             </div>
             <button
               type="submit"
