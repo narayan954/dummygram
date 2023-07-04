@@ -4,7 +4,7 @@ import { Avatar, LinearProgress, TextField } from "@mui/material";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import React, { useRef, useState } from "react";
 import { auth, db, handleMultiUpload } from "../../lib/firebase";
-import { errorSound, successSound } from "../../assets/sounds";
+import { playSuccessSound, playErrorSound } from "../../js/sounds";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Camera from "./Camera";
@@ -18,13 +18,6 @@ export default function ImgUpload(props) {
   const [current, setCurrent] = useState(0);
   const [nextPage, setNextPage] = useState(false);
 
-  function playSuccessSound() {
-    new Audio(successSound).play();
-  }
-
-  function playErrorSound() {
-    new Audio(errorSound).play();
-  }
   const ShiftToNextPage = () => {
     setNextPage(!nextPage);
   };

@@ -9,9 +9,9 @@ import {
   googleProvider,
   storage,
 } from "../../lib/firebase";
-import { errorSound, successSound } from "../../assets/sounds";
 import { faGoogle, faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
 import { getModalStyle, useStyles } from "../../App";
+import { playErrorSound, playSuccessSound } from "../../js/sounds";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
@@ -49,14 +49,6 @@ const SignupScreen = () => {
         func.apply(this, args);
       }, timeout);
     };
-  }
-
-  function playSuccessSound() {
-    new Audio(successSound).play();
-  }
-
-  function playErrorSound() {
-    new Audio(errorSound).play();
   }
 
   const checkUsername = () => {

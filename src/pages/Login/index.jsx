@@ -3,13 +3,14 @@ import "./index.css";
 import React, { useState } from "react";
 import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
 import { auth, db, facebookProvider, googleProvider } from "../../lib/firebase";
-import { errorSound, successSound } from "../../assets/sounds";
-import { faGoogle, faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
+import { playErrorSound, playSuccessSound } from "../../js/sounds";
 
+import Facebook from "../../assets/facebook.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Google from "../../assets/goggle.svg";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
-import logo from "../../assets/logo.webp";
 import loginRight from "../../assets/login-right.webp";
+import logo from "../../assets/logo.webp";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import validate from "../../reusableComponents/validation";
@@ -22,14 +23,6 @@ const LoginScreen = () => {
 
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
-
-  function playSuccessSound() {
-    new Audio(successSound).play();
-  }
-
-  function playErrorSound() {
-    new Audio(errorSound).play();
-  }
 
   const handleShowPassword = (e) => {
     e.preventDefault();
@@ -187,7 +180,7 @@ const LoginScreen = () => {
       <div className="login__left">
         <form>
           <div className="form__top">
-            <img src={logo} alt="" />
+            <img src={logo} alt="dummygram logo" />
             <div className="greetings">
               <h3>Hey, hello 👋</h3>
               <p>Enter your information to get started</p>
@@ -216,10 +209,7 @@ const LoginScreen = () => {
             </div>
             <div className="input__group">
               <label htmlFor="password">Password</label>
-              <div
-                id="password-container"
-                className="password-container pass__input__container"
-              >
+              <div id="password-container" className="pass__input__container">
                 <input
                   name="password"
                   type={showPassword ? "text" : "password"}
@@ -231,7 +221,7 @@ const LoginScreen = () => {
                 />
                 <button
                   onClick={(e) => handleShowPassword(e)}
-                  className="show-password"
+                  className="show__hide--pass"
                 >
                   {showPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
                 </button>
@@ -256,14 +246,14 @@ const LoginScreen = () => {
                   type="submit"
                   onClick={signInWithGoogle}
                 >
-                  <FontAwesomeIcon icon={faGoogle} /> Sign in with Google
+                  <img src={Google} alt="Google Signin" /> Sign in with Google
                 </button>
                 <button
                   className="other__login"
                   type="submit"
                   onClick={signInWithFacebook}
                 >
-                  <FontAwesomeIcon icon={faSquareFacebook} /> Sign in with
+                  <img src={Facebook} alt="Facebook Signin" /> Sign in with
                   Facebook
                 </button>
               </div>
@@ -274,7 +264,7 @@ const LoginScreen = () => {
                   Forgot Password
                 </span>
               </div>
-              <div className="no__acct">
+              <div className="have-account">
                 New User?
                 <span role={"button"} onClick={navigateToSignup}>
                   {" "}
@@ -286,7 +276,7 @@ const LoginScreen = () => {
         </form>
       </div>
       <div className="login__right">
-        <img src={loginRight} alt="" />
+        <img src={loginRight} alt="website image" />
       </div>
     </section>
   );
