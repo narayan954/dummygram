@@ -123,6 +123,7 @@
 }
 .other__login {
   background-color: white;
+  white-space: nowrap;
   border: 1px solid rgba(104, 85, 224, 1);
   color: black;
   padding: 0.6rem 1rem;
