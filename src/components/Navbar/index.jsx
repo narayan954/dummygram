@@ -26,21 +26,17 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
   }, [user]);
 
   return (
-    <div className="app__header">
-      <p
-        id="dummygram-logo"
-        onClick={() => {
-          if (
-            location.pathname !== "/dummygram/login" &&
-            location.pathname !== "/dummygram/signup"
-          ) {
+    location.pathname !== "/dummygram/login" &&
+    location.pathname !== "/dummygram/signup" && (
+      <div className="app__header">
+        <img
+          src={logo}
+          id="dummygram-logo"
+          onClick={() => {
             navigate("/dummygram/");
-          }
-          window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-        }}
-      >
-        dummygram
-      </p>
+            window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+          }}
+        />
 
       {user && (
         <>
@@ -79,22 +75,22 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
                       onClick={() => navigate("/dummygram/favourites")}
                     >
                       <Typography fontSize="1rem">Favourites</Typography>
-                    </Box>
-                    <Divider />
-                    <Box
-                      className="nav-menu-item"
-                      onClick={() => setLogout(true)}
-                    >
-                      <Typography fontSize="0.9rem">Log Out</Typography>
-                    </Box>
-                  </Box>
-                )}
-              </Button>
-            </ClickAwayListener>
-          </div>
-        </>
-      )}
-    </div>
+                      </Box>
+                      <Divider />
+                      <Box
+                        className="nav-menu-item"
+                        onClick={() => setLogout(true)}
+                      >
+                        <Typography fontSize="0.9rem">Log Out</Typography>
+                      </Box>
+                  )}
+                </Button>
+              </ClickAwayListener>
+            </div>
+          </>
+        )}
+      </div>
+    )
   );
 }
 
