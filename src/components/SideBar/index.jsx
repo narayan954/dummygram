@@ -57,8 +57,8 @@ function SideBar() {
                 state: {
                   name: user.displayName,
                   email: user.email,
-                  avatar: user.photoURL
-                }
+                  avatar: user.photoURL,
+                },
               })
             }
           >
@@ -84,7 +84,7 @@ function SideBar() {
 
       <Dialog
         PaperProps={{
-          className: "dialogStyle"
+          className: "dialogStyle",
         }}
         open={openNewUpload}
         onClose={() => setOpenNewUpload(false)}
@@ -93,7 +93,7 @@ function SideBar() {
           style={{
             backgroundColor: "var(--bg-color)",
             textAlign: "center",
-            color: "var(--color)"
+            color: "var(--color)",
           }}
         >
           <AiOutlineClose
