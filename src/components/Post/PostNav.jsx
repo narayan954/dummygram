@@ -6,7 +6,7 @@ import {
 } from "@mui/icons-material";
 import { IconButton, Typography } from "@mui/material";
 import React, { useState } from "react";
-import { errorSound, successSound } from "../../assets/sounds";
+import { playSuccessSound } from "../../js/sounds";
 
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
@@ -31,14 +31,6 @@ const PostNav = ({
     JSON.parse(localStorage.getItem("posts")) || []
   );
   const [isSaved, setisSaved] = useState(false);
-
-  function playSuccessSound() {
-    new Audio(successSound).play();
-  }
-
-  function playErrorSound() {
-    new Audio(errorSound).play();
-  }
 
   const save = async () => {
     let localStoragePosts = JSON.parse(localStorage.getItem("posts")) || [];

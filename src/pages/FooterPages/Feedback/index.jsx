@@ -5,20 +5,15 @@ import React, { useRef } from "react";
 
 import { SideBar } from "../../../components";
 import emailjs from "@emailjs/browser";
-import { successSound } from "../../../assets/sounds";
+import { playSuccessSound } from "../../js/sounds";
 import { useSnackbar } from "notistack";
 
 export const Feedback = () => {
   const form = useRef(null);
   const { enqueueSnackbar } = useSnackbar();
 
-  function playSuccessSound() {
-    new Audio(successSound).play();
-  }
-
   const sendEmail = (e) => {
     e.preventDefault();
-
     emailjs
       .sendForm(
         "service_hg3vdpg",

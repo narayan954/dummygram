@@ -3,7 +3,7 @@ import "./index.css";
 import { Dialog, IconButton, Input } from "@mui/material";
 
 import logo from "../../assets/logo.webp";
-import { successSound } from "../../assets/sounds";
+import { playSuccessSound } from "../../js/sounds";
 import { useSnackbar } from "notistack";
 
 const ShareModal = (props) => {
@@ -11,10 +11,6 @@ const ShareModal = (props) => {
     props;
 
   const { enqueueSnackbar } = useSnackbar();
-
-  function playSuccessSound() {
-    new Audio(successSound).play();
-  }
 
   return (
     <Dialog
