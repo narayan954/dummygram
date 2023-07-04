@@ -21,7 +21,7 @@ export {
   ShareModal,
   SnackBar,
   Darkmode,
-  ErrorBoundary
+  ErrorBoundary,
 };
 
 export default Scroll;
