@@ -1,39 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,700&display=swap");
 /* login page style */
-.password-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  border: 1px solid rgba(104, 85, 224, 1);
-  margin-top: 10px;
-  background-color: white;
-  box-shadow: 0 0 20px rgba(104, 85, 224, 0.2);
-  border-radius: 4px;
-}
-
-.password-input {
-  width: 100%;
-  border: none;
-  margin: 0;
-  box-shadow: none;
-}
-
-.show-password {
-  height: 100%;
-  width: 50px;
-  margin: 0;
-  background-color: transparent;
-  border: none;
-  outline: none;
-  cursor: pointer;
-}
-
 .login__section {
   display: grid;
   font-family: "DM Sans", sans-serif;
   grid-template-columns: 1fr 1fr;
   width: 100vw;
+
   box-sizing: border-box;
 }
 .login__left {
@@ -108,12 +80,28 @@
   color: rgba(104, 85, 224, 1);
 }
 #password-container {
-  margin: 0px;
+  border: 1px solid rgba(104, 85, 224, 1);
+  background-color: white;
+  border-radius: 4px;
+  align-items: center;
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
 }
-.password-container input {
+.show__hide--pass {
+  height: 100%;
+  background-color: transparent;
   border: none;
-  background: none;
+  outline: none;
+  cursor: pointer;
+  margin: auto;
+}
+.pass__input__container input {
+  border: none;
   border-radius: 0;
+  padding-right: 2rem;
+  width: 75%;
 }
 .google__fb--login {
   padding-top: 0.5rem;
@@ -123,9 +111,15 @@
 }
 .other__login {
   background-color: white;
+  white-space: nowrap;
   border: 1px solid rgba(104, 85, 224, 1);
   color: black;
-  padding: 0.6rem 1rem;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 3px;
+  justify-content: center;
+  padding: 0.4rem 0.7rem;
   font-size: 1.1rem;
   border-radius: 0.5rem;
   letter-spacing: 1px;
@@ -152,6 +146,9 @@
 .login__right img {
   width: 100%;
   height: 100%;
+}
+.other__login img {
+  width: 1.5rem;
 }
 /* forgot password */
 
@@ -217,13 +214,13 @@
   }
 }
 
-/* media query for 370px */
-@media (max-width: 350px) {
-  .login__section form {
-    width: 95%;
+/* media query for 675px */
+@media (max-width: 675px) {
+  .or {
+    width: 100%;
   }
   .login__section {
-    padding: 10px;
+    padding: 10px 7px;
   }
   .form__top {
     padding: 0.1rem 0 1rem 0;
@@ -248,7 +245,7 @@
     font-size: 1rem;
   }
   .other__login {
-    padding: 0.7rem 1rem;
+    padding: 0.8rem 0.5rem;
     font-size: 1rem;
   }
   .no__acct {
@@ -256,5 +253,15 @@
   }
   .login__right {
     display: none;
+  }
+}
+
+/* media query for 350px */
+@media (max-width: 350px) {
+  .login__left {
+    justify-content: flex-start;
+  }
+  .login__section form {
+    width: 95%;
   }
 }
