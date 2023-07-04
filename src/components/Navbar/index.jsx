@@ -12,6 +12,7 @@ import React, { useEffect } from "react";
 import { AiOutlineInsertRowAbove } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
 import { auth } from "../../lib/firebase";
+import logo from "../../assets/logo.webp";
 import { useNavigate } from "react-router-dom";
 
 function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
@@ -35,15 +36,14 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
     location.pathname !== "/dummygram/login" &&
     location.pathname !== "/dummygram/signup" && (
       <div className="app__header">
-        <p
+        <img
+          src={logo}
           id="dummygram-logo"
           onClick={() => {
             navigate("/dummygram/");
             window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
           }}
-        >
-          dummygram
-        </p>
+        />
 
         {user && (
           <>

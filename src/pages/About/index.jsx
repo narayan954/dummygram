@@ -2,7 +2,7 @@ import "./index.css";
 
 import { useEffect, useState } from "react";
 
-import appLogo from "../../assets/app-logo.png";
+import logo from "../../assets/logo.webp";
 
 const About = () => {
   const [forks, setForks] = useState(0);
@@ -61,7 +61,12 @@ const About = () => {
         <span className="grad3 grad"></span>
         <span className="grad4 grad"></span>
         <div className="about-section">
-          <img src={appLogo} alt="dummygram" id="about-dummygram-logo" />
+          <img
+            className="about-logo"
+            src={logo}
+            alt="dummygram"
+            id="about-dummygram-logo"
+          />
           <p className="about-section-text">
             Welcome to Dummygram, an exciting platform that aims to reimagine
             and revolutionize the way we connect and share moments with others.

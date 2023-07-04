@@ -7,8 +7,8 @@ import { errorSound, successSound } from "../../assets/sounds";
 import { faGoogle, faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Logo from "../../assets/app-logo.png";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
+import logo from "../../assets/logo.webp";
 import loginRight from "../../assets/login-right.webp";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
@@ -187,7 +187,7 @@ const LoginScreen = () => {
       <div className="login__left">
         <form>
           <div className="form__top">
-            <img src={Logo} alt="" />
+            <img src={logo} alt="" />
             <div className="greetings">
               <h3>Hey, hello 👋</h3>
               <p>Enter your information to get started</p>
