@@ -68,4 +68,6 @@
   background-clip: text;
   margin-left: 20px;
   cursor: pointer;
+  width: 150px;
+  border-radius: 0.3rem;
 }

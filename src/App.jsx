@@ -61,7 +61,7 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: theme.shape.borderRadius,
     boxShadow: "var(--profile-box-shadow)",
     padding: theme.spacing(2, 4, 3),
-    color: "var(--color)",
+    // color: "var(--color)",
     margin: "auto",
   },
   logout: {
@@ -205,8 +205,7 @@ function App() {
                 className="modal__signup__img"
                 style={{
                   width: "80%",
-                  marginLeft: "10%",
-                  filter: "var(--filter-img)",
+                  // filter: "var(--filter-img)",
                 }}
               />
 
