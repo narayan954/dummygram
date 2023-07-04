@@ -3,6 +3,7 @@ import "./index.css";
 import {
   About,
   Feedback,
+  Guidelines,
   LoginScreen,
   PostView,
   Profile,
@@ -301,6 +302,8 @@ function App() {
           <Route path="/dummygram/about" element={<About />} />
 
           <Route path="/dummygram/feedback" element={<Feedback />} />
+
+          <Route path="/dummygram/guidelines" element={<Guidelines />} />
 
           <Route path="/dummygram/login" element={<LoginScreen />} />
 
