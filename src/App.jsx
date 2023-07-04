@@ -30,7 +30,8 @@ import { FaArrowCircleUp } from "react-icons/fa";
 import ForgotPassword from "./pages/ForgotPassword";
 import Modal from "@mui/material/Modal";
 import { RowModeContext } from "./hooks/useRowMode";
-
+import SearchBar from "./components/SearchBar";
+import logo from "./assets/logo.webp";
 import { makeStyles } from "@mui/styles";
 import { successSound } from "./assets/sounds";
 import { useSnackbar } from "notistack";
@@ -198,7 +199,7 @@ function App() {
           <div style={getModalStyle()} className={classes.paper}>
             <form className="modal__signup">
               <img
-                src='https://github-production-user-asset-6210df.s3.amazonaws.com/98682478/250519521-2bc77bdc-2dfe-40f1-ad9a-adabe921fb78.jpeg'
+                src={logo}
                 alt="dummygram"
                 className="modal__signup__img"
                 style={{
@@ -326,6 +327,7 @@ function App() {
 
           <Route path="*" element={<NotFound />} />
           <Route path="/dummygram/favourites" element={<Favorite />} />
+          <Route path="/dummygram/search" element={<SearchBar />} />
         </Routes>
 
         {location.pathname === "/dummygram/" ||

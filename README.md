@@ -1,7 +1,7 @@
 <div id="top"></div>
 <div align="center">
 
-<img  src="https://github-production-user-asset-6210df.s3.amazonaws.com/98682478/250519521-2bc77bdc-2dfe-40f1-ad9a-adabe921fb78.jpeg"  alt="Dummygram"  width="250"  height="200">
+<img  src="src/assets/logo.webp"  alt="Dummygram"  width="250"  height="200">
 
 [See Live!](https://narayan954.github.io/dummygram/)
 

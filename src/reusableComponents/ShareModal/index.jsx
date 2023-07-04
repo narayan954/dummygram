@@ -2,6 +2,7 @@ import "./index.css";
 
 import { Dialog, IconButton, Input } from "@mui/material";
 
+import logo from "../../assets/logo.webp";
 import { successSound } from "../../assets/sounds";
 import { useSnackbar } from "notistack";
 
@@ -22,7 +23,7 @@ const ShareModal = (props) => {
       onClose={() => setOpenShareModal(false)}
     >
       <div className="share-modal-container">
-        <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/98682478/250519521-2bc77bdc-2dfe-40f1-ad9a-adabe921fb78.jpeg" alt="dummygram" />
+        <img src={logo} alt="dummygram" />
         <p>Share Post</p>
 
         <div className="mx-2">
