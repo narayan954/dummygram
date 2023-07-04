@@ -3,12 +3,12 @@ import React from "react";
 import { ReadMore } from "../index";
 
 const ImgBox = ({
-  postHasImages,
-  postImages,
-  likesHandler,
-  caption,
-  postId,
-}) => {
+                  postHasImages,
+                  postImages,
+                  likesHandler,
+                  caption,
+                  postId
+                }) => {
   return (
     <div>
       {postHasImages ? (

@@ -1,16 +1,11 @@
 import "./index.css";
 
-import {
-  AnimatedButton,
-  Darkmode,
-  Loader,
-  ShareModal,
-} from "./reusableComponents";
+import { AnimatedButton, Darkmode, Loader, ShareModal } from "./reusableComponents";
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
-import { ErrorBoundary } from "./reusableComponents/";
+import ErrorBoundary from "./reusableComponents/ErrorBoundary";
 import { FaArrowCircleUp } from "react-icons/fa";
 import Modal from "@mui/material/Modal";
 import { RowModeContext } from "./hooks/useRowMode";
@@ -52,7 +47,7 @@ export function getModalStyle() {
     padding: `${padding}%`,
     borderRadius: `${radius}%`,
     textAlign: "center",
-    backgroundColor: "var(--bg-color)",
+    backgroundColor: "var(--bg-color)"
   };
 }
 
@@ -64,12 +59,12 @@ export const useStyles = makeStyles((theme) => ({
     boxShadow: "var(--profile-box-shadow)",
     padding: theme.spacing(2, 4, 3),
     color: "var(--color)",
-    margin: "auto",
+    margin: "auto"
   },
   logout: {
     display: "flex",
-    justifyContent: "space-between",
-  },
+    justifyContent: "space-between"
+  }
 }));
 
 const PAGESIZE = 10;
@@ -134,7 +129,7 @@ function App() {
         setPosts(
           snapshot.docs.map((doc) => ({
             id: doc.id,
-            post: doc.data(),
+            post: doc.data()
           }))
         );
       });
@@ -161,8 +156,8 @@ function App() {
               ...loadedPosts,
               ...snapshot.docs.map((doc) => ({
                 id: doc.id,
-                post: doc.data(),
-              })),
+                post: doc.data()
+              }))
             ];
           });
         });
@@ -174,7 +169,7 @@ function App() {
     auth.signOut().finally();
     playSuccessSound();
     enqueueSnackbar("Logged out Successfully !", {
-      variant: "info",
+      variant: "info"
     });
     navigate("/dummygram/");
   };
@@ -210,7 +205,7 @@ function App() {
                   style={{
                     width: "80%",
                     marginLeft: "10%",
-                    filter: "var(--filter-img)",
+                    filter: "var(--filter-img)"
                   }}
                 />
 
@@ -219,7 +214,7 @@ function App() {
                     fontSize: "15px",
                     fontFamily: "monospace",
                     padding: "10%",
-                    color: "var(--color)",
+                    color: "var(--color)"
                     // marginBottom:800
                   }}
                 >
@@ -266,12 +261,12 @@ function App() {
                         !loadingPosts
                           ? {}
                           : {
-                              width: "100%",
-                              minHeight: "100vh",
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                            }
+                            width: "100%",
+                            minHeight: "100vh",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center"
+                          }
                       }
                     >
                       {loadingPosts ? (
@@ -422,7 +417,7 @@ function App() {
                 style={{
                   height: 50,
                   display: showScroll ? "flex" : "none",
-                  position: "fixed",
+                  position: "fixed"
                 }}
               />
             </div>
@@ -435,7 +430,7 @@ function App() {
                 style={{
                   height: 50,
                   display: showScroll ? "flex" : "none",
-                  position: "fixed",
+                  position: "fixed"
                 }}
               />
             </div>
