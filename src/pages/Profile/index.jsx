@@ -10,7 +10,11 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { auth, db, storage } from "../../lib/firebase";
-import { backBtnSound, successSound } from "../../assets/sounds";
+import {
+  playSuccessSound,
+  playErrorSound,
+  playTapSound,
+} from "../../js/sounds";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { lazy, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -42,14 +46,6 @@ function Profile() {
   const [avatar, setAvatar] = useState("");
 
   let uid = location?.state?.uid || user?.uid;
-
-  function playSuccessSound() {
-    new Audio(successSound).play();
-  }
-
-  function playErrorSound() {
-    new Audio(errorSound).play();
-  }
 
   const handleClose = () => setOpen(false);
 
@@ -198,7 +194,7 @@ function Profile() {
   }, [user, name]);
 
   const handleBack = () => {
-    new Audio(backBtnSound).play();
+    playTapSound();
     navigate("/dummygram");
   };
 

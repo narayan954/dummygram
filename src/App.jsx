@@ -16,7 +16,7 @@ import Modal from "@mui/material/Modal";
 import { RowModeContext } from "./hooks/useRowMode";
 import logo from "./assets/logo.webp";
 import { makeStyles } from "@mui/styles";
-import { successSound } from "./assets/sounds";
+import { playSuccessSound } from "./js/sounds";
 import { useSnackbar } from "notistack";
 
 // ------------------------------------ Pages ----------------------------------------------------
@@ -30,6 +30,7 @@ const Profile = React.lazy(() => import("./pages/Profile"));
 const SignupScreen = React.lazy(() => import("./pages/Signup"));
 const ForgotPassword = React.lazy(() => import("./pages/ForgotPassword"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
+const Settings = React.lazy(() => import("./pages/Settings"));
 // ------------------------------------- Components ------------------------------------------------
 const Favorite = React.lazy(() => import("./components/Favorite.jsx"));
 const Notifications = React.lazy(() =>
@@ -90,10 +91,6 @@ function App() {
   const classes = useStyles();
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
-
-  function playSuccessSound() {
-    new Audio(successSound).play();
-  }
 
   const checkScrollTop = () => {
     if (!showScroll && window.pageYOffset > 400) {
@@ -315,6 +312,14 @@ function App() {
               }
             />
 
+            <Route
+              path="/dummygram/settings"
+              element={
+                <ErrorBoundary inApp={true}>
+                  <Settings />
+                </ErrorBoundary>
+              }
+            />
             <Route
               path="/dummygram/about"
               element={
