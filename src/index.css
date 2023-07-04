@@ -185,6 +185,8 @@ input:focus {
 
 .modal__signup__img {
   width: 80%;
+  border-radius: 0.3rem;
+  margin-bottom: 10px;
 }
 
 .modal__signup {
