@@ -9,6 +9,9 @@ import { faGoogle, faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import logo from "../../assets/logo.webp";
+import Google from "../../assets/goggle.svg";
+import Facebook from "../../assets/facebook.svg";
+
 import loginRight from "../../assets/login-right.webp";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
@@ -256,14 +259,14 @@ const LoginScreen = () => {
                   type="submit"
                   onClick={signInWithGoogle}
                 >
-                  <FontAwesomeIcon icon={faGoogle} /> Sign in with Google
+                  <img src={Google} alt="" /> Sign in with Google
                 </button>
                 <button
                   className="other__login"
                   type="submit"
                   onClick={signInWithFacebook}
                 >
-                  <FontAwesomeIcon icon={faSquareFacebook} /> Sign in with
+                  <img src={Facebook} alt="" /> Sign in with
                   Facebook
                 </button>
               </div>

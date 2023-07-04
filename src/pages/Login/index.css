@@ -114,6 +114,11 @@
   white-space: nowrap;
   border: 1px solid rgba(104, 85, 224, 1);
   color: black;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 3px;
+  justify-content: center;
   padding: 0.4rem .7rem;
   font-size: 1.1rem;
   border-radius: 0.5rem;
@@ -141,6 +146,9 @@
 .login__right img {
   width: 100%;
   height: 100%;
+}
+.other__login img{
+  width: 1.5rem;
 }
 /* forgot password */
 
@@ -206,17 +214,12 @@
   }
 }
 
-/* media query for 370px */
-@media (max-width: 350px) {
+/* media query for 675px */
+@media (max-width: 675px) {
+
   .or{
     width: 100%;
   }  
-  .login__left{
-    justify-content: flex-start;
-  }
-  .login__section form {
-    width: 95%;
-  }
   .login__section {
     padding: 10px 7px;
   }
@@ -251,5 +254,15 @@
   }
   .login__right {
     display: none;
+  }
+}
+
+/* media query for 350px */
+@media (max-width: 350px) {
+  .login__left{
+    justify-content: flex-start;
+  }
+  .login__section form {
+    width: 95%;
   }
 }
