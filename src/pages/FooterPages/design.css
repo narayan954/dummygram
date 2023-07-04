@@ -1,10 +1,13 @@
-.about-container {
-  position: relative;
-  margin-top: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+.glassmorphism-effect {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0)
+  );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
 .grad {
@@ -45,7 +48,6 @@
   aspect-ratio: 1;
   border-radius: 32% 68% 74% 26% / 20% 65% 35% 80%;
 }
-
 .about-sub-container {
   position: relative;
   border-radius: 150px;
@@ -71,6 +73,13 @@
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.about-logo {
+  margin-top: 40px;
+  margin-bottom: 30px;
+  border-radius: 0.5rem;
+  width: 240px;
 }
 
 .about-headings {
@@ -121,11 +130,5 @@
   }
   .grad4 {
     width: 200px;
-  }
-}
-
-@media only screen and (max-width: 400px) {
-  #about-dummygram-logo {
-    width: 400px;
   }
 }

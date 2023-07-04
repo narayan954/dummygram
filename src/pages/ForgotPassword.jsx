@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { getModalStyle, useStyles } from "../App";
 
-import Logo from "../assets/logo.png";
 import { auth } from "../lib/firebase";
+import logo from "../assets/logo.webp";
 import { useNavigate } from "react-router-dom";
 import { playSuccessSound, playErrorSound } from "../js/sounds";
 import { useSnackbar } from "notistack";
@@ -71,7 +71,7 @@ const ForgotPassword = () => {
       <div style={getModalStyle()} className={classes.paper}>
         <form className="modal__signup">
           <img
-            src={Logo}
+            src={logo}
             alt="dummygram"
             className="modal__signup__img"
             style={{
