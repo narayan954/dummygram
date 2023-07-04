@@ -30,11 +30,11 @@ const PostNav = lazy(() => import("./PostNav"));
 function Post(prop) {
   const { postId, user, post, shareModal, setLink, setPostText, rowMode } =
     prop;
-    const { caption, imageUrl, likecount, timestamp } = post;
-    
+  const { caption, imageUrl, likecount, timestamp } = post;
+
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
-  const [likesArr, setlikesArr] = useState(likecount)
+  const [likesArr, setlikesArr] = useState(likecount);
   const [likesNo, setLikesNo] = useState(likecount ? likecount.length : 0);
   const [showEmojis, setShowEmojis] = useState(false);
   const [isCommentOpen, setisCommentOpen] = useState(false);
@@ -79,7 +79,7 @@ function Post(prop) {
         .collection("posts")
         .doc(postId)
         .onSnapshot((snapshot) => {
-          setlikesArr(snapshot.data().likecount)
+          setlikesArr(snapshot.data().likecount);
         });
     }
 
