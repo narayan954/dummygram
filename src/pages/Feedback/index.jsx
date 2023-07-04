@@ -1,6 +1,7 @@
 import "./index.css";
 
 import React, { useRef } from "react";
+
 import { SideBar } from "../../components";
 import emailjs from "@emailjs/browser";
 import { successSound } from "../../assets/sounds";
@@ -27,7 +28,7 @@ export const Feedback = () => {
         (result) => {
           playSuccessSound();
           enqueueSnackbar("Thanks For Your Feedback!", {
-            variant: "success"
+            variant: "success",
           });
         },
         (error) => {

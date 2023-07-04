@@ -1,18 +1,27 @@
-import { Avatar, Box, Button, Divider, Modal, Typography, useMediaQuery } from "@mui/material";
+import "./index.css";
+
+import {
+  Avatar,
+  Box,
+  Button,
+  Divider,
+  Modal,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import { auth, db, storage } from "../../lib/firebase";
 import { backBtnSound, successSound } from "../../assets/sounds";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { lazy, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import { ErrorBoundary } from "../../reusableComponents/errorBoundary";
 import { FaUserCircle } from "react-icons/fa";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
-import "./index.css";
-import { ErrorBoundary } from "../../reusableComponents/errorBoundary";
 
 const Post = lazy(() => import("../../components/Post"));
-const SideBar = lazy(() => import("../../components/Sidebar"));
+const SideBar = lazy(() => import("../../components/SideBar"));
 
 function Profile() {
   const location = useLocation();
@@ -62,7 +71,7 @@ function Profile() {
             .delete()
             .then(() => {
               enqueueSnackbar("Friend Request removed successfully!", {
-                variant: "success"
+                variant: "success",
               });
               setFriendRequestSent(false);
             });
@@ -71,7 +80,7 @@ function Profile() {
       const friendRequestData = {
         sender: currentUserUid,
         recipient: targetUserUid,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       };
       db.collection("users")
         .doc(targetUserUid)
@@ -82,13 +91,13 @@ function Profile() {
           setFriendRequestSent(true);
           playSuccessSound();
           enqueueSnackbar("Friend request sent!", {
-            variant: "success"
+            variant: "success",
           });
           const notificationData = {
             recipient: targetUserUid,
             sender: currentUserUid,
             message: `You have received a friend request from ${auth?.currentUser?.displayName}.`,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
           };
           db.collection("users")
             .doc(targetUserUid)
@@ -99,7 +108,7 @@ function Profile() {
         .catch((error) => {
           playErrorSound();
           enqueueSnackbar(error.message, {
-            variant: "error"
+            variant: "error",
           });
         });
     }
@@ -181,7 +190,7 @@ function Profile() {
       querySnapshot.forEach((doc) => {
         userPosts.push({
           id: doc.id,
-          post: doc.data()
+          post: doc.data(),
         });
       });
       setFeed(userPosts);
@@ -205,12 +214,11 @@ function Profile() {
     const uploadTask = storage.ref(`images/${image?.name}`).put(image);
     uploadTask.on(
       "state_changed",
-      () => {
-      },
+      () => {},
       (error) => {
         playErrorSound();
         enqueueSnackbar(error.message, {
-          variant: "error"
+          variant: "error",
         });
       },
       () => {
@@ -221,11 +229,11 @@ function Profile() {
           .then((url) => {
             auth.currentUser.updateProfile({
               displayName: name,
-              photoURL: url
+              photoURL: url,
             });
             playSuccessSound();
             enqueueSnackbar("Upload Successful!!!", {
-              variant: "success"
+              variant: "success",
             });
           });
       }
@@ -257,7 +265,7 @@ function Profile() {
             border: "1px solid #fff",
             zIndex: "1000",
             textAlign: "center",
-            borderRadius: "5%"
+            borderRadius: "5%",
           }}
         >
           <img
@@ -268,7 +276,7 @@ function Profile() {
               position: "absolute",
               top: "50%",
               left: "50%",
-              transform: "translate(-50%, -50%)"
+              transform: "translate(-50%, -50%)",
             }}
             width={isNonMobile ? "50%" : "50%"}
             height={isNonMobile ? "50%" : "50%"}
@@ -286,7 +294,7 @@ function Profile() {
         sx={{
           border: "none",
           boxShadow: "var(--profile-box-shadow)",
-          margin: "6rem auto 2.5rem"
+          margin: "6rem auto 2.5rem",
         }}
         display="flex"
         justifyContent={"center"}
@@ -310,7 +318,7 @@ function Profile() {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
               />
             ) : (
@@ -332,7 +340,7 @@ function Profile() {
                   style={{
                     marginTop: "0.5rem",
                     marginBottom: "0.5rem",
-                    color: "var(--text-primary)"
+                    color: "var(--text-primary)",
                   }}
                 >
                   Edit Profile Pic

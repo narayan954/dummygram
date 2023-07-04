@@ -1,13 +1,21 @@
+import "react-lazy-load-image-component/src/effects/blur.css";
+import "./index.css";
+
 import { DialogBox, Flexbetween } from "../../reusableComponents";
-import { Divider, Paper, styled, Typography, useMediaQuery } from "@mui/material";
+import {
+  Divider,
+  Paper,
+  Typography,
+  styled,
+  useMediaQuery,
+} from "@mui/material";
 import { doc, updateDoc } from "firebase/firestore";
 import { lazy, useEffect, useState } from "react";
+
+import { ErrorBoundary } from "../../reusableComponents/errorBoundary";
 import { db } from "../../lib/firebase";
 import firebase from "firebase/compat/app";
 import { useTheme } from "@mui/material/styles";
-import "react-lazy-load-image-component/src/effects/blur.css";
-import "./index.css";
-import { ErrorBoundary } from "../../reusableComponents/errorBoundary";
 
 const PostHeader = lazy(() => import("./PostHeader"));
 const CommentBox = lazy(() => import("./CommentBox"));
@@ -46,7 +54,7 @@ function Post(prop) {
           setComments(
             snapshot.docs.map((doc) => ({
               id: doc.id,
-              content: doc.data()
+              content: doc.data(),
             }))
           );
         });
@@ -64,7 +72,7 @@ function Post(prop) {
     ...theme.typography.body2,
     padding: theme.spacing(1),
     textAlign: "center",
-    color: theme.palette.text.secondary
+    color: theme.palette.text.secondary,
   }));
 
   const postComment = (event) => {
@@ -72,7 +80,7 @@ function Post(prop) {
     db.collection("posts").doc(postId).collection("comments").add({
       text: comment,
       username: user.displayName,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
     setComment("");
   };
@@ -110,7 +118,7 @@ function Post(prop) {
       imageUrl: url,
       imageWidth: 0,
       imageHeight: 0,
-      thumbnail: null
+      thumbnail: null,
     }));
   }
 
@@ -121,8 +129,8 @@ function Post(prop) {
   const buttonStyle = {
     ":hover": {
       color: "#FF4D4D",
-      fontSize: "29px"
-    }
+      fontSize: "29px",
+    },
   };
 
   async function likesHandler() {
@@ -139,7 +147,7 @@ function Post(prop) {
 
       // console.log(tempLikeCount);
       const data = {
-        likecount: tempLikeCount
+        likecount: tempLikeCount,
       };
       await updateDoc(docRef, data)
         // .then((docRef) => {

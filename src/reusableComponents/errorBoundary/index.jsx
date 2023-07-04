@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import { ErrorBoundary as Error } from "react-error-boundary";
-import AutorenewIcon from "@mui/icons-material/Autorenew";
-import Loader from "../Loader";
 import "./index.css";
+
 import { Button, IconButton } from "@mui/material";
+import React, { useState } from "react";
+
+import AutorenewIcon from "@mui/icons-material/Autorenew";
+import { ErrorBoundary as Error } from "react-error-boundary";
+import Loader from "../Loader";
 
 const ErrorFallBack = ({ error, info, resetErrorBoundary, inApp }) => {
   console.log(inApp);
@@ -28,7 +30,10 @@ const ErrorFallBack = ({ error, info, resetErrorBoundary, inApp }) => {
           </Button>
         </div>
       ) : (
-        <div title={`${error.message} (Tap To Refresh)`} className="error-boundary">
+        <div
+          title={`${error.message} (Tap To Refresh)`}
+          className="error-boundary"
+        >
           <IconButton
             size="small"
             className={"error-boundary-button"}
@@ -36,7 +41,8 @@ const ErrorFallBack = ({ error, info, resetErrorBoundary, inApp }) => {
             aria-label={"Refresh"}
           >
             <AutorenewIcon />
-          </IconButton>)
+          </IconButton>
+          )
         </div>
       )}
     </div>
@@ -56,16 +62,19 @@ export const ErrorBoundary = ({ children, inApp }) => {
   const handleReset = () => setHasError(false);
 
   return (
-    <Error onError={handleError} onReset={handleReset}
-           FallbackComponent={({ error, resetErrorBoundary }) => ErrorFallBack({
-             error,
-             info,
-             resetErrorBoundary,
-             inApp
-           })}>
-      <React.Suspense fallback={<Loader />}>
-        {children}
-      </React.Suspense>
+    <Error
+      onError={handleError}
+      onReset={handleReset}
+      FallbackComponent={({ error, resetErrorBoundary }) =>
+        ErrorFallBack({
+          error,
+          info,
+          resetErrorBoundary,
+          inApp,
+        })
+      }
+    >
+      <React.Suspense fallback={<Loader />}>{children}</React.Suspense>
     </Error>
   );
 };

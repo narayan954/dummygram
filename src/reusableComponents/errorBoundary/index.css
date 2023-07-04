@@ -14,9 +14,9 @@
 }
 
 .error-app h3 {
-  color: var(--color)
+  color: var(--color);
 }
 
 .error-app p {
-  color: #E6078F;
+  color: #e6078f;
 }
