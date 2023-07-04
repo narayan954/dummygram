@@ -7,9 +7,9 @@ import { errorSound, successSound } from "../../assets/sounds";
 import { faGoogle, faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Logo from "../../assets/app-logo.png"
-import loginRight from "../../assets/loginleft.jpg"
+import Logo from "../../assets/app-logo.png";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
+import loginRight from "../../assets/login-right.webp";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import validate from "../../reusableComponents/validation";
@@ -197,75 +197,93 @@ const LoginScreen = () => {
           <div className="form__bottom">
             <div className="input__group">
               <label htmlFor="email">Email</label>
-              <input type="email"             
-              placeholder="Enter your email"
-              value={email}
-              id="email" 
-              name="email"
-              onChange={(e) => {
-                setEmail(e.target.value);
-                handleError(e.target.name, e.target.value);
-              }}
-              className={error.emailError ? "error-border" : null}
-              required />
-            {error.email && error.emailError && (
-            <p className="error">{error.emailError}</p>
-            )}
-
+              <input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                id="email"
+                name="email"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  handleError(e.target.name, e.target.value);
+                }}
+                className={error.emailError ? "error-border" : null}
+                required
+              />
+              {error.email && error.emailError && (
+                <p className="error">{error.emailError}</p>
+              )}
             </div>
             <div className="input__group">
               <label htmlFor="password">Password</label>
-              <div id="password-container" className="password-container pass__input__container">
-              <input 
-              name="password"
-              type={showPassword ? "text" : "password"}
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-               id="password" required />
-              <button
-              onClick={(e) => handleShowPassword(e)}
-              className="show-password"
+              <div
+                id="password-container"
+                className="password-container pass__input__container"
               >
-              {showPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
-              </button>
+                <input
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  id="password"
+                  required
+                />
+                <button
+                  onClick={(e) => handleShowPassword(e)}
+                  className="show-password"
+                >
+                  {showPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
+                </button>
+              </div>
+            </div>
+            <button
+              type="submit"
+              onClick={signIn}
+              className="action__btn login__btn"
+            >
+              LogIn <FontAwesomeIcon icon={faRightToBracket} />
+            </button>
+            <div className="other__login__method">
+              <div className="or option__divider">
+                <div className="line" />
+                <div style={{ padding: "5px 9px" }}>or</div>
+                <div className="line" />
+              </div>
+              <div className="google__fb--login">
+                <button
+                  className="other__login"
+                  type="submit"
+                  onClick={signInWithGoogle}
+                >
+                  <FontAwesomeIcon icon={faGoogle} /> Sign in with Google
+                </button>
+                <button
+                  className="other__login"
+                  type="submit"
+                  onClick={signInWithFacebook}
+                >
+                  <FontAwesomeIcon icon={faSquareFacebook} /> Sign in with
+                  Facebook
+                </button>
+              </div>
+            </div>
+            <div className="forgot__new">
+              <div className="forgot-pasword">
+                <span role={"button"} onClick={navigateToForgot}>
+                  Forgot Password
+                </span>
+              </div>
+              <div className="no__acct">
+                New User?
+                <span role={"button"} onClick={navigateToSignup}>
+                  {" "}
+                  Sign up!
+                </span>
+              </div>
             </div>
           </div>
-            <button type="submit" onClick={signIn} className="action__btn login__btn">
-            LogIn <FontAwesomeIcon icon={faRightToBracket} />
-          </button>
-          <div className="other__login__method">
-          <div className="or option__divider">
-            <div className="line" />
-            <div style={{ padding: "5px 9px" }}>or</div>
-            <div className="line" />
-          </div>
-          <div className="google__fb--login">
-            <button className="other__login" type="submit" onClick={signInWithGoogle}>
-              <FontAwesomeIcon icon={faGoogle} /> Sign in with Google
-            </button>
-            <button
-              className="other__login"
-              type="submit"
-              onClick={signInWithFacebook}
-            >
-              <FontAwesomeIcon icon={faSquareFacebook} /> Sign in with Facebook
-            </button>
-          </div>
-          </div>
-          <div className="forgot__new">
-          <div className="forgot-pasword">
-            <span role={"button"} onClick={navigateToForgot}>
-              Forgot Password
-            </span>
-          </div>
-          <div className="no__acct">
-              New User? 
-            <span role={"button"} onClick={navigateToSignup}> Sign up!</span>
-          </div>
-        </div>
-          </div>
-      </form>
+        </form>
       </div>
       <div className="login__right">
         <img src={loginRight} alt="" />
