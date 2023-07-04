@@ -1,7 +1,7 @@
 <div id="top"></div>
 <div align="center">
 
-<img  src="src/assets/logo.webp"  alt="Dummygram"  width="250"  height="200">
+<img  src="src/assets/logo.webp"  alt="Dummygram"  height="200">
 
 [See Live!](https://narayan954.github.io/dummygram/)
 

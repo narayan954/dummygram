@@ -61,7 +61,12 @@ const About = () => {
         <span className="grad3 grad"></span>
         <span className="grad4 grad"></span>
         <div className="about-section">
-          <img className="about-logo" src="https://github-production-user-asset-6210df.s3.amazonaws.com/98682478/250519521-2bc77bdc-2dfe-40f1-ad9a-adabe921fb78.jpeg" alt="dummygram" id="about-dummygram-logo" />
+          <img
+            className="about-logo"
+            src={logo}
+            alt="dummygram"
+            id="about-dummygram-logo"
+          />
           <p className="about-section-text">
             Welcome to Dummygram, an exciting platform that aims to reimagine
             and revolutionize the way we connect and share moments with others.
