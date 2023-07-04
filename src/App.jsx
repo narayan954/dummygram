@@ -1,41 +1,43 @@
 import "./index.css";
 
 import {
-  About,
-  Feedback,
-  Guidelines,
-  LoginScreen,
-  PostView,
-  Profile,
-  SignupScreen,
-} from "./pages";
-import {
   AnimatedButton,
   Darkmode,
   Loader,
   ShareModal,
 } from "./reusableComponents";
-import {
-  Favorite,
-  Navbar,
-  NotFound,
-  Notifications,
-  Post,
-  SideBar,
-} from "./components";
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
+import ErrorBoundary from "./reusableComponents/ErrorBoundary";
 import { FaArrowCircleUp } from "react-icons/fa";
-import ForgotPassword from "./pages/ForgotPassword";
 import Modal from "@mui/material/Modal";
 import { RowModeContext } from "./hooks/useRowMode";
-import SearchBar from "./components/SearchBar";
 import logo from "./assets/logo.webp";
 import { makeStyles } from "@mui/styles";
 import { successSound } from "./assets/sounds";
 import { useSnackbar } from "notistack";
+
+// ------------------------------------ Pages ----------------------------------------------------
+const About = React.lazy(() => import("./pages/FooterPages/About"));
+const Guidelines = React.lazy(() => import("./pages/FooterPages/Guidelines"));
+const SearchBar = React.lazy(() => import("./components/SearchBar"));
+const Feedback = React.lazy(() => import("./pages/FooterPages/Feedback"));
+const LoginScreen = React.lazy(() => import("./pages/Login"));
+const PostView = React.lazy(() => import("./pages/PostView"));
+const Profile = React.lazy(() => import("./pages/Profile"));
+const SignupScreen = React.lazy(() => import("./pages/Signup"));
+const ForgotPassword = React.lazy(() => import("./pages/ForgotPassword"));
+const NotFound = React.lazy(() => import("./pages/NotFound"));
+// ------------------------------------- Components ------------------------------------------------
+const Favorite = React.lazy(() => import("./components/Favorite.jsx"));
+const Notifications = React.lazy(() =>
+  import("./components/Notifications.jsx")
+);
+const Post = React.lazy(() => import("./components/Post"));
+const SideBar = React.lazy(() => import("./components/SideBar"));
+const Navbar = React.lazy(() => import("./components/Navbar"));
 
 export function getModalStyle() {
   const top = 0;
@@ -61,7 +63,7 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: theme.shape.borderRadius,
     boxShadow: "var(--profile-box-shadow)",
     padding: theme.spacing(2, 4, 3),
-    // color: "var(--color)",
+    color: "var(--color)",
     margin: "auto",
   },
   logout: {
@@ -179,190 +181,267 @@ function App() {
 
   return (
     <RowModeContext.Provider value={rowMode}>
-      <div className="app">
-        <Navbar
-          onClick={() => setRowMode((prev) => !prev)}
-          user={user}
-          setUser={setUser}
-          open={open}
-          setOpen={setOpen}
-          setLogout={setLogout}
-        />
+      <ErrorBoundary inApp={true}>
+        <div className="app">
+          <ErrorBoundary inApp={true}>
+            <Navbar
+              onClick={() => setRowMode((prev) => !prev)}
+              user={user}
+              setUser={setUser}
+              open={open}
+              setOpen={setOpen}
+              setLogout={setLogout}
+            />
+          </ErrorBoundary>
+          <ShareModal
+            openShareModal={openShareModal}
+            setOpenShareModal={setOpenShareModal}
+            currentPostLink={currentPostLink}
+            postText={postText}
+          />
 
-        <ShareModal
-          openShareModal={openShareModal}
-          setOpenShareModal={setOpenShareModal}
-          currentPostLink={currentPostLink}
-          postText={postText}
-        />
+          <Modal open={logout} onClose={() => setLogout(false)}>
+            <div style={getModalStyle()} className={classes.paper}>
+              <form className="modal__signup">
+                <img
+                  src={logo}
+                  alt="dummygram"
+                  className="modal__signup__img"
+                  style={{
+                    width: "80%",
+                    marginLeft: "10%",
+                    filter: "var(--filter-img)",
+                  }}
+                />
 
-        <Modal open={logout} onClose={() => setLogout(false)}>
-          <div style={getModalStyle()} className={classes.paper}>
-            <form className="modal__signup">
-              <img
-                src={logo}
-                alt="dummygram"
-                className="modal__signup__img"
-                style={{
-                  width: "80%",
-                  // filter: "var(--filter-img)",
-                }}
-              />
-
-              <p
-                style={{
-                  fontSize: "15px",
-                  fontFamily: "monospace",
-                  padding: "10%",
-                  color: "var(--color)",
-                  // marginBottom:800
-                }}
-              >
-                Are you sure you want to Logout?
-              </p>
-
-              <div className={classes.logout}>
-                <AnimatedButton
-                  type="submit"
-                  onClick={signOut}
-                  variant="contained"
-                  color="primary"
-                  className="button-style"
+                <p
+                  style={{
+                    fontSize: "15px",
+                    fontFamily: "monospace",
+                    padding: "10%",
+                    color: "var(--color)",
+                    // marginBottom:800
+                  }}
                 >
-                  Logout
-                </AnimatedButton>
-                <AnimatedButton
-                  type="submit"
-                  onClick={() => setLogout(false)}
-                  variant="contained"
-                  color="primary"
-                  className="button-style"
-                >
-                  Cancel
-                </AnimatedButton>
-              </div>
-            </form>
-          </div>
-        </Modal>
+                  Are you sure you want to Logout?
+                </p>
 
-        <Darkmode />
-        <Routes>
-          <Route
-            exact
-            path="/dummygram/"
-            element={
-              user ? (
-                <div className="flex">
-                  <SideBar />
-                  <div
-                    style={
-                      !loadingPosts
-                        ? {}
-                        : {
-                            width: "100%",
-                            minHeight: "100vh",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }
-                    }
+                <div className={classes.logout}>
+                  <AnimatedButton
+                    type="submit"
+                    onClick={signOut}
+                    variant="contained"
+                    color="primary"
+                    className="button-style"
                   >
-                    {loadingPosts ? (
-                      <Loader />
-                    ) : (
-                      <div
-                        className={`${
-                          rowMode ? "app__posts" : "app_posts_column flex"
-                        }`}
-                      >
-                        {posts.map(({ id, post }) => (
-                          <Post
-                            rowMode={rowMode}
-                            key={id}
-                            postId={id}
-                            user={user}
-                            post={post}
-                            shareModal={setOpenShareModal}
-                            setLink={setCurrentPostLink}
-                            setPostText={setPostText}
-                          />
-                        ))}
-                      </div>
-                    )}
-                  </div>
+                    Logout
+                  </AnimatedButton>
+                  <AnimatedButton
+                    type="submit"
+                    onClick={() => setLogout(false)}
+                    variant="contained"
+                    color="primary"
+                    className="button-style"
+                  >
+                    Cancel
+                  </AnimatedButton>
                 </div>
-              ) : (
-                <></>
-              )
-            }
-          />
+              </form>
+            </div>
+          </Modal>
 
-          <Route path="/dummygram/profile" element={<Profile />} />
+          <Darkmode />
+          <Routes>
+            <Route
+              exact
+              path="/dummygram/"
+              element={
+                user ? (
+                  <div className="flex">
+                    <ErrorBoundary inApp={true}>
+                      <SideBar />
+                    </ErrorBoundary>
+                    <div
+                      style={
+                        !loadingPosts
+                          ? {}
+                          : {
+                              width: "100%",
+                              minHeight: "100vh",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }
+                      }
+                    >
+                      {loadingPosts ? (
+                        <Loader />
+                      ) : (
+                        <div
+                          className={`${
+                            rowMode ? "app__posts" : "app_posts_column flex"
+                          }`}
+                        >
+                          <ErrorBoundary inApp>
+                            {posts.map(({ id, post }) => (
+                              <Post
+                                rowMode={rowMode}
+                                key={id}
+                                postId={id}
+                                user={user}
+                                post={post}
+                                shareModal={setOpenShareModal}
+                                setLink={setCurrentPostLink}
+                                setPostText={setPostText}
+                              />
+                            ))}
+                          </ErrorBoundary>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <></>
+                )
+              }
+            />
 
-          <Route path="/dummygram/about" element={<About />} />
+            <Route
+              path="/dummygram/profile"
+              element={
+                <ErrorBoundary inApp={true}>
+                  <Profile />
+                </ErrorBoundary>
+              }
+            />
 
-          <Route path="/dummygram/feedback" element={<Feedback />} />
+            <Route
+              path="/dummygram/about"
+              element={
+                <ErrorBoundary inApp={true}>
+                  <About />
+                </ErrorBoundary>
+              }
+            />
 
-          <Route path="/dummygram/guidelines" element={<Guidelines />} />
+            <Route
+              path="/dummygram/feedback"
+              element={
+                <ErrorBoundary inApp={true}>
+                  <Feedback />
+                </ErrorBoundary>
+              }
+            />
 
-          <Route path="/dummygram/login" element={<LoginScreen />} />
+            <Route
+              path="/dummygram/guidelines"
+              element={
+                <ErrorBoundary inApp={true}>
+                  <Guidelines />
+                </ErrorBoundary>
+              }
+            />
 
-          <Route path="/dummygram/signup" element={<SignupScreen />} />
+            <Route
+              path="/dummygram/login"
+              element={
+                <ErrorBoundary inApp={true}>
+                  <LoginScreen />
+                </ErrorBoundary>
+              }
+            />
 
-          <Route
-            path="/dummygram/forgot-password"
-            element={<ForgotPassword />}
-          />
+            <Route
+              path="/dummygram/signup"
+              element={
+                <ErrorBoundary inApp={true}>
+                  <SignupScreen />
+                </ErrorBoundary>
+              }
+            />
 
-          <Route path="/dummygram/notifications" element={<Notifications />} />
+            <Route
+              path="/dummygram/forgot-password"
+              element={
+                <ErrorBoundary inApp={true}>
+                  <ForgotPassword />
+                </ErrorBoundary>
+              }
+            />
 
-          <Route
-            path="/dummygram/posts/:id"
-            element={
-              <PostView
-                user={user}
-                shareModal={setOpenShareModal}
-                setLink={setCurrentPostLink}
-                setPostText={setPostText}
+            <Route
+              path="/dummygram/notifications"
+              element={
+                <ErrorBoundary inApp={true}>
+                  <Notifications />
+                </ErrorBoundary>
+              }
+            />
+
+            <Route
+              path="/dummygram/posts/:id"
+              element={
+                <ErrorBoundary inApp={true}>
+                  <PostView
+                    user={user}
+                    shareModal={setOpenShareModal}
+                    setLink={setCurrentPostLink}
+                    setPostText={setPostText}
+                  />
+                </ErrorBoundary>
+              }
+            />
+
+            <Route path="*" element={<NotFound />} />
+            <Route
+              path="/dummygram/favourites"
+              element={
+                <ErrorBoundary inApp={true}>
+                  <Favorite />
+                </ErrorBoundary>
+              }
+            />
+            <Route
+              path="/dummygram/search"
+              element={
+                <ErrorBoundary inApp={true}>
+                  <SearchBar />
+                </ErrorBoundary>
+              }
+            />
+          </Routes>
+
+          {location.pathname === "/dummygram/" ||
+          location.pathname === "/dummygram/favourites" ||
+          location.pathname === "/dummygram/about" ? (
+            <div>
+              <FaArrowCircleUp
+                fill="#777"
+                className="scrollTop"
+                onClick={scrollTop}
+                style={{
+                  height: 50,
+                  display: showScroll ? "flex" : "none",
+                  position: "fixed",
+                }}
               />
-            }
-          />
-
-          <Route path="*" element={<NotFound />} />
-          <Route path="/dummygram/favourites" element={<Favorite />} />
-          <Route path="/dummygram/search" element={<SearchBar />} />
-        </Routes>
-
-        {location.pathname === "/dummygram/" ||
-        location.pathname === "/dummygram/favourites" ||
-        location.pathname === "/dummygram/about" ? (
-          <div>
-            <FaArrowCircleUp
-              fill="#777"
-              className="scrollTop"
-              onClick={scrollTop}
-              style={{
-                height: 50,
-                display: showScroll ? "flex" : "none",
-                position: "fixed",
-              }}
-            />
-          </div>
-        ) : (
-          <div>
-            <FaArrowCircleUp
-              fill="#777"
-              className="scrollTop sideToTop"
-              onClick={scrollTop}
-              style={{
-                height: 50,
-                display: showScroll ? "flex" : "none",
-                position: "fixed",
-              }}
-            />
-          </div>
-        )}
-      </div>
+            </div>
+          ) : (
+            <div>
+              <FaArrowCircleUp
+                fill="#777"
+                className="scrollTop sideToTop"
+                onClick={scrollTop}
+                style={{
+                  height: 50,
+                  display: showScroll ? "flex" : "none",
+                  position: "fixed",
+                }}
+              />
+            </div>
+          )}
+        </div>
+      </ErrorBoundary>
     </RowModeContext.Provider>
   );
 }

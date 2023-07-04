@@ -9,16 +9,19 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { Post, SideBar } from "../../components";
 import { auth, db, storage } from "../../lib/firebase";
 import { backBtnSound, successSound } from "../../assets/sounds";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { lazy, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import { FaUserCircle } from "react-icons/fa";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
+
+const Post = lazy(() => import("../../components/Post"));
+const SideBar = lazy(() => import("../../components/SideBar"));
 
 function Profile() {
   const location = useLocation();
@@ -240,7 +243,9 @@ function Profile() {
 
   return (
     <>
-      <SideBar />
+      <ErrorBoundary>
+        <SideBar />
+      </ErrorBoundary>
       <Modal
         open={open}
         onClose={handleClose}
@@ -390,18 +395,20 @@ function Profile() {
       </Box>
       <Box className="flex feed-main-container">
         <div className="app__posts" id="feed-sub-container">
-          {feed.map(({ post, id }) => (
-            <Post
-              rowMode={true}
-              key={id}
-              postId={id}
-              user={user}
-              post={post}
-              shareModal={true}
-              setLink="/"
-              setPostText=""
-            />
-          ))}
+          <ErrorBoundary>
+            {feed.map(({ post, id }) => (
+              <Post
+                rowMode={true}
+                key={id}
+                postId={id}
+                user={user}
+                post={post}
+                shareModal={true}
+                setLink="/"
+                setPostText=""
+              />
+            ))}
+          </ErrorBoundary>
         </div>
       </Box>
     </>

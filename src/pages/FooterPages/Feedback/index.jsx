@@ -18,7 +18,6 @@ export const Feedback = () => {
 
   const sendEmail = (e) => {
     e.preventDefault();
-
     emailjs
       .sendForm(
         "service_hg3vdpg",

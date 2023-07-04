@@ -7,14 +7,15 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineClose } from "react-icons/ai";
 import { Dialog } from "@mui/material";
+import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import Footer from "./Footer";
-import GitHubIcon from "@mui/icons-material/GitHub";
 import HomeIcon from "@mui/icons-material/Home";
 import ImgUpload from "../ImgUpload";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import SearchIcon from "@mui/icons-material/Search";
 import { auth } from "../../lib/firebase";
+
+const Footer = React.lazy(() => import("./Footer"));
 
 function SideBar() {
   const navigate = useNavigate();
@@ -56,8 +57,8 @@ function SideBar() {
                 state: {
                   name: user.displayName,
                   email: user.email,
-                  avatar: user.photoURL,
-                },
+                  avatar: user.photoURL
+                }
               })
             }
           >
@@ -75,12 +76,15 @@ function SideBar() {
             </div>
           </li>
         </ul>
-        <Footer />
+        <hr />
+        <ErrorBoundary>
+          <Footer />
+        </ErrorBoundary>
       </div>
 
       <Dialog
         PaperProps={{
-          className: "dialogStyle",
+          className: "dialogStyle"
         }}
         open={openNewUpload}
         onClose={() => setOpenNewUpload(false)}
@@ -89,7 +93,7 @@ function SideBar() {
           style={{
             backgroundColor: "var(--bg-color)",
             textAlign: "center",
-            color: "var(--color)",
+            color: "var(--color)"
           }}
         >
           <AiOutlineClose
