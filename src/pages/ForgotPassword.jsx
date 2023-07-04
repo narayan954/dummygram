@@ -19,36 +19,36 @@ const ForgotPassword = () => {
     auth
       .sendPasswordResetEmail(email)
       .then(() => {
-        playSuccessSound()
+        playSuccessSound();
         enqueueSnackbar("Check your mail and change the pasword.", {
           variant: "success",
         });
       })
       .catch((error) => {
         if (error.code === "auth/invalid-email") {
-          playErrorSound()
+          playErrorSound();
           enqueueSnackbar("Invalid email address", {
             variant: "error",
           });
         } else if (error.code === "auth/user-not-found") {
-          playErrorSound()
+          playErrorSound();
           enqueueSnackbar("User not found", {
             variant: "error",
           });
         } else if (error.code === "auth/wrong-password") {
-          playErrorSound()
+          playErrorSound();
           enqueueSnackbar("Wrong password", {
             variant: "error",
           });
         } else if (
           error.code === "auth/account-exists-with-different-credential"
         ) {
-          playErrorSound()
+          playErrorSound();
           enqueueSnackbar("Account exists with a different credential", {
             variant: "error",
           });
         } else {
-          playErrorSound()
+          playErrorSound();
           enqueueSnackbar("Error Occured!", {
             variant: "error",
           });

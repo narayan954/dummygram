@@ -11,7 +11,11 @@ import {
 } from "@mui/material";
 import { Post, SideBar } from "../../components";
 import { auth, db, storage } from "../../lib/firebase";
-import { playSuccessSound, playErrorSound, playTapSound } from "../../js/sounds";
+import {
+  playSuccessSound,
+  playErrorSound,
+  playTapSound,
+} from "../../js/sounds";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";

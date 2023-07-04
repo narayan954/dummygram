@@ -10,7 +10,7 @@ import { useSnackbar } from "notistack";
 export const Feedback = () => {
   const form = useRef(null);
   const { enqueueSnackbar } = useSnackbar();
-  
+
   const sendEmail = (e) => {
     e.preventDefault();
 

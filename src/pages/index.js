@@ -6,4 +6,12 @@ import Profile from "./Profile";
 import SignupScreen from "./Signup";
 import Settings from "./Settings";
 
-export { LoginScreen, PostView, Profile, SignupScreen, About, Feedback, Settings };
+export {
+  LoginScreen,
+  PostView,
+  Profile,
+  SignupScreen,
+  About,
+  Feedback,
+  Settings,
+};

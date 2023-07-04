@@ -1,12 +1,15 @@
-import React from 'react'
-import "./index.css"
-import { SettingsSidebar, SoundSetting } from '../../components/SettingsComponents'
-import { Routes, Route, Outlet } from "react-router-dom"
+import React from "react";
+import "./index.css";
+import {
+  SettingsSidebar,
+  SoundSetting,
+} from "../../components/SettingsComponents";
+import { Routes, Route, Outlet } from "react-router-dom";
 
 const Settings = () => {
   return (
-    <div className='settings-container'>
-      <Outlet/>
+    <div className="settings-container">
+      <Outlet />
       <Routes>
         <Route path="/" element={<SettingsSidebar />}>
           <Route index element={<SoundSetting />} />
@@ -14,7 +17,7 @@ const Settings = () => {
         </Route>
       </Routes>
     </div>
-  )
-}
+  );
+};
 
-export default Settings
+export default Settings;
