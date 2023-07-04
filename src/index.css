@@ -1,9 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
+body {
+  transition: all 1s ease;
+}
+
 :root {
   --bg-color: rgb(249, 248, 248);
   --text-primary: blue;
-  --text-secondary: black; /* TODO: Fix */
+  --text-secondary: black;
+  /* TODO: Fix */
   --color: black;
   --filter-img: none;
   --sidebar-link-hover: rgba(0, 0, 0, 0.05);
@@ -14,12 +19,14 @@
   --profile-box-shadow: 0 0 6px 0 black;
   --profile-divider: "";
   --logo-text-shadow: none;
+
 }
 
 .darkmode {
   --bg-color: #1c2128;
   --text-primary: white;
-  --text-secondary: black; /* TODO: Fix */
+  --text-secondary: black;
+  /* TODO: Fix */
   --color: rgb(226, 226, 226);
   --filter-img: invert(100%);
   --sidebar-link-hover: rgba(255, 255, 255, 0.15);
@@ -30,6 +37,7 @@
   --profile-box-shadow: 0 0 6px white;
   --profile-divider: #898989;
   --logo-text-shadow: 0 0 10px #eeeeee, 0 0 20px #ff4da6, 0 0 30px #ff4da6;
+
 }
 
 * {
