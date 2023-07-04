@@ -20,9 +20,10 @@ import { successSound } from "./assets/sounds";
 import { useSnackbar } from "notistack";
 
 // ------------------------------------ Pages ----------------------------------------------------
-const About = React.lazy(() => import("./pages/About"));
+const About = React.lazy(() => import("./pages/FooterPages/About"));
+const Guidelines = React.lazy(() => import("./pages/FooterPages/Guidelines"));
 const SearchBar = React.lazy(() => import("./components/SearchBar"));
-const Feedback = React.lazy(() => import("./pages/Feedback"));
+const Feedback = React.lazy(() => import("./pages/FooterPages/Feedback"));
 const LoginScreen = React.lazy(() => import("./pages/Login"));
 const PostView = React.lazy(() => import("./pages/PostView"));
 const Profile = React.lazy(() => import("./pages/Profile"));
@@ -328,6 +329,15 @@ function App() {
               element={
                 <ErrorBoundary inApp={true}>
                   <Feedback />
+                </ErrorBoundary>
+              }
+            />
+
+            <Route
+              path="/dummygram/guidelines"
+              element={
+                <ErrorBoundary inApp={true}>
+                  <Guidelines />
                 </ErrorBoundary>
               }
             />

@@ -1,10 +1,11 @@
 import "./index.css";
+import "../design.css";
 
 import React, { useRef } from "react";
 
-import { SideBar } from "../../components";
+import { SideBar } from "../../../components";
 import emailjs from "@emailjs/browser";
-import { successSound } from "../../assets/sounds";
+import { successSound } from "../../../assets/sounds";
 import { useSnackbar } from "notistack";
 
 export const Feedback = () => {
@@ -43,7 +44,12 @@ export const Feedback = () => {
       <div className="feedback-form-container">
         <span className="grad3 grad"></span>
         <span className="grad4 grad"></span>
-        <form ref={form} onSubmit={sendEmail} id="feedback_form">
+        <form
+          ref={form}
+          onSubmit={sendEmail}
+          className="glassmorphism-effect"
+          id="feedback_form"
+        >
           <label>Name</label>
           <input
             type="text"
