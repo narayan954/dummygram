@@ -1,7 +1,11 @@
 import "react-lazy-load-image-component/src/effects/blur.css";
 import "./index.css";
 
-import { DialogBox, Flexbetween } from "../../reusableComponents";
+import {
+  DialogBox,
+  ErrorBoundary,
+  Flexbetween,
+} from "../../reusableComponents";
 import {
   Divider,
   Paper,
@@ -10,17 +14,18 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { doc, updateDoc } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { lazy, useEffect, useState } from "react";
 
-import CommentBox from "./CommentBox";
-import CommentDialogBox from "./CommentDialogBox";
-import CommentHolder from "./CommentHolder";
-import ImgBox from "./ImgBox";
-import PostHeader from "./PostHeader";
-import PostNav from "./PostNav";
 import { db } from "../../lib/firebase";
 import firebase from "firebase/compat/app";
 import { useTheme } from "@mui/material/styles";
+
+const PostHeader = lazy(() => import("./PostHeader"));
+const CommentBox = lazy(() => import("./CommentBox"));
+const CommentDialogBox = lazy(() => import("./CommentDialogBox"));
+const CommentHolder = lazy(() => import("./CommentHolder"));
+const ImgBox = lazy(() => import("./ImgBox"));
+const PostNav = lazy(() => import("./PostNav"));
 
 function Post(prop) {
   const { postId, user, post, shareModal, setLink, setPostText, rowMode } =
@@ -173,23 +178,27 @@ function Post(prop) {
           "rgba(144, 93, 185, 0.8) 0px 3px 6px, rgba(144, 93, 185, 0.8) 0px 3px 6px",
       }}
     >
-      <PostHeader
-        user={user}
-        postData={post}
-        postHasImages={postHasImages}
-        postId={postId}
-        timestamp={timestamp}
-      />
+      <ErrorBoundary>
+        <PostHeader
+          user={user}
+          postData={post}
+          postHasImages={postHasImages}
+          postId={postId}
+          timestamp={timestamp}
+        />
+      </ErrorBoundary>
       <Divider />
       <div className="post__container">
-        <ImgBox
-          postHasImages={postHasImages}
-          postImages={postImages}
-          postId={postId}
-          likesHandler={likesHandler}
-          caption={caption}
-        />
-
+        <ErrorBoundary>
+          <ImgBox
+            postHasImages={postHasImages}
+            postImages={postImages}
+            postId={postId}
+            likesHandler={likesHandler}
+            caption={caption}
+          />
+        </ErrorBoundary>
+        <Divider />
         <Flexbetween>
           <Typography
             marginLeft={1}
@@ -211,7 +220,7 @@ function Post(prop) {
 
         {user && (
           <form className="post__commentBox">
-            <>
+            <ErrorBoundary>
               <PostNav
                 fullScreen={fullScreen}
                 likesHandler={likesHandler}
@@ -224,8 +233,8 @@ function Post(prop) {
                 shareModal={shareModal}
                 caption={caption}
               />
-            </>
-            <>
+            </ErrorBoundary>
+            <ErrorBoundary>
               <CommentHolder
                 showEmojis={showEmojis}
                 setShowEmojis={setShowEmojis}
@@ -235,12 +244,13 @@ function Post(prop) {
                 setComment={setComment}
                 postComment={postComment}
               />
-
-              <DialogBox
-                open={isCommentOpen}
-                onClose={handleCommentClose}
-                title="All Comments"
-              >
+            </ErrorBoundary>
+            <DialogBox
+              open={isCommentOpen}
+              onClose={handleCommentClose}
+              title="All Comments"
+            >
+              <ErrorBoundary>
                 <CommentDialogBox
                   Item={Item}
                   postHasImages={postHasImages}
@@ -256,6 +266,8 @@ function Post(prop) {
                   deleteComment={deleteComment}
                   deleteCommentID={deleteCommentID}
                 />
+              </ErrorBoundary>
+              <ErrorBoundary>
                 <CommentBox
                   setShowEmojis={setShowEmojis}
                   showEmojis={showEmojis}
@@ -265,8 +277,8 @@ function Post(prop) {
                   postComment={postComment}
                   user={user}
                 />
-              </DialogBox>
-            </>
+              </ErrorBoundary>
+            </DialogBox>
           </form>
         )}
       </div>
