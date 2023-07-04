@@ -51,7 +51,8 @@ const CommentBox = ({
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             style={{
-              backgroundColor: "var(--bg-color)",
+              // backgroundColor: "var(--bg-color)",
+              background: "transparent",
               color: "var(--color)",
               borderRadius: "11px",
               marginTop: "4px",

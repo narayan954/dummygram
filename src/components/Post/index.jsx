@@ -168,7 +168,7 @@ function Post(prop) {
   return (
     <div
       className={`${rowMode ? "post" : "postColumn"}`}
-      style={{ boxShadow: "var(--post-box-shadow)" }}
+      style={{ boxShadow: "rgba(144, 93, 185, 0.8) 0px 3px 6px, rgba(144, 93, 185, 0.8) 0px 3px 6px" }}
     >
       <PostHeader
         user={user}
