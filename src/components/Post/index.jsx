@@ -187,23 +187,23 @@ function Post(prop) {
           caption={caption}
         />
 
-        <Divider />
         <Flexbetween>
-          <Typography marginLeft={1} fontSize={13} sx={{ color: "skyblue" }}>
+          <Typography marginLeft={1} fontSize={13} padding={1} sx={{ color: "grey" }}>
             {likesNo} {likesNo > 1 ? "Likes" : "Like"}
           </Typography>
           <Typography
-            sx={{ color: "skyblue", cursor: "pointer" }}
+            sx={{ color: "grey", cursor: "pointer" }}
             fontSize={13}
+            paddingRight={1}
             onClick={() => setisCommentOpen((prev) => !prev)}
           >
             {comments.length} {comments.length > 1 ? "comments" : "comment"}
           </Typography>
         </Flexbetween>
-        <Divider />
 
         {user && (
           <form className="post__commentBox">
+            <>
             <PostNav
               fullScreen={fullScreen}
               likesHandler={likesHandler}
@@ -215,8 +215,9 @@ function Post(prop) {
               setPostText={setPostText}
               shareModal={shareModal}
               caption={caption}
-            />
-
+              />
+            </>
+            <>
             <CommentHolder
               showEmojis={showEmojis}
               setShowEmojis={setShowEmojis}
@@ -257,6 +258,7 @@ function Post(prop) {
                 user={user}
               />
             </DialogBox>
+            </>
           </form>
         )}
       </div>

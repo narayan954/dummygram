@@ -51,9 +51,8 @@ const CommentHolder = ({
         value={comment}
         onChange={(e) => setComment(e.target.value)}
         style={{
-          backgroundColor: "var(--bg-color)",
+          backgroundColor: "white",
           color: "var(--color)",
-          borderRadius: "22px",
           margin: "4px 0px",
         }}
       />

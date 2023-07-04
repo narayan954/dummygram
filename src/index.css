@@ -16,6 +16,10 @@
   --logo-text-shadow: none;
 }
 
+.p-0{
+  padding: 0%;
+}
+
 .darkmode {
   --bg-color: #1c2128;
   --text-primary: white;
@@ -167,7 +171,8 @@ input:focus {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  padding: 10px;
+  padding-inline: 10px;
+  padding-top: 0;
 }
 
 .post__avatar {

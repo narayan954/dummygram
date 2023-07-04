@@ -1,17 +1,7 @@
 import "./index.css";
 
-import {
-  Avatar,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  IconButton,
-  Menu,
-  MenuItem,
-} from "@mui/material";
+import { Avatar, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Menu, MenuItem,}
+      from "@mui/material";
 import { doc, updateDoc } from "firebase/firestore";
 
 import { Link } from "react-router-dom";
@@ -79,7 +69,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
   return (
     <div className="post__header">
       <Avatar
-        className="post__avatar avatar flex"
+        className="post__avatar  flex avatar"
         alt={username}
         src={avatar}
         onClick={() => {
@@ -122,8 +112,8 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
           onClose={() => setAnchorEl(null)}
           PaperProps={{
             style: {
-              maxHeight: ITEM_HEIGHT * 4.5,
-              width: "20ch",
+              maxHeight: ITEM_HEIGHT * 4,
+              width: "18ch",
             },
           }}
         >

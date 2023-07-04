@@ -302,9 +302,8 @@ const PostCommentView = ({
                 }
                 ref={commentRef}
                 style={{
-                  backgroundColor: "var(--bg-color)",
                   color: "var(--color)",
-                  borderRadius: "22px",
+                  borderRadius: "16px",
                   margin: "4px 0px",
                 }}
               />

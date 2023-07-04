@@ -53,7 +53,7 @@ const CommentBox = ({
             style={{
               backgroundColor: "var(--bg-color)",
               color: "var(--color)",
-              borderRadius: "22px",
+              borderRadius: "11px",
               marginTop: "4px",
             }}
           />
