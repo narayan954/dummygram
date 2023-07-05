@@ -4,7 +4,7 @@ import ImgUpload from "./ImgUpload";
 import LandingAnimation from "./LandingAnimation";
 import Navbar from "./Navbar";
 import NotFound from "../pages/NotFound";
-import Notifications from "./Notifications";
+import Notifications from "./Notification";
 import Post from "./Post";
 import ReadMore from "./ReadMore";
 import SearchBar from "./SearchBar";
