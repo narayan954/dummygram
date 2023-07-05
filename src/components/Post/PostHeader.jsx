@@ -78,7 +78,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
   return (
     <div className="post__header">
       {user && username === user.displayName && (
-          <Avatar
+        <Avatar
           className="post__avatar avatar flex"
           alt={username}
           src={avatar}
@@ -93,7 +93,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
         />
       )}
       {user && username !== user.displayName && (
-          <Avatar
+        <Avatar
           className="post__avatar avatar flex"
           alt={username}
           src={avatar}
@@ -107,7 +107,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
           }}
         />
       )}
-      
+
       <Link
         to={`/dummygram/posts/${postId}`}
         style={{ textDecoration: "none" }}
@@ -155,35 +155,35 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
           )}
           {user && username === user.displayName && (
             <MenuItem
-            onClick={() => {
-              navigate("/dummygram/myprofile", {
-                state: {
-                  name: username,
-                  avatar: avatar,
-                  uid: uid,
-                  email: email,
-                },
-              });
-            }}
-          >
-            Visit Profile
-          </MenuItem>
+              onClick={() => {
+                navigate("/dummygram/myprofile", {
+                  state: {
+                    name: username,
+                    avatar: avatar,
+                    uid: uid,
+                    email: email,
+                  },
+                });
+              }}
+            >
+              Visit Profile
+            </MenuItem>
           )}
           {user && username !== user.displayName && (
             <MenuItem
-            onClick={() => {
-              navigate(`/dummygram/profile/${user.uid}`, {
-                state: {
-                  name: username,
-                  avatar: avatar,
-                  uid: uid,
-                  email: email,
-                },
-              });
-            }}
-          >
-            Visit Profile
-          </MenuItem>
+              onClick={() => {
+                navigate(`/dummygram/profile/${user.uid}`, {
+                  state: {
+                    name: username,
+                    avatar: avatar,
+                    uid: uid,
+                    email: email,
+                  },
+                });
+              }}
+            >
+              Visit Profile
+            </MenuItem>
           )}
         </Menu>
         <>

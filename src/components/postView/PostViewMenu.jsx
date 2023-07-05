@@ -118,31 +118,31 @@ const PostViewMenu = ({
         )}
         {user && username === user.displayName && (
           <MenuItem
-          onClick={() => {
-            navigate("/dummygram/myprofile", {
-              state: {
-                name: username,
-                avatar: avatar,
-              },
-            });
-          }}
-        >
-          Visit Profile
-        </MenuItem>
+            onClick={() => {
+              navigate("/dummygram/myprofile", {
+                state: {
+                  name: username,
+                  avatar: avatar,
+                },
+              });
+            }}
+          >
+            Visit Profile
+          </MenuItem>
         )}
         {user && username !== user.displayName && (
           <MenuItem
-          onClick={() => {
-            navigate(`/dummygram/profile/${user.uid}`, {
-              state: {
-                name: username,
-                avatar: avatar,
-              },
-            });
-          }}
-        >
-          Visit Profile
-        </MenuItem>
+            onClick={() => {
+              navigate(`/dummygram/profile/${user.uid}`, {
+                state: {
+                  name: username,
+                  avatar: avatar,
+                },
+              });
+            }}
+          >
+            Visit Profile
+          </MenuItem>
         )}
       </Menu>
       <Dialog
