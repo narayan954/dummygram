@@ -8,7 +8,7 @@ const Darkmode = () => {
   function enableDarkMode() {
     //add the class darkmode to the body
     document.body.classList.add("darkmode");
-
+    
     //update darkmode in the localstorage
     localStorage.setItem("darkMode", "enabled");
   }

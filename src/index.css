@@ -20,6 +20,7 @@
   --bg-color: #1c2128;
   --text-primary: white;
   --text-secondary: black; /* TODO: Fix */
+  color:white;
   --color: rgb(226, 226, 226);
   --filter-img: invert(100%);
   --sidebar-link-hover: rgba(255, 255, 255, 0.15);
