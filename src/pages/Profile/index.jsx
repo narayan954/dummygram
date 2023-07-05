@@ -10,13 +10,13 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { auth, db, storage } from "../../lib/firebase";
-import {
-  playSuccessSound,
-  playErrorSound,
-  playTapSound,
-} from "../../js/sounds";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { lazy, useEffect, useState } from "react";
+import {
+  playErrorSound,
+  playSuccessSound,
+  playTapSound,
+} from "../../js/sounds";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
