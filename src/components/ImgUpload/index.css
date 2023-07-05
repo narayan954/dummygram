@@ -1,0 +1,365 @@
+@media only screen and (min-width: 800px) {
+  .dialogStyle {
+    width: 60vw;
+    margin: auto;
+  }
+
+  .app__posts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+  }
+
+  .imageUpload {
+    width: 100%;
+    flex-direction: row;
+  }
+
+  .big_post_view {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .file-input {
+    width: 45%;
+  }
+
+  .post__caption_section {
+    width: 55%;
+    border-left: 2px solid rgb(192, 191, 191);
+  }
+
+  .file-input {
+    gap: 5rem;
+  }
+
+  .slider__View {
+    width: 45%;
+  }
+
+  .sliders_button {
+    width: 38%;
+  }
+
+  .share__button {
+    background: linear-gradient(40deg, #e107c1, #59afc7);
+    width: 100%;
+    color: white;
+    padding: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  .small_post_view {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .imageUpload {
+    width: 70vw;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    flex-direction: column;
+  }
+
+  .share__button {
+    background: linear-gradient(40deg, #e107c1, #59afc7);
+    width: 100%;
+    color: white;
+    padding: 10px;
+    font-size: 1rem;
+  }
+
+  .file-input {
+    width: 50vw;
+    height: 60vh;
+    margin: auto;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* padding-top: 20px; */
+    gap: 10vh;
+  }
+
+  .post__caption_section {
+    width: 48vw;
+  }
+
+  .next_button {
+    display: block;
+    background: linear-gradient(40deg, #e107c1, #59afc7);
+    width: 100%;
+    color: white;
+    padding: 0.6rem;
+    font-size: 0.8rem;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    margin-bottom: -20px;
+    cursor: pointer;
+  }
+
+  .sliders_button {
+    width: 80%;
+  }
+
+  .slider__View {
+    height: 50vh;
+    width: 60vw;
+    margin: auto;
+    margin-bottom: 30px;
+    /* width: 16rem; */
+  }
+
+  .big_post_view {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .createNewPost {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color);
+    margin-top: 10px;
+    margin-bottom: 8px;
+  }
+
+  .popupMain button {
+    font-size: 0.8rem;
+    padding: 0.4rem 1rem;
+  }
+
+  .file-input label {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.6rem;
+  }
+}
+
+.back_button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+  font-size: 1rem;
+  background: linear-gradient(40deg, #e107c1, #59afc7);
+  color: white;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+@media only screen and (min-width: 500px) {
+  .createNewPost {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color);
+    margin-top: 10px;
+    margin-bottom: 8px;
+  }
+
+  .crossIcon {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    cursor: pointer;
+  }
+
+  .popupMain button {
+    font-size: 1.1rem;
+    padding: 0.5rem 1.5rem;
+  }
+
+  .file-input label {
+    font-size: 1.1rem;
+    padding: 0.5rem 0.9rem;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .crossIcon {
+    position: absolute;
+    right: 0.6rem;
+    top: 0.7rem;
+    cursor: pointer;
+  }
+}
+
+.post__username {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.post__caption_section {
+  height: 100%;
+}
+
+.post__header {
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  padding: 10px;
+  flex-wrap: wrap;
+}
+
+.post__avatar {
+  margin-right: 10px;
+  border-radius: 50%;
+  width: 30px !important;
+  height: 30px !important;
+  object-fit: contain;
+}
+
+.imageUpload {
+  position: sticky;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* width: 100%; */
+}
+
+.file {
+  opacity: 0;
+  width: 0.1px;
+  height: 0.1px;
+  position: absolute;
+}
+
+.file-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.file-input label {
+  display: block;
+  position: relative;
+  border-radius: 20px;
+  background: linear-gradient(40deg, #e107c1, #59afc7);
+  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s ease-out;
+}
+
+.slider__View {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.sliders_button {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+}
+
+.slider_circle {
+  color: grey;
+  font-size: 18px;
+}
+
+.slider_chevron {
+  color: grey;
+  font-size: 18px;
+}
+
+.button {
+  cursor: pointer;
+  border: 0;
+  border-radius: 4px;
+  font-weight: 600;
+  width: 100%;
+  padding: 10px 0;
+  box-shadow: 0 0 20px rgba(104, 85, 224, 0.2);
+  transition: 0.4s;
+}
+
+.button:hover {
+  color: white;
+  box-shadow: 0 0 20px rgba(104, 85, 224, 0.6);
+  background-color: rgba(104, 85, 224, 1);
+}
+
+input {
+  width: 230px;
+  cursor: pointer;
+  border: 0;
+  border-radius: 4px;
+  font-weight: 600;
+  padding: 10px;
+  margin-top: 10px;
+  box-shadow: 0 0 20px rgba(104, 85, 224, 0.2);
+  border: 1px solid rgba(104, 85, 224, 1);
+  transition: 0.4s;
+}
+
+.popupMain {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: center;
+  /* min-height: 20vh; */
+  box-sizing: border-box;
+}
+
+.openpopup {
+  top: 46%;
+  left: 41.5%;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Semi-transparent black overlay */
+  z-index: 999;
+}
+
+.popupMain button {
+  border-radius: 20px;
+  background: linear-gradient(40deg, #e107c1, #59afc7);
+  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s ease-out;
+  border: none;
+}
+
+.close-btn {
+  margin: 6px;
+  padding: 10px;
+  background: rgb(223, 95, 218);
+  background: linear-gradient(
+    40deg,
+    rgba(223, 95, 218, 1) 53%,
+    rgba(104, 197, 213, 1) 100%
+  );
+  /* border: 1px solid var(--color); */
+  border: none;
+  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: large;
+}
+
+@media screen and (max-width: 500px) {
+  .close-btn {
+    margin-right: 50px;
+    font-size: 1.2em !important;
+  }
+}

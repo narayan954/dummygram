@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap");
+
+.app__header__img {
+  object-fit: contain;
+  width: 150px;
+}
+
+.app__header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  object-fit: contain;
+  border-bottom: 1px solid rgb(219, 219, 219);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: var(--bg-color);
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.button-style {
+  background: linear-gradient(40deg, #e107c1, #59afc7);
+  border-radius: 20px;
+  margin: 10px;
+  margin-right: 10px !important;
+}
+
+.button-style:hover {
+  background: linear-gradient(-40deg, #59afc7, #e107c1);
+}
+
+.nav-menu {
+  background-color: #fff;
+  color: black;
+  padding: 2px;
+  width: fit-content;
+  position: absolute;
+  border-radius: 4px;
+  margin-top: 10rem;
+  margin-right: 4rem;
+  vertical-align: top;
+  border: 1px solid black;
+}
+
+.nav-menu-item {
+  display: flex;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+#dummygram-logo {
+  color: transparent;
+  font-family: "Dancing Script", cursive;
+  font-size: 32px;
+  font-weight: 700;
+  text-shadow: var(--logo-text-shadow);
+  background: linear-gradient(40deg, #ea18cb, #f404d0, #59afc7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  margin-left: 20px;
+  cursor: pointer;
+  width: 150px;
+  border-radius: 0.3rem;
+}

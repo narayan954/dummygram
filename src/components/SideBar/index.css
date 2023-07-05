@@ -1,0 +1,150 @@
+/* sidebar styling */
+
+.sidebar {
+  background: var(--bg-color);
+  position: fixed;
+  width: 17vw;
+  height: 100vh;
+  top: 4.5em;
+  left: 0;
+  border-right: 1px solid rgb(219, 219, 219);
+}
+
+.sidebar-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.sidebar-links {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0 20px;
+}
+
+.active {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-links li {
+  cursor: pointer;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 10px;
+  transition: all 0.5s ease;
+}
+
+.sidebar-links li:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-links li a,
+.sidebar_align {
+  display: flex;
+  align-items: center;
+  color: var(--color);
+  text-decoration: none;
+}
+
+.sidebar .icon {
+  font-size: 30px;
+  transition: all 0.2s ease;
+}
+
+.sidebar-links li:hover .icon {
+  transform: scale(1.1);
+}
+
+.sidebar-links li span {
+  margin-left: 15px;
+}
+
+.sidebar .profile-picture {
+  height: 30px;
+  width: 30px;
+  border-radius: 100%;
+}
+
+footer {
+  margin-block: auto;
+  padding-left: 20px;
+  padding-block: 12px;
+  font-size: 13px;
+  background-color: var(--bg-color);
+}
+
+.sidebar-footer-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  list-style-type: none;
+  flex-wrap: wrap;
+  padding: 0;
+}
+
+.sidebar-footer-container > li {
+  margin-right: 10px;
+}
+
+.footer-link {
+  text-decoration: none;
+  color: #8f8f8f;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+.copyright {
+  margin-top: 10px;
+  color: var(--color);
+}
+
+/* media query */
+
+@media screen and (max-width: 1200px) {
+  .sidebar {
+    width: 8vw;
+  }
+
+  .sidebar-links li a,
+  .sidebar_align {
+    justify-content: center;
+  }
+
+  .sidebar-links li a span,
+  .sidebar_align span {
+    display: none;
+  }
+
+  footer {
+    font-size: 10px;
+    padding-left: 8px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .sidebar {
+    border-top: 1px solid rgb(219, 219, 219);
+    border-right: none;
+    width: 100vw;
+    height: 8vh;
+    top: 92vh;
+    z-index: 2;
+  }
+
+  .sidebar-links {
+    justify-content: space-around;
+    flex-direction: row;
+    height: 8vh;
+  }
+
+  .sidebar-links li {
+    margin: auto;
+  }
+
+  footer {
+    display: none;
+  }
+}
