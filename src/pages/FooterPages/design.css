@@ -54,7 +54,7 @@
 }
 
 .footer-page-para-color {
-  color: var(--text-secondary)
+  color: var(--text-secondary);
 }
 
 @media only screen and (max-width: 650px) {
