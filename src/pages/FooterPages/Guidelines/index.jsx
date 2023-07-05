@@ -5,15 +5,15 @@ import { Link } from "react-router-dom";
 
 const Guidelines = () => {
   return (
-    <div className="guidlines-container">
+    <div className="guidlines-container footer-page-para-color">
       <span className="grad1 grad"></span>
       <span className="grad2 grad"></span>
       <span className="grad3 grad about-grad"></span>
       <span className="grad4 grad"></span>
       <div className="glassmorphism-effect guidelines-sub-container">
-        <h1 className="guidelines-heading">GUIDELINES</h1>
+        <h1 className="guidelines-heading footer-page-heading-color">GUIDELINES</h1>
         <div className="guidelines">
-          <h2 className="guidelines-sub-heading">Account Creation</h2>
+          <h2 className="guidelines-sub-heading footer-page-heading-color">Account Creation</h2>
           <ul className="guidelines-box">
             <li>Users must be at least 13 years old to create an account.</li>
             <li>
@@ -27,7 +27,7 @@ const Guidelines = () => {
           </ul>
         </div>
         <div className="guidelines">
-          <h2 className="guidelines-sub-heading">User Conduct</h2>
+          <h2 className="guidelines-sub-heading footer-page-heading-color">User Conduct</h2>
           <ul className="guidelines-box">
             <li>
               <span>Respect for Others:</span> Users must treat others with
@@ -52,7 +52,7 @@ const Guidelines = () => {
           </ul>
         </div>
         <div className="guidelines">
-          <h2 className="guidelines-sub-heading">Intellectual Property</h2>
+          <h2 className="guidelines-sub-heading footer-page-heading-color">Intellectual Property</h2>
           <ul className="guidelines-box">
             <li>
               Users should not post or share copyrighted material without the
@@ -60,12 +60,12 @@ const Guidelines = () => {
             </li>
             <li>
               User can report about any copyright infringement to our{" "}
-              <Link to={"/dummygram/report"}>report</Link> page.
+              <Link to={"/dummygram/report"} className="guideline-link">report</Link> page.
             </li>
           </ul>
         </div>
         <div className="guidelines">
-          <h2 className="guidelines-sub-heading">Safety and Security</h2>
+          <h2 className="guidelines-sub-heading footer-page-heading-color">Safety and Security</h2>
           <ul className="guidelines-box">
             <li>
               <span>Account Security:</span> Users should choose a strong,
@@ -75,7 +75,7 @@ const Guidelines = () => {
               <span>Reporting Inappropriate Behavior:</span> Users is encouraged
               to report any abusive, offensive, or inappropriate behavior they
               encounter on the platform to the{" "}
-              <Link to={"/dummygram/report"}>report</Link> page.
+              <Link to={"/dummygram/report"}  className="guideline-link">report</Link> page.
             </li>
             <li>
               <span>Privacy Settings:</span> Users should have control over
@@ -84,7 +84,7 @@ const Guidelines = () => {
           </ul>
         </div>
         <div className="guidelines">
-          <h2 className="guidelines-sub-heading">Moderation and Enforcement</h2>
+          <h2 className="guidelines-sub-heading footer-page-heading-color">Moderation and Enforcement</h2>
           <ul className="guidelines-box">
             <li>
               <span>Content Moderation:</span> The platform have a system in
@@ -94,7 +94,7 @@ const Guidelines = () => {
             <li>
               <span>Reporting System:</span> Users can easily report to
               violations or inappropriate behavior through our{" "}
-              <Link to={"/dummygram/report"}>report</Link> page.
+              <Link to={"/dummygram/report"}  className="guideline-link">report</Link> page.
             </li>
             <li>
               <span>Enforcement Actions:</span> The platform should outline the
@@ -104,7 +104,7 @@ const Guidelines = () => {
           </ul>
         </div>
         <div className="guidelines">
-          <h2 className="guidelines-sub-heading">Data Privacy and Security</h2>
+          <h2 className="guidelines-sub-heading footer-page-heading-color">Data Privacy and Security</h2>
           <ul className="guidelines-box">
             <li>
               <span>User Data Protection:</span> Users' personal information is
@@ -118,7 +118,7 @@ const Guidelines = () => {
           </ul>
         </div>
         <div className="guidelines">
-          <h2 className="guidelines-sub-heading">Legal Compliance</h2>
+          <h2 className="guidelines-sub-heading footer-page-heading-color">Legal Compliance</h2>
           <ul className="guidelines-box">
             <li>
               Users should comply with all applicable laws and regulations while
@@ -131,7 +131,7 @@ const Guidelines = () => {
           </ul>
         </div>
         <div className="guidelines">
-          <h2 className="guidelines-sub-heading">Updates to Guidelines</h2>
+          <h2 className="guidelines-sub-heading footer-page-heading-color">Updates to Guidelines</h2>
           <ul className="guidelines-box">
             <li>
               The platform reserve the right to update the guidelines as needed
