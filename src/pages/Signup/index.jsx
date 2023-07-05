@@ -9,10 +9,9 @@ import {
   googleProvider,
   storage,
 } from "../../lib/firebase";
-import { errorSound, successSound } from "../../assets/sounds";
-import { playSuccessSound, playErrorSound } from "../../js/sounds";
 import { faGoogle, faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
 import { getModalStyle, useStyles } from "../../App";
+import { playErrorSound, playSuccessSound } from "../../js/sounds";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
