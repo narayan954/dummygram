@@ -90,7 +90,7 @@ export default function ImgUpload(props) {
       await db
         .collection("users")
         .doc(props.user.uid)
-        .set({
+        .update({
           posts: firebase.firestore.FieldValue.arrayUnion(postId), // Use postId instead of postRef.id
         });
 
