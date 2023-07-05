@@ -69,7 +69,7 @@ const CommentBox = ({
               textTransform: "uppercase",
             }}
           >
-            <Send />
+            <Send style={{color:"var(--color"}}/>
           </IconButton>
         </form>
       )}
