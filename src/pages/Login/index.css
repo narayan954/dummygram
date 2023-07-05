@@ -139,8 +139,8 @@
 }
 
 .google__fb--login .google {
-  background-color: #DB4437;
-  border: 1px solid #DB4437;
+  background-color: #db4437;
+  border: 1px solid #db4437;
 }
 .google__fb--login .facebook {
   background-color: #3b5998;
@@ -148,7 +148,7 @@
 }
 .google__fb--login .google:hover {
   background-color: transparent;
-  color: #DB4437;
+  color: #db4437;
 }
 .google__fb--login .facebook:hover {
   background-color: transparent;

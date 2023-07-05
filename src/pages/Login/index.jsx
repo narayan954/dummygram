@@ -3,13 +3,13 @@ import "./index.css";
 import React, { useState } from "react";
 import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
 import { auth, db, facebookProvider, googleProvider } from "../../lib/firebase";
+import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 
 import Facebook from "../../assets/facebook.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Google from "../../assets/goggle.svg";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
-import { faGoogle, faFacebookF } from "@fortawesome/free-brands-svg-icons";
 import logo from "../../assets/logo.webp";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
@@ -246,15 +246,19 @@ const LoginScreen = () => {
                   type="submit"
                   onClick={signInWithGoogle}
                 >
-                  <FontAwesomeIcon icon={faGoogle} className="google-icon" /> Sign in with Google
+                  <FontAwesomeIcon icon={faGoogle} className="google-icon" />{" "}
+                  Sign in with Google
                 </button>
                 <button
                   className="other__login facebook"
                   type="submit"
                   onClick={signInWithFacebook}
                 >
-                  <FontAwesomeIcon icon={faFacebookF} className="facebook-icon" /> Sign in with
-                  Facebook
+                  <FontAwesomeIcon
+                    icon={faFacebookF}
+                    className="facebook-icon"
+                  />{" "}
+                  Sign in with Facebook
                 </button>
               </div>
             </div>
