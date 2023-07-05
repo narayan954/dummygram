@@ -5,7 +5,7 @@ import React, { useRef } from "react";
 
 import { SideBar } from "../../../components";
 import emailjs from "@emailjs/browser";
-import { playSuccessSound } from "../../js/sounds";
+import { playSuccessSound } from "../../../js/sounds";
 import { useSnackbar } from "notistack";
 
 export const Feedback = () => {
