@@ -10,13 +10,13 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { auth, db, storage } from "../../lib/firebase";
-import {
-  playSuccessSound,
-  playErrorSound,
-  playTapSound,
-} from "../../js/sounds";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { lazy, useEffect, useState } from "react";
+import {
+  playErrorSound,
+  playSuccessSound,
+  playTapSound,
+} from "../../js/sounds";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
@@ -92,7 +92,8 @@ function Profile() {
           const notificationData = {
             recipient: targetUserUid,
             sender: currentUserUid,
-            message: `You have received a friend request from ${auth?.currentUser?.displayName}.`,
+            message: `You have received a friend request`,
+            senderName: auth?.currentUser?.displayName,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
           };
           db.collection("users")
