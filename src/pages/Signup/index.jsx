@@ -57,7 +57,7 @@ const SignupScreen = () => {
     if (!regex.test(name)) {
       setUsernameAvailable(false);
     } else {
-      debounce(findUsernameInDB);
+      debounce(findUsernameInDB());
     }
   };
 
