@@ -1,15 +1,15 @@
+import Caption from "./Caption.jsx";
 import { ImageSlider } from "../../reusableComponents";
 import React from "react";
 import { ReadMore } from "../index";
-import Caption from "./Caption.jsx";
 
 const ImgBox = ({
-                  postHasImages,
-                  postImages,
-                  likesHandler,
-                  caption,
-                  postId
-                }) => {
+  postHasImages,
+  postImages,
+  likesHandler,
+  caption,
+  postId,
+}) => {
   return (
     <div>
       {postHasImages ? (
@@ -29,7 +29,9 @@ const ImgBox = ({
               </p>
             </>
           ) : (
-            <p className="post_caption"><Caption caption={caption} /></p>
+            <p className="post_caption">
+              <Caption caption={caption} />
+            </p>
           )}
         </div>
       )}
@@ -40,7 +42,11 @@ const ImgBox = ({
           </p>
         ) : (
           caption &&
-          postHasImages && <p style={{ color: "var(--color)" }}><Caption caption={caption} /></p>
+          postHasImages && (
+            <p style={{ color: "var(--color)" }}>
+              <Caption caption={caption} />
+            </p>
+          )
         )}
       </div>
     </div>
