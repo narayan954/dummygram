@@ -28,6 +28,7 @@
 .greetings p {
   font-size: 1.2rem;
   padding-top: 0.1rem;
+  line-height: 1.2;
 }
 .form__bottom {
   display: flex;
@@ -166,7 +167,15 @@
   color: rgb(104, 85, 224);
   cursor: pointer;
 }
-
+.have-account{
+  text-align: center;
+}
+.img-outer{
+  margin: 0 auto;
+}
+#file{
+  width: 10rem;
+}
 /* media query for 840px */
 @media (max-width: 840px) {
   .login__section {

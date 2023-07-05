@@ -1,4 +1,11 @@
 import "./index.css";
+import "../Login/index";
+
+import logo from "../../assets/logo.webp";
+import blank_profile from "../../assets/blank-profile.webp";
+import loginRight from "../../assets/login-right.webp";
+import Google from "../../assets/goggle.svg";
+import Facebook from "../../assets/facebook.svg";
 
 import React, { useRef, useState } from "react";
 import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
@@ -283,122 +290,161 @@ const SignupScreen = () => {
   };
 
   return (
-    <div className="flex signup-container">
-      <div style={modalStyle} className={classes.paper}>
-        <form className="modal__signup">
-          <input
-            type="file"
-            id="file"
-            className="file"
-            onChange={handleChange}
-            accept="image/*"
-          />
-          <label htmlFor="file">
-            <div className="img-outer">
-              {address ? (
-                <img
-                  src={URL.createObjectURL(image)}
-                  alt="profile pic"
-                  className="img-inner"
+    <section className="login__section">
+      <div className="login__left">
+        <form>
+          <div className="form__top">
+            <img src={logo} alt="dummygram logo" />
+            <div className="greetings">
+              <h3>Hey, hello 👋</h3>
+              <p>Welcome to DummyGram 😊, let's get your account created</p>
+            </div>
+          </div>
+
+          <div className="form__bottom">
+            <div className="input__group">
+                <label htmlFor="file">
+                  <div className="img-outer">
+                    {address ? (
+                      <img
+                        src={URL.createObjectURL(image)}
+                        alt="profile pic"
+                        className="img-inner"
+                      />
+                    ) : (
+                      
+                      <img
+                        src={blank_profile}
+                        alt="profile pic"
+                        className="img-inner"
+                      />
+                    )}
+                  </div>
+                </label>
+                <input
+                  type="file"
+                  id="file"
+                  className="file"
+                  onChange={handleChange}
+                  accept="image/*"
+                  required
                 />
-              ) : (
-                <div className="img-inner">Profile Picture</div>
+            </div>
+            <div className="input__group">
+              <label htmlFor="username">Username</label>
+              <input
+              id="username"
+              type="text"
+              placeholder="Enter your Username"
+              value={username}
+              onChange={(e) => {
+                usernameRef.current = e.target.value.trim();
+                setUsername(e.target.value.trim());
+                checkUsername();
+              }}  
+                className={
+                  usernameAvailable ? null : "error-border"
+                }
+                required
+              />
+              {!usernameAvailable && (
+                <p className="error">Username not availaible</p>
               )}
             </div>
-          </label>
 
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => {
-              usernameRef.current = e.target.value.trim();
-              setUsername(e.target.value.trim());
-              checkUsername();
-            }}
-            className={
-              usernameAvailable ? "username-available" : "error-border"
-            }
-          />
-          {!usernameAvailable && (
-            <p className="error">Username not availaible</p>
-          )}
-          <input
-            type="text"
-            placeholder="Full Name"
-            value={fullName}
-            name="name"
-            onChange={(e) => {
-              setFullName(e.target.value);
-              handleError(e.target.name, e.target.value);
-            }}
-            className={error.nameError ? "error-border" : null}
-          />
+            <div className="input__group">
+              <label htmlFor="full__name">Full name</label>
+              <input
+                id="full__name"
+                type="text"
+                placeholder="Enter your Fullname"
+                value={fullName}
+                name="name"
+                onChange={(e) => {
+                  setFullName(e.target.value);
+                  handleError(e.target.name, e.target.value);
+                }}
+                className={error.nameError ? "error-border" : null}
+                required
+              />
           {error.name && error.nameError && (
             <p className="error">{error.nameError}</p>
           )}
-          <input
-            type="email"
-            placeholder=" Email"
-            name="email"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              handleError(e.target.name, e.target.value);
-            }}
-            className={error.emailError ? "error-border" : null}
-          />
+          </div>
+            
+            <div className="input__group">
+              <label htmlFor="email">Email</label>
+              <input
+                id="email"
+                type="email"
+                placeholder="Enter your email"
+                name="email"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  handleError(e.target.name, e.target.value);
+                }}
+                className={error.emailError ? "error-border" : null}
+                    required
+              />
           {error.email && error.emailError && (
             <p className="error">{error.emailError}</p>
           )}
-          <div
-            className={
+          </div>
+
+          <div className="input__group">
+              <label htmlFor="password">Password</label>
+              <div id="password-container"  className={
               error.passwordError
-                ? "error-border password-container"
-                : "password-container"
-            }
-          >
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder=" Password"
-              value={password}
-              name="password"
-              onChange={(e) => {
-                setPassword(e.target.value);
-                handleError(e.target.name, e.target.value);
-              }}
-              className="password-input "
-            />
+                ? "error-border pass__input__container"
+                : "pass__input__container"
+                }>
+                <input
+                id="password"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    handleError(e.target.name, e.target.value);
+                  }}
+                  required
+                />
             <button
               onClick={(e) => handleShowPassword(e)}
               className="show-password"
             >
               {showPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
             </button>
-          </div>
-          {error.password && error.passwordError && (
+              </div>
+              {error.password && error.passwordError && (
             <p className="error">{error.passwordError}</p>
           )}
+        </div>
+        {/* confirm password */}
 
-          {/* Confirm password */}
-          <div
-            className={
-              error.confirmPasswordError
-                ? "error-border password-container"
-                : "password-container"
-            }
-          >
-            <input
-              type={showConfirmPassword ? "text" : "password"}
-              placeholder="Confirm Password"
-              value={confirmPassword}
-              name="confirmPassword"
-              onChange={(e) => {
-                setConfirmPassword(e.target.value);
-                handleError(e.target.name, e.target.value);
-              }}
-              className="password-input"
-            />
+          <div className="input__group">
+              <label htmlFor="confirmpassword">Confirm Password</label>
+              <div id="password-container" 
+                className={
+                  error.confirmPasswordError
+                    ? "error-border pass__input__container"
+                    : "pass__input__container"
+                }
+              >
+                <input
+                id="confirmpassword"
+                name="confirmPassword"
+                type={showConfirmPassword ? "text" : "password"}
+                  placeholder="Confirm your Password"
+                  value={confirmPassword}
+                  onChange={(e) => {
+                    setConfirmPassword(e.target.value);
+                    handleError(e.target.name, e.target.value);
+                  }}
+                  required
+                />
             <button
               onClick={(e) => handleShowConfirmPassword(e)}
               className="show-password"
@@ -409,31 +455,50 @@ const SignupScreen = () => {
           {error.confirmPassword && error.confirmPasswordError && (
             <p className="error">{error.confirmPasswordError}</p>
           )}
-          <button type="submit" onClick={signUp} className="button signup">
+        </div>
+        <button
+          type="submit" 
+          onClick={signUp}              
+          className="action__btn login__btn"
+        >
             Sign Up <FontAwesomeIcon icon={faRightToBracket} />
-          </button>
-          <div className="or">
+        </button>
+
+        <div className="other__login__method">
+          <div className="or option__divider">
             <div className="line" />
-            <div style={{ padding: "9px" }}>or</div>
+              <div style={{ padding: "5px 9px" }}>or</div>
             <div className="line" />
           </div>
-          <div className="google-fb-login">
-            <button className="button" onClick={signInWithGoogle}>
-              <FontAwesomeIcon icon={faGoogle} />
+          <div className="google__fb--login">
+            <button
+              className="other__login"
+              onClick={signInWithGoogle}
+              >
+                <img src={Google} alt="Google Signin" /> Sign in with Google
             </button>
-            <button className="button" onClick={signInWithFacebook}>
-              <FontAwesomeIcon icon={faSquareFacebook} />
+            <button
+              className="other__login"
+              onClick={signInWithFacebook}
+            >
+                  <img src={Facebook} alt="Facebook Signin" /> Sign in with
+                  Facebook
             </button>
           </div>
           <div className="have-account">
             Already have an account?{" "}
-            <span role={"button"} onClick={navigateToLogin}>
-              Sign in
-            </span>
+              <span role={"button"} onClick={navigateToLogin}>
+                Sign in!
+              </span>
           </div>
+        </div>  
+      </div>
         </form>
       </div>
-    </div>
+      <div className="login__right">
+        <img src={loginRight} alt="website image" />
+      </div>
+    </section>
   );
 };
 
