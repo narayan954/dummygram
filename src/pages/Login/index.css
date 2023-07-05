@@ -242,8 +242,8 @@
   }
 }
 
-/* media query for 675px */
-@media (max-width: 675px) {
+/* media query for 768px */
+@media (max-width: 768px) {
   .or {
     width: 100%;
   }
