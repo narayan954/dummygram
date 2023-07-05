@@ -180,6 +180,8 @@ input:focus {
 
 .modal__signup__img {
   width: 80%;
+  border-radius: 0.3rem;
+  margin-bottom: 10px;
 }
 
 .modal__signup {
@@ -190,6 +192,16 @@ input:focus {
 
 .modal__signup button {
   margin-top: 10px;
+}
+
+/* notification card */
+.notification_card {
+  width: 100%;
+  margin: 5px 10px;
+  background-color: rgb(193, 0, 0);
+  color: white;
+  border-radius: 10px;
+  padding: 5px;
 }
 
 /* image upload css */

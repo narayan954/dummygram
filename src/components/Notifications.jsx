@@ -1,9 +1,9 @@
 import { Loader, ShareModal } from "../reusableComponents";
 import React, { useEffect, useState } from "react";
+import { auth, db } from "../lib/firebase";
 
 import { Box } from "@mui/material";
 import SideBar from "./SideBar";
-import { db } from "../lib/firebase";
 
 function Notifications() {
   const [openShareModal, setOpenShareModal] = useState(false);
@@ -14,6 +14,8 @@ function Notifications() {
 
   useEffect(() => {
     const unsubscribe = db
+      .collection("users")
+      .doc(auth?.currentUser?.uid)
       .collection("notifications")
       .orderBy("timestamp", "desc")
       .onSnapshot((snapshot) => {

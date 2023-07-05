@@ -7,13 +7,15 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineClose } from "react-icons/ai";
 import { Dialog } from "@mui/material";
+import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import Footer from "./Footer";
-import GitHubIcon from "@mui/icons-material/GitHub";
 import HomeIcon from "@mui/icons-material/Home";
 import ImgUpload from "../ImgUpload";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import SearchIcon from "@mui/icons-material/Search";
 import { auth } from "../../lib/firebase";
+
+const Footer = React.lazy(() => import("./Footer"));
 
 function SideBar() {
   const navigate = useNavigate();
@@ -32,6 +34,11 @@ function SideBar() {
           <li onClick={() => setOpenNewUpload(true)}>
             <div className="sidebar_align">
               <AddCircleOutlineIcon className="icon" /> <span>New Post</span>
+            </div>
+          </li>
+          <li onClick={() => navigate("/dummygram/search")}>
+            <div className="sidebar_align">
+              <SearchIcon className="icon" /> <span>Search</span>
             </div>
           </li>
           <li onClick={() => navigate("/dummygram/favourites")}>
@@ -56,12 +63,23 @@ function SideBar() {
             }
           >
             <div className="sidebar_align">
-              <AccountCircleIcon className="icon" /> <span>Profile</span>
+              {user.photoURL ? (
+                <img
+                  src={user.photoURL}
+                  alt="profile picture"
+                  className="profile-picture"
+                />
+              ) : (
+                <AccountCircleIcon className="icon" />
+              )}{" "}
+              <span>Profile</span>
             </div>
           </li>
         </ul>
         <hr />
-        <Footer />
+        <ErrorBoundary>
+          <Footer />
+        </ErrorBoundary>
       </div>
 
       <Dialog
