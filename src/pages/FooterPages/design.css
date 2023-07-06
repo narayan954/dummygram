@@ -50,6 +50,78 @@
   border-radius: 32% 68% 74% 26% / 20% 65% 35% 80%;
 }
 
+.grad5 {
+  top: 95%;
+  right: -5%;
+  width: 200px;
+  aspect-ratio: 1/2;
+  transform: rotateZ(15deg);
+  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
+}
+
+.grad6 {
+  top: 80%;
+  right: 90%;
+  width: 200px;
+  aspect-ratio: 3/2;
+  transform: rotateZ(15deg);
+  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
+}
+
+.grad7 {
+  top: 60%;
+  right: -40%;
+  width: 200px;
+  aspect-ratio: 1;
+  transform: rotateZ(15deg);
+  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
+}
+
+.grad8 {
+  top: 45%;
+  right: 90%;
+  width: 200px;
+  aspect-ratio: 1/2;
+  transform: rotateZ(15deg);
+  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
+}
+
+.grad9 {
+  top: 55%;
+  right: -80%;
+  width: 200px;
+  aspect-ratio: 1/2;
+  transform: rotateZ(15deg);
+  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
+}
+
+.grad10 {
+  top: 75%;
+  right: -10%;
+  width: 200px;
+  aspect-ratio: 1;
+  transform: rotateZ(15deg);
+  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
+}
+
+.grad11 {
+  top: 35%;
+  right: -40%;
+  width: 200px;
+  aspect-ratio: 1/2;
+  transform: rotateZ(15deg);
+  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
+}
+
+.grad12 {
+  top: 25%;
+  right: 50%;
+  width: 200px;
+  aspect-ratio: 1/2;
+  transform: rotateZ(15deg);
+  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
+}
+
 .footer-page-heading-color {
   color: var(--color);
 }

@@ -11,12 +11,18 @@ function Contributor() {
   const isNonMobileScreen = useMediaQuery("(max-width: 800px)");
 
   const getData = async () => {
+    // TODO: Add pagination
     const res = await fetch(
       "https://api.github.com/repos/narayan954/dummygram/contributors?per_page=100"
-    );
+    ); // TODO: Fix this to get all contributors
+
     const data = await res.json();
     const contributorsData = data.filter(
-      (contributor) => !contributor.login.includes("dependabot[bot]")
+      (contributor) =>
+        !contributor.login.includes(
+          "dependabot[bot]",
+          "deepsource-autofix[bot]"
+        )
     );
     setContributors(contributorsData);
   };
