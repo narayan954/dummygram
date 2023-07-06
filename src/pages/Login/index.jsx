@@ -79,88 +79,6 @@ const LoginScreen = () => {
     }
   };
 
-  const signInWithGoogle = (e) => {
-    e.preventDefault();
-    auth
-      .signInWithPopup(googleProvider)
-      .then(async (val) => {
-        const userRef = await db
-          .collection("users")
-          .where("uid", "==", val?.user?.uid);
-        // alert(((await userRef.get()).docs.length))
-
-        if ((await userRef.get()).docs.length < 1) {
-          const usernameDoc = db.collection(`users`);
-          await usernameDoc.doc(auth.currentUser.uid).set({
-            uid: val.user.uid,
-            name: val.user.displayName,
-            photoURL: val.user.photoURL,
-            displayName: val.user.displayName,
-            Friends: [],
-            posts: [],
-          });
-        }
-        playSuccessSound();
-        enqueueSnackbar("Login successful!", {
-          variant: "success",
-        });
-        navigate("/dummygram");
-      })
-      .catch((error) => {
-        if (error.code === "auth/account-exists-with-different-credential") {
-          playErrorSound();
-          enqueueSnackbar("Account exists with a different credential", {
-            variant: "error",
-          });
-        } else {
-          playErrorSound();
-          enqueueSnackbar(error.message, {
-            variant: "error",
-          });
-        }
-      });
-  };
-
-  const signInWithFacebook = (e) => {
-    e.preventDefault();
-    auth
-      .signInWithPopup(facebookProvider)
-      .then(async (val) => {
-        const userRef = await db
-          .collection("users")
-          .where("uid", "==", val?.user?.uid);
-        // alert(((await userRef.get()).docs.length))
-        if ((await userRef.get()).docs.length < 1) {
-          const usernameDoc = db.collection(`users`);
-          await usernameDoc.doc(auth.currentUser.uid).set({
-            uid: val.user.uid,
-            name: val.user.displayName,
-            photoURL: val.user.photoURL,
-            displayName: val.user.displayName,
-            Friends: [],
-            posts: [],
-          });
-        }
-        playSuccessSound();
-        enqueueSnackbar("Login successful!", {
-          variant: "success",
-        });
-        navigate("/dummygram");
-      })
-      .catch((error) => {
-        playErrorSound();
-        if (error.code === "auth/account-exists-with-different-credential") {
-          enqueueSnackbar("Account exists with a different credential", {
-            variant: "error",
-          });
-        } else {
-          enqueueSnackbar(error.message, {
-            variant: "error",
-          });
-        }
-      });
-  };
-
   const navigateToForgot = () => {
     navigate("/dummygram/forgot-password");
   };
@@ -234,34 +152,6 @@ const LoginScreen = () => {
             >
               LogIn <FontAwesomeIcon icon={faRightToBracket} />
             </button>
-            <div className="other__login__method">
-              <div className="or option__divider">
-                <div className="line" />
-                <div className="or-text">or</div>
-                <div className="line" />
-              </div>
-              <div className="google__fb--login">
-                <button
-                  className="other__login google"
-                  type="submit"
-                  onClick={signInWithGoogle}
-                >
-                  <FontAwesomeIcon icon={faGoogle} className="google-icon" />{" "}
-                  Sign in with Google
-                </button>
-                <button
-                  className="other__login facebook"
-                  type="submit"
-                  onClick={signInWithFacebook}
-                >
-                  <FontAwesomeIcon
-                    icon={faFacebookF}
-                    className="facebook-icon"
-                  />{" "}
-                  Sign in with Facebook
-                </button>
-              </div>
-            </div>
             <div className="forgot__new">
               <div className="forgot-pasword">
                 <span role={"button"} onClick={navigateToForgot}>

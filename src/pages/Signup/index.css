@@ -99,3 +99,50 @@
     margin-top: 4em;
   }
 }
+
+
+.username-container {
+  display: none;
+  position: absolute;
+  top: 5%;
+  background: white;
+  z-index: 3;
+  height: 600px;
+  padding: 40px;
+  border: 1px solid #cccaca;
+  justify-content: center;
+  border-radius: 20px;
+  align-items: center;
+  margin: 20px;
+}
+
+.show{
+  display: flex;
+}
+
+.username-sub-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.username-heading {
+  font-size: 35px;
+  text-shadow: 1px 1px 2px rgb(113, 113, 243),
+    1px 1px 2px rgb(108, 108, 108);
+  font-family: cursive;
+}
+
+#get-username-input {
+  width: 100%;
+}
+
+.get-username-btn {
+  width: 104%;
+  padding-block: 10px;
+  margin-left: -3px;
+  color: white;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}

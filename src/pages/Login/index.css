@@ -5,13 +5,14 @@
   font-family: "DM Sans", sans-serif;
   grid-template-columns: 1fr 1fr;
   width: 100vw;
-
+  min-height: 100vh;
   box-sizing: border-box;
 }
 .login__left {
   display: flex;
   gap: 1rem;
   justify-content: center;
+  align-items: center;
   padding: 2.5rem 1rem;
 }
 .form__top {

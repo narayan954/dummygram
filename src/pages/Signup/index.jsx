@@ -28,6 +28,7 @@ const SignupScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [getUsername, setGetUsername] = useState(false);
   const [signingUp, setSigningUp] = useState(false);
   const [image, setImage] = useState(null);
   const [address, setAddress] = useState(null);
@@ -37,7 +38,8 @@ const SignupScreen = () => {
   const [username, setUsername] = useState("");
   const [isOauthSignUp, setIsOauthSignUp] = useState(false);
   const [error, setError] = useState(validate.initialValue);
-  const usernameRef = useRef(null);
+  const usernameRef = useRef("");
+  const signInProvider = useRef("google")
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
@@ -51,19 +53,31 @@ const SignupScreen = () => {
     };
   }
 
-  const checkUsername = () => {
+
+  //Function to check username structure
+  function checkUsername() {
     const name = usernameRef.current;
     const regex = /^[A-Za-z][A-Za-z0-9_]{4,17}$/gi;
     if (!regex.test(name)) {
       setUsernameAvailable(false);
     } else {
-      debounce(findUsernameInDB());
+      const debouncedFunction = debounce(findUsernameInDB);
+      debouncedFunction();
     }
   };
 
+  //To find username in database
+  // const findUsernameInDB = async () => {
+  //   const ref = db.doc(`usernames/${usernameRef.current}`);
+  //   const { exists } = await ref.get();
+  //   console.log(exists)
+  //   setUsernameAvailable(!exists);
+  // };
   const findUsernameInDB = async () => {
-    const ref = db.doc(`usernames/${usernameRef.current}`);
+    const docId = usernameRef.current; // Assuming `usernameRef.current` contains the document ID
+    const ref = db.doc(`usernames/${docId}`);
     const { exists } = await ref.get();
+    console.log(exists);
     setUsernameAvailable(!exists);
   };
 
@@ -105,19 +119,26 @@ const SignupScreen = () => {
     }
 
     if (submitable) {
-      const usernameDoc = db.collection(`users`);
+      const userCollectionRef = db.collection(`users`);
+      const usernameDoc = db.doc(`usernames/${username}`);
+      const batch = db.batch();
       await auth
         .createUserWithEmailAndPassword(email, password)
         .then(async (authUser) => {
           await updateProfile(auth.currentUser, {
             displayName: fullName,
           })
+            .then(batch.set(usernameDoc, { uid: auth.currentUser.uid }))
+            .then(batch.commit())
             .then(
-              await usernameDoc.doc(auth.currentUser.uid).set({
+              await userCollectionRef.doc(auth.currentUser.uid).set({
                 uid: auth.currentUser.uid,
-                name: username,
+                username: username,
+                name: fullName,
+                email: email,
                 photoURL: auth.currentUser.photoURL,
                 posts: [],
+                friends: [],
               })
             )
             .then(() => {
@@ -184,39 +205,16 @@ const SignupScreen = () => {
     }
   };
 
-  const signInWithGoogle = (e) => {
-    e.preventDefault();
+  const signInWithGoogle = () => {
     auth
       .signInWithPopup(googleProvider)
-      .then(async (val) => {
-        setIsOauthSignUp(true);
-        const usernameDoc = db.collection(`users`);
-        await usernameDoc
-          .doc(auth.currentUser.uid)
-          .set({
-            uid: val.user.uid,
-            name: val.user.displayName,
-            photoURL: val.user.photoURL,
-            displayName: val.user.displayName,
-            Friends: [],
-            posts: [],
-          })
-          .then(() => {
-            playSuccessSound();
-            enqueueSnackbar(
-              `Congratulations ${fullName},you have joined Dummygram`,
-              {
-                variant: "success",
-              }
-            );
-            navigate("/dummygram");
-          })
-          .catch((error) => {
-            playErrorSound();
+      .then((val) => {
+        createUserDoc(val)
+          .catch((error) =>
             enqueueSnackbar(error.message, {
               variant: "error",
-            });
-          });
+            })
+          );
       })
       .catch((error) =>
         enqueueSnackbar(error.message, {
@@ -225,41 +223,16 @@ const SignupScreen = () => {
       );
   };
 
-  const signInWithFacebook = (e) => {
-    e.preventDefault();
+  const signInWithFacebook = () => {
     auth
       .signInWithPopup(facebookProvider)
-      .then(async (val) => {
-        setFullName(val?.user?.displayName);
-        setEmail(val?.user?.email);
-        setIsOauthSignUp(true);
-        const usernameDoc = db.collection(`users`);
-        await usernameDoc
-          .doc(auth.currentUser.uid)
-          .set({
-            uid: val.user.uid,
-            name: val.user.displayName,
-            photoURL: val.user.photoURL,
-            displayName: val.user.displayName,
-            Friends: [],
-            posts: [],
-          })
-          .then(() => {
-            playSuccessSound();
-            enqueueSnackbar(
-              `Congratulations ${fullName},you have joined Dummygram`,
-              {
-                variant: "success",
-              }
-            );
-            navigate("/dummygram");
-          })
-          .catch((error) => {
-            playErrorSound();
+      .then((val) => {
+        createUserDoc(val)
+          .catch((error) =>
             enqueueSnackbar(error.message, {
               variant: "error",
-            });
-          });
+            })
+          );
       })
       .catch((error) => {
         playErrorSound();
@@ -268,6 +241,63 @@ const SignupScreen = () => {
         });
       });
   };
+
+  async function createUserDoc(val) {
+    setFullName(val?.user?.displayName);
+    setEmail(val?.user?.email);
+    setIsOauthSignUp(true);
+    const userCollectionRef = db.collection(`users`);
+    const usernameDoc = db.doc(`usernames/${username}`);
+    const batch = db.batch();
+    batch.set(usernameDoc, { uid: val.user.uid })
+    batch.commit()
+    await userCollectionRef
+      .doc(auth.currentUser.uid)
+      .set({
+        uid: val.user.uid,
+        username: username,
+        name: val.user.displayName,
+        email: val.user.email,
+        photoURL: val.user.photoURL,
+        posts: [],
+        friends: [],
+      })
+      .then(() => {
+        playSuccessSound();
+        enqueueSnackbar(
+          `Congratulations ${fullName},you have joined Dummygram`,
+          {
+            variant: "success",
+          }
+        );
+        navigate("/dummygram");
+      })
+      .catch((error) => {
+        playErrorSound();
+        enqueueSnackbar(error.message, {
+          variant: "error",
+        });
+      });
+  }
+
+
+  function authProviderLogin() {
+    console.log(344)
+    if (!usernameAvailable) {
+      playErrorSound()
+      enqueueSnackbar(
+        "Please enter valid username",
+        {
+          variant: "error",
+        }
+      );
+      return;
+    }
+
+    signInProvider.current === "fb" ? signInWithFacebook() : signInWithGoogle()
+  }
+
+
 
   const navigateToLogin = () => {
     navigate("/dummygram/login");
@@ -314,7 +344,7 @@ const SignupScreen = () => {
             onChange={(e) => {
               usernameRef.current = e.target.value.trim();
               setUsername(e.target.value.trim());
-              // checkUsername();
+              checkUsername();
             }}
             className={
               usernameAvailable ? "username-available" : "error-border"
@@ -412,26 +442,65 @@ const SignupScreen = () => {
           <button type="submit" onClick={signUp} className="button signup">
             Sign Up <FontAwesomeIcon icon={faRightToBracket} />
           </button>
-          <div className="or">
-            <div className="line" />
-            <div style={{ padding: "9px" }}>or</div>
-            <div className="line" />
-          </div>
-          <div className="google-fb-login">
-            <button className="button" onClick={signInWithGoogle}>
-              <FontAwesomeIcon icon={faGoogle} />
-            </button>
-            <button className="button" onClick={signInWithFacebook}>
-              <FontAwesomeIcon icon={faSquareFacebook} />
-            </button>
-          </div>
-          <div className="have-account">
-            Already have an account?{" "}
-            <span role={"button"} onClick={navigateToLogin}>
-              Sign in
-            </span>
-          </div>
         </form>
+
+        <div className="or">
+          <div className="line" />
+          <div style={{ padding: "9px" }}>or</div>
+          <div className="line" />
+        </div>
+        <div className="google-fb-login">
+          <button className="button" onClick={() => {
+            signInProvider.current = "google";
+            setGetUsername(true);
+          }}>
+            <FontAwesomeIcon icon={faGoogle} />
+          </button>
+          <button className="button" onClick={() => {
+            signInProvider.current = "fb";
+            setGetUsername(true);
+          }}>
+            <FontAwesomeIcon icon={faSquareFacebook} />
+          </button>
+        </div>
+        <div className="have-account">
+          Already have an account?{" "}
+          <span role={"button"} onClick={navigateToLogin}>
+            Sign in
+          </span>
+        </div>
+      </div>
+
+      <div className={`username-container ${getUsername ? "show" : ""}`}>
+        <div className="username-sub-container">
+          <h2
+            htmlFor="get-username-input"
+            className="username-heading">
+            Let's get a Username for you🤗
+          </h2>
+          <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => {
+              usernameRef.current = e.target.value.trim();
+              setUsername(e.target.value.trim());
+              checkUsername();
+            }}
+            id="get-username-input"
+            className={
+              usernameAvailable ? "username-available" : "error-border"
+            }
+          />
+          {!usernameAvailable && (
+            <p className="error">Username not availaible</p>
+          )}
+          <button
+            className="button-style get-username-btn"
+            onClick={authProviderLogin}>
+            Get it
+          </button>
+        </div>
       </div>
     </div>
   );
