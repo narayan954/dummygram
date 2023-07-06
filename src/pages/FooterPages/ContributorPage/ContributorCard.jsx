@@ -44,7 +44,7 @@ function ContributorCard(props) {
         color="primary"
         fontSize="1.2rem"
         fontFamily="serif"
-        textAlign="center"
+        textalign="center"
         sx={{ marginBottom: "1rem" }}
       >
         {commits} commits

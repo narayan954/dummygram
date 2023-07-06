@@ -22,7 +22,7 @@ const Footer = () => {
         </li>
         <li>
           <Link to="/dummygram/contributors" className="footer-link">
-            Contributors
+            contributors
           </Link>
         </li>
         <li>

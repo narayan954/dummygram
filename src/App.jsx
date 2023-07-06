@@ -425,10 +425,12 @@ function App() {
               }
             />
           </Routes>
-
+          {/* below scroll button must be checked for implementation */}
           {location.pathname === "/dummygram/" ||
           location.pathname === "/dummygram/favourites" ||
-          location.pathname === "/dummygram/about" ? (
+          location.pathname === "/dummygram/about" ||
+          location.pathname === "/dummygram/guidelines" ||
+          location.pathname === "/dummygram/contributors" ? (
             <div>
               <FaArrowCircleUp
                 fill="#777"
