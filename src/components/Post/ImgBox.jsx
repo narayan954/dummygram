@@ -1,3 +1,4 @@
+import Caption from "./Caption.jsx";
 import { ImageSlider } from "../../reusableComponents";
 import React from "react";
 import { ReadMore } from "../index";
@@ -28,7 +29,9 @@ const ImgBox = ({
               </p>
             </>
           ) : (
-            <p className="post_caption">{caption}</p>
+            <p className="post_caption">
+              <Caption caption={caption} />
+            </p>
           )}
         </div>
       )}
@@ -39,7 +42,11 @@ const ImgBox = ({
           </p>
         ) : (
           caption &&
-          postHasImages && <p style={{ color: "var(--color)" }}>{caption}</p>
+          postHasImages && (
+            <p style={{ color: "var(--color)" }}>
+              <Caption caption={caption} />
+            </p>
+          )
         )}
       </div>
     </div>

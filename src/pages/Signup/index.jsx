@@ -57,7 +57,7 @@ const SignupScreen = () => {
     if (!regex.test(name)) {
       setUsernameAvailable(false);
     } else {
-      debounce(findUsernameInDB);
+      debounce(findUsernameInDB());
     }
   };
 
@@ -314,7 +314,7 @@ const SignupScreen = () => {
             onChange={(e) => {
               usernameRef.current = e.target.value.trim();
               setUsername(e.target.value.trim());
-              checkUsername();
+              // checkUsername();
             }}
             className={
               usernameAvailable ? "username-available" : "error-border"

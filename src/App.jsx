@@ -33,9 +33,7 @@ const NotFound = React.lazy(() => import("./pages/NotFound"));
 const Settings = React.lazy(() => import("./pages/Settings"));
 // ------------------------------------- Components ------------------------------------------------
 const Favorite = React.lazy(() => import("./components/Favorite.jsx"));
-const Notifications = React.lazy(() =>
-  import("./components/Notifications.jsx")
-);
+const Notifications = React.lazy(() => import("./components/Notification"));
 const Post = React.lazy(() => import("./components/Post"));
 const SideBar = React.lazy(() => import("./components/SideBar"));
 const Navbar = React.lazy(() => import("./components/Navbar"));

@@ -1,9 +1,12 @@
-import { Loader, ShareModal } from "../reusableComponents";
+import "./index.css";
+
+import { Loader, ShareModal } from "../../reusableComponents";
 import React, { useEffect, useState } from "react";
-import { auth, db } from "../lib/firebase";
+import { auth, db } from "../../lib/firebase";
 
 import { Box } from "@mui/material";
-import SideBar from "./SideBar";
+import { Link } from "react-router-dom";
+import { SideBar } from "../index";
 
 function Notifications() {
   const [openShareModal, setOpenShareModal] = useState(false);
@@ -34,19 +37,11 @@ function Notifications() {
     <>
       <SideBar />
       {loading ? (
-        <div
-          style={{
-            width: "100vw",
-            height: "100vh",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+        <div className="loader-container">
           <Loader />
         </div>
       ) : (
-        <div>
+        <div className="notification-container">
           <ShareModal
             openShareModal={openShareModal}
             setOpenShareModal={setOpenShareModal}
@@ -61,12 +56,31 @@ function Notifications() {
             >
               {notifications.length ? (
                 <>
-                  <h1 style={{ color: "var(--color)" }}>Notifications</h1>
+                  <h1 className="notification-heading">
+                    Notifications{" "}
+                    <span className="notification-count">
+                      {notifications.length}
+                    </span>
+                  </h1>
                   {notifications.map((notification) => (
-                    <div key={notification.id}>
-                      <p style={{ color: "var(--color)" }}>
+                    <div
+                      key={notification.id}
+                      className="notif-message-container"
+                    >
+                      <p className="notif-message">
                         {notification.message}
+                        <Link className="friend-request-sender-name">
+                          {notification.senderName
+                            ? ` from ${notification.senderName}.`
+                            : ""}
+                        </Link>
                       </p>
+                      <div>
+                        <button className="accept-btn notif-btn">Accept</button>
+                        <button className="decline-btn notif-btn">
+                          Decline
+                        </button>
+                      </div>
                     </div>
                   ))}
                 </>
