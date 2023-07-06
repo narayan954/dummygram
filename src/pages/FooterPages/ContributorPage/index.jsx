@@ -39,7 +39,7 @@ function Contributor() {
                 <span className="grad11 grad"></span>
                 <span className="grad12 grad"></span>
                 <div className="contributor-section glassmorphism-effect">
-                    <Box margin={isNonMobileScreen ? "1rem 2rem" : "1rem 3rem"} position="relative">
+                    <Box margin={isNonMobileScreen ? "1rem 3rem" : "1rem 3rem"} position="relative">
                         <Typography textAlign="center" fontFamily="serif" fontSize="3.2rem" fontWeight="600" m="6rem 0 2rem 0">Our Contributors</Typography>
                         <Box sx={{ width: "100%", display: "flex", flexWrap: "wrap", rowGap: "2rem", justifyContent: "space-around" }}>
                             {contributors.map((contributor) =>
