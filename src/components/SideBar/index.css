@@ -16,6 +16,10 @@
   overflow-y: scroll;
 }
 
+.sidebar-container::-webkit-scrollbar {
+  display: none;
+}
+
 .sidebar-links {
   display: flex;
   flex-direction: column;
@@ -35,7 +39,7 @@
   transition: all 0.5s ease;
 }
 
-#sidebar-home-link{
+#sidebar-home-link {
   margin-top: 4.5em;
 }
 
