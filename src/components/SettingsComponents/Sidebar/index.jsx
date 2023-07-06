@@ -23,7 +23,7 @@ const SettingsSidebar = () => {
           </Link>
           <Link
             className="settings-sidebar-item"
-            to="/dummygram/settings/about"
+            to="/dummygram/about"
           >
             About
           </Link>
@@ -35,7 +35,7 @@ const SettingsSidebar = () => {
           </Link>
           <Link
             className="settings-sidebar-item"
-            to="/dummygram/settings/lorem"
+            to="/dummygram/guidelines"
           >
             Privacy and Security
           </Link>

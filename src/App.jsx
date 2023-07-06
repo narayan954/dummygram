@@ -1,23 +1,23 @@
 import "./index.css";
 
+import React, { useEffect, useState } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { auth, db } from "./lib/firebase";
 import {
   AnimatedButton,
   Darkmode,
   Loader,
   ShareModal,
 } from "./reusableComponents";
-import React, { useEffect, useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
-import { auth, db } from "./lib/firebase";
 
-import ErrorBoundary from "./reusableComponents/ErrorBoundary";
-import { FaArrowCircleUp } from "react-icons/fa";
 import Modal from "@mui/material/Modal";
-import { RowModeContext } from "./hooks/useRowMode";
-import logo from "./assets/logo.webp";
 import { makeStyles } from "@mui/styles";
-import { playSuccessSound } from "./js/sounds";
 import { useSnackbar } from "notistack";
+import { FaArrowCircleUp } from "react-icons/fa";
+import logo from "./assets/logo.webp";
+import { RowModeContext } from "./hooks/useRowMode";
+import { playSuccessSound } from "./js/sounds";
+import ErrorBoundary from "./reusableComponents/ErrorBoundary";
 
 // ------------------------------------ Pages ----------------------------------------------------
 const About = React.lazy(() => import("./pages/FooterPages/About"));
@@ -31,6 +31,7 @@ const SignupScreen = React.lazy(() => import("./pages/Signup"));
 const ForgotPassword = React.lazy(() => import("./pages/ForgotPassword"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 const Settings = React.lazy(() => import("./pages/Settings"));
+const Contributors = React.lazy(() => import("./pages/FooterPages/ContributorPage/index"));
 // ------------------------------------- Components ------------------------------------------------
 const Favorite = React.lazy(() => import("./components/Favorite.jsx"));
 const Notifications = React.lazy(() => import("./components/Notification"));
@@ -261,21 +262,20 @@ function App() {
                         !loadingPosts
                           ? {}
                           : {
-                              width: "100%",
-                              minHeight: "100vh",
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                            }
+                            width: "100%",
+                            minHeight: "100vh",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }
                       }
                     >
                       {loadingPosts ? (
                         <Loader />
                       ) : (
                         <div
-                          className={`${
-                            rowMode ? "app__posts" : "app_posts_column flex"
-                          }`}
+                          className={`${rowMode ? "app__posts" : "app_posts_column flex"
+                            }`}
                         >
                           <ErrorBoundary inApp>
                             {posts.map(({ id, post }) => (
@@ -382,6 +382,15 @@ function App() {
             />
 
             <Route
+              path="/dummygram/contributors"
+              element={
+                <ErrorBoundary inApp={true}>
+                  <Contributors />
+                </ErrorBoundary>
+              }
+            />
+
+            <Route
               path="/dummygram/posts/:id"
               element={
                 <ErrorBoundary inApp={true}>
@@ -415,8 +424,8 @@ function App() {
           </Routes>
 
           {location.pathname === "/dummygram/" ||
-          location.pathname === "/dummygram/favourites" ||
-          location.pathname === "/dummygram/about" ? (
+            location.pathname === "/dummygram/favourites" ||
+            location.pathname === "/dummygram/about" ? (
             <div>
               <FaArrowCircleUp
                 fill="#777"

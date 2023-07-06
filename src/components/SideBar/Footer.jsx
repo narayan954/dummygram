@@ -21,6 +21,11 @@ const Footer = () => {
           </Link>
         </li>
         <li>
+          <Link to="/dummygram/contributors" className="footer-link">
+            Contributors
+          </Link>
+        </li>
+        <li>
           <Link to="/dummygram/help-center" className="footer-link">
             help-center
           </Link>

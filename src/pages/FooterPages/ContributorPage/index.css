@@ -1,0 +1,104 @@
+.contributor-container {
+  position: relative;
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.contributor-sub-container {
+  position: relative;
+  border-radius: 150px;
+  margin-bottom: 50px;
+}
+
+.contributor-section {
+  position: relative;
+  width: 70vw;
+  min-height: 100vh;
+  border-radius: 60px;
+  padding-bottom: 40px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+}
+
+.grad5 {
+  top: 95%;
+  right: -5%;
+  width: 200px;
+  aspect-ratio: 1/2;
+  transform: rotateZ(15deg);
+  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
+}
+
+.grad6 {
+  top: 80%;
+  right: 90%;
+  width: 200px;
+  aspect-ratio: 3/2;
+  transform: rotateZ(15deg);
+  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
+}
+
+.grad7 {
+  top: 60%;
+  right: -40%;
+  width: 200px;
+  aspect-ratio: 1;
+  transform: rotateZ(15deg);
+  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
+}
+
+.grad8 {
+  top: 45%;
+  right: 90%;
+  width: 200px;
+  aspect-ratio: 1/2;
+  transform: rotateZ(15deg);
+  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
+}
+
+.grad9 {
+  top: 55%;
+  right: -80%;
+  width: 200px;
+  aspect-ratio: 1/2;
+  transform: rotateZ(15deg);
+  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
+}
+
+.grad10 {
+  top: 75%;
+  right: -10%;
+  width: 200px;
+  aspect-ratio: 1;
+  transform: rotateZ(15deg);
+  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
+}
+
+.grad11 {
+  top: 35%;
+  right: -40%;
+  width: 200px;
+  aspect-ratio: 1/2;
+  transform: rotateZ(15deg);
+  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
+}
+
+.grad12 {
+  top: 25%;
+  right: 50%;
+  width: 200px;
+  aspect-ratio: 1/2;
+  transform: rotateZ(15deg);
+  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
+}
+
+@media only screen and (max-width: 1000px) {
+  .about-section {
+    width: 90vw;
+  }
+}
