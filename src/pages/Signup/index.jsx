@@ -1,12 +1,6 @@
 import "./index.css";
 import "../Login/index";
 
-import logo from "../../assets/logo.webp";
-import blank_profile from "../../assets/blank-profile.webp";
-import loginRight from "../../assets/login-right.webp";
-import Google from "../../assets/goggle.svg";
-import Facebook from "../../assets/facebook.svg";
-
 import React, { useRef, useState } from "react";
 import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
 import {
@@ -16,12 +10,16 @@ import {
   googleProvider,
   storage,
 } from "../../lib/firebase";
-import { faGoogle, faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
 import { getModalStyle, useStyles } from "../../App";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 
+import Facebook from "../../assets/facebook.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Google from "../../assets/goggle.svg";
+import blank_profile from "../../assets/blank-profile.webp";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
+import loginRight from "../../assets/login-right.webp";
+import logo from "../../assets/logo.webp";
 import { updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
@@ -303,48 +301,45 @@ const SignupScreen = () => {
 
           <div className="form__bottom">
             <div className="input__group">
-                <label htmlFor="file">
-                  <div className="img-outer">
-                    {address ? (
-                      <img
-                        src={URL.createObjectURL(image)}
-                        alt="profile pic"
-                        className="img-inner"
-                      />
-                    ) : (
-                      
-                      <img
-                        src={blank_profile}
-                        alt="profile pic"
-                        className="img-inner"
-                      />
-                    )}
-                  </div>
-                </label>
-                <input
-                  type="file"
-                  id="file"
-                  className="file"
-                  onChange={handleChange}
-                  accept="image/*"
-                  required
-                />
+              <label htmlFor="file">
+                <div className="img-outer">
+                  {address ? (
+                    <img
+                      src={URL.createObjectURL(image)}
+                      alt="profile pic"
+                      className="img-inner"
+                    />
+                  ) : (
+                    <img
+                      src={blank_profile}
+                      alt="profile pic"
+                      className="img-inner"
+                    />
+                  )}
+                </div>
+              </label>
+              <input
+                type="file"
+                id="file"
+                className="file"
+                onChange={handleChange}
+                accept="image/*"
+                required
+              />
             </div>
             <div className="input__group">
               <label htmlFor="username">Username</label>
               <input
-              id="username"
-              type="text"
-              placeholder="Enter your Username"
-              value={username}
-              onChange={(e) => {
-                usernameRef.current = e.target.value.trim();
-                setUsername(e.target.value.trim());
-                checkUsername();
-              }}  
-                className={
-                  usernameAvailable ? null : "error-border"
-                }
+                id="username"
+                type="text"
+                placeholder="Enter your Username"
+                value={username}
+                onChange={(e) => {
+                  usernameRef.current = e.target.value.trim();
+                  setUsername(e.target.value.trim());
+                  checkUsername();
+                }}
+                className={usernameAvailable ? null : "error-border"}
                 required
               />
               {!usernameAvailable && (
@@ -367,11 +362,11 @@ const SignupScreen = () => {
                 className={error.nameError ? "error-border" : null}
                 required
               />
-          {error.name && error.nameError && (
-            <p className="error">{error.nameError}</p>
-          )}
-          </div>
-            
+              {error.name && error.nameError && (
+                <p className="error">{error.nameError}</p>
+              )}
+            </div>
+
             <div className="input__group">
               <label htmlFor="email">Email</label>
               <input
@@ -385,22 +380,25 @@ const SignupScreen = () => {
                   handleError(e.target.name, e.target.value);
                 }}
                 className={error.emailError ? "error-border" : null}
-                    required
+                required
               />
-          {error.email && error.emailError && (
-            <p className="error">{error.emailError}</p>
-          )}
-          </div>
+              {error.email && error.emailError && (
+                <p className="error">{error.emailError}</p>
+              )}
+            </div>
 
-          <div className="input__group">
+            <div className="input__group">
               <label htmlFor="password">Password</label>
-              <div id="password-container"  className={
-              error.passwordError
-                ? "error-border pass__input__container"
-                : "pass__input__container"
-                }>
+              <div
+                id="password-container"
+                className={
+                  error.passwordError
+                    ? "error-border pass__input__container"
+                    : "pass__input__container"
+                }
+              >
                 <input
-                id="password"
+                  id="password"
                   name="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
@@ -411,22 +409,23 @@ const SignupScreen = () => {
                   }}
                   required
                 />
-            <button
-              onClick={(e) => handleShowPassword(e)}
-              className="show-password"
-            >
-              {showPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
-            </button>
+                <button
+                  onClick={(e) => handleShowPassword(e)}
+                  className="show-password"
+                >
+                  {showPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
+                </button>
               </div>
               {error.password && error.passwordError && (
-            <p className="error">{error.passwordError}</p>
-          )}
-        </div>
-        {/* confirm password */}
+                <p className="error">{error.passwordError}</p>
+              )}
+            </div>
+            {/* confirm password */}
 
-          <div className="input__group">
+            <div className="input__group">
               <label htmlFor="confirmpassword">Confirm Password</label>
-              <div id="password-container" 
+              <div
+                id="password-container"
                 className={
                   error.confirmPasswordError
                     ? "error-border pass__input__container"
@@ -434,9 +433,9 @@ const SignupScreen = () => {
                 }
               >
                 <input
-                id="confirmpassword"
-                name="confirmPassword"
-                type={showConfirmPassword ? "text" : "password"}
+                  id="confirmpassword"
+                  name="confirmPassword"
+                  type={showConfirmPassword ? "text" : "password"}
                   placeholder="Confirm your Password"
                   value={confirmPassword}
                   onChange={(e) => {
@@ -445,54 +444,48 @@ const SignupScreen = () => {
                   }}
                   required
                 />
+                <button
+                  onClick={(e) => handleShowConfirmPassword(e)}
+                  className="show-password"
+                >
+                  {showConfirmPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
+                </button>
+              </div>
+              {error.confirmPassword && error.confirmPasswordError && (
+                <p className="error">{error.confirmPasswordError}</p>
+              )}
+            </div>
             <button
-              onClick={(e) => handleShowConfirmPassword(e)}
-              className="show-password"
+              type="submit"
+              onClick={signUp}
+              className="action__btn login__btn"
             >
-              {showConfirmPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
+              Sign Up <FontAwesomeIcon icon={faRightToBracket} />
             </button>
-          </div>
-          {error.confirmPassword && error.confirmPasswordError && (
-            <p className="error">{error.confirmPasswordError}</p>
-          )}
-        </div>
-        <button
-          type="submit" 
-          onClick={signUp}              
-          className="action__btn login__btn"
-        >
-            Sign Up <FontAwesomeIcon icon={faRightToBracket} />
-        </button>
 
-        <div className="other__login__method">
-          <div className="or option__divider">
-            <div className="line" />
-              <div style={{ padding: "5px 9px" }}>or</div>
-            <div className="line" />
-          </div>
-          <div className="google__fb--login">
-            <button
-              className="other__login"
-              onClick={signInWithGoogle}
-              >
-                <img src={Google} alt="Google Signin" /> Sign in with Google
-            </button>
-            <button
-              className="other__login"
-              onClick={signInWithFacebook}
-            >
+            <div className="other__login__method">
+              <div className="or option__divider">
+                <div className="line" />
+                <div style={{ padding: "5px 9px" }}>or</div>
+                <div className="line" />
+              </div>
+              <div className="google__fb--login">
+                <button className="other__login" onClick={signInWithGoogle}>
+                  <img src={Google} alt="Google Signin" /> Sign in with Google
+                </button>
+                <button className="other__login" onClick={signInWithFacebook}>
                   <img src={Facebook} alt="Facebook Signin" /> Sign in with
                   Facebook
-            </button>
+                </button>
+              </div>
+              <div className="have-account">
+                Already have an account?{" "}
+                <span role={"button"} onClick={navigateToLogin}>
+                  Sign in!
+                </span>
+              </div>
+            </div>
           </div>
-          <div className="have-account">
-            Already have an account?{" "}
-              <span role={"button"} onClick={navigateToLogin}>
-                Sign in!
-              </span>
-          </div>
-        </div>  
-      </div>
         </form>
       </div>
       <div className="login__right">

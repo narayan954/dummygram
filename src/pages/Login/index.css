@@ -167,13 +167,13 @@
   color: rgb(104, 85, 224);
   cursor: pointer;
 }
-.have-account{
+.have-account {
   text-align: center;
 }
-.img-outer{
+.img-outer {
   margin: 0 auto;
 }
-#file{
+#file {
   width: 10rem;
 }
 /* media query for 840px */
