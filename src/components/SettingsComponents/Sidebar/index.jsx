@@ -1,6 +1,8 @@
-import React from "react";
 import "./index.css";
+
 import { Link, Outlet } from "react-router-dom";
+
+import React from "react";
 
 const SettingsSidebar = () => {
   return (
