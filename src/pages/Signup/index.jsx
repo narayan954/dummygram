@@ -3,6 +3,7 @@ import "../Login/index";
 
 import React, { useRef, useState } from "react";
 import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
+import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import {
   auth,
   db,
@@ -470,12 +471,24 @@ const SignupScreen = () => {
                 <div className="line" />
               </div>
               <div className="google__fb--login">
-                <button className="other__login" onClick={signInWithGoogle}>
-                  <img src={Google} alt="Google Signin" /> Sign in with Google
+              <button
+                  className="other__login google"
+                  type="submit"
+                  onClick={signInWithGoogle}
+                >
+                  <FontAwesomeIcon icon={faGoogle} className="google-icon" />{" "}
+                  Sign in with Google
                 </button>
-                <button className="other__login" onClick={signInWithFacebook}>
-                  <img src={Facebook} alt="Facebook Signin" /> Sign in with
-                  Facebook
+                <button
+                  className="other__login facebook"
+                  type="submit"
+                  onClick={signInWithFacebook}
+                >
+                  <FontAwesomeIcon
+                    icon={faFacebookF}
+                    className="facebook-icon"
+                  />{" "}
+                  Sign in with Facebook
                 </button>
               </div>
               <div className="have-account">
@@ -489,7 +502,6 @@ const SignupScreen = () => {
         </form>
       </div>
       <div className="login__right">
-        <img src={loginRight} alt="website image" />
       </div>
     </section>
   );

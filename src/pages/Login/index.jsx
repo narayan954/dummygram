@@ -280,7 +280,6 @@ const LoginScreen = () => {
         </form>
       </div>
       <div className="login__right">
-        {/* <img src={loginRight} alt="website image" /> */}
       </div>
     </section>
   );
