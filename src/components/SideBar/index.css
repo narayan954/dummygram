@@ -5,7 +5,6 @@
   position: fixed;
   width: 17vw;
   height: 100vh;
-  top: 4.5em;
   left: 0;
   border-right: 1px solid rgb(219, 219, 219);
 }
@@ -34,6 +33,10 @@
   margin: 10px 0;
   border-radius: 10px;
   transition: all 0.5s ease;
+}
+
+#sidebar-home-link{
+  margin-top: 4.5em;
 }
 
 .sidebar-links li:hover {
@@ -73,6 +76,7 @@ footer {
   padding-block: 12px;
   font-size: 13px;
   background-color: var(--bg-color);
+  min-height: 60px;
 }
 
 .sidebar-footer-container {
