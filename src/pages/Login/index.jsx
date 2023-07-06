@@ -3,13 +3,13 @@ import "./index.css";
 import React, { useState } from "react";
 import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
 import { auth, db, facebookProvider, googleProvider } from "../../lib/firebase";
+import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 
 import Facebook from "../../assets/facebook.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Google from "../../assets/goggle.svg";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
-import loginRight from "../../assets/login-right.webp";
 import logo from "../../assets/logo.webp";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
@@ -237,24 +237,28 @@ const LoginScreen = () => {
             <div className="other__login__method">
               <div className="or option__divider">
                 <div className="line" />
-                <div style={{ padding: "5px 9px" }}>or</div>
+                <div className="or-text">or</div>
                 <div className="line" />
               </div>
               <div className="google__fb--login">
                 <button
-                  className="other__login"
+                  className="other__login google"
                   type="submit"
                   onClick={signInWithGoogle}
                 >
-                  <img src={Google} alt="Google Signin" /> Sign in with Google
+                  <FontAwesomeIcon icon={faGoogle} className="google-icon" />{" "}
+                  Sign in with Google
                 </button>
                 <button
-                  className="other__login"
+                  className="other__login facebook"
                   type="submit"
                   onClick={signInWithFacebook}
                 >
-                  <img src={Facebook} alt="Facebook Signin" /> Sign in with
-                  Facebook
+                  <FontAwesomeIcon
+                    icon={faFacebookF}
+                    className="facebook-icon"
+                  />{" "}
+                  Sign in with Facebook
                 </button>
               </div>
             </div>
@@ -276,7 +280,7 @@ const LoginScreen = () => {
         </form>
       </div>
       <div className="login__right">
-        <img src={loginRight} alt="website image" />
+        {/* <img src={loginRight} alt="website image" /> */}
       </div>
     </section>
   );

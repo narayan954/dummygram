@@ -37,7 +37,7 @@ export const Feedback = () => {
   return (
     <>
       <SideBar />
-      <div className="feedback-form-container">
+      <div className="feedback-form-container footer-page-para-color">
         <span className="grad3 grad"></span>
         <span className="grad4 grad"></span>
         <form
