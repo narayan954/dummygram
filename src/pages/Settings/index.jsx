@@ -1,10 +1,12 @@
-import React from "react";
 import "./index.css";
+
+import { Outlet, Route, Routes } from "react-router-dom";
 import {
   SettingsSidebar,
   SoundSetting,
 } from "../../components/SettingsComponents";
-import { Routes, Route, Outlet } from "react-router-dom";
+
+import React from "react";
 
 const Settings = () => {
   return (
