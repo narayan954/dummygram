@@ -5,6 +5,7 @@
   min-height: 92vh;
   width: 100%;
   padding-top: 40px;
+ 
 }
 
 .sounds-setting-sub-container {
@@ -19,6 +20,7 @@
   gap: 3rem;
   padding-bottom: 65px;
   box-shadow: 0 0 0px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
 }
 
 .sound-setting-page-heading {
@@ -57,4 +59,14 @@
   font-size: 13px;
   max-width: 95%;
   font-weight: 300;
+}
+
+.closeIcon{
+  cursor: pointer;
+  font-size: 25px;
+  font-weight: 700;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
 }
