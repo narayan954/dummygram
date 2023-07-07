@@ -264,7 +264,7 @@ const LoginScreen = () => {
             <div className="forgot__new">
               <div className="forgot-pasword">
                 <span role={"button"} onClick={navigateToForgot}>
-                  Forgot Password
+                  Forgot Password ? &#160;
                 </span>
               </div>
               <div className="have-account">

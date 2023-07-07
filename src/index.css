@@ -438,7 +438,6 @@ input {
 }
 
 .have-account span {
-  /* border-bottom: 2px solid rgb(104, 85, 224); */
   color: rgb(104, 85, 224);
   cursor: pointer;
   font-weight: bold;
