@@ -1,42 +1,93 @@
 .settings-sidebar-container {
-  border-right: 1px solid rgb(96, 96, 96);
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  padding: 30px;
+  background: var(--bg-color);
+  position: fixed;
+  width: 17vw;
+  height: 100vh;
+  top: 4.5em;
+  left: 0;
+  border-right: 1px solid rgb(219, 219, 219);
 }
 
 .settings-sidebar-sub-container {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  min-height: 80vh;
-  font-weight: 500;
+  min-height: 100vh;
 }
 
-.settings-sidebar-item {
-  font-size: 20px;
-  margin: 0;
+.settings-sidebar-sub-container{
+ 
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0 20px;
+}
+
+.settings-sidebar-sub-container {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0 20px;
+}
+
+.active {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.settings-sidebar-sub-container li {
   cursor: pointer;
-  padding: 20px 40px;
-  border-radius: 12px;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 10px;
+  transition: all 0.5s ease;
+}
+
+ li:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.settings-sidebar-sub-container li a,
+.settings-sidebar-item {
+  display: flex;
+  align-items: center;
+  color: var(--color);
   text-decoration: none;
-  color: rgb(29, 28, 28);
 }
-.settings-sidebar-item:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+.icon {
+  font-size: 30px;
+  transition: all 0.2s ease;
 }
 
-@media only screen and (max-width: 750px) {
-  .settings-sidebar-container {
-    padding: 0;
-  }
-
-  .settings-sidebar-item {
-    font-size: 15px;
-    padding: 10px 20px;
-  }
+ li:hover .icon {
+  transform: scale(1.1);
 }
+
+.settings-sidebar-sub-container li span {
+  margin-left: 15px;
+}
+
+@media screen and (max-width:1200px) {
+  .settings-sidebar-container{
+    border-right: none;
+  }
+   .settings-sidebar-sub-container span{
+     display: none;
+   }
+   .settings-sidebar-sub-container{
+    border-top: 1px solid rgb(219, 219, 219);
+    flex-direction: row;
+    margin-top: 88vh;
+    width: 100vw;
+    padding: 0 5px;
+   }
+   .settings-sidebar-sub-container{
+    justify-content: space-around;
+   }
+
+}
+@media screen and (max-width:800px){
+.settings-sidebar-sub-container{
+  margin-top: 80vh;
+}
+}
+
