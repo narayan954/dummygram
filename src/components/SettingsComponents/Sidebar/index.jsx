@@ -10,7 +10,7 @@ import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlin
 
 const SettingsSidebar = () => {
   return (
-    <>
+    <div >
       <div className="settings-sidebar-container">
         <ul className="settings-sidebar-sub-container">
           <li>
@@ -24,7 +24,7 @@ const SettingsSidebar = () => {
               className="settings-sidebar-item"
               to="/dummygram/settings/notification"
             >
-             <NotificationsIcon className="icon" />  <span>Notification</span>
+              <NotificationsIcon className="icon" />  <span>Notification</span>
             </Link>
           </li>
           <li>
@@ -32,7 +32,7 @@ const SettingsSidebar = () => {
               className="settings-sidebar-item"
               to="/dummygram/settings/about"
             >
-             <InfoOutlinedIcon className="icon"/> <span>About</span>
+              <InfoOutlinedIcon className="icon" /> <span>About</span>
             </Link>
           </li>
           <li>
@@ -40,14 +40,14 @@ const SettingsSidebar = () => {
               className="settings-sidebar-item"
               to="/dummygram/settings/theme"
             >
-              <DarkModeOutlinedIcon className="icon"/><span>Theme</span>
+              <DarkModeOutlinedIcon className="icon" /><span>Theme</span>
             </Link></li>
           <li>
             <Link
               className="settings-sidebar-item"
               to="/dummygram/settings/lorem"
             >
-              <SecurityOutlinedIcon className="icon"/><span>Privacy and Security</span>
+              <SecurityOutlinedIcon className="icon" /><span>Privacy and Security</span>
             </Link>
           </li>
           <li>
@@ -55,7 +55,7 @@ const SettingsSidebar = () => {
               className="settings-sidebar-item"
               to="/dummygram/settings/ipsum"
             >
-             < ContactSupportOutlinedIcon className="icon"/> <span> Help</span>
+              < ContactSupportOutlinedIcon className="icon" /> <span> Help</span>
             </Link>
           </li>
           <li>
@@ -63,13 +63,13 @@ const SettingsSidebar = () => {
               className="settings-sidebar-item"
               to="/dummygram/settings/account"
             >
-              <ManageAccountsOutlinedIcon className="icon"/> <span>Account</span>
+              <ManageAccountsOutlinedIcon className="icon" /> <span>Account</span>
             </Link>
           </li>
         </ul>
       </div>
       <Outlet />
-    </>
+    </div>
   );
 };
 
