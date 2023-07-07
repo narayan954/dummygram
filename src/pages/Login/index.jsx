@@ -269,10 +269,10 @@ const LoginScreen = () => {
                 </span>
               </div>
               <div className="have-account">
-                New User?
+                Don't have an account ?&#160;
                 <span role={"button"} onClick={navigateToSignup}>
                   {" "}
-                  Sign up!
+                  Sign up
                 </span>
               </div>
             </div>

@@ -184,16 +184,21 @@
   width: 100%;
   text-align: center;
   color: var(--color);
-  font-size: 13px;
+  font-size: 14px;
   margin: 0;
   padding: 0.3rem 0;
 }
 
 .forgot-pasword span {
-  border-bottom: 2px solid rgb(104, 85, 224);
+  /* border-bottom: 2px solid rgb(104, 85, 224); */
   color: rgb(104, 85, 224);
   cursor: pointer;
+  font-weight:bold;
 }
+.forgot-pasword span:hover{
+ color: rgb(157, 147, 219);
+}
+
 
 /* media query for 840px */
 @media (max-width: 840px) {
