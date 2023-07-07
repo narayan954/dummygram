@@ -1,13 +1,12 @@
-import React from "react";
 import "./index.css";
-import { Link, Outlet } from "react-router-dom"
+import { Link, Outlet } from "react-router-dom";
 import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
-import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
-import NotificationsIcon from "@mui/icons-material/Notifications";
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import ContactSupportOutlinedIcon from '@mui/icons-material/ContactSupportOutlined';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined';
-import ContactSupportOutlinedIcon from '@mui/icons-material/ContactSupportOutlined';
+import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
 
 const SettingsSidebar = () => {
   return (

@@ -1,5 +1,7 @@
-import React, { useState } from "react";
 import "./index.css";
+
+import React, { useState } from "react";
+
 import { VscChromeClose } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
 
@@ -7,7 +9,6 @@ const SoundSetting = () => {
   const [sound, setSound] = useState(localStorage.getItem("sound"));
   const [showDiv, setShowDiv] = useState(true);
   const navigate = useNavigate();
-
 
   function toggleSound() {
     if (sound) {
@@ -18,16 +19,16 @@ const SoundSetting = () => {
     setSound(localStorage.getItem("sound"));
     // window.location.reload(true)
   }
-  const closeHandler = () => {
-    setShowDiv(false);
-    navigate("/dummygram");
-  }
+const closeHandler = () =>{
+  setShowDiv(false);
+  navigate("/dummygram");
+}
   return (
     <div className="sounds-setting-container">
       {showDiv && (
         <div className="sounds-setting-sub-container">
           <div className="closeIcon">
-            < VscChromeClose onClick={closeHandler} />
+            <VscChromeClose onClick={closeHandler} />
           </div>
           <div>
             <h3 className="sound-setting-page-heading">Sound Effects</h3>
