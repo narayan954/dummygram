@@ -39,25 +39,20 @@ When you learn ReactJs it seems obvious to work on some projects and for the pro
 Dummygram has been in development since September 2022 and is part of GitHub since the very beginning. Our current priorities and what we are working on is kind of obvious, but still we want to give it a unique look and make it feature rich.:sparkles:
 
 ## Features
-Direct Messaging: Implement a direct messaging feature that allows users to send private messages to each other. Users can have individual or group conversations, share media files, and manage their message history.
 
-Explore/Discover Page: Create an Explore or Discover page where users can discover new posts, profiles, or trending content. You can implement algorithms to recommend posts or users based on the user's interests, trending topics, or popular hashtags.
+User Authentication: DummyGram includes a user authentication system, allowing users to create accounts, log in, and log out securely. This feature ensures that only authenticated users can access and interact with the app.
 
-User Search: Add a search functionality that allows users to search for other users based on usernames, names, or hashtags. Users can find and follow other accounts, view their profiles, and interact with their content.
+Posts: Users can create posts and share them with others. Posts can include various types of content, such as images, videos, or text. Users can upload media files from their devices or provide URLs for online content. These posts are displayed in a feed-like format.
 
-Story Feature: Implement a story feature where users can upload temporary stories that disappear after a certain period. Users can add stickers, filters, or text overlays to their stories and view stories from the accounts they follow.
+Commenting: DummyGram enables users to comment on posts. Users can write and submit comments on individual posts, engaging in conversations and discussions with other users.
 
-Notifications: Include a notification system that alerts users about new followers, likes, comments, and mentions. Users can receive real-time notifications and easily navigate to the relevant sections of the app.
+Like Feature: Users can express their appreciation for posts by liking them. This feature allows users to show their support and interest in specific content shared on DummyGram.
 
-Hashtags and Trending Topics: Enable the use of hashtags in posts and implement a section to display trending topics or popular hashtags. Users can click on a hashtag to view related posts and explore content related to specific topics.
+Delete Functionality: DummyGram allows users to delete their own posts. This feature provides users with control over their content, enabling them to remove posts they no longer wish to keep on the platform.
 
-User Verification: Implement a user verification system (e.g., blue checkmark) to verify the authenticity of celebrity or influential accounts. This adds credibility and trust to the platform.
+Frontend Framework: The user interface of DummyGram is built using ReactJS, a popular JavaScript library for building interactive user interfaces. ReactJS allows for efficient rendering of components and provides a smooth and responsive user experience.
 
-Privacy Settings: Allow users to customize their privacy settings, such as making their account private or controlling who can comment on their posts. Users can manage their followers, block or report inappropriate content, and manage their account security.
-
-Analytics: Provide users with insights and analytics about their posts' performance, including views, likes, comments, and engagement rate. Users can track their growth and understand their audience better.
-
-Saved Posts and Collections: Allow users to save posts to their personal collections for easy access later. Users can create and manage multiple collections, such as "Travel Inspiration," "Recipe Ideas," or "Fitness Motivation."
+Backend and Data Storage: DummyGram utilizes Firebase as the backend service for storing user data, posts, and comments. Firebase provides a scalable and reliable platform for handling backend functionalities and offers real-time database capabilities, ensuring efficient data storage and retrieval.
 
 # Docs
 
