@@ -1,6 +1,8 @@
-import React from "react";
 import "./index.css";
+
 import { Link, Outlet } from "react-router-dom";
+
+import React from "react";
 
 const SettingsSidebar = () => {
   return (
@@ -33,7 +35,7 @@ const SettingsSidebar = () => {
           </Link>
           <Link
             className="settings-sidebar-item"
-            to="/dummygram/settings/lorem"
+            to="/dummygram/settings/guidelines"
           >
             Privacy and Security
           </Link>
