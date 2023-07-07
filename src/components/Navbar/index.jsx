@@ -86,16 +86,16 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
                       <Divider />
                       <Box
                         className="nav-menu-item"
-                        onClick={() => setLogout(true)}
+                        onClick={() => navigate("/dummygram/settings")}
                       >
-                        <Typography fontSize="0.9rem">Log Out</Typography>
+                        <Typography fontSize="0.9rem">Settings</Typography>
                       </Box>
                       <Divider />
                       <Box
                         className="nav-menu-item"
-                        onClick={() => navigate("/dummygram/settings")}
+                        onClick={() => setLogout(true)}
                       >
-                        <Typography fontSize="0.9rem">Settings</Typography>
+                        <Typography fontSize="0.9rem">Log Out</Typography>
                       </Box>
                     </Box>
                   )}

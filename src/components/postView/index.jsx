@@ -17,6 +17,7 @@ import {
 import React, { useEffect } from "react";
 import { doc, updateDoc } from "firebase/firestore";
 
+import Caption from "../Post/Caption.jsx";
 import EmojiPicker from "emoji-picker-react";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
@@ -184,7 +185,7 @@ const PostCommentView = ({
                 </Typography>
               ) : (
                 <Typography variant="h5" color="text.secondary">
-                  {caption}
+                  <Caption caption={caption} />
                 </Typography>
               )}
             </PostContentText>

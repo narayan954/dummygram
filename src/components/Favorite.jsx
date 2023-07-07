@@ -49,10 +49,8 @@ function Favorite() {
 
     if (savedPostsArr.length === 0) {
       setLoading(false);
-    } else {
-      fetchPosts();
     }
-  }, [savedPostsArr]);
+  }, []);
 
   return (
     <>

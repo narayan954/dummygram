@@ -11,17 +11,17 @@ import ShareModal from "./ShareModal";
 import SnackBar from "./SnackBar";
 
 export {
+  AnimatedButton,
+  Darkmode,
   DialogBox,
+  ErrorBoundary,
+  Flexbetween,
   ImageSlider,
   Loader,
   Popup,
-  Flexbetween,
-  AnimatedButton,
   Scroll,
   ShareModal,
   SnackBar,
-  Darkmode,
-  ErrorBoundary,
 };
 
 export default Scroll;

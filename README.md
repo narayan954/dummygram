@@ -38,6 +38,22 @@ When you learn ReactJs it seems obvious to work on some projects and for the pro
 
 Dummygram has been in development since September 2022 and is part of GitHub since the very beginning. Our current priorities and what we are working on is kind of obvious, but still we want to give it a unique look and make it feature rich.:sparkles:
 
+## Features
+
+User Authentication: DummyGram includes a user authentication system, allowing users to create accounts, log in, and log out securely. This feature ensures that only authenticated users can access and interact with the app.
+
+Posts: Users can create posts and share them with others. Posts can include various types of content, such as images, videos, or text. Users can upload media files from their devices or provide URLs for online content. These posts are displayed in a feed-like format.
+
+Commenting: DummyGram enables users to comment on posts. Users can write and submit comments on individual posts, engaging in conversations and discussions with other users.
+
+Like Feature: Users can express their appreciation for posts by liking them. This feature allows users to show their support and interest in specific content shared on DummyGram.
+
+Delete Functionality: DummyGram allows users to delete their own posts. This feature provides users with control over their content, enabling them to remove posts they no longer wish to keep on the platform.
+
+Frontend Framework: The user interface of DummyGram is built using ReactJS, a popular JavaScript library for building interactive user interfaces. ReactJS allows for efficient rendering of components and provides a smooth and responsive user experience.
+
+Backend and Data Storage: DummyGram utilizes Firebase as the backend service for storing user data, posts, and comments. Firebase provides a scalable and reliable platform for handling backend functionalities and offers real-time database capabilities, ensuring efficient data storage and retrieval.
+
 # Docs
 
 - Table of Contents
