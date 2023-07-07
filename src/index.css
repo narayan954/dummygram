@@ -397,7 +397,6 @@ div#picker {
 
 /* Input */
 input {
-  /* width: 230px; */
   width: 100%;
   border: 0;
   border: 1px solid rgba(104, 85, 224, 1);
@@ -435,7 +434,6 @@ input {
   color: var(--color);
   font-size: 15px;
   margin: 10px 0;
-  
   font-weight: bold;
 }
 
@@ -445,11 +443,9 @@ input {
   cursor: pointer;
   font-weight: bold;
 }
-.have-account span:hover{
-  
-    color: rgb(157, 147, 219);
-   
-   
+
+.have-account span:hover {
+  color: rgb(157, 147, 219);
 }
 
 .login-footer {
