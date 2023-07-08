@@ -27,6 +27,7 @@ const storage = firebase.storage();
  *   onUploadProgress: (percentage: number) => void
  * }} options
  */
+
 function handleMultiUpload(files, options = {}) {
   const _options = Object.assign(
     {

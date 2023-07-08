@@ -4,7 +4,7 @@ import { Avatar, LinearProgress, TextField } from "@mui/material";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import React, { useRef, useState } from "react";
 import { auth, db, handleMultiUpload } from "../../lib/firebase";
-import { playSuccessSound, playErrorSound } from "../../js/sounds";
+import { playErrorSound, playSuccessSound } from "../../js/sounds";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Camera from "./Camera";
@@ -50,7 +50,7 @@ export default function ImgUpload(props) {
     }
     for (let i = 0; i < e.target.files.length; i++) {
       const img = e.target.files[i];
-      if (!img.name.match(/\.(jpg|jpeg|png|gif)$/)) {
+      if (!img.name.match(/\.(jpg|jpeg|png|gif|svg)$/)) {
         enqueueSnackbar("Select a valid image!", {
           variant: "error",
         });
