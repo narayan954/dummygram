@@ -149,7 +149,7 @@ function Profile() {
         setEmail(
           location?.state?.name === authUser?.displayName
             ? location?.state?.email || authUser.email
-            : ""
+            : "",
         );
         setUid(location?.state?.uid || authUser.uid);
       } else {
@@ -166,7 +166,7 @@ function Profile() {
   useEffect(() => {
     const usernameQ = query(
       collection(db, "users"),
-      where("uid", "==", auth.currentUser.uid)
+      where("uid", "==", auth.currentUser.uid),
     );
     const unsubscribe = onSnapshot(usernameQ, (querySnapshot) => {
       querySnapshot.forEach((doc) => {
@@ -179,7 +179,7 @@ function Profile() {
   useEffect(() => {
     const q = query(
       collection(db, "posts"),
-      where("username", "==", location?.state?.name || name)
+      where("username", "==", location?.state?.name || name),
     );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const userPosts = [];
@@ -232,7 +232,7 @@ function Profile() {
               variant: "success",
             });
           });
-      }
+      },
     );
     setVisible(false);
   };
