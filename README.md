@@ -28,7 +28,6 @@
 
 </div>
 
-
 <h1 align="center">About Dummygram</h1>
 
 ## Vision
