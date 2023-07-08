@@ -59,7 +59,7 @@ function SearchBar() {
   );
 
   return (
-    <div >
+    <div>
       <SideBar />
       <ShareModal
         openShareModal={openShareModal}
