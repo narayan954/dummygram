@@ -1,41 +1,28 @@
 import "../design.css";
 import "./index.css";
 
-import {
-  Box,
-  Pagination,
-  Typography,
-  useMediaQuery
-} from "@mui/material";
+import { Box, Pagination, Typography, useMediaQuery } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 import ContributorCard from "./ContributorCard";
 
-
 function Contributor() {
-
   const [currentPage, setCurrentPage] = useState(1);
 
   const [contributors, setContributors] = useState([]);
   const isNonMobileScreen = useMediaQuery("(max-width: 800px)");
 
   const getData = async () => {
-
     const res = await fetch(
       `https://api.github.com/repos/narayan954/dummygram/contributors?page=${currentPage}&&per_page=10`
-    ); 
+    );
 
     const data = await res.json();
     const contributorsData = data.filter(
-      (contributor) =>
-        !contributor.login.includes(
-          "dependabot[bot]",
-          "deepsource-autofix[bot]"
-        )
+      (contributor) => !contributor.login.includes("deepsource-autofix[bot]")
     );
     setContributors(contributorsData);
   };
-
 
   const handleChange = (event, value) => {
     setCurrentPage(value);
@@ -95,7 +82,13 @@ function Contributor() {
             </Box>
 
             <Box display="flex" justifyContent="center" mt="2rem">
-              <Pagination count={10} page={currentPage} onChange={handleChange} variant="outlined" color="primary" />
+              <Pagination
+                page={currentPage}
+                onChange={handleChange}
+                variant="outlined"
+                color="primary"
+                count={10}
+              />
             </Box>
           </Box>
         </div>
