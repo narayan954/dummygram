@@ -1,20 +1,29 @@
 import "../design.css";
 import "./index.css";
 
-import { Box, Typography, useMediaQuery } from "@mui/material";
+import {
+  Box,
+  Pagination,
+  Typography,
+  useMediaQuery
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 import ContributorCard from "./ContributorCard";
 
+
 function Contributor() {
+
+  const [currentPage, setCurrentPage] = useState(1);
+
   const [contributors, setContributors] = useState([]);
   const isNonMobileScreen = useMediaQuery("(max-width: 800px)");
 
   const getData = async () => {
-    // TODO: Add pagination
+
     const res = await fetch(
-      "https://api.github.com/repos/narayan954/dummygram/contributors?per_page=100"
-    ); // TODO: Fix this to get all contributors
+      `https://api.github.com/repos/narayan954/dummygram/contributors?page=${currentPage}&&per_page=10`
+    ); 
 
     const data = await res.json();
     const contributorsData = data.filter(
@@ -27,9 +36,14 @@ function Contributor() {
     setContributors(contributorsData);
   };
 
+
+  const handleChange = (event, value) => {
+    setCurrentPage(value);
+  };
+
   useEffect(() => {
     getData();
-  }, []);
+  }, [currentPage]);
 
   return (
     <div className="contributor-container footer-page-para-color">
@@ -78,6 +92,10 @@ function Contributor() {
                   profile={contributor.html_url}
                 />
               ))}
+            </Box>
+
+            <Box display="flex" justifyContent="center" mt="2rem">
+              <Pagination count={10} page={currentPage} onChange={handleChange} variant="outlined" color="primary" />
             </Box>
           </Box>
         </div>
