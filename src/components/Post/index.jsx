@@ -18,6 +18,7 @@ import { lazy, useEffect, useState } from "react";
 
 import { db } from "../../lib/firebase";
 import firebase from "firebase/compat/app";
+import { useSnackbar } from "notistack";
 import { useTheme } from "@mui/material/styles";
 
 const PostHeader = lazy(() => import("./PostHeader"));
@@ -42,6 +43,7 @@ function Post(prop) {
   const [openToDeleteComment, setOpenToDeleteComment] = useState(false);
 
   const theme = useTheme();
+  const { enqueueSnackbar } = useSnackbar();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const docRef = doc(db, "posts", postId);
@@ -71,24 +73,26 @@ function Post(prop) {
     };
   }, [postId]);
 
-  //For updating like count on Favourite page
-  useEffect(() => {
-    let unsubscribe;
-    if (postId) {
-      unsubscribe = db
-        .collection("posts")
-        .doc(postId)
-        .onSnapshot((snapshot) => {
-          setlikesArr(snapshot.data().likecount);
-        });
-    }
+  // TODO: Fix this below fuction implementation
 
-    return () => {
-      if (unsubscribe) {
-        unsubscribe();
-      }
-    };
-  }, [likesArr]);
+  // //For updating like count on Favourite page
+  // useEffect(() => {
+  //   let unsubscribe;
+  //   if (postId) {
+  //     unsubscribe = db
+  //       .collection("posts")
+  //       .doc(postId)
+  //       .onSnapshot((snapshot) => {
+  //         setlikesArr(snapshot.data().likecount);
+  //       });
+  //   }
+
+  //   return () => {
+  //     if (unsubscribe) {
+  //       unsubscribe();
+  //     }
+  //   };
+  // }, [likesArr]);
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#FFF",
@@ -177,7 +181,9 @@ function Post(prop) {
         //   console.log("like added");
         // })
         .catch((error) => {
-          // console.log(error);
+          enqueueSnackbar(error, {
+            variant: "error",
+          });
         });
     }
   }

@@ -17,8 +17,10 @@ import useCreatedAt from "../../hooks/useCreatedAt.jsx";
 const PostViewComments = ({ fullScreen, postId, user, userComment }) => {
   const { timestamp } = userComment.content;
   const time = useCreatedAt(timestamp);
-  const [open, setOpen] = React.useState(false);
+
+  const [open, setOpen] = useState(false);
   const [commentId, setCommentId] = useState("");
+
   const deleteComment = async (event, commentRef) => {
     event.preventDefault();
     await db
@@ -28,7 +30,9 @@ const PostViewComments = ({ fullScreen, postId, user, userComment }) => {
       .doc(commentRef.id)
       .delete();
   };
+
   const handleClose = () => setOpen(!open);
+
   return (
     <>
       <Typography variant={"body1"}>{time}</Typography>
