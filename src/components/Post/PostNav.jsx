@@ -6,6 +6,7 @@ import {
 } from "@mui/icons-material";
 import { IconButton, Typography } from "@mui/material";
 import React, { useState } from "react";
+import { playSuccessSound } from "../../js/sounds";
 
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
@@ -38,12 +39,14 @@ const PostNav = ({
     if (!postIdExists) {
       localStoragePosts.push(postId);
       localStorage.setItem("posts", JSON.stringify(localStoragePosts));
+      playSuccessSound();
       enqueueSnackbar("Post added to favourites!", {
         variant: "success",
       });
     } else {
       localStoragePosts = localStoragePosts.filter((post) => post !== postId);
       localStorage.setItem("posts", JSON.stringify(localStoragePosts));
+      playSuccessSound();
       enqueueSnackbar("Post is removed from favourites!", {
         variant: "info",
       });
@@ -103,7 +106,7 @@ const PostNav = ({
       <Flexbetween
         sx={{ cursor: "pointer" }}
         onClick={() => {
-          setLink(`https://narayan954.github.io/dummygram/${postId}`);
+          setLink(`https://narayan954.github.io/dummygram/posts/${postId}`);
           setPostText(caption);
           shareModal(true);
         }}

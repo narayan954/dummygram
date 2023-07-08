@@ -3,6 +3,7 @@ import "./index.css";
 import { Dialog, IconButton, Input } from "@mui/material";
 
 import logo from "../../assets/logo.webp";
+import { playSuccessSound } from "../../js/sounds";
 import { useSnackbar } from "notistack";
 
 const ShareModal = (props) => {
@@ -75,6 +76,7 @@ const ShareModal = (props) => {
           value={currentPostLink}
           onClick={() => {
             window.navigator.clipboard.writeText(currentPostLink);
+            playSuccessSound();
             enqueueSnackbar("Copied Post Link!", {
               variant: "success",
             });

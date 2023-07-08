@@ -38,6 +38,8 @@ const DialogBox = (props) => {
         <DialogContentText>{props.children}</DialogContentText>
       </DialogContent>
 
+      <Divider />
+
       <DialogActions sx={{ backgroundColor: "var(--bg-color)" }}>
         <Button
           onClick={props.onClose}

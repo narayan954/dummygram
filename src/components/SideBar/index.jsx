@@ -7,12 +7,15 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineClose } from "react-icons/ai";
 import { Dialog } from "@mui/material";
+import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import GitHubIcon from "@mui/icons-material/GitHub";
 import HomeIcon from "@mui/icons-material/Home";
 import ImgUpload from "../ImgUpload";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import SearchIcon from "@mui/icons-material/Search";
 import { auth } from "../../lib/firebase";
+
+const Footer = React.lazy(() => import("./Footer"));
 
 function SideBar() {
   const navigate = useNavigate();
@@ -23,14 +26,19 @@ function SideBar() {
     <div className="sidebar">
       <div className="sidebar-container">
         <ul className="sidebar-links">
-          <li>
-            <Link to="/dummygram">
+          <li onClick={() => navigate("/dummygram/")} id="sidebar-home-link">
+            <div className="sidebar_align">
               <HomeIcon className="icon" /> <span>Home</span>
-            </Link>
+            </div>
           </li>
           <li onClick={() => setOpenNewUpload(true)}>
             <div className="sidebar_align">
               <AddCircleOutlineIcon className="icon" /> <span>New Post</span>
+            </div>
+          </li>
+          <li onClick={() => navigate("/dummygram/search")}>
+            <div className="sidebar_align">
+              <SearchIcon className="icon" /> <span>Search</span>
             </div>
           </li>
           <li onClick={() => navigate("/dummygram/favourites")}>
@@ -55,48 +63,28 @@ function SideBar() {
             }
           >
             <div className="sidebar_align">
-              <AccountCircleIcon className="icon" /> <span>Profile</span>
+              {user.photoURL ? (
+                <img
+                  src={user.photoURL}
+                  alt="profile picture"
+                  className="profile-picture"
+                />
+              ) : (
+                <AccountCircleIcon className="icon" />
+              )}{" "}
+              <span>Profile</span>
             </div>
           </li>
         </ul>
-
-        <footer>
-          <ul className="sidebar-footer-container">
-            <li>
-              <a href="https://github.com/narayan954/dummygram" target="_blank">
-                <GitHubIcon />
-              </a>
-            </li>
-            <li>
-              <Link to="/about" className="footer-link">
-                about
-              </Link>
-            </li>
-            <li>
-              <Link to="/help-center" className="footer-link">
-                help-center
-              </Link>
-            </li>
-            <li>
-              <Link to="/guidelines" className="footer-link">
-                Guidelines
-              </Link>
-            </li>
-            <li>
-              <Link to="/guidelines" className="footer-link">
-                policy
-              </Link>
-            </li>
-          </ul>
-          <p className="copyright">&#169; MIT license since 2022</p>
-        </footer>
+        <hr />
+        <ErrorBoundary>
+          <Footer />
+        </ErrorBoundary>
       </div>
+
       <Dialog
         PaperProps={{
-          sx: {
-            width: "60vw",
-            height: "60vh",
-          },
+          className: "dialogStyle",
         }}
         open={openNewUpload}
         onClose={() => setOpenNewUpload(false)}
@@ -112,25 +100,10 @@ function SideBar() {
             onClick={() => {
               setOpenNewUpload(false);
             }}
-            size={18}
-            style={{
-              position: "absolute",
-              right: "1rem",
-              top: "1rem",
-              cursor: "pointer",
-            }}
+            size={"1rem"}
+            className="crossIcon"
           />
-          <p
-            style={{
-              fontSize: "17px",
-              fontWeight: 500,
-              color: "var(--color)",
-              marginTop: "10px",
-              marginBottom: "8px",
-            }}
-          >
-            Create new post
-          </p>
+          <p className="createNewPost">Create new post</p>
           <hr />
           <ImgUpload
             user={user}

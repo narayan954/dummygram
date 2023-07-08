@@ -1,17 +1,31 @@
 import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-const ReadMore = ({ children, picCap = false }) => {
+import Caption from "../Post/Caption.jsx";
+
+const ReadMore = ({ children, picCap = false, postId, readMore = true }) => {
+  const { id } = useParams();
+
+  const [isReadMore, setIsReadMore] = useState(readMore);
+  const navigate = useNavigate();
   let text = children;
-
-  const [isReadMore, setIsReadMore] = useState(true);
   const toggleReadMore = () => setIsReadMore((prev) => !prev);
 
   return (
     <>
-      {isReadMore ? (picCap ? text.slice(0, 300) : text.slice(0, 100)) : text}
+      <Caption
+        caption={
+          isReadMore ? (picCap ? text.slice(0, 300) : text.slice(0, 100)) : text
+        }
+      />
       {text.length >= 300 && (
         <span
-          onClick={toggleReadMore}
+          onClick={() => {
+            toggleReadMore();
+            if (!id) {
+              navigate(`/dummygram/posts/${postId}`);
+            }
+          }}
           style={{
             color: "var(--color)",
             fontWeight: "bold",

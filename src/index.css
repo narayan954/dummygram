@@ -1,24 +1,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 :root {
-  --bg-color: rgb(249, 248, 248);
+  --bg-color: rgb(255, 255, 255);
   --text-primary: blue;
-  --text-secondary: black; /* TODO: Fix */
-  --color: black;
+  --text-secondary: black;
+  --color: rgb(0, 0, 0);
   --filter-img: none;
   --sidebar-link-hover: rgba(0, 0, 0, 0.05);
   --post-box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.4);
   --post-nav-icons: "";
   --emoji-btn: black;
   --profile-container: #f4eeff;
-  --profile-box-shadow: 0 0 6px black;
+  --profile-box-shadow: 0 0 6px 0 black;
   --profile-divider: "";
+  --logo-text-shadow: none;
 }
 
 .darkmode {
   --bg-color: #1c2128;
-  --text-primary: white;
-  --text-secondary: black; /* TODO: Fix */
+  --text-primary: rgb(255, 255, 255);
+  --text-secondary: white;
   --color: rgb(226, 226, 226);
   --filter-img: invert(100%);
   --sidebar-link-hover: rgba(255, 255, 255, 0.15);
@@ -28,6 +29,7 @@
   --profile-container: rgb(50, 48, 48);
   --profile-box-shadow: 0 0 6px white;
   --profile-divider: #898989;
+  --logo-text-shadow: 0 0 10px #eeeeee, 0 0 20px #ff4da6, 0 0 30px #ff4da6;
 }
 
 * {
@@ -130,7 +132,7 @@ input:focus {
 
 @media only screen and (max-width: 1200px) {
   .app__posts {
-    padding-left: 9vw;
+    padding: 0px;
   }
 }
 
@@ -178,6 +180,8 @@ input:focus {
 
 .modal__signup__img {
   width: 80%;
+  border-radius: 0.3rem;
+  margin-bottom: 10px;
 }
 
 .modal__signup {
@@ -188,6 +192,16 @@ input:focus {
 
 .modal__signup button {
   margin-top: 10px;
+}
+
+/* notification card */
+.notification_card {
+  width: 100%;
+  margin: 5px 10px;
+  background-color: rgb(193, 0, 0);
+  color: white;
+  border-radius: 10px;
+  padding: 5px;
 }
 
 /* image upload css */
@@ -219,6 +233,7 @@ input:focus {
 @media only screen and (max-width: 600px) {
   .scrollTop {
     left: 43%;
+    margin-bottom: 2em;
   }
 
   .app__newpost__button {
@@ -382,6 +397,7 @@ div#picker {
 
 /* Input */
 input {
+  width: 100%;
   border: 0;
   border: 1px solid rgba(104, 85, 224, 1);
   border-radius: 4px;
@@ -416,17 +432,27 @@ input {
 
 .have-account {
   color: var(--color);
-  font-size: 13px;
+  font-size: 15px;
   margin: 10px 0;
+  font-weight: bold;
 }
 
 .have-account span {
-  border-bottom: 2px solid rgb(104, 85, 224);
   color: rgb(104, 85, 224);
   cursor: pointer;
+  font-weight: bold;
 }
 
-/* end */
+.have-account span:hover {
+  color: rgb(157, 147, 219);
+}
+
+.login-footer {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 
 .button-style {
   background: linear-gradient(40deg, #e107c1, #59afc7);
@@ -437,3 +463,5 @@ input {
 .button-style:hover {
   background: linear-gradient(-40deg, #59afc7, #e107c1);
 }
+
+/* end */

@@ -12,21 +12,20 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
 import { doc, updateDoc } from "firebase/firestore";
 
-import { Link } from "react-router-dom";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import TextField from "@mui/material/TextField";
 import { db } from "../../lib/firebase";
 import { saveAs } from "file-saver";
 import useCreatedAt from "../../hooks/useCreatedAt";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
   const time = useCreatedAt(timestamp);
   const { fullScreen } = user; // needs fixing
-  const { username, caption, imageUrl, avatar } = postData;
+  const { username, caption, imageUrl, uid, email, avatar } = postData;
 
   const [Open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(false);
@@ -142,6 +141,8 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
                 state: {
                   name: username,
                   avatar: avatar,
+                  uid: uid,
+                  email: email,
                 },
               });
             }}

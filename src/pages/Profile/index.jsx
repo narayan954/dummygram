@@ -9,15 +9,23 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { Post, SideBar } from "../../components";
 import { auth, db, storage } from "../../lib/firebase";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { lazy, useEffect, useState } from "react";
+import {
+  playErrorSound,
+  playSuccessSound,
+  playTapSound,
+} from "../../js/sounds";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import { FaUserCircle } from "react-icons/fa";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
+
+const Post = lazy(() => import("../../components/Post"));
+const SideBar = lazy(() => import("../../components/SideBar"));
 
 function Profile() {
   const location = useLocation();
@@ -37,46 +45,86 @@ function Profile() {
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState("");
 
+  let uid = location?.state?.uid || user?.uid;
+
   const handleClose = () => setOpen(false);
 
   const handleSendFriendRequest = () => {
-    const currentUserUid = auth.currentUser.uid;
-    const targetUserUid = currentUserUid; // TODO: Change this to the user whose profile is being viewed
-    const friendRequestData = {
-      sender: currentUserUid,
-      recipient: targetUserUid,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    };
-    db.collection("friendRequests")
-      .add(friendRequestData)
-      .then(() => {
-        setFriendRequestSent(true);
-        enqueueSnackbar("Friend request sent!", {
-          variant: "success",
+    const currentUser = auth.currentUser;
+    const currentUserUid = currentUser.uid;
+    const targetUserUid = uid;
+    if (friendRequestSent) {
+      db.collection("users")
+        .doc(targetUserUid)
+        .collection("friendRequests")
+        .doc(currentUserUid)
+        .delete()
+        .then(() => {
+          db.collection("users")
+            .doc(targetUserUid)
+            .collection("notifications")
+            .doc(currentUserUid)
+            .delete()
+            .then(() => {
+              enqueueSnackbar("Friend Request removed successfully!", {
+                variant: "success",
+              });
+              setFriendRequestSent(false);
+            });
         });
-        const notificationData = {
-          recipient: targetUserUid,
-          message: `You have received a friend request from ${name}.`,
-          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        };
-        db.collection("notifications").add(notificationData);
-      })
-      .catch((error) => {
-        enqueueSnackbar(error.message, {
-          variant: "error",
+    } else {
+      const friendRequestData = {
+        sender: currentUserUid,
+        recipient: targetUserUid,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      };
+      db.collection("users")
+        .doc(targetUserUid)
+        .collection("friendRequests")
+        .doc(currentUserUid)
+        .set(friendRequestData)
+        .then(() => {
+          setFriendRequestSent(true);
+          playSuccessSound();
+          enqueueSnackbar("Friend request sent!", {
+            variant: "success",
+          });
+          const notificationData = {
+            recipient: targetUserUid,
+            sender: currentUserUid,
+            message: `You have received a friend request`,
+            senderName: auth?.currentUser?.displayName,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          };
+          db.collection("users")
+            .doc(targetUserUid)
+            .collection("notifications")
+            .doc(currentUserUid)
+            .set(notificationData);
+        })
+        .catch((error) => {
+          playErrorSound();
+          enqueueSnackbar(error.message, {
+            variant: "error",
+          });
         });
-      });
+    }
   };
 
   useEffect(() => {
     const checkFriendRequestSent = async () => {
-      const currentUserUid = auth.currentUser.uid;
-      const targetUserUid = currentUserUid; // TODO: Change this to the user whose profile is being viewed
-      const friendRequestsRef = db.collection("friendRequests");
+      const currentUser = auth.currentUser;
+      const currentUserUid = currentUser.uid;
+      const targetUserUid = uid;
+      const friendRequestsRef = db
+        .collection("users")
+        .doc(targetUserUid)
+        .collection("friendRequests");
       const query = friendRequestsRef
         .where("sender", "==", currentUserUid)
         .where("recipient", "==", targetUserUid)
         .limit(1);
+
       const snapshot = await query.get();
       if (!snapshot.empty) {
         setFriendRequestSent(true);
@@ -104,6 +152,7 @@ function Profile() {
             ? location?.state?.email || authUser.email
             : ""
         );
+        uid = location?.state?.uid || authUser.uid;
       } else {
         navigate("/dummygram/login");
       }
@@ -117,37 +166,36 @@ function Profile() {
   //Get username from usernames collection
   useEffect(() => {
     const usernameQ = query(
-      collection(db, "usernames"),
+      collection(db, "users"),
       where("uid", "==", auth.currentUser.uid)
     );
     const unsubscribe = onSnapshot(usernameQ, (querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        setUsername(doc.id);
+        setUsername(doc.username);
       });
     });
   }, []);
 
   // Get user's posts from posts collection
   useEffect(() => {
-    setTimeout(() => {
-      const q = query(
-        collection(db, "posts"),
-        where("username", "==", location?.state?.name || name)
-      );
-      const unsubscribe = onSnapshot(q, (querySnapshot) => {
-        const userPosts = [];
-        querySnapshot.forEach((doc) => {
-          userPosts.push({
-            id: doc.id,
-            post: doc.data(),
-          });
+    const q = query(
+      collection(db, "posts"),
+      where("username", "==", location?.state?.name || name)
+    );
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const userPosts = [];
+      querySnapshot.forEach((doc) => {
+        userPosts.push({
+          id: doc.id,
+          post: doc.data(),
         });
-        setFeed(userPosts);
       });
-    }, 1000);
+      setFeed(userPosts);
+    });
   }, [user, name]);
 
   const handleBack = () => {
+    playTapSound();
     navigate("/dummygram");
   };
 
@@ -159,12 +207,13 @@ function Profile() {
     }
   };
 
-  const handleSave = async () => {
+  const handleSave = () => {
     const uploadTask = storage.ref(`images/${image?.name}`).put(image);
-    await uploadTask.on(
+    uploadTask.on(
       "state_changed",
       () => {},
       (error) => {
+        playErrorSound();
         enqueueSnackbar(error.message, {
           variant: "error",
         });
@@ -179,6 +228,7 @@ function Profile() {
               displayName: name,
               photoURL: url,
             });
+            playSuccessSound();
             enqueueSnackbar("Upload Successful!!!", {
               variant: "success",
             });
@@ -190,7 +240,9 @@ function Profile() {
 
   return (
     <>
-      <SideBar />
+      <ErrorBoundary>
+        <SideBar />
+      </ErrorBoundary>
       <Modal
         open={open}
         onClose={handleClose}
@@ -239,7 +291,7 @@ function Profile() {
         sx={{
           border: "none",
           boxShadow: "var(--profile-box-shadow)",
-          margin: "8rem auto 2.5rem",
+          margin: "6rem auto 2.5rem",
         }}
         display="flex"
         justifyContent={"center"}
@@ -302,9 +354,9 @@ function Profile() {
               Save
             </Button>
           )}
-          <Divider
+          {/* <Divider
             sx={{ marginTop: "1rem", background: "var(--profile-divider)" }}
-          />
+          /> */}
           <Typography fontSize="1.3rem" fontWeight="600">
             {username}
           </Typography>
@@ -312,18 +364,19 @@ function Profile() {
           <Typography fontSize="1.3rem" fontWeight="600">
             {name}
           </Typography>
+          <Typography fontSize="1rem">Total Posts: {feed.length}</Typography>
           <Divider style={{ background: "var(--profile-divider)" }} />
           <Typography fontSize="1.5rem" fontWeight="600">
             {name === auth.currentUser.displayName && email}
           </Typography>
-          {!friendRequestSent && name !== auth.currentUser.displayName && (
+          {name !== auth.currentUser.displayName && (
             <Button
               onClick={handleSendFriendRequest}
               variant="contained"
               color="primary"
               sx={{ marginTop: "1rem" }}
             >
-              Add Friend
+              {friendRequestSent ? "Remove friend request" : "Add Friend"}
             </Button>
           )}
           <Button
@@ -339,18 +392,20 @@ function Profile() {
       </Box>
       <Box className="flex feed-main-container">
         <div className="app__posts" id="feed-sub-container">
-          {feed.map(({ post, id }) => (
-            <Post
-              rowMode={true}
-              key={id}
-              postId={id}
-              user={user}
-              post={post}
-              shareModal={true}
-              setLink="/"
-              setPostText=""
-            />
-          ))}
+          <ErrorBoundary>
+            {feed.map(({ post, id }) => (
+              <Post
+                rowMode={true}
+                key={id}
+                postId={id}
+                user={user}
+                post={post}
+                shareModal={true}
+                setLink="/"
+                setPostText=""
+              />
+            ))}
+          </ErrorBoundary>
         </div>
       </Box>
     </>

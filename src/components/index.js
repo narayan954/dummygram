@@ -3,10 +3,11 @@ import Favorite from "./Favorite";
 import ImgUpload from "./ImgUpload";
 import LandingAnimation from "./LandingAnimation";
 import Navbar from "./Navbar";
-import NotFound from "./NotFound";
-import Notifications from "./Notifications";
+import NotFound from "../pages/NotFound";
+import Notifications from "./Notification";
 import Post from "./Post";
 import ReadMore from "./ReadMore";
+import SearchBar from "./SearchBar";
 import SideBar from "./SideBar";
 
 export {
@@ -20,6 +21,7 @@ export {
   LandingAnimation,
   NotFound,
   Notifications,
+  SearchBar,
 };
 
 export default Post;
