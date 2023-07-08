@@ -44,8 +44,7 @@ function Profile() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState("");
-
-  let uid = location?.state?.uid || user?.uid;
+  const [uid, setUid] = useState(location?.state?.uid || null);
 
   const handleClose = () => setOpen(false);
 
@@ -152,7 +151,7 @@ function Profile() {
             ? location?.state?.email || authUser.email
             : ""
         );
-        uid = location?.state?.uid || authUser.uid;
+        setUid(location?.state?.uid || authUser.uid);
       } else {
         navigate("/dummygram/login");
       }
