@@ -14,7 +14,7 @@ body:
     id: reproduction
     attributes:
       label: Steps to reproduce
-      description: Steps to reproduce the bug that you found !
+      description: Steps to reproduce the bug that you found!
     validations:
       required: true
 
@@ -53,10 +53,11 @@ body:
   - type: checkboxes
     id: terms
     attributes:
-    label: 'Record'
-    options:
-      - label: I agree to follow this project's Code of Conduct
-        required: true
-      - label: I have checked the existing issues  
-      - label: I'm a GSSoC'23 contributor
-      - label: I want to work on this issue    
+      label: 'Record'
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
+        - label: I have checked the existing issues  
+        - label: I'm a GSSoC'23 contributor
+        - label: I want to work on this issue
+          required: true
