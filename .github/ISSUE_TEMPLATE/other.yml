@@ -20,3 +20,13 @@ body:
       description: Is there anything else we should know about this issue?
     validations:
       required: false
+  - type: checkboxes
+    id: terms
+    attributes:
+    label: 'Record'
+    options:
+      - label: I agree to follow this project's Code of Conduct
+        required: true
+      - label: I have checked the existing issues  
+      - label: I'm a GSSoC'23 contributor
+      - label: I want to work on this issue     
