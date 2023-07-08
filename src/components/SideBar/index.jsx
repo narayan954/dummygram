@@ -63,7 +63,7 @@ function SideBar() {
             }
           >
             <div className="sidebar_align">
-              {user.photoURL ? (
+              {user && user.photoURL ? (
                 <img
                   src={user.photoURL}
                   alt="profile picture"
