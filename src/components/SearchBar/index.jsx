@@ -59,7 +59,7 @@ function SearchBar() {
   );
 
   return (
-    <div style={{ marginTop: "-150px" }}>
+    <div >
       <SideBar />
       <ShareModal
         openShareModal={openShareModal}
@@ -67,7 +67,7 @@ function SearchBar() {
         currentPostLink={currentPostLink}
         postText={postText}
       />
-      <div className="search-bar">
+      <div className="search-bar" style={{ marginTop: "-150px" }}>
         <input
           type="search"
           value={searchText}
