@@ -13,7 +13,7 @@ const PostView = (props) => {
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [fetchAgain, setFetchAgain] = useState(false);
-  
+
   useEffect(() => {
     setLoading(true);
     if (loading) {
