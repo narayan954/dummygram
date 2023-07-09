@@ -79,7 +79,7 @@ const PostCommentView = ({
         .then(() => setFetchAgain(!fetchAgain))
 
         .catch((error) => {
-          // console.log(error);
+          console.error("Error updating document: ", error);
         });
     }
   }

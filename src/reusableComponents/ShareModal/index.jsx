@@ -10,22 +10,20 @@ const ShareModal = (props) => {
   const { openShareModal, setOpenShareModal, currentPostLink, postText } =
     props;
 
-
   const handleCopyLink = () => {
-      window.navigator.clipboard.writeText(currentPostLink);
-      playSuccessSound();
-      enqueueSnackbar("Copied Post Link!", {
-        variant: "success",
-      });
-    };
-    
-  const CopyLinkButton = ({ onClick }) => (
-      <button onClick={onClick} className="copy-link-button">
-        Copy Link
-      </button>
-    );
+    window.navigator.clipboard.writeText(currentPostLink);
+    playSuccessSound();
+    enqueueSnackbar("Copied Post Link!", {
+      variant: "success",
+    });
+  };
 
-      
+  const CopyLinkButton = ({ onClick }) => (
+    <button onClick={onClick} className="copy-link-button">
+      Copy Link
+    </button>
+  );
+
   const { enqueueSnackbar } = useSnackbar();
 
   return (
