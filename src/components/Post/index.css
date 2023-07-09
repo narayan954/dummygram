@@ -20,7 +20,7 @@
 }
 
 .avatar {
-  border: 2px solid rgb(65, 225, 89);
+  border: 2px solid rgb(221, 221, 90);
   cursor: pointer;
   transition: all 0.2s;
 }
@@ -110,11 +110,9 @@
 }
 
 .post__text {
-  border-top: 1px solid var(--color);
-  border-bottom: 1px solid var(--color);
   padding-top: 2px;
   padding-bottom: 2px;
-  height: 1.5rem;
+  /* height: 1.5rem; */
   font-weight: normal;
   font-size: 15px;
   overflow: auto;
