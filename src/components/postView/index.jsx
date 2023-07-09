@@ -31,7 +31,7 @@ const PostDetails = React.lazy(() => import("./PostDetails.jsx"));
 const PostViewComments = React.lazy(() => import("./PostViewComments.jsx"));
 const PostViewMenu = React.lazy(() => import("./PostViewMenu.jsx"));
 const ImageSlider = React.lazy(() =>
-  import("../../reusableComponents/ImageSlider")
+  import("../../reusableComponents/ImageSlider"),
 );
 const ReadMore = React.lazy(() => import("../ReadMore"));
 const PostCommentView = ({
@@ -53,7 +53,7 @@ const PostCommentView = ({
 
   const [comments, setComments] = React.useState(null);
   const [likesNo, setLikesNo] = React.useState(
-    likecount ? likecount.length : 0
+    likecount ? likecount.length : 0,
   );
   const tempLikeCount = likecount ? [...likecount] : [];
   const [showEmojis, setShowEmojis] = React.useState(false);
@@ -79,7 +79,7 @@ const PostCommentView = ({
         .then(() => setFetchAgain(!fetchAgain))
 
         .catch((error) => {
-          // console.log(error);
+          console.error("Error updating document: ", error);
         });
     }
   }
@@ -115,7 +115,7 @@ const PostCommentView = ({
             snapshot.docs.map((doc) => ({
               id: doc.id,
               content: doc.data(),
-            }))
+            })),
           );
         });
     }

@@ -26,3 +26,11 @@
   padding: 0 6px;
   box-sizing: border-box;
 }
+.copy-link-button {
+  background-color: lightblue;
+  color: black;
+  border: 2px solid purple;
+}
+.copy-link-button:hover {
+  cursor: pointer;
+}

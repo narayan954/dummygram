@@ -172,7 +172,6 @@ function Post(prop) {
         setLikesNo((currLikesNo) => currLikesNo + 1);
       }
 
-      // console.log(tempLikeCount);
       const data = {
         likecount: tempLikeCount,
       };
