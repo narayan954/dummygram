@@ -199,6 +199,7 @@ const PostCommentView = ({
         style={{ display: "flex", flexDirection: "column" }}
         isDetails={true}
       >
+
         <PostGridItem isHeader={true}>
           <ErrorBoundary>
             <PostHeader
@@ -249,6 +250,7 @@ const PostCommentView = ({
               subheader={time}
             />
           </ErrorBoundary>
+          {/* caption box */}
           {postHasImages && caption ? (
             <ErrorBoundary>
               <PostCaption>
@@ -259,6 +261,8 @@ const PostCommentView = ({
             </ErrorBoundary>
           ) : null}
         </PostGridItem>
+
+        {/* post/ like ...  box */}
         <PostGridItem postActions>
           <ErrorBoundary>
             <PostDetails
@@ -276,6 +280,9 @@ const PostCommentView = ({
             />
           </ErrorBoundary>
         </PostGridItem>
+
+
+        {/* Comment box  */}
         <PostGridItem isComments={comments?.length > 0}>
           <CommentForm>
             <ClickAwayListener onClickAway={() => setShowEmojis(false)}>
@@ -309,7 +316,7 @@ const PostCommentView = ({
               placeholder={
                 comments?.length !== 0
                   ? "Add a comment..."
-                  : "Be the first one to comment..."
+                  : "Be the first one to comment ..."
               }
               ref={commentRef}
               style={{

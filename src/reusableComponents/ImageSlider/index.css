@@ -3,9 +3,15 @@
   display: flex;
   justify-content: center;
   margin: 0 auto;
-  min-height: 300px;
+  /* min-height: 300px; */
+  height: 350px;
+  /* min-width: 300px; */
+  /* max-width: 350px; */
   position: relative;
-  width: 100%;
+  /* width: 100%; */
+  /* object-fit:scale-down; */
+  overflow: hidden;
+  /* aspect-ratio: 16/1; */
 }
 
 .slide {
@@ -28,8 +34,8 @@
 
 .image {
   background-color: aliceblue;
-  height: 600px;
-  object-fit: cover;
+  height: 250px;
+  object-fit:scale-down;
   width: 100%;
   z-index: -1;
 }

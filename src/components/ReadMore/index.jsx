@@ -12,7 +12,7 @@ const ReadMore = ({ children, picCap = false, postId, readMore = true }) => {
   const toggleReadMore = () => setIsReadMore((prev) => !prev);
 
   return (
-    <>
+    <div className="">
       <Caption
         caption={
           isReadMore ? (picCap ? text.slice(0, 300) : text.slice(0, 100)) : text
@@ -35,7 +35,7 @@ const ReadMore = ({ children, picCap = false, postId, readMore = true }) => {
           {isReadMore ? " ...read more" : " ...show less"}
         </span>
       )}
-    </>
+    </div>
   );
 };
 
