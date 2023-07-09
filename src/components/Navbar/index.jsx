@@ -63,25 +63,9 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
                     <Box className="nav-menu">
                       <Box
                         className="nav-menu-item"
-                        onClick={() =>
-                          navigate("/dummygram/profile", {
-                            state: {
-                              name: user.toJSON().displayName,
-                              email: user.toJSON().email,
-                              avatar: user.toJSON().photoURL,
-                              uid: user.toJSON().uid,
-                            },
-                          })
-                        }
+                        onClick={() => navigate("/dummygram/settings")}
                       >
-                        <Typography fontSize="1rem">Profile</Typography>
-                      </Box>
-                      <Divider />
-                      <Box
-                        className="nav-menu-item"
-                        onClick={() => navigate("/dummygram/favourites")}
-                      >
-                        <Typography fontSize="1rem">Favourites</Typography>
+                        <Typography fontSize="0.9rem">Settings</Typography>
                       </Box>
                       <Divider />
                       <Box
@@ -89,13 +73,6 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
                         onClick={() => setLogout(true)}
                       >
                         <Typography fontSize="0.9rem">Log Out</Typography>
-                      </Box>
-                      <Divider />
-                      <Box
-                        className="nav-menu-item"
-                        onClick={() => navigate("/dummygram/settings")}
-                      >
-                        <Typography fontSize="0.9rem">Settings</Typography>
                       </Box>
                     </Box>
                   )}

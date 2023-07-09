@@ -84,7 +84,7 @@ const LoginScreen = () => {
     auth
       .signInWithPopup(googleProvider)
       .then(async (val) => {
-        const userRef = await db
+        const userRef = db
           .collection("users")
           .where("uid", "==", val?.user?.uid);
         // alert(((await userRef.get()).docs.length))
@@ -129,7 +129,6 @@ const LoginScreen = () => {
         const userRef = await db
           .collection("users")
           .where("uid", "==", val?.user?.uid);
-        // alert(((await userRef.get()).docs.length))
         if ((await userRef.get()).docs.length < 1) {
           const usernameDoc = db.collection(`users`);
           await usernameDoc.doc(auth.currentUser.uid).set({
@@ -265,23 +264,21 @@ const LoginScreen = () => {
             <div className="forgot__new">
               <div className="forgot-pasword">
                 <span role={"button"} onClick={navigateToForgot}>
-                  Forgot Password
+                  Forgot Password ? &#160;
                 </span>
               </div>
               <div className="have-account">
-                New User?
+                Don't have an account ?&#160;
                 <span role={"button"} onClick={navigateToSignup}>
                   {" "}
-                  Sign up!
+                  Sign up
                 </span>
               </div>
             </div>
           </div>
         </form>
       </div>
-      <div className="login__right">
-        {/* <img src={loginRight} alt="website image" /> */}
-      </div>
+      <div className="login__right" />
     </section>
   );
 };

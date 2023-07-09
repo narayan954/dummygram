@@ -44,8 +44,7 @@ function Profile() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState("");
-
-  let uid = location?.state?.uid || user?.uid;
+  const [uid, setUid] = useState(location?.state?.uid || null);
 
   const handleClose = () => setOpen(false);
 
@@ -150,9 +149,9 @@ function Profile() {
         setEmail(
           location?.state?.name === authUser?.displayName
             ? location?.state?.email || authUser.email
-            : ""
+            : "",
         );
-        uid = location?.state?.uid || authUser.uid;
+        setUid(location?.state?.uid || authUser.uid);
       } else {
         navigate("/dummygram/login");
       }
@@ -167,7 +166,7 @@ function Profile() {
   useEffect(() => {
     const usernameQ = query(
       collection(db, "users"),
-      where("uid", "==", auth.currentUser.uid)
+      where("uid", "==", auth.currentUser.uid),
     );
     const unsubscribe = onSnapshot(usernameQ, (querySnapshot) => {
       querySnapshot.forEach((doc) => {
@@ -180,7 +179,7 @@ function Profile() {
   useEffect(() => {
     const q = query(
       collection(db, "posts"),
-      where("username", "==", location?.state?.name || name)
+      where("username", "==", location?.state?.name || name),
     );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const userPosts = [];
@@ -233,7 +232,7 @@ function Profile() {
               variant: "success",
             });
           });
-      }
+      },
     );
     setVisible(false);
   };

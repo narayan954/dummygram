@@ -55,11 +55,11 @@ function SearchBar() {
   // code to filter posts accornding to searchtext
 
   const filteredPosts = posts.filter((post) =>
-    post.post.username.toLowerCase().includes(searchText.toLowerCase())
+    post.post.username.toLowerCase().includes(searchText.toLowerCase()),
   );
 
   return (
-    <div style={{ marginTop: "-150px" }}>
+    <div>
       <SideBar />
       <ShareModal
         openShareModal={openShareModal}
@@ -67,7 +67,7 @@ function SearchBar() {
         currentPostLink={currentPostLink}
         postText={postText}
       />
-      <div className="search-bar">
+      <div className="search-bar" style={{ marginTop: "-150px" }}>
         <input
           type="search"
           value={searchText}

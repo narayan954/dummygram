@@ -1,10 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 :root {
-  --bg-color: rgb(249, 248, 248);
+  --bg-color: rgb(255, 255, 255);
   --text-primary: blue;
-  --text-secondary: black; /* TODO: Fix */
-  --color: rgb(61, 60, 60);
+  --text-secondary: black;
+  --color: rgb(0, 0, 0);
   --filter-img: none;
   --sidebar-link-hover: rgba(0, 0, 0, 0.05);
   --post-box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.4);
@@ -19,7 +19,7 @@
 .darkmode {
   --bg-color: #1c2128;
   --text-primary: rgb(255, 255, 255);
-  --text-secondary: white; /* TODO: Fix */
+  --text-secondary: white;
   --color: rgb(226, 226, 226);
   --filter-img: invert(100%);
   --sidebar-link-hover: rgba(255, 255, 255, 0.15);
@@ -397,7 +397,6 @@ div#picker {
 
 /* Input */
 input {
-  /* width: 230px; */
   width: 100%;
   border: 0;
   border: 1px solid rgba(104, 85, 224, 1);
@@ -433,14 +432,19 @@ input {
 
 .have-account {
   color: var(--color);
-  font-size: 13px;
+  font-size: 15px;
   margin: 10px 0;
+  font-weight: bold;
 }
 
 .have-account span {
-  border-bottom: 2px solid rgb(104, 85, 224);
   color: rgb(104, 85, 224);
   cursor: pointer;
+  font-weight: bold;
+}
+
+.have-account span:hover {
+  color: rgb(157, 147, 219);
 }
 
 .login-footer {
