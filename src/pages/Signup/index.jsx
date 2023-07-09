@@ -163,7 +163,8 @@ const SignupScreen = () => {
                   enqueueSnackbar("Signup Successful!", {
                     variant: "success",
                   });
-                });
+                })
+                .catch(error => console.error(error))
             }
           );
         })
