@@ -35,7 +35,6 @@ function Post(prop) {
 
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
-  const [likesArr, setlikesArr] = useState(likecount);
   const [likesNo, setLikesNo] = useState(likecount ? likecount.length : 0);
   const [showEmojis, setShowEmojis] = useState(false);
   const [isCommentOpen, setisCommentOpen] = useState(false);
@@ -61,7 +60,7 @@ function Post(prop) {
             snapshot.docs.map((doc) => ({
               id: doc.id,
               content: doc.data(),
-            })),
+            }))
           );
         });
     }
@@ -72,27 +71,6 @@ function Post(prop) {
       }
     };
   }, [postId]);
-
-  // TODO: Fix this below fuction implementation
-
-  // //For updating like count on Favourite page
-  // useEffect(() => {
-  //   let unsubscribe;
-  //   if (postId) {
-  //     unsubscribe = db
-  //       .collection("posts")
-  //       .doc(postId)
-  //       .onSnapshot((snapshot) => {
-  //         setlikesArr(snapshot.data().likecount);
-  //       });
-  //   }
-
-  //   return () => {
-  //     if (unsubscribe) {
-  //       unsubscribe();
-  //     }
-  //   };
-  // }, [likesArr]);
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#FFF",
@@ -151,7 +129,7 @@ function Post(prop) {
 
   const postHasImages = postImages.some((image) => Boolean(image.imageUrl));
 
-  const tempLikeCount = likesArr ? [...likesArr] : [];
+  const tempLikeCount = likecount ? [...likecount] : [];
 
   const buttonStyle = {
     ":hover": {
@@ -161,7 +139,7 @@ function Post(prop) {
   };
 
   async function likesHandler() {
-    if (user && likesArr !== undefined) {
+    if (user && likecount !== undefined) {
       let ind = tempLikeCount.indexOf(user.uid);
 
       if (ind !== -1) {
