@@ -10,6 +10,22 @@ const ShareModal = (props) => {
   const { openShareModal, setOpenShareModal, currentPostLink, postText } =
     props;
 
+
+  const handleCopyLink = () => {
+      window.navigator.clipboard.writeText(currentPostLink);
+      playSuccessSound();
+      enqueueSnackbar("Copied Post Link!", {
+        variant: "success",
+      });
+    };
+    
+  const CopyLinkButton = ({ onClick }) => (
+      <button onClick={onClick} className="copy-link-button">
+        Copy Link
+      </button>
+    );
+
+      
   const { enqueueSnackbar } = useSnackbar();
 
   return (
@@ -74,15 +90,9 @@ const ShareModal = (props) => {
           disabled
           disableUnderline
           value={currentPostLink}
-          onClick={() => {
-            window.navigator.clipboard.writeText(currentPostLink);
-            playSuccessSound();
-            enqueueSnackbar("Copied Post Link!", {
-              variant: "success",
-            });
-          }}
           className="share-modal-container-input"
         />
+        <CopyLinkButton onClick={handleCopyLink} />
       </div>
     </Dialog>
   );
