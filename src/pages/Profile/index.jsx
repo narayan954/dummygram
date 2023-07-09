@@ -70,9 +70,9 @@ function Profile() {
               });
               setFriendRequestSent(false);
             })
-            .catch(error => console.error(error))
+            .catch((error) => console.error(error));
         })
-        .catch(error => console.error(error))
+        .catch((error) => console.error(error));
     } else {
       const friendRequestData = {
         sender: currentUserUid,
@@ -234,7 +234,7 @@ function Profile() {
               variant: "success",
             });
           })
-          .catch(error => console.error(error))
+          .catch((error) => console.error(error));
       },
     );
     setVisible(false);
