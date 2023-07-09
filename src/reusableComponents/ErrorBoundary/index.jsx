@@ -48,6 +48,7 @@ const ErrorFallBack = ({ error, info, resetErrorBoundary, inApp }) => {
     </div>
   );
 };
+
 export default function ErrorBoundary({ children, inApp }) {
   const [hasError, setHasError] = useState(false);
   const [info, setErrorInfo] = useState(null);

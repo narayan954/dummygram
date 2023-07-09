@@ -29,7 +29,7 @@ export const Feedback = () => {
           });
         },
         (error) => {
-          console.log(error.text);
+          console.error("Error:", error);
         }
       );
   };
