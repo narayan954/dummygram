@@ -51,7 +51,10 @@ const About = () => {
       .then((data) => {
         setForks(data.forks_count);
         setStars(data.stargazers_count);
-      });
+      })
+      .catch(error => {
+        console.error("Error",error)
+      })
   }, []);
 
   return (
