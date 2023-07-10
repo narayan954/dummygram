@@ -111,32 +111,29 @@ function Profile() {
   };
 
   useEffect(() => {
-    const checkFriendRequestSent = async () => {
-      const currentUser = auth.currentUser;
-      const currentUserUid = currentUser.uid;
-      const targetUserUid = uid;
-      const friendRequestsRef = db
-        .collection("users")
-        .doc(targetUserUid)
-        .collection("friendRequests");
-      const query = friendRequestsRef
-        .where("sender", "==", currentUserUid)
-        .where("recipient", "==", targetUserUid)
-        .limit(1);
-
-      const snapshot = await query.get();
-      if (!snapshot.empty) {
-        setFriendRequestSent(true);
-      }
-    };
-    checkFriendRequestSent();
-  }, []);
-
-  useEffect(() => {
     if (auth.currentUser) {
-      setUser(auth.currentUser);
-    } else {
-      navigate("/dummygram/login");
+      const checkFriendRequestSent = async () => {
+        const currentUserUid = auth.currentUser.uid;
+        const targetUserUid = uid;
+
+        // Add a check to ensure targetUserUid is not empty
+        if (targetUserUid) {
+          const friendRequestsRef = db
+            .collection("users")
+            .doc(targetUserUid)
+            .collection("friendRequests");
+          const query = friendRequestsRef
+            .where("sender", "==", currentUserUid)
+            .where("recipient", "==", targetUserUid)
+            .limit(1);
+
+          const snapshot = await query.get();
+          if (!snapshot.empty) {
+            setFriendRequestSent(true);
+          }
+        }
+      };
+      checkFriendRequestSent();
     }
   }, []);
 
@@ -149,7 +146,7 @@ function Profile() {
         setEmail(
           location?.state?.name === authUser?.displayName
             ? location?.state?.email || authUser.email
-            : "",
+            : ""
         );
         setUid(location?.state?.uid || authUser.uid);
       } else {
@@ -160,26 +157,28 @@ function Profile() {
     return () => {
       unsubscribe();
     };
-  }, [user]);
+  }, []);
 
   //Get username from usernames collection
   useEffect(() => {
-    const usernameQ = query(
-      collection(db, "users"),
-      where("uid", "==", auth.currentUser.uid),
-    );
-    const unsubscribe = onSnapshot(usernameQ, (querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        setUsername(doc.username);
+    if (auth.currentUser) {
+      const usernameQ = query(
+        collection(db, "users"),
+        where("uid", "==", auth.currentUser.uid)
+      );
+      const unsubscribe = onSnapshot(usernameQ, (querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          setUsername(doc.username);
+        });
       });
-    });
+    }
   }, []);
 
   // Get user's posts from posts collection
   useEffect(() => {
     const q = query(
       collection(db, "posts"),
-      where("username", "==", location?.state?.name || name),
+      where("username", "==", location?.state?.name || name)
     );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const userPosts = [];
@@ -232,7 +231,7 @@ function Profile() {
               variant: "success",
             });
           });
-      },
+      }
     );
     setVisible(false);
   };
@@ -304,7 +303,7 @@ function Profile() {
               <Avatar
                 onClick={() => setOpen((on) => !on)}
                 alt={name}
-                src={profilePic}
+                src={avatar}
                 sx={{
                   width: "22vh",
                   height: "22vh",
@@ -321,7 +320,7 @@ function Profile() {
               <FaUserCircle style={{ width: "22vh", height: "22vh" }} />
             )}
           </Box>
-          {name === auth.currentUser.displayName && (
+          {name === user?.displayName && (
             <Box>
               <input
                 type="file"
@@ -366,9 +365,9 @@ function Profile() {
           <Typography fontSize="1rem">Total Posts: {feed.length}</Typography>
           <Divider style={{ background: "var(--profile-divider)" }} />
           <Typography fontSize="1.5rem" fontWeight="600">
-            {name === auth.currentUser.displayName && email}
+            {name === user?.displayName && email}
           </Typography>
-          {name !== auth.currentUser.displayName && (
+          {name !== user?.displayName && (
             <Button
               onClick={handleSendFriendRequest}
               variant="contained"
