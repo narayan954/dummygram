@@ -69,8 +69,10 @@ function Profile() {
                 variant: "success",
               });
               setFriendRequestSent(false);
-            });
-        });
+            })
+            .catch((error) => console.error(error));
+        })
+        .catch((error) => console.error(error));
     } else {
       const friendRequestData = {
         sender: currentUserUid,
@@ -230,8 +232,10 @@ function Profile() {
             enqueueSnackbar("Upload Successful!!!", {
               variant: "success",
             });
-          });
-      }
+
+          })
+          .catch((error) => console.error(error));
+      },
     );
     setVisible(false);
   };
