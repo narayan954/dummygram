@@ -14,6 +14,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { auth } from "../../lib/firebase";
 import logo from "../../assets/logo.webp";
 import { useNavigate } from "react-router-dom";
+import { Darkmode } from "../../reusableComponents";
 
 function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
   const navigate = useNavigate();
@@ -44,7 +45,6 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
             window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
           }}
         />
-
         {user && (
           <>
             <div className="container">
@@ -78,6 +78,9 @@ function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
                   )}
                 </Button>
               </ClickAwayListener>
+              <div style={{ margin: "10px" }}>
+                <Darkmode />
+              </div>
             </div>
           </>
         )}

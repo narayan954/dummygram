@@ -248,7 +248,7 @@ function App() {
             </div>
           </Modal>
 
-          <Darkmode />
+          {/* <Darkmode /> */}
           <Routes>
             <Route
               exact
