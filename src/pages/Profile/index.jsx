@@ -232,10 +232,9 @@ function Profile() {
             enqueueSnackbar("Upload Successful!!!", {
               variant: "success",
             });
-
           })
           .catch((error) => console.error(error));
-      },
+      }
     );
     setVisible(false);
   };
@@ -279,8 +278,8 @@ function Profile() {
             }}
             width={isNonMobile ? "50%" : "50%"}
             height={isNonMobile ? "50%" : "50%"}
-            src={profilePic}
-            alt="user"
+            src={avatar}
+            alt={name}
           />
         </Box>
       </Modal>
