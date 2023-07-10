@@ -169,6 +169,10 @@
   text-align: center;
   width: 100%;
 }
+.login__right img {
+  width: 100%;
+  height: 100%;
+}
 
 .login__right {
   background-image: url("../../assets/login-right.webp");
@@ -177,6 +181,9 @@
   background-position: center center;
   width: 100%;
   height: 100%;
+}
+.signup__right{
+  background-image: none;
 }
 
 /* forgot password */

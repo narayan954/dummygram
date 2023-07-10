@@ -501,7 +501,8 @@ const SignupScreen = () => {
           </div>
         </form>
       </div>
-      <div className="login__right">
+      <div className="login__right signup__right">
+      <img src={loginRight} alt="website image" />
       </div>
     </section>
   );
