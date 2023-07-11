@@ -286,15 +286,16 @@ const SignupScreen = () => {
   return (
     <div className="flex signup-container">
       <div style={modalStyle} className={classes.paper}>
-        <form className="modal__signup">
+        <form className="modal__signup" role="form" aria-label="Sign Up Form">
           <input
             type="file"
             id="file"
             className="file"
             onChange={handleChange}
             accept="image/*"
+            aria-labelledby="file-label"
           />
-          <label htmlFor="file">
+          <label htmlFor="file" id="file-label">
             <div className="img-outer">
               {address ? (
                 <img
@@ -320,9 +321,13 @@ const SignupScreen = () => {
             className={
               usernameAvailable ? "username-available" : "error-border"
             }
+            required
+            aria-required="true"
+            aria-label="Username"
+            aria-describedby="username-error"
           />
           {!usernameAvailable && (
-            <p className="error">Username not availaible</p>
+            <p className="error" id="username-error">Username not availaible</p>
           )}
           <input
             type="text"
@@ -334,9 +339,13 @@ const SignupScreen = () => {
               handleError(e.target.name, e.target.value);
             }}
             className={error.nameError ? "error-border" : null}
+            required
+            aria-required="true"
+            aria-label="Full Name"
+            aria-describedby="name-error"
           />
           {error.name && error.nameError && (
-            <p className="error">{error.nameError}</p>
+            <p className="error" id="name-error">{error.nameError}</p>
           )}
           <input
             type="email"
@@ -348,9 +357,13 @@ const SignupScreen = () => {
               handleError(e.target.name, e.target.value);
             }}
             className={error.emailError ? "error-border" : null}
+            required
+            aria-required="true"
+            aria-label="Email"
+            aria-describedby="email-error"
           />
           {error.email && error.emailError && (
-            <p className="error">{error.emailError}</p>
+            <p className="error" id="email-error">{error.emailError}</p>
           )}
           <div
             className={
@@ -368,17 +381,22 @@ const SignupScreen = () => {
                 setPassword(e.target.value);
                 handleError(e.target.name, e.target.value);
               }}
-              className="password-input "
+              className="password-input"
+              required
+              aria-required="true"
+              aria-label="Password"
+              aria-describedby="password-error"
             />
             <button
               onClick={(e) => handleShowPassword(e)}
               className="show-password"
+              aria-label={showPassword ? "Hide Password" : "Show Password"}
             >
               {showPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
             </button>
           </div>
           {error.password && error.passwordError && (
-            <p className="error">{error.passwordError}</p>
+            <p className="error" id="password-error">{error.passwordError}</p>
           )}
 
           {/* Confirm password */}
@@ -399,16 +417,21 @@ const SignupScreen = () => {
                 handleError(e.target.name, e.target.value);
               }}
               className="password-input"
+              required
+              aria-required="true"
+              aria-label="Confirm Password"
+              aria-describedby="confirm-password-error"
             />
             <button
               onClick={(e) => handleShowConfirmPassword(e)}
               className="show-password"
+              aria-label={showConfirmPassword ? "Hide Confirm Password" : "Show Confirm Password"}
             >
               {showConfirmPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
             </button>
           </div>
           {error.confirmPassword && error.confirmPasswordError && (
-            <p className="error">{error.confirmPasswordError}</p>
+            <p className="error" id="confirm-password-error">{error.confirmPasswordError}</p>
           )}
           <button type="submit" onClick={signUp} className="button signup">
             Sign Up <FontAwesomeIcon icon={faRightToBracket} />
@@ -419,16 +442,16 @@ const SignupScreen = () => {
             <div className="line" />
           </div>
           <div className="google-fb-login">
-            <button className="button" onClick={signInWithGoogle}>
+            <button className="button" onClick={signInWithGoogle} aria-label="Sign Up with Google">
               <FontAwesomeIcon icon={faGoogle} />
             </button>
-            <button className="button" onClick={signInWithFacebook}>
+            <button className="button" onClick={signInWithFacebook} aria-label="Sign Up with Facebook">
               <FontAwesomeIcon icon={faSquareFacebook} />
             </button>
           </div>
           <div className="have-account">
             Already have an account?{" "}
-            <span role={"button"} onClick={navigateToLogin}>
+            <span role={"button"} onClick={navigateToLogin} tabIndex="0">
               Sign in
             </span>
           </div>

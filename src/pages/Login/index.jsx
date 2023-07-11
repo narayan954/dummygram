@@ -177,7 +177,7 @@ const LoginScreen = () => {
   return (
     <section className="login__section">
       <div className="login__left">
-        <form>
+        <form role="form" aria-label="Login Form">
           <div className="form__top">
             <img src={logo} alt="dummygram logo" />
             <div className="greetings">
@@ -201,9 +201,12 @@ const LoginScreen = () => {
                 }}
                 className={error.emailError ? "error-border" : null}
                 required
+                aria-required="true"
+                aria-labelledby="email"
+                aria-describedby="email-error"
               />
               {error.email && error.emailError && (
-                <p className="error">{error.emailError}</p>
+                <p className="error" role="alert" id="email-error">{error.emailError}</p>
               )}
             </div>
             <div className="input__group">
@@ -217,10 +220,16 @@ const LoginScreen = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   id="password"
                   required
+                  aria-labelledby="password-label"
+                  aria-controls="password-toggle"
+                  aria-required="true"
                 />
                 <button
                   onClick={(e) => handleShowPassword(e)}
                   className="show__hide--pass"
+                  id="password-toggle"
+                  type="button"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
                 </button>
@@ -244,6 +253,7 @@ const LoginScreen = () => {
                   className="other__login google"
                   type="submit"
                   onClick={signInWithGoogle}
+                  aria-label="Sign in with Google"
                 >
                   <FontAwesomeIcon icon={faGoogle} className="google-icon" />{" "}
                   Sign in with Google
@@ -252,6 +262,7 @@ const LoginScreen = () => {
                   className="other__login facebook"
                   type="submit"
                   onClick={signInWithFacebook}
+                  aria-label="Sign in with Facebook"
                 >
                   <FontAwesomeIcon
                     icon={faFacebookF}
