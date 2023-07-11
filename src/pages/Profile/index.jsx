@@ -406,7 +406,7 @@ function Profile() {
             <Button
               onClick={handleSave}
               variant="outlined"
-              sx={{ marginTop: "1rem", marginRight: "1rem" }}
+              sx={{ marginTop: "1rem"}}
             >
               Save
             </Button>
