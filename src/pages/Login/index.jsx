@@ -6,9 +6,7 @@ import { auth, db, facebookProvider, googleProvider } from "../../lib/firebase";
 import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 
-import Facebook from "../../assets/facebook.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Google from "../../assets/goggle.svg";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import logo from "../../assets/logo.webp";
 import { useNavigate } from "react-router-dom";
@@ -93,12 +91,24 @@ const LoginScreen = () => {
           const usernameDoc = db.collection(`users`);
           await usernameDoc.doc(auth.currentUser.uid).set({
             uid: val.user.uid,
+            username: val.user.uid,
             name: val.user.displayName,
             photoURL: val.user.photoURL,
             displayName: val.user.displayName,
             Friends: [],
             posts: [],
           });
+        }
+        else{
+          const usernameDoc = db.collection(`users`);
+          usernameDoc.doc(auth.currentUser.uid).get()
+          .then((doc) => {
+            if(!doc.data().username){
+              doc.ref.update({
+                username: doc.data().uid
+              })
+            }
+          })
         }
         playSuccessSound();
         enqueueSnackbar("Login successful!", {
@@ -133,12 +143,24 @@ const LoginScreen = () => {
           const usernameDoc = db.collection(`users`);
           await usernameDoc.doc(auth.currentUser.uid).set({
             uid: val.user.uid,
+            username: val.user.uid,
             name: val.user.displayName,
             photoURL: val.user.photoURL,
             displayName: val.user.displayName,
             Friends: [],
             posts: [],
           });
+        }
+        else{
+          const usernameDoc = db.collection(`users`);
+          usernameDoc.doc(auth.currentUser.uid).get()
+          .then((doc) => {
+            if(!doc.data().username){
+              doc.ref.update({
+                username: doc.data().uid
+              })
+            }
+          })
         }
         playSuccessSound();
         enqueueSnackbar("Login successful!", {

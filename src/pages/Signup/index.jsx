@@ -37,7 +37,7 @@ const SignupScreen = () => {
   const [username, setUsername] = useState("");
   const [isOauthSignUp, setIsOauthSignUp] = useState(false);
   const [error, setError] = useState(validate.initialValue);
-  const usernameRef = useRef(null);
+  const usernameRef = useRef("");
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
@@ -57,12 +57,14 @@ const SignupScreen = () => {
     if (!regex.test(name)) {
       setUsernameAvailable(false);
     } else {
-      debounce(findUsernameInDB());
+      const debouncedFunction = debounce(findUsernameInDB);
+      debouncedFunction();
     }
   };
 
   const findUsernameInDB = async () => {
-    const ref = db.doc(`usernames/${usernameRef.current}`);
+    const docId = usernameRef.current; // Assuming `usernameRef.current` contains the document ID
+    const ref = db.doc(`usernames/${docId}`);
     const { exists } = await ref.get();
     setUsernameAvailable(!exists);
   };
@@ -105,20 +107,27 @@ const SignupScreen = () => {
     }
 
     if (submitable) {
-      const usernameDoc = db.collection(`users`);
+      const userCollectionRef = db.collection(`users`);
+      const usernameDoc = db.doc(`usernames/${username}`);
+      const batch = db.batch();
       await auth
         .createUserWithEmailAndPassword(email, password)
         .then(async (authUser) => {
           await updateProfile(auth.currentUser, {
             displayName: fullName,
           })
+            .then(batch.set(usernameDoc, { uid: auth.currentUser.uid }))
+            .then(batch.commit())
             .then(
-              await usernameDoc.doc(auth.currentUser.uid).set({
+              await userCollectionRef.doc(auth.currentUser.uid).set({
                 uid: auth.currentUser.uid,
-                name: username,
+                username: username,
+                name: fullName,
+                email: email,
                 photoURL: auth.currentUser.photoURL,
                 posts: [],
-              }),
+                friends: [],
+              })
             )
             .then(() => {
               playSuccessSound();
@@ -126,7 +135,7 @@ const SignupScreen = () => {
                 `Congratulations ${fullName},you have joined Dummygram`,
                 {
                   variant: "success",
-                },
+                }
               );
               navigate("/dummygram");
             })
@@ -140,8 +149,6 @@ const SignupScreen = () => {
           uploadTask.on(
             "state_changed",
             () => {
-              // // progress function ...
-              // setProgress(Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100));
             },
             (error) => {
               playErrorSound();
@@ -163,9 +170,8 @@ const SignupScreen = () => {
                   enqueueSnackbar("Signup Successful!", {
                     variant: "success",
                   });
-                })
-                .catch((error) => console.error(error));
-            },
+                });
+            }
           );
         })
         .catch((error) => {
@@ -185,32 +191,27 @@ const SignupScreen = () => {
     }
   };
 
-  const signInWithGoogle = (e) => {
-    e.preventDefault();
+  const signInWithGoogle = () => {
     auth
       .signInWithPopup(googleProvider)
-      .then(async (val) => {
-        setIsOauthSignUp(true);
-        const usernameDoc = db.collection(`users`);
-        await usernameDoc
-          .doc(auth.currentUser.uid)
-          .set({
-            uid: val.user.uid,
-            name: val.user.displayName,
-            photoURL: val.user.photoURL,
-            displayName: val.user.displayName,
-            Friends: [],
-            posts: [],
-          })
-          .then(() => {
-            playSuccessSound();
-            enqueueSnackbar(
-              `Congratulations ${fullName},you have joined Dummygram`,
-              {
-                variant: "success",
-              },
-            );
-            navigate("/dummygram");
+      .then((result) => {
+        // The user is signed in, and you can access the user information
+        const user = result.user;
+
+        // Check if the user exists in Firebase
+        const usersRef = db.collection('users');
+        usersRef.doc(user.uid).get()
+          .then((doc) => {
+            if (doc.exists) {
+              if(!doc.data().username){
+                doc.ref.update({
+                  username: doc.data().uid
+                })
+              }
+              navigate("/dummygram");
+            } else {
+              createUserDoc(result)
+            }
           })
           .catch((error) => {
             playErrorSound();
@@ -222,38 +223,31 @@ const SignupScreen = () => {
       .catch((error) =>
         enqueueSnackbar(error.message, {
           variant: "error",
-        }),
+        })
       );
   };
 
-  const signInWithFacebook = (e) => {
-    e.preventDefault();
+  const signInWithFacebook = () => {
     auth
       .signInWithPopup(facebookProvider)
-      .then(async (val) => {
-        setFullName(val?.user?.displayName);
-        setEmail(val?.user?.email);
-        setIsOauthSignUp(true);
-        const usernameDoc = db.collection(`users`);
-        await usernameDoc
-          .doc(auth.currentUser.uid)
-          .set({
-            uid: val.user.uid,
-            name: val.user.displayName,
-            photoURL: val.user.photoURL,
-            displayName: val.user.displayName,
-            Friends: [],
-            posts: [],
-          })
-          .then(() => {
-            playSuccessSound();
-            enqueueSnackbar(
-              `Congratulations ${fullName},you have joined Dummygram`,
-              {
-                variant: "success",
-              },
-            );
-            navigate("/dummygram");
+      .then((result) => {
+        // The user is signed in, and you can access the user information
+        const user = result.user;
+
+        // Check if the user exists in Firebase
+        const usersRef = db.collection('users');
+        usersRef.doc(user.uid).get()
+          .then((doc) => {
+            if (doc.exists) {
+              if(!doc.data().username){
+                doc.ref.update({
+                  username: doc.data().uid
+                })
+              }
+              navigate("/dummygram");
+            } else {
+              createUserDoc(result)
+            }
           })
           .catch((error) => {
             playErrorSound();
@@ -269,6 +263,45 @@ const SignupScreen = () => {
         });
       });
   };
+
+  async function createUserDoc(val) {
+    setFullName(val?.user?.displayName);
+    setEmail(val?.user?.email);
+    setIsOauthSignUp(true);
+    const userCollectionRef = db.collection(`users`);
+    const usernameDoc = db.doc(`usernames/${username}`);
+    const batch = db.batch();
+    batch.set(usernameDoc, { uid: val.user.uid })
+    batch.commit()
+    await userCollectionRef
+      .doc(auth.currentUser.uid)
+      .set({
+        uid: val.user.uid,
+        username: val.user.uid,
+        name: val.user.displayName,
+        email: val.user.email,
+        photoURL: val.user.photoURL,
+        posts: [],
+        friends: [],
+      })
+      .then(() => {
+        playSuccessSound();
+        enqueueSnackbar(
+          `Congratulations ${fullName},you have joined Dummygram`,
+          {
+            variant: "success",
+          }
+        );
+        navigate("/dummygram");
+      })
+      .catch((error) => {
+        playErrorSound();
+        enqueueSnackbar(error.message, {
+          variant: "error",
+        });
+      });
+  }
+
 
   const navigateToLogin = () => {
     navigate("/dummygram/login");
@@ -315,7 +348,7 @@ const SignupScreen = () => {
             onChange={(e) => {
               usernameRef.current = e.target.value.trim();
               setUsername(e.target.value.trim());
-              // checkUsername();
+              checkUsername();
             }}
             className={
               usernameAvailable ? "username-available" : "error-border"
@@ -413,26 +446,27 @@ const SignupScreen = () => {
           <button type="submit" onClick={signUp} className="button signup">
             Sign Up <FontAwesomeIcon icon={faRightToBracket} />
           </button>
-          <div className="or">
-            <div className="line" />
-            <div style={{ padding: "9px" }}>or</div>
-            <div className="line" />
-          </div>
-          <div className="google-fb-login">
-            <button className="button" onClick={signInWithGoogle}>
-              <FontAwesomeIcon icon={faGoogle} />
-            </button>
-            <button className="button" onClick={signInWithFacebook}>
-              <FontAwesomeIcon icon={faSquareFacebook} />
-            </button>
-          </div>
-          <div className="have-account">
-            Already have an account?{" "}
-            <span role={"button"} onClick={navigateToLogin}>
-              Sign in
-            </span>
-          </div>
         </form>
+
+        <div className="or">
+          <div className="line" />
+          <div style={{ padding: "9px" }}>or</div>
+          <div className="line" />
+        </div>
+        <div className="google-fb-login">
+          <button className="button" onClick={signInWithGoogle}>
+            <FontAwesomeIcon icon={faGoogle} />
+          </button>
+          <button className="button" onClick={signInWithFacebook}>
+            <FontAwesomeIcon icon={faSquareFacebook} />
+          </button>
+        </div>
+        <div className="have-account">
+          Already have an account?{" "}
+          <span role={"button"} onClick={navigateToLogin}>
+            Sign in
+          </span>
+        </div>
       </div>
     </div>
   );
