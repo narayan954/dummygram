@@ -10,3 +10,9 @@
   align-items: center;
   justify-content: center;
 }
+
+.text-color-white{
+  color: var(--color);
+
+}
+

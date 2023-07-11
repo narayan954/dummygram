@@ -16,7 +16,6 @@ function SearchBar() {
   const [currentPostLink, setCurrentPostLink] = useState("");
   const [postText, setPostText] = useState("");
   const [posts, setPosts] = useState([]);
-
   const handleSearch = (e) => {
     setSearchText(e.target.value);
   };
@@ -58,6 +57,8 @@ function SearchBar() {
     post.post.username.toLowerCase().includes(searchText.toLowerCase()),
   );
 
+
+
   return (
     <div>
       <SideBar />
@@ -95,7 +96,13 @@ function SearchBar() {
               ))}
             </>
           ) : (
-            "Nothing to search"
+            <>
+            {
+             <div className="text-color-white">
+               Nothing to search
+             </div>
+            }
+            </>
           )}
         </div>
       </Box>
