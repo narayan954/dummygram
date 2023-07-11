@@ -15,7 +15,7 @@ const CommentHolder = ({
 }) => {
   return (
     <>
-      <ClickAwayListener onClickAway={() => setShowEmojis(false)}>
+      <ClickAwayListener onClickAway={() => {null}}>
         <div className="social__icon">
           <div className="emoji__icon">
             <SentimentSatisfiedAltOutlinedIcon
@@ -40,6 +40,7 @@ const CommentHolder = ({
           )}
         </div>
       </ClickAwayListener>
+      
       <input
         className="post__input"
         type="text"
