@@ -50,6 +50,7 @@ const CommentHolder = ({
         }
         value={comment}
         onChange={(e) => setComment(e.target.value)}
+        maxLength="150"
         style={{
           backgroundColor: "var(--bg-color)",
           color: "var(--color)",
@@ -59,7 +60,7 @@ const CommentHolder = ({
       />
       <button
         className="post__button"
-        disabled={!comment}
+        disabled={!comment || comment.trim().length < 1}
         type="submit"
         onClick={postComment}
         style={{
