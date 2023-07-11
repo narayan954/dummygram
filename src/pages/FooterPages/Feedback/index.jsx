@@ -5,7 +5,7 @@ import React, { useRef } from "react";
 
 import { SideBar } from "../../../components";
 import emailjs from "@emailjs/browser";
-import { playSuccessSound } from "../../js/sounds";
+import { playSuccessSound } from "../../../js/sounds";
 import { useSnackbar } from "notistack";
 
 export const Feedback = () => {
@@ -19,7 +19,7 @@ export const Feedback = () => {
         "service_hg3vdpg",
         "dummygram_feedback",
         form.current,
-        "OV1vxF7lxYkw_RRWy"
+        "OV1vxF7lxYkw_RRWy",
       )
       .then(
         (result) => {
@@ -29,15 +29,15 @@ export const Feedback = () => {
           });
         },
         (error) => {
-          console.log(error.text);
-        }
+          console.error("Error:", error);
+        },
       );
   };
 
   return (
     <>
       <SideBar />
-      <div className="feedback-form-container">
+      <div className="feedback-form-container footer-page-para-color">
         <span className="grad3 grad"></span>
         <span className="grad4 grad"></span>
         <form

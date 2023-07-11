@@ -18,6 +18,7 @@ import { lazy, useEffect, useState } from "react";
 
 import { db } from "../../lib/firebase";
 import firebase from "firebase/compat/app";
+import { useSnackbar } from "notistack";
 import { useTheme } from "@mui/material/styles";
 
 const PostHeader = lazy(() => import("./PostHeader"));
@@ -34,7 +35,6 @@ function Post(prop) {
 
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
-  const [likesArr, setlikesArr] = useState(likecount);
   const [likesNo, setLikesNo] = useState(likecount ? likecount.length : 0);
   const [showEmojis, setShowEmojis] = useState(false);
   const [isCommentOpen, setisCommentOpen] = useState(false);
@@ -42,6 +42,7 @@ function Post(prop) {
   const [openToDeleteComment, setOpenToDeleteComment] = useState(false);
 
   const theme = useTheme();
+  const { enqueueSnackbar } = useSnackbar();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const docRef = doc(db, "posts", postId);
@@ -59,7 +60,7 @@ function Post(prop) {
             snapshot.docs.map((doc) => ({
               id: doc.id,
               content: doc.data(),
-            }))
+            })),
           );
         });
     }
@@ -70,25 +71,6 @@ function Post(prop) {
       }
     };
   }, [postId]);
-
-  //For updating like count on Favourite page
-  useEffect(() => {
-    let unsubscribe;
-    if (postId) {
-      unsubscribe = db
-        .collection("posts")
-        .doc(postId)
-        .onSnapshot((snapshot) => {
-          setlikesArr(snapshot.data().likecount);
-        });
-    }
-
-    return () => {
-      if (unsubscribe) {
-        unsubscribe();
-      }
-    };
-  }, [likesArr]);
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#FFF",
@@ -147,7 +129,7 @@ function Post(prop) {
 
   const postHasImages = postImages.some((image) => Boolean(image.imageUrl));
 
-  const tempLikeCount = likesArr ? [...likesArr] : [];
+  const tempLikeCount = likecount ? [...likecount] : [];
 
   const buttonStyle = {
     ":hover": {
@@ -157,7 +139,7 @@ function Post(prop) {
   };
 
   async function likesHandler() {
-    if (user && likesArr !== undefined) {
+    if (user && likecount !== undefined) {
       let ind = tempLikeCount.indexOf(user.uid);
 
       if (ind !== -1) {
@@ -168,7 +150,6 @@ function Post(prop) {
         setLikesNo((currLikesNo) => currLikesNo + 1);
       }
 
-      // console.log(tempLikeCount);
       const data = {
         likecount: tempLikeCount,
       };
@@ -177,7 +158,9 @@ function Post(prop) {
         //   console.log("like added");
         // })
         .catch((error) => {
-          // console.log(error);
+          enqueueSnackbar(error, {
+            variant: "error",
+          });
         });
     }
   }

@@ -31,11 +31,12 @@ const SignupScreen = React.lazy(() => import("./pages/Signup"));
 const ForgotPassword = React.lazy(() => import("./pages/ForgotPassword"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 const Settings = React.lazy(() => import("./pages/Settings"));
+const Contributors = React.lazy(() =>
+  import("./pages/FooterPages/ContributorPage/index")
+);
 // ------------------------------------- Components ------------------------------------------------
 const Favorite = React.lazy(() => import("./components/Favorite.jsx"));
-const Notifications = React.lazy(() =>
-  import("./components/Notifications.jsx")
-);
+const Notifications = React.lazy(() => import("./components/Notification"));
 const Post = React.lazy(() => import("./components/Post"));
 const SideBar = React.lazy(() => import("./components/SideBar"));
 const Navbar = React.lazy(() => import("./components/Navbar"));
@@ -384,6 +385,15 @@ function App() {
             />
 
             <Route
+              path="/dummygram/contributors"
+              element={
+                <ErrorBoundary inApp={true}>
+                  <Contributors />
+                </ErrorBoundary>
+              }
+            />
+
+            <Route
               path="/dummygram/posts/:id"
               element={
                 <ErrorBoundary inApp={true}>
@@ -415,10 +425,12 @@ function App() {
               }
             />
           </Routes>
-
+          {/* below scroll button must be checked for implementation */}
           {location.pathname === "/dummygram/" ||
           location.pathname === "/dummygram/favourites" ||
-          location.pathname === "/dummygram/about" ? (
+          location.pathname === "/dummygram/about" ||
+          location.pathname === "/dummygram/guidelines" ||
+          location.pathname === "/dummygram/contributors" ? (
             <div>
               <FaArrowCircleUp
                 fill="#777"

@@ -28,15 +28,35 @@
 
 </div>
 
-# What is Dummygram?
+<h1 align="center">About Dummygram</h1>
 
 ## Vision
 
-When you learn ReactJs it seems obvious to work on some projects and for the projects you might want to choose something that interests you. How about a clone of the app developed by the company that released ReactJs ? Yes, you might be getting the point; this application is basically a clone of the original Instagram and tends to add features that Instagram offers as well as features that are not part of this social media app. So what are you waiting for? Use this opportunity to contribute and learn. :smiley:
+When embarking on the journey of learning ReactJS, it's essential to engage in projects that capture your interest. One compelling idea is to create a clone of the app developed by the company that released ReactJS itself. In this case, let's consider building an Instagram clone, which not only replicates the features offered by the popular social media platform but also introduces new functionalities.
+
+Developing an Instagram clone presents an incredible opportunity for learning and growth. By undertaking this project, you can contribute to the ReactJS community while expanding your knowledge and skills
 
 ## Status
 
-Dummygram has been in development since September 2022 and is part of GitHub since the very beginning. Our current priorities and what we are working on is kind of obvious, but still we want to give it a unique look and make it feature rich.:sparkles:
+Since its inception in September 2022, Dummygram has been a passion project with a strong commitment to excellence. From its earliest stages, the project found a home on GitHub, a testament to its collaborative nature and openness to community contributions. While the current priorities and ongoing development efforts are clear, the team behind Dummygram remains dedicated to infusing the application with a distinctive visual appeal and a wealth of exciting features.
+
+With a keen eye for design, the Dummygram team is determined to give the app a unique look that sets it apart from its counterparts. Through thoughtful and creative design choices, they aim to create a visually stunning user interface that captures the attention and imagination of users. By leveraging the power of ReactJS, the team has the flexibility to implement custom styles and create an engaging and immersive user experience:sparkles:
+
+## Features
+
+User Authentication: DummyGram includes a user authentication system, allowing users to create accounts, log in, and log out securely. This feature ensures that only authenticated users can access and interact with the app.
+
+Posts: Users can create posts and share them with others. Posts can include various types of content, such as images, videos, or text. Users can upload media files from their devices or provide URLs for online content. These posts are displayed in a feed-like format.
+
+Commenting: DummyGram enables users to comment on posts. Users can write and submit comments on individual posts, engaging in conversations and discussions with other users.
+
+Like Feature: Users can express their appreciation for posts by liking them. This feature allows users to show their support and interest in specific content shared on DummyGram.
+
+Delete Functionality: DummyGram allows users to delete their own posts. This feature provides users with control over their content, enabling them to remove posts they no longer wish to keep on the platform.
+
+Frontend Framework: The user interface of DummyGram is built using ReactJS, a popular JavaScript library for building interactive user interfaces. ReactJS allows for efficient rendering of components and provides a smooth and responsive user experience.
+
+Backend and Data Storage: DummyGram utilizes Firebase as the backend service for storing user data, posts, and comments. Firebase provides a scalable and reliable platform for handling backend functionalities and offers real-time database capabilities, ensuring efficient data storage and retrieval.
 
 # Docs
 
