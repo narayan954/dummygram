@@ -142,6 +142,10 @@ footer {
     z-index: 2;
   }
 
+  #sidebar-home-link {
+    margin-top: auto;
+  }
+
   .sidebar-links {
     justify-content: space-around;
     flex-direction: row;

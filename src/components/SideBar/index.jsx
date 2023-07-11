@@ -26,10 +26,10 @@ function SideBar() {
     <div className="sidebar">
       <div className="sidebar-container">
         <ul className="sidebar-links">
-          <li id="sidebar-home-link">
-            <Link to="/dummygram">
+          <li onClick={() => navigate("/dummygram/")} id="sidebar-home-link">
+            <div className="sidebar_align">
               <HomeIcon className="icon" /> <span>Home</span>
-            </Link>
+            </div>
           </li>
           <li onClick={() => setOpenNewUpload(true)}>
             <div className="sidebar_align">
@@ -63,7 +63,7 @@ function SideBar() {
             }
           >
             <div className="sidebar_align">
-              {user.photoURL ? (
+              {user && user.photoURL ? (
                 <img
                   src={user.photoURL}
                   alt="profile picture"

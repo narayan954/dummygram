@@ -44,6 +44,8 @@ function Favorite() {
           variant: "error",
         });
         setLoading(false);
+      } finally {
+        setLoading(false);
       }
     };
 

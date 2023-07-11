@@ -16,6 +16,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import TextField from "@mui/material/TextField";
 import { db } from "../../lib/firebase.js";
 import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
 const ITEM_HEIGHT = 48;
 const PostViewMenu = ({
@@ -30,9 +31,11 @@ const PostViewMenu = ({
   fetchAgain,
   imageUrl,
 }) => {
+  const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
-  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+
+  const [anchorEl, setAnchorEl] = useState(null);
   const [editCaption, setEditCaption] = useState(caption);
   const [Open, setOpen] = useState(false);
   const [openEditCaption, setOpenEditCaption] = useState(false);
@@ -58,7 +61,9 @@ const PostViewMenu = ({
         caption: editCaption,
       });
     } catch (err) {
-      alert(err);
+      enqueueSnackbar("Error while updating caption", {
+        variant: "error",
+      });
     }
     setFetchAgain(!fetchAgain);
     setOpenEditCaption(false);
