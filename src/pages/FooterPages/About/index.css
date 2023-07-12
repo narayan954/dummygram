@@ -1,0 +1,72 @@
+.about-container {
+  position: relative;
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.about-sub-container {
+  position: relative;
+  border-radius: 150px;
+  margin-bottom: 50px;
+}
+
+.about-section {
+  position: relative;
+  width: 60vw;
+  min-height: 100vh;
+  border-radius: 150px;
+  padding-bottom: 40px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+}
+
+.about-logo {
+  margin-top: 40px;
+  margin-bottom: 30px;
+  border-radius: 0.5rem;
+  width: 240px;
+}
+
+.about-headings {
+  margin-top: 100px;
+  margin-bottom: 20px;
+  font-size: 50px;
+  font-weight: 600;
+}
+
+.about-section-text {
+  width: 90%;
+  max-width: 800px;
+  font-size: 20px;
+}
+
+.about-section-stats-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.about-section-stats {
+  font-size: 25px;
+}
+
+.about-stats {
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 1000px) {
+  .about-section {
+    width: 90vw;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  #about-dummygram-logo {
+    width: 400px;
+  }
+}

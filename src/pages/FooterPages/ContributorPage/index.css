@@ -1,0 +1,32 @@
+.contributor-container {
+  position: relative;
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.contributor-sub-container {
+  position: relative;
+  border-radius: 150px;
+  margin-bottom: 50px;
+}
+
+.contributor-section {
+  position: relative;
+  width: 70vw;
+  min-height: 100vh;
+  border-radius: 60px;
+  padding-bottom: 40px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media only screen and (max-width: 1000px) {
+  .contributor-section {
+    width: 90vw;
+  }
+}

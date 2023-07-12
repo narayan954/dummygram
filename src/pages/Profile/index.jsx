@@ -9,16 +9,23 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { Post, SideBar } from "../../components";
 import { auth, db, storage } from "../../lib/firebase";
-import { backBtnSound, successSound } from "../../assets/sounds";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { lazy, useEffect, useState } from "react";
+import {
+  playErrorSound,
+  playSuccessSound,
+  playTapSound,
+} from "../../js/sounds";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import { FaUserCircle } from "react-icons/fa";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
+
+const Post = lazy(() => import("../../components/Post"));
+const SideBar = lazy(() => import("../../components/SideBar"));
 
 function Profile() {
   const location = useLocation();
@@ -37,16 +44,7 @@ function Profile() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState("");
-
-  let uid = location?.state?.uid || user?.uid;
-
-  function playSuccessSound() {
-    new Audio(successSound).play();
-  }
-
-  function playErrorSound() {
-    new Audio(errorSound).play();
-  }
+  const [uid, setUid] = useState(location?.state?.uid || null);
 
   const handleClose = () => setOpen(false);
 
@@ -71,8 +69,10 @@ function Profile() {
                 variant: "success",
               });
               setFriendRequestSent(false);
-            });
-        });
+            })
+            .catch((error) => console.error(error));
+        })
+        .catch((error) => console.error(error));
     } else {
       const friendRequestData = {
         sender: currentUserUid,
@@ -93,7 +93,8 @@ function Profile() {
           const notificationData = {
             recipient: targetUserUid,
             sender: currentUserUid,
-            message: `You have received a friend request from ${auth?.currentUser?.displayName}.`,
+            message: `You have received a friend request`,
+            senderName: auth?.currentUser?.displayName,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
           };
           db.collection("users")
@@ -112,32 +113,29 @@ function Profile() {
   };
 
   useEffect(() => {
-    const checkFriendRequestSent = async () => {
-      const currentUser = auth.currentUser;
-      const currentUserUid = currentUser.uid;
-      const targetUserUid = uid;
-      const friendRequestsRef = db
-        .collection("users")
-        .doc(targetUserUid)
-        .collection("friendRequests");
-      const query = friendRequestsRef
-        .where("sender", "==", currentUserUid)
-        .where("recipient", "==", targetUserUid)
-        .limit(1);
-
-      const snapshot = await query.get();
-      if (!snapshot.empty) {
-        setFriendRequestSent(true);
-      }
-    };
-    checkFriendRequestSent();
-  }, []);
-
-  useEffect(() => {
     if (auth.currentUser) {
-      setUser(auth.currentUser);
-    } else {
-      navigate("/dummygram/login");
+      const checkFriendRequestSent = async () => {
+        const currentUserUid = auth.currentUser.uid;
+        const targetUserUid = uid;
+
+        // Add a check to ensure targetUserUid is not empty
+        if (targetUserUid) {
+          const friendRequestsRef = db
+            .collection("users")
+            .doc(targetUserUid)
+            .collection("friendRequests");
+          const query = friendRequestsRef
+            .where("sender", "==", currentUserUid)
+            .where("recipient", "==", targetUserUid)
+            .limit(1);
+
+          const snapshot = await query.get();
+          if (!snapshot.empty) {
+            setFriendRequestSent(true);
+          }
+        }
+      };
+      checkFriendRequestSent();
     }
   }, []);
 
@@ -150,9 +148,9 @@ function Profile() {
         setEmail(
           location?.state?.name === authUser?.displayName
             ? location?.state?.email || authUser.email
-            : ""
+            : "",
         );
-        uid = location?.state?.uid || authUser.uid;
+        setUid(location?.state?.uid || authUser.uid);
       } else {
         navigate("/dummygram/login");
       }
@@ -161,26 +159,28 @@ function Profile() {
     return () => {
       unsubscribe();
     };
-  }, [user]);
+  }, []);
 
   //Get username from usernames collection
   useEffect(() => {
-    const usernameQ = query(
-      collection(db, "users"),
-      where("uid", "==", auth.currentUser.uid)
-    );
-    const unsubscribe = onSnapshot(usernameQ, (querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        setUsername(doc.username);
+    if (auth.currentUser) {
+      const usernameQ = query(
+        collection(db, "users"),
+        where("uid", "==", auth.currentUser.uid),
+      );
+      const unsubscribe = onSnapshot(usernameQ, (querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          setUsername(doc.username);
+        });
       });
-    });
+    }
   }, []);
 
   // Get user's posts from posts collection
   useEffect(() => {
     const q = query(
       collection(db, "posts"),
-      where("username", "==", location?.state?.name || name)
+      where("username", "==", location?.state?.name || name),
     );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const userPosts = [];
@@ -195,7 +195,7 @@ function Profile() {
   }, [user, name]);
 
   const handleBack = () => {
-    new Audio(backBtnSound).play();
+    playTapSound();
     navigate("/dummygram");
   };
 
@@ -232,15 +232,18 @@ function Profile() {
             enqueueSnackbar("Upload Successful!!!", {
               variant: "success",
             });
-          });
-      }
+          })
+          .catch((error) => console.error(error));
+      },
     );
     setVisible(false);
   };
 
   return (
     <>
-      <SideBar />
+      <ErrorBoundary>
+        <SideBar />
+      </ErrorBoundary>
       <Modal
         open={open}
         onClose={handleClose}
@@ -275,8 +278,8 @@ function Profile() {
             }}
             width={isNonMobile ? "50%" : "50%"}
             height={isNonMobile ? "50%" : "50%"}
-            src={profilePic}
-            alt="user"
+            src={avatar}
+            alt={name}
           />
         </Box>
       </Modal>
@@ -297,113 +300,77 @@ function Profile() {
         textAlign={"center"}
         color="var(--color)"
       >
-        <Box
-          className="back-btn-box"
-          display="flex"
-          marginBottom="25px"
-          gap={1}
-        >
-          <Button
-            onClick={handleBack}
-            variant="contained"
-            color="primary"
-            sx={{ marginTop: "1rem" }}
-            fontSize="1.2rem"
-          >
-            Back
-          </Button>
-        </Box>
-        {/* inner profile  */}
-        <Box
-          className="inner-profile-section"
-          display="flex"
-          flexDirection="row"
-          flexWrap="wrap"
-          alignItems="flex-start"
-          justifyContent="space-evenly"
-          gap={1}
-        >
-          {/* left profile section */}
-          <Box display="flex" flexDirection="column" gap={1}>
-            {/* profile pic  */}
-            <Box marginX="auto" fontSize="600%">
-              {avatar ? (
-                <Avatar
-                  className="profile-pic"
-                  onClick={() => setOpen((on) => !on)}
-                  alt={name}
-                  src={profilePic}
-                  sx={{
-                    width: "20vh",
-                    height: "20vh",
-                    bgcolor: "black",
-                    border: "none",
-                    boxShadow: "0 0 4px black",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    cursor: "pointer",
-                  }}
-                />
-              ) : (
-                <FaUserCircle style={{ width: "22vh", height: "22vh" }} />
-              )}
-            </Box>
-            {name === auth.currentUser.displayName && (
-              <Box>
-                <input
-                  type="file"
-                  id="file"
-                  className="file"
-                  onChange={handleChange}
-                  accept="image/*"
-                />
-                <label htmlFor="file">
-                  <div
-                    className="img-edit"
-                    style={{
-                      marginTop: ".5rem",
-                      marginBottom: "0.5rem",
-                      color: "var(--text-primary)",
-                      padding: "4px 20px",
-                      borderRadius: "30px",
-                    }}
-                  >
-                    Edit Profile Pic
-                  </div>
-                </label>
-              </Box>
-            )}
-            {visible && (
-              <Button
-                onClick={handleSave}
-                variant="outlined"
-                sx={{ marginTop: "1rem" }}
-              >
-                Save
-              </Button>
+        <Box display="flex" flexDirection="column" gap={1}>
+          <Box marginX="auto" fontSize="600%">
+            {avatar ? (
+              <Avatar
+                onClick={() => setOpen((on) => !on)}
+                alt={name}
+                src={avatar}
+                sx={{
+                  width: "22vh",
+                  height: "22vh",
+                  bgcolor: "black",
+                  border: "none",
+                  boxShadow: "0 0 4px black",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  cursor: "pointer",
+                }}
+              />
+            ) : (
+              <FaUserCircle style={{ width: "22vh", height: "22vh" }} />
             )}
           </Box>
-          {/* right profile section  */}
-          <Box
-            className="right-profile-section"
-            paddingTop="10px"
-            display="flex"
-            flexDirection="column"
-            alignItems="flex-start"
-            // gap={1}
-          >
-            <Typography fontSize="1.5rem" fontWeight="600">
-              {username}
-            </Typography>
-            <Typography fontSize="1.5rem" fontWeight="600">
-              {name}
-            </Typography>
-            <Typography fontSize="1rem">{feed.length}&nbsp;Posts</Typography>
-            <Typography fontSize="1.5rem" fontWeight="600">
-              {name === auth.currentUser.displayName && email}
-            </Typography>
-            {name !== auth.currentUser.displayName && (
+          {name === user?.displayName && (
+            <Box>
+              <input
+                type="file"
+                id="file"
+                className="file"
+                onChange={handleChange}
+                accept="image/*"
+              />
+              <label htmlFor="file">
+                <div
+                  className="img-edit"
+                  style={{
+                    marginTop: "0.5rem",
+                    marginBottom: "0.5rem",
+                    color: "var(--text-primary)",
+                  }}
+                >
+                  Edit Profile Pic
+                </div>
+              </label>
+            </Box>
+          )}
+          {visible && (
+            <Button
+              onClick={handleSave}
+              variant="outlined"
+              sx={{ marginTop: "1rem" }}
+            >
+              Save
+            </Button>
+          )}
+          {/* <Divider
+            sx={{ marginTop: "1rem", background: "var(--profile-divider)" }}
+          /> */}
+          <Typography fontSize="1.3rem" fontWeight="600">
+            {username}
+          </Typography>
+          <Divider style={{ background: "var(--profile-divider)" }} />
+          <Typography fontSize="1.3rem" fontWeight="600">
+            {name}
+          </Typography>
+          <Typography fontSize="1rem">Total Posts: {feed.length}</Typography>
+          <Divider style={{ background: "var(--profile-divider)" }} />
+          <Typography fontSize="1.5rem" fontWeight="600">
+            {name === user?.displayName && email}
+          </Typography>
+          {name !== user?.displayName && (
             <Button
               onClick={handleSendFriendRequest}
               variant="contained"
@@ -418,18 +385,20 @@ function Profile() {
       </Box>
       <Box className="flex feed-main-container">
         <div className="app__posts" id="feed-sub-container">
-          {feed.map(({ post, id }) => (
-            <Post
-              rowMode={true}
-              key={id}
-              postId={id}
-              user={user}
-              post={post}
-              shareModal={true}
-              setLink="/"
-              setPostText=""
-            />
-          ))}
+          <ErrorBoundary>
+            {feed.map(({ post, id }) => (
+              <Post
+                rowMode={true}
+                key={id}
+                postId={id}
+                user={user}
+                post={post}
+                shareModal={true}
+                setLink="/"
+                setPostText=""
+              />
+            ))}
+          </ErrorBoundary>
         </div>
       </Box>
     </>

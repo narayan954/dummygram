@@ -3,18 +3,28 @@ import "./index.css";
 import { Dialog, IconButton, Input } from "@mui/material";
 
 import logo from "../../assets/logo.webp";
-import { successSound } from "../../assets/sounds";
+import { playSuccessSound } from "../../js/sounds";
 import { useSnackbar } from "notistack";
 
 const ShareModal = (props) => {
   const { openShareModal, setOpenShareModal, currentPostLink, postText } =
     props;
 
-  const { enqueueSnackbar } = useSnackbar();
+  const handleCopyLink = () => {
+    window.navigator.clipboard.writeText(currentPostLink);
+    playSuccessSound();
+    enqueueSnackbar("Copied Post Link!", {
+      variant: "success",
+    });
+  };
 
-  function playSuccessSound() {
-    new Audio(successSound).play();
-  }
+  const CopyLinkButton = ({ onClick }) => (
+    <button onClick={onClick} className="copy-link-button">
+      Copy Link
+    </button>
+  );
+
+  const { enqueueSnackbar } = useSnackbar();
 
   return (
     <Dialog
@@ -78,15 +88,9 @@ const ShareModal = (props) => {
           disabled
           disableUnderline
           value={currentPostLink}
-          onClick={() => {
-            window.navigator.clipboard.writeText(currentPostLink);
-            playSuccessSound();
-            enqueueSnackbar("Copied Post Link!", {
-              variant: "success",
-            });
-          }}
           className="share-modal-container-input"
         />
+        <CopyLinkButton onClick={handleCopyLink} />
       </div>
     </Dialog>
   );

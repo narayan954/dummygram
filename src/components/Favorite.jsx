@@ -1,11 +1,12 @@
 import { Loader, ShareModal } from "../reusableComponents";
+import { Post, SideBar } from "./index";
 import React, { useContext, useEffect, useState } from "react";
 import { auth, db } from "../lib/firebase";
+import { doc, getDoc } from "firebase/firestore";
 
 import { Box } from "@mui/material";
-import Post from "./Post";
 import { RowModeContext } from "../hooks/useRowMode";
-import SideBar from "./SideBar";
+import { useSnackbar } from "notistack";
 
 function Favorite() {
   const [openShareModal, setOpenShareModal] = useState(false);
@@ -13,25 +14,44 @@ function Favorite() {
   const [postText, setPostText] = useState("");
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+
   const rowMode = useContext(RowModeContext);
+  const { enqueueSnackbar } = useSnackbar();
+
+  let savedPostsArr = JSON.parse(localStorage.getItem("posts")) || [];
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const postsRef = db.collection("posts");
-      const snapshot = await postsRef.get();
       const posts = [];
-      snapshot.forEach((doc) => {
-        if (
-          localStorage.getItem("posts") &&
-          localStorage.getItem("posts").includes(doc.id)
-        ) {
-          posts.push({ id: doc.id, post: doc.data() });
+      const fetchPromises = savedPostsArr.map(async (id) => {
+        try {
+          const docRef = doc(db, "posts", id);
+          const doc = await getDoc(docRef);
+          doc?.data() && posts.push({ id: doc.id, post: doc.data() });
+        } catch (e) {
+          enqueueSnackbar("Error while getting post", {
+            variant: "error",
+          });
         }
       });
-      setLoading(false);
-      setPosts(posts);
+
+      try {
+        await Promise.all(fetchPromises);
+        setPosts(posts);
+        setLoading(false);
+      } catch (error) {
+        enqueueSnackbar("Error while fetching all posts", {
+          variant: "error",
+        });
+        setLoading(false);
+      } finally {
+        setLoading(false);
+      }
     };
-    fetchPosts();
+
+    if (savedPostsArr.length === 0) {
+      setLoading(false);
+    }
   }, []);
 
   return (

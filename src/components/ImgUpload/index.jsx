@@ -4,7 +4,7 @@ import { Avatar, LinearProgress, TextField } from "@mui/material";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import React, { useRef, useState } from "react";
 import { auth, db, handleMultiUpload } from "../../lib/firebase";
-import { errorSound, successSound } from "../../assets/sounds";
+import { playErrorSound, playSuccessSound } from "../../js/sounds";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Camera from "./Camera";
@@ -18,13 +18,6 @@ export default function ImgUpload(props) {
   const [current, setCurrent] = useState(0);
   const [nextPage, setNextPage] = useState(false);
 
-  function playSuccessSound() {
-    new Audio(successSound).play();
-  }
-
-  function playErrorSound() {
-    new Audio(errorSound).play();
-  }
   const ShiftToNextPage = () => {
     setNextPage(!nextPage);
   };
@@ -57,7 +50,7 @@ export default function ImgUpload(props) {
     }
     for (let i = 0; i < e.target.files.length; i++) {
       const img = e.target.files[i];
-      if (!img.name.match(/\.(jpg|jpeg|png|gif)$/)) {
+      if (!img.name.match(/\.(jpg|jpeg|png|gif|svg)$/)) {
         enqueueSnackbar("Select a valid image!", {
           variant: "error",
         });
@@ -97,7 +90,7 @@ export default function ImgUpload(props) {
       await db
         .collection("users")
         .doc(props.user.uid)
-        .set({
+        .update({
           posts: firebase.firestore.FieldValue.arrayUnion(postId), // Use postId instead of postRef.id
         });
 

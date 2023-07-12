@@ -1,0 +1,148 @@
+.glassmorphism-effect {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0)
+  );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.grad {
+  display: inline-block;
+  position: absolute;
+  z-index: -1;
+  background-image: linear-gradient(109.6deg, #59afc7 11.2%, #e107c1 91.1%);
+}
+
+.grad1 {
+  top: 0%;
+  left: -10%;
+  width: 329px;
+  aspect-ratio: 3/2;
+  border-radius: 81% 19% 74% 26% / 69% 39% 61% 31%;
+}
+
+.grad2 {
+  bottom: 10%;
+  left: -10%;
+  width: 200px;
+  aspect-ratio: 1;
+  border-radius: 53% 47% 53% 47% / 52% 33% 67% 48%;
+}
+
+.grad3 {
+  top: 10%;
+  right: -10%;
+  width: 200px;
+  aspect-ratio: 1/2;
+  transform: rotateZ(15deg);
+  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
+}
+
+.grad4 {
+  top: 600px;
+  right: 10%;
+  width: 300px;
+  aspect-ratio: 1;
+  border-radius: 32% 68% 74% 26% / 20% 65% 35% 80%;
+}
+
+.grad5 {
+  top: 95%;
+  right: -5%;
+  width: 200px;
+  aspect-ratio: 1/2;
+  transform: rotateZ(15deg);
+  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
+}
+
+.grad6 {
+  top: 80%;
+  right: 90%;
+  width: 200px;
+  aspect-ratio: 3/2;
+  transform: rotateZ(15deg);
+  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
+}
+
+.grad7 {
+  top: 60%;
+  right: -40%;
+  width: 200px;
+  aspect-ratio: 1;
+  transform: rotateZ(15deg);
+  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
+}
+
+.grad8 {
+  top: 45%;
+  right: 90%;
+  width: 200px;
+  aspect-ratio: 1/2;
+  transform: rotateZ(15deg);
+  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
+}
+
+.grad9 {
+  top: 55%;
+  right: -80%;
+  width: 200px;
+  aspect-ratio: 1/2;
+  transform: rotateZ(15deg);
+  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
+}
+
+.grad10 {
+  top: 75%;
+  right: -10%;
+  width: 200px;
+  aspect-ratio: 1;
+  transform: rotateZ(15deg);
+  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
+}
+
+.grad11 {
+  top: 35%;
+  right: -40%;
+  width: 200px;
+  aspect-ratio: 1/2;
+  transform: rotateZ(15deg);
+  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
+}
+
+.grad12 {
+  top: 25%;
+  right: 50%;
+  width: 200px;
+  aspect-ratio: 1/2;
+  transform: rotateZ(15deg);
+  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
+}
+
+.footer-page-heading-color {
+  color: var(--color);
+}
+
+.footer-page-para-color {
+  color: var(--text-secondary);
+}
+
+@media only screen and (max-width: 650px) {
+  .grad1 {
+    width: 209px;
+  }
+
+  .grad2 {
+    width: 200px;
+  }
+
+  .grad3 {
+    width: 150px;
+  }
+  .grad4 {
+    width: 200px;
+  }
+}

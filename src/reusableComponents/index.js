@@ -1,6 +1,7 @@
 import AnimatedButton from "./AnimatedButton";
 import Darkmode from "./Darkmode";
 import DialogBox from "./DialogBox";
+import ErrorBoundary from "./ErrorBoundary";
 import Flexbetween from "./Flexbetween";
 import ImageSlider from "./ImageSlider";
 import Loader from "./Loader";
@@ -10,16 +11,17 @@ import ShareModal from "./ShareModal";
 import SnackBar from "./SnackBar";
 
 export {
+  AnimatedButton,
+  Darkmode,
   DialogBox,
+  ErrorBoundary,
+  Flexbetween,
   ImageSlider,
   Loader,
   Popup,
-  Flexbetween,
-  AnimatedButton,
   Scroll,
   ShareModal,
   SnackBar,
-  Darkmode,
 };
 
 export default Scroll;

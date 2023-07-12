@@ -16,7 +16,6 @@
   opacity: 1;
   background: linear-gradient(40deg, #e107c1, #59afc7);
   filter: invert(0%) !important;
-  /* transition: transform 0.5s ease-out; */
   color: white !important;
 }
 
@@ -26,9 +25,6 @@
   align-items: center;
   margin-top: 35px;
   margin-bottom: 0;
-  border-top: 1px solid #a5a4a4;
-  /* align-items: flex-start; */
-  margin-left: 3em;
 }
 
 @media screen and (max-width: 600px) {

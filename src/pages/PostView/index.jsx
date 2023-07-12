@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 
-import { Loader } from "../../reusableComponents/index.js";
-import PostCommentView from "../../components/postView/index.jsx";
+import { Loader } from "../../reusableComponents";
+import PostCommentView from "../../components/postView";
 import { PostViewContainer } from "./PostViewStyled.jsx";
 import { db } from "../../lib/firebase";
 import { useParams } from "react-router-dom";
@@ -13,6 +13,7 @@ const PostView = (props) => {
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [fetchAgain, setFetchAgain] = useState(false);
+
   useEffect(() => {
     setLoading(true);
     if (loading) {

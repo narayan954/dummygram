@@ -9,9 +9,9 @@ import {
   googleProvider,
   storage,
 } from "../../lib/firebase";
-import { errorSound, successSound } from "../../assets/sounds";
 import { faGoogle, faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
 import { getModalStyle, useStyles } from "../../App";
+import { playErrorSound, playSuccessSound } from "../../js/sounds";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
@@ -51,21 +51,13 @@ const SignupScreen = () => {
     };
   }
 
-  function playSuccessSound() {
-    new Audio(successSound).play();
-  }
-
-  function playErrorSound() {
-    new Audio(errorSound).play();
-  }
-
   const checkUsername = () => {
     const name = usernameRef.current;
     const regex = /^[A-Za-z][A-Za-z0-9_]{4,17}$/gi;
     if (!regex.test(name)) {
       setUsernameAvailable(false);
     } else {
-      debounce(findUsernameInDB);
+      debounce(findUsernameInDB());
     }
   };
 
@@ -126,7 +118,7 @@ const SignupScreen = () => {
                 name: username,
                 photoURL: auth.currentUser.photoURL,
                 posts: [],
-              })
+              }),
             )
             .then(() => {
               playSuccessSound();
@@ -134,7 +126,7 @@ const SignupScreen = () => {
                 `Congratulations ${fullName},you have joined Dummygram`,
                 {
                   variant: "success",
-                }
+                },
               );
               navigate("/dummygram");
             })
@@ -171,8 +163,9 @@ const SignupScreen = () => {
                   enqueueSnackbar("Signup Successful!", {
                     variant: "success",
                   });
-                });
-            }
+                })
+                .catch((error) => console.error(error));
+            },
           );
         })
         .catch((error) => {
@@ -215,7 +208,7 @@ const SignupScreen = () => {
               `Congratulations ${fullName},you have joined Dummygram`,
               {
                 variant: "success",
-              }
+              },
             );
             navigate("/dummygram");
           })
@@ -229,7 +222,7 @@ const SignupScreen = () => {
       .catch((error) =>
         enqueueSnackbar(error.message, {
           variant: "error",
-        })
+        }),
       );
   };
 
@@ -258,7 +251,7 @@ const SignupScreen = () => {
               `Congratulations ${fullName},you have joined Dummygram`,
               {
                 variant: "success",
-              }
+              },
             );
             navigate("/dummygram");
           })
@@ -322,7 +315,7 @@ const SignupScreen = () => {
             onChange={(e) => {
               usernameRef.current = e.target.value.trim();
               setUsername(e.target.value.trim());
-              checkUsername();
+              // checkUsername();
             }}
             className={
               usernameAvailable ? "username-available" : "error-border"

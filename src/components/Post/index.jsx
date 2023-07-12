@@ -1,7 +1,11 @@
 import "react-lazy-load-image-component/src/effects/blur.css";
 import "./index.css";
 
-import { DialogBox, Flexbetween } from "../../reusableComponents";
+import {
+  DialogBox,
+  ErrorBoundary,
+  Flexbetween,
+} from "../../reusableComponents";
 import {
   Divider,
   Paper,
@@ -10,17 +14,19 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { doc, updateDoc } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { lazy, useEffect, useState } from "react";
 
-import CommentBox from "./CommentBox";
-import CommentDialogBox from "./CommentDialogBox";
-import CommentHolder from "./CommentHolder";
-import ImgBox from "./ImgBox";
-import PostHeader from "./PostHeader";
-import PostNav from "./PostNav";
 import { db } from "../../lib/firebase";
 import firebase from "firebase/compat/app";
+import { useSnackbar } from "notistack";
 import { useTheme } from "@mui/material/styles";
+
+const PostHeader = lazy(() => import("./PostHeader"));
+const CommentBox = lazy(() => import("./CommentBox"));
+const CommentDialogBox = lazy(() => import("./CommentDialogBox"));
+const CommentHolder = lazy(() => import("./CommentHolder"));
+const ImgBox = lazy(() => import("./ImgBox"));
+const PostNav = lazy(() => import("./PostNav"));
 
 function Post(prop) {
   const { postId, user, post, shareModal, setLink, setPostText, rowMode } =
@@ -36,6 +42,7 @@ function Post(prop) {
   const [openToDeleteComment, setOpenToDeleteComment] = useState(false);
 
   const theme = useTheme();
+  const { enqueueSnackbar } = useSnackbar();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const docRef = doc(db, "posts", postId);
@@ -53,7 +60,7 @@ function Post(prop) {
             snapshot.docs.map((doc) => ({
               id: doc.id,
               content: doc.data(),
-            }))
+            })),
           );
         });
     }
@@ -143,7 +150,6 @@ function Post(prop) {
         setLikesNo((currLikesNo) => currLikesNo + 1);
       }
 
-      // console.log(tempLikeCount);
       const data = {
         likecount: tempLikeCount,
       };
@@ -152,7 +158,9 @@ function Post(prop) {
         //   console.log("like added");
         // })
         .catch((error) => {
-          // console.log(error);
+          enqueueSnackbar(error, {
+            variant: "error",
+          });
         });
     }
   }
@@ -170,23 +178,26 @@ function Post(prop) {
       className={`${rowMode ? "post" : "postColumn"}`}
       style={{ boxShadow: "var(--post-box-shadow)" }}
     >
-      <PostHeader
-        user={user}
-        postData={post}
-        postHasImages={postHasImages}
-        postId={postId}
-        timestamp={timestamp}
-      />
+      <ErrorBoundary>
+        <PostHeader
+          user={user}
+          postData={post}
+          postHasImages={postHasImages}
+          postId={postId}
+          timestamp={timestamp}
+        />
+      </ErrorBoundary>
       <Divider />
       <div className="post__container">
-        <ImgBox
-          postHasImages={postHasImages}
-          postImages={postImages}
-          postId={postId}
-          likesHandler={likesHandler}
-          caption={caption}
-        />
-
+        <ErrorBoundary>
+          <ImgBox
+            postHasImages={postHasImages}
+            postImages={postImages}
+            postId={postId}
+            likesHandler={likesHandler}
+            caption={caption}
+          />
+        </ErrorBoundary>
         <Divider />
         <Flexbetween>
           <Typography marginLeft={1} fontSize={13} sx={{ color: "skyblue" }}>
@@ -204,58 +215,64 @@ function Post(prop) {
 
         {user && (
           <form className="post__commentBox">
-            <PostNav
-              fullScreen={fullScreen}
-              likesHandler={likesHandler}
-              user={user}
-              tempLikeCount={tempLikeCount}
-              setisCommentOpen={setisCommentOpen}
-              setLink={setLink}
-              postId={postId}
-              setPostText={setPostText}
-              shareModal={shareModal}
-              caption={caption}
-            />
-
-            <CommentHolder
-              showEmojis={showEmojis}
-              setShowEmojis={setShowEmojis}
-              onEmojiClick={onEmojiClick}
-              comments={comments}
-              comment={comment}
-              setComment={setComment}
-              postComment={postComment}
-            />
-
+            <ErrorBoundary>
+              <PostNav
+                fullScreen={fullScreen}
+                likesHandler={likesHandler}
+                user={user}
+                tempLikeCount={tempLikeCount}
+                setisCommentOpen={setisCommentOpen}
+                setLink={setLink}
+                postId={postId}
+                setPostText={setPostText}
+                shareModal={shareModal}
+                caption={caption}
+              />
+            </ErrorBoundary>
+            <ErrorBoundary>
+              <CommentHolder
+                showEmojis={showEmojis}
+                setShowEmojis={setShowEmojis}
+                onEmojiClick={onEmojiClick}
+                comments={comments}
+                comment={comment}
+                setComment={setComment}
+                postComment={postComment}
+              />
+            </ErrorBoundary>
             <DialogBox
               open={isCommentOpen}
               onClose={handleCommentClose}
               title="All Comments"
             >
-              <CommentDialogBox
-                Item={Item}
-                postHasImages={postHasImages}
-                postImages={postImages}
-                caption={caption}
-                comments={comments}
-                setOpenToDeleteComment={setOpenToDeleteComment}
-                openToDeleteComment={openToDeleteComment}
-                setDeleteCommentID={setDeleteCommentID}
-                user={user}
-                fullScreen={fullScreen}
-                handleCloseForDeleteComment={handleCloseForDeleteComment}
-                deleteComment={deleteComment}
-                deleteCommentID={deleteCommentID}
-              />
-              <CommentBox
-                setShowEmojis={setShowEmojis}
-                showEmojis={showEmojis}
-                onEmojiClick={onEmojiClick}
-                comment={comment}
-                setComment={setComment}
-                postComment={postComment}
-                user={user}
-              />
+              <ErrorBoundary>
+                <CommentDialogBox
+                  Item={Item}
+                  postHasImages={postHasImages}
+                  postImages={postImages}
+                  caption={caption}
+                  comments={comments}
+                  setOpenToDeleteComment={setOpenToDeleteComment}
+                  openToDeleteComment={openToDeleteComment}
+                  setDeleteCommentID={setDeleteCommentID}
+                  user={user}
+                  fullScreen={fullScreen}
+                  handleCloseForDeleteComment={handleCloseForDeleteComment}
+                  deleteComment={deleteComment}
+                  deleteCommentID={deleteCommentID}
+                />
+              </ErrorBoundary>
+              <ErrorBoundary>
+                <CommentBox
+                  setShowEmojis={setShowEmojis}
+                  showEmojis={showEmojis}
+                  onEmojiClick={onEmojiClick}
+                  comment={comment}
+                  setComment={setComment}
+                  postComment={postComment}
+                  user={user}
+                />
+              </ErrorBoundary>
             </DialogBox>
           </form>
         )}
