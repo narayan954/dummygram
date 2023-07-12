@@ -16,7 +16,6 @@ function SearchBar() {
   const [currentPostLink, setCurrentPostLink] = useState("");
   const [postText, setPostText] = useState("");
   const [posts, setPosts] = useState([]);
-
   const handleSearch = (e) => {
     setSearchText(e.target.value);
   };
@@ -59,7 +58,7 @@ function SearchBar() {
   );
 
   return (
-    <div style={{ marginTop: "-150px" }}>
+    <div>
       <SideBar />
       <ShareModal
         openShareModal={openShareModal}
@@ -67,7 +66,7 @@ function SearchBar() {
         currentPostLink={currentPostLink}
         postText={postText}
       />
-      <div className="search-bar">
+      <div className="search-bar" style={{ marginTop: "-150px" }}>
         <input
           type="search"
           value={searchText}
@@ -95,7 +94,7 @@ function SearchBar() {
               ))}
             </>
           ) : (
-            "Nothing to search"
+            <>{<div className="text-white">Nothing to search</div>}</> // TODO: Employ TailwindCSS here
           )}
         </div>
       </Box>

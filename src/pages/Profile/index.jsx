@@ -9,16 +9,23 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { Post, SideBar } from "../../components";
 import { auth, db, storage } from "../../lib/firebase";
-import { backBtnSound, successSound } from "../../assets/sounds";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { lazy, useEffect, useState } from "react";
+import {
+  playErrorSound,
+  playSuccessSound,
+  playTapSound,
+} from "../../js/sounds";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import { FaUserCircle } from "react-icons/fa";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
+
+const Post = lazy(() => import("../../components/Post"));
+const SideBar = lazy(() => import("../../components/SideBar"));
 
 function Profile() {
   const location = useLocation();
@@ -37,16 +44,7 @@ function Profile() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState("");
-
-  let uid = location?.state?.uid || user?.uid;
-
-  function playSuccessSound() {
-    new Audio(successSound).play();
-  }
-
-  function playErrorSound() {
-    new Audio(errorSound).play();
-  }
+  const [uid, setUid] = useState(location?.state?.uid || null);
 
   const handleClose = () => setOpen(false);
 
@@ -71,8 +69,10 @@ function Profile() {
                 variant: "success",
               });
               setFriendRequestSent(false);
-            });
-        });
+            })
+            .catch((error) => console.error(error));
+        })
+        .catch((error) => console.error(error));
     } else {
       const friendRequestData = {
         sender: currentUserUid,
@@ -93,7 +93,8 @@ function Profile() {
           const notificationData = {
             recipient: targetUserUid,
             sender: currentUserUid,
-            message: `You have received a friend request from ${auth?.currentUser?.displayName}.`,
+            message: `You have received a friend request`,
+            senderName: auth?.currentUser?.displayName,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
           };
           db.collection("users")
@@ -112,32 +113,29 @@ function Profile() {
   };
 
   useEffect(() => {
-    const checkFriendRequestSent = async () => {
-      const currentUser = auth.currentUser;
-      const currentUserUid = currentUser.uid;
-      const targetUserUid = uid;
-      const friendRequestsRef = db
-        .collection("users")
-        .doc(targetUserUid)
-        .collection("friendRequests");
-      const query = friendRequestsRef
-        .where("sender", "==", currentUserUid)
-        .where("recipient", "==", targetUserUid)
-        .limit(1);
-
-      const snapshot = await query.get();
-      if (!snapshot.empty) {
-        setFriendRequestSent(true);
-      }
-    };
-    checkFriendRequestSent();
-  }, []);
-
-  useEffect(() => {
     if (auth.currentUser) {
-      setUser(auth.currentUser);
-    } else {
-      navigate("/dummygram/login");
+      const checkFriendRequestSent = async () => {
+        const currentUserUid = auth.currentUser.uid;
+        const targetUserUid = uid;
+
+        // Add a check to ensure targetUserUid is not empty
+        if (targetUserUid) {
+          const friendRequestsRef = db
+            .collection("users")
+            .doc(targetUserUid)
+            .collection("friendRequests");
+          const query = friendRequestsRef
+            .where("sender", "==", currentUserUid)
+            .where("recipient", "==", targetUserUid)
+            .limit(1);
+
+          const snapshot = await query.get();
+          if (!snapshot.empty) {
+            setFriendRequestSent(true);
+          }
+        }
+      };
+      checkFriendRequestSent();
     }
   }, []);
 
@@ -152,7 +150,7 @@ function Profile() {
             ? location?.state?.email || authUser.email
             : ""
         );
-        uid = location?.state?.uid || authUser.uid;
+        setUid(location?.state?.uid || authUser.uid);
       } else {
         navigate("/dummygram/login");
       }
@@ -161,19 +159,21 @@ function Profile() {
     return () => {
       unsubscribe();
     };
-  }, [user]);
+  }, []);
 
   //Get username from usernames collection
   useEffect(() => {
-    const usernameQ = query(
-      collection(db, "users"),
-      where("uid", "==", auth.currentUser.uid)
-    );
-    const unsubscribe = onSnapshot(usernameQ, (querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        setUsername(doc.username);
+    if (auth.currentUser) {
+      const usernameQ = query(
+        collection(db, "users"),
+        where("uid", "==", auth.currentUser.uid)
+      );
+      const unsubscribe = onSnapshot(usernameQ, (querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          setUsername(doc.username);
+        });
       });
-    });
+    }
   }, []);
 
   // Get user's posts from posts collection
@@ -195,7 +195,7 @@ function Profile() {
   }, [user, name]);
 
   const handleBack = () => {
-    new Audio(backBtnSound).play();
+    playTapSound();
     navigate("/dummygram");
   };
 
@@ -232,7 +232,8 @@ function Profile() {
             enqueueSnackbar("Upload Successful!!!", {
               variant: "success",
             });
-          });
+          })
+          .catch((error) => console.error(error));
       }
     );
     setVisible(false);
@@ -240,7 +241,9 @@ function Profile() {
 
   return (
     <>
-      <SideBar />
+      <ErrorBoundary>
+        <SideBar />
+      </ErrorBoundary>
       <Modal
         open={open}
         onClose={handleClose}
@@ -275,8 +278,8 @@ function Profile() {
             }}
             width={isNonMobile ? "50%" : "50%"}
             height={isNonMobile ? "50%" : "50%"}
-            src={profilePic}
-            alt="user"
+            src={avatar}
+            alt={name}
           />
         </Box>
       </Modal>
@@ -303,7 +306,7 @@ function Profile() {
               <Avatar
                 onClick={() => setOpen((on) => !on)}
                 alt={name}
-                src={profilePic}
+                src={avatar}
                 sx={{
                   width: "22vh",
                   height: "22vh",
@@ -320,7 +323,7 @@ function Profile() {
               <FaUserCircle style={{ width: "22vh", height: "22vh" }} />
             )}
           </Box>
-          {name === auth.currentUser.displayName && (
+          {name === user?.displayName && (
             <Box>
               <input
                 type="file"
@@ -365,9 +368,9 @@ function Profile() {
           <Typography fontSize="1rem">Total Posts: {feed.length}</Typography>
           <Divider style={{ background: "var(--profile-divider)" }} />
           <Typography fontSize="1.5rem" fontWeight="600">
-            {name === auth.currentUser.displayName && email}
+            {name === user?.displayName && email}
           </Typography>
-          {name !== auth.currentUser.displayName && (
+          {name !== user?.displayName && (
             <Button
               onClick={handleSendFriendRequest}
               variant="contained"
@@ -390,18 +393,20 @@ function Profile() {
       </Box>
       <Box className="flex feed-main-container">
         <div className="app__posts" id="feed-sub-container">
-          {feed.map(({ post, id }) => (
-            <Post
-              rowMode={true}
-              key={id}
-              postId={id}
-              user={user}
-              post={post}
-              shareModal={true}
-              setLink="/"
-              setPostText=""
-            />
-          ))}
+          <ErrorBoundary>
+            {feed.map(({ post, id }) => (
+              <Post
+                rowMode={true}
+                key={id}
+                postId={id}
+                user={user}
+                post={post}
+                shareModal={true}
+                setLink="/"
+                setPostText=""
+              />
+            ))}
+          </ErrorBoundary>
         </div>
       </Box>
     </>

@@ -18,20 +18,16 @@ function Favorite() {
   const rowMode = useContext(RowModeContext);
   const { enqueueSnackbar } = useSnackbar();
 
-  let savedPostsArr = [];
-
-  if (localStorage.getItem("posts")) {
-    savedPostsArr = JSON.parse(localStorage.getItem("posts"));
-  }
+  let savedPostsArr = JSON.parse(localStorage.getItem("posts")) || [];
 
   useEffect(() => {
     const fetchPosts = async () => {
       const posts = [];
       const fetchPromises = savedPostsArr.map(async (id) => {
-        const docRef = doc(db, "posts", id);
         try {
+          const docRef = doc(db, "posts", id);
           const doc = await getDoc(docRef);
-          doc.data() && posts.push({ id: doc.id, post: doc.data() });
+          doc?.data() && posts.push({ id: doc.id, post: doc.data() });
         } catch (e) {
           enqueueSnackbar("Error while getting post", {
             variant: "error",
@@ -44,17 +40,17 @@ function Favorite() {
         setPosts(posts);
         setLoading(false);
       } catch (error) {
-        enqueueSnackbar("Error while fetching posts", {
+        enqueueSnackbar("Error while fetching all posts", {
           variant: "error",
         });
+        setLoading(false);
+      } finally {
         setLoading(false);
       }
     };
 
     if (savedPostsArr.length === 0) {
       setLoading(false);
-    } else {
-      fetchPosts();
     }
   }, []);
 
