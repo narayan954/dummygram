@@ -283,18 +283,18 @@ function Profile() {
           />
         </Box>
       </Modal>
-      {/* outermost profile section  */}
+
       <Box
-        className="profile-section"
-        width={isNonMobile ? "100%" : "70%"}
-        paddingY={2}
+        width={isNonMobile ? "30%" : "70%"}
+        backgroundColor="var(--profile-container)"
+        paddingY={5}
         paddingX={6}
         sx={{
           border: "none",
-          margin: "5rem auto 1.5rem",
+          boxShadow: "var(--profile-box-shadow)",
+          margin: "6rem auto 2.5rem",
         }}
         display="flex"
-        flexDirection="column"
         justifyContent={"center"}
         alignItems={"center"}
         textAlign={"center"}
@@ -380,7 +380,15 @@ function Profile() {
               {friendRequestSent ? "Remove friend request" : "Add Friend"}
             </Button>
           )}
-          </Box>
+          <Button
+            onClick={handleBack}
+            variant="contained"
+            color="primary"
+            sx={{ marginTop: "1rem" }}
+            fontSize="1.2rem"
+          >
+            Back
+          </Button>
         </Box>
       </Box>
       <Box className="flex feed-main-container">
@@ -405,4 +413,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default Profile;
