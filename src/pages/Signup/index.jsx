@@ -3,7 +3,6 @@ import "../Login/index";
 
 import React, { useRef, useState } from "react";
 import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
-import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import {
   auth,
   db,
@@ -11,6 +10,7 @@ import {
   googleProvider,
   storage,
 } from "../../lib/firebase";
+import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { getModalStyle, useStyles } from "../../App";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 
@@ -124,7 +124,7 @@ const SignupScreen = () => {
                 name: username,
                 photoURL: auth.currentUser.photoURL,
                 posts: [],
-              }),
+              })
             )
             .then(() => {
               playSuccessSound();
@@ -132,7 +132,7 @@ const SignupScreen = () => {
                 `Congratulations ${fullName},you have joined Dummygram`,
                 {
                   variant: "success",
-                },
+                }
               );
               navigate("/dummygram");
             })
@@ -171,7 +171,7 @@ const SignupScreen = () => {
                   });
                 })
                 .catch((error) => console.error(error));
-            },
+            }
           );
         })
         .catch((error) => {
@@ -214,7 +214,7 @@ const SignupScreen = () => {
               `Congratulations ${fullName},you have joined Dummygram`,
               {
                 variant: "success",
-              },
+              }
             );
             navigate("/dummygram");
           })
@@ -228,7 +228,7 @@ const SignupScreen = () => {
       .catch((error) =>
         enqueueSnackbar(error.message, {
           variant: "error",
-        }),
+        })
       );
   };
 
@@ -257,7 +257,7 @@ const SignupScreen = () => {
               `Congratulations ${fullName},you have joined Dummygram`,
               {
                 variant: "success",
-              },
+              }
             );
             navigate("/dummygram");
           })
@@ -472,13 +472,13 @@ const SignupScreen = () => {
                 <div className="line" />
               </div>
               <div className="google__fb--login">
-              <button
+                <button
                   className="other__login google"
                   type="submit"
                   onClick={signInWithGoogle}
                 >
                   <FontAwesomeIcon icon={faGoogle} className="google-icon" />{" "}
-                  Sign in with Google
+                  Sign up with Google
                 </button>
                 <button
                   className="other__login facebook"
@@ -489,7 +489,7 @@ const SignupScreen = () => {
                     icon={faFacebookF}
                     className="facebook-icon"
                   />{" "}
-                  Sign in with Facebook
+                  Sign up with Facebook
                 </button>
               </div>
               <div className="have-account">
@@ -503,7 +503,7 @@ const SignupScreen = () => {
         </form>
       </div>
       <div className="login__right signup__right">
-      <img src={loginRight} alt="website image" />
+        <img src={loginRight} alt="website image" />
       </div>
     </section>
   );
