@@ -45,6 +45,7 @@ function Profile() {
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState("");
   const [uid, setUid] = useState(location?.state?.uid || null);
+  const [uploadedImageUrl, setUploadedImageUrl] = useState("");
 
   const handleClose = () => setOpen(false);
 
@@ -148,7 +149,7 @@ function Profile() {
         setEmail(
           location?.state?.name === authUser?.displayName
             ? location?.state?.email || authUser.email
-            : "",
+            : ""
         );
         setUid(location?.state?.uid || authUser.uid);
       } else {
@@ -166,7 +167,7 @@ function Profile() {
     if (auth.currentUser) {
       const usernameQ = query(
         collection(db, "users"),
-        where("uid", "==", auth.currentUser.uid),
+        where("uid", "==", auth.currentUser.uid)
       );
       const unsubscribe = onSnapshot(usernameQ, (querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -180,7 +181,7 @@ function Profile() {
   useEffect(() => {
     const q = query(
       collection(db, "posts"),
-      where("username", "==", location?.state?.name || name),
+      where("username", "==", location?.state?.name || name)
     );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const userPosts = [];
@@ -201,7 +202,9 @@ function Profile() {
 
   const handleChange = (e) => {
     if (e.target.files[0]) {
-      setProfilePic(URL.createObjectURL(e.target.files[0]));
+      const imageUrl = URL.createObjectURL(e.target.files[0]);
+      setProfilePic(imageUrl); // Update the profile picture display
+      setAvatar(imageUrl); // Update the avatar state variable
       setImage(e.target.files[0]);
       setVisible(true);
     }
@@ -229,12 +232,14 @@ function Profile() {
               photoURL: url,
             });
             playSuccessSound();
+            setUploadedImageUrl(url); // Update the uploaded image URL
+            setAvatar(url);
             enqueueSnackbar("Upload Successful!!!", {
               variant: "success",
             });
           })
           .catch((error) => console.error(error));
-      },
+      }
     );
     setVisible(false);
   };
@@ -242,7 +247,7 @@ function Profile() {
   return (
     <>
       <ErrorBoundary>
-        <SideBar />
+        <SideBar uploadedImageUrl={uploadedImageUrl} />
       </ErrorBoundary>
       <Modal
         open={open}
@@ -306,7 +311,7 @@ function Profile() {
               <Avatar
                 onClick={() => setOpen((on) => !on)}
                 alt={name}
-                src={avatar}
+                src={uploadedImageUrl || avatar}
                 sx={{
                   width: "22vh",
                   height: "22vh",

@@ -17,7 +17,7 @@ import { auth } from "../../lib/firebase";
 
 const Footer = React.lazy(() => import("./Footer"));
 
-function SideBar() {
+function SideBar({ uploadedImageUrl }) {
   const navigate = useNavigate();
   const [openNewUpload, setOpenNewUpload] = useState(false);
   const user = auth.currentUser;
@@ -57,15 +57,15 @@ function SideBar() {
                 state: {
                   name: user.displayName,
                   email: user.email,
-                  avatar: user.photoURL,
+                  avatar: uploadedImageUrl || user.photoURL,
                 },
               })
             }
           >
             <div className="sidebar_align">
-              {user && user.photoURL ? (
+              {user && (uploadedImageUrl || user.photoURL) ? (
                 <img
-                  src={user.photoURL}
+                  src={uploadedImageUrl || user.photoURL}
                   alt="profile picture"
                   className="profile-picture"
                 />
