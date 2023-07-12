@@ -195,8 +195,8 @@ input:focus {
 }
 
 .modal__signup {
-  align-items: center;
   display: flex;
+  justify-content: center;
   flex-direction: column;
 }
 

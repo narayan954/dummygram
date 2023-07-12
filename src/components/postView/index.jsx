@@ -87,7 +87,7 @@ const PostCommentView = ({
   const postComment = (event) => {
     event.preventDefault();
     const commentValue = commentRef?.current?.value;
-    if (commentValue) {
+    if (commentValue && commentRef?.current?.value?.trim().length >= 1) {
       db.collection("posts").doc(postId).collection("comments").add({
         text: commentValue,
         username: user.displayName,
@@ -317,6 +317,7 @@ const PostCommentView = ({
                   : "Be the first one to comment ..."
               }
               ref={commentRef}
+              maxLength="150"
               style={{
                 color: "var(--color)",
                 borderRadius: "16px",
