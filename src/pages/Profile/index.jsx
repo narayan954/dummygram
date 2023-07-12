@@ -287,7 +287,6 @@ function Profile() {
       <Box
         className="outer-profile-box"
         width="90%"
-        // width={isNonMobile ? "100%" : "70%"}
         paddingY={5}
         paddingX={6}
         sx={{
@@ -308,7 +307,12 @@ function Profile() {
           gap={1}
           className="inner-profile"
         >
-          <Box display="flex" marginRight="10px" flexDirection="column" className="profile-left">
+          <Box
+            display="flex"
+            marginRight="10px"
+            flexDirection="column"
+            className="profile-left"
+          >
             {avatar ? (
               <Avatar
                 onClick={() => setOpen((on) => !on)}
@@ -316,8 +320,6 @@ function Profile() {
                 src={avatar}
                 className="profile-pic-container"
                 sx={{
-                  // width: "22vh",
-                  // height: "22vh",
                   bgcolor: "black",
                   border: "none",
                   boxShadow: "0 0 4px black",
@@ -325,7 +327,7 @@ function Profile() {
                   justifyContent: "center",
                   alignItems: "center",
                   cursor: "pointer",
-                  marginBottom: "1.2rem"
+                  marginBottom: "1.2rem",
                 }}
               />
             ) : (
@@ -347,7 +349,7 @@ function Profile() {
                       marginTop: "0.5rem",
                       marginBottom: "0.5rem",
                       color: "var(--text-primary)",
-                      padding: "2px 15px"
+                      padding: "2px 15px",
                     }}
                   >
                     Edit Profile Pic
@@ -357,10 +359,14 @@ function Profile() {
             )}
             {visible && (
               <Button
-              className="img-save"
+                className="img-save"
                 onClick={handleSave}
                 variant="outlined"
-                sx={{ marginTop: "1rem", marginBottom:"1rem", padding: "5px 25px" }}
+                sx={{
+                  marginTop: "1rem",
+                  marginBottom: "1rem",
+                  padding: "5px 25px",
+                }}
               >
                 Save
               </Button>
@@ -398,7 +404,7 @@ function Profile() {
           </Box>
         </Box>
       </Box>
-        <Divider style={{ background: "var(--profile-divider)" }} />
+      <Divider style={{ background: "var(--profile-divider)" }} />
       <Box className="flex feed-main-container">
         <div className="app__posts" id="feed-sub-container">
           <ErrorBoundary>
