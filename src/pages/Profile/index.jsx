@@ -163,17 +163,10 @@ function Profile() {
 
   //Get username from usernames collection
   useEffect(() => {
-    const usernameQ = query(
-      collection(db, "users"),
-      where("uid", "==", auth.currentUser.uid)
-    );
-    const unsubscribe = onSnapshot(usernameQ, (querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        setUsername(doc.username);
     if (auth.currentUser) {
       const usernameQ = query(
         collection(db, "users"),
-        where("uid", "==", auth.currentUser.uid),
+        where("uid", "==", auth.currentUser.uid)
       );
       const unsubscribe = onSnapshot(usernameQ, (querySnapshot) => {
         querySnapshot.forEach((doc) => {
