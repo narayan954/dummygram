@@ -16,7 +16,6 @@ function SearchBar() {
   const [currentPostLink, setCurrentPostLink] = useState("");
   const [postText, setPostText] = useState("");
   const [posts, setPosts] = useState([]);
-
   const handleSearch = (e) => {
     setSearchText(e.target.value);
   };
@@ -55,7 +54,7 @@ function SearchBar() {
   // code to filter posts accornding to searchtext
 
   const filteredPosts = posts.filter((post) =>
-    post.post.username.toLowerCase().includes(searchText.toLowerCase()),
+    post.post.username.toLowerCase().includes(searchText.toLowerCase())
   );
 
   return (
@@ -95,7 +94,7 @@ function SearchBar() {
               ))}
             </>
           ) : (
-            "Nothing to search"
+            <>{<div className="text-white">Nothing to search</div>}</> // TODO: Employ TailwindCSS here
           )}
         </div>
       </Box>
