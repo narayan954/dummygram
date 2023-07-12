@@ -61,7 +61,7 @@ const CommentBox = ({
 
           <IconButton
             className="post__button"
-            disabled={!comment || comment.trim().length < 1}
+            disabled={comment.trim().length < 1}
             type="submit"
             onClick={postComment}
             style={{
