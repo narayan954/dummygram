@@ -148,7 +148,7 @@ function Profile() {
         setEmail(
           location?.state?.name === authUser?.displayName
             ? location?.state?.email || authUser.email
-            : "",
+            : ""
         );
         setUid(location?.state?.uid || authUser.uid);
       } else {
@@ -166,7 +166,7 @@ function Profile() {
     if (auth.currentUser) {
       const usernameQ = query(
         collection(db, "users"),
-        where("uid", "==", auth.currentUser.uid),
+        where("uid", "==", auth.currentUser.uid)
       );
       const unsubscribe = onSnapshot(usernameQ, (querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -180,7 +180,7 @@ function Profile() {
   useEffect(() => {
     const q = query(
       collection(db, "posts"),
-      where("username", "==", location?.state?.name || name),
+      where("username", "==", location?.state?.name || name)
     );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const userPosts = [];
@@ -234,7 +234,7 @@ function Profile() {
             });
           })
           .catch((error) => console.error(error));
-      },
+      }
     );
     setVisible(false);
   };
@@ -285,14 +285,14 @@ function Profile() {
       </Modal>
 
       <Box
-        width={isNonMobile ? "30%" : "70%"}
-        backgroundColor="var(--profile-container)"
+        className="outer-profile-box"
+        width="90%"
+        // width={isNonMobile ? "100%" : "70%"}
         paddingY={5}
         paddingX={6}
         sx={{
           border: "none",
-          boxShadow: "var(--profile-box-shadow)",
-          margin: "6rem auto 2.5rem",
+          margin: "6rem auto 2rem",
         }}
         display="flex"
         justifyContent={"center"}
@@ -300,16 +300,24 @@ function Profile() {
         textAlign={"center"}
         color="var(--color)"
       >
-        <Box display="flex" flexDirection="column" gap={1}>
-          <Box marginX="auto" fontSize="600%">
+        <Box
+          display="flex"
+          width="90%"
+          flexDirection="row"
+          justifyContent="space-between"
+          gap={1}
+          className="inner-profile"
+        >
+          <Box display="flex" marginRight="10px" flexDirection="column" className="profile-left">
             {avatar ? (
               <Avatar
                 onClick={() => setOpen((on) => !on)}
                 alt={name}
                 src={avatar}
+                className="profile-pic-container"
                 sx={{
-                  width: "22vh",
-                  height: "22vh",
+                  // width: "22vh",
+                  // height: "22vh",
                   bgcolor: "black",
                   border: "none",
                   boxShadow: "0 0 4px black",
@@ -317,80 +325,80 @@ function Profile() {
                   justifyContent: "center",
                   alignItems: "center",
                   cursor: "pointer",
+                  marginBottom: "1.2rem"
                 }}
               />
             ) : (
               <FaUserCircle style={{ width: "22vh", height: "22vh" }} />
             )}
+            {name === user?.displayName && (
+              <Box className="edit-btn">
+                <input
+                  type="file"
+                  id="file"
+                  className="file"
+                  onChange={handleChange}
+                  accept="image/*"
+                />
+                <label htmlFor="file">
+                  <div
+                    className="img-edit"
+                    style={{
+                      marginTop: "0.5rem",
+                      marginBottom: "0.5rem",
+                      color: "var(--text-primary)",
+                      padding: "2px 15px"
+                    }}
+                  >
+                    Edit Profile Pic
+                  </div>
+                </label>
+              </Box>
+            )}
+            {visible && (
+              <Button
+              className="img-save"
+                onClick={handleSave}
+                variant="outlined"
+                sx={{ marginTop: "1rem", marginBottom:"1rem", padding: "5px 25px" }}
+              >
+                Save
+              </Button>
+            )}
           </Box>
-          {name === user?.displayName && (
-            <Box>
-              <input
-                type="file"
-                id="file"
-                className="file"
-                onChange={handleChange}
-                accept="image/*"
-              />
-              <label htmlFor="file">
-                <div
-                  className="img-edit"
-                  style={{
-                    marginTop: "0.5rem",
-                    marginBottom: "0.5rem",
-                    color: "var(--text-primary)",
-                  }}
-                >
-                  Edit Profile Pic
-                </div>
-              </label>
-            </Box>
-          )}
-          {visible && (
-            <Button
-              onClick={handleSave}
-              variant="outlined"
-              sx={{ marginTop: "1rem" }}
-            >
-              Save
-            </Button>
-          )}
-          {/* <Divider
-            sx={{ marginTop: "1rem", background: "var(--profile-divider)" }}
-          /> */}
-          <Typography fontSize="1.3rem" fontWeight="600">
-            {username}
-          </Typography>
-          <Divider style={{ background: "var(--profile-divider)" }} />
-          <Typography fontSize="1.3rem" fontWeight="600">
-            {name}
-          </Typography>
-          <Typography fontSize="1rem">Total Posts: {feed.length}</Typography>
-          <Divider style={{ background: "var(--profile-divider)" }} />
-          <Typography fontSize="1.5rem" fontWeight="600">
-            {name === user?.displayName && email}
-          </Typography>
-          {name !== user?.displayName && (
-            <Button
-              onClick={handleSendFriendRequest}
-              variant="contained"
-              color="primary"
-              sx={{ marginTop: "1rem" }}
-            >
-              {friendRequestSent ? "Remove friend request" : "Add Friend"}
-            </Button>
-          )}
-          <Button
-            onClick={handleBack}
-            variant="contained"
-            color="primary"
-            sx={{ marginTop: "1rem" }}
-            fontSize="1.2rem"
+          <Box
+            display="flex"
+            flexDirection="column"
+            alignItems="flex-start"
+            marginTop="10px"
+            className="profile-right"
           >
-            Back
-          </Button>
+            <Typography fontSize="1.3rem" fontWeight="600">
+              {username}
+            </Typography>
+            <Typography fontSize="1.3rem" fontWeight="600" paddingBottom="10px">
+              {name}
+            </Typography>
+            <Typography fontSize="1.5rem" fontWeight="600" paddingBottom="10px">
+              {name === user?.displayName && email}
+            </Typography>
+            <Typography fontSize="1.2rem" paddingBottom="10px">
+              Total Posts: {feed.length}
+            </Typography>
+            {name !== user?.displayName && (
+              <Button
+                onClick={handleSendFriendRequest}
+                variant="contained"
+                color="primary"
+                sx={{ marginTop: "1rem" }}
+              >
+                {friendRequestSent ? "Remove friend request" : "Add Friend"}
+              </Button>
+            )}
+          </Box>
         </Box>
       </Box>
+        <Divider style={{ background: "var(--profile-divider)" }} />
       <Box className="flex feed-main-container">
         <div className="app__posts" id="feed-sub-container">
           <ErrorBoundary>
