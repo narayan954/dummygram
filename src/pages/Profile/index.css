@@ -28,10 +28,12 @@
 }
 
 @media screen and (max-width: 600px) {
-  .right-profile-section{padding-top: 0 !important;}
+  .right-profile-section {
+    padding-top: 0 !important;
+  }
 }
 
-  @media screen and (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .inner-profile-section {
     width: 100%;
   }
@@ -53,7 +55,6 @@
     width: 55% !important;
     justify-content: flex-start !important;
   }
-  
 }
 @media screen and (min-width: 1025px) and (max-width: 1440px) {
   .back-btn-box {
@@ -61,7 +62,7 @@
     justify-content: flex-start !important;
   }
 }
-  @media screen and (min-width: 1201px) {
+@media screen and (min-width: 1201px) {
   .profile-section {
     width: calc(100% - 22vw) !important;
   }
