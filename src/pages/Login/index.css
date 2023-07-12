@@ -34,6 +34,7 @@
   color: var(--color);
   font-size: 1.2rem;
   padding-top: 0.1rem;
+  line-height: 1.2;
 }
 
 .form__bottom {
@@ -194,6 +195,10 @@
   text-align: center;
   width: 100%;
 }
+.login__right img {
+  width: 100%;
+  height: 100%;
+}
 
 .login__right {
   background-image: url("../../assets/login-right.webp");
@@ -202,6 +207,9 @@
   background-position: center center;
   width: 100%;
   height: 100%;
+}
+.signup__right{
+  background-image: none;
 }
 
 /* forgot password */
@@ -223,7 +231,15 @@
 .forgot-pasword span:hover {
   color: rgb(157, 147, 219);
 }
-
+.have-account {
+  text-align: center;
+}
+.img-outer {
+  margin: 0 auto;
+}
+#file {
+  width: 10rem;
+}
 /* media query for 840px */
 @media (max-width: 840px) {
   .login__section {
