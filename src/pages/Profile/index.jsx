@@ -1,4 +1,5 @@
 import "./index.css";
+import ViewsCounter from "./views";
 
 import {
   Avatar,
@@ -362,6 +363,10 @@ function Profile() {
             {username}
           </Typography>
           <Divider style={{ background: "var(--profile-divider)" }} />
+          <Typography fontSize="1.3rem" fontWeight="600" fontFamily="Poppins">
+            <ViewsCounter uid={uid} />
+          </Typography>
+          <Divider />
           <Typography fontSize="1.3rem" fontWeight="600">
             {name}
           </Typography>
