@@ -347,7 +347,6 @@ function Profile() {
                     className="img-edit"
                     style={{
                       marginTop: "0.5rem",
-                      marginBottom: "0.5rem",
                       color: "var(--text-primary)",
                       padding: "2px 15px",
                     }}
@@ -364,7 +363,6 @@ function Profile() {
                 variant="outlined"
                 sx={{
                   marginTop: "1rem",
-                  marginBottom: "1rem",
                   padding: "5px 25px",
                 }}
               >

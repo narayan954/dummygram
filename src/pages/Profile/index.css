@@ -2,8 +2,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 40px;
-  border-radius: 1.303rem;
+  height: 20px;
+  border-radius: 10px;
   box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
   cursor: pointer;
   color: blue;
@@ -11,6 +11,7 @@
   filter: invert(0%) !important;
   transition: color 0.4s;
   padding: 0 15px;
+  margin-bottom: 0;
 }
 
 .img-edit:hover {
@@ -31,41 +32,63 @@
 /* media query */
 
 @media screen and (max-width: 600px) {
-  .outer-profile-box{
+  .outer-profile-box {
     width: 95%;
     padding: 30px 0;
   }
-  .img-edit{padding: 5px 15px !important; line-height: 1.1;}
+  .img-edit {
+    padding: 5px 15px !important;
+    line-height: 1.1;
+  }
   .profile-pic-container {
     width: 110px;
     height: 110px;
   }
-  .profile-right p{
+  .profile-right p {
     font-size: 1rem;
   }
-  .inner-profile{width: 100%;}
-  .profile-left{width: 40%; align-items: center;}
+  .inner-profile {
+    width: 100%;
+  }
+  .profile-left {
+    width: 40%;
+    align-items: center;
+  }
 }
 @media screen and (min-width: 600px) {
   .profile-pic-container {
     width: 140px;
     height: 140px;
   }
-  .app__posts{padding-top: 0;}
+  .app__posts {
+    padding-top: 0;
+  }
 }
 @media screen and (min-width: 768px) {
-  .outer-profile-box{
+  .outer-profile-box {
     width: calc(100% - 16vw);
   }
 }
 @media screen and (min-width: 1200px) {
-  .outer-profile-box{width: calc(100% - 34vw);  }
+  .outer-profile-box {
+    width: calc(100% - 34vw);
+  }
   .profile-pic-container {
     width: 180px;
     height: 180px;
   }
-  .profile-right p{font-size: 1.6rem;}
-  .img-edit, .img-save {font-size: 1.3rem; padding: 2px 20px !important;}
-  .profile-right{margin-top: 22px;}
-  .inner-profile{margin-left: 2rem;}
+  .profile-right p {
+    font-size: 1.6rem;
+  }
+  .img-edit,
+  .img-save {
+    font-size: 1rem;
+    padding: 1px 2px !important;
+  }
+  .profile-right {
+    margin-top: 22px;
+  }
+  .inner-profile {
+    margin-left: 2rem;
+  }
 }
