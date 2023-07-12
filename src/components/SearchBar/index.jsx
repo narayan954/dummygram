@@ -54,10 +54,8 @@ function SearchBar() {
   // code to filter posts accornding to searchtext
 
   const filteredPosts = posts.filter((post) =>
-    post.post.username.toLowerCase().includes(searchText.toLowerCase()),
+    post.post.username.toLowerCase().includes(searchText.toLowerCase())
   );
-
-
 
   return (
     <div>
@@ -96,13 +94,7 @@ function SearchBar() {
               ))}
             </>
           ) : (
-            <>
-            {
-             <div className="text-color-white">
-               Nothing to search
-             </div>
-            }
-            </>
+            <>{<div className="text-white">Nothing to search</div>}</> // TODO: Employ TailwindCSS here
           )}
         </div>
       </Box>
