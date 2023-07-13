@@ -19,7 +19,7 @@ export const Feedback = () => {
         "service_hg3vdpg",
         "dummygram_feedback",
         form.current,
-        "OV1vxF7lxYkw_RRWy"
+        "OV1vxF7lxYkw_RRWy",
       )
       .then(
         (result) => {
@@ -30,7 +30,7 @@ export const Feedback = () => {
         },
         (error) => {
           console.error("Error:", error);
-        }
+        },
       );
   };
 
