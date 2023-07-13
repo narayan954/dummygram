@@ -35,7 +35,7 @@
 .image {
   background-color: aliceblue;
   height: 250px;
-  object-fit:scale-down;
+  object-fit: scale-down;
   width: 100%;
   z-index: -1;
 }

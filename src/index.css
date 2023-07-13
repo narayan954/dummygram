@@ -106,7 +106,6 @@ input:focus {
   padding-top: 5.5em;
 }
 
-
 .rowConvert {
   color: #ab4bc2;
   display: flex;
@@ -121,7 +120,6 @@ input:focus {
   cursor: pointer;
   transform: scale(1.04);
 }
-
 
 @media only screen and (min-width: 1200px) {
   .app__posts {
@@ -142,13 +140,13 @@ input:focus {
   .rowConvert {
     display: none;
   }
-  .app__posts{
+  .app__posts {
     padding-left: 20%;
   }
 }
 @media only screen and (max-width: 700px) {
-  .app__posts{
-    padding-inline:auto ;
+  .app__posts {
+    padding-inline: auto;
   }
 }
 .post__img {
@@ -249,8 +247,7 @@ input:focus {
   .app__newpost__button {
     left: -6%;
   }
-  .app__posts{
-
+  .app__posts {
     padding-left: 10%;
     width: 95%;
   }
