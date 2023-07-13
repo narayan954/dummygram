@@ -106,15 +106,6 @@ input:focus {
   padding-top: 5.5em;
 }
 
-@media only screen and (min-width: 800px) {
-  .app__posts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    justify-content: center;
-  }
-}
-
 .rowConvert {
   color: #ab4bc2;
   display: flex;
@@ -130,9 +121,18 @@ input:focus {
   transform: scale(1.04);
 }
 
+@media only screen and (min-width: 1200px) {
+  .app__posts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+  }
+}
+
 @media only screen and (max-width: 1200px) {
   .app__posts {
-    padding: 0px;
+    padding: 120px;
   }
 }
 
@@ -140,8 +140,15 @@ input:focus {
   .rowConvert {
     display: none;
   }
+  .app__posts {
+    padding-left: 20%;
+  }
 }
-
+@media only screen and (max-width: 700px) {
+  .app__posts {
+    padding-inline: auto;
+  }
+}
 .post__img {
   max-width: 100%;
   object-fit: contain;
@@ -167,7 +174,8 @@ input:focus {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  padding: 10px;
+  padding-inline: 10px;
+  padding-top: 0;
 }
 
 .post__avatar {
@@ -185,8 +193,8 @@ input:focus {
 }
 
 .modal__signup {
-  align-items: center;
   display: flex;
+  justify-content: center;
   flex-direction: column;
 }
 
@@ -239,6 +247,10 @@ input:focus {
   .app__newpost__button {
     left: -6%;
   }
+  .app__posts {
+    padding-left: 10%;
+    width: 95%;
+  }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -268,7 +280,7 @@ input:focus {
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 911px) {
   .scrollTop {
     left: 47.2%;
   }

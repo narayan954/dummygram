@@ -107,7 +107,7 @@ const CommentDialogBox = ({
           ))}
         </>
       ) : (
-        <span>No Comments</span>
+        <span style={{ color: "var(--color)" }}>No Comments</span>
       )}
     </Box>
   );

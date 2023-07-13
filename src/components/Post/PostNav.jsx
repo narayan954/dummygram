@@ -28,7 +28,7 @@ const PostNav = ({
   const { enqueueSnackbar } = useSnackbar();
   const [Open, setOpen] = useState(false);
   const [favoritePosts, setFavoritePosts] = useState(
-    JSON.parse(localStorage.getItem("posts")) || []
+    JSON.parse(localStorage.getItem("posts")) || [],
   );
   const [isSaved, setisSaved] = useState(false);
 
@@ -67,7 +67,7 @@ const PostNav = ({
   };
 
   return (
-    <Flexbetween gap={!fullScreen && "1.6rem"}>
+    <Flexbetween gap={!fullScreen && "1.6rem"} sx={{ marginInline: "auto" }}>
       <Flexbetween sx={{ cursor: "pointer" }} onClick={likesHandler}>
         <IconButton>
           {tempLikeCount.indexOf(user.uid) != -1 ? (
@@ -93,7 +93,7 @@ const PostNav = ({
           setisCommentOpen(!Open);
         }}
       >
-        <IconButton>
+        <IconButton sx={{ padding: "2px" }}>
           <ChatBubbleOutlineRounded
             style={{ color: "var(--post-nav-icons)" }}
           />

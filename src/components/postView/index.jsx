@@ -87,7 +87,7 @@ const PostCommentView = ({
   const postComment = (event) => {
     event.preventDefault();
     const commentValue = commentRef?.current?.value;
-    if (commentValue) {
+    if (commentValue && commentRef?.current?.value?.trim().length >= 1) {
       db.collection("posts").doc(postId).collection("comments").add({
         text: commentValue,
         username: user.displayName,
@@ -249,6 +249,7 @@ const PostCommentView = ({
               subheader={time}
             />
           </ErrorBoundary>
+          {/* caption box */}
           {postHasImages && caption ? (
             <ErrorBoundary>
               <PostCaption>
@@ -259,6 +260,8 @@ const PostCommentView = ({
             </ErrorBoundary>
           ) : null}
         </PostGridItem>
+
+        {/* post/ like ...  box */}
         <PostGridItem postActions>
           <ErrorBoundary>
             <PostDetails
@@ -276,6 +279,8 @@ const PostCommentView = ({
             />
           </ErrorBoundary>
         </PostGridItem>
+
+        {/* Comment box  */}
         <PostGridItem isComments={comments?.length > 0}>
           <CommentForm>
             <ClickAwayListener onClickAway={() => setShowEmojis(false)}>
@@ -309,13 +314,13 @@ const PostCommentView = ({
               placeholder={
                 comments?.length !== 0
                   ? "Add a comment..."
-                  : "Be the first one to comment..."
+                  : "Be the first one to comment ..."
               }
               ref={commentRef}
+              maxLength="150"
               style={{
-                backgroundColor: "var(--bg-color)",
                 color: "var(--color)",
-                borderRadius: "22px",
+                borderRadius: "16px",
                 margin: "4px 0px",
               }}
             />
