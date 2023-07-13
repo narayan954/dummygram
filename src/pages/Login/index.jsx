@@ -91,12 +91,25 @@ const LoginScreen = () => {
           const usernameDoc = db.collection(`users`);
           await usernameDoc.doc(auth.currentUser.uid).set({
             uid: val.user.uid,
+            username: val.user.uid,
             name: val.user.displayName,
             photoURL: val.user.photoURL,
             displayName: val.user.displayName,
             Friends: [],
             posts: [],
           });
+        } else {
+          const usernameDoc = db.collection(`users`);
+          usernameDoc
+            .doc(auth.currentUser.uid)
+            .get()
+            .then((doc) => {
+              if (!doc.data().username) {
+                doc.ref.update({
+                  username: doc.data().uid,
+                });
+              }
+            });
         }
         playSuccessSound();
         enqueueSnackbar("Login successful!", {
@@ -131,12 +144,25 @@ const LoginScreen = () => {
           const usernameDoc = db.collection(`users`);
           await usernameDoc.doc(auth.currentUser.uid).set({
             uid: val.user.uid,
+            username: val.user.uid,
             name: val.user.displayName,
             photoURL: val.user.photoURL,
             displayName: val.user.displayName,
             Friends: [],
             posts: [],
           });
+        } else {
+          const usernameDoc = db.collection(`users`);
+          usernameDoc
+            .doc(auth.currentUser.uid)
+            .get()
+            .then((doc) => {
+              if (!doc.data().username) {
+                doc.ref.update({
+                  username: doc.data().uid,
+                });
+              }
+            });
         }
         playSuccessSound();
         enqueueSnackbar("Login successful!", {
