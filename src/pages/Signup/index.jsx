@@ -23,6 +23,13 @@ import { updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import validate from "../../reusableComponents/validation";
+import Auth_container from "../../reusableComponents/AUth_container";
+import Auth__form from "../../reusableComponents/Auth__form";
+import Auth__top from "../../reusableComponents/Auth__top";
+import Auth__image__input from "../../reusableComponents/Auth__image__input";
+import Auth__text__input from "../../reusableComponents/Auth__text__input";
+import Auth__pass__input from "../../reusableComponents/Auth__pass__input";
+import Auth__ctn__group from "../../reusableComponents/Auth__ctn__group";
 
 const SignupScreen = () => {
   const classes = useStyles();
@@ -35,7 +42,7 @@ const SignupScreen = () => {
   const [signingUp, setSigningUp] = useState(false);
   const [image, setImage] = useState(null);
   const [address, setAddress] = useState(null);
-  const [showPassword, setShowPassword] = useState(false);
+  // const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [usernameAvailable, setUsernameAvailable] = useState(true);
   const [username, setUsername] = useState("");
@@ -71,10 +78,10 @@ const SignupScreen = () => {
     setUsernameAvailable(!exists);
   };
 
-  const handleShowPassword = (e) => {
-    e.preventDefault();
-    setShowPassword(!showPassword);
-  };
+  // const handleShowPassword = (e) => {
+  //   e.preventDefault();
+  //   setShowPassword(!showPassword);
+  // };
 
   const handleShowConfirmPassword = (e) => {
     e.preventDefault();
@@ -122,7 +129,7 @@ const SignupScreen = () => {
                 name: username,
                 photoURL: auth.currentUser.photoURL,
                 posts: [],
-              }),
+              })
             )
             .then(() => {
               playSuccessSound();
@@ -130,7 +137,7 @@ const SignupScreen = () => {
                 `Congratulations ${fullName},you have joined Dummygram`,
                 {
                   variant: "success",
-                },
+                }
               );
               navigate("/dummygram");
             })
@@ -169,7 +176,7 @@ const SignupScreen = () => {
                   });
                 })
                 .catch((error) => console.error(error));
-            },
+            }
           );
         })
         .catch((error) => {
@@ -212,7 +219,7 @@ const SignupScreen = () => {
               `Congratulations ${fullName},you have joined Dummygram`,
               {
                 variant: "success",
-              },
+              }
             );
             navigate("/dummygram");
           })
@@ -226,7 +233,7 @@ const SignupScreen = () => {
       .catch((error) =>
         enqueueSnackbar(error.message, {
           variant: "error",
-        }),
+        })
       );
   };
 
@@ -255,7 +262,7 @@ const SignupScreen = () => {
               `Congratulations ${fullName},you have joined Dummygram`,
               {
                 variant: "success",
-              },
+              }
             );
             navigate("/dummygram");
           })
@@ -288,255 +295,120 @@ const SignupScreen = () => {
   };
 
   return (
-    <section className="login__section">
-      <div className="login__left">
-        <form aria-label="Sign Up Form">
-          <div className="form__top">
-            <img src={logo} alt="dummygram logo" />
-            <div className="greetings">
-              <h3>Hey, hello 👋</h3>
-              <p>Welcome to DummyGram 😊, let's get your account created</p>
-            </div>
-          </div>
-          <div className="form__bottom">
-            <div className="input__group">
-              <label htmlFor="file" id="file-label">
-                <div className="img-outer">
-                  {address ? (
-                    <img
-                      src={URL.createObjectURL(image)}
-                      alt="profile pic"
-                      className="img-inner"
-                    />
-                  ) : (
-                    <img
-                      src={blank_profile}
-                      alt="profile pic"
-                      className="img-inner"
-                    />
-                  )}
-                </div>
-              </label>
-              <input
-                type="file"
-                id="file"
-                className="file"
-                onChange={handleChange}
-                accept="image/*"
-                required
-                aria-labelledby="file-label"
-              />
-            </div>
-            <div className="input__group">
-              <label htmlFor="username">Username</label>
-              <input
-                id="username"
-                type="text"
-                placeholder="Enter your Username"
-                value={username}
-                onChange={(e) => {
-                  usernameRef.current = e.target.value.trim();
-                  setUsername(e.target.value.trim());
-                  checkUsername();
-                }}
-                className={usernameAvailable ? null : "error-border"}
-                required
-                aria-required="true"
-                aria-label="Username"
-                aria-describedby="username-error"
-              />
-              {!usernameAvailable && (
-                <p className="error" id="username-error">
-                  Username not availaible
-                </p>
-              )}
-            </div>
+    <Auth_container right__img={loginRight}>
+      <form aria-label="Sign Up Form">
+        <Auth__top
+          logo={logo}
+          heading={"Hey, hello 👋"}
+          top__greeting={
+            "Welcome to DummyGram 😊, let's get your account created"
+          }
+        />
+        <div className="form__bottom">
+          {/* image input for the form  */}
+          <Auth__image__input
+            address={address}
+            blank_profile={blank_profile}
+            image={image}
+            handleChange={handleChange}
+          />
+          {/* Username Input for the form */}
+          <Auth__text__input
+            label={"username"}
+            id={"username"}
+            placeholder={"Enter your Username"}
+            value={username}
+            handleChange={(e) => {
+              usernameRef.current = e.target.value.trim();
+              setUsername(e.target.value.trim());
+              checkUsername();
+            }}
+            fieldName={"username"}
+            aria_dsc_by={"username-error"}
+            isError={!usernameAvailable}
+            errorMesssage={"Username not availaible"}
+            error_border={usernameAvailable}
+          />
 
-            <div className="input__group">
-              <label htmlFor="full__name">Full name</label>
-              <input
-                id="full__name"
-                type="text"
-                placeholder="Enter your Fullname"
-                value={fullName}
-                name="name"
-                onChange={(e) => {
-                  setFullName(e.target.value);
-                  handleError(e.target.name, e.target.value);
-                }}
-                className={error.nameError ? "error-border" : null}
-                required
-                aria-required="true"
-                aria-label="Full Name"
-                aria-describedby="name-error"
-              />
-              {error.name && error.nameError && (
-                <p className="error" id="name-error">
-                  {error.nameError}
-                </p>
-              )}
-            </div>
+          {/* fullname input for the form */}
+          <Auth__text__input
+            label={"Full name"}
+            id={"full__name"}
+            placeholder={"Enter your Fullname"}
+            value={fullName}
+            handleChange={(e) => {
+              setFullName(e.target.value);
+              handleError(e.target.name, e.target.value);
+            }}
+            fieldName={"name"}
+            aria_dsc_by={"name-error"}
+            isError={error.name && error.nameError}
+            errorMesssage={error.nameError}
+            error_border={!error.nameError}
+          />
 
-            <div className="input__group">
-              <label htmlFor="email">Email</label>
-              <input
-                id="email"
-                type="email"
-                placeholder="Enter your email"
-                name="email"
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                  handleError(e.target.name, e.target.value);
-                }}
-                className={error.emailError ? "error-border" : null}
-                required
-                aria-required="true"
-                aria-label="Email"
-                aria-describedby="email-error"
-              />
-              {error.email && error.emailError && (
-                <p className="error" id="email-error">
-                  {error.emailError}
-                </p>
-              )}
-            </div>
+          {/* fullname input for the form */}
+          <Auth__text__input
+            label={"Email"}
+            id={"email"}
+            type="email"
+            placeholder={"Enter your email"}
+            value={email}
+            handleChange={(e) => {
+              setEmail(e.target.value);
+              handleError(e.target.name, e.target.value);
+            }}
+            fieldName={"email"}
+            aria_dsc_by={"email-error"}
+            isError={error.email && error.emailError}
+            errorMesssage={error.emailError}
+            error_border={!error.emailError}
+          />
 
-            <div className="input__group">
-              <label htmlFor="password">Password</label>
-              <div
-                id="password-container"
-                className={
-                  error.passwordError
-                    ? "error-border pass__input__container"
-                    : "pass__input__container"
-                }
-              >
-                <input
-                  id="password"
-                  name="password"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Enter your password"
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                    handleError(e.target.name, e.target.value);
-                  }}
-                  required
-                  aria-required="true"
-                  aria-label="Password"
-                  aria-describedby="password-error"
-                />
-                <button
-                  onClick={(e) => handleShowPassword(e)}
-                  className="show-password"
-                  aria-label={showPassword ? "Hide Password" : "Show Password"}
-                >
-                  {showPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
-                </button>
-              </div>
-              {error.password && error.passwordError && (
-                <p className="error" id="password-error">
-                  {error.passwordError}
-                </p>
-              )}
-            </div>
-            {/* confirm password */}
+          {/* password input for the form  */}
+          <Auth__pass__input
+            label={"Password"}
+            id={"password"}
+            name={"password"}
+            placeholder={"Enter your password"}
+            value={password}
+            handleChange={(e) => {
+              setPassword(e.target.value);
+              handleError(e.target.name, e.target.value);
+            }}
+            aria_dsc_by={"password-error"}
+            errorMesssage={error.passwordError}
+            isError={error.password && error.passwordError}
+          />
 
-            <div className="input__group">
-              <label htmlFor="confirmpassword">Confirm Password</label>
-              <div
-                id="password-container"
-                className={
-                  error.confirmPasswordError
-                    ? "error-border pass__input__container"
-                    : "pass__input__container"
-                }
-              >
-                <input
-                  id="confirmpassword"
-                  name="confirmPassword"
-                  type={showConfirmPassword ? "text" : "password"}
-                  placeholder="Confirm your Password"
-                  value={confirmPassword}
-                  onChange={(e) => {
-                    setConfirmPassword(e.target.value);
-                    handleError(e.target.name, e.target.value);
-                  }}
-                  required
-                  aria-required="true"
-                  aria-label="Confirm Password"
-                  aria-describedby="confirm-password-error"
-                />
-                <button
-                  onClick={(e) => handleShowConfirmPassword(e)}
-                  className="show-password"
-                  aria-label={
-                    showConfirmPassword
-                      ? "Hide Confirm Password"
-                      : "Show Confirm Password"
-                  }
-                >
-                  {showConfirmPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
-                </button>
-              </div>
-              {error.confirmPassword && error.confirmPasswordError && (
-                <p className="error" id="confirm-password-error">
-                  {error.confirmPasswordError}
-                </p>
-              )}
-            </div>
-            <button
-              type="submit"
-              onClick={signUp}
-              className="action__btn login__btn"
-            >
-              Sign Up <FontAwesomeIcon icon={faRightToBracket} />
-            </button>
-
-            <div className="other__login__method">
-              <div className="or option__divider">
-                <div className="line" />
-                <div style={{ padding: "5px 9px" }}>or</div>
-                <div className="line" />
-              </div>
-              <div className="google__fb--login">
-                <button
-                  className="other__login google"
-                  type="submit"
-                  onClick={signInWithGoogle}
-                  aria-label="Sign Up with Google"
-                >
-                  <FontAwesomeIcon icon={faGoogle} className="google-icon" />{" "}
-                  Sign up with Google
-                </button>
-                <button
-                  className="other__login facebook"
-                  type="submit"
-                  onClick={signInWithFacebook}
-                  aria-label="Sign Up with Facebook"
-                >
-                  <FontAwesomeIcon
-                    icon={faFacebookF}
-                    className="facebook-icon"
-                  />{" "}
-                  Sign up with Facebook
-                </button>
-              </div>
-              <div className="have-account">
-                Already have an account?{" "}
-                <span role={"button"} onClick={navigateToLogin} tabIndex="0">
-                  Sign in!
-                </span>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div className="login__right signup__right">
-        <img src={loginRight} alt="website image" />
-      </div>
-    </section>
+          {/* confirm password input for the form  */}
+          <Auth__pass__input
+            label={"Confirm Password"}
+            id={"confirmpassword"}
+            name={"confirmPassword"}
+            placeholder={"Confirm your Password"}
+            value={confirmPassword}
+            handleChange={(e) => {
+              setConfirmPassword(e.target.value);
+              handleError(e.target.name, e.target.value);
+            }}
+            aria_dsc_by={"confirm-password-error"}
+            errorMesssage={error.confirmPasswordError}
+            isError={error.confirmPassword && error.confirmPasswordError}
+          />
+          <Auth__ctn__group
+            handleSubmit={signUp}
+            btn__label={"Sign up"}
+            submit__icon={faRightToBracket}
+            handleSignInWithGoogle={signInWithGoogle}
+            handleSignInWithFacebook={signInWithFacebook}
+            have_acct_question={"Already have an account?"}
+            have_acct_nav={navigateToLogin}
+            have__acct_action={"Sign in!"}
+          />
+        </div>
+      </form>
+    </Auth_container>
   );
 };
 
