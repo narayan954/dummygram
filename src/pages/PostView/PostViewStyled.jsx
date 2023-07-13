@@ -98,7 +98,7 @@ export const PostGridItem = styled("div")(
       justifyContent: "center",
       height: "fit-content",
     }),
-  }),
+  })
 );
 export const PostHeader = styled(CardHeader)(({ theme }) => ({
   "& .MuiCardHeader-title": {

@@ -152,8 +152,7 @@ const SignupScreen = () => {
           const uploadTask = storage.ref(`images/${image?.name}`).put(image);
           uploadTask.on(
             "state_changed",
-            () => {
-            },
+            () => {},
             (error) => {
               playErrorSound();
               enqueueSnackbar(error.message, {
@@ -203,18 +202,20 @@ const SignupScreen = () => {
         const user = result.user;
 
         // Check if the user exists in Firebase
-        const usersRef = db.collection('users');
-        usersRef.doc(user.uid).get()
+        const usersRef = db.collection("users");
+        usersRef
+          .doc(user.uid)
+          .get()
           .then((doc) => {
             if (doc.exists) {
-              if(!doc.data().username){
+              if (!doc.data().username) {
                 doc.ref.update({
-                  username: doc.data().uid
-                })
+                  username: doc.data().uid,
+                });
               }
               navigate("/dummygram");
             } else {
-              createUserDoc(result)
+              createUserDoc(result);
             }
           })
           .catch((error) => {
@@ -239,18 +240,20 @@ const SignupScreen = () => {
         const user = result.user;
 
         // Check if the user exists in Firebase
-        const usersRef = db.collection('users');
-        usersRef.doc(user.uid).get()
+        const usersRef = db.collection("users");
+        usersRef
+          .doc(user.uid)
+          .get()
           .then((doc) => {
             if (doc.exists) {
-              if(!doc.data().username){
+              if (!doc.data().username) {
                 doc.ref.update({
-                  username: doc.data().uid
-                })
+                  username: doc.data().uid,
+                });
               }
               navigate("/dummygram");
             } else {
-              createUserDoc(result)
+              createUserDoc(result);
             }
           })
           .catch((error) => {
@@ -275,8 +278,8 @@ const SignupScreen = () => {
     const userCollectionRef = db.collection(`users`);
     const usernameDoc = db.doc(`usernames/${username}`);
     const batch = db.batch();
-    batch.set(usernameDoc, { uid: val.user.uid })
-    batch.commit()
+    batch.set(usernameDoc, { uid: val.user.uid });
+    batch.commit();
     await userCollectionRef
       .doc(auth.currentUser.uid)
       .set({
@@ -305,7 +308,6 @@ const SignupScreen = () => {
         });
       });
   }
-
 
   const navigateToLogin = () => {
     navigate("/dummygram/login");

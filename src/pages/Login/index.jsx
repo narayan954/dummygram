@@ -98,17 +98,18 @@ const LoginScreen = () => {
             Friends: [],
             posts: [],
           });
-        }
-        else{
+        } else {
           const usernameDoc = db.collection(`users`);
-          usernameDoc.doc(auth.currentUser.uid).get()
-          .then((doc) => {
-            if(!doc.data().username){
-              doc.ref.update({
-                username: doc.data().uid
-              })
-            }
-          })
+          usernameDoc
+            .doc(auth.currentUser.uid)
+            .get()
+            .then((doc) => {
+              if (!doc.data().username) {
+                doc.ref.update({
+                  username: doc.data().uid,
+                });
+              }
+            });
         }
         playSuccessSound();
         enqueueSnackbar("Login successful!", {
@@ -150,17 +151,18 @@ const LoginScreen = () => {
             Friends: [],
             posts: [],
           });
-        }
-        else{
+        } else {
           const usernameDoc = db.collection(`users`);
-          usernameDoc.doc(auth.currentUser.uid).get()
-          .then((doc) => {
-            if(!doc.data().username){
-              doc.ref.update({
-                username: doc.data().uid
-              })
-            }
-          })
+          usernameDoc
+            .doc(auth.currentUser.uid)
+            .get()
+            .then((doc) => {
+              if (!doc.data().username) {
+                doc.ref.update({
+                  username: doc.data().uid,
+                });
+              }
+            });
         }
         playSuccessSound();
         enqueueSnackbar("Login successful!", {

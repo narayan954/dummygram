@@ -28,7 +28,7 @@ const PostNav = ({
   const { enqueueSnackbar } = useSnackbar();
   const [Open, setOpen] = useState(false);
   const [favoritePosts, setFavoritePosts] = useState(
-    JSON.parse(localStorage.getItem("posts")) || [],
+    JSON.parse(localStorage.getItem("posts")) || []
   );
   const [isSaved, setisSaved] = useState(false);
 
