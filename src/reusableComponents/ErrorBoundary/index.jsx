@@ -42,7 +42,6 @@ const ErrorFallBack = ({ error, info, resetErrorBoundary, inApp }) => {
           >
             <AutorenewIcon />
           </IconButton>
-          )
         </div>
       )}
     </div>
