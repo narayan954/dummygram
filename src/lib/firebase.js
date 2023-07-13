@@ -39,7 +39,7 @@ function handleMultiUpload(files, options = {}) {
       onUploadProgress: (_percentage) => {},
       generateThumbnails: false,
     },
-    options
+    options,
   );
 
   let totalSize = 0;
@@ -71,7 +71,7 @@ function handleMultiUpload(files, options = {}) {
           lastUploadedSize = snapshot.bytesTransferred;
 
           _options.onUploadProgress(
-            Math.round((totalUploaded / totalSize) * 100)
+            Math.round((totalUploaded / totalSize) * 100),
           );
         },
         (error) => {
@@ -129,7 +129,7 @@ function handleMultiUpload(files, options = {}) {
             .catch((error) => {
               reject(error);
             });
-        }
+        },
       );
     });
   });
