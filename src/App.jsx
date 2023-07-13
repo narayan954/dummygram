@@ -260,6 +260,7 @@ function App() {
                       <SideBar />
                     </ErrorBoundary>
                     <div
+                      className="home-posts-container"
                       style={
                         !loadingPosts
                           ? {}
