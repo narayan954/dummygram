@@ -21,9 +21,11 @@ export default function Error() {
             <Typography variant="h6">
               The page you're looking for doesn't exist.
             </Typography>
-            <Link to="/dummygram/">
-              <Button variant="contained">Back Home</Button>
-            </Link>
+          <Link to="/dummygram/">
+            <Button variant="contained" style={{ backgroundColor: '#C147E9', color: 'black' ,borderRadius: '0.45rem',  fontWeight: 'bold',}}>
+            Back Home
+            </Button>
+          </Link>
           </Grid>
           <Grid xs={6}>
             <img
