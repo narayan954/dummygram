@@ -46,7 +46,8 @@ export default function ImgUpload(props) {
         variant: "error",
       });
       setisValidimage(false);
-      return false;
+      e.stopPropagation();
+      return;
     }
     for (let i = 0; i < e.target.files.length; i++) {
       const img = e.target.files[i];
