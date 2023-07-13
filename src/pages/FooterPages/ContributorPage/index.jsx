@@ -4,6 +4,9 @@ import "./index.css";
 import { Box, Pagination, Typography, useMediaQuery } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
+import { Link } from "react-router-dom";
+import {  Button } from "@mui/material";
+
 import ContributorCard from "./ContributorCard";
 
 function Contributor() {
@@ -34,6 +37,7 @@ function Contributor() {
 
   return (
     <div className="contributor-container footer-page-para-color">
+      <div style={{ display: 'flex', justifyContent: 'space-between', width: '87%' }}>
       <div className="contributor-sub-container">
         <span className="grad1 grad"></span>
         <span className="grad2 grad"></span>
@@ -93,6 +97,12 @@ function Contributor() {
           </Box>
         </div>
       </div>
+      <Link to="/dummygram/">
+        <Button variant="contained" style={{ backgroundColor: '#C147E9', color: 'black' ,borderRadius: '0.45rem',  fontWeight: 'bold',}}>
+            Back Home
+        </Button>
+      </Link>
+    </div>
     </div>
   );
 }
