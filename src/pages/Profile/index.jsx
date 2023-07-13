@@ -21,6 +21,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import { FaUserCircle } from "react-icons/fa";
+import ViewsCounter from "./views";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
 
@@ -428,7 +429,8 @@ function Profile() {
                     style={{
                       marginTop: "0.5rem",
                       color: "var(--text-primary)",
-                      padding: "2px 15px",
+                      padding: "4px 15px",
+                      marginBottom: "0",
                     }}
                   >
                     Edit Profile Pic
@@ -466,9 +468,19 @@ function Profile() {
             <Typography fontSize="1.5rem" fontWeight="600" paddingBottom="10px">
               {name === user?.displayName && email}
             </Typography>
-            <Typography fontSize="1.2rem" paddingBottom="10px">
-              Total Posts: {feed.length}
-            </Typography>
+            <div style={{ display: "flex" }}>
+              <Typography fontSize="1.1rem" fontWeight="600">
+                Total Posts:&nbsp;
+                <span style={{ fontWeight: "300" }}>{feed.length} &nbsp;</span>
+              </Typography>
+              <Typography fontSize="1.1rem" fontWeight="600">
+                Views:&nbsp;
+                <span style={{ fontWeight: "300" }}>
+                  <ViewsCounter uid={uid} />
+                </span>
+                   
+              </Typography>
+            </div>
             {name !== user?.displayName && (
               <Button
                 onClick={handleSendFriendRequest}
