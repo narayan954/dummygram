@@ -1,6 +1,8 @@
 import "./index.css";
 import "../design.css";
 
+import {  Button } from "@mui/material";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import logo from "../../../assets/logo.webp";
@@ -59,6 +61,13 @@ const About = () => {
 
   return (
     <div className="about-container footer-page-para-color">
+       <div style={{ display: 'flex', justifyContent: 'flex-end', width: '90%' }}>
+            <Link to="/dummygram/">
+            <Button variant="contained" style={{ backgroundColor: '#C147E9', color: 'black' ,borderRadius: '0.45rem',  fontWeight: 'bold',}}>
+            Back Home
+            </Button>
+            </Link>
+      </div>
       <div className="about-sub-container">
         <span className="grad1 grad"></span>
         <span className="grad2 grad"></span>
