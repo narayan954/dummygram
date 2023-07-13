@@ -72,7 +72,7 @@ const ViewsCounter = ({ uid }) => {
     checkAndCreateDocument();
   }, []);
 
-  return <span>Views: {views}</span>;
+  return <span>{views}</span>;
 };
 
 export default ViewsCounter;
