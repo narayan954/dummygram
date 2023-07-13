@@ -43,6 +43,7 @@
   }
   .feed-main-container .app__posts .post{
     margin: auto;
+    margin-bottom: 20px;
   }
   .img-edit {
     padding: 10px 15px !important;
