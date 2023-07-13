@@ -6,9 +6,7 @@ import { auth, db, facebookProvider, googleProvider } from "../../lib/firebase";
 import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 
-import Facebook from "../../assets/facebook.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Google from "../../assets/goggle.svg";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import logo from "../../assets/logo.webp";
 import { useNavigate } from "react-router-dom";
