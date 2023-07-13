@@ -1,5 +1,6 @@
 import "./index.css";
 
+import loginRight from "../../assets/login-right.webp";
 import React, { useState } from "react";
 import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
 import { auth, db, facebookProvider, googleProvider } from "../../lib/firebase";
@@ -12,6 +13,11 @@ import logo from "../../assets/logo.webp";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import validate from "../../reusableComponents/validation";
+import Auth_container from "../../reusableComponents/AUth_container";
+import Auth__top from "../../reusableComponents/Auth__top";
+import Auth__text__input from "../../reusableComponents/Auth__text__input";
+import Auth__pass__input from "../../reusableComponents/Auth__pass__input";
+import Auth__ctn__group from "../../reusableComponents/Auth__ctn__group";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -173,123 +179,57 @@ const LoginScreen = () => {
   };
 
   return (
-    <section className="login__section">
-      <div className="login__left">
-        <form role="form" aria-label="Login Form">
-          <div className="form__top">
-            <img src={logo} alt="dummygram logo" />
-            <div className="greetings">
-              <h3>Hey, hello 👋</h3>
-              <p>Enter your information to get started</p>
-            </div>
-          </div>
-          <div className="form__bottom">
-            <div className="input__group">
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                id="email"
-                name="email"
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                  handleError(e.target.name, e.target.value);
-                }}
-                className={error.emailError ? "error-border" : null}
-                required
-                aria-required="true"
-                aria-labelledby="email"
-                aria-describedby="email-error"
-              />
-              {error.email && error.emailError && (
-                <p className="error" role="alert" id="email-error">
-                  {error.emailError}
-                </p>
-              )}
-            </div>
-            <div className="input__group">
-              <label htmlFor="password">Password</label>
-              <div id="password-container" className="pass__input__container">
-                <input
-                  name="password"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Enter your password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  id="password"
-                  required
-                  aria-labelledby="password-label"
-                  aria-controls="password-toggle"
-                  aria-required="true"
-                />
-                <button
-                  onClick={(e) => handleShowPassword(e)}
-                  className="show__hide--pass"
-                  id="password-toggle"
-                  type="button"
-                  aria-label={showPassword ? "Hide password" : "Show password"}
-                >
-                  {showPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
-                </button>
-              </div>
-            </div>
-            <button
-              type="submit"
-              onClick={signIn}
-              className="action__btn login__btn"
-            >
-              LogIn <FontAwesomeIcon icon={faRightToBracket} />
-            </button>
-            <div className="other__login__method">
-              <div className="or option__divider">
-                <div className="line" />
-                <div className="or-text">or</div>
-                <div className="line" />
-              </div>
-              <div className="google__fb--login">
-                <button
-                  className="other__login google"
-                  type="submit"
-                  onClick={signInWithGoogle}
-                  aria-label="Sign in with Google"
-                >
-                  <FontAwesomeIcon icon={faGoogle} className="google-icon" />{" "}
-                  Sign in with Google
-                </button>
-                <button
-                  className="other__login facebook"
-                  type="submit"
-                  onClick={signInWithFacebook}
-                  aria-label="Sign in with Facebook"
-                >
-                  <FontAwesomeIcon
-                    icon={faFacebookF}
-                    className="facebook-icon"
-                  />{" "}
-                  Sign in with Facebook
-                </button>
-              </div>
-            </div>
-            <div className="forgot__new">
-              <div className="forgot-pasword">
-                <span role={"button"} onClick={navigateToForgot}>
-                  Forgot Password ? &#160;
-                </span>
-              </div>
-              <div className="have-account">
-                Don't have an account ?&#160;
-                <span role={"button"} onClick={navigateToSignup}>
-                  {" "}
-                  Sign up
-                </span>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div className="login__right" />
-    </section>
+    <Auth_container right__img={loginRight}>
+      <form aria-label="Sign Up Form">
+        <Auth__top
+          logo={logo}
+          heading={"Hey, hello 👋"}
+          top__greeting={"Enter your information to get started"}
+        />
+        <div className="form__bottom">
+          {/* Email Input for the form */}
+          <Auth__text__input
+            label={"Email"}
+            id={"email"}
+            placeholder={"Enter your email"}
+            value={email}
+            handleChange={(e) => {
+              setEmail(e.target.value);
+              handleError(e.target.name, e.target.value);
+            }}
+            fieldName={"email"}
+            aria_dsc_by={"email-error"}
+            isError={error.email && error.emailError}
+            errorMesssage={error.emailError}
+            error_border={!error.emailError}
+          />
+          {/* password input for the form  */}
+          <Auth__pass__input
+            label={"Password"}
+            id={"password"}
+            name={"password"}
+            placeholder={"Enter your password"}
+            value={password}
+            handleChange={(e) => setPassword(e.target.value)}
+            aria_dsc_by={"password-error"}
+            errorMesssage={error.passwordError}
+            isError={error.password && error.passwordError}
+          />
+
+          <Auth__ctn__group
+            handleSubmit={signIn}
+            btn__label={"LogIn"}
+            submit__icon={faRightToBracket}
+            handleSignInWithGoogle={signInWithGoogle}
+            handleSignInWithFacebook={signInWithFacebook}
+            have_acct_question={"Don't have an account? "}
+            have_acct_nav={navigateToSignup}
+            have__acct_action={"Sign up"}
+            forgot_pass_nav={navigateToForgot}
+          />
+        </div>
+      </form>
+    </Auth_container>
   );
 };
 

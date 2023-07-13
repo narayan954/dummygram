@@ -11,6 +11,7 @@ const Auth__ctn__group = ({
   have_acct_question,
   have__acct_action,
   have_acct_nav,
+  forgot_pass_nav,
 }) => {
   return (
     <>
@@ -48,12 +49,28 @@ const Auth__ctn__group = ({
             Sign up with Facebook
           </button>
         </div>
-        <div className="have-account">
-          {have_acct_question}{" "}
-          <span role={"button"} onClick={have_acct_nav} tabIndex="0">
-            {have__acct_action}
-          </span>
-        </div>
+        {forgot_pass_nav ? (
+          <div className="forgot__new">
+            <div className="forgot-pasword">
+              <span role={"button"} onClick={forgot_pass_nav}>
+                Forgot Password ?
+              </span>
+            </div>
+            <div className="have-account">
+              {have_acct_question}{" "}
+              <span role={"button"} onClick={have_acct_nav} tabIndex="0">
+                {have__acct_action}
+              </span>
+            </div>
+          </div>
+        ) : (
+          <div className="have-account">
+            {have_acct_question}{" "}
+            <span role={"button"} onClick={have_acct_nav} tabIndex="0">
+              {have__acct_action}
+            </span>
+          </div>
+        )}
       </div>
     </>
   );
