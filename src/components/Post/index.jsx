@@ -7,12 +7,12 @@ import {
   Flexbetween,
 } from "../../reusableComponents";
 import {
+  DialogTitle,
   Divider,
   Paper,
   Typography,
   styled,
   useMediaQuery,
-  DialogTitle,
 } from "@mui/material";
 import { doc, updateDoc } from "firebase/firestore";
 import { lazy, useEffect, useState } from "react";
@@ -245,7 +245,7 @@ function Post(prop) {
               onClose={handleCommentClose}
               showTitle={false}
             >
-              <DialogTitle style={{ paddingBlock: 5, color: "var(--color)" }}>
+              <DialogTitle style={{ padding: 0, color: "var(--color)" }}>
                 Comments
                 <span
                   className="comment-box-title-style"
