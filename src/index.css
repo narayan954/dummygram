@@ -151,9 +151,6 @@ input:focus {
   .rowConvert {
     display: none;
   }
-  .app__posts {
-    padding-left: 20%;
-  }
 }
 @media only screen and (max-width: 700px) {
   .app__posts {
@@ -259,7 +256,6 @@ input:focus {
     left: -6%;
   }
   .app__posts {
-    padding-left: 10%;
     width: 95%;
   }
   .home-posts-container .app_posts_column {
@@ -276,7 +272,8 @@ input:focus {
   .app__newpost__button {
     left: -4.8%;
   }
-  .home-posts-container .app_posts_column {
+  .home-posts-container .app_posts_column,
+  .home-posts-container .app_posts {
     margin: 5.5em auto;
     padding-top: 2em;
   }
@@ -295,7 +292,8 @@ input:focus {
   .app__newpost__button {
     left: -4.2%;
   }
-  .home-posts-container .app_posts_column {
+  .home-posts-container .app_posts_column,
+  .home-posts-container.app__posts {
     width: calc(100% - 16vw);
     padding-left: 8vw;
   }

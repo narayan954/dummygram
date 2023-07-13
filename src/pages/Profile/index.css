@@ -71,7 +71,7 @@
     width: 140px;
     height: 140px;
   }
-  .app__posts {
+  .feed-main-container .app__posts {
     padding-top: 0;
   }
 }
