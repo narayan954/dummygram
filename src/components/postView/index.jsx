@@ -31,7 +31,7 @@ const PostDetails = React.lazy(() => import("./PostDetails.jsx"));
 const PostViewComments = React.lazy(() => import("./PostViewComments.jsx"));
 const PostViewMenu = React.lazy(() => import("./PostViewMenu.jsx"));
 const ImageSlider = React.lazy(() =>
-  import("../../reusableComponents/ImageSlider"),
+  import("../../reusableComponents/ImageSlider")
 );
 const ReadMore = React.lazy(() => import("../ReadMore"));
 const PostCommentView = ({
@@ -53,7 +53,7 @@ const PostCommentView = ({
 
   const [comments, setComments] = React.useState(null);
   const [likesNo, setLikesNo] = React.useState(
-    likecount ? likecount.length : 0,
+    likecount ? likecount.length : 0
   );
   const tempLikeCount = likecount ? [...likecount] : [];
   const [showEmojis, setShowEmojis] = React.useState(false);
@@ -115,7 +115,7 @@ const PostCommentView = ({
             snapshot.docs.map((doc) => ({
               id: doc.id,
               content: doc.data(),
-            })),
+            }))
           );
         });
     }
@@ -249,6 +249,7 @@ const PostCommentView = ({
               subheader={time}
             />
           </ErrorBoundary>
+          {/* caption box */}
           {postHasImages && caption ? (
             <ErrorBoundary>
               <PostCaption>
@@ -259,6 +260,8 @@ const PostCommentView = ({
             </ErrorBoundary>
           ) : null}
         </PostGridItem>
+
+        {/* post/ like ...  box */}
         <PostGridItem postActions>
           <ErrorBoundary>
             <PostDetails
@@ -276,6 +279,8 @@ const PostCommentView = ({
             />
           </ErrorBoundary>
         </PostGridItem>
+
+        {/* Comment box  */}
         <PostGridItem isComments={comments?.length > 0}>
           <CommentForm>
             <ClickAwayListener onClickAway={() => setShowEmojis(false)}>
@@ -309,14 +314,13 @@ const PostCommentView = ({
               placeholder={
                 comments?.length !== 0
                   ? "Add a comment..."
-                  : "Be the first one to comment..."
+                  : "Be the first one to comment ..."
               }
               ref={commentRef}
               maxLength="150"
               style={{
-                backgroundColor: "var(--bg-color)",
                 color: "var(--color)",
-                borderRadius: "22px",
+                borderRadius: "16px",
                 margin: "4px 0px",
               }}
             />

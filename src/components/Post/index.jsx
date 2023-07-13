@@ -60,7 +60,7 @@ function Post(prop) {
             snapshot.docs.map((doc) => ({
               id: doc.id,
               content: doc.data(),
-            })),
+            }))
           );
         });
     }
@@ -176,7 +176,10 @@ function Post(prop) {
   return (
     <div
       className={`${rowMode ? "post" : "postColumn"}`}
-      style={{ boxShadow: "var(--post-box-shadow)" }}
+      style={{
+        boxShadow:
+          "rgba(144, 93, 185, 0.8) 0px 3px 6px, rgba(144, 93, 185, 0.8) 0px 3px 6px",
+      }}
     >
       <ErrorBoundary>
         <PostHeader
@@ -200,18 +203,23 @@ function Post(prop) {
         </ErrorBoundary>
         <Divider />
         <Flexbetween>
-          <Typography marginLeft={1} fontSize={13} sx={{ color: "skyblue" }}>
+          <Typography
+            marginLeft={1}
+            fontSize={13}
+            padding={1}
+            sx={{ color: "grey" }}
+          >
             {likesNo} {likesNo > 1 ? "Likes" : "Like"}
           </Typography>
           <Typography
-            sx={{ color: "skyblue", cursor: "pointer" }}
+            sx={{ color: "grey", cursor: "pointer" }}
             fontSize={13}
+            paddingRight={1}
             onClick={() => setisCommentOpen((prev) => !prev)}
           >
             {comments.length} {comments.length > 1 ? "comments" : "comment"}
           </Typography>
         </Flexbetween>
-        <Divider />
 
         {user && (
           <form className="post__commentBox">

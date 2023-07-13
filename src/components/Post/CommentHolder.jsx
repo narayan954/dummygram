@@ -52,9 +52,8 @@ const CommentHolder = ({
         onChange={(e) => setComment(e.target.value)}
         maxLength="150"
         style={{
-          backgroundColor: "var(--bg-color)",
+          backgroundColor: "transparent",
           color: "var(--color)",
-          borderRadius: "22px",
           margin: "4px 0px",
         }}
       />

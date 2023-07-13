@@ -52,9 +52,10 @@ const CommentBox = ({
             onChange={(e) => setComment(e.target.value)}
             maxLength="150"
             style={{
-              backgroundColor: "var(--bg-color)",
+              // backgroundColor: "var(--bg-color)",
+              background: "transparent",
               color: "var(--color)",
-              borderRadius: "22px",
+              borderRadius: "11px",
               marginTop: "4px",
             }}
           />
@@ -69,7 +70,7 @@ const CommentBox = ({
               textTransform: "uppercase",
             }}
           >
-            <Send />
+            <Send style={{ color: "var(--color" }} />
           </IconButton>
         </form>
       )}
