@@ -135,6 +135,7 @@ input:focus {
     padding: 5.5em 15px 10px 9vw;
   }
 }
+
 @media only screen and (max-width: 800px) {
   .app__posts {
     padding: 5.5em 15px 10px 15px;
