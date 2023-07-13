@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react'
-import { db } from '../../lib/firebase'
+import React, { useEffect, useState } from "react";
+
+import { db } from "../../lib/firebase";
 
 const ViewsCounter = ({ uid }) => {
-  const [views, setViews] = useState(1)
+  const [views, setViews] = useState(1);
 
   useEffect(() => {
     const checkAndCreateDocument = async () => {
       try {
-        let viewsArr = sessionStorage.getItem('viewsArr');
+        let viewsArr = sessionStorage.getItem("viewsArr");
         if (viewsArr) {
-          viewsArr = JSON.parse(sessionStorage.getItem('viewsArr'))
+          viewsArr = JSON.parse(sessionStorage.getItem("viewsArr"));
           if (viewsArr.includes(uid)) {
             // Views have already been updated in this session
             const querySnapshot = await db
@@ -21,10 +22,9 @@ const ViewsCounter = ({ uid }) => {
             setViews(currentViews);
             return;
           }
-        }
-        else {
-          viewsArr = []
-          sessionStorage.setItem(viewsArr, JSON.stringify(viewsArr))
+        } else {
+          viewsArr = [];
+          sessionStorage.setItem(viewsArr, JSON.stringify(viewsArr));
         }
 
         const querySnapshot = await db
@@ -36,15 +36,15 @@ const ViewsCounter = ({ uid }) => {
           // Document doesn't exist, create a new one
           const newDocumentData = {
             uid: uid,
-            views: 1
+            views: 1,
           };
           const newDocumentRef = await db
             .collection("profileViews")
             .add(newDocumentData);
 
           setViews(1);
-          viewsArr.push(uid)
-          sessionStorage.setItem('viewsArr', JSON.stringify(viewsArr));
+          viewsArr.push(uid);
+          sessionStorage.setItem("viewsArr", JSON.stringify(viewsArr));
         } else {
           // Document already exists
           const doc = querySnapshot.docs[0]; // As only one document exists for a given user
@@ -52,28 +52,27 @@ const ViewsCounter = ({ uid }) => {
           const currentViews = doc.data().views;
           const updatedViews = currentViews + 1;
 
-          documentRef.update({
-            views: updatedViews
-          })
+          documentRef
+            .update({
+              views: updatedViews,
+            })
             .catch((error) => {
-              console.error('Error updating document:', error);
+              console.error("Error updating document:", error);
             });
 
           setViews(updatedViews);
-          viewsArr.push(uid)
-          sessionStorage.setItem('viewsArr', JSON.stringify(viewsArr));
+          viewsArr.push(uid);
+          sessionStorage.setItem("viewsArr", JSON.stringify(viewsArr));
         }
       } catch (error) {
-        console.error('Error querying Firestore:', error);
+        console.error("Error querying Firestore:", error);
       }
     };
 
     checkAndCreateDocument();
   }, []);
 
-  return (
-    <span>Views: {views}</span>
-  )
-}
+  return <span>Views: {views}</span>;
+};
 
-export default ViewsCounter
+export default ViewsCounter;
