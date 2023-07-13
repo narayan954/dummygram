@@ -149,7 +149,7 @@ function Profile() {
         setEmail(
           location?.state?.name === authUser?.displayName
             ? location?.state?.email || authUser.email
-            : "",
+            : ""
         );
         setUid(location?.state?.uid || authUser.uid);
       } else {
@@ -167,7 +167,7 @@ function Profile() {
     if (auth.currentUser) {
       const usernameQ = query(
         collection(db, "users"),
-        where("uid", "==", auth.currentUser.uid),
+        where("uid", "==", auth.currentUser.uid)
       );
       const unsubscribe = onSnapshot(usernameQ, (querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -181,7 +181,7 @@ function Profile() {
   useEffect(() => {
     const q = query(
       collection(db, "posts"),
-      where("username", "==", location?.state?.name || name),
+      where("username", "==", location?.state?.name || name)
     );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const userPosts = [];
@@ -235,7 +235,7 @@ function Profile() {
             });
           })
           .catch((error) => console.error(error));
-      },
+      }
     );
     setVisible(false);
   };
@@ -390,16 +390,15 @@ function Profile() {
             </Typography>
             <div style={{ display: "flex" }}>
               <Typography fontSize="1.1rem" fontWeight="600">
-                Total Posts: &nbsp;
-              </Typography>
-              <Typography fontSize="1.1rem" fontWeight="400">
-                {feed.length} &nbsp;
+                Total Posts:&nbsp;
+                <span style={{ fontWeight: "300" }}>{feed.length} &nbsp;</span>
               </Typography>
               <Typography fontSize="1.1rem" fontWeight="600">
-                Views: &nbsp;
-              </Typography>
-              <Typography fontSize="1.1rem" fontWeight="400">
-                <ViewsCounter uid={uid} />
+                Views:&nbsp;
+                <span style={{ fontWeight: "300" }}>
+                  <ViewsCounter uid={uid} />
+                </span>
+                   
               </Typography>
             </div>
             {name !== user?.displayName && (
