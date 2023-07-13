@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import React from "react";
 import ReadMore from "../ReadMore";
 import { Link } from "react-router-dom";
@@ -45,9 +45,14 @@ const CommentDialogBox = ({
             <div key={userComment.id}>
               <div className="commentCard">
                 <div>
-                  <Link className="comment-doer" to={`/dummygram/${userComment.content.username}`}>
+                  <Link
+                    className="comment-doer"
+                    to={`/dummygram/${userComment.content.username}`}
+                  >
                     <AccountCircleIcon />
-                    <span className="comment-doer-name">{userComment.content.username}</span>
+                    <span className="comment-doer-name">
+                      {userComment.content.username}
+                    </span>
                   </Link>
                   <p className="comment">
                     <ReadMore>{userComment.content.text}</ReadMore>

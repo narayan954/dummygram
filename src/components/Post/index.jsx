@@ -12,7 +12,7 @@ import {
   Typography,
   styled,
   useMediaQuery,
-  DialogTitle
+  DialogTitle,
 } from "@mui/material";
 import { doc, updateDoc } from "firebase/firestore";
 import { lazy, useEffect, useState } from "react";
@@ -60,7 +60,7 @@ function Post(prop) {
             snapshot.docs.map((doc) => ({
               id: doc.id,
               content: doc.data(),
-            })),
+            }))
           );
         });
     }
@@ -231,25 +231,34 @@ function Post(prop) {
             </ErrorBoundary>
             <ErrorBoundary>
               <CommentBox
-                  setShowEmojis={setShowEmojis}
-                  showEmojis={showEmojis}
-                  onEmojiClick={onEmojiClick}
-                  comment={comment}
-                  setComment={setComment}
-                  postComment={postComment}
-                  user={user}
-                />
+                setShowEmojis={setShowEmojis}
+                showEmojis={showEmojis}
+                onEmojiClick={onEmojiClick}
+                comment={comment}
+                setComment={setComment}
+                postComment={postComment}
+                user={user}
+              />
             </ErrorBoundary>
             <DialogBox
               open={isCommentOpen}
               onClose={handleCommentClose}
               showTitle={false}
             >
-              <DialogTitle style={{paddingBlock: 5, color: "var(--color)"}}>
+              <DialogTitle style={{ paddingBlock: 5, color: "var(--color)" }}>
                 Comments
-                <span className="comment-box-title-style" style={{"--clr": "red"}}></span>
-                <span className="comment-box-title-style" style={{"--clr": "green"}}></span>
-                <span className="comment-box-title-style" style={{"--clr": "blue"}}></span>
+                <span
+                  className="comment-box-title-style"
+                  style={{ "--clr": "red" }}
+                ></span>
+                <span
+                  className="comment-box-title-style"
+                  style={{ "--clr": "green" }}
+                ></span>
+                <span
+                  className="comment-box-title-style"
+                  style={{ "--clr": "blue" }}
+                ></span>
               </DialogTitle>
               <hr />
               <ErrorBoundary>

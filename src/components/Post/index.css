@@ -126,7 +126,7 @@
   border-radius: 10px;
 }
 
-.comment-box-title-style{
+.comment-box-title-style {
   display: inline-block;
   width: 10px;
   aspect-ratio: 1;
@@ -146,20 +146,19 @@
   text-decoration: none;
   color: black;
 }
-.comment-doer-name{
+.comment-doer-name {
   color: rgb(42, 42, 135);
-
 }
 .comment-doer-name:hover {
   text-decoration: underline;
 }
 
-.comment{
+.comment {
   color: black;
   font-weight: 400;
 }
 
-.comment-delete-icon{
+.comment-delete-icon {
   color: red;
   cursor: pointer;
   border-radius: 50%;
@@ -167,11 +166,11 @@
   transition: 0.3s ease-in-out;
 }
 
-.comment-delete-icon:hover{
+.comment-delete-icon:hover {
   background-color: rgb(187, 187, 187);
 }
 
-.comment-box{
+.comment-box {
   margin-top: 10px;
   width: 100%;
 }
@@ -183,7 +182,7 @@
   padding: 5px;
 }
 
-.comment-input{
+.comment-input {
   background-color: var(--bg-color) !important;
   color: var(--color);
   border-radius: 22px;
@@ -191,7 +190,6 @@
   width: 100%;
   box-shadow: var(--post-box-shadow);
 }
-
 
 .emoji-picker-btn {
   color: var(--emoji-btn);

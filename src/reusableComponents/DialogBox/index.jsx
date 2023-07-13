@@ -11,7 +11,13 @@ import {
   Divider,
 } from "@mui/material";
 
-const DialogBox = ({ open, onClose, title = "Default title", children, showTitle = true }) => {
+const DialogBox = ({
+  open,
+  onClose,
+  title = "Default title",
+  children,
+  showTitle = true,
+}) => {
   return (
     <Dialog
       fullWidth
