@@ -29,6 +29,10 @@
   margin-bottom: 0;
 }
 
+.img-save:hover {
+  color: var(--btn-color);
+}
+
 /* media query */
 
 @media screen and (max-width: 600px) {
@@ -105,7 +109,7 @@
   .img-edit,
   .img-save {
     font-size: 1rem;
-    padding: 5px 15px !important;
+    padding: 15px !important;
   }
   .profile-right {
     margin-top: 22px;

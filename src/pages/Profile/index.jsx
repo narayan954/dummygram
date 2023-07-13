@@ -310,7 +310,7 @@ function Profile() {
                           marginTop: "0.5rem",
                           marginBottom: "0.5rem",
                           color: "var(--text-secondary)",
-                          padding: "0.5rem 1.5rem",
+                          padding: "1.5rem",
                           borderRadius: "32px",
                           fontWeight: "600",
                           letterSpacing: "3px",
@@ -323,16 +323,12 @@ function Profile() {
                 )}
                 {visible && (
                   <Button
+                    className="img-save"
                     onClick={handleSave}
                     variant="outlined"
-                    sx={{ marginTop: "1rem" }}
-                    style={{
-                      color: "var(--var-secondary)",
-                      borderRadius: "32px",
-                      border: "1.5px solid black",
-                      padding: "0.4rem 1.5rem",
-                      letterSpacing: "2px",
-                      fontWeight: "400",
+                    sx={{
+                      marginTop: "1rem",
+                      padding: "5px 25px",
                     }}
                   >
                     Save
@@ -345,7 +341,6 @@ function Profile() {
               <img
                 style={{
                   objectFit: "cover",
-                  borderRadius: "50%",
                   margin: 0,
                   position: "absolute",
                   height: "90%",
