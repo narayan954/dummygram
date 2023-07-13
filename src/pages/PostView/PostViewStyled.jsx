@@ -20,6 +20,7 @@ export const PostViewGrid = styled(Grid)(({ theme }) => ({
   border: "0 solid #000a",
   borderRadius: "0.8rem",
   height: "70%",
+  overflowY: "scroll",
   // -webkit-box-shadow: -7px 7px 52px 0px rgba(0,0,0,0.75);
   // -mozbox-shadow: -7px 7px 52px 0px rgba(0,0,0,0.75);
   boxShadow: "-5px 5px 5px 5px var(--color)",
@@ -125,8 +126,8 @@ export const PostContentText = styled("div")(({ theme }) => ({
     marginTop: "1.3rem",
   },
   [theme.breakpoints.up("md")]: {
-    height: "100%",
     margin: "auto",
+    overflowY: "scroll",
   },
 
   "& .MuiTypography-body3": {
