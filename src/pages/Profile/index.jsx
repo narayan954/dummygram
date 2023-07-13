@@ -392,11 +392,15 @@ function Profile() {
               <Typography fontSize="1.1rem" fontWeight="600">
                 Total Posts: &nbsp;
               </Typography>
-              {feed.length} &nbsp;
+              <Typography fontSize="1.1rem" fontWeight="400">
+                {feed.length} &nbsp;
+              </Typography>
               <Typography fontSize="1.1rem" fontWeight="600">
                 Views: &nbsp;
               </Typography>
-              <ViewsCounter uid={uid} />
+              <Typography fontSize="1.1rem" fontWeight="400">
+                <ViewsCounter uid={uid} />
+              </Typography>
             </div>
             {name !== user?.displayName && (
               <Button
