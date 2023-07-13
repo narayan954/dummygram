@@ -9,11 +9,11 @@ import {
   Divider,
 } from "@mui/material";
 
-import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
+import { Link } from "react-router-dom";
 import React from "react";
 import ReadMore from "../ReadMore";
-import { Link } from "react-router-dom";
 
 const CommentDialogBox = ({
   comments,
@@ -36,7 +36,7 @@ const CommentDialogBox = ({
       }}
       borderRadius="10px"
       maxHeight="40vh"
-      marginBottom="30px"
+      // marginBottom="30px"
       marginTop="10px"
     >
       {comments.length ? (
