@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { auth, db, storage } from "../../lib/firebase";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
-import { lazy, useEffect, useState } from "react";
+import { lazy, useEffect, useState, useRef } from "react";
 import {
   playErrorSound,
   playSuccessSound,
@@ -46,6 +46,7 @@ function Profile() {
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState("");
   const [uid, setUid] = useState(location?.state?.uid || null);
+  const fileInputRef = useRef(null);
 
   const handleClose = () => setOpen(false);
 
@@ -202,11 +203,17 @@ function Profile() {
 
   const handleChange = (e) => {
     if (e.target.files[0]) {
+      setVisible(true);
       setProfilePic(URL.createObjectURL(e.target.files[0]));
       setImage(e.target.files[0]);
-      setVisible(true);
     }
   };
+
+  const handleCancel = () => {
+    setProfilePic(null);
+    // Reset the input element's value
+    fileInputRef.current.value = "";
+  }
 
   const handleSave = () => {
     const uploadTask = storage.ref(`images/${image?.name}`).put(image);
@@ -237,6 +244,7 @@ function Profile() {
           .catch((error) => console.error(error));
       },
     );
+    setProfilePic(null);
     setVisible(false);
   };
 
@@ -342,6 +350,7 @@ function Profile() {
                   className="file"
                   onChange={handleChange}
                   accept="image/*"
+                  ref={fileInputRef} // Assign the ref to the input element
                 />
                 <label htmlFor="file">
                   <div
@@ -358,18 +367,31 @@ function Profile() {
                 </label>
               </Box>
             )}
-            {visible && (
-              <Button
-                className="img-save"
-                onClick={handleSave}
-                variant="outlined"
-                sx={{
-                  marginTop: "1rem",
-                  padding: "5px 25px",
-                }}
-              >
-                Save
-              </Button>
+            {profilePic && (
+              <>
+                <Button
+                  className="img-save"
+                  onClick={handleSave}
+                  variant="outlined"
+                  sx={{
+                    marginTop: "1rem",
+                    padding: "5px 25px",
+                  }}
+                >
+                  Save
+                </Button>
+                <Button
+                  className="img-save"
+                  onClick={handleCancel}
+                  variant="outlined"
+                  sx={{
+                    marginTop: "1rem",
+                    padding: "5px 25px",
+                  }}
+                >
+                  Cancel
+                </Button>
+              </>
             )}
           </Box>
           <Box
@@ -398,7 +420,6 @@ function Profile() {
                 <span style={{ fontWeight: "300" }}>
                   <ViewsCounter uid={uid} />
                 </span>
-                   
               </Typography>
             </div>
             {name !== user?.displayName && (
