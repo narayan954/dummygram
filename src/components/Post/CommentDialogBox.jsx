@@ -9,7 +9,9 @@ import {
   Divider,
 } from "@mui/material";
 
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
+import { Link } from "react-router-dom";
 import React from "react";
 import ReadMore from "../ReadMore";
 
@@ -33,25 +35,28 @@ const CommentDialogBox = ({
         },
       }}
       borderRadius="10px"
-      maxHeight="30vh"
+      maxHeight="40vh"
+      // marginBottom="30px"
+      marginTop="10px"
     >
       {comments.length ? (
         <>
           {comments.map((userComment) => (
             <div key={userComment.id}>
               <div className="commentCard">
-                <div
-                  style={{
-                    fontSize: "1.1rem",
-                    fontWeight: "600",
-                    color: "black",
-                  }}
-                >
-                  {userComment.content.username}
-                  {"  "}
-                  <span style={{ fontSize: "0.9rem", fontWeight: "400" }}>
+                <div>
+                  <Link
+                    className="comment-doer"
+                    to={`/dummygram/${userComment.content.username}`}
+                  >
+                    <AccountCircleIcon />
+                    <span className="comment-doer-name">
+                      {userComment.content.username}
+                    </span>
+                  </Link>
+                  <p className="comment">
                     <ReadMore>{userComment.content.text}</ReadMore>
-                  </span>
+                  </p>
                 </div>
                 <div
                   onClick={() => {
@@ -63,7 +68,7 @@ const CommentDialogBox = ({
                     userComment.content.username === user.displayName && (
                       <DeleteTwoToneIcon
                         fontSize="small"
-                        style={{ color: "red" }}
+                        className="comment-delete-icon"
                       />
                     )}
                   {

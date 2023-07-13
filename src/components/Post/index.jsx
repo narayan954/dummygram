@@ -7,6 +7,7 @@ import {
   Flexbetween,
 } from "../../reusableComponents";
 import {
+  DialogTitle,
   Divider,
   Paper,
   Typography,
@@ -24,7 +25,6 @@ import { useTheme } from "@mui/material/styles";
 const PostHeader = lazy(() => import("./PostHeader"));
 const CommentBox = lazy(() => import("./CommentBox"));
 const CommentDialogBox = lazy(() => import("./CommentDialogBox"));
-const CommentHolder = lazy(() => import("./CommentHolder"));
 const ImgBox = lazy(() => import("./ImgBox"));
 const PostNav = lazy(() => import("./PostNav"));
 
@@ -60,7 +60,7 @@ function Post(prop) {
             snapshot.docs.map((doc) => ({
               id: doc.id,
               content: doc.data(),
-            })),
+            }))
           );
         });
     }
@@ -238,21 +238,37 @@ function Post(prop) {
               />
             </ErrorBoundary>
             <ErrorBoundary>
-              <CommentHolder
-                showEmojis={showEmojis}
+              <CommentBox
                 setShowEmojis={setShowEmojis}
+                showEmojis={showEmojis}
                 onEmojiClick={onEmojiClick}
-                comments={comments}
                 comment={comment}
                 setComment={setComment}
                 postComment={postComment}
+                user={user}
               />
             </ErrorBoundary>
             <DialogBox
               open={isCommentOpen}
               onClose={handleCommentClose}
-              title="All Comments"
+              showTitle={false}
             >
+              <DialogTitle style={{ padding: 0, color: "var(--color)" }}>
+                Comments
+                <span
+                  className="comment-box-title-style"
+                  style={{ "--clr": "red" }}
+                ></span>
+                <span
+                  className="comment-box-title-style"
+                  style={{ "--clr": "green" }}
+                ></span>
+                <span
+                  className="comment-box-title-style"
+                  style={{ "--clr": "blue" }}
+                ></span>
+              </DialogTitle>
+              <hr />
               <ErrorBoundary>
                 <CommentDialogBox
                   Item={Item}

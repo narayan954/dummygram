@@ -14,7 +14,7 @@ const CommentBox = ({
   postComment,
 }) => {
   return (
-    <div>
+    <div className="comment-box">
       {user && (
         <form className="modal__commentBox">
           <div
@@ -45,7 +45,7 @@ const CommentBox = ({
           </div>
 
           <input
-            className="post__input"
+            className="post__input comment-input"
             type="text"
             placeholder="Add a comment..."
             value={comment}
@@ -66,11 +66,11 @@ const CommentBox = ({
             type="submit"
             onClick={postComment}
             style={{
-              fontWeight: "bold",
-              textTransform: "uppercase",
+              padding: 0,
+              paddingRight: "5px",
             }}
           >
-            <Send style={{ color: "var(--color" }} />
+            <Send className="send-comment-btn" />
           </IconButton>
         </form>
       )}
