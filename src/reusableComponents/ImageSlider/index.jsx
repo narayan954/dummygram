@@ -46,7 +46,7 @@ const ImageSlider = ({ slides, doubleClickHandler }) => {
             delayTime={1000}
             style={{
               width: "100%",
-              aspectRatio: "3/2",
+              height: "100%",
               objectFit: "contain",
             }}
           />
