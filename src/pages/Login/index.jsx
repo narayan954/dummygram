@@ -183,7 +183,6 @@ const LoginScreen = () => {
               <p>Enter your information to get started</p>
             </div>
           </div>
-
           <div className="form__bottom">
             <div className="input__group">
               <label htmlFor="email">Email</label>
@@ -204,7 +203,9 @@ const LoginScreen = () => {
                 aria-describedby="email-error"
               />
               {error.email && error.emailError && (
-                <p className="error" role="alert" id="email-error">{error.emailError}</p>
+                <p className="error" role="alert" id="email-error">
+                  {error.emailError}
+                </p>
               )}
             </div>
             <div className="input__group">
