@@ -150,7 +150,7 @@ function Profile() {
         setEmail(
           location?.state?.name === authUser?.displayName
             ? location?.state?.email || authUser.email
-            : "",
+            : ""
         );
         setUid(location?.state?.uid || authUser.uid);
       } else {
@@ -168,7 +168,7 @@ function Profile() {
     if (auth.currentUser) {
       const usernameQ = query(
         collection(db, "users"),
-        where("uid", "==", auth.currentUser.uid),
+        where("uid", "==", auth.currentUser.uid)
       );
       const unsubscribe = onSnapshot(usernameQ, (querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -182,7 +182,7 @@ function Profile() {
   useEffect(() => {
     const q = query(
       collection(db, "posts"),
-      where("username", "==", location?.state?.name || name),
+      where("username", "==", location?.state?.name || name)
     );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const userPosts = [];
@@ -203,9 +203,9 @@ function Profile() {
 
   const handleChange = (e) => {
     if (e.target.files[0]) {
-      setVisible(true);
       setProfilePic(URL.createObjectURL(e.target.files[0]));
       setImage(e.target.files[0]);
+      setVisible(true);
     }
   };
 
@@ -213,7 +213,7 @@ function Profile() {
     setProfilePic(null);
     // Reset the input element's value
     fileInputRef.current.value = "";
-  }
+  };
 
   const handleSave = () => {
     const uploadTask = storage.ref(`images/${image?.name}`).put(image);
@@ -242,7 +242,7 @@ function Profile() {
             });
           })
           .catch((error) => console.error(error));
-      },
+      }
     );
     setProfilePic(null);
     setVisible(false);
