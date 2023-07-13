@@ -36,12 +36,14 @@
     width: 95%;
     padding: 30px 0;
   }
-  .feed-main-container{margin-top: 0;}
-  .feed-main-container .app__posts{
+  .feed-main-container {
+    margin-top: 0;
+  }
+  .feed-main-container .app__posts {
     padding: 10px;
     margin: 10% auto;
   }
-  .feed-main-container .app__posts .post{
+  .feed-main-container .app__posts .post {
     margin: auto;
     margin-bottom: 20px;
   }
@@ -74,17 +76,25 @@
   }
 }
 @media screen and (min-width: 768px) {
-  .outer-profile-box, .feed-main-container {
+  .outer-profile-box,
+  .feed-main-container {
     width: calc(100% - 16vw);
   }
-  .feed-main-container{ margin: 30px auto;}
-  .feed-main-container .app__posts{ padding: 10px 10px 10px 8vw;}
+  .feed-main-container {
+    margin: 30px auto;
+  }
+  .feed-main-container .app__posts {
+    padding: 10px 10px 10px 8vw;
+  }
 }
 @media screen and (min-width: 1200px) {
-  .outer-profile-box, .feed-main-container {
+  .outer-profile-box,
+  .feed-main-container {
     width: calc(100% - 34vw);
   }
-  .feed-main-container{ margin: 50px auto;}
+  .feed-main-container {
+    margin: 50px auto;
+  }
   .profile-pic-container {
     width: 180px;
     height: 180px;
