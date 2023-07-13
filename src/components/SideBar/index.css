@@ -40,11 +40,12 @@
 }
 
 #sidebar-home-link {
-  margin-top: 4.5em;
+  margin-top: 6.5em;
 }
 
 .sidebar-links li:hover {
-  background: rgba(0, 0, 0, 0.05);
+  /* background: rgba(0, 0, 0, 0.05); */
+  background-color: #ab4bc2;
 }
 
 .sidebar-links li a,
@@ -108,6 +109,12 @@ footer {
   margin-top: 10px;
   color: var(--color);
 }
+
+.activeTab{
+  background-color: #ab4bc2;
+}
+
+
 
 /* media query */
 
