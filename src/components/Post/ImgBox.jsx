@@ -35,15 +35,16 @@ const ImgBox = ({
           )}
         </div>
       )}
-      <div className="post__text">
+
+      <div className={`post__text ${caption == undefined ? "p-0" : " "}`}>
         {caption && postHasImages && caption.length >= 300 ? (
-          <p style={{ color: "var(--color)" }}>
+          <p style={{ color: "var(--color)", paddingInline: "8px" }}>
             <ReadMore postId={postId}>{caption}</ReadMore>
           </p>
         ) : (
           caption &&
           postHasImages && (
-            <p style={{ color: "var(--color)" }}>
+            <p style={{ color: "var(--color)", paddingInline: "16px" }}>
               <Caption caption={caption} />
             </p>
           )
