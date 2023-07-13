@@ -1,6 +1,6 @@
 import "./index.css";
 
-import { Link, useNavigate,useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -27,7 +27,11 @@ function SideBar() {
     <div className="sidebar">
       <div className="sidebar-container">
         <ul className="sidebar-links">
-          <li onClick={() => navigate("/dummygram/")} id="sidebar-home-link" className={location.pathname == "/dummygram/" && "activeTab"}>
+          <li
+            onClick={() => navigate("/dummygram/")}
+            id="sidebar-home-link"
+            className={location.pathname == "/dummygram/" && "activeTab"}
+          >
             <div className="sidebar_align">
               <HomeIcon className="icon" /> <span>Home</span>
             </div>
@@ -37,23 +41,36 @@ function SideBar() {
               <AddCircleOutlineIcon className="icon" /> <span>New Post</span>
             </div>
           </li>
-          <li onClick={() => navigate("/dummygram/search")} className={location.pathname == "/dummygram/search" && "activeTab"}>
+          <li
+            onClick={() => navigate("/dummygram/search")}
+            className={location.pathname == "/dummygram/search" && "activeTab"}
+          >
             <div className="sidebar_align">
               <SearchIcon className="icon" /> <span>Search</span>
             </div>
           </li>
-          <li onClick={() => navigate("/dummygram/favourites")} className={location.pathname == "/dummygram/favourites" && "activeTab"}>
+          <li
+            onClick={() => navigate("/dummygram/favourites")}
+            className={
+              location.pathname == "/dummygram/favourites" && "activeTab"
+            }
+          >
             <div className="sidebar_align">
               <FavoriteBorderIcon className="icon" /> <span>Favourites</span>
             </div>
           </li>
-          <li onClick={() => navigate("/dummygram/notifications")} className={location.pathname == "/dummygram/notifications" && "activeTab"}>
+          <li
+            onClick={() => navigate("/dummygram/notifications")}
+            className={
+              location.pathname == "/dummygram/notifications" && "activeTab"
+            }
+          >
             <div className="sidebar_align">
               <NotificationsIcon className="icon" /> <span>Notifications</span>
             </div>
           </li>
           <li
-          className={location.pathname == "/dummygram/profile" && "activeTab"}
+            className={location.pathname == "/dummygram/profile" && "activeTab"}
             onClick={() =>
               navigate("/dummygram/profile", {
                 state: {
