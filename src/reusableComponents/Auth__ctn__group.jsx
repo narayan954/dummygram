@@ -26,7 +26,7 @@ const Auth__ctn__group = ({
       <div className="other__login__method">
         <div className="or option__divider">
           <div className="line" />
-          <div style={{ padding: "5px 9px" }}>or</div>
+          <div className="or-text">or</div>
           <div className="line" />
         </div>
         <div className="google__fb--login">
@@ -36,8 +36,8 @@ const Auth__ctn__group = ({
             onClick={handleSignInWithGoogle}
             aria-label="Sign Up with Google"
           >
-            <FontAwesomeIcon icon={faGoogle} className="google-icon" /> Sign up
-            with Google
+            <FontAwesomeIcon icon={faGoogle} className="google-icon" />
+            {forgot_pass_nav ? "Sign in with Google" : "Sign up with Google"}
           </button>
           <button
             className="other__login facebook"
@@ -46,7 +46,9 @@ const Auth__ctn__group = ({
             aria-label="Sign Up with Facebook"
           >
             <FontAwesomeIcon icon={faFacebookF} className="facebook-icon" />{" "}
-            Sign up with Facebook
+            {forgot_pass_nav
+              ? "Sign in with Facebook"
+              : "Sign up with Facebook"}
           </button>
         </div>
         {forgot_pass_nav ? (

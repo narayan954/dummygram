@@ -2,7 +2,6 @@ import "./index.css";
 import "../Login/index";
 
 import React, { useRef, useState } from "react";
-import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
 import {
   auth,
   db,
@@ -10,11 +9,9 @@ import {
   googleProvider,
   storage,
 } from "../../lib/firebase";
-import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { getModalStyle, useStyles } from "../../App";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import blank_profile from "../../assets/blank-profile.webp";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import loginRight from "../../assets/login-right.webp";
@@ -24,7 +21,6 @@ import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import validate from "../../reusableComponents/validation";
 import Auth_container from "../../reusableComponents/AUth_container";
-import Auth__form from "../../reusableComponents/Auth__form";
 import Auth__top from "../../reusableComponents/Auth__top";
 import Auth__image__input from "../../reusableComponents/Auth__image__input";
 import Auth__text__input from "../../reusableComponents/Auth__text__input";
@@ -42,8 +38,6 @@ const SignupScreen = () => {
   const [signingUp, setSigningUp] = useState(false);
   const [image, setImage] = useState(null);
   const [address, setAddress] = useState(null);
-  // const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [usernameAvailable, setUsernameAvailable] = useState(true);
   const [username, setUsername] = useState("");
   const [isOauthSignUp, setIsOauthSignUp] = useState(false);

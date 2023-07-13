@@ -1,13 +1,11 @@
 import "./index.css";
+import "../Signup/index.css";
 
 import loginRight from "../../assets/login-right.webp";
 import React, { useState } from "react";
-import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
 import { auth, db, facebookProvider, googleProvider } from "../../lib/firebase";
-import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import logo from "../../assets/logo.webp";
 import { useNavigate } from "react-router-dom";
@@ -20,24 +18,20 @@ import Auth__pass__input from "../../reusableComponents/Auth__pass__input";
 import Auth__ctn__group from "../../reusableComponents/Auth__ctn__group";
 
 const LoginScreen = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
+  const [userDatails, setuserDatails] = useState({
+    email: "",
+    password: "",
+  });
   const [error, setError] = useState({ email: true });
 
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
-  const handleShowPassword = (e) => {
-    e.preventDefault();
-    setShowPassword(!showPassword);
-  };
-
   const signIn = (e) => {
     e.preventDefault();
-    if (!error.email && password !== "") {
+    if (!error.email && userDatails.password !== "") {
       auth
-        .signInWithEmailAndPassword(email, password)
+        .signInWithEmailAndPassword(userDatails.email, userDatails.password)
         .then(() => {
           playSuccessSound();
           enqueueSnackbar("Login successful!", {
@@ -191,10 +185,11 @@ const LoginScreen = () => {
           <Auth__text__input
             label={"Email"}
             id={"email"}
+            type="email"
             placeholder={"Enter your email"}
-            value={email}
+            value={userDatails.email}
             handleChange={(e) => {
-              setEmail(e.target.value);
+              setuserDatails({ ...userDatails, email: e.target.value });
               handleError(e.target.name, e.target.value);
             }}
             fieldName={"email"}
@@ -209,8 +204,10 @@ const LoginScreen = () => {
             id={"password"}
             name={"password"}
             placeholder={"Enter your password"}
-            value={password}
-            handleChange={(e) => setPassword(e.target.value)}
+            value={userDatails.password}
+            handleChange={(e) =>
+              setuserDatails({ ...userDatails, password: e.target.value })
+            }
             aria_dsc_by={"password-error"}
             errorMesssage={error.passwordError}
             isError={error.password && error.passwordError}
