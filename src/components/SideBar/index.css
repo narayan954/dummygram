@@ -44,7 +44,8 @@
 }
 
 .sidebar-links li:hover {
-  background: rgba(0, 0, 0, 0.05);
+  /* background: rgba(0, 0, 0, 0.05); */
+  background-color: #39bae4;
 }
 
 .sidebar-links li a,
@@ -97,7 +98,7 @@ footer {
 
 .footer-link {
   text-decoration: none;
-  color: #8f8f8f;
+  color: #898787;
 }
 
 .footer-link:hover {
@@ -107,6 +108,10 @@ footer {
 .copyright {
   margin-top: 10px;
   color: var(--color);
+}
+
+.activeTab {
+  background-color: var(--btn-color);
 }
 
 /* media query */

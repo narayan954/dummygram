@@ -390,13 +390,16 @@ function Profile() {
             </Typography>
             <div style={{ display: "flex" }}>
               <Typography fontSize="1.1rem" fontWeight="600">
-                Total Posts: &nbsp;
+                Total Posts:&nbsp;
+                <span style={{ fontWeight: "300" }}>{feed.length} &nbsp;</span>
               </Typography>
-              {feed.length} &nbsp;
               <Typography fontSize="1.1rem" fontWeight="600">
-                Views: &nbsp;
+                Views:&nbsp;
+                <span style={{ fontWeight: "300" }}>
+                  <ViewsCounter uid={uid} />
+                </span>
+                   
               </Typography>
-              <ViewsCounter uid={uid} />
             </div>
             {name !== user?.displayName && (
               <Button
