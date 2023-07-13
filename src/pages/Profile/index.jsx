@@ -21,6 +21,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import { FaUserCircle } from "react-icons/fa";
+import ViewsCounter from "./views";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
 
@@ -148,7 +149,7 @@ function Profile() {
         setEmail(
           location?.state?.name === authUser?.displayName
             ? location?.state?.email || authUser.email
-            : "",
+            : ""
         );
         setUid(location?.state?.uid || authUser.uid);
       } else {
@@ -166,7 +167,7 @@ function Profile() {
     if (auth.currentUser) {
       const usernameQ = query(
         collection(db, "users"),
-        where("uid", "==", auth.currentUser.uid),
+        where("uid", "==", auth.currentUser.uid)
       );
       const unsubscribe = onSnapshot(usernameQ, (querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -180,7 +181,7 @@ function Profile() {
   useEffect(() => {
     const q = query(
       collection(db, "posts"),
-      where("username", "==", location?.state?.name || name),
+      where("username", "==", location?.state?.name || name)
     );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const userPosts = [];
@@ -234,7 +235,7 @@ function Profile() {
             });
           })
           .catch((error) => console.error(error));
-      },
+      }
     );
     setVisible(false);
   };
@@ -348,7 +349,8 @@ function Profile() {
                     style={{
                       marginTop: "0.5rem",
                       color: "var(--text-primary)",
-                      padding: "2px 15px",
+                      padding: "4px 15px",
+                      marginBottom: "0",
                     }}
                   >
                     Edit Profile Pic
@@ -386,9 +388,16 @@ function Profile() {
             <Typography fontSize="1.5rem" fontWeight="600" paddingBottom="10px">
               {name === user?.displayName && email}
             </Typography>
-            <Typography fontSize="1.2rem" paddingBottom="10px">
-              Total Posts: {feed.length}
-            </Typography>
+            <div style={{ display: "flex" }}>
+              <Typography fontSize="1.1rem" fontWeight="600">
+                Total Posts: &nbsp;
+              </Typography>
+              {feed.length} &nbsp;
+              <Typography fontSize="1.1rem" fontWeight="600">
+                Views: &nbsp;
+              </Typography>
+              <ViewsCounter uid={uid} />
+            </div>
             {name !== user?.displayName && (
               <Button
                 onClick={handleSendFriendRequest}
