@@ -22,7 +22,21 @@ export default function Error() {
               The page you're looking for doesn't exist.
             </Typography>
             <Link to="/dummygram/">
-              <Button variant="contained">Back Home</Button>
+              <Button
+                variant="contained"
+                sx={{
+                  backgroundColor: "var(--btn-color)",
+                  color: "black",
+                  borderRadius: "0.45rem",
+                  fontWeight: "bold",
+                  "&:hover": {
+                    backgroundColor: "#39bae4",
+                    color: "black",
+                  },
+                }}
+              >
+                Back Home
+              </Button>
             </Link>
           </Grid>
           <Grid xs={6}>
