@@ -29,7 +29,7 @@
   margin-top: 40px;
   margin-bottom: 30px;
   border-radius: 0.5rem;
-  width: 240px;
+  width: 15em;
 }
 
 .about-headings {
@@ -67,6 +67,6 @@
 
 @media only screen and (max-width: 400px) {
   #about-dummygram-logo {
-    width: 400px;
+    width: 12em;
   }
 }
