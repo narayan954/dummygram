@@ -2,7 +2,7 @@ import { Loader, ShareModal } from "../reusableComponents";
 import { Post, SideBar } from "./index";
 import React, { useContext, useEffect, useState } from "react";
 import { auth, db } from "../lib/firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 
 import { Box } from "@mui/material";
 import { RowModeContext } from "../hooks/useRowMode";
@@ -13,35 +13,49 @@ function Favorite() {
   const [currentPostLink, setCurrentPostLink] = useState("");
   const [postText, setPostText] = useState("");
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const rowMode = useContext(RowModeContext);
   const { enqueueSnackbar } = useSnackbar();
 
+  let savedPostsArr = JSON.parse(localStorage.getItem("posts")) || [];
+
   useEffect(() => {
-    if (auth) {
-      const fetchLikedPosts = async () => {
-        setLoading(true);
-        const collections = collection(db, "posts");
-        console.log(collections);
-        const docSnap = await getDocs(collections);
+    const posts = [];
+    if (savedPostsArr.length > 0) {
+      const fetchPosts = async () => {
+        try {
+          const fetchSavedPosts = savedPostsArr.map(async (id) => {
+            try {
+              const docRef = doc(db, "posts", id);
+              const docSnap = await getDoc(docRef);
+              if (docSnap.exists()) {
+                posts.push({ id: docSnap.id, post: docSnap.data() });
+              }
+            } catch (error) {
+              enqueueSnackbar("Error while fetching all posts", {
+                variant: "error",
+              });
+              setLoading(false);
+            }
+          });
 
-        const likedPosts = [];
-        docSnap.forEach((doc) => {
-          return likedPosts.push(doc.data());
-        });
-
-        const filteredPosts = likedPosts.filter((post) =>
-          post.likecount.includes(auth.currentUser.uid)
-        );
-
-        setPosts(filteredPosts);
-        setLoading(false);
-        console.log(posts);
+          await Promise.all(fetchSavedPosts); // Wait for all fetch requests to complete
+          setLoading(false);
+          setPosts(posts);
+        } catch (error) {
+          enqueueSnackbar("Error while fetching all posts", {
+            variant: "error",
+          });
+          setLoading(false);
+        }
       };
-      fetchLikedPosts();
+
+      fetchPosts();
+    } else {
+      setLoading(false);
     }
-  }, [auth]);
+  }, []);
 
   return (
     <>
@@ -72,17 +86,17 @@ function Favorite() {
               style={{ marginTop: "5.5rem", marginBottom: "1.5rem" }}
               align="center"
             >
-              {posts.length > 0 ? (
+              {posts.length ? (
                 <>
                   <h1 style={{ color: "var(--color)" }}>Your Favourites</h1>
                   <div
                     className={`${rowMode ? "app__posts" : "app_posts_column"}`}
                   >
-                    {posts.map((post) => (
+                    {posts.map(({ id, post }) => (
                       <Post
                         rowMode={true}
-                        key={post.uid}
-                        postId={post.uid}
+                        key={id}
+                        postId={id}
                         user={auth.currentUser}
                         post={post}
                         shareModal={setOpenShareModal}
