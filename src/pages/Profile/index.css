@@ -75,8 +75,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 50px;
-  margin-bottom: 0;
+}
+.feed-main-container .app__posts {
+  padding: 2em 10px 20px 0;
 }
 
 .img-save:hover {
@@ -140,13 +141,6 @@
     width: 95%;
     padding: 30px 0;
   }
-  .feed-main-container {
-    margin-top: 0;
-  }
-  .feed-main-container .app__posts {
-    padding: 10px;
-    margin: 10% auto;
-  }
   .feed-main-container .app__posts .post {
     margin: auto;
     margin-bottom: 20px;
@@ -178,29 +172,29 @@
     width: 140px;
     height: 140px;
   }
-  .app__posts {
-    padding-top: 0;
-  }
 }
-@media screen and (min-width: 768px) {
-  .outer-profile-box,
-  .feed-main-container {
+
+@media screen and (max-width: 800px) {
+  .outer-profile-box {
     width: calc(100% - 16vw);
   }
-  .feed-main-container {
-    margin: 30px auto;
-  }
   .feed-main-container .app__posts {
-    padding: 10px 10px 10px 8vw;
+    padding: 2em 10px 5.5em 10px;
   }
 }
-@media screen and (min-width: 1200px) {
-  .outer-profile-box,
-  .feed-main-container {
-    width: calc(100% - 34vw);
+
+@media screen and (min-width: 800px) and (max-width: 1200px) {
+  .feed-main-container .app__posts {
+    padding-left: 9vw;
   }
-  .feed-main-container {
-    margin: 50px auto;
+}
+
+@media screen and (min-width: 1200px) {
+  .feed-main-container .app__posts {
+    padding-left: 17vw;
+  }
+  .outer-profile-box {
+    width: calc(100% - 34vw);
   }
   .profile-pic-container {
     width: 180px;
