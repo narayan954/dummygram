@@ -30,7 +30,6 @@ const Auth__image__input = ({address,image,blank_profile,handleChange}) => {
       aria-labelledby="file-label"
     />
   </div>
-
   )
 }
 

@@ -12,11 +12,11 @@ import {
 import { getModalStyle, useStyles } from "../../App";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 
-import Auth__ctn__group from "../../reusableComponents/Auth__ctn__group";
-import Auth__image__input from "../../reusableComponents/Auth__image__input";
-import Auth__pass__input from "../../reusableComponents/Auth__pass__input";
-import Auth__text__input from "../../reusableComponents/Auth__text__input";
-import Auth__top from "../../reusableComponents/Auth__top";
+import Auth__ctn__group from "../../reusableComponents/Auth/Auth__ctn__group";
+import Auth__image__input from "../../reusableComponents/Auth/Auth__image__input";
+import Auth__pass__input from "../../reusableComponents/Auth/Auth__pass__input";
+import Auth__text__input from "../../reusableComponents/Auth/Auth__text__input";
+import Auth__top from "../../reusableComponents/Auth/Auth__top";
 import Auth_container from "../../reusableComponents/AUth_container";
 import blank_profile from "../../assets/blank-profile.webp";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
