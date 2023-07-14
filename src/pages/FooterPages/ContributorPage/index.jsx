@@ -1,11 +1,10 @@
 import "../design.css";
 import "./index.css";
 
+import { VscChromeClose } from "react-icons/vsc";
 import { Box, Pagination, Typography, useMediaQuery } from "@mui/material";
 import React, { useEffect, useState } from "react";
-
-import { Link } from "react-router-dom";
-import {  Button } from "@mui/material";
+import { Link } from 'react-router-dom';
 
 import ContributorCard from "./ContributorCard";
 
@@ -37,7 +36,6 @@ function Contributor() {
 
   return (
     <div className="contributor-container footer-page-para-color">
-      <div style={{ display: 'flex', justifyContent: 'space-between', width: '87%' }}>
       <div className="contributor-sub-container">
         <span className="grad1 grad"></span>
         <span className="grad2 grad"></span>
@@ -52,6 +50,11 @@ function Contributor() {
         <span className="grad11 grad"></span>
         <span className="grad12 grad"></span>
         <div className="contributor-section glassmorphism-effect">
+        <div className="closeIcon" >
+            <Link to="/dummygram/" >
+                <VscChromeClose   style={{ fontWeight: 'bold' }}/>
+            </Link>
+        </div>
           <Box
             margin={isNonMobileScreen ? "1rem 3rem" : "1rem 3rem"}
             position="relative"
@@ -96,12 +99,6 @@ function Contributor() {
             </Box>
           </Box>
         </div>
-      </div>
-      <Link to="/dummygram/">
-        <Button variant="contained" style={{ backgroundColor: '#C147E9', color: 'black' ,borderRadius: '0.45rem',  fontWeight: 'bold',}}>
-            Back Home
-        </Button>
-      </Link>
     </div>
     </div>
   );

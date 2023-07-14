@@ -2,17 +2,21 @@ import "./index.css";
 import "../design.css";
 
 import { Link } from "react-router-dom";
-import {  Button } from "@mui/material";
+import { VscChromeClose } from "react-icons/vsc";
 
 const Guidelines = () => {
   return (
     <div className="guidlines-container footer-page-para-color">
-      <div style={{ display: 'flex', justifyContent: 'space-between', width: '95%' }}>
       <span className="grad1 grad"></span>
       <span className="grad2 grad"></span>
       <span className="grad3 grad about-grad"></span>
       <span className="grad4 grad"></span>
       <div className="glassmorphism-effect guidelines-sub-container">
+      <div className="closeIcon" >
+            <Link to="/dummygram/" >
+                <VscChromeClose   style={{ fontWeight: 'bold' }}/>
+            </Link>
+        </div>
         <h1 className="guidelines-heading footer-page-heading-color">
           GUIDELINES
         </h1>
@@ -168,12 +172,6 @@ const Guidelines = () => {
             </li>
           </ul>
         </div>
-      </div>
-      <Link to="/dummygram/">
-        <Button variant="contained" style={{ backgroundColor: '#C147E9', color: 'black' ,borderRadius: '0.45rem',  fontWeight: 'bold',}}>
-            Back Home
-        </Button>
-      </Link>
     </div>
     </div>
   );
