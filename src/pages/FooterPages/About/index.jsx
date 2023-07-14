@@ -1,10 +1,10 @@
 import "./index.css";
 import "../design.css";
 
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { VscChromeClose } from "react-icons/vsc";
 
+import { Link } from "react-router-dom";
+import { VscChromeClose } from "react-icons/vsc";
 import logo from "../../../assets/logo.webp";
 
 const About = () => {
@@ -22,7 +22,7 @@ const About = () => {
         if (match) {
           const lastPageUrl = match[1];
           const pageCount = new URLSearchParams(
-            new URL(lastPageUrl).search,
+            new URL(lastPageUrl).search
           ).get("page");
           return parseInt(pageCount);
         } else {
@@ -36,12 +36,12 @@ const About = () => {
 
   useEffect(() => {
     getCount(
-      "https://api.github.com/repos/narayan954/dummygram/commits?sha=master&per_page=1&page=1",
+      "https://api.github.com/repos/narayan954/dummygram/commits?sha=master&per_page=1&page=1"
     ).then((count) => {
       setCommits(count);
     });
     getCount(
-      "https://api.github.com/repos/narayan954/dummygram/contributors?per_page=1&anon=true",
+      "https://api.github.com/repos/narayan954/dummygram/contributors?per_page=1&anon=true"
     ).then((count) => {
       setContributors(count);
     });
@@ -61,7 +61,7 @@ const About = () => {
 
   return (
     <div className="about-container footer-page-para-color">
-       {/* <div style={{ display: 'flex', justifyContent: 'flex-end', width: '90%' }}>
+      {/* <div style={{ display: 'flex', justifyContent: 'flex-end', width: '90%' }}>
             <Link to="/dummygram/">
             <Button variant="contained" style={{ backgroundColor: '#C147E9', color: 'black' ,borderRadius: '0.45rem',  fontWeight: 'bold',}}>
             Back Home
@@ -74,11 +74,20 @@ const About = () => {
         <span className="grad3 grad"></span>
         <span className="grad4 grad"></span>
         <div className="about-section glassmorphism-effect">
-        <div className="closeIcon" style={{  marginLeft: '-5px'}}>
-            <Link to="/dummygram/" >
-                <VscChromeClose   style={{ fontWeight: 'bold' }}/>
+          <div
+            className="closeIcon"
+            style={{
+              fontSize: "30px",
+              marginBottom: "-10px",
+              position: "absolute",
+              top: "0",
+              right: "0",
+            }}
+          >
+            <Link to="/dummygram/">
+              <VscChromeClose style={{ fontWeight: "bold" }} />
             </Link>
-        </div>
+          </div>
           <img
             className="about-logo"
             src={logo}

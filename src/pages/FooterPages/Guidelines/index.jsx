@@ -12,10 +12,13 @@ const Guidelines = () => {
       <span className="grad3 grad about-grad"></span>
       <span className="grad4 grad"></span>
       <div className="glassmorphism-effect guidelines-sub-container">
-      <div className="closeIcon" >
-            <Link to="/dummygram/" >
-                <VscChromeClose   style={{ fontWeight: 'bold' }}/>
-            </Link>
+        <div
+          className="closeIcon"
+          style={{ fontSize: "30px", marginBottom: "-100px" }}
+        >
+          <Link to="/dummygram/">
+            <VscChromeClose style={{ fontWeight: "bold" }} />
+          </Link>
         </div>
         <h1 className="guidelines-heading footer-page-heading-color">
           GUIDELINES
@@ -172,7 +175,7 @@ const Guidelines = () => {
             </li>
           </ul>
         </div>
-    </div>
+      </div>
     </div>
   );
 };

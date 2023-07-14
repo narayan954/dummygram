@@ -1,12 +1,12 @@
 import "../design.css";
 import "./index.css";
 
-import { VscChromeClose } from "react-icons/vsc";
 import { Box, Pagination, Typography, useMediaQuery } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
 
 import ContributorCard from "./ContributorCard";
+import { Link } from "react-router-dom";
+import { VscChromeClose } from "react-icons/vsc";
 
 function Contributor() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -16,12 +16,12 @@ function Contributor() {
 
   const getData = async () => {
     const res = await fetch(
-      `https://api.github.com/repos/narayan954/dummygram/contributors?page=${currentPage}&&per_page=10`,
+      `https://api.github.com/repos/narayan954/dummygram/contributors?page=${currentPage}&&per_page=10`
     );
 
     const data = await res.json();
     const contributorsData = data.filter(
-      (contributor) => !contributor.login.includes("deepsource-autofix[bot]"),
+      (contributor) => !contributor.login.includes("deepsource-autofix[bot]")
     );
     setContributors(contributorsData);
   };
@@ -50,21 +50,37 @@ function Contributor() {
         <span className="grad11 grad"></span>
         <span className="grad12 grad"></span>
         <div className="contributor-section glassmorphism-effect">
-        <div className="closeIcon" >
-            <Link to="/dummygram/" >
-                <VscChromeClose   style={{ fontWeight: 'bold' }}/>
-            </Link>
-        </div>
           <Box
             margin={isNonMobileScreen ? "1rem 3rem" : "1rem 3rem"}
             position="relative"
           >
+            <div
+              className="closeIcon"
+              style={{
+                fontSize: "30px",
+                position: "absolute",
+                top: "0",
+                right: "0",
+              }}
+            >
+              <Link to="/dummygram/">
+                <VscChromeClose style={{ fontWeight: "bold" }} />
+              </Link>
+            </div>
+            {/* <div
+              className="closeIcon"
+              style={{ fontSize: "30px", marginBottom: "-100px" }}
+            >
+              <Link to="/dummygram/">
+                <VscChromeClose style={{ fontWeight: "bold" }} />
+              </Link>
+            </div> */}
             <Typography
               textAlign="center"
               fontFamily="serif"
               fontSize="3.2rem"
               fontWeight="600"
-              m="6rem 0 2rem 0"
+              m="2rem 0"
             >
               Our Contributors
             </Typography>
@@ -99,7 +115,7 @@ function Contributor() {
             </Box>
           </Box>
         </div>
-    </div>
+      </div>
     </div>
   );
 }
