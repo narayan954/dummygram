@@ -3,6 +3,8 @@ import "../design.css";
 
 import { useEffect, useState } from "react";
 
+import { Link } from "react-router-dom";
+import { VscChromeClose } from "react-icons/vsc";
 import logo from "../../../assets/logo.webp";
 
 const About = () => {
@@ -65,6 +67,20 @@ const About = () => {
         <span className="grad3 grad"></span>
         <span className="grad4 grad"></span>
         <div className="about-section glassmorphism-effect">
+          <div
+            className="closeIcon"
+            style={{
+              fontSize: "30px",
+              marginBottom: "-10px",
+              position: "absolute",
+              top: "0",
+              right: "0",
+            }}
+          >
+            <Link to="/dummygram/">
+              <VscChromeClose style={{ fontWeight: "bold" }} />
+            </Link>
+          </div>
           <img
             className="about-logo"
             src={logo}
