@@ -184,7 +184,7 @@ const PostCommentView = ({
                   </ErrorBoundary>
                 </Typography>
               ) : (
-                <Typography variant="h5" color="text.secondary">
+                <Typography variant="h5" className="light-text">
                   <Caption caption={caption} />
                 </Typography>
               )}

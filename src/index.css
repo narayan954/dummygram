@@ -49,6 +49,7 @@ body {
   background-color: var(--bg-color) !important;
 }
 .no-comments, 
+.light-text,
 .post-page-caption span{color: var(--text-light);}
 
 /* App styles */
