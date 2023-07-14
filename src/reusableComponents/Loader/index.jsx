@@ -17,13 +17,7 @@ export default function Loader(props) {
   );
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <div className="loader-container">
       <div
         className="loader"
         style={{
