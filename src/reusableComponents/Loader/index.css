@@ -64,8 +64,12 @@ body {
   z-index: 1;
   color: #c7c7c7;
   text-decoration: none;
-  font: normal normal 600 normal 14px / 14px proxima-nova, "Helvetica Neue",
-    Arial, Helvetica, sans-serif;
+  font:
+    normal normal 600 normal 14px / 14px proxima-nova,
+    "Helvetica Neue",
+    Arial,
+    Helvetica,
+    sans-serif;
 }
 
 @-webkit-keyframes rotate {
@@ -93,8 +97,12 @@ body {
 .note {
   color: #c7c7c7;
   text-decoration: none;
-  font: normal normal 600 normal 12px / 12px proxima-nova, "Helvetica Neue",
-    Arial, Helvetica, sans-serif;
+  font:
+    normal normal 600 normal 12px / 12px proxima-nova,
+    "Helvetica Neue",
+    Arial,
+    Helvetica,
+    sans-serif;
   text-align: center;
   width: 100%;
 }
