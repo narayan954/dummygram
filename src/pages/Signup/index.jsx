@@ -12,6 +12,12 @@ import {
 import { getModalStyle, useStyles } from "../../App";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 
+import Auth__ctn__group from "../../reusableComponents/Auth__ctn__group";
+import Auth__image__input from "../../reusableComponents/Auth__image__input";
+import Auth__pass__input from "../../reusableComponents/Auth__pass__input";
+import Auth__text__input from "../../reusableComponents/Auth__text__input";
+import Auth__top from "../../reusableComponents/Auth__top";
+import Auth_container from "../../reusableComponents/AUth_container";
 import blank_profile from "../../assets/blank-profile.webp";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import loginRight from "../../assets/login-right.webp";
@@ -20,12 +26,6 @@ import { updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import validate from "../../reusableComponents/validation";
-import Auth_container from "../../reusableComponents/AUth_container";
-import Auth__top from "../../reusableComponents/Auth__top";
-import Auth__image__input from "../../reusableComponents/Auth__image__input";
-import Auth__text__input from "../../reusableComponents/Auth__text__input";
-import Auth__pass__input from "../../reusableComponents/Auth__pass__input";
-import Auth__ctn__group from "../../reusableComponents/Auth__ctn__group";
 
 const SignupScreen = () => {
   const classes = useStyles();
@@ -122,7 +122,7 @@ const SignupScreen = () => {
                 photoURL: auth.currentUser.photoURL,
                 posts: [],
                 friends: [],
-              }),
+              })
             )
             .then(() => {
               playSuccessSound();
@@ -217,12 +217,12 @@ const SignupScreen = () => {
             });
           });
       })
-      .catch((error) =>
+      .catch((error) => {
         playErrorSound();
         enqueueSnackbar(error.message, {
           variant: "error",
-        }),
-      );
+        });
+      });
   };
 
   const signInWithFacebook = () => {
@@ -290,7 +290,7 @@ const SignupScreen = () => {
           `Congratulations ${fullName},you have joined Dummygram`,
           {
             variant: "success",
-          },
+          }
         );
         navigate("/dummygram");
       })
