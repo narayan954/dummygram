@@ -399,6 +399,7 @@ const SignupScreen = () => {
                   setFullName(e.target.value);
                   handleError(e.target.name, e.target.value);
                 }}
+                maxLength={60}
                 className={error.nameError ? "error-border" : null}
                 required
                 aria-required="true"
@@ -424,6 +425,7 @@ const SignupScreen = () => {
                   setEmail(e.target.value);
                   handleError(e.target.name, e.target.value);
                 }}
+                maxLength={254}
                 className={error.emailError ? "error-border" : null}
                 required
                 aria-required="true"
