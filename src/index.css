@@ -104,8 +104,6 @@ input:focus {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 20px;
-  padding-top: 5.5em;
 }
 
 .rowConvert {
@@ -123,23 +121,17 @@ input:focus {
   transform: scale(1.04);
 }
 
-@media only screen and (min-width: 1200px) {
-  .app__posts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    justify-content: center;
-  }
-}
-
 @media only screen and (max-width: 1200px) {
-  .app__posts {
-    padding: 5.5em 15px 10px 9vw;
+  .app__posts,
+  .home-posts-container .app_posts_column,
+  .home-posts-container .app_posts {
+    padding: 5.5em 15px 20px 9vw;
   }
 }
 @media only screen and (max-width: 800px) {
-  .app__posts {
-    padding: 5.5em 15px 10px 15px;
+  .app__posts,
+  .home-posts-container .app_posts_column {
+    padding: 5.5em 15px 5.5em 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -255,12 +247,8 @@ input:focus {
   .app__newpost__button {
     left: -6%;
   }
-  .app__posts {
-    width: 95%;
-  }
   .home-posts-container .app_posts_column {
-    margin: 5.5em auto;
-    padding-top: 2em;
+    padding: 5.5em 15px 5em 15px;
   }
 }
 
@@ -271,11 +259,6 @@ input:focus {
   }
   .app__newpost__button {
     left: -4.8%;
-  }
-  .home-posts-container .app_posts_column,
-  .home-posts-container .app_posts {
-    margin: 5.5em auto 0;
-    padding-top: 2em;
   }
 }
 
@@ -291,11 +274,6 @@ input:focus {
 
   .app__newpost__button {
     left: -4.2%;
-  }
-  .home-posts-container .app_posts_column,
-  .home-posts-container.app__posts {
-    width: calc(100% - 16vw);
-    padding-left: 8vw;
   }
 }
 
@@ -316,6 +294,12 @@ input:focus {
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
+  .app__posts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+  }
   .scrollTop {
     left: 47.7%;
   }
@@ -328,8 +312,7 @@ input:focus {
     left: -1.2%;
   }
   .home-posts-container .app_posts_column {
-    width: calc(100% - 34vw);
-    padding-left: 17vw;
+    padding: 5.5em 20px 20px 17vw;
   }
 }
 
