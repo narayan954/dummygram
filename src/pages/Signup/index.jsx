@@ -122,7 +122,7 @@ const SignupScreen = () => {
                 photoURL: auth.currentUser.photoURL,
                 posts: [],
                 friends: [],
-              }),
+              })
             )
             .then(() => {
               playSuccessSound();
@@ -130,7 +130,7 @@ const SignupScreen = () => {
                 `Congratulations ${fullName},you have joined Dummygram`,
                 {
                   variant: "success",
-                },
+                }
               );
               navigate("/dummygram");
             })
@@ -166,7 +166,7 @@ const SignupScreen = () => {
                   });
                 })
                 .catch((error) => console.error(error));
-            },
+            }
           );
         })
         .catch((error) => {
@@ -290,7 +290,7 @@ const SignupScreen = () => {
           `Congratulations ${fullName},you have joined Dummygram`,
           {
             variant: "success",
-          },
+          }
         );
         navigate("/dummygram");
       })
@@ -344,6 +344,7 @@ const SignupScreen = () => {
               setUsername(e.target.value.trim());
               checkUsername();
             }}
+            maxLength={18}
             fieldName={"username"}
             aria_dsc_by={"username-error"}
             isError={!usernameAvailable}
@@ -361,6 +362,7 @@ const SignupScreen = () => {
               setFullName(e.target.value);
               handleError(e.target.name, e.target.value);
             }}
+            maxLength={40}
             fieldName={"name"}
             aria_dsc_by={"name-error"}
             isError={error.name && error.nameError}
@@ -368,7 +370,7 @@ const SignupScreen = () => {
             error_border={!error.nameError}
           />
 
-          {/* fullname input for the form */}
+          {/* Email input for the form */}
           <Auth__text__input
             label={"Email"}
             id={"email"}
@@ -379,6 +381,7 @@ const SignupScreen = () => {
               setEmail(e.target.value);
               handleError(e.target.name, e.target.value);
             }}
+            maxLength={64} // limiting to 64 characters emails
             fieldName={"email"}
             aria_dsc_by={"email-error"}
             isError={error.email && error.emailError}
@@ -397,6 +400,7 @@ const SignupScreen = () => {
               setPassword(e.target.value);
               handleError(e.target.name, e.target.value);
             }}
+            maxLength={30}
             aria_dsc_by={"password-error"}
             errorMesssage={error.passwordError}
             isError={error.password && error.passwordError}
@@ -413,6 +417,7 @@ const SignupScreen = () => {
               setConfirmPassword(e.target.value);
               handleError(e.target.name, e.target.value);
             }}
+            maxLength={30}
             aria_dsc_by={"confirm-password-error"}
             errorMesssage={error.confirmPasswordError}
             isError={error.confirmPassword && error.confirmPasswordError}

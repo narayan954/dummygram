@@ -50,7 +50,7 @@ const CommentBox = ({
             placeholder="Add a comment..."
             value={comment}
             onChange={(e) => setComment(e.target.value)}
-            maxLength="150"
+            maxLength={150}
             style={{
               // backgroundColor: "var(--bg-color)",
               background: "transparent",
