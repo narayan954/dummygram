@@ -8,6 +8,13 @@ body {
   background-color: #fbfbfb;
 }
 
+.loader-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 .loader {
   box-sizing: border-box;
   display: flex;
