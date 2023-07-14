@@ -16,12 +16,12 @@ function Contributor() {
 
   const getData = async () => {
     const res = await fetch(
-      `https://api.github.com/repos/narayan954/dummygram/contributors?page=${currentPage}&&per_page=10`
+      `https://api.github.com/repos/narayan954/dummygram/contributors?page=${currentPage}&&per_page=10`,
     );
 
     const data = await res.json();
     const contributorsData = data.filter(
-      (contributor) => !contributor.login.includes("deepsource-autofix[bot]")
+      (contributor) => !contributor.login.includes("deepsource-autofix[bot]"),
     );
     setContributors(contributorsData);
   };
