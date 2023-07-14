@@ -9,7 +9,7 @@ import Auth__ctn__group from "../../reusableComponents/Auth/Auth__ctn__group";
 import Auth__pass__input from "../../reusableComponents/Auth/Auth__pass__input";
 import Auth__text__input from "../../reusableComponents/Auth/Auth__text__input";
 import Auth__top from "../../reusableComponents/Auth/Auth__top";
-import Auth_container from "../../reusableComponents/AUth_container";
+import Auth_container from "../../reusableComponents/Auth/Auth_container";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import loginRight from "../../assets/login-right.webp";
 import logo from "../../assets/logo.webp";
