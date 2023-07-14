@@ -17,7 +17,10 @@ import {
   playSuccessSound,
   playTapSound,
 } from "../../js/sounds";
+import profileBackgroundImg from "../../assets/profile-background.jpg"
 import { useLocation, useNavigate } from "react-router-dom";
+import EditIcon from '@mui/icons-material/Edit';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import { FaUserCircle } from "react-icons/fa";
@@ -43,7 +46,6 @@ function Profile() {
   const [username, setUsername] = useState("");
   const [friendRequestSent, setFriendRequestSent] = useState(false);
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState("");
   const [uid, setUid] = useState(location?.state?.uid || null);
 
@@ -146,11 +148,6 @@ function Profile() {
         setUser(authUser);
         setName(location?.state?.name || authUser.displayName);
         setAvatar(location?.state?.avatar || authUser.photoURL);
-        setEmail(
-          location?.state?.name === authUser?.displayName
-            ? location?.state?.email || authUser.email
-            : "",
-        );
         setUid(location?.state?.uid || authUser.uid);
       } else {
         navigate("/dummygram/login");
@@ -171,7 +168,7 @@ function Profile() {
       );
       const unsubscribe = onSnapshot(usernameQ, (querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          setUsername(doc.username);
+          setUsername(doc.data().username);
         });
       });
     }
@@ -246,6 +243,9 @@ function Profile() {
       <ErrorBoundary>
         <SideBar />
       </ErrorBoundary>
+      <div className="background-image">
+        <img src={profileBackgroundImg} alt="" className="background-image" />
+      </div>
       <Modal
         open={open}
         onClose={handleClose}
@@ -304,20 +304,7 @@ function Profile() {
                       accept="image/*"
                     />
                     <label htmlFor="file">
-                      <div
-                        className="img-edit"
-                        style={{
-                          marginTop: "0.5rem",
-                          marginBottom: "0.5rem",
-                          color: "var(--text-secondary)",
-                          padding: "1.5rem",
-                          borderRadius: "32px",
-                          fontWeight: "600",
-                          letterSpacing: "3px",
-                        }}
-                      >
-                        Edit Profile Pic
-                      </div>
+                      <EditIcon className="edit-image-icon" />
                     </label>
                   </Box>
                 )}
@@ -362,23 +349,11 @@ function Profile() {
 
       <Box
         className="outer-profile-box"
-        width="90%"
-        paddingY={5}
-        paddingX={6}
-        sx={{
-          border: "none",
-          margin: "6rem auto 2rem",
-        }}
-        display="flex"
-        justifyContent={"center"}
-        alignItems={"center"}
-        textAlign={"center"}
-        color="var(--color)"
       >
         <Box
           display="flex"
           width="90%"
-          flexDirection="row"
+          flexDirection="column"
           justifyContent="space-between"
           gap={1}
           className="inner-profile"
@@ -395,16 +370,6 @@ function Profile() {
                 alt={name}
                 src={avatar}
                 className="profile-pic-container"
-                sx={{
-                  bgcolor: "black",
-                  border: "none",
-                  boxShadow: "0 0 4px black",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  cursor: "pointer",
-                  marginBottom: "1.2rem",
-                }}
               />
             ) : (
               <FaUserCircle style={{ width: "22vh", height: "22vh" }} />
@@ -417,19 +382,10 @@ function Profile() {
                   className="file"
                   onChange={handleChange}
                   accept="image/*"
+                  style={{ cursor: "pointer" }}
                 />
                 <label htmlFor="file">
-                  <div
-                    className="img-edit"
-                    style={{
-                      marginTop: "0.5rem",
-                      color: "var(--text-primary)",
-                      padding: "4px 15px",
-                      marginBottom: "0",
-                    }}
-                  >
-                    Edit Profile Pic
-                  </div>
+                  <EditIcon className="edit-image-icon" />
                 </label>
               </Box>
             )}
@@ -454,26 +410,32 @@ function Profile() {
             marginTop="10px"
             className="profile-right"
           >
-            <Typography fontSize="1.3rem" fontWeight="600">
-              {username}
-            </Typography>
-            <Typography fontSize="1.3rem" fontWeight="600" paddingBottom="10px">
+            <Typography className="profile-user-display-name">
               {name}
             </Typography>
-            <Typography fontSize="1.5rem" fontWeight="600" paddingBottom="10px">
-              {name === user?.displayName && email}
-            </Typography>
-            <div style={{ display: "flex" }}>
-              <Typography fontSize="1.1rem" fontWeight="600">
-                Total Posts:&nbsp;
-                <span style={{ fontWeight: "300" }}>{feed.length} &nbsp;</span>
+            <p className="profile-bio">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus atque eaque mollitia iusto odit! Voluptatum iusto beatae esse exercitationem.
+            </p>
+            <div className="username-and-location-container">
+              <Typography className="profile-user-username">
+                {username}
               </Typography>
-              <Typography fontSize="1.1rem" fontWeight="600">
+              <span className="dot-seperator"></span>
+              <Typography className="profile-user-username">
+                <LocationOnIcon className="location-icon" /> India
+              </Typography>
+            </div>
+            <div style={{ display: "flex", gap: "30px" }}>
+              <Typography className="posts-views">
+                All Posts:&nbsp;
+                <span>{feed.length}</span>
+              </Typography>
+              <Typography className="posts-views">
                 Views:&nbsp;
-                <span style={{ fontWeight: "300" }}>
+                <span>
                   <ViewsCounter uid={uid} />
                 </span>
-                   
+
               </Typography>
             </div>
             {name !== user?.displayName && (

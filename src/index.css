@@ -15,6 +15,7 @@
   --profile-divider: "";
   --logo-text-shadow: none;
   --btn-color: #8beeff;
+  --profile-color: #7d7575;
 }
 
 .darkmode {
@@ -32,6 +33,7 @@
   --profile-divider: #898989;
   --logo-text-shadow: 0 0 10px #eeeeee, 0 0 20px #ff4da6, 0 0 30px #ff4da6;
   --btn-color: #098b9f;
+  --profile-color: #c8c6c6;
 }
 
 * {
