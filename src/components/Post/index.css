@@ -79,7 +79,7 @@
   padding: 8px;
   font-weight: 400;
   font-size: 15px;
-  color: var(--text-secondary);
+  color: var(--text-black-only);
   white-space: pre-line;
 }
 
