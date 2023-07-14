@@ -274,7 +274,7 @@ input:focus {
   }
   .home-posts-container .app_posts_column,
   .home-posts-container .app_posts {
-    margin: 5.5em auto;
+    margin: 5.5em auto 0;
     padding-top: 2em;
   }
 }
