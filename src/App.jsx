@@ -32,7 +32,7 @@ const ForgotPassword = React.lazy(() => import("./pages/ForgotPassword"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 const Settings = React.lazy(() => import("./pages/Settings"));
 const Contributors = React.lazy(() =>
-  import("./pages/FooterPages/ContributorPage/index")
+  import("./pages/FooterPages/ContributorPage/index"),
 );
 // ------------------------------------- Components ------------------------------------------------
 const Favorite = React.lazy(() => import("./components/Favorite.jsx"));
@@ -133,7 +133,7 @@ function App() {
           snapshot.docs.map((doc) => ({
             id: doc.id,
             post: doc.data(),
-          }))
+          })),
         );
       });
   }, []);
@@ -257,6 +257,7 @@ function App() {
                       <SideBar />
                     </ErrorBoundary>
                     <div
+                      className="home-posts-container"
                       style={
                         !loadingPosts
                           ? {}
