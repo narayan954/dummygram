@@ -283,6 +283,7 @@ export default function ImgUpload(props) {
             multiline
             rows={12}
             disabled={uploadingPost}
+            inputProps={{ maxLength: 200 }}
             sx={{
               width: "100%",
               "& .MuiFormLabel-root.Mui-focused": {

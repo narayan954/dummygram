@@ -21,35 +21,38 @@ function Favorite() {
   let savedPostsArr = JSON.parse(localStorage.getItem("posts")) || [];
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      const posts = [];
-      const fetchPromises = savedPostsArr.map(async (id) => {
+    const posts = [];
+    if (savedPostsArr.length > 0) {
+      const fetchPosts = async () => {
         try {
-          const docRef = doc(db, "posts", id);
-          const doc = await getDoc(docRef);
-          doc?.data() && posts.push({ id: doc.id, post: doc.data() });
-        } catch (e) {
-          enqueueSnackbar("Error while getting post", {
+          const fetchSavedPosts = savedPostsArr.map(async (id) => {
+            try {
+              const docRef = doc(db, "posts", id);
+              const docSnap = await getDoc(docRef);
+              if (docSnap.exists()) {
+                posts.push({ id: docSnap.id, post: docSnap.data() });
+              }
+            } catch (error) {
+              enqueueSnackbar("Error while fetching all posts", {
+                variant: "error",
+              });
+              setLoading(false);
+            }
+          });
+
+          await Promise.all(fetchSavedPosts); // Wait for all fetch requests to complete
+          setLoading(false);
+          setPosts(posts);
+        } catch (error) {
+          enqueueSnackbar("Error while fetching all posts", {
             variant: "error",
           });
+          setLoading(false);
         }
-      });
+      };
 
-      try {
-        await Promise.all(fetchPromises);
-        setPosts(posts);
-        setLoading(false);
-      } catch (error) {
-        enqueueSnackbar("Error while fetching all posts", {
-          variant: "error",
-        });
-        setLoading(false);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (savedPostsArr.length === 0) {
+      fetchPosts();
+    } else {
       setLoading(false);
     }
   }, []);

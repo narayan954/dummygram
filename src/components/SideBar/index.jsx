@@ -30,7 +30,7 @@ function SideBar() {
           <li
             onClick={() => navigate("/dummygram/")}
             id="sidebar-home-link"
-            className={location.pathname == "/dummygram/" && "activeTab"}
+            className={location.pathname == "/dummygram/" ? "activeTab" : ""}
           >
             <div className="sidebar_align">
               <HomeIcon className="icon" /> <span>Home</span>
@@ -43,7 +43,9 @@ function SideBar() {
           </li>
           <li
             onClick={() => navigate("/dummygram/search")}
-            className={location.pathname == "/dummygram/search" && "activeTab"}
+            className={
+              location.pathname == "/dummygram/search" ? "activeTab" : ""
+            }
           >
             <div className="sidebar_align">
               <SearchIcon className="icon" /> <span>Search</span>
@@ -52,7 +54,7 @@ function SideBar() {
           <li
             onClick={() => navigate("/dummygram/favourites")}
             className={
-              location.pathname == "/dummygram/favourites" && "activeTab"
+              location.pathname == "/dummygram/favourites" ? "activeTab" : ""
             }
           >
             <div className="sidebar_align">
@@ -62,7 +64,7 @@ function SideBar() {
           <li
             onClick={() => navigate("/dummygram/notifications")}
             className={
-              location.pathname == "/dummygram/notifications" && "activeTab"
+              location.pathname == "/dummygram/notifications" ? "activeTab" : ""
             }
           >
             <div className="sidebar_align">
@@ -70,7 +72,9 @@ function SideBar() {
             </div>
           </li>
           <li
-            className={location.pathname == "/dummygram/profile" && "activeTab"}
+            className={
+              location.pathname == "/dummygram/profile" ? "activeTab" : ""
+            }
             onClick={() =>
               navigate("/dummygram/profile", {
                 state: {
