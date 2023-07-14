@@ -335,7 +335,7 @@ const SignupScreen = () => {
           />
           {/* Username Input for the form */}
           <Auth__text__input
-            label={"username"}
+            label={"Username"}
             id={"username"}
             placeholder={"Enter your Username"}
             value={username}
