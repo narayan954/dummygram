@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   height: 20px;
-  border-radius: 10px;
+  border-radius: 20px;
   box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
   cursor: pointer;
   color: blue;
@@ -31,6 +31,10 @@
 
 .profile-right p {
   font-size: 1rem;
+}
+
+.img-save:hover {
+  color: var(--btn-color);
 }
 
 /* media query */
@@ -106,7 +110,7 @@
   .img-edit,
   .img-save {
     font-size: 1rem;
-    padding: 5px 15px !important;
+    padding: 15px !important;
   }
   .profile-right {
     margin-top: 22px;
