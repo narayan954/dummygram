@@ -218,6 +218,7 @@ const LoginScreen = () => {
               setuserDatails({ ...userDatails, email: e.target.value });
               handleError(e.target.name, e.target.value);
             }}
+            maxLength={64}
             fieldName={"email"}
             aria_dsc_by={"email-error"}
             isError={error.email && error.emailError}
@@ -229,6 +230,7 @@ const LoginScreen = () => {
             label={"Password"}
             id={"password"}
             name={"password"}
+            maxLength={30}
             placeholder={"Enter your password"}
             value={userDatails.password}
             handleChange={(e) =>

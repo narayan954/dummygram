@@ -11,6 +11,7 @@ const Auth__pass__input = ({
   aria_dsc_by,
   errorMesssage,
   isError,
+  maxLength,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const handleShowPassword = (e) => {
@@ -37,6 +38,7 @@ const Auth__pass__input = ({
           value={value}
           onChange={(e) => handleChange(e)}
           required
+          maxLength={maxLength}
           aria-required="true"
           aria-label={label}
           aria-describedby={aria_dsc_by}
