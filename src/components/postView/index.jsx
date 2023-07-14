@@ -253,7 +253,7 @@ const PostCommentView = ({
           {postHasImages && caption ? (
             <ErrorBoundary>
               <PostCaption>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" className="post-page-caption" color="text.secondary">
                   <ReadMore readMore={false}>{caption}</ReadMore>
                 </Typography>
               </PostCaption>
@@ -362,7 +362,7 @@ const PostCommentView = ({
             ) : (
               <>
                 <CommentItem empty={true}>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" className="no-comments">
                     No Comments to Show!!
                   </Typography>
                 </CommentItem>
