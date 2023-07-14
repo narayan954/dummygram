@@ -67,14 +67,6 @@ function Contributor() {
                 <VscChromeClose style={{ fontWeight: "bold" }} />
               </Link>
             </div>
-            {/* <div
-              className="closeIcon"
-              style={{ fontSize: "30px", marginBottom: "-100px" }}
-            >
-              <Link to="/dummygram/">
-                <VscChromeClose style={{ fontWeight: "bold" }} />
-              </Link>
-            </div> */}
             <Typography
               textAlign="center"
               fontFamily="serif"
