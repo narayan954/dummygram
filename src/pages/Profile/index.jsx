@@ -21,6 +21,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import { FaUserCircle } from "react-icons/fa";
+import SettingsIcon from "@mui/icons-material/Settings";
+import LogoutIcon from "@mui/icons-material/Logout";
 import ViewsCounter from "./views";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
@@ -149,7 +151,7 @@ function Profile() {
         setEmail(
           location?.state?.name === authUser?.displayName
             ? location?.state?.email || authUser.email
-            : "",
+            : ""
         );
         setUid(location?.state?.uid || authUser.uid);
       } else {
@@ -167,7 +169,7 @@ function Profile() {
     if (auth.currentUser) {
       const usernameQ = query(
         collection(db, "users"),
-        where("uid", "==", auth.currentUser.uid),
+        where("uid", "==", auth.currentUser.uid)
       );
       const unsubscribe = onSnapshot(usernameQ, (querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -181,7 +183,7 @@ function Profile() {
   useEffect(() => {
     const q = query(
       collection(db, "posts"),
-      where("username", "==", location?.state?.name || name),
+      where("username", "==", location?.state?.name || name)
     );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const userPosts = [];
@@ -235,9 +237,18 @@ function Profile() {
             });
           })
           .catch((error) => console.error(error));
-      },
+      }
     );
     setVisible(false);
+  };
+
+  const signOut = () => {
+    auth.signOut().finally();
+    playSuccessSound();
+    enqueueSnackbar("Logged out Successfully !", {
+      variant: "info",
+    });
+    navigate("/dummygram/");
   };
 
   return (
@@ -411,6 +422,43 @@ function Profile() {
                 {friendRequestSent ? "Remove friend request" : "Add Friend"}
               </Button>
             )}
+            <Box
+              className="setting-logout"
+              display="flex"
+              flexDirection="column"
+              gap={3}
+              marginY={5}
+            >
+              <Button
+                variant="contained"
+                startIcon={<SettingsIcon style={{ color: "black" }} />}
+                style={{ backgroundColor: "#8beeff" }}
+                onClick={() => navigate("/dummygram/settings")}
+              >
+                <Typography
+                  fontSize="5rem"
+                  color="black"
+                  textTransform="capitalize"
+                >
+                  Settings
+                </Typography>
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                startIcon={<LogoutIcon style={{ color: "black" }} />}
+                style={{ backgroundColor: "#8beeff" }}
+                onClick={signOut}
+              >
+                <Typography
+                  fontSize="0.9rem"
+                  color="black"
+                  textTransform="capitalize"
+                >
+                  Log Out
+                </Typography>
+              </Button>
+            </Box>
           </Box>
         </Box>
       </Box>

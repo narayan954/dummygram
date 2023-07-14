@@ -186,9 +186,6 @@ function App() {
               onClick={() => setRowMode((prev) => !prev)}
               user={user}
               setUser={setUser}
-              open={open}
-              setOpen={setOpen}
-              setLogout={setLogout}
             />
           </ErrorBoundary>
           <ShareModal
