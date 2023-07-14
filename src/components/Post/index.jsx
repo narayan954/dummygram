@@ -60,7 +60,7 @@ function Post(prop) {
             snapshot.docs.map((doc) => ({
               id: doc.id,
               content: doc.data(),
-            })),
+            }))
           );
         });
     }
@@ -222,7 +222,7 @@ function Post(prop) {
         </Flexbetween>
 
         {user && (
-          <form className="post__commentBox">
+          <div className="post__commentBox">
             <ErrorBoundary>
               <PostNav
                 fullScreen={fullScreen}
@@ -298,7 +298,7 @@ function Post(prop) {
                 />
               </ErrorBoundary>
             </DialogBox>
-          </form>
+          </div>
         )}
       </div>
     </div>
