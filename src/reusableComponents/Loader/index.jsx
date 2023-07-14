@@ -13,7 +13,7 @@ export default function Loader(props) {
       width: 30,
       height: 30,
     },
-    props
+    props,
   );
 
   return (
