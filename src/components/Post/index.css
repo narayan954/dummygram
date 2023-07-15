@@ -47,7 +47,8 @@
   transition: all;
   transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
-  box-shadow: rgba(86, 238, 218, 0.8) 0px 3px 6px,
+  box-shadow:
+    rgba(86, 238, 218, 0.8) 0px 3px 6px,
     rgba(108, 190, 186, 0.8) 0px 3px 6px;
 }
 
