@@ -180,6 +180,10 @@
   transition: 0.3s ease-in-out;
 }
 
+.comment-doer-name {
+  cursor: pointer;
+}
+
 .comment-delete-icon:hover {
   background-color: rgb(187, 187, 187);
 }
