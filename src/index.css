@@ -135,6 +135,8 @@ input:focus {
   .home-posts-container .app_posts {
     padding: 5.5em 15px 20px 9vw;
   }
+  .post-page-container{padding: 5.5em 15px 15px 8vw;}
+  .post-card {margin: 50px auto !important;}
 }
 @media only screen and (max-width: 800px) {
   .app__posts,
@@ -144,6 +146,10 @@ input:focus {
     flex-direction: column;
     align-items: center;
     gap: 1em;
+  }
+  .post-page-container{
+    padding: 0;
+    padding-top: 5.5em;
   }
 }
 
@@ -251,7 +257,7 @@ input:focus {
     left: 43%;
     margin-bottom: 2em;
   }
-
+  .post-page-container{padding: 0;}
   .app__newpost__button {
     left: -6%;
   }
@@ -308,6 +314,8 @@ input:focus {
     gap: 2rem;
     justify-content: center;
   }
+  .post-page-container{padding: 5.5em 15px 15px 17vw;}
+  .post-card {margin: 50px auto !important;}
   .scrollTop {
     left: 47.7%;
   }
