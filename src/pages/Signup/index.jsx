@@ -2,7 +2,6 @@ import "./index.css";
 import "../Login/index";
 
 import React, { useRef, useState } from "react";
-import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
 import {
   auth,
   db,
@@ -10,11 +9,15 @@ import {
   googleProvider,
   storage,
 } from "../../lib/firebase";
-import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { getModalStyle, useStyles } from "../../App";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Auth__ctn__group from "../../reusableComponents/Auth/Auth__ctn__group";
+import Auth__image__input from "../../reusableComponents/Auth/Auth__image__input";
+import Auth__pass__input from "../../reusableComponents/Auth/Auth__pass__input";
+import Auth__text__input from "../../reusableComponents/Auth/Auth__text__input";
+import Auth__top from "../../reusableComponents/Auth/Auth__top";
+import Auth_container from "../../reusableComponents/Auth/Auth_container";
 import blank_profile from "../../assets/blank-profile.webp";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import loginRight from "../../assets/login-right.webp";
@@ -35,13 +38,11 @@ const SignupScreen = () => {
   const [signingUp, setSigningUp] = useState(false);
   const [image, setImage] = useState(null);
   const [address, setAddress] = useState(null);
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [usernameAvailable, setUsernameAvailable] = useState(true);
   const [username, setUsername] = useState("");
   const [isOauthSignUp, setIsOauthSignUp] = useState(false);
   const [error, setError] = useState(validate.initialValue);
-  const usernameRef = useRef(null);
+  const usernameRef = useRef("");
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
@@ -61,24 +62,16 @@ const SignupScreen = () => {
     if (!regex.test(name)) {
       setUsernameAvailable(false);
     } else {
-      debounce(findUsernameInDB());
+      const debouncedFunction = debounce(findUsernameInDB);
+      debouncedFunction();
     }
   };
 
   const findUsernameInDB = async () => {
-    const ref = db.doc(`usernames/${usernameRef.current}`);
+    const docId = usernameRef.current; // Assuming `usernameRef.current` contains the document ID
+    const ref = db.doc(`usernames/${docId}`);
     const { exists } = await ref.get();
     setUsernameAvailable(!exists);
-  };
-
-  const handleShowPassword = (e) => {
-    e.preventDefault();
-    setShowPassword(!showPassword);
-  };
-
-  const handleShowConfirmPassword = (e) => {
-    e.preventDefault();
-    setShowConfirmPassword(!showConfirmPassword);
   };
 
   const handleChange = (e) => {
@@ -109,19 +102,26 @@ const SignupScreen = () => {
     }
 
     if (submitable) {
-      const usernameDoc = db.collection(`users`);
+      const userCollectionRef = db.collection(`users`);
+      const usernameDoc = db.doc(`usernames/${username}`);
+      const batch = db.batch();
       await auth
         .createUserWithEmailAndPassword(email, password)
         .then(async (authUser) => {
           await updateProfile(auth.currentUser, {
             displayName: fullName,
           })
+            .then(batch.set(usernameDoc, { uid: auth.currentUser.uid }))
+            .then(batch.commit())
             .then(
-              await usernameDoc.doc(auth.currentUser.uid).set({
+              await userCollectionRef.doc(auth.currentUser.uid).set({
                 uid: auth.currentUser.uid,
-                name: username,
+                username: username,
+                name: fullName,
+                email: email,
                 photoURL: auth.currentUser.photoURL,
                 posts: [],
+                friends: [],
               }),
             )
             .then(() => {
@@ -143,10 +143,7 @@ const SignupScreen = () => {
           const uploadTask = storage.ref(`images/${image?.name}`).put(image);
           uploadTask.on(
             "state_changed",
-            () => {
-              // // progress function ...
-              // setProgress(Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100));
-            },
+            () => {},
             (error) => {
               playErrorSound();
               enqueueSnackbar(error.message, {
@@ -189,75 +186,29 @@ const SignupScreen = () => {
     }
   };
 
-  const signInWithGoogle = (e) => {
-    e.preventDefault();
+  const signInWithGoogle = () => {
     auth
       .signInWithPopup(googleProvider)
-      .then(async (val) => {
-        setIsOauthSignUp(true);
-        const usernameDoc = db.collection(`users`);
-        await usernameDoc
-          .doc(auth.currentUser.uid)
-          .set({
-            uid: val.user.uid,
-            name: val.user.displayName,
-            photoURL: val.user.photoURL,
-            displayName: val.user.displayName,
-            Friends: [],
-            posts: [],
-          })
-          .then(() => {
-            playSuccessSound();
-            enqueueSnackbar(
-              `Congratulations ${fullName},you have joined Dummygram`,
-              {
-                variant: "success",
-              },
-            );
-            navigate("/dummygram");
-          })
-          .catch((error) => {
-            playErrorSound();
-            enqueueSnackbar(error.message, {
-              variant: "error",
-            });
-          });
-      })
-      .catch((error) =>
-        enqueueSnackbar(error.message, {
-          variant: "error",
-        }),
-      );
-  };
+      .then((result) => {
+        // The user is signed in, and you can access the user information
+        const user = result.user;
 
-  const signInWithFacebook = (e) => {
-    e.preventDefault();
-    auth
-      .signInWithPopup(facebookProvider)
-      .then(async (val) => {
-        setFullName(val?.user?.displayName);
-        setEmail(val?.user?.email);
-        setIsOauthSignUp(true);
-        const usernameDoc = db.collection(`users`);
-        await usernameDoc
-          .doc(auth.currentUser.uid)
-          .set({
-            uid: val.user.uid,
-            name: val.user.displayName,
-            photoURL: val.user.photoURL,
-            displayName: val.user.displayName,
-            Friends: [],
-            posts: [],
-          })
-          .then(() => {
-            playSuccessSound();
-            enqueueSnackbar(
-              `Congratulations ${fullName},you have joined Dummygram`,
-              {
-                variant: "success",
-              },
-            );
-            navigate("/dummygram");
+        // Check if the user exists in Firebase
+        const usersRef = db.collection("users");
+        usersRef
+          .doc(user.uid)
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              if (!doc.data().username) {
+                doc.ref.update({
+                  username: doc.data().uid,
+                });
+              }
+              navigate("/dummygram");
+            } else {
+              createUserDoc(result);
+            }
           })
           .catch((error) => {
             playErrorSound();
@@ -274,6 +225,83 @@ const SignupScreen = () => {
       });
   };
 
+  const signInWithFacebook = () => {
+    auth
+      .signInWithPopup(facebookProvider)
+      .then((result) => {
+        // The user is signed in, and you can access the user information
+        const user = result.user;
+
+        // Check if the user exists in Firebase
+        const usersRef = db.collection("users");
+        usersRef
+          .doc(user.uid)
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              if (!doc.data().username) {
+                doc.ref.update({
+                  username: doc.data().uid,
+                });
+              }
+              navigate("/dummygram");
+            } else {
+              createUserDoc(result);
+            }
+          })
+          .catch((error) => {
+            playErrorSound();
+            enqueueSnackbar(error.message, {
+              variant: "error",
+            });
+          });
+      })
+      .catch((error) => {
+        playErrorSound();
+        enqueueSnackbar(error.message, {
+          variant: "error",
+        });
+      });
+  };
+
+  async function createUserDoc(val) {
+    setFullName(val?.user?.displayName);
+    setEmail(val?.user?.email);
+    setIsOauthSignUp(true);
+    const userCollectionRef = db.collection(`users`);
+    const usernameDoc = db.doc(`usernames/${username}`);
+    const batch = db.batch();
+    batch.set(usernameDoc, { uid: val.user.uid });
+    batch.commit();
+    await userCollectionRef
+      .doc(auth.currentUser.uid)
+      .set({
+        uid: val.user.uid,
+        username: val.user.uid,
+        name: val.user.displayName,
+        email: val.user.email,
+        photoURL: val.user.photoURL,
+        posts: [],
+        friends: [],
+      })
+      .then(() => {
+        playSuccessSound();
+        enqueueSnackbar(
+          `Congratulations ${fullName},you have joined Dummygram`,
+          {
+            variant: "success",
+          },
+        );
+        navigate("/dummygram");
+      })
+      .catch((error) => {
+        playErrorSound();
+        enqueueSnackbar(error.message, {
+          variant: "error",
+        });
+      });
+  }
+
   const navigateToLogin = () => {
     navigate("/dummygram/login");
   };
@@ -288,222 +316,125 @@ const SignupScreen = () => {
   };
 
   return (
-    <section className="login__section">
-      <div className="login__left">
-        <form>
-          <div className="form__top">
-            <img src={logo} alt="dummygram logo" />
-            <div className="greetings">
-              <h3>Hey, hello 👋</h3>
-              <p>Welcome to DummyGram 😊, let's get your account created</p>
-            </div>
-          </div>
+    <Auth_container right__img={loginRight}>
+      <form aria-label="Sign Up Form">
+        <Auth__top
+          logo={logo}
+          heading={"Hey, hello 👋"}
+          top__greeting={
+            "Welcome to DummyGram 😊, let's get your account created"
+          }
+        />
+        <div className="form__bottom">
+          {/* image input for the form  */}
+          <Auth__image__input
+            address={address}
+            blank_profile={blank_profile}
+            image={image}
+            handleChange={handleChange}
+          />
+          {/* Username Input for the form */}
+          <Auth__text__input
+            label={"Username"}
+            id={"username"}
+            placeholder={"Enter your Username"}
+            value={username}
+            handleChange={(e) => {
+              usernameRef.current = e.target.value.trim();
+              setUsername(e.target.value.trim());
+              checkUsername();
+            }}
+            maxLength={18}
+            fieldName={"username"}
+            aria_dsc_by={"username-error"}
+            isError={!usernameAvailable}
+            errorMesssage={"Username not availaible"}
+            error_border={usernameAvailable}
+          />
 
-          <div className="form__bottom">
-            <div className="input__group">
-              <label htmlFor="file">
-                <div className="img-outer">
-                  {address ? (
-                    <img
-                      src={URL.createObjectURL(image)}
-                      alt="profile pic"
-                      className="img-inner"
-                    />
-                  ) : (
-                    <img
-                      src={blank_profile}
-                      alt="profile pic"
-                      className="img-inner"
-                    />
-                  )}
-                </div>
-              </label>
-              <input
-                type="file"
-                id="file"
-                className="file"
-                onChange={handleChange}
-                accept="image/*"
-                required
-              />
-            </div>
-            <div className="input__group">
-              <label htmlFor="username">Username</label>
-              <input
-                id="username"
-                type="text"
-                placeholder="Enter your Username"
-                value={username}
-                onChange={(e) => {
-                  usernameRef.current = e.target.value.trim();
-                  setUsername(e.target.value.trim());
-                  checkUsername();
-                }}
-                className={usernameAvailable ? null : "error-border"}
-                required
-              />
-              {!usernameAvailable && (
-                <p className="error">Username not availaible</p>
-              )}
-            </div>
+          {/* fullname input for the form */}
+          <Auth__text__input
+            label={"Full name"}
+            id={"full__name"}
+            placeholder={"Enter your Fullname"}
+            value={fullName}
+            handleChange={(e) => {
+              setFullName(e.target.value);
+              handleError(e.target.name, e.target.value);
+            }}
+            maxLength={40}
+            fieldName={"name"}
+            aria_dsc_by={"name-error"}
+            isError={error.name && error.nameError}
+            errorMesssage={error.nameError}
+            error_border={!error.nameError}
+          />
 
-            <div className="input__group">
-              <label htmlFor="full__name">Full name</label>
-              <input
-                id="full__name"
-                type="text"
-                placeholder="Enter your Fullname"
-                value={fullName}
-                name="name"
-                onChange={(e) => {
-                  setFullName(e.target.value);
-                  handleError(e.target.name, e.target.value);
-                }}
-                className={error.nameError ? "error-border" : null}
-                required
-              />
-              {error.name && error.nameError && (
-                <p className="error">{error.nameError}</p>
-              )}
-            </div>
+          {/* Email input for the form */}
+          <Auth__text__input
+            label={"Email"}
+            id={"email"}
+            type="email"
+            placeholder={"Enter your email"}
+            value={email}
+            handleChange={(e) => {
+              setEmail(e.target.value);
+              handleError(e.target.name, e.target.value);
+            }}
+            maxLength={64} // limiting to 64 characters emails
+            fieldName={"email"}
+            aria_dsc_by={"email-error"}
+            isError={error.email && error.emailError}
+            errorMesssage={error.emailError}
+            error_border={!error.emailError}
+          />
 
-            <div className="input__group">
-              <label htmlFor="email">Email</label>
-              <input
-                id="email"
-                type="email"
-                placeholder="Enter your email"
-                name="email"
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                  handleError(e.target.name, e.target.value);
-                }}
-                className={error.emailError ? "error-border" : null}
-                required
-              />
-              {error.email && error.emailError && (
-                <p className="error">{error.emailError}</p>
-              )}
-            </div>
+          {/* password input for the form  */}
+          <Auth__pass__input
+            label={"Password"}
+            id={"password"}
+            name={"password"}
+            placeholder={"Enter your password"}
+            value={password}
+            handleChange={(e) => {
+              setPassword(e.target.value);
+              handleError(e.target.name, e.target.value);
+            }}
+            maxLength={30}
+            aria_dsc_by={"password-error"}
+            errorMesssage={error.passwordError}
+            isError={error.password && error.passwordError}
+          />
 
-            <div className="input__group">
-              <label htmlFor="password">Password</label>
-              <div
-                id="password-container"
-                className={
-                  error.passwordError
-                    ? "error-border pass__input__container"
-                    : "pass__input__container"
-                }
-              >
-                <input
-                  id="password"
-                  name="password"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Enter your password"
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                    handleError(e.target.name, e.target.value);
-                  }}
-                  required
-                />
-                <button
-                  onClick={(e) => handleShowPassword(e)}
-                  className="show-password"
-                >
-                  {showPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
-                </button>
-              </div>
-              {error.password && error.passwordError && (
-                <p className="error">{error.passwordError}</p>
-              )}
-            </div>
-            {/* confirm password */}
-
-            <div className="input__group">
-              <label htmlFor="confirmpassword">Confirm Password</label>
-              <div
-                id="password-container"
-                className={
-                  error.confirmPasswordError
-                    ? "error-border pass__input__container"
-                    : "pass__input__container"
-                }
-              >
-                <input
-                  id="confirmpassword"
-                  name="confirmPassword"
-                  type={showConfirmPassword ? "text" : "password"}
-                  placeholder="Confirm your Password"
-                  value={confirmPassword}
-                  onChange={(e) => {
-                    setConfirmPassword(e.target.value);
-                    handleError(e.target.name, e.target.value);
-                  }}
-                  required
-                />
-                <button
-                  onClick={(e) => handleShowConfirmPassword(e)}
-                  className="show-password"
-                >
-                  {showConfirmPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
-                </button>
-              </div>
-              {error.confirmPassword && error.confirmPasswordError && (
-                <p className="error">{error.confirmPasswordError}</p>
-              )}
-            </div>
-            <button
-              type="submit"
-              onClick={signUp}
-              className="action__btn login__btn"
-            >
-              Sign Up <FontAwesomeIcon icon={faRightToBracket} />
-            </button>
-
-            <div className="other__login__method">
-              <div className="or option__divider">
-                <div className="line" />
-                <div style={{ padding: "5px 9px" }}>or</div>
-                <div className="line" />
-              </div>
-              <div className="google__fb--login">
-                <button
-                  className="other__login google"
-                  type="submit"
-                  onClick={signInWithGoogle}
-                >
-                  <FontAwesomeIcon icon={faGoogle} className="google-icon" />{" "}
-                  Sign up with Google
-                </button>
-                <button
-                  className="other__login facebook"
-                  type="submit"
-                  onClick={signInWithFacebook}
-                >
-                  <FontAwesomeIcon
-                    icon={faFacebookF}
-                    className="facebook-icon"
-                  />{" "}
-                  Sign up with Facebook
-                </button>
-              </div>
-              <div className="have-account">
-                Already have an account?{" "}
-                <span role={"button"} onClick={navigateToLogin}>
-                  Sign in!
-                </span>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div className="login__right signup__right">
-        <img src={loginRight} alt="website image" />
-      </div>
-    </section>
+          {/* confirm password input for the form  */}
+          <Auth__pass__input
+            label={"Confirm Password"}
+            id={"confirmpassword"}
+            name={"confirmPassword"}
+            placeholder={"Confirm your Password"}
+            value={confirmPassword}
+            handleChange={(e) => {
+              setConfirmPassword(e.target.value);
+              handleError(e.target.name, e.target.value);
+            }}
+            maxLength={30}
+            aria_dsc_by={"confirm-password-error"}
+            errorMesssage={error.confirmPasswordError}
+            isError={error.confirmPassword && error.confirmPasswordError}
+          />
+          <Auth__ctn__group
+            handleSubmit={signUp}
+            btn__label={"Sign up"}
+            submit__icon={faRightToBracket}
+            handleSignInWithGoogle={signInWithGoogle}
+            handleSignInWithFacebook={signInWithFacebook}
+            have_acct_question={"Already have an account?"}
+            have_acct_nav={navigateToLogin}
+            have__acct_action={"Sign in!"}
+          />
+        </div>
+      </form>
+    </Auth_container>
   );
 };
 

@@ -21,6 +21,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import { FaUserCircle } from "react-icons/fa";
+import ViewsCounter from "./views";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
 
@@ -208,6 +209,7 @@ function Profile() {
   };
 
   const handleSave = () => {
+    setOpen(false);
     const uploadTask = storage.ref(`images/${image?.name}`).put(image);
     uploadTask.on(
       "state_changed",
@@ -266,21 +268,95 @@ function Profile() {
             borderRadius: "5%",
           }}
         >
-          <img
-            style={{
-              objectFit: "cover",
-              borderRadius: "50%",
-              margin: 0,
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-            }}
-            width={isNonMobile ? "50%" : "50%"}
-            height={isNonMobile ? "50%" : "50%"}
-            src={avatar}
-            alt={name}
-          />
+          {name === user?.displayName ? (
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <img
+                style={{
+                  objectFit: "cover",
+                  borderRadius: "50%",
+                  margin: 0,
+                  position: "absolute",
+                  top: "30%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                }}
+                width={isNonMobile ? "50%" : "50%"}
+                height={isNonMobile ? "50%" : "50%"}
+                src={avatar}
+                alt={name}
+              />
+              <div
+                style={{
+                  position: "absolute",
+                  top: "70%",
+                  left: "50%",
+                  transform: "translate(-50%, -30%)",
+                  color: "var(--text-secondary)",
+                }}
+              >
+                {name === user?.displayName && (
+                  <Box>
+                    <input
+                      type="file"
+                      id="file"
+                      className="file"
+                      onChange={handleChange}
+                      accept="image/*"
+                    />
+                    <label htmlFor="file">
+                      <div
+                        className="img-edit"
+                        style={{
+                          marginTop: "0.5rem",
+                          marginBottom: "0.5rem",
+                          color: "var(--text-secondary)",
+                          padding: "1.5rem",
+                          borderRadius: "32px",
+                          fontWeight: "600",
+                          letterSpacing: "3px",
+                        }}
+                      >
+                        Edit Profile Pic
+                      </div>
+                    </label>
+                  </Box>
+                )}
+                {visible && (
+                  <Button
+                    className="img-save"
+                    onClick={handleSave}
+                    variant="outlined"
+                    sx={{
+                      marginTop: "1rem",
+                      padding: "5px 25px",
+                    }}
+                  >
+                    Save
+                  </Button>
+                )}
+              </div>
+            </div>
+          ) : (
+            <>
+              <img
+                style={{
+                  objectFit: "cover",
+                  margin: 0,
+                  position: "absolute",
+                  height: "90%",
+                  width: "90%",
+                  transform: "translate(-50%, -50%)",
+                  borderRadius: "6%",
+                  top: "50%",
+                  left: "50%",
+                }}
+                width={isNonMobile ? "50%" : "50%"}
+                height={isNonMobile ? "50%" : "50%"}
+                src={avatar}
+                alt={name}
+              />
+            </>
+          )}
         </Box>
       </Modal>
 
@@ -348,7 +424,8 @@ function Profile() {
                     style={{
                       marginTop: "0.5rem",
                       color: "var(--text-primary)",
-                      padding: "2px 15px",
+                      padding: "4px 15px",
+                      marginBottom: "0",
                     }}
                   >
                     Edit Profile Pic
@@ -386,9 +463,19 @@ function Profile() {
             <Typography fontSize="1.5rem" fontWeight="600" paddingBottom="10px">
               {name === user?.displayName && email}
             </Typography>
-            <Typography fontSize="1.2rem" paddingBottom="10px">
-              Total Posts: {feed.length}
-            </Typography>
+            <div style={{ display: "flex" }}>
+              <Typography fontSize="1.1rem" fontWeight="600">
+                Total Posts:&nbsp;
+                <span style={{ fontWeight: "300" }}>{feed.length} &nbsp;</span>
+              </Typography>
+              <Typography fontSize="1.1rem" fontWeight="600">
+                Views:&nbsp;
+                <span style={{ fontWeight: "300" }}>
+                  <ViewsCounter uid={uid} />
+                </span>
+                   
+              </Typography>
+            </div>
             {name !== user?.displayName && (
               <Button
                 onClick={handleSendFriendRequest}

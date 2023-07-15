@@ -46,7 +46,8 @@ export default function ImgUpload(props) {
         variant: "error",
       });
       setisValidimage(false);
-      return false;
+      e.stopPropagation();
+      return;
     }
     for (let i = 0; i < e.target.files.length; i++) {
       const img = e.target.files[i];
@@ -282,6 +283,7 @@ export default function ImgUpload(props) {
             multiline
             rows={12}
             disabled={uploadingPost}
+            inputProps={{ maxLength: 200 }}
             sx={{
               width: "100%",
               "& .MuiFormLabel-root.Mui-focused": {
