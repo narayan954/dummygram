@@ -60,7 +60,7 @@ function Post(prop) {
             snapshot.docs.map((doc) => ({
               id: doc.id,
               content: doc.data(),
-            })),
+            }))
           );
         });
     }
@@ -174,13 +174,7 @@ function Post(prop) {
   };
 
   return (
-    <div
-      className={`${rowMode ? "post" : "postColumn"}`}
-      style={{
-        boxShadow:
-          "rgba(144, 93, 185, 0.8) 0px 3px 6px, rgba(144, 93, 185, 0.8) 0px 3px 6px",
-      }}
-    >
+    <div className={`${rowMode ? "post" : "postColumn"}`}>
       <ErrorBoundary>
         <PostHeader
           user={user}
