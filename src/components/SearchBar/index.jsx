@@ -76,8 +76,8 @@ function SearchBar() {
           onChange={handleSearch}
         />
         <label className="search-icon">
-              <FaSearch/>
-            </label>
+          <FaSearch />
+        </label>
       </div>
       <Box>
         <div
