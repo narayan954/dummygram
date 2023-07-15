@@ -518,3 +518,26 @@ input {
 .other__login {
   margin: 0 auto;
 }
+
+/* auth container */
+.login__section {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.login__left {
+  overflow-y: scroll;
+}
+
+@media only screen and (max-width: 700px) {
+  .login__section {
+    height: 100%;
+    overflow: visible;
+  }
+
+  .login__left {
+    height: 100%;
+    overflow-y: visible;
+    padding: 0;
+  }
+}
