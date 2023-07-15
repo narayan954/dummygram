@@ -469,7 +469,7 @@ input {
 }
 
 .have-account span:hover {
-  color: rgb(157, 147, 219);
+  color: var(--btn-color);
 }
 
 .login-footer {
