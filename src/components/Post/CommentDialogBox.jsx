@@ -36,7 +36,6 @@ const CommentDialogBox = ({
       }}
       borderRadius="10px"
       maxHeight="40vh"
-      // marginBottom="30px"
       marginTop="10px"
     >
       {comments.length ? (
