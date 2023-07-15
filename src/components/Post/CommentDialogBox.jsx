@@ -11,7 +11,7 @@ import {
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import React from "react";
 import ReadMore from "../ReadMore";
 
@@ -26,6 +26,7 @@ const CommentDialogBox = ({
   deleteComment,
   deleteCommentID,
 }) => {
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
@@ -45,15 +46,21 @@ const CommentDialogBox = ({
             <div key={userComment.id}>
               <div className="commentCard">
                 <div>
-                  <Link
-                    className="comment-doer"
-                    to={`/dummygram/${userComment.content.username}`}
-                  >
-                    <AccountCircleIcon />
-                    <span className="comment-doer-name">
-                      {userComment.content.username}
-                    </span>
-                  </Link>
+                <div className="comment-doer">
+                <AccountCircleIcon />
+                <span className="comment-doer-name" onClick={() => {
+                  navigate("/dummygram/profile", {
+                    state: {
+                      name: userComment.content.username,
+                      avatar: userComment.content.avatar,
+                      uid: userComment.content.uid,
+                      email: userComment.content.email,
+                    },
+                  });
+                }}>
+                  {userComment.content.username}
+                </span>
+                  </div>
                   <p className="comment">
                     <ReadMore>{userComment.content.text}</ReadMore>
                   </p>
