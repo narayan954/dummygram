@@ -131,6 +131,7 @@
 .google__fb--login {
   padding-top: 0.5rem;
   display: flex;
+  flex-wrap: wrap;
   margin: 0 auto;
   gap: 0.7rem;
 }
