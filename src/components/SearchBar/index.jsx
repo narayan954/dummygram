@@ -7,6 +7,7 @@ import { Box } from "@mui/material";
 import Post from "../Post";
 import ShareModal from "../../reusableComponents";
 import SideBar from "../SideBar";
+import { FaSearch } from "react-icons/fa";
 
 const MemoizedPost = memo(Post);
 
@@ -69,10 +70,14 @@ function SearchBar() {
       <div className="search-bar" style={{ marginTop: "-150px" }}>
         <input
           type="search"
+          className="search-input"
           value={searchText}
           placeholder="Search Here..."
           onChange={handleSearch}
         />
+        <label className="search-icon">
+              <FaSearch/>
+            </label>
       </div>
       <Box>
         <div
