@@ -21,7 +21,7 @@
 }
 .search-icon{
   position: absolute;
-  right: -23px;
+  right: 0px;
   top: 0;
   width:54px;
  background: linear-gradient(40deg, #e107c1, #59afc7);;
