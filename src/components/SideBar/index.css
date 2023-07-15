@@ -92,7 +92,7 @@ footer {
   padding: 0;
 }
 
-.sidebar-footer-container > li {
+.sidebar-footer-container>li {
   margin-right: 10px;
 }
 
@@ -119,6 +119,10 @@ footer {
 @media screen and (max-width: 1200px) {
   .sidebar {
     width: 8vw;
+  }
+
+  .sidebar-links {
+    padding: 0 5px;
   }
 
   .sidebar-links li a,
