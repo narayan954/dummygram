@@ -491,9 +491,8 @@ input {
 
 /* end */
 
-
 /* login sign up forms */
-.page-over{
+.page-over {
   background-color: var(--page-over-color);
   height: 100%;
   width: 100%;
@@ -502,7 +501,7 @@ input {
   justify-content: center;
   min-height: 100vh;
 }
-.login__section{
+.login__section {
   border: 1px solid black;
   margin: 0 5%;
   height: 70%;
@@ -510,8 +509,6 @@ input {
   box-shadow: 0 0 10px 1px rgb(66, 49, 66);
   max-width: 1360px;
 }
-input{
+input {
   background-color: var(--label-color);
 }
-
-
