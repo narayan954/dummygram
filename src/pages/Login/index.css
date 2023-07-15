@@ -5,7 +5,6 @@
   font-family: "DM Sans", sans-serif;
   grid-template-columns: 1fr 1fr;
   width: 100vw;
-
   box-sizing: border-box;
 }
 
@@ -67,13 +66,13 @@
 .action__btn {
   width: 100%;
   padding: 0.8rem 1rem;
-  font-size: 1.2rem;
+  font-size: 1rem;
   border-radius: 0.5rem;
   outline: none;
   cursor: pointer;
-  color: rgba(255, 255, 255, 0.738);
-  border: 1px solid rgb(250, 165, 220);
-  background: linear-gradient(#fb5d8ca9, #ad3066ba);
+  color: rgb(255, 255, 255);
+  border: 1px solid rgb(0, 98, 255);
+  background: rgb(0, 132, 255);
   transition: all 0.2s ease-in;
 }
 
@@ -152,6 +151,7 @@
   border-radius: 0.5rem;
   letter-spacing: 1px;
   transition: all 0.3s ease;
+  width: 100%;
 }
 
 .other__login img {
@@ -229,7 +229,7 @@
 }
 
 .forgot-pasword span:hover {
-  color: var(--btn-color);
+  color: var(--btn-color-hover);
 }
 .have-account {
   text-align: center;
@@ -329,12 +329,28 @@
   }
 }
 
-/* media query for 350px */
-@media (max-width: 350px) {
+/* media query for 400px */
+@media (max-width: 400px) {
   .login__left {
     justify-content: flex-start;
   }
   .login__section form {
     width: 95%;
+  }
+  .form__bottom {
+    width: 20em;
+  }
+}
+
+/* media query for 360px */
+@media (max-width: 360px) {
+  .login__left {
+    justify-content: flex-start;
+  }
+  .login__section form {
+    width: 95%;
+  }
+  .form__bottom {
+    width: 18em;
   }
 }

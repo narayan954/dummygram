@@ -15,9 +15,10 @@
   --profile-divider: "";
   --logo-text-shadow: none;
   --btn-color: #8beeff;
-  --page-over-color: #cd4dff;
-  --slide-color: #da9bea;
-  --label-color: plum;
+  --btn-color-hover: #098b9f;
+  --page-over-color: #5ec3fd;
+  --slide-color: #9be5ea;
+  --label-color: rgb(200, 246, 248);
 }
 
 .darkmode {
@@ -35,6 +36,7 @@
   --profile-divider: #898989;
   --logo-text-shadow: 0 0 10px #eeeeee, 0 0 20px #ff4da6, 0 0 30px #ff4da6;
   --btn-color: #098b9f;
+  --btn-color-hover: #098b9f;
   --page-over-color: #3a3e44;
   --slide-color: #524a54;
   --label-color: #6a656b;
@@ -113,7 +115,7 @@ input:focus {
 }
 
 .rowConvert {
-  color: #ab4bc2;
+  color: var(--btn-color);
   display: flex;
   margin-right: 12px;
   transition: all;
@@ -469,7 +471,7 @@ input {
 }
 
 .have-account span:hover {
-  color: var(--btn-color);
+  color: var(--btn-color-hover);
 }
 
 .login-footer {
@@ -480,13 +482,13 @@ input {
 }
 
 .button-style {
-  background: linear-gradient(40deg, #e107c1, #59afc7);
+  background: var(--btn-color);
   border-radius: 20px;
   margin: 10px;
 }
 
 .button-style:hover {
-  background: linear-gradient(-40deg, #59afc7, #e107c1);
+  background: var(--btn-color-hover);
 }
 
 /* end */
