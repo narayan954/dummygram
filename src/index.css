@@ -15,6 +15,9 @@
   --profile-divider: "";
   --logo-text-shadow: none;
   --btn-color: #8beeff;
+  --page-over-color: #cd4dff;
+  --slide-color: #da9bea;
+  --label-color: plum;
 }
 
 .darkmode {
@@ -32,6 +35,9 @@
   --profile-divider: #898989;
   --logo-text-shadow: 0 0 10px #eeeeee, 0 0 20px #ff4da6, 0 0 30px #ff4da6;
   --btn-color: #098b9f;
+  --page-over-color: #3a3e44;
+  --slide-color: #524a54;
+  --label-color: #6a656b;
 }
 
 * {
@@ -441,6 +447,7 @@ input {
 }
 
 /* login with google or facebook button */
+
 .google-fb-login button {
   font-size: 22px;
   height: 50px;
@@ -483,3 +490,28 @@ input {
 }
 
 /* end */
+
+
+/* login sign up forms */
+.page-over{
+  background-color: var(--page-over-color);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+.login__section{
+  border: 1px solid black;
+  margin: 0 5%;
+  height: 70%;
+  background-color: var(--slide-color);
+  box-shadow: 0 0 10px 1px rgb(66, 49, 66);
+  max-width: 1360px;
+}
+input{
+  background-color: var(--label-color);
+}
+
+
