@@ -26,6 +26,7 @@ import { updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import validate from "../../reusableComponents/validation";
+import { Darkmode } from "../../reusableComponents";
 
 const SignupScreen = () => {
   const classes = useStyles();
@@ -388,7 +389,7 @@ const SignupScreen = () => {
             errorMesssage={error.emailError}
             error_border={!error.emailError}
           />
-
+          <div className="pass-container-both">
           {/* password input for the form  */}
           <Auth__pass__input
             label={"Password"}
@@ -422,6 +423,7 @@ const SignupScreen = () => {
             errorMesssage={error.confirmPasswordError}
             isError={error.confirmPassword && error.confirmPasswordError}
           />
+          </div>
           <Auth__ctn__group
             handleSubmit={signUp}
             btn__label={"Sign up"}
