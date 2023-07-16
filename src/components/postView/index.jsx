@@ -27,13 +27,13 @@ import useCreatedAt from "../../hooks/useCreatedAt.jsx";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 
+const ImageSlider = React.lazy(() => import("../../reusableComponents"));
 const PostDetails = React.lazy(() => import("./PostDetails.jsx"));
 const PostViewComments = React.lazy(() => import("./PostViewComments.jsx"));
 const PostViewMenu = React.lazy(() => import("./PostViewMenu.jsx"));
-const ImageSlider = React.lazy(() =>
-  import("../../reusableComponents/ImageSlider"),
-);
+
 const ReadMore = React.lazy(() => import("../ReadMore"));
+
 const PostCommentView = ({
   setFetchAgain,
   shareModal,
@@ -53,7 +53,7 @@ const PostCommentView = ({
 
   const [comments, setComments] = React.useState(null);
   const [likesNo, setLikesNo] = React.useState(
-    likecount ? likecount.length : 0,
+    likecount ? likecount.length : 0
   );
   const tempLikeCount = likecount ? [...likecount] : [];
   const [showEmojis, setShowEmojis] = React.useState(false);
@@ -115,7 +115,7 @@ const PostCommentView = ({
             snapshot.docs.map((doc) => ({
               id: doc.id,
               content: doc.data(),
-            })),
+            }))
           );
         });
     }
@@ -159,7 +159,7 @@ const PostCommentView = ({
   };
 
   return (
-    <PostViewGrid container>
+    <PostViewGrid container className="post-card">
       <PostGridItemContainer item xs={12} sm={6}>
         <PostGridItem
           postHasImages={postHasImages}
@@ -184,7 +184,7 @@ const PostCommentView = ({
                   </ErrorBoundary>
                 </Typography>
               ) : (
-                <Typography variant="h5" color="text.secondary">
+                <Typography variant="h5" className="light-text">
                   <Caption caption={caption} />
                 </Typography>
               )}
@@ -253,7 +253,11 @@ const PostCommentView = ({
           {postHasImages && caption ? (
             <ErrorBoundary>
               <PostCaption>
-                <Typography variant="body2" color="text.secondary">
+                <Typography
+                  variant="body2"
+                  className="post-page-caption"
+                  color="text.secondary"
+                >
                   <ReadMore readMore={false}>{caption}</ReadMore>
                 </Typography>
               </PostCaption>
@@ -362,7 +366,7 @@ const PostCommentView = ({
             ) : (
               <>
                 <CommentItem empty={true}>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" className="no-comments">
                     No Comments to Show!!
                   </Typography>
                 </CommentItem>
