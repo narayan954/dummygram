@@ -2,11 +2,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 120px;
-  width: 120px;
+  height: 100px;
+  width: 100px;
   border-radius: 50%;
   box-shadow: var(--profile-box-shadow);
   cursor: pointer;
+  margin-top: 1%;
 }
 
 .signup-container {
@@ -14,7 +15,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 6em;
 }
 
 .img-outer .img-inner {
@@ -62,7 +62,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: 90%;
   height: 100%;
   border: 1px solid rgba(104, 85, 224, 1);
   box-sizing: border-box;
@@ -73,7 +73,7 @@
 }
 
 .password-input {
-  width: 100%;
+  width: 80%;
   border: none;
   margin: 0;
   box-shadow: none;
@@ -81,12 +81,13 @@
 
 .show-password {
   height: 100%;
-  width: 50px;
-  margin: 0;
+  width: 20px;
+  margin: 0 auto;
   background-color: transparent;
   border: none;
   outline: none;
   cursor: pointer;
+  padding-right: 0;
 }
 
 .error {
@@ -94,8 +95,33 @@
   color: red;
 }
 
+.pass-container-both {
+  display: flex;
+  flex-direction: row;
+  gap: 0.8rem;
+  align-items: last baseline;
+}
+
+/* .pass-container-both input {
+  width: 70%;
+} */
+
 @media screen and (max-width: 720px) {
   .signup-container {
     margin-top: 4em;
+  }
+  .pass-container-both {
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  .show-password {
+    width: 5em;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .show-password {
+    width: 3em;
   }
 }

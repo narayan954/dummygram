@@ -1,7 +1,6 @@
 import "./index.css";
 
 import {
-  AnimatedButton,
   Darkmode,
   Loader,
   ShareModal,
@@ -12,12 +11,8 @@ import { auth, db } from "./lib/firebase";
 
 import ErrorBoundary from "./reusableComponents/ErrorBoundary";
 import { FaArrowCircleUp } from "react-icons/fa";
-import Modal from "@mui/material/Modal";
 import { RowModeContext } from "./hooks/useRowMode";
-import logo from "./assets/logo.webp";
 import { makeStyles } from "@mui/styles";
-import { playSuccessSound } from "./js/sounds";
-import { useSnackbar } from "notistack";
 
 // ------------------------------------ Pages ----------------------------------------------------
 const About = React.lazy(() => import("./pages/FooterPages/About"));
@@ -32,7 +27,7 @@ const ForgotPassword = React.lazy(() => import("./pages/ForgotPassword"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 const Settings = React.lazy(() => import("./pages/Settings"));
 const Contributors = React.lazy(() =>
-  import("./pages/FooterPages/ContributorPage/index")
+  import("./pages/FooterPages/ContributorPage/index"),
 );
 // ------------------------------------- Components ------------------------------------------------
 const Favorite = React.lazy(() => import("./components/Favorite.jsx"));
@@ -79,19 +74,15 @@ const PAGESIZE = 10;
 function App() {
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState(null);
-  const [open, setOpen] = useState();
   const [loadingPosts, setLoadingPosts] = useState(true);
   const [loadMorePosts, setLoadMorePosts] = useState(false);
-  const [logout, setLogout] = useState(false);
   const [openShareModal, setOpenShareModal] = useState(false);
   const [currentPostLink, setCurrentPostLink] = useState("");
   const [postText, setPostText] = useState("");
   const [rowMode, setRowMode] = useState(false);
   const [showScroll, setShowScroll] = useState(false);
 
-  const classes = useStyles();
   const navigate = useNavigate();
-  const { enqueueSnackbar } = useSnackbar();
 
   const checkScrollTop = () => {
     if (!showScroll && window.pageYOffset > 400) {
@@ -133,7 +124,7 @@ function App() {
           snapshot.docs.map((doc) => ({
             id: doc.id,
             post: doc.data(),
-          }))
+          })),
         );
       });
   }, []);
@@ -168,15 +159,6 @@ function App() {
     setLoadMorePosts(false);
   }, [loadMorePosts]);
 
-  const signOut = () => {
-    auth.signOut().finally();
-    playSuccessSound();
-    enqueueSnackbar("Logged out Successfully !", {
-      variant: "info",
-    });
-    navigate("/dummygram/");
-  };
-
   return (
     <RowModeContext.Provider value={rowMode}>
       <ErrorBoundary inApp={true}>
@@ -195,56 +177,6 @@ function App() {
             postText={postText}
           />
 
-          <Modal open={logout} onClose={() => setLogout(false)}>
-            <div style={getModalStyle()} className={classes.paper}>
-              <form className="modal__signup">
-                <img
-                  src={logo}
-                  alt="dummygram"
-                  className="modal__signup__img"
-                  style={{
-                    width: "80%",
-                    marginLeft: "10%",
-                    filter: "var(--filter-img)",
-                  }}
-                />
-
-                <p
-                  style={{
-                    fontSize: "15px",
-                    fontFamily: "monospace",
-                    padding: "10%",
-                    color: "var(--color)",
-                    // marginBottom:800
-                  }}
-                >
-                  Are you sure you want to Logout?
-                </p>
-
-                <div className={classes.logout}>
-                  <AnimatedButton
-                    type="submit"
-                    onClick={signOut}
-                    variant="contained"
-                    color="primary"
-                    className="button-style"
-                  >
-                    Logout
-                  </AnimatedButton>
-                  <AnimatedButton
-                    type="submit"
-                    onClick={() => setLogout(false)}
-                    variant="contained"
-                    color="primary"
-                    className="button-style"
-                  >
-                    Cancel
-                  </AnimatedButton>
-                </div>
-              </form>
-            </div>
-          </Modal>
-
           <Darkmode />
           <Routes>
             <Route
@@ -257,6 +189,7 @@ function App() {
                       <SideBar />
                     </ErrorBoundary>
                     <div
+                      className="home-posts-container"
                       style={
                         !loadingPosts
                           ? {}

@@ -13,17 +13,11 @@ export default function Loader(props) {
       width: 30,
       height: 30,
     },
-    props
+    props,
   );
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <div className="loader-container">
       <div
         className="loader"
         style={{

@@ -5,7 +5,6 @@ import {
   Box,
   Button,
   Divider,
-  Modal,
   Typography,
   useMediaQuery,
 } from "@mui/material";
@@ -19,10 +18,15 @@ import {
 } from "../../js/sounds";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import { AnimatedButton } from "../../reusableComponents";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import { FaUserCircle } from "react-icons/fa";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
+import logo from "../../assets/logo.webp";
+import { makeStyles } from "@mui/styles";
+import Modal from "@mui/material/Modal";
+// import Modal from "@mui/material/Modal";
 import ViewsCounter from "./views";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
@@ -30,7 +34,41 @@ import { useSnackbar } from "notistack";
 const Post = lazy(() => import("../../components/Post"));
 const SideBar = lazy(() => import("../../components/SideBar"));
 
+export function getModalStyle() {
+  const top = 0;
+  // const left = 50;
+  const padding = 2;
+  const radius = 3;
+
+  return {
+    top: `${top}%`,
+    // left: `${left}%`,
+    transform: `translate(-${top}%, -50%)`,
+    padding: `${padding}%`,
+    borderRadius: `${radius}%`,
+    textAlign: "center",
+    backgroundColor: "var(--bg-color)",
+  };
+}
+
+export const useStyles = makeStyles((theme) => ({
+  paper: {
+    width: 250,
+    marginTop: 300,
+    borderRadius: theme.shape.borderRadius,
+    boxShadow: "var(--profile-box-shadow)",
+    padding: theme.spacing(2, 4, 3),
+    color: "var(--color)",
+    margin: "auto",
+  },
+  logout: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
+}));
+
 function Profile() {
+  const classes = useStyles();
   const location = useLocation();
   const navigate = useNavigate();
   const isNonMobile = useMediaQuery("(min-width: 768px)");
@@ -42,6 +80,7 @@ function Profile() {
   const [feed, setFeed] = useState([]);
   const [profilePic, setProfilePic] = useState("");
   const [open, setOpen] = useState(false);
+  const [logout, setLogout] = useState(false);
   const [username, setUsername] = useState("");
   const [friendRequestSent, setFriendRequestSent] = useState(false);
   const [name, setName] = useState("");
@@ -523,7 +562,7 @@ function Profile() {
                 color="primary"
                 startIcon={<LogoutIcon style={{ color: "black" }} />}
                 style={{ backgroundColor: "#8beeff" }}
-                onClick={signOut}
+                onClick={() => setLogout(true)}
               >
                 <Typography
                   fontSize="0.9rem"
@@ -534,6 +573,56 @@ function Profile() {
                 </Typography>
               </Button>
             </Box>
+
+            <Modal open={logout} onClose={() => setLogout(false)}>
+            <div style={getModalStyle()} className={classes.paper}>
+              <form className="modal__signup">
+                <img
+                  src={logo}
+                  alt="dummygram"
+                  className="modal__signup__img"
+                  style={{
+                    width: "80%",
+                    marginLeft: "10%",
+                    filter: "var(--filter-img)",
+                  }}
+                />
+
+                <p
+                  style={{
+                    fontSize: "15px",
+                    fontFamily: "monospace",
+                    padding: "10%",
+                    color: "var(--color)",
+                    // marginBottom:800
+                  }}
+                >
+                  Are you sure you want to Logout?
+                </p>
+
+                <div className={classes.logout}>
+                  <AnimatedButton
+                    type="submit"
+                    onClick={signOut}
+                    variant="contained"
+                    color="primary"
+                    className="button-style"
+                  >
+                    Logout
+                  </AnimatedButton>
+                  <AnimatedButton
+                    type="submit"
+                    onClick={() => setLogout(false)}
+                    variant="contained"
+                    color="primary"
+                    className="button-style"
+                  >
+                    Cancel
+                  </AnimatedButton>
+                </div>
+              </form>
+            </div>
+          </Modal>
           </Box>
         </Box>
       </Box>

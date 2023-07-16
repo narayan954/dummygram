@@ -40,7 +40,7 @@
 }
 
 #sidebar-home-link {
-  margin-top: 6.5em;
+  margin-top: 6.2em;
 }
 
 .sidebar-links li:hover {
@@ -119,6 +119,10 @@ footer {
 @media screen and (max-width: 1200px) {
   .sidebar {
     width: 8vw;
+  }
+
+  .sidebar-links {
+    padding: 0 5px;
   }
 
   .sidebar-links li a,
