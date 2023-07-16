@@ -274,7 +274,7 @@ export default function ImgUpload(props) {
               </>
             )}
           </div>
-          <TextField
+          <TextField className="create-post-input"
             onChange={(e) => setCaption(e.target.value)}
             value={caption}
             variant="filled"
@@ -290,8 +290,10 @@ export default function ImgUpload(props) {
               },
               "& .MuiFilledInput-root": {
                 background: "transparent",
+                color: "var(--color)"
               },
             }}
+            style={{color: "var(--color) !important"}}
           />
           <button
             onClick={handleUpload}

@@ -38,6 +38,7 @@
   --text-black-only: black;
   --text-light: rgba(255,255,255,0.6);
   --post-error-boundary: rgba(255,255,255,0.54);
+  --darkmode-white: white;
 }
 
 * {
@@ -48,9 +49,6 @@
 body {
   background-color: var(--bg-color) !important;
 }
-.no-comments, 
-.light-text,
-.post-page-caption span{color: var(--text-light);}
 
 /* App styles */
 .app {
@@ -490,5 +488,10 @@ input {
 .button-style:hover {
   background: linear-gradient(-40deg, #59afc7, #e107c1);
 }
+
+.no-comments, 
+.light-text,
+.post-page-caption span{color: var(--text-light);}
+.create-post-input label {color: var(--darkmode-white);}
 
 /* end */
