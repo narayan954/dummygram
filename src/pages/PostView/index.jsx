@@ -4,9 +4,9 @@ import { doc, getDoc } from "firebase/firestore";
 import { Loader } from "../../reusableComponents";
 import PostCommentView from "../../components/postView";
 import { PostViewContainer } from "./PostViewStyled.jsx";
+import SideBar from "../../components/SideBar";
 import { db } from "../../lib/firebase";
 import { useParams } from "react-router-dom";
-import SideBar from "../../components/SideBar";
 
 const PostView = (props) => {
   const { id } = useParams();
@@ -36,7 +36,7 @@ const PostView = (props) => {
   return (
     <>
       <SideBar />
-      <PostViewContainer className="post-page-container" >
+      <PostViewContainer className="post-page-container">
         {post && user ? (
           <PostCommentView
             key={id}

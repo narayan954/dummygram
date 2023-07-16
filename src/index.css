@@ -135,8 +135,12 @@ input:focus {
   .home-posts-container .app_posts {
     padding: 5.5em 15px 20px 9vw;
   }
-  .post-page-container{padding: 5.5em 15px 15px 8vw;}
-  .post-card {margin: 50px auto !important;}
+  .post-page-container {
+    padding: 5.5em 15px 15px 8vw;
+  }
+  .post-card {
+    margin: 50px auto !important;
+  }
 }
 @media only screen and (max-width: 800px) {
   .app__posts,
@@ -147,7 +151,7 @@ input:focus {
     align-items: center;
     gap: 1em;
   }
-  .post-page-container{
+  .post-page-container {
     padding: 0;
     padding-top: 5.5em;
   }
@@ -257,7 +261,9 @@ input:focus {
     left: 43%;
     margin-bottom: 2em;
   }
-  .post-page-container{padding: 0;}
+  .post-page-container {
+    padding: 0;
+  }
   .app__newpost__button {
     left: -6%;
   }
@@ -314,8 +320,12 @@ input:focus {
     gap: 2rem;
     justify-content: center;
   }
-  .post-page-container{padding: 5.5em 15px 15px 17vw;}
-  .post-card {margin: 50px auto !important;}
+  .post-page-container {
+    padding: 5.5em 15px 15px 17vw;
+  }
+  .post-card {
+    margin: 50px auto !important;
+  }
   .scrollTop {
     left: 47.7%;
   }
@@ -376,12 +386,11 @@ div#picker {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgb(2, 255, 255);
-  border-radius: 10px;
+  background: var(--color);
+  border-radius: 2em;
 }
 
 /* landing animation */
-
 #logo {
   animation: animate 4s ease forwards;
   filter: invert(0.5) sepia(1) saturate(5) hue-rotate(175deg);
@@ -519,9 +528,6 @@ input {
   box-shadow: 0 0 10px 1px rgb(66, 49, 66);
   max-width: 1360px;
   min-width: 300px;
-}
-input {
-  background-color: var(--label-color);
 }
 .other__login {
   margin: 0 auto;
