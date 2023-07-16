@@ -52,9 +52,6 @@ const CommentDialogBox = ({
                   navigate("/dummygram/profile", {
                     state: {
                       name: userComment.content.username,
-                      avatar: userComment.content.avatar,
-                      uid: userComment.content.uid,
-                      email: userComment.content.email,
                     },
                   });
                 }}>
