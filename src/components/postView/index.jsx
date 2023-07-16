@@ -27,13 +27,13 @@ import useCreatedAt from "../../hooks/useCreatedAt.jsx";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 
+const ImageSlider = React.lazy(() => import("../../reusableComponents"));
 const PostDetails = React.lazy(() => import("./PostDetails.jsx"));
 const PostViewComments = React.lazy(() => import("./PostViewComments.jsx"));
 const PostViewMenu = React.lazy(() => import("./PostViewMenu.jsx"));
-const ImageSlider = React.lazy(() =>
-  import("../../reusableComponents/ImageSlider")
-);
+
 const ReadMore = React.lazy(() => import("../ReadMore"));
+
 const PostCommentView = ({
   setFetchAgain,
   shareModal,
