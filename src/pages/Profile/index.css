@@ -95,6 +95,9 @@
     width: 140px;
     height: 140px;
   }
+  .app__posts {
+    padding-top: 0;
+  }
   .setting-logout {
     flex-direction: row;
   }
