@@ -226,30 +226,38 @@ input:focus {
 }
 
 .scrollTop {
-  align-self: center;
-  animation: fadeIn 0.2s;
+  /* align-self: center; 
+   animation: fadeIn 0.2s;
   bottom: 20px;
   cursor: pointer;
   display: flex;
-  height: 60px;
+  height: 50px;
   justify-content: center;
-  left: 50%;
   opacity: 0.9;
   position: fixed;
+  left: 18%;
   transition: opacity 0.4s;
   width: 60px;
-  z-index: 1000;
+  z-index: 1000; */
+  position: fixed;
+  bottom: 4%;
+  height: 50px;
+  width: 50px;
+  margin-left: -29%;
+  cursor: pointer;
 }
+
+
 
 .scrollTop:hover {
   opacity: 1;
 }
 
 /* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 790px) {
   .scrollTop {
-    left: 43%;
-    margin-bottom: 2em;
+    margin-left: 20px;
+    margin-bottom: 8%;
   }
 
   .app__newpost__button {
@@ -262,9 +270,7 @@ input:focus {
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-  .scrollTop {
-    left: 45.6%;
-  }
+
   .app__newpost__button {
     left: -4.8%;
   }
@@ -272,9 +278,7 @@ input:focus {
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-  .scrollTop {
-    left: 46.6%;
-  }
+
 
   .sideToTop {
     left: 19.6%;
@@ -287,9 +291,7 @@ input:focus {
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 911px) {
-  .scrollTop {
-    left: 47.2%;
-  }
+ 
 
   .sideToTop {
     left: 19.6%;
@@ -310,6 +312,7 @@ input:focus {
   }
   .scrollTop {
     left: 47.7%;
+   
   }
 
   .sideToTop {

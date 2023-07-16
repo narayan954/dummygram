@@ -432,7 +432,7 @@ function App() {
           location.pathname === "/dummygram/about" ||
           location.pathname === "/dummygram/guidelines" ||
           location.pathname === "/dummygram/contributors" ? (
-            <div>
+           
               <FaArrowCircleUp
                 fill="#777"
                 className="scrollTop"
@@ -440,12 +440,13 @@ function App() {
                 style={{
                   height: 50,
                   display: showScroll ? "flex" : "none",
-                  position: "fixed",
+                 
+                 
                 }}
               />
-            </div>
+            
           ) : (
-            <div>
+           
               <FaArrowCircleUp
                 fill="#777"
                 className="scrollTop sideToTop"
@@ -456,7 +457,7 @@ function App() {
                   position: "fixed",
                 }}
               />
-            </div>
+            
           )}
         </div>
       </ErrorBoundary>
