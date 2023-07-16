@@ -32,7 +32,7 @@ const ForgotPassword = React.lazy(() => import("./pages/ForgotPassword"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 const Settings = React.lazy(() => import("./pages/Settings"));
 const Contributors = React.lazy(() =>
-  import("./pages/FooterPages/ContributorPage/index"),
+  import("./pages/FooterPages/ContributorPage/index")
 );
 // ------------------------------------- Components ------------------------------------------------
 const Favorite = React.lazy(() => import("./components/Favorite.jsx"));
@@ -88,6 +88,7 @@ function App() {
   const [postText, setPostText] = useState("");
   const [rowMode, setRowMode] = useState(false);
   const [showScroll, setShowScroll] = useState(false);
+  const [searchText, setSearchText] = useState("");
 
   const classes = useStyles();
   const navigate = useNavigate();
@@ -100,6 +101,11 @@ function App() {
       setShowScroll(false);
     }
   };
+
+  const handleSearch = (e) => {
+    setSearchText(e.target.value);
+    console.log(searchText)
+  }
 
   const scrollTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -133,8 +139,10 @@ function App() {
           snapshot.docs.map((doc) => ({
             id: doc.id,
             post: doc.data(),
-          })),
+          }))
+         
         );
+      
       });
   }, []);
 
@@ -163,6 +171,7 @@ function App() {
               })),
             ];
           });
+          console.log(posts)
         });
     }
     setLoadMorePosts(false);
@@ -259,6 +268,7 @@ function App() {
                     <ErrorBoundary inApp={true}>
                       <SideBar />
                     </ErrorBoundary>
+
                     <div
                       className="home-posts-container"
                       style={
@@ -282,7 +292,32 @@ function App() {
                           }`}
                         >
                           <ErrorBoundary inApp>
-                            {posts.map(({ id, post }) => (
+                          <div
+                            // className="search-bar"
+                            
+                          >
+                            <input
+                              type="search"
+                              style={{background:'white'}}
+                              // className="search-input" 
+                              value={searchText}
+                              placeholder="Search Here..."
+                              onChange={handleSearch}
+                            />
+                          </div>
+                            {searchText ? posts.filter((post) => post.post.username?.toLowerCase().includes(searchText.toLowerCase()))
+                            .map(({ id, post }) => (
+                              <Post
+                                rowMode={rowMode}
+                                key={id}
+                                postId={id}
+                                user={user}
+                                post={post}
+                                shareModal={setOpenShareModal}
+                                setLink={setCurrentPostLink}
+                                setPostText={setPostText}
+                              />
+                            )) : posts.map(({ id, post }) => (
                               <Post
                                 rowMode={rowMode}
                                 key={id}

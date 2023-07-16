@@ -518,3 +518,24 @@ input {
 .other__login {
   margin: 0 auto;
 }
+
+/* .search-bar {
+  position: relative;
+  height: 50px;
+  max-width: 380px;
+  background: #fff;
+  margin: 30px auto;
+  border: 1px solid #e107c1;
+  border-radius: 25px;
+}
+.search-input {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: 25px;
+  background: #fff;
+  border: none;
+  font-size: 16px;
+  padding-left: 20px;
+  margin-top: -2px;
+} */
