@@ -178,7 +178,7 @@ function Post(prop) {
       className={`${rowMode ? "post" : "postColumn"}`}
       style={{
         boxShadow:
-          "rgba(144, 93, 185, 0.8) 0px 3px 6px, rgba(144, 93, 185, 0.8) 0px 3px 6px",
+          "#fff 0px 3px 6px, #0cc 0px 3px 6px",
       }}
     >
       <ErrorBoundary>

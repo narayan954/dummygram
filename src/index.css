@@ -14,7 +14,7 @@
   --profile-box-shadow: 0 0 6px 0 black;
   --profile-divider: "";
   --logo-text-shadow: none;
-  --btn-color: #8beeff;
+  --btn-color: #0CC;
 }
 
 .darkmode {
@@ -30,8 +30,8 @@
   --profile-container: rgb(50, 48, 48);
   --profile-box-shadow: 0 0 6px white;
   --profile-divider: #898989;
-  --logo-text-shadow: 0 0 10px #eeeeee, 0 0 20px #ff4da6, 0 0 30px #ff4da6;
-  --btn-color: #098b9f;
+  --logo-text-shadow: 0 0 10px #eeeeee, 0 0 20px #0cc, 0 0 30px #fff;
+  --btn-color: #0cc;
 }
 
 * {
@@ -107,7 +107,7 @@ input:focus {
 }
 
 .rowConvert {
-  color: #ab4bc2;
+  color: #0CC;
   display: flex;
   margin-right: 12px;
   transition: all;
@@ -116,7 +116,7 @@ input:focus {
 }
 
 .rowConvert:hover {
-  color: red;
+  color: rgb(185, 248, 248);
   cursor: pointer;
   transform: scale(1.04);
 }
@@ -161,7 +161,7 @@ input:focus {
 }
 
 .post__img_container:only-of-type .post__img {
-  border-bottom: 1px solid rgba(72, 6, 91, 0.281);
+  border-bottom: 1px solid rgba(5, 132, 132, 0.281);
   border-top: 1px solid rgba(215, 208, 208, 0.845);
 }
 
@@ -473,13 +473,13 @@ input {
 }
 
 .button-style {
-  background: linear-gradient(40deg, #e107c1, #59afc7);
+  background: linear-gradient(40deg, #0CC, #daf1f7);
   border-radius: 20px;
   margin: 10px;
 }
 
 .button-style:hover {
-  background: linear-gradient(-40deg, #59afc7, #e107c1);
+  background: linear-gradient(-40deg, #daf1f7, #0CC);
 }
 
 /* end */

@@ -7,7 +7,7 @@
   box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
   cursor: pointer;
   color: blue;
-  border: 2px solid blue;
+  border: 2px solid #0CC;
   filter: invert(0%) !important;
   transition: color 0.4s;
   padding: 0 15px;
@@ -16,7 +16,7 @@
 
 .img-edit:hover {
   opacity: 1;
-  background: linear-gradient(40deg, #e107c1, #59afc7);
+  background: linear-gradient(40deg, #0cc, #fff);
   filter: invert(0%) !important;
   color: white !important;
 }

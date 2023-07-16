@@ -46,7 +46,7 @@
   }
 
   .share__button {
-    background: linear-gradient(40deg, #e107c1, #59afc7);
+    background: linear-gradient(40deg,  #0CC, #daf1f7);
     width: 100%;
     color: white;
     padding: 10px;
@@ -68,7 +68,7 @@
   }
 
   .share__button {
-    background: linear-gradient(40deg, #e107c1, #59afc7);
+    background: linear-gradient(40deg, #0CC, #daf1f7);
     width: 100%;
     color: white;
     padding: 10px;
@@ -93,7 +93,7 @@
 
   .next_button {
     display: block;
-    background: linear-gradient(40deg, #e107c1, #59afc7);
+    background: linear-gradient(40deg, #0CC, #daf1f7);
     width: 100%;
     color: white;
     padding: 0.6rem;
@@ -148,7 +148,7 @@
   align-items: center;
   border-radius: 1rem;
   font-size: 1rem;
-  background: linear-gradient(40deg, #e107c1, #59afc7);
+  background: linear-gradient(40deg,  #0CC, #daf1f7);
   color: white;
   padding: 5px 10px;
   cursor: pointer;
@@ -242,7 +242,7 @@
   display: block;
   position: relative;
   border-radius: 20px;
-  background: linear-gradient(40deg, #e107c1, #59afc7);
+  background: linear-gradient(40deg,  #0CC, #daf1f7);
   box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
@@ -328,7 +328,7 @@ input {
 
 .popupMain button {
   border-radius: 20px;
-  background: linear-gradient(40deg, #e107c1, #59afc7);
+  background: linear-gradient(40deg,  #0CC, #daf1f7);
   box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
@@ -343,11 +343,11 @@ input {
 .close-btn {
   margin: 6px;
   padding: 10px;
-  background: rgb(223, 95, 218);
+  background: #0CC;
   background: linear-gradient(
     40deg,
-    rgba(223, 95, 218, 1) 53%,
-    rgba(104, 197, 213, 1) 100%
+    #0CC 30%,
+    rgb(219, 243, 247) 100%
   );
   /* border: 1px solid var(--color); */
   border: none;

@@ -19,11 +19,12 @@
 .cameraBtn button {
   margin: 6px;
   padding: 10px;
-  background: rgb(223, 95, 218);
+  /* background: rgb(223, 95, 218); */
+  background: #0CC;
   background: linear-gradient(
     40deg,
-    rgba(223, 95, 218, 1) 53%,
-    rgba(104, 197, 213, 1) 100%
+    #0CC 30%,
+    rgb(219, 243, 247) 100%
   );
   /* border: 1px solid var(--color); */
   border: none;
@@ -51,11 +52,11 @@
 .outputContainer button {
   margin: 6px;
   padding: 10px;
-  background: rgb(223, 95, 218);
+  background: #0CC;;
   background: linear-gradient(
     40deg,
-    rgba(223, 95, 218, 1) 53%,
-    rgba(104, 197, 213, 1) 100%
+    #0CC 30%,
+    rgb(219, 247, 252) 100%
   );
   /* border: 1px solid var(--color); */
   border: none;

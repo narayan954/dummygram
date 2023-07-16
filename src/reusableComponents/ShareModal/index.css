@@ -29,7 +29,9 @@
 .copy-link-button {
   background-color: lightblue;
   color: black;
-  border: 2px solid purple;
+  padding:  5px;
+  border-radius: 6px;
+  border: 2px solid #0CC;
 }
 .copy-link-button:hover {
   cursor: pointer;
