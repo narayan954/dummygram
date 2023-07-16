@@ -14,10 +14,10 @@ import ErrorBoundary from "./reusableComponents/ErrorBoundary";
 import { FaArrowCircleUp } from "react-icons/fa";
 import Modal from "@mui/material/Modal";
 import { RowModeContext } from "./hooks/useRowMode";
-import logo from "./assets/logo.webp";
 import { makeStyles } from "@mui/styles";
 import { playSuccessSound } from "./js/sounds";
 import { useSnackbar } from "notistack";
+import { Logo } from "./reusableComponents"
 
 // ------------------------------------ Pages ----------------------------------------------------
 const About = React.lazy(() => import("./pages/FooterPages/About"));
@@ -201,17 +201,7 @@ function App() {
           <Modal open={logout} onClose={() => setLogout(false)}>
             <div style={getModalStyle()} className={classes.paper}>
               <form className="modal__signup">
-                <img
-                  src={logo}
-                  alt="dummygram"
-                  className="modal__signup__img"
-                  style={{
-                    width: "80%",
-                    marginLeft: "10%",
-                    filter: "var(--filter-img)",
-                  }}
-                />
-
+                <Logo />
                 <p
                   style={{
                     fontSize: "15px",

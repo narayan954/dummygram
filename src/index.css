@@ -5,6 +5,7 @@
   --text-primary: blue;
   --text-secondary: black;
   --color: rgb(0, 0, 0);
+  --logo-text-shadow: none;
   --filter-img: none;
   --sidebar-link-hover: rgba(0, 0, 0, 0.05);
   --post-box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.4);
@@ -22,6 +23,7 @@
   --text-primary: rgb(255, 255, 255);
   --text-secondary: white;
   --color: rgb(226, 226, 226);
+  --logo-text-shadow: 0 0 10px #eeeeee, 0 0 20px #ff4da6, 0 0 30px #ff4da6;
   --filter-img: invert(100%);
   --sidebar-link-hover: rgba(255, 255, 255, 0.15);
   --post-box-shadow: 0px 0px 5px 1px rgba(255, 255, 255, 0.4);

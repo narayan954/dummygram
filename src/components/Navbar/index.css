@@ -56,18 +56,3 @@
   padding: 0.5rem;
   cursor: pointer;
 }
-
-#dummygram-logo {
-  color: transparent;
-  font-family: "Dancing Script", cursive;
-  font-size: 32px;
-  font-weight: 700;
-  text-shadow: var(--logo-text-shadow);
-  background: linear-gradient(40deg, #ea18cb, #f404d0, #59afc7);
-  -webkit-background-clip: text;
-  background-clip: text;
-  margin-left: 20px;
-  cursor: pointer;
-  width: 150px;
-  border-radius: 0.3rem;
-}
