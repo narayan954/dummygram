@@ -367,7 +367,6 @@ const PostCommentView = ({
               <>
                 <CommentItem empty={true}>
                   <Typography variant="body2" className="no-comments">
-                  <Typography variant="body2" className="no-comments">
                     No Comments to Show!!
                   </Typography>
                 </CommentItem>
