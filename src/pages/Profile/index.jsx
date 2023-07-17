@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { auth, db, storage } from "../../lib/firebase";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { getModalStyle, useStyles } from "../../App";
 import { lazy, useEffect, useState } from "react";
 import {
   playErrorSound,
@@ -33,39 +34,6 @@ import { useSnackbar } from "notistack";
 
 const Post = lazy(() => import("../../components/Post"));
 const SideBar = lazy(() => import("../../components/SideBar"));
-
-export function getModalStyle() {
-  const top = 0;
-  // const left = 50;
-  const padding = 2;
-  const radius = 3;
-
-  return {
-    top: `${top}%`,
-    // left: `${left}%`,
-    transform: `translate(-${top}%, -50%)`,
-    padding: `${padding}%`,
-    borderRadius: `${radius}%`,
-    textAlign: "center",
-    backgroundColor: "var(--bg-color)",
-  };
-}
-
-export const useStyles = makeStyles((theme) => ({
-  paper: {
-    width: 250,
-    marginTop: 300,
-    borderRadius: theme.shape.borderRadius,
-    boxShadow: "var(--profile-box-shadow)",
-    padding: theme.spacing(2, 4, 3),
-    color: "var(--color)",
-    margin: "auto",
-  },
-  logout: {
-    display: "flex",
-    justifyContent: "space-between",
-  },
-}));
 
 function Profile() {
   const classes = useStyles();
