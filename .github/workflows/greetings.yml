@@ -1,17 +1,34 @@
 name: Greetings
 
-on: [pull_request_target, issues]
+on:
+  fork:
+  push:
+    branches: [main]
+  issues:
+    types: [opened]
+  pull_request_target:
+    types: [opened]
 
 jobs:
   greeting:
+      runs-on: ubuntu-latest
+      permissions:
+        issues: write
+        pull-requests: write
+      steps:
+      - uses: actions/first-interaction@v1
+        continue-on-error: true
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          issue-message: "Hi there ${{ github.actor }}!, welcome to Dummygram :)"
+          pr-message: "Hi there ${{ github.actor }}!, congratulations on your first pull request :)"
+          
+  welcome:
     runs-on: ubuntu-latest
-    permissions:
-      issues: write
-      pull-requests: write
     steps:
-    - uses: actions/first-interaction@v1
-      continue-on-error: true
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        issue-message: "Hi there, Thanks a lot for raising the issue, we'll look into it asap. Also please mention if you wish to work on the issue as well so you could be assigned"
-        pr-message: "Hi there, Thanks a lot for your first pull request, we'll be reviewing it asap :)"
+      - uses: actions/checkout@v3
+      - uses: EddieHubCommunity/gh-action-community/src/welcome@main
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          issue-message: "Hello ${{ github.actor }}! \n Thank you for raising this issue! 😊 Your contribution is valuable to us! 😊 \n\nPlease make sure to follow our [Contributing Guidelines. 💪🏻](https://github.com/narayan954/dummygram/blob/master/CONTRIBUTING.md) \n\nOur reviewers shall carefully assess the issue and reach out to you soon! 😇 \n We appreciate your patience! "
+          pr-message: "Thank you ${{ github.actor }}! for creating this pull request and contributing to Dummygram! 💗\n\n The maintainers will review this Pull Request and provide feedback as soon as possible! 😇\nWe appreciate your patience and contribution, Keep up the great work! 😀"
