@@ -545,6 +545,7 @@ input {
 .post_comment_area .post_comment_text {width: 88%;}
 .post_comment_area button {width: 10%;}
 .post_comment_header p{font-size: 0.9rem;}
+.post_comment_area {padding-top: 6px;}
 .post_comment_header button,
 .post_comment_area p {display: none;}
 .post_comment_area span:first-child{
