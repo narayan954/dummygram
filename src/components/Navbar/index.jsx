@@ -6,6 +6,7 @@ import { AiOutlineInsertRowAbove } from "react-icons/ai";
 import { auth } from "../../lib/firebase";
 import logo from "../../assets/logo.webp";
 import { useNavigate } from "react-router-dom";
+import { Darkmode } from "../../reusableComponents";
 
 function Navbar({ onClick, user, setUser }) {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ function Navbar({ onClick, user, setUser }) {
             window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
           }}
         />
-
+        <div className="navSpace">
         {user && (
           <>
             <div className="container">
@@ -46,6 +47,8 @@ function Navbar({ onClick, user, setUser }) {
             </div>
           </>
         )}
+                <Darkmode theamClass = "theamButton" />
+        </div>
       </div>
     )
   );
