@@ -16,7 +16,6 @@ import {
 } from "../../pages/PostView/PostViewStyled.jsx";
 import React, { useEffect } from "react";
 import { doc, updateDoc } from "firebase/firestore";
-import { formatDistanceToNow } from 'date-fns'; // Import date-fns library
 
 import Caption from "../Post/Caption.jsx";
 import EmojiPicker from "emoji-picker-react";
@@ -54,7 +53,7 @@ const PostCommentView = ({
 
   const [comments, setComments] = React.useState(null);
   const [likesNo, setLikesNo] = React.useState(
-    likecount ? likecount.length : 0,
+    likecount ? likecount.length : 0
   );
   const tempLikeCount = likecount ? [...likecount] : [];
   const [showEmojis, setShowEmojis] = React.useState(false);
@@ -116,7 +115,7 @@ const PostCommentView = ({
             snapshot.docs.map((doc) => ({
               id: doc.id,
               content: doc.data(),
-            })),
+            }))
           );
         });
     }
@@ -346,7 +345,10 @@ const PostCommentView = ({
             {comments?.length ? (
               <>
                 {comments.map((userComment) => (
-                  <CommentItem className="comment-container" key={userComment.id}>
+                  <CommentItem
+                    className="comment-container"
+                    key={userComment.id}
+                  >
                     <div className={"post_comment_details"}>
                       <div className="post_comment_header">
                         <span>{userComment.content.username}</span>
@@ -359,7 +361,7 @@ const PostCommentView = ({
                       </div>
                       <div className="post_comment_area">
                         <div className="post_comment_text">
-                          <ReadMore style={{fontWeight: "500"}}>
+                          <ReadMore style={{ fontWeight: "500" }}>
                             {userComment.content.text}
                           </ReadMore>
                         </div>
