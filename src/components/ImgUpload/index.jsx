@@ -2,7 +2,7 @@ import "./index.css";
 
 import { Avatar, LinearProgress, TextField } from "@mui/material";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { auth, db, handleMultiUpload } from "../../lib/firebase";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 
@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import Popup from "../../reusableComponents/Popup";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
+import { doc, getDoc } from "firebase/firestore";
 
 export default function ImgUpload(props) {
   const [current, setCurrent] = useState(0);
@@ -27,7 +28,7 @@ export default function ImgUpload(props) {
   const nextStep = () => {
     setCurrent(current === imagePreviews.length - 1 ? 0 : current + 1);
   };
-  const username = auth.currentUser.displayName;
+  const displayName = auth.currentUser.displayName;
   const avatar = auth.currentUser.photoURL;
   const [image, setImage] = useState(null);
   const [caption, setCaption] = useState("");
@@ -37,6 +38,17 @@ export default function ImgUpload(props) {
   const [imagePreviews, setImagePreviews] = useState([]);
   const [isValidimage, setisValidimage] = useState(true);
   const [buttonPopup, setButtonPopup] = useState(false);
+  const [username, setUsername] = useState("")
+
+  useEffect(() => {
+    async function getUsername(){
+      const docRef = doc(db, "users", auth?.currentUser?.uid);
+      const docSnap = await getDoc(docRef);
+      setUsername(docSnap.data().username)
+    }
+
+    getUsername()
+  }, [])
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -80,7 +92,8 @@ export default function ImgUpload(props) {
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         caption: caption,
         imageUrl,
-        username: props.user.displayName,
+        username: username,
+        displayName: props.user.displayName,
         avatar: props.user.photoURL,
         likecount: [],
         uid: auth?.currentUser?.uid,
@@ -247,12 +260,12 @@ export default function ImgUpload(props) {
         )}
         <div className="post__caption_section">
           <div className="post__header">
-            {avatar && username && (
+            {avatar && displayName && (
               <>
                 {" "}
                 <Avatar
                   className="post__avatar"
-                  alt={username}
+                  alt={displayName}
                   src={avatar}
                   sx={{
                     bgcolor: "royalblue",
@@ -269,7 +282,7 @@ export default function ImgUpload(props) {
                   }}
                 />
                 <Link style={{ textDecoration: "none" }}>
-                  <h3 className="post__username">{username}</h3>
+                  <h3 className="post__username">{displayName}</h3>
                 </Link>
               </>
             )}
@@ -385,12 +398,12 @@ export default function ImgUpload(props) {
         {nextPage && (
           <div className="post__caption_section">
             <div className="post__header">
-              {avatar && username && (
+              {avatar && displayName && (
                 <>
                   {" "}
                   <Avatar
                     className="post__avatar"
-                    alt={username}
+                    alt={displayName}
                     src={avatar}
                     sx={{
                       bgcolor: "royalblue",
@@ -407,7 +420,7 @@ export default function ImgUpload(props) {
                     }}
                   />
                   <Link style={{ textDecoration: "none" }}>
-                    <h3 className="post__username">{username}</h3>
+                    <h3 className="post__username">{displayName}</h3>
                   </Link>
                 </>
               )}

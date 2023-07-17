@@ -10,16 +10,17 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { auth, db, storage } from "../../lib/firebase";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { collection, doc, getDoc, onSnapshot, query, where } from "firebase/firestore";
 import { lazy, useEffect, useState } from "react";
 import {
   playErrorSound,
   playSuccessSound,
   playTapSound,
 } from "../../js/sounds";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
+import { Loader } from "../../reusableComponents";
 import { FaUserCircle } from "react-icons/fa";
 import ViewsCounter from "./views";
 import firebase from "firebase/compat/app";
@@ -29,7 +30,6 @@ const Post = lazy(() => import("../../components/Post"));
 const SideBar = lazy(() => import("../../components/SideBar"));
 
 function Profile() {
-  const location = useLocation();
   const navigate = useNavigate();
   const isNonMobile = useMediaQuery("(min-width: 768px)");
   const { enqueueSnackbar } = useSnackbar();
@@ -40,14 +40,44 @@ function Profile() {
   const [feed, setFeed] = useState([]);
   const [profilePic, setProfilePic] = useState("");
   const [open, setOpen] = useState(false);
-  const [username, setUsername] = useState("");
   const [friendRequestSent, setFriendRequestSent] = useState(false);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [avatar, setAvatar] = useState("");
-  const [uid, setUid] = useState(location?.state?.uid || null);
+  const [userData, setUserData] = useState(null)
+  const { username } = useParams();
+
+  let name = "";
+  let avatar = "";
+  let uid = "";
+
+  if (userData) {
+    name = userData.name;
+    avatar = userData.avatar;
+    uid = userData.uid;
+  }
 
   const handleClose = () => setOpen(false);
+
+  useEffect(() => {
+    async function getUserData() {
+      const docRef = db.collection("users").where("username", "==", username).limit(1);
+      docRef.get()
+      .then((snapshot) => {
+        const doc = snapshot.docs[0]
+        setUserData({
+          name: doc.data().name,
+          avatar: doc.data().photoURL,
+          uid: doc.data().uid,
+        })
+
+      })
+      .catch((error) => {
+        console.log(error)
+        enqueueSnackbar("Error getting document!", {
+          variant: "error",
+        });
+      })
+    }
+    getUserData()
+  }, [])
 
   const handleSendFriendRequest = () => {
     const currentUser = auth.currentUser;
@@ -144,14 +174,6 @@ function Profile() {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         setUser(authUser);
-        setName(location?.state?.name || authUser.displayName);
-        setAvatar(location?.state?.avatar || authUser.photoURL);
-        setEmail(
-          location?.state?.name === authUser?.displayName
-            ? location?.state?.email || authUser.email
-            : "",
-        );
-        setUid(location?.state?.uid || authUser.uid);
       } else {
         navigate("/dummygram/login");
       }
@@ -162,26 +184,11 @@ function Profile() {
     };
   }, []);
 
-  //Get username from usernames collection
-  useEffect(() => {
-    if (auth.currentUser) {
-      const usernameQ = query(
-        collection(db, "users"),
-        where("uid", "==", auth.currentUser.uid),
-      );
-      const unsubscribe = onSnapshot(usernameQ, (querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          setUsername(doc.username);
-        });
-      });
-    }
-  }, []);
-
   // Get user's posts from posts collection
   useEffect(() => {
     const q = query(
       collection(db, "posts"),
-      where("username", "==", location?.state?.name || name),
+      where("uid", "==", uid),
     );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const userPosts = [];
@@ -213,7 +220,7 @@ function Profile() {
     const uploadTask = storage.ref(`images/${image?.name}`).put(image);
     uploadTask.on(
       "state_changed",
-      () => {},
+      () => { },
       (error) => {
         playErrorSound();
         enqueueSnackbar(error.message, {
@@ -225,11 +232,31 @@ function Profile() {
           .ref("images")
           .child(image?.name)
           .getDownloadURL()
-          .then((url) => {
+          .then(async (url) => {
+
+            //Updating profile image in auth
             auth.currentUser.updateProfile({
               displayName: name,
               photoURL: url,
             });
+
+            //Updating profile image in users collection
+            const docRef = db.collection("users").doc(uid)
+            await docRef.update({
+              photoURL: url
+            })
+
+            //Updating profile image in all posts
+            const postsRef = db.collection("posts").where("uid", "==", uid)
+            postsRef.get()
+              .then((postsSnapshot) => {
+                postsSnapshot.forEach((post) => {
+                  const postRef = post.ref;
+                  postRef.update({
+                    avatar: url
+                  })
+                })
+              })
             playSuccessSound();
             enqueueSnackbar("Upload Successful!!!", {
               variant: "success",
@@ -246,270 +273,273 @@ function Profile() {
       <ErrorBoundary>
         <SideBar />
       </ErrorBoundary>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box
-          sx={{
-            position: "relative",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: `${isNonMobile ? "40vw" : "80vw"}`,
-            height: `${isNonMobile ? "40vw" : "80vw"}`,
-            boxShadow: 24,
-            backdropFilter: "blur(7px)",
-            border: "1px solid #fff",
-            zIndex: "1000",
-            textAlign: "center",
-            borderRadius: "5%",
-          }}
-        >
-          {name === user?.displayName ? (
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <img
-                style={{
-                  objectFit: "cover",
-                  borderRadius: "50%",
-                  margin: 0,
-                  position: "absolute",
-                  top: "30%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                }}
-                width={isNonMobile ? "50%" : "50%"}
-                height={isNonMobile ? "50%" : "50%"}
-                src={avatar}
-                alt={name}
-              />
-              <div
-                style={{
-                  position: "absolute",
-                  top: "70%",
-                  left: "50%",
-                  transform: "translate(-50%, -30%)",
-                  color: "var(--text-secondary)",
-                }}
-              >
-                {name === user?.displayName && (
-                  <Box>
-                    <input
-                      type="file"
-                      id="file"
-                      className="file"
-                      onChange={handleChange}
-                      accept="image/*"
-                    />
-                    <label htmlFor="file">
-                      <div
-                        className="img-edit"
-                        style={{
-                          marginTop: "0.5rem",
-                          marginBottom: "0.5rem",
-                          color: "var(--text-secondary)",
-                          padding: "1.5rem",
-                          borderRadius: "32px",
-                          fontWeight: "600",
-                          letterSpacing: "3px",
-                        }}
-                      >
-                        Edit Profile Pic
-                      </div>
-                    </label>
-                  </Box>
-                )}
-                {visible && (
-                  <Button
-                    className="img-save"
-                    onClick={handleSave}
-                    variant="outlined"
-                    sx={{
-                      marginTop: "1rem",
-                      padding: "5px 25px",
-                    }}
-                  >
-                    Save
-                  </Button>
-                )}
-              </div>
-            </div>
-          ) : (
-            <>
-              <img
-                style={{
-                  objectFit: "cover",
-                  margin: 0,
-                  position: "absolute",
-                  height: "90%",
-                  width: "90%",
-                  transform: "translate(-50%, -50%)",
-                  borderRadius: "6%",
-                  top: "50%",
-                  left: "50%",
-                }}
-                width={isNonMobile ? "50%" : "50%"}
-                height={isNonMobile ? "50%" : "50%"}
-                src={avatar}
-                alt={name}
-              />
-            </>
-          )}
-        </Box>
-      </Modal>
-
-      <Box
-        className="outer-profile-box"
-        width="90%"
-        paddingY={5}
-        paddingX={6}
-        sx={{
-          border: "none",
-          margin: "6rem auto 2rem",
-        }}
-        display="flex"
-        justifyContent={"center"}
-        alignItems={"center"}
-        textAlign={"center"}
-        color="var(--color)"
-      >
-        <Box
-          display="flex"
-          width="90%"
-          flexDirection="row"
-          justifyContent="space-between"
-          gap={1}
-          className="inner-profile"
+      {userData? (
+        
+      <>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
         >
           <Box
-            display="flex"
-            marginRight="10px"
-            flexDirection="column"
-            className="profile-left"
+            sx={{
+              position: "relative",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: `${isNonMobile ? "40vw" : "80vw"}`,
+              height: `${isNonMobile ? "40vw" : "80vw"}`,
+              boxShadow: 24,
+              backdropFilter: "blur(7px)",
+              border: "1px solid #fff",
+              zIndex: "1000",
+              textAlign: "center",
+              borderRadius: "5%",
+            }}
           >
-            {avatar ? (
-              <Avatar
-                onClick={() => setOpen((on) => !on)}
-                alt={name}
-                src={avatar}
-                className="profile-pic-container"
-                sx={{
-                  bgcolor: "black",
-                  border: "none",
-                  boxShadow: "0 0 4px black",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  cursor: "pointer",
-                  marginBottom: "1.2rem",
-                }}
-              />
-            ) : (
-              <FaUserCircle style={{ width: "22vh", height: "22vh" }} />
-            )}
-            {name === user?.displayName && (
-              <Box className="edit-btn">
-                <input
-                  type="file"
-                  id="file"
-                  className="file"
-                  onChange={handleChange}
-                  accept="image/*"
+            {name === user?.displayName ? (
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <img
+                  style={{
+                    objectFit: "cover",
+                    borderRadius: "50%",
+                    margin: 0,
+                    position: "absolute",
+                    top: "30%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                  }}
+                  width={isNonMobile ? "50%" : "50%"}
+                  height={isNonMobile ? "50%" : "50%"}
+                  src={avatar}
+                  alt={name}
                 />
-                <label htmlFor="file">
-                  <div
-                    className="img-edit"
-                    style={{
-                      marginTop: "0.5rem",
-                      color: "var(--text-primary)",
-                      padding: "4px 15px",
-                      marginBottom: "0",
-                    }}
-                  >
-                    Edit Profile Pic
-                  </div>
-                </label>
-              </Box>
-            )}
-            {visible && (
-              <Button
-                className="img-save"
-                onClick={handleSave}
-                variant="outlined"
-                sx={{
-                  marginTop: "1rem",
-                  padding: "5px 25px",
-                }}
-              >
-                Save
-              </Button>
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "70%",
+                    left: "50%",
+                    transform: "translate(-50%, -30%)",
+                    color: "var(--text-secondary)",
+                  }}
+                >
+                  {name === user?.displayName && (
+                    <Box>
+                      <input
+                        type="file"
+                        id="file"
+                        className="file"
+                        onChange={handleChange}
+                        accept="image/*"
+                      />
+                      <label htmlFor="file">
+                        <div
+                          className="img-edit"
+                          style={{
+                            marginTop: "0.5rem",
+                            marginBottom: "0.5rem",
+                            color: "var(--text-secondary)",
+                            padding: "1.5rem",
+                            borderRadius: "32px",
+                            fontWeight: "600",
+                            letterSpacing: "3px",
+                          }}
+                        >
+                          Edit Profile Pic
+                        </div>
+                      </label>
+                    </Box>
+                  )}
+                  {visible && (
+                    <Button
+                      className="img-save"
+                      onClick={handleSave}
+                      variant="outlined"
+                      sx={{
+                        marginTop: "1rem",
+                        padding: "5px 25px",
+                      }}
+                    >
+                      Save
+                    </Button>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <>
+                <img
+                  style={{
+                    objectFit: "cover",
+                    margin: 0,
+                    position: "absolute",
+                    height: "90%",
+                    width: "90%",
+                    transform: "translate(-50%, -50%)",
+                    borderRadius: "6%",
+                    top: "50%",
+                    left: "50%",
+                  }}
+                  width={isNonMobile ? "50%" : "50%"}
+                  height={isNonMobile ? "50%" : "50%"}
+                  src={avatar}
+                  alt={name}
+                />
+              </>
             )}
           </Box>
+        </Modal>
+
+        <Box
+          className="outer-profile-box"
+          width="90%"
+          paddingY={5}
+          paddingX={6}
+          sx={{
+            border: "none",
+            margin: "6rem auto 2rem",
+          }}
+          display="flex"
+          justifyContent={"center"}
+          alignItems={"center"}
+          textAlign={"center"}
+          color="var(--color)"
+        >
           <Box
             display="flex"
-            flexDirection="column"
-            alignItems="flex-start"
-            marginTop="10px"
-            className="profile-right"
+            width="90%"
+            flexDirection="row"
+            justifyContent="space-between"
+            gap={1}
+            className="inner-profile"
           >
-            <Typography fontSize="1.3rem" fontWeight="600">
-              {username}
-            </Typography>
-            <Typography fontSize="1.3rem" fontWeight="600" paddingBottom="10px">
-              {name}
-            </Typography>
-            <Typography fontSize="1.5rem" fontWeight="600" paddingBottom="10px">
-              {name === user?.displayName && email}
-            </Typography>
-            <div style={{ display: "flex" }}>
-              <Typography fontSize="1.1rem" fontWeight="600">
-                Total Posts:&nbsp;
-                <span style={{ fontWeight: "300" }}>{feed.length} &nbsp;</span>
+            <Box
+              display="flex"
+              marginRight="10px"
+              flexDirection="column"
+              className="profile-left"
+            >
+              {avatar ? (
+                <Avatar
+                  onClick={() => setOpen((on) => !on)}
+                  alt={name}
+                  src={avatar}
+                  className="profile-pic-container"
+                  sx={{
+                    bgcolor: "black",
+                    border: "none",
+                    boxShadow: "0 0 4px black",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    cursor: "pointer",
+                    marginBottom: "1.2rem",
+                  }}
+                />
+              ) : (
+                <FaUserCircle style={{ width: "22vh", height: "22vh" }} />
+              )}
+              {name === user?.displayName && (
+                <Box className="edit-btn">
+                  <input
+                    type="file"
+                    id="file"
+                    className="file"
+                    onChange={handleChange}
+                    accept="image/*"
+                  />
+                  <label htmlFor="file">
+                    <div
+                      className="img-edit"
+                      style={{
+                        marginTop: "0.5rem",
+                        color: "var(--text-primary)",
+                        padding: "4px 15px",
+                        marginBottom: "0",
+                      }}
+                    >
+                      Edit Profile Pic
+                    </div>
+                  </label>
+                </Box>
+              )}
+              {visible && (
+                <Button
+                  className="img-save"
+                  onClick={handleSave}
+                  variant="outlined"
+                  sx={{
+                    marginTop: "1rem",
+                    padding: "5px 25px",
+                  }}
+                >
+                  Save
+                </Button>
+              )}
+            </Box>
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="flex-start"
+              marginTop="10px"
+              className="profile-right"
+            >
+              <Typography fontSize="1.3rem" fontWeight="600">
+                {username}
               </Typography>
-              <Typography fontSize="1.1rem" fontWeight="600">
-                Views:&nbsp;
-                <span style={{ fontWeight: "300" }}>
-                  <ViewsCounter uid={uid} />
-                </span>
-                   
+              <Typography fontSize="1.3rem" fontWeight="600" paddingBottom="10px">
+                {name}
               </Typography>
-            </div>
-            {name !== user?.displayName && (
-              <Button
-                onClick={handleSendFriendRequest}
-                variant="contained"
-                color="primary"
-                sx={{ marginTop: "1rem" }}
-              >
-                {friendRequestSent ? "Remove friend request" : "Add Friend"}
-              </Button>
-            )}
+              <div style={{ display: "flex" }}>
+                <Typography fontSize="1.1rem" fontWeight="600">
+                  Total Posts:&nbsp;
+                  <span style={{ fontWeight: "300" }}>{feed.length} &nbsp;</span>
+                </Typography>
+                <Typography fontSize="1.1rem" fontWeight="600">
+                  Views:&nbsp;
+                  <span style={{ fontWeight: "300" }}>
+                    <ViewsCounter uid={uid} />
+                  </span>
+
+                </Typography>
+              </div>
+              {name !== user?.displayName && (
+                <Button
+                  onClick={handleSendFriendRequest}
+                  variant="contained"
+                  color="primary"
+                  sx={{ marginTop: "1rem" }}
+                >
+                  {friendRequestSent ? "Remove friend request" : "Add Friend"}
+                </Button>
+              )}
+            </Box>
           </Box>
         </Box>
-      </Box>
-      <Divider style={{ background: "var(--profile-divider)" }} />
-      <Box className="flex feed-main-container">
-        <div className="app__posts" id="feed-sub-container">
-          <ErrorBoundary>
-            {feed.map(({ post, id }) => (
-              <Post
-                rowMode={true}
-                key={id}
-                postId={id}
-                user={user}
-                post={post}
-                shareModal={true}
-                setLink="/"
-                setPostText=""
-              />
-            ))}
-          </ErrorBoundary>
-        </div>
-      </Box>
-    </>
-  );
+        <Divider style={{ background: "var(--profile-divider)" }} />
+        <Box className="flex feed-main-container">
+          <div className="app__posts" id="feed-sub-container">
+            <ErrorBoundary>
+              {feed.map(({ post, id }) => (
+                <Post
+                  rowMode={true}
+                  key={id}
+                  postId={id}
+                  user={user}
+                  post={post}
+                  shareModal={true}
+                  setLink="/"
+                  setPostText=""
+                />
+              ))}
+            </ErrorBoundary>
+          </div>
+        </Box>
+      </>
+      ) : (
+        <Loader />
+      )}
+    </>)
 }
 
 export default Profile;
