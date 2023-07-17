@@ -21,14 +21,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { AnimatedButton } from "../../reusableComponents";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import { FaUserCircle } from "react-icons/fa";
-import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
-import logo from "../../assets/logo.webp";
-import { makeStyles } from "@mui/styles";
 import Modal from "@mui/material/Modal";
+import SettingsIcon from "@mui/icons-material/Settings";
 // import Modal from "@mui/material/Modal";
 import ViewsCounter from "./views";
 import firebase from "firebase/compat/app";
+import logo from "../../assets/logo.webp";
+import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
 
 const Post = lazy(() => import("../../components/Post"));
@@ -523,7 +523,6 @@ function Profile() {
                 <span style={{ fontWeight: "300" }}>
                   <ViewsCounter uid={uid} />
                 </span>
-                   
               </Typography>
             </div>
             {name !== user?.displayName && (
@@ -575,54 +574,54 @@ function Profile() {
             </Box>
 
             <Modal open={logout} onClose={() => setLogout(false)}>
-            <div style={getModalStyle()} className={classes.paper}>
-              <form className="modal__signup">
-                <img
-                  src={logo}
-                  alt="dummygram"
-                  className="modal__signup__img"
-                  style={{
-                    width: "80%",
-                    marginLeft: "10%",
-                    filter: "var(--filter-img)",
-                  }}
-                />
+              <div style={getModalStyle()} className={classes.paper}>
+                <form className="modal__signup">
+                  <img
+                    src={logo}
+                    alt="dummygram"
+                    className="modal__signup__img"
+                    style={{
+                      width: "80%",
+                      marginLeft: "10%",
+                      filter: "var(--filter-img)",
+                    }}
+                  />
 
-                <p
-                  style={{
-                    fontSize: "15px",
-                    fontFamily: "monospace",
-                    padding: "10%",
-                    color: "var(--color)",
-                    // marginBottom:800
-                  }}
-                >
-                  Are you sure you want to Logout?
-                </p>
+                  <p
+                    style={{
+                      fontSize: "15px",
+                      fontFamily: "monospace",
+                      padding: "10%",
+                      color: "var(--color)",
+                      // marginBottom:800
+                    }}
+                  >
+                    Are you sure you want to Logout?
+                  </p>
 
-                <div className={classes.logout}>
-                  <AnimatedButton
-                    type="submit"
-                    onClick={signOut}
-                    variant="contained"
-                    color="primary"
-                    className="button-style"
-                  >
-                    Logout
-                  </AnimatedButton>
-                  <AnimatedButton
-                    type="submit"
-                    onClick={() => setLogout(false)}
-                    variant="contained"
-                    color="primary"
-                    className="button-style"
-                  >
-                    Cancel
-                  </AnimatedButton>
-                </div>
-              </form>
-            </div>
-          </Modal>
+                  <div className={classes.logout}>
+                    <AnimatedButton
+                      type="submit"
+                      onClick={signOut}
+                      variant="contained"
+                      color="primary"
+                      className="button-style"
+                    >
+                      Logout
+                    </AnimatedButton>
+                    <AnimatedButton
+                      type="submit"
+                      onClick={() => setLogout(false)}
+                      variant="contained"
+                      color="primary"
+                      className="button-style"
+                    >
+                      Cancel
+                    </AnimatedButton>
+                  </div>
+                </form>
+              </div>
+            </Modal>
           </Box>
         </Box>
       </Box>
