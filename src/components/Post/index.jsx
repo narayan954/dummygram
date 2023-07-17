@@ -174,13 +174,7 @@ function Post(prop) {
   };
 
   return (
-    <div
-      className={`${rowMode ? "post" : "postColumn"}`}
-      style={{
-        boxShadow:
-          "rgba(144, 93, 185, 0.8) 0px 3px 6px, rgba(144, 93, 185, 0.8) 0px 3px 6px",
-      }}
-    >
+    <div className={`${rowMode ? "post" : "postColumn"}`}>
       <ErrorBoundary>
         <PostHeader
           user={user}
@@ -222,7 +216,7 @@ function Post(prop) {
         </Flexbetween>
 
         {user && (
-          <form className="post__commentBox">
+          <div className="post__commentBox">
             <ErrorBoundary>
               <PostNav
                 fullScreen={fullScreen}
@@ -298,7 +292,7 @@ function Post(prop) {
                 />
               </ErrorBoundary>
             </DialogBox>
-          </form>
+          </div>
         )}
       </div>
     </div>

@@ -11,6 +11,7 @@ const Auth__text__input = ({
   aria_dsc_by,
   errorMesssage,
   fieldName,
+  maxLength,
   type = "text",
 }) => {
   return (
@@ -25,6 +26,7 @@ const Auth__text__input = ({
         onChange={(e) => handleChange(e)}
         className={error_border ? null : "error-border"}
         required
+        maxLength={maxLength}
         aria-required="true"
         aria-label={label}
         aria-describedby={aria_dsc_by}
