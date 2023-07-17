@@ -5,12 +5,12 @@ import {
   Box,
   Button,
   Divider,
-  Modal,
   Typography,
   useMediaQuery,
 } from "@mui/material";
 import { auth, db, storage } from "../../lib/firebase";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { getModalStyle, useStyles } from "../../App";
 import { lazy, useEffect, useState } from "react";
 import {
   playErrorSound,
@@ -19,16 +19,24 @@ import {
 } from "../../js/sounds";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import { AnimatedButton } from "../../reusableComponents";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import { FaUserCircle } from "react-icons/fa";
+import LogoutIcon from "@mui/icons-material/Logout";
+import Modal from "@mui/material/Modal";
+import SettingsIcon from "@mui/icons-material/Settings";
+// import Modal from "@mui/material/Modal";
 import ViewsCounter from "./views";
 import firebase from "firebase/compat/app";
+import logo from "../../assets/logo.webp";
+import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
 
 const Post = lazy(() => import("../../components/Post"));
 const SideBar = lazy(() => import("../../components/SideBar"));
 
 function Profile() {
+  const classes = useStyles();
   const location = useLocation();
   const navigate = useNavigate();
   const isNonMobile = useMediaQuery("(min-width: 768px)");
@@ -40,6 +48,7 @@ function Profile() {
   const [feed, setFeed] = useState([]);
   const [profilePic, setProfilePic] = useState("");
   const [open, setOpen] = useState(false);
+  const [logout, setLogout] = useState(false);
   const [username, setUsername] = useState("");
   const [friendRequestSent, setFriendRequestSent] = useState(false);
   const [name, setName] = useState("");
@@ -149,7 +158,7 @@ function Profile() {
         setEmail(
           location?.state?.name === authUser?.displayName
             ? location?.state?.email || authUser.email
-            : "",
+            : ""
         );
         setUid(location?.state?.uid || authUser.uid);
       } else {
@@ -167,7 +176,7 @@ function Profile() {
     if (auth.currentUser) {
       const usernameQ = query(
         collection(db, "users"),
-        where("uid", "==", auth.currentUser.uid),
+        where("uid", "==", auth.currentUser.uid)
       );
       const unsubscribe = onSnapshot(usernameQ, (querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -181,7 +190,7 @@ function Profile() {
   useEffect(() => {
     const q = query(
       collection(db, "posts"),
-      where("username", "==", location?.state?.name || name),
+      where("username", "==", location?.state?.name || name)
     );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const userPosts = [];
@@ -236,9 +245,18 @@ function Profile() {
             });
           })
           .catch((error) => console.error(error));
-      },
+      }
     );
     setVisible(false);
+  };
+
+  const signOut = () => {
+    auth.signOut().finally();
+    playSuccessSound();
+    enqueueSnackbar("Logged out Successfully !", {
+      variant: "info",
+    });
+    navigate("/dummygram/");
   };
 
   return (
@@ -473,7 +491,6 @@ function Profile() {
                 <span style={{ fontWeight: "300" }}>
                   <ViewsCounter uid={uid} />
                 </span>
-                   
               </Typography>
             </div>
             {name !== user?.displayName && (
@@ -486,6 +503,93 @@ function Profile() {
                 {friendRequestSent ? "Remove friend request" : "Add Friend"}
               </Button>
             )}
+            <Box
+              className="setting-logout"
+              display="flex"
+              flexDirection="column"
+              gap={3}
+              marginY={5}
+            >
+              <Button
+                variant="contained"
+                startIcon={<SettingsIcon style={{ color: "black" }} />}
+                style={{ backgroundColor: "#8beeff" }}
+                onClick={() => navigate("/dummygram/settings")}
+              >
+                <Typography
+                  fontSize="5rem"
+                  color="black"
+                  textTransform="capitalize"
+                >
+                  Settings
+                </Typography>
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                startIcon={<LogoutIcon style={{ color: "black" }} />}
+                style={{ backgroundColor: "#8beeff" }}
+                onClick={() => setLogout(true)}
+              >
+                <Typography
+                  fontSize="0.9rem"
+                  color="black"
+                  textTransform="capitalize"
+                >
+                  Log Out
+                </Typography>
+              </Button>
+            </Box>
+
+            <Modal open={logout} onClose={() => setLogout(false)}>
+              <div style={getModalStyle()} className={classes.paper}>
+                <form className="modal__signup">
+                  <img
+                    src={logo}
+                    alt="dummygram"
+                    className="modal__signup__img"
+                    style={{
+                      width: "80%",
+                      marginLeft: "10%",
+                      filter: "var(--filter-img)",
+                    }}
+                  />
+
+                  <p
+                    style={{
+                      fontSize: "15px",
+                      fontFamily: "monospace",
+                      padding: "10%",
+                      color: "var(--color)",
+                      // marginBottom:800
+                    }}
+                  >
+                    Are you sure you want to Logout?
+                  </p>
+
+                  <div className={classes.logout}>
+                    <AnimatedButton
+                      type="submit"
+                      onClick={signOut}
+                      variant="contained"
+                      color="primary"
+                      className="button-style"
+                    >
+                      Logout
+                    </AnimatedButton>
+                    <AnimatedButton
+                      type="submit"
+                      onClick={() => setLogout(false)}
+                      variant="contained"
+                      color="primary"
+                      className="button-style"
+                    >
+                      Cancel
+                    </AnimatedButton>
+                  </div>
+                </form>
+              </div>
+            </Modal>
           </Box>
         </Box>
       </Box>
