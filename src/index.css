@@ -15,7 +15,11 @@
   --profile-divider: "";
   --logo-text-shadow: none;
   --btn-color: #8beeff;
+  --btn-color-hover: #098b9f;
   --profile-color: #7d7575;
+  --page-over-color: #5ec3fd;
+  --slide-color: #9be5ea;
+  --label-color: rgb(200, 246, 248);
 }
 
 .darkmode {
@@ -33,7 +37,11 @@
   --profile-divider: #898989;
   --logo-text-shadow: 0 0 10px #eeeeee, 0 0 20px #ff4da6, 0 0 30px #ff4da6;
   --btn-color: #098b9f;
+  --btn-color-hover: #098b9f;
   --profile-color: #c8c6c6;
+  --page-over-color: #3a3e44;
+  --slide-color: #524a54;
+  --label-color: #6a656b;
 }
 
 * {
@@ -109,7 +117,7 @@ input:focus {
 }
 
 .rowConvert {
-  color: #ab4bc2;
+  color: var(--text-secondary);
   display: flex;
   margin-right: 12px;
   transition: all;
@@ -129,6 +137,12 @@ input:focus {
   .home-posts-container .app_posts {
     padding: 5.5em 15px 20px 9vw;
   }
+  .post-page-container {
+    padding: 5.5em 15px 15px 8vw;
+  }
+  .post-card {
+    margin: 50px auto !important;
+  }
 }
 @media only screen and (max-width: 800px) {
   .app__posts,
@@ -138,6 +152,10 @@ input:focus {
     flex-direction: column;
     align-items: center;
     gap: 1em;
+  }
+  .post-page-container {
+    padding: 0;
+    padding-top: 5.5em;
   }
 }
 
@@ -245,7 +263,9 @@ input:focus {
     left: 43%;
     margin-bottom: 2em;
   }
-
+  .post-page-container {
+    padding: 0;
+  }
   .app__newpost__button {
     left: -6%;
   }
@@ -301,6 +321,12 @@ input:focus {
     flex-wrap: wrap;
     gap: 2rem;
     justify-content: center;
+  }
+  .post-page-container {
+    padding: 5.5em 15px 15px 17vw;
+  }
+  .post-card {
+    margin: 50px auto !important;
   }
   .scrollTop {
     left: 47.7%;
@@ -362,12 +388,11 @@ div#picker {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgb(2, 255, 255);
-  border-radius: 10px;
+  background: var(--color);
+  border-radius: 2em;
 }
 
 /* landing animation */
-
 #logo {
   animation: animate 4s ease forwards;
   filter: invert(0.5) sepia(1) saturate(5) hue-rotate(175deg);
@@ -443,6 +468,7 @@ input {
 }
 
 /* login with google or facebook button */
+
 .google-fb-login button {
   font-size: 22px;
   height: 50px;
@@ -464,7 +490,7 @@ input {
 }
 
 .have-account span:hover {
-  color: rgb(157, 147, 219);
+  color: var(--btn-color-hover);
 }
 
 .login-footer {
@@ -475,13 +501,36 @@ input {
 }
 
 .button-style {
-  background: linear-gradient(40deg, #e107c1, #59afc7);
+  background: var(--btn-color);
   border-radius: 20px;
   margin: 10px;
 }
 
 .button-style:hover {
-  background: linear-gradient(-40deg, #59afc7, #e107c1);
+  background: var(--btn-color-hover);
 }
 
 /* end */
+
+/* login sign up forms */
+.page-over {
+  background-color: var(--page-over-color);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+.login__section {
+  border: 1px solid black;
+  margin: 0 5%;
+  height: 70%;
+  background-color: var(--slide-color);
+  box-shadow: 0 0 10px 1px rgb(66, 49, 66);
+  max-width: 1360px;
+  min-width: 300px;
+}
+.other__login {
+  margin: 0 auto;
+}

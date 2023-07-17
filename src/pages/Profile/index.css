@@ -75,9 +75,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 50px;
+  margin-bottom: 0;
 }
-.feed-main-container .app__posts {
-  padding: 2em 10px 20px 0;
+
+.profile-right p {
+  font-size: 1rem;
 }
 
 .img-save:hover {
@@ -131,7 +134,32 @@
 
 .posts-views span {
   font-weight: 600;
-  
+}
+
+.modal__signup__img {
+  width: 80%;
+  border-radius: 0.3rem;
+  margin-bottom: 10px;
+}
+
+.modal__signup {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.modal__signup button {
+  margin-top: 10px;
+}
+
+.button-style {
+  background: var(--btn-color);
+  border-radius: 20px;
+  margin: 10px;
+}
+
+.button-style:hover {
+  background: var(--btn-color-hover);
 }
 
 /* media query */
@@ -171,6 +199,12 @@
   .profile-pic-container {
     width: 140px;
     height: 140px;
+  }
+  .app__posts {
+    padding-top: 0;
+  }
+  .setting-logout {
+    flex-direction: row;
   }
 }
 

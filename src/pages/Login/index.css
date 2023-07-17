@@ -5,7 +5,6 @@
   font-family: "DM Sans", sans-serif;
   grid-template-columns: 1fr 1fr;
   width: 100vw;
-
   box-sizing: border-box;
 }
 
@@ -67,14 +66,14 @@
 .action__btn {
   width: 100%;
   padding: 0.8rem 1rem;
-  font-size: 1.2rem;
+  font-size: 1rem;
   border-radius: 0.5rem;
   outline: none;
   cursor: pointer;
-  color: white;
-  border: 1px solid white;
-  background: linear-gradient(#fb5d8ca9, #ad3066ba);
-  transition: all 0.3s ease-in;
+  color: rgb(255, 255, 255);
+  border: 1px solid rgb(0, 98, 255);
+  background: rgb(0, 132, 255);
+  transition: all 0.2s ease-in;
 }
 
 .login__btn {
@@ -97,14 +96,13 @@
 }
 
 .action__btn:hover {
-  background: white;
-  border: 1px solid rgba(104, 85, 224, 1);
-  color: rgba(104, 85, 224, 1);
+  background-color: var(--page-over-color);
+  border: 1px solid whitesmoke;
+  color: whitesmoke;
 }
 
 #password-container {
   border: 1px solid rgba(104, 85, 224, 1);
-  background-color: white;
   border-radius: 4px;
   align-items: center;
   white-space: nowrap;
@@ -120,7 +118,6 @@
   outline: none;
   cursor: pointer;
   margin: auto;
-  margin-left: 7px;
 }
 
 .pass__input__container input {
@@ -133,7 +130,8 @@
 .google__fb--login {
   padding-top: 0.5rem;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 0 auto;
   gap: 0.7rem;
 }
 
@@ -153,6 +151,7 @@
   border-radius: 0.5rem;
   letter-spacing: 1px;
   transition: all 0.3s ease;
+  width: 100%;
 }
 
 .other__login img {
@@ -170,12 +169,12 @@
 }
 
 .google__fb--login .google:hover {
-  background-color: transparent;
+  background-color: whitesmoke;
   color: #db4437;
 }
 
 .google__fb--login .facebook:hover {
-  background-color: transparent;
+  background-color: whitesmoke;
   color: #3b5998;
 }
 
@@ -204,7 +203,7 @@
   background-image: url("../../assets/login-right.webp");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center center;
+  background-position: center;
   width: 100%;
   height: 100%;
 }
@@ -226,10 +225,11 @@
   color: rgb(104, 85, 224);
   cursor: pointer;
   font-weight: bold;
+  transform: 0.7s ease-in;
 }
 
 .forgot-pasword span:hover {
-  color: rgb(157, 147, 219);
+  color: var(--btn-color-hover);
 }
 .have-account {
   text-align: center;
@@ -329,12 +329,28 @@
   }
 }
 
-/* media query for 350px */
-@media (max-width: 350px) {
+/* media query for 400px */
+@media (max-width: 400px) {
   .login__left {
     justify-content: flex-start;
   }
   .login__section form {
     width: 95%;
+  }
+  .form__bottom {
+    width: 20em;
+  }
+}
+
+/* media query for 360px */
+@media (max-width: 360px) {
+  .login__left {
+    justify-content: flex-start;
+  }
+  .login__section form {
+    width: 95%;
+  }
+  .form__bottom {
+    width: 18em;
   }
 }

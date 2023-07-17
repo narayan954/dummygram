@@ -18,6 +18,7 @@ import Auth__pass__input from "../../reusableComponents/Auth/Auth__pass__input";
 import Auth__text__input from "../../reusableComponents/Auth/Auth__text__input";
 import Auth__top from "../../reusableComponents/Auth/Auth__top";
 import Auth_container from "../../reusableComponents/Auth/Auth_container";
+import { Darkmode } from "../../reusableComponents";
 import blank_profile from "../../assets/blank-profile.webp";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import loginRight from "../../assets/login-right.webp";
@@ -388,40 +389,41 @@ const SignupScreen = () => {
             errorMesssage={error.emailError}
             error_border={!error.emailError}
           />
+          <div className="pass-container-both">
+            {/* password input for the form  */}
+            <Auth__pass__input
+              label={"Password"}
+              id={"password"}
+              name={"password"}
+              placeholder={"Enter your password"}
+              value={password}
+              handleChange={(e) => {
+                setPassword(e.target.value);
+                handleError(e.target.name, e.target.value);
+              }}
+              maxLength={30}
+              aria_dsc_by={"password-error"}
+              errorMesssage={error.passwordError}
+              isError={error.password && error.passwordError}
+            />
 
-          {/* password input for the form  */}
-          <Auth__pass__input
-            label={"Password"}
-            id={"password"}
-            name={"password"}
-            placeholder={"Enter your password"}
-            value={password}
-            handleChange={(e) => {
-              setPassword(e.target.value);
-              handleError(e.target.name, e.target.value);
-            }}
-            maxLength={30}
-            aria_dsc_by={"password-error"}
-            errorMesssage={error.passwordError}
-            isError={error.password && error.passwordError}
-          />
-
-          {/* confirm password input for the form  */}
-          <Auth__pass__input
-            label={"Confirm Password"}
-            id={"confirmpassword"}
-            name={"confirmPassword"}
-            placeholder={"Confirm your Password"}
-            value={confirmPassword}
-            handleChange={(e) => {
-              setConfirmPassword(e.target.value);
-              handleError(e.target.name, e.target.value);
-            }}
-            maxLength={30}
-            aria_dsc_by={"confirm-password-error"}
-            errorMesssage={error.confirmPasswordError}
-            isError={error.confirmPassword && error.confirmPasswordError}
-          />
+            {/* confirm password input for the form  */}
+            <Auth__pass__input
+              label={"Confirm Password"}
+              id={"confirmpassword"}
+              name={"confirmPassword"}
+              placeholder={"Confirm your Password"}
+              value={confirmPassword}
+              handleChange={(e) => {
+                setConfirmPassword(e.target.value);
+                handleError(e.target.name, e.target.value);
+              }}
+              maxLength={30}
+              aria_dsc_by={"confirm-password-error"}
+              errorMesssage={error.confirmPasswordError}
+              isError={error.confirmPassword && error.confirmPasswordError}
+            />
+          </div>
           <Auth__ctn__group
             handleSubmit={signUp}
             btn__label={"Sign up"}

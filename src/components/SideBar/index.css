@@ -121,6 +121,10 @@ footer {
     width: 8vw;
   }
 
+  .sidebar-links {
+    padding: 0 5px;
+  }
+
   .sidebar-links li a,
   .sidebar_align {
     justify-content: center;
