@@ -532,3 +532,21 @@ input {
 .other__login {
   margin: 0 auto;
 }
+
+/* POST COMMENT  */
+.post_comment_text span:nth-child(2) {font-weight: 600 !important;}
+.post_comment_header,
+.post_comment_area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.post_comment_area .post_comment_text {width: 88%;}
+.post_comment_area button {width: 10%;}
+.post_comment_header p{font-size: 0.9rem;}
+.post_comment_header button,
+.post_comment_area p {display: none;}
+.post_comment_area span:first-child{
+  font-weight: normal;
+}
