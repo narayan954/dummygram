@@ -19,6 +19,7 @@
   --page-over-color: #5ec3fd;
   --slide-color: #9be5ea;
   --label-color: rgb(200, 246, 248);
+  --profile-color: #7d7575;
 }
 
 .darkmode {
@@ -40,6 +41,7 @@
   --page-over-color: #3a3e44;
   --slide-color: #524a54;
   --label-color: #6a656b;
+  --profile-color: #c8c6c6;
 }
 
 * {
