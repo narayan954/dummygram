@@ -53,7 +53,7 @@ const PostCommentView = ({
 
   const [comments, setComments] = React.useState(null);
   const [likesNo, setLikesNo] = React.useState(
-    likecount ? likecount.length : 0
+    likecount ? likecount.length : 0,
   );
   const tempLikeCount = likecount ? [...likecount] : [];
   const [showEmojis, setShowEmojis] = React.useState(false);
@@ -115,7 +115,7 @@ const PostCommentView = ({
             snapshot.docs.map((doc) => ({
               id: doc.id,
               content: doc.data(),
-            }))
+            })),
           );
         });
     }
