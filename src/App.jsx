@@ -172,7 +172,6 @@ function App() {
             currentPostLink={currentPostLink}
             postText={postText}
           />
-
           <Darkmode />
           <Routes>
             <Route
