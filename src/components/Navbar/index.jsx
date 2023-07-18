@@ -4,9 +4,9 @@ import React, { useEffect } from "react";
 
 import { AiOutlineInsertRowAbove } from "react-icons/ai";
 import { auth } from "../../lib/firebase";
+import { blue } from "@mui/material/colors";
 // import logo from "../../assets/logo.webp";
 import { useNavigate } from "react-router-dom";
-import { blue } from "@mui/material/colors";
 
 function Navbar({ onClick, user, setUser }) {
   const navigate = useNavigate();
