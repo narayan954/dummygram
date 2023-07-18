@@ -259,8 +259,6 @@ input:focus {
   cursor: pointer;
 }
 
-
-
 .scrollTop:hover {
   opacity: 1;
 }
@@ -284,7 +282,6 @@ input:focus {
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-
   .app__newpost__button {
     left: -4.8%;
   }
@@ -292,8 +289,6 @@ input:focus {
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-
-
   .sideToTop {
     left: 19.6%;
   }
@@ -305,8 +300,6 @@ input:focus {
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 911px) {
- 
-
   .sideToTop {
     left: 19.6%;
   }
@@ -332,7 +325,6 @@ input:focus {
   }
   .scrollTop {
     left: 40.7%;
-   
   }
 
   .sideToTop {
@@ -347,10 +339,10 @@ input:focus {
   }
 }
 
-@media (min-width: 1200px){
-.scrollTop{
-  left: 47.7%;
-}
+@media (min-width: 1200px) {
+  .scrollTop {
+    left: 47.7%;
+  }
 }
 
 .darkmode-toggle {
