@@ -533,16 +533,17 @@ input {
   margin: 0 auto;
 }
 
-/* .search-bar {
+.search-bar-home {
   position: relative;
   height: 50px;
-  max-width: 380px;
+  min-width: 300px;
   background: #fff;
   margin: 30px auto;
-  border: 1px solid #e107c1;
+  border: 1px solid #0cc;
   border-radius: 25px;
 }
-.search-input {
+
+.search-input-home {
   position: absolute;
   height: 100%;
   width: 100%;
@@ -552,7 +553,7 @@ input {
   font-size: 16px;
   padding-left: 20px;
   margin-top: -2px;
-} */
+}
 
 /* auth container */
 .login__section {

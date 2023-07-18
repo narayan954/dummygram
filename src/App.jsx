@@ -91,8 +91,8 @@ function App() {
 
   const handleSearch = (e) => {
     setSearchText(e.target.value);
-    console.log(searchText)
-  }
+    console.log(searchText);
+  };
 
   const scrollTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -127,9 +127,7 @@ function App() {
             id: doc.id,
             post: doc.data(),
           }))
-         
         );
-      
       });
   }, []);
 
@@ -158,7 +156,7 @@ function App() {
               })),
             ];
           });
-          console.log(posts)
+          console.log(posts);
         });
     }
     setLoadMorePosts(false);
@@ -217,43 +215,49 @@ function App() {
                           }`}
                         >
                           <ErrorBoundary inApp>
-                          <div
-                            // className="search-bar"
-                            
-                          >
-                            <input
-                              type="search"
-                              style={{background:'white'}}
-                              // className="search-input" 
-                              value={searchText}
-                              placeholder="Search Here..."
-                              onChange={handleSearch}
-                            />
-                          </div>
-                            {searchText ? posts.filter((post) => post.post.username?.toLowerCase().includes(searchText.toLowerCase()))
-                            .map(({ id, post }) => (
-                              <Post
-                                rowMode={rowMode}
-                                key={id}
-                                postId={id}
-                                user={user}
-                                post={post}
-                                shareModal={setOpenShareModal}
-                                setLink={setCurrentPostLink}
-                                setPostText={setPostText}
+                            <div
+                            className="search-bar-home"
+                            >
+                              <input
+                                type="search"
+                                style={{ background: "white" }}
+                                className="search-input-home"
+                                value={searchText}
+                                placeholder="Search Here..."
+                                onChange={handleSearch}
                               />
-                            )) : posts.map(({ id, post }) => (
-                              <Post
-                                rowMode={rowMode}
-                                key={id}
-                                postId={id}
-                                user={user}
-                                post={post}
-                                shareModal={setOpenShareModal}
-                                setLink={setCurrentPostLink}
-                                setPostText={setPostText}
-                              />
-                            ))}
+                            </div>
+                            {searchText
+                              ? posts
+                                  .filter((post) =>
+                                    post.post.username
+                                      ?.toLowerCase()
+                                      .includes(searchText.toLowerCase())
+                                  )
+                                  .map(({ id, post }) => (
+                                    <Post
+                                      rowMode={rowMode}
+                                      key={id}
+                                      postId={id}
+                                      user={user}
+                                      post={post}
+                                      shareModal={setOpenShareModal}
+                                      setLink={setCurrentPostLink}
+                                      setPostText={setPostText}
+                                    />
+                                  ))
+                              : posts.map(({ id, post }) => (
+                                  <Post
+                                    rowMode={rowMode}
+                                    key={id}
+                                    postId={id}
+                                    user={user}
+                                    post={post}
+                                    shareModal={setOpenShareModal}
+                                    setLink={setCurrentPostLink}
+                                    setPostText={setPostText}
+                                  />
+                                ))}
                           </ErrorBoundary>
                         </div>
                       )}
