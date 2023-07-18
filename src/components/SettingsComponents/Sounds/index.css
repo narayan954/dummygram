@@ -51,10 +51,13 @@
   border-radius: 8px;
   cursor: pointer;
   border: none;
-  background-color: rgb(62, 62, 62);
+  /* background-color: rgb(62, 62, 62); */
+  background-color: rgb(4, 202, 202);
   color: white;
 }
-
+#sound-btn:hover{
+  background-color: aqua;
+}
 .sound-page-note {
   font-size: 13px;
   max-width: 95%;
