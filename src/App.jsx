@@ -1,18 +1,12 @@
 import "./index.css";
 
-import {
-  AnimatedButton,
-  Darkmode,
-  Loader,
-  ShareModal,
-} from "./reusableComponents";
+import { Darkmode, Loader, ShareModal } from "./reusableComponents";
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
 import ErrorBoundary from "./reusableComponents/ErrorBoundary";
 import { FaArrowCircleUp } from "react-icons/fa";
-import Modal from "@mui/material/Modal";
 import { RowModeContext } from "./hooks/useRowMode";
 import { makeStyles } from "@mui/styles";
 import { playSuccessSound } from "./js/sounds";
@@ -79,19 +73,15 @@ const PAGESIZE = 10;
 function App() {
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState(null);
-  const [open, setOpen] = useState();
   const [loadingPosts, setLoadingPosts] = useState(true);
   const [loadMorePosts, setLoadMorePosts] = useState(false);
-  const [logout, setLogout] = useState(false);
   const [openShareModal, setOpenShareModal] = useState(false);
   const [currentPostLink, setCurrentPostLink] = useState("");
   const [postText, setPostText] = useState("");
   const [rowMode, setRowMode] = useState(false);
   const [showScroll, setShowScroll] = useState(false);
 
-  const classes = useStyles();
   const navigate = useNavigate();
-  const { enqueueSnackbar } = useSnackbar();
 
   const checkScrollTop = () => {
     if (!showScroll && window.pageYOffset > 400) {
@@ -168,15 +158,6 @@ function App() {
     setLoadMorePosts(false);
   }, [loadMorePosts]);
 
-  const signOut = () => {
-    auth.signOut().finally();
-    playSuccessSound();
-    enqueueSnackbar("Logged out Successfully !", {
-      variant: "info",
-    });
-    navigate("/dummygram/");
-  };
-
   return (
     <RowModeContext.Provider value={rowMode}>
       <ErrorBoundary inApp={true}>
@@ -186,9 +167,6 @@ function App() {
               onClick={() => setRowMode((prev) => !prev)}
               user={user}
               setUser={setUser}
-              open={open}
-              setOpen={setOpen}
-              setLogout={setLogout}
             />
           </ErrorBoundary>
           <ShareModal
@@ -197,47 +175,6 @@ function App() {
             currentPostLink={currentPostLink}
             postText={postText}
           />
-
-          <Modal open={logout} onClose={() => setLogout(false)}>
-            <div style={getModalStyle()} className={classes.paper}>
-              <form className="modal__signup">
-                <Logo />
-                <p
-                  style={{
-                    fontSize: "15px",
-                    fontFamily: "monospace",
-                    padding: "10%",
-                    color: "var(--color)",
-                    // marginBottom:800
-                  }}
-                >
-                  Are you sure you want to Logout?
-                </p>
-
-                <div className={classes.logout}>
-                  <AnimatedButton
-                    type="submit"
-                    onClick={signOut}
-                    variant="contained"
-                    color="primary"
-                    className="button-style"
-                  >
-                    Logout
-                  </AnimatedButton>
-                  <AnimatedButton
-                    type="submit"
-                    onClick={() => setLogout(false)}
-                    variant="contained"
-                    color="primary"
-                    className="button-style"
-                  >
-                    Cancel
-                  </AnimatedButton>
-                </div>
-              </form>
-            </div>
-          </Modal>
-
           <Darkmode />
           <Routes>
             <Route

@@ -1,21 +1,14 @@
 import "./index.css";
 
-import {
-  Box,
-  Button,
-  ClickAwayListener,
-  Divider,
-  Typography,
-} from "@mui/material";
 import React, { useEffect } from "react";
 
 import { AiOutlineInsertRowAbove } from "react-icons/ai";
-import { FaUserCircle } from "react-icons/fa";
 import { auth } from "../../lib/firebase";
+import { blue } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
 import { Logo } from "../../reusableComponents"
 
-function Navbar({ onClick, open, setOpen, user, setUser, setLogout }) {
+function Navbar({ onClick, user, setUser }) {
   const navigate = useNavigate();
 
   useEffect(() => {
