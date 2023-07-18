@@ -20,23 +20,25 @@ const validate = {
     return passwordRegex.test(value)
       ? { password: false, passwordError: false }
       : {
-        password: true,
-        passwordError:
-          "Minimum 8 characters, 1 uppercase, 1 lowercase, 1 symbol (@$%#^&*), 1 number (0-9).",
-      };
+          password: true,
+          passwordError:
+            "Minimum 8 characters, 1 uppercase, 1 lowercase, 1 symbol (@$%#^&*), 1 number (0-9).",
+        };
   },
 
   confirmPassword: (value, password) => {
-    return passwordRegex.test(value) ? (
-      (value !== password) ? {
-        confirmPassword: true,
-        confirmPasswordError: "Password does not match",
-      } : { confirmPassword: false, confirmPasswordError: false }
-    ) : {
-      confirmPassword: true,
-      confirmPasswordError:
-        "Minimum 8 characters, 1 uppercase, 1 lowercase, 1 symbol (@$%#^&*), 1 number (0-9).",
-    }
+    return passwordRegex.test(value)
+      ? value !== password
+        ? {
+            confirmPassword: true,
+            confirmPasswordError: "Password does not match",
+          }
+        : { confirmPassword: false, confirmPasswordError: false }
+      : {
+          confirmPassword: true,
+          confirmPasswordError:
+            "Minimum 8 characters, 1 uppercase, 1 lowercase, 1 symbol (@$%#^&*), 1 number (0-9).",
+        };
   },
 
   initialValue: {

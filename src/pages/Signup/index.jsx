@@ -2,8 +2,6 @@ import "../Login/index";
 import "./index.css";
 
 import React, { useRef, useState } from "react";
-import { getModalStyle, useStyles } from "../../App";
-import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import {
   auth,
   db,
@@ -11,26 +9,28 @@ import {
   googleProvider,
   storage,
 } from "../../lib/firebase";
+import { playErrorSound, playSuccessSound } from "../../js/sounds";
 
-import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
-import { updateProfile } from "firebase/auth";
-import { useSnackbar } from "notistack";
-import { useNavigate } from "react-router-dom";
-import blank_profile from "../../assets/blank-profile.webp";
-import loginRight from "../../assets/login-right.webp";
-import logo from "../../assets/logo.webp";
 import Auth__ctn__group from "../../reusableComponents/Auth/Auth__ctn__group";
 import Auth__image__input from "../../reusableComponents/Auth/Auth__image__input";
 import Auth__pass__input from "../../reusableComponents/Auth/Auth__pass__input";
 import Auth__text__input from "../../reusableComponents/Auth/Auth__text__input";
 import Auth__top from "../../reusableComponents/Auth/Auth__top";
 import Auth_container from "../../reusableComponents/Auth/Auth_container";
+import blank_profile from "../../assets/blank-profile.webp";
+import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
+import loginRight from "../../assets/login-right.webp";
+import logo from "../../assets/logo.webp";
+import { updateProfile } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "notistack";
 import validate from "../../reusableComponents/validation";
 
 const SignupScreen = () => {
-  const classes = useStyles();
+  const usernameRef = useRef("");
+  const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
 
-  const [modalStyle] = useState(getModalStyle);
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -42,9 +42,6 @@ const SignupScreen = () => {
   const [username, setUsername] = useState("");
   const [isOauthSignUp, setIsOauthSignUp] = useState(false);
   const [error, setError] = useState(validate.initialValue);
-  const usernameRef = useRef("");
-  const { enqueueSnackbar } = useSnackbar();
-  const navigate = useNavigate();
 
   function debounce(func, timeout = 300) {
     let timer;
@@ -122,7 +119,7 @@ const SignupScreen = () => {
                 photoURL: auth.currentUser.photoURL,
                 posts: [],
                 friends: [],
-              }),
+              })
             )
             .then(() => {
               playSuccessSound();
@@ -130,7 +127,7 @@ const SignupScreen = () => {
                 `Congratulations ${fullName},you have joined Dummygram`,
                 {
                   variant: "success",
-                },
+                }
               );
               navigate("/dummygram");
             })
@@ -143,7 +140,7 @@ const SignupScreen = () => {
           const uploadTask = storage.ref(`images/${image?.name}`).put(image);
           uploadTask.on(
             "state_changed",
-            () => { },
+            () => {},
             (error) => {
               playErrorSound();
               enqueueSnackbar(error.message, {
@@ -166,7 +163,7 @@ const SignupScreen = () => {
                   });
                 })
                 .catch((error) => console.error(error));
-            },
+            }
           );
         })
         .catch((error) => {
@@ -290,7 +287,7 @@ const SignupScreen = () => {
           `Congratulations ${fullName},you have joined Dummygram`,
           {
             variant: "success",
-          },
+          }
         );
         navigate("/dummygram");
       })
@@ -325,7 +322,7 @@ const SignupScreen = () => {
             "Welcome to DummyGram 😊, let's get your account created"
           }
         />
-        
+
         <div className="form__bottom">
           {/* image input for the form  */}
           <Auth__image__input
