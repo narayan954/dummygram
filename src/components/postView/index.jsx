@@ -345,20 +345,33 @@ const PostCommentView = ({
             {comments?.length ? (
               <>
                 {comments.map((userComment) => (
-                  <CommentItem key={userComment.id}>
+                  <CommentItem
+                    className="comment-container"
+                    key={userComment.id}
+                  >
                     <div className={"post_comment_details"}>
-                      <span>{userComment.content.username}</span>
-                      <ReadMore readMore={false}>
-                        {userComment.content.text}
-                      </ReadMore>
-                    </div>
-                    <div className={"post_comment_actions"}>
-                      <PostViewComments
-                        fullScreen={fullScreen}
-                        postId={postId}
-                        user={user}
-                        userComment={userComment}
-                      />
+                      <div className="post_comment_header">
+                        <span>{userComment.content.username}</span>
+                        <PostViewComments
+                          fullScreen={fullScreen}
+                          postId={postId}
+                          user={user}
+                          userComment={userComment}
+                        />
+                      </div>
+                      <div className="post_comment_area">
+                        <div className="post_comment_text">
+                          <ReadMore style={{ fontWeight: "500" }}>
+                            {userComment.content.text}
+                          </ReadMore>
+                        </div>
+                        <PostViewComments
+                          fullScreen={fullScreen}
+                          postId={postId}
+                          user={user}
+                          userComment={userComment}
+                        />
+                      </div>
                     </div>
                   </CommentItem>
                 ))}
