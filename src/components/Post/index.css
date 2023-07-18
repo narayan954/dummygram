@@ -201,7 +201,8 @@
 }
 
 .comment-input {
-  background-color: var(--bg-color) !important;
+  /* background-color: var(--bg-color) !important; */
+  background-color: var(--dark-post-bg) !important;
   color: var(--color);
   border-radius: 22px;
   margin-top: 4px;
