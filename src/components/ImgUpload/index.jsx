@@ -18,6 +18,20 @@ import { useSnackbar } from "notistack";
 export default function ImgUpload(props) {
   const [current, setCurrent] = useState(0);
   const [nextPage, setNextPage] = useState(false);
+  const [image, setImage] = useState(null);
+  const [caption, setCaption] = useState("");
+  const [progress, setProgress] = useState(0);
+  const [uploadingPost, setUploadingPost] = useState(false);
+  const [imagePreviews, setImagePreviews] = useState([]);
+  const [isValidimage, setisValidimage] = useState(true);
+  const [buttonPopup, setButtonPopup] = useState(false);
+  const [username, setUsername] = useState("");
+
+  const displayName = auth.currentUser.displayName;
+  const avatar = auth.currentUser.photoURL;
+  const imgInput = useRef(null);
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const ShiftToNextPage = () => {
     setNextPage(!nextPage);
@@ -28,17 +42,6 @@ export default function ImgUpload(props) {
   const nextStep = () => {
     setCurrent(current === imagePreviews.length - 1 ? 0 : current + 1);
   };
-  const displayName = auth.currentUser.displayName;
-  const avatar = auth.currentUser.photoURL;
-  const [image, setImage] = useState(null);
-  const [caption, setCaption] = useState("");
-  const [progress, setProgress] = useState(0);
-  const [uploadingPost, setUploadingPost] = useState(false);
-  const imgInput = useRef(null);
-  const [imagePreviews, setImagePreviews] = useState([]);
-  const [isValidimage, setisValidimage] = useState(true);
-  const [buttonPopup, setButtonPopup] = useState(false);
-  const [username, setUsername] = useState("");
 
   useEffect(() => {
     async function getUsername() {
@@ -49,8 +52,6 @@ export default function ImgUpload(props) {
 
     getUsername();
   }, []);
-
-  const { enqueueSnackbar } = useSnackbar();
 
   const handleChange = (e) => {
     if (!e.target.files[0]) {

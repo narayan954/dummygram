@@ -9,14 +9,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { auth, db, storage } from "../../lib/firebase";
-import {
-  collection,
-  doc,
-  getDoc,
-  onSnapshot,
-  query,
-  where,
-} from "firebase/firestore";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { getModalStyle, useStyles } from "../../App";
 import { lazy, useEffect, useState } from "react";
 import {
@@ -33,11 +26,9 @@ import { Loader } from "../../reusableComponents";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Modal from "@mui/material/Modal";
 import SettingsIcon from "@mui/icons-material/Settings";
-// import Modal from "@mui/material/Modal";
 import ViewsCounter from "./views";
 import firebase from "firebase/compat/app";
 import logo from "../../assets/logo.webp";
-import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
 
 const Post = lazy(() => import("../../components/Post"));
@@ -89,7 +80,7 @@ function Profile() {
           });
         })
         .catch((error) => {
-          enqueueSnackbar("Error getting document!", {
+          enqueueSnackbar(`Error Occured: ${error}`, {
             variant: "error",
           });
         });
@@ -98,8 +89,7 @@ function Profile() {
   }, []);
 
   const handleSendFriendRequest = () => {
-    const currentUser = auth.currentUser;
-    const currentUserUid = currentUser.uid;
+    const currentUserUid = auth.currentUser.uid;
     const targetUserUid = uid;
     if (friendRequestSent) {
       db.collection("users")
@@ -119,9 +109,17 @@ function Profile() {
               });
               setFriendRequestSent(false);
             })
-            .catch((error) => console.error(error));
+            .catch((error) => {
+              enqueueSnackbar(`Error Occured: ${error}`, {
+                variant: "error",
+              });
+            });
         })
-        .catch((error) => console.error(error));
+        .catch((error) => {
+          enqueueSnackbar(`Error Occured: ${error}`, {
+            variant: "error",
+          });
+        });
     } else {
       const friendRequestData = {
         sender: currentUserUid,
@@ -217,11 +215,6 @@ function Profile() {
     });
   }, [user, name]);
 
-  const handleBack = () => {
-    playTapSound();
-    navigate("/dummygram");
-  };
-
   const handleChange = (e) => {
     if (e.target.files[0]) {
       setProfilePic(URL.createObjectURL(e.target.files[0]));
@@ -282,12 +275,13 @@ function Profile() {
   };
 
   const signOut = () => {
-    auth.signOut().finally();
-    playSuccessSound();
-    enqueueSnackbar("Logged out Successfully !", {
-      variant: "info",
+    auth.signOut().finally(() => {
+      playSuccessSound();
+      enqueueSnackbar("Logged out Successfully !", {
+        variant: "info",
+      });
+      navigate("/dummygram/");
     });
-    navigate("/dummygram/");
   };
 
   return (
