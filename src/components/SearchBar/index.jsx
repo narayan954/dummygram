@@ -4,12 +4,13 @@ import React, { memo, useEffect, useState } from "react";
 import { auth, db } from "../../lib/firebase";
 
 import { Box } from "@mui/material";
+import { FaSearch } from "react-icons/fa";
 import Post from "../Post";
 import ShareModal from "../../reusableComponents";
 import SideBar from "../SideBar";
-import { FaSearch } from "react-icons/fa";
 
 const MemoizedPost = memo(Post);
+const PAGESIZE = 10;
 
 function SearchBar() {
   const [searchText, setSearchText] = useState("");
@@ -36,13 +37,13 @@ function SearchBar() {
           .collection("posts")
           .where("username", ">=", firstChar)
           .where("username", "<=", lastChar + "\uf8ff")
+          .limit(PAGESIZE)
           .get();
 
         const fetchedPosts = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           post: doc.data(),
         }));
-
         setPosts(fetchedPosts);
       } else {
         setPosts([]);
@@ -55,7 +56,7 @@ function SearchBar() {
   // code to filter posts accornding to searchtext
 
   const filteredPosts = posts.filter((post) =>
-    post.post.username.toLowerCase().includes(searchText.toLowerCase()),
+    post.post.username.toLowerCase().includes(searchText.toLowerCase())
   );
 
   return (
