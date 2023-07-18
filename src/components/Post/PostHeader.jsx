@@ -25,7 +25,7 @@ import { useState } from "react";
 const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
   const time = useCreatedAt(timestamp);
   const { fullScreen } = user; // needs fixing
-  const { username, caption, imageUrl, uid, email, avatar } = postData;
+  const { username, caption, imageUrl, displayName, avatar } = postData;
 
   const [Open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(false);
@@ -79,22 +79,15 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
     <div className="post__header">
       <Avatar
         className="post__avatar  flex avatar"
-        alt={username}
+        alt={displayName}
         src={avatar}
-        onClick={() => {
-          navigate("/dummygram/profile", {
-            state: {
-              name: username,
-              avatar: avatar,
-            },
-          });
-        }}
+        onClick={() => navigate(`/dummygram/${username}`)}
       />
       <Link
         to={`/dummygram/posts/${postId}`}
         style={{ textDecoration: "none" }}
       >
-        <h3 className="post__username">{username}</h3>
+        <h3 className="post__username">{displayName}</h3>
         <p className="post__time">{time}</p>
       </Link>
       <div className="social__icon__last">
@@ -126,27 +119,16 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
             },
           }}
         >
-          {user && username === user.displayName && (
+          {user && displayName === user.displayName && (
             <MenuItem onClick={handleClickOpen}> Delete </MenuItem>
           )}
-          {user && username === user.displayName && (
+          {user && displayName === user.displayName && (
             <MenuItem onClick={handleClickOpenCaption}> Edit </MenuItem>
           )}
           {postHasImages && (
             <MenuItem onClick={handleDownload}> Download </MenuItem>
           )}
-          <MenuItem
-            onClick={() => {
-              navigate("/dummygram/profile", {
-                state: {
-                  name: username,
-                  avatar: avatar,
-                  uid: uid,
-                  email: email,
-                },
-              });
-            }}
-          >
+          <MenuItem onClick={() => navigate(`/dummygram/${username}`)}>
             Visit Profile
           </MenuItem>
         </Menu>
