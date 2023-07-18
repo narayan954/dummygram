@@ -9,9 +9,6 @@ import ErrorBoundary from "./reusableComponents/ErrorBoundary";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { RowModeContext } from "./hooks/useRowMode";
 import { makeStyles } from "@mui/styles";
-import { playSuccessSound } from "./js/sounds";
-import { useSnackbar } from "notistack";
-import { Logo } from "./reusableComponents"
 
 // ------------------------------------ Pages ----------------------------------------------------
 const About = React.lazy(() => import("./pages/FooterPages/About"));
@@ -26,7 +23,7 @@ const ForgotPassword = React.lazy(() => import("./pages/ForgotPassword"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 const Settings = React.lazy(() => import("./pages/Settings"));
 const Contributors = React.lazy(() =>
-  import("./pages/FooterPages/ContributorPage/index"),
+  import("./pages/FooterPages/ContributorPage/index")
 );
 // ------------------------------------- Components ------------------------------------------------
 const Favorite = React.lazy(() => import("./components/Favorite.jsx"));
@@ -123,7 +120,7 @@ function App() {
           snapshot.docs.map((doc) => ({
             id: doc.id,
             post: doc.data(),
-          })),
+          }))
         );
       });
   }, []);
