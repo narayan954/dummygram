@@ -133,12 +133,14 @@ input:focus {
   .app__posts,
   .home-posts-container .app_posts_column,
   .home-posts-container .app_posts {
+   
     padding: 5.5em 15px 20px 9vw;
   }
 }
 @media only screen and (max-width: 800px) {
   .app__posts,
   .home-posts-container .app_posts_column {
+    
     padding: 5.5em 15px 5.5em 15px;
     display: flex;
     flex-direction: column;
@@ -539,3 +541,16 @@ input {
   padding-left: 20px;
   margin-top: -2px;
 } */
+
+.search-box{
+ position: relative;
+ left: 45%;
+}
+
+@media(max-width:1200px){
+  .search-box{
+    left: 0%;
+    display: flex;
+    justify-content: center;
+  }
+}
