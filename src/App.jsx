@@ -2,7 +2,7 @@ import "./index.css";
 
 import { Darkmode, Loader, ShareModal } from "./reusableComponents";
 import React, { useEffect, useState } from "react";
-import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
 import ErrorBoundary from "./reusableComponents/ErrorBoundary";
@@ -238,7 +238,7 @@ function App() {
             />
 
             <Route
-              path="/dummygram/profile"
+              path="/dummygram/:username"
               element={
                 <ErrorBoundary inApp={true}>
                   <Profile />
@@ -364,31 +364,27 @@ function App() {
           location.pathname === "/dummygram/about" ||
           location.pathname === "/dummygram/guidelines" ||
           location.pathname === "/dummygram/contributors" ? (
-            <div>
-              <FaArrowCircleUp
-                fill="#777"
-                className="scrollTop"
-                onClick={scrollTop}
-                style={{
-                  height: 50,
-                  display: showScroll ? "flex" : "none",
-                  position: "fixed",
-                }}
-              />
-            </div>
+            <FaArrowCircleUp
+              fill="#777"
+              className="scrollTop"
+              onClick={scrollTop}
+              style={{
+                height: 50,
+                display: showScroll ? "flex" : "none",
+                position: "fixed",
+              }}
+            />
           ) : (
-            <div>
-              <FaArrowCircleUp
-                fill="#777"
-                className="scrollTop sideToTop"
-                onClick={scrollTop}
-                style={{
-                  height: 50,
-                  display: showScroll ? "flex" : "none",
-                  position: "fixed",
-                }}
-              />
-            </div>
+            <FaArrowCircleUp
+              fill="#777"
+              className="scrollTop sideToTop"
+              onClick={scrollTop}
+              style={{
+                height: 50,
+                display: showScroll ? "flex" : "none",
+                position: "fixed",
+              }}
+            />
           )}
         </div>
       </ErrorBoundary>

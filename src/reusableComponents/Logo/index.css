@@ -1,0 +1,25 @@
+#dummygram-logo {
+  color: transparent;
+  font-family: "Dancing Script", cursive;
+  font-size: 32px;
+  font-weight: 700;
+  text-shadow: var(--logo-text-shadow);
+  /* background: linear-gradient(40deg, #ea18cb, #f404d0, #59afc7); */
+  background: linear-gradient(40deg, #59afc7, #f404d0, #59afc7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  margin-left: 20px;
+  cursor: pointer;
+  width: 200px;
+  border-radius: 0.3rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.sparkle-icon {
+  color: #0cc;
+  background: none;
+  text-shadow: var(--logo-text-shadow);
+  filter: drop-shadow(1px 1px 2px #59afc7);
+}

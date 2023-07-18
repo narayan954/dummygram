@@ -30,6 +30,7 @@
 
 .active {
   background: rgba(0, 0, 0, 0.05);
+  border: 2px solid #0cc;
 }
 
 .settings-sidebar-sub-container li {

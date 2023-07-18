@@ -32,14 +32,15 @@
 }
 
 .button-style {
-  background: linear-gradient(40deg, #e107c1, #59afc7);
+  /* background: linear-gradient(40deg, #e107c1, #59afc7); */
+  background: linear-gradient(40deg, #0cc, #fff);
   border-radius: 20px;
   margin: 10px;
   margin-right: 10px !important;
 }
 
 .button-style:hover {
-  background: linear-gradient(-40deg, #59afc7, #e107c1);
+  background: linear-gradient(-40deg, #fff, #0cc);
 }
 
 .nav-menu {
@@ -59,19 +60,4 @@
   display: flex;
   padding: 0.5rem;
   cursor: pointer;
-}
-
-#dummygram-logo {
-  color: transparent;
-  font-family: "Dancing Script", cursive;
-  font-size: 32px;
-  font-weight: 700;
-  text-shadow: var(--logo-text-shadow);
-  background: linear-gradient(40deg, #ea18cb, #f404d0, #59afc7);
-  -webkit-background-clip: text;
-  background-clip: text;
-  margin-left: 20px;
-  cursor: pointer;
-  width: 150px;
-  border-radius: 0.3rem;
 }

@@ -39,6 +39,7 @@ const ErrorFallBack = ({ error, info, resetErrorBoundary, inApp }) => {
             className={"error-boundary-button"}
             onClick={resetErrorBoundary}
             aria-label={"Refresh"}
+            style={{ color: "var(--post-error-boundary)" }}
           >
             <AutorenewIcon />
           </IconButton>
