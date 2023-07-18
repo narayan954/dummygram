@@ -317,7 +317,7 @@ input:focus {
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 800px) {
   .app__posts {
     display: flex;
     flex-wrap: wrap;
@@ -331,7 +331,7 @@ input:focus {
     margin: 50px auto !important;
   }
   .scrollTop {
-    left: 47.7%;
+    left: 40.7%;
    
   }
 
@@ -345,6 +345,12 @@ input:focus {
   .home-posts-container .app_posts_column {
     padding: 5.5em 20px 20px 17vw;
   }
+}
+
+@media (min-width: 1200px){
+.scrollTop{
+  left: 47.7%;
+}
 }
 
 .darkmode-toggle {

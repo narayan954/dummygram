@@ -364,7 +364,7 @@ function App() {
                 style={{
                   height: 50,
                   display: showScroll ? "flex" : "none",
-                 
+                 position:"fixed"
                  
                 }}
               />
