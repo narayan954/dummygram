@@ -521,7 +521,7 @@ input {
 
 /* auth container */
 .login__section {
-  height: 100vh;
+  height: 90vh;
   overflow: hidden;
 }
 

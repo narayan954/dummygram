@@ -9,7 +9,7 @@ const Auth_container = ({ right__img, children }) => {
             <img
               src={right__img}
               alt="website image"
-              style={{ objectFit: "cover" }}
+              style={{ objectFit: "fill" }}
             />
           )}
         </div>
