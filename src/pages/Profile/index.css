@@ -7,7 +7,7 @@
   box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
   cursor: pointer;
   color: blue;
-  border: 2px solid blue;
+  border: 2px solid #0cc;
   filter: invert(0%) !important;
   transition: color 0.4s;
   padding: 0 15px;
@@ -16,7 +16,7 @@
 
 .img-edit:hover {
   opacity: 1;
-  background: linear-gradient(40deg, #e107c1, #59afc7);
+  background: linear-gradient(40deg, #0cc, #fff);
   filter: invert(0%) !important;
   color: white !important;
 }
@@ -25,13 +25,42 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 50px;
+  margin-bottom: 0;
 }
-.feed-main-container .app__posts {
-  padding: 2em 10px 20px 0;
+
+.profile-right p {
+  font-size: 1rem;
 }
 
 .img-save:hover {
   color: var(--btn-color);
+}
+
+.modal__signup__img {
+  width: 80%;
+  border-radius: 0.3rem;
+  margin-bottom: 10px;
+}
+
+.modal__signup {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.modal__signup button {
+  margin-top: 10px;
+}
+
+.button-style {
+  background: var(--btn-color);
+  border-radius: 20px;
+  margin: 10px;
+}
+
+.button-style:hover {
+  background: var(--btn-color-hover);
 }
 
 /* media query */
@@ -53,9 +82,6 @@
     width: 110px;
     height: 110px;
   }
-  .profile-right p {
-    font-size: 1rem;
-  }
   .inner-profile {
     width: 100%;
   }
@@ -68,6 +94,9 @@
   .profile-pic-container {
     width: 140px;
     height: 140px;
+  }
+  .setting-logout {
+    flex-direction: row;
   }
 }
 
@@ -96,9 +125,6 @@
   .profile-pic-container {
     width: 180px;
     height: 180px;
-  }
-  .profile-right p {
-    font-size: 1.6rem;
   }
   .img-edit,
   .img-save {
