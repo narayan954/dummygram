@@ -5,7 +5,7 @@ import React, { useCallback, useRef, useState } from "react";
 import Webcam from "react-webcam";
 
 const videoConstraints = {
-  width: 340,
+  width: 300,
   facingMode: "enviroment",
 };
 
