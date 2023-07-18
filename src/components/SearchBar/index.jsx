@@ -56,7 +56,7 @@ function SearchBar() {
   // code to filter posts accornding to searchtext
 
   const filteredPosts = posts.filter((post) =>
-    post.post.username.toLowerCase().includes(searchText.toLowerCase())
+    post.post.username.toLowerCase().includes(searchText.toLowerCase()),
   );
 
   return (
