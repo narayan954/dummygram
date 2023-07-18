@@ -3,7 +3,10 @@ import {
   ClickAwayListener,
   Typography,
   useMediaQuery,
+  IconButton,
 } from "@mui/material";
+import { Send } from "@mui/icons-material";
+
 import {
   CommentForm,
   CommentItem,
@@ -328,18 +331,18 @@ const PostCommentView = ({
                 margin: "4px 0px",
               }}
             />
-            <button
-              className="post__button"
-              disabled={commentRef?.current?.value === null}
-              type="submit"
-              onClick={postComment}
-              style={{
-                fontWeight: "bold",
-                textTransform: "uppercase",
-              }}
-            >
-              Post
-            </button>
+         <IconButton
+            className="post__button"
+            disabled={commentRef?.current?.value === null}
+            type="submit"
+            onClick={postComment}
+            style={{
+              padding: 0,
+              paddingRight: "5px",
+            }}
+          >
+            <Send className="send-comment-btn" />
+          </IconButton>
           </CommentForm>
           <ErrorBoundary>
             {comments?.length ? (
