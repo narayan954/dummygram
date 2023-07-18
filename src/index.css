@@ -23,6 +23,7 @@
   --text-light: rgba(0,0,0,0.6);
   --post-error-boundary: rgba(0,0,0,0.54);
   --text-black-only: black;
+  --dark-post-bg: rgb(255, 255, 255);;
 }
 
 .darkmode {
@@ -49,6 +50,7 @@
   --text-light: rgba(255,255,255,0.6);
   --post-error-boundary: rgba(255,255,255,0.54);
   --darkmode-white: white;
+  --dark-post-bg: #2a323c;
 }
 
 * {
@@ -569,3 +571,6 @@ input {
     padding: 0;
   }
 }
+
+.post,
+.postColumn{background-color: var(--dark-post-bg);}
