@@ -89,7 +89,6 @@ function Profile() {
           });
         })
         .catch((error) => {
-          console.log(error);
           enqueueSnackbar("Error getting document!", {
             variant: "error",
           });
