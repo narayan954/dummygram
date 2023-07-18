@@ -4,6 +4,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { Loader } from "../../reusableComponents";
 import PostCommentView from "../../components/postView";
 import { PostViewContainer } from "./PostViewStyled.jsx";
+import SideBar from "../../components/SideBar";
 import { db } from "../../lib/firebase";
 import { useParams } from "react-router-dom";
 
@@ -33,23 +34,26 @@ const PostView = (props) => {
   }, [post, fetchAgain]);
 
   return (
-    <PostViewContainer>
-      {post && user ? (
-        <PostCommentView
-          key={id}
-          postId={id}
-          user={user}
-          post={post}
-          shareModal={shareModal}
-          setLink={setLink}
-          setPostText={setPostText}
-          setFetchAgain={setFetchAgain}
-          fetchAgain={fetchAgain}
-        />
-      ) : (
-        <Loader />
-      )}
-    </PostViewContainer>
+    <>
+      <SideBar />
+      <PostViewContainer className="post-page-container">
+        {post && user ? (
+          <PostCommentView
+            key={id}
+            postId={id}
+            user={user}
+            post={post}
+            shareModal={shareModal}
+            setLink={setLink}
+            setPostText={setPostText}
+            setFetchAgain={setFetchAgain}
+            fetchAgain={fetchAgain}
+          />
+        ) : (
+          <Loader />
+        )}
+      </PostViewContainer>
+    </>
   );
 };
 
