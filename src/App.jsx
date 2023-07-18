@@ -230,7 +230,7 @@ function App() {
             />
 
             <Route
-              path="/dummygram/profile"
+              path="/dummygram/:username"
               element={
                 <ErrorBoundary inApp={true}>
                   <Profile />
@@ -356,31 +356,27 @@ function App() {
           location.pathname === "/dummygram/about" ||
           location.pathname === "/dummygram/guidelines" ||
           location.pathname === "/dummygram/contributors" ? (
-            <div>
-              <FaArrowCircleUp
-                fill="#777"
-                className="scrollTop"
-                onClick={scrollTop}
-                style={{
-                  height: 50,
-                  display: showScroll ? "flex" : "none",
-                  position: "fixed",
-                }}
-              />
-            </div>
+            <FaArrowCircleUp
+              fill="#777"
+              className="scrollTop"
+              onClick={scrollTop}
+              style={{
+                height: 50,
+                display: showScroll ? "flex" : "none",
+                position: "fixed",
+              }}
+            />
           ) : (
-            <div>
-              <FaArrowCircleUp
-                fill="#777"
-                className="scrollTop sideToTop"
-                onClick={scrollTop}
-                style={{
-                  height: 50,
-                  display: showScroll ? "flex" : "none",
-                  position: "fixed",
-                }}
-              />
-            </div>
+            <FaArrowCircleUp
+              fill="#777"
+              className="scrollTop sideToTop"
+              onClick={scrollTop}
+              style={{
+                height: 50,
+                display: showScroll ? "flex" : "none",
+                position: "fixed",
+              }}
+            />
           )}
         </div>
       </ErrorBoundary>

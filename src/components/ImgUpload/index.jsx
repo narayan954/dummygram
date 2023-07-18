@@ -2,8 +2,9 @@ import "./index.css";
 
 import { Avatar, LinearProgress, TextField } from "@mui/material";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { auth, db, handleMultiUpload } from "../../lib/firebase";
+import { doc, getDoc } from "firebase/firestore";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -17,6 +18,20 @@ import { useSnackbar } from "notistack";
 export default function ImgUpload(props) {
   const [current, setCurrent] = useState(0);
   const [nextPage, setNextPage] = useState(false);
+  const [image, setImage] = useState(null);
+  const [caption, setCaption] = useState("");
+  const [progress, setProgress] = useState(0);
+  const [uploadingPost, setUploadingPost] = useState(false);
+  const [imagePreviews, setImagePreviews] = useState([]);
+  const [isValidimage, setisValidimage] = useState(true);
+  const [buttonPopup, setButtonPopup] = useState(false);
+  const [username, setUsername] = useState("");
+
+  const displayName = auth.currentUser.displayName;
+  const avatar = auth.currentUser.photoURL;
+  const imgInput = useRef(null);
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const ShiftToNextPage = () => {
     setNextPage(!nextPage);
@@ -27,18 +42,16 @@ export default function ImgUpload(props) {
   const nextStep = () => {
     setCurrent(current === imagePreviews.length - 1 ? 0 : current + 1);
   };
-  const username = auth.currentUser.displayName;
-  const avatar = auth.currentUser.photoURL;
-  const [image, setImage] = useState(null);
-  const [caption, setCaption] = useState("");
-  const [progress, setProgress] = useState(0);
-  const [uploadingPost, setUploadingPost] = useState(false);
-  const imgInput = useRef(null);
-  const [imagePreviews, setImagePreviews] = useState([]);
-  const [isValidimage, setisValidimage] = useState(true);
-  const [buttonPopup, setButtonPopup] = useState(false);
 
-  const { enqueueSnackbar } = useSnackbar();
+  useEffect(() => {
+    async function getUsername() {
+      const docRef = doc(db, "users", auth?.currentUser?.uid);
+      const docSnap = await getDoc(docRef);
+      setUsername(docSnap.data().username);
+    }
+
+    getUsername();
+  }, []);
 
   const handleChange = (e) => {
     if (!e.target.files[0]) {
@@ -80,7 +93,8 @@ export default function ImgUpload(props) {
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         caption: caption,
         imageUrl,
-        username: props.user.displayName,
+        username: username,
+        displayName: props.user.displayName,
         avatar: props.user.photoURL,
         likecount: [],
         uid: auth?.currentUser?.uid,
@@ -247,12 +261,12 @@ export default function ImgUpload(props) {
         )}
         <div className="post__caption_section">
           <div className="post__header">
-            {avatar && username && (
+            {avatar && displayName && (
               <>
                 {" "}
                 <Avatar
                   className="post__avatar"
-                  alt={username}
+                  alt={displayName}
                   src={avatar}
                   sx={{
                     bgcolor: "royalblue",
@@ -269,7 +283,7 @@ export default function ImgUpload(props) {
                   }}
                 />
                 <Link style={{ textDecoration: "none" }}>
-                  <h3 className="post__username">{username}</h3>
+                  <h3 className="post__username">{displayName}</h3>
                 </Link>
               </>
             )}
@@ -387,12 +401,12 @@ export default function ImgUpload(props) {
         {nextPage && (
           <div className="post__caption_section">
             <div className="post__header">
-              {avatar && username && (
+              {avatar && displayName && (
                 <>
                   {" "}
                   <Avatar
                     className="post__avatar"
-                    alt={username}
+                    alt={displayName}
                     src={avatar}
                     sx={{
                       bgcolor: "royalblue",
@@ -409,7 +423,7 @@ export default function ImgUpload(props) {
                     }}
                   />
                   <Link style={{ textDecoration: "none" }}>
-                    <h3 className="post__username">{username}</h3>
+                    <h3 className="post__username">{displayName}</h3>
                   </Link>
                 </>
               )}

@@ -37,7 +37,7 @@
 
 @media screen and (max-width: 768px) {
   .darkmode-btn {
-    margin-bottom: 1em;
-    right: 1.5em;
+    margin-bottom: 2em;
+    right: 1em;
   }
 }
