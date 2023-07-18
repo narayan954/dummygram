@@ -2,6 +2,8 @@ import "./index.css";
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import { auth, db } from "../../lib/firebase";
+import { doc, getDoc } from "firebase/firestore";
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -13,26 +15,24 @@ import HomeIcon from "@mui/icons-material/Home";
 import ImgUpload from "../ImgUpload";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import SearchIcon from "@mui/icons-material/Search";
-import { auth, db } from "../../lib/firebase";
-import { doc, getDoc } from "firebase/firestore";
 
 const Footer = React.lazy(() => import("./Footer"));
 
 function SideBar() {
   const navigate = useNavigate();
   const [openNewUpload, setOpenNewUpload] = useState(false);
-  const [username, setUsername] = useState("")
+  const [username, setUsername] = useState("");
   const user = auth.currentUser;
   const location = useLocation();
 
   useEffect(() => {
-    async function getUsername(){
+    async function getUsername() {
       const docRef = doc(db, "users", user?.uid);
       const docSnap = await getDoc(docRef);
-      setUsername(docSnap.data().username)
+      setUsername(docSnap.data().username);
     }
-    getUsername()
-  },[])
+    getUsername();
+  }, []);
 
   return (
     <div className="sidebar">

@@ -128,9 +128,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
           {postHasImages && (
             <MenuItem onClick={handleDownload}> Download </MenuItem>
           )}
-          <MenuItem
-            onClick={() => navigate(`/dummygram/${username}`)}
-          >
+          <MenuItem onClick={() => navigate(`/dummygram/${username}`)}>
             Visit Profile
           </MenuItem>
         </Menu>

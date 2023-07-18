@@ -9,7 +9,14 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { auth, db, storage } from "../../lib/firebase";
-import { collection, doc, getDoc, onSnapshot, query, where } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import { getModalStyle, useStyles } from "../../App";
 import { lazy, useEffect, useState } from "react";
 import {
@@ -21,8 +28,8 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { AnimatedButton } from "../../reusableComponents";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
-import { Loader } from "../../reusableComponents";
 import { FaUserCircle } from "react-icons/fa";
+import { Loader } from "../../reusableComponents";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Modal from "@mui/material/Modal";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -50,7 +57,7 @@ function Profile() {
   const [open, setOpen] = useState(false);
   const [logout, setLogout] = useState(false);
   const [friendRequestSent, setFriendRequestSent] = useState(false);
-  const [userData, setUserData] = useState(null)
+  const [userData, setUserData] = useState(null);
   const { username } = useParams();
 
   let name = "";
@@ -67,26 +74,29 @@ function Profile() {
 
   useEffect(() => {
     async function getUserData() {
-      const docRef = db.collection("users").where("username", "==", username).limit(1);
-      docRef.get()
+      const docRef = db
+        .collection("users")
+        .where("username", "==", username)
+        .limit(1);
+      docRef
+        .get()
         .then((snapshot) => {
-          const doc = snapshot.docs[0]
+          const doc = snapshot.docs[0];
           setUserData({
             name: doc.data().name,
             avatar: doc.data().photoURL,
             uid: doc.data().uid,
-          })
-
+          });
         })
         .catch((error) => {
-          console.log(error)
+          console.log(error);
           enqueueSnackbar("Error getting document!", {
             variant: "error",
           });
-        })
+        });
     }
-    getUserData()
-  }, [])
+    getUserData();
+  }, []);
 
   const handleSendFriendRequest = () => {
     const currentUser = auth.currentUser;
@@ -195,10 +205,7 @@ function Profile() {
 
   // Get user's posts from posts collection
   useEffect(() => {
-    const q = query(
-      collection(db, "posts"),
-      where("uid", "==", uid),
-    );
+    const q = query(collection(db, "posts"), where("uid", "==", uid));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const userPosts = [];
       querySnapshot.forEach((doc) => {
@@ -229,7 +236,7 @@ function Profile() {
     const uploadTask = storage.ref(`images/${image?.name}`).put(image);
     uploadTask.on(
       "state_changed",
-      () => { },
+      () => {},
       (error) => {
         playErrorSound();
         enqueueSnackbar(error.message, {
@@ -242,7 +249,6 @@ function Profile() {
           .child(image?.name)
           .getDownloadURL()
           .then(async (url) => {
-
             //Updating profile image in auth
             auth.currentUser.updateProfile({
               displayName: name,
@@ -250,29 +256,28 @@ function Profile() {
             });
 
             //Updating profile image in users collection
-            const docRef = db.collection("users").doc(uid)
+            const docRef = db.collection("users").doc(uid);
             await docRef.update({
-              photoURL: url
-            })
+              photoURL: url,
+            });
 
             //Updating profile image in all posts
-            const postsRef = db.collection("posts").where("uid", "==", uid)
-            postsRef.get()
-              .then((postsSnapshot) => {
-                postsSnapshot.forEach((post) => {
-                  const postRef = post.ref;
-                  postRef.update({
-                    avatar: url
-                  })
-                })
-              })
+            const postsRef = db.collection("posts").where("uid", "==", uid);
+            postsRef.get().then((postsSnapshot) => {
+              postsSnapshot.forEach((post) => {
+                const postRef = post.ref;
+                postRef.update({
+                  avatar: url,
+                });
+              });
+            });
             playSuccessSound();
             enqueueSnackbar("Upload Successful!!!", {
               variant: "success",
             });
           })
           .catch((error) => console.error(error));
-      },
+      }
     );
     setVisible(false);
   };
@@ -384,23 +389,23 @@ function Profile() {
                   </div>
                 </div>
               ) : (
-                  <img
-                    style={{
-                      objectFit: "cover",
-                      margin: 0,
-                      position: "absolute",
-                      height: "90%",
-                      width: "90%",
-                      transform: "translate(-50%, -50%)",
-                      borderRadius: "6%",
-                      top: "50%",
-                      left: "50%",
-                    }}
-                    width={isNonMobile ? "50%" : "50%"}
-                    height={isNonMobile ? "50%" : "50%"}
-                    src={avatar}
-                    alt={name}
-                  />
+                <img
+                  style={{
+                    objectFit: "cover",
+                    margin: 0,
+                    position: "absolute",
+                    height: "90%",
+                    width: "90%",
+                    transform: "translate(-50%, -50%)",
+                    borderRadius: "6%",
+                    top: "50%",
+                    left: "50%",
+                  }}
+                  width={isNonMobile ? "50%" : "50%"}
+                  height={isNonMobile ? "50%" : "50%"}
+                  src={avatar}
+                  alt={name}
+                />
               )}
             </Box>
           </Modal>
@@ -502,13 +507,19 @@ function Profile() {
                 <Typography fontSize="1.3rem" fontWeight="600">
                   {username}
                 </Typography>
-                <Typography fontSize="1.3rem" fontWeight="600" paddingBottom="10px">
+                <Typography
+                  fontSize="1.3rem"
+                  fontWeight="600"
+                  paddingBottom="10px"
+                >
                   {name}
                 </Typography>
                 <div style={{ display: "flex" }}>
                   <Typography fontSize="1.1rem" fontWeight="600">
                     Total Posts:&nbsp;
-                    <span style={{ fontWeight: "300" }}>{feed.length} &nbsp;</span>
+                    <span style={{ fontWeight: "300" }}>
+                      {feed.length} &nbsp;
+                    </span>
                   </Typography>
                   <Typography fontSize="1.1rem" fontWeight="600">
                     Views:&nbsp;

@@ -4,6 +4,7 @@ import { Avatar, LinearProgress, TextField } from "@mui/material";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import React, { useEffect, useRef, useState } from "react";
 import { auth, db, handleMultiUpload } from "../../lib/firebase";
+import { doc, getDoc } from "firebase/firestore";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -13,7 +14,6 @@ import { Link } from "react-router-dom";
 import Popup from "../../reusableComponents/Popup";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
-import { doc, getDoc } from "firebase/firestore";
 
 export default function ImgUpload(props) {
   const [current, setCurrent] = useState(0);
@@ -38,17 +38,17 @@ export default function ImgUpload(props) {
   const [imagePreviews, setImagePreviews] = useState([]);
   const [isValidimage, setisValidimage] = useState(true);
   const [buttonPopup, setButtonPopup] = useState(false);
-  const [username, setUsername] = useState("")
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
-    async function getUsername(){
+    async function getUsername() {
       const docRef = doc(db, "users", auth?.currentUser?.uid);
       const docSnap = await getDoc(docRef);
-      setUsername(docSnap.data().username)
+      setUsername(docSnap.data().username);
     }
 
-    getUsername()
-  }, [])
+    getUsername();
+  }, []);
 
   const { enqueueSnackbar } = useSnackbar();
 
