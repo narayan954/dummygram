@@ -174,7 +174,12 @@ function Post(prop) {
   };
 
   return (
-    <div className={`${rowMode ? "post" : "postColumn"}`}>
+    <div
+      className={`${rowMode ? "post" : "postColumn"}`}
+      style={{
+        boxShadow: "#fff 0px 3px 6px, #0cc 0px 3px 6px",
+      }}
+    >
       <ErrorBoundary>
         <PostHeader
           user={user}

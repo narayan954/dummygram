@@ -9,6 +9,8 @@ import Popup from "./Popup";
 import Scroll from "./Scroll";
 import ShareModal from "./ShareModal";
 import SnackBar from "./SnackBar";
+import Logo from "./Logo";
+import validate from "./validation";
 
 export {
   AnimatedButton,
@@ -22,6 +24,8 @@ export {
   Scroll,
   ShareModal,
   SnackBar,
+  Logo,
+  validate,
 };
 
 export default Scroll;
