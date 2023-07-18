@@ -6,10 +6,10 @@ import Auth__top from "./Auth__top";
 import Auth_container from "./Auth_container";
 
 export {
-    Auth__ctn__group,
-    Auth__image__input,
-    Auth__pass__input,
-    Auth__text__input,
-    Auth__top,
-    Auth_container,
-}
+  Auth__ctn__group,
+  Auth__image__input,
+  Auth__pass__input,
+  Auth__text__input,
+  Auth__top,
+  Auth_container,
+};

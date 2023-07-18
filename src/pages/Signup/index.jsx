@@ -11,13 +11,14 @@ import {
 } from "../../lib/firebase";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import {
-  Auth__ctn__group, 
-  Auth__image__input, 
-  Auth__pass__input, 
-  Auth__text__input, 
-  Auth_container, Auth__top
-} from "../../reusableComponents/Auth"
-import { Logo, validate } from "../../reusableComponents"
+  Auth__ctn__group,
+  Auth__image__input,
+  Auth__pass__input,
+  Auth__text__input,
+  Auth_container,
+  Auth__top,
+} from "../../reusableComponents/Auth";
+import { Logo, validate } from "../../reusableComponents";
 import blank_profile from "../../assets/blank-profile.webp";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import loginRight from "../../assets/login-right.webp";
@@ -314,7 +315,7 @@ const SignupScreen = () => {
   return (
     <Auth_container right__img={loginRight}>
       <form aria-label="Sign Up Form">
-      <Logo ml={1} />
+        <Logo ml={1} />
         <Auth__top
           heading={"Hey, hello 👋"}
           top__greeting={
