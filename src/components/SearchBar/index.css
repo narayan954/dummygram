@@ -5,7 +5,7 @@
   max-width: 380px;
   background: #fff;
   margin: 30px auto;
-  border: 1px solid #e107c1;
+  border: 1px solid #0cc;
   border-radius: 25px;
 }
 .search-input {
@@ -24,7 +24,7 @@
   right: 0px;
   top: 0;
   width: 54px;
-  background: linear-gradient(40deg, #e107c1, #59afc7);
+  background: linear-gradient(40deg, #0CC, #daf1f7);
   height: 103%;
   text-align: center;
   line-height: 50px;

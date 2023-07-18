@@ -14,8 +14,8 @@
   --profile-box-shadow: 0 0 6px 0 black;
   --profile-divider: "";
   --logo-text-shadow: none;
-  --btn-color: #8beeff;
-  --btn-color-hover: #098b9f;
+  --btn-color: linear-gradient(-40deg, #daf1f7, #0cc);
+  --btn-color-hover: linear-gradient(40deg, #0cc, #daf1f7);
   --page-over-color: #5ec3fd;
   --slide-color: #9be5ea;
   --label-color: rgb(200, 246, 248);
@@ -34,9 +34,9 @@
   --profile-container: rgb(50, 48, 48);
   --profile-box-shadow: 0 0 6px white;
   --profile-divider: #898989;
-  --logo-text-shadow: 0 0 10px #eeeeee, 0 0 20px #ff4da6, 0 0 30px #ff4da6;
-  --btn-color: #098b9f;
-  --btn-color-hover: #098b9f;
+  --logo-text-shadow: 0 0 10px #eeeeee, 0 0 20px #0cc, 0 0 30px #fff;
+  --btn-color: linear-gradient(40deg, #0cc, #daf1f7);
+  --btn-color-hover: linear-gradient(-40deg, #daf1f7, #0cc);
   --page-over-color: #3a3e44;
   --slide-color: #524a54;
   --label-color: #6a656b;
@@ -115,7 +115,7 @@ input:focus {
 }
 
 .rowConvert {
-  color: var(--text-secondary);
+  color: var(--btn-color);
   display: flex;
   margin-right: 12px;
   transition: all;
@@ -124,7 +124,7 @@ input:focus {
 }
 
 .rowConvert:hover {
-  color: red;
+  color: var(--btn-color-hover);
   cursor: pointer;
   transform: scale(1.04);
 }
@@ -179,7 +179,7 @@ input:focus {
 }
 
 .post__img_container:only-of-type .post__img {
-  border-bottom: 1px solid rgba(72, 6, 91, 0.281);
+  border-bottom: 1px solid rgba(5, 132, 132, 0.281);
   border-top: 1px solid rgba(215, 208, 208, 0.845);
 }
 

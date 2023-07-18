@@ -4,7 +4,8 @@ import React, { useEffect } from "react";
 
 import { AiOutlineInsertRowAbove } from "react-icons/ai";
 import { auth } from "../../lib/firebase";
-import logo from "../../assets/logo.webp";
+import { blue } from "@mui/material/colors";
+// import logo from "../../assets/logo.webp";
 import { useNavigate } from "react-router-dom";
 
 function Navbar({ onClick, user, setUser }) {
@@ -28,15 +29,16 @@ function Navbar({ onClick, user, setUser }) {
     location.pathname !== "/dummygram/login" &&
     location.pathname !== "/dummygram/signup" && (
       <div className="app__header">
-        <img
-          src={logo}
-          id="dummygram-logo"
-          onClick={() => {
-            navigate("/dummygram/");
-            window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-          }}
-        />
-
+        <div className="logo">
+          <img
+            src="https://dummy-gram.web.app/assets/logo-4fa32b9d.png"
+            id="dummygram-logo"
+            onClick={() => {
+              navigate("/dummygram/");
+              window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+            }}
+          />
+        </div>
         {user && (
           <>
             <div className="container">

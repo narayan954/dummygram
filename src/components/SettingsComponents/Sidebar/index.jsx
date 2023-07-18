@@ -15,9 +15,11 @@ const SettingsSidebar = () => {
     <div>
       <div className="settings-sidebar-container">
         <ul className="settings-sidebar-sub-container">
-          <li>
-            <Link to="/dummygram/settings/sounds">
-              <VolumeUpOutlinedIcon className="icon" /> <span>Sound</span>
+          <li  onClick={() => Navigate("/dummygram/settings")}
+           className={location.pathname == "/dummygram/settings" ? "active" : ""}>
+            <Link >
+              <VolumeUpOutlinedIcon className="icon" 
+             /> <span>Sound</span>
             </Link>
           </li>
           <li>
