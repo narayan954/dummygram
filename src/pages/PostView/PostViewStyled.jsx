@@ -98,7 +98,7 @@ export const PostGridItem = styled("div")(
       justifyContent: "center",
       height: "fit-content",
     }),
-  }),
+  })
 );
 export const PostHeader = styled(CardHeader)(({ theme }) => ({
   "& .MuiCardHeader-title": {
@@ -164,7 +164,7 @@ export const CommentItem = styled("div")(({ theme, empty }) => ({
     },
   },
   "& .post_comment_header span:first-child": {
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   ...(empty && {
     display: "grid",
