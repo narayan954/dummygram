@@ -20,8 +20,8 @@
   --page-over-color: #5ec3fd;
   --slide-color: #9be5ea;
   --label-color: rgb(200, 246, 248);
-  --text-light: rgba(0,0,0,0.6);
-  --post-error-boundary: rgba(0,0,0,0.54);
+  --text-light: rgba(0, 0, 0, 0.6);
+  --post-error-boundary: rgba(0, 0, 0, 0.54);
   --text-black-only: black;
 }
 
@@ -46,8 +46,8 @@
   --slide-color: #524a54;
   --label-color: #6a656b;
   --text-black-only: black;
-  --text-light: rgba(255,255,255,0.6);
-  --post-error-boundary: rgba(255,255,255,0.54);
+  --text-light: rgba(255, 255, 255, 0.6);
+  --post-error-boundary: rgba(255, 255, 255, 0.54);
   --darkmode-white: white;
 }
 
@@ -517,10 +517,14 @@ input {
   background: var(--btn-color-hover);
 }
 
-.no-comments, 
+.no-comments,
 .light-text,
-.post-page-caption span{color: var(--text-light);}
-.create-post-input label {color: var(--darkmode-white);}
+.post-page-caption span {
+  color: var(--text-light);
+}
+.create-post-input label {
+  color: var(--darkmode-white);
+}
 
 /* end */
 

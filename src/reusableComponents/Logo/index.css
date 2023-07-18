@@ -18,9 +18,8 @@
 }
 
 .sparkle-icon {
-  color: #ea18cb;
+  color: #0cc;
   background: none;
-  text-shadow: none;
   text-shadow: var(--logo-text-shadow);
   filter: drop-shadow(1px 1px 2px #59afc7);
 }
