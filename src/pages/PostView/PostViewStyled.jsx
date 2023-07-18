@@ -163,7 +163,7 @@ export const CommentItem = styled("div")(({ theme, empty }) => ({
       fontSize: "0.7rem",
     },
   },
-  "& .post_comment_header span:first-child": {
+  "& .post_comment_header span:first-of-type": {
     fontWeight: "bold",
   },
   ...(empty && {

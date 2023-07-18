@@ -1,7 +1,10 @@
 import "./index.css";
+
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
+import { useNavigate } from "react-router-dom";
 
 const Logo = ({ ml }) => {
+  const navigate = useNavigate();
   return (
     <p
       id="dummygram-logo"
