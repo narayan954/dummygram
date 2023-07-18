@@ -4,18 +4,17 @@ import "../Signup/index.css";
 import React, { useState } from "react";
 import { auth, db, facebookProvider, googleProvider } from "../../lib/firebase";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
-
-import Auth__ctn__group from "../../reusableComponents/Auth/Auth__ctn__group";
-import Auth__pass__input from "../../reusableComponents/Auth/Auth__pass__input";
-import Auth__text__input from "../../reusableComponents/Auth/Auth__text__input";
-import Auth__top from "../../reusableComponents/Auth/Auth__top";
-import Auth_container from "../../reusableComponents/Auth/Auth_container";
+import {
+  Auth__ctn__group, 
+  Auth__pass__input, 
+  Auth__text__input, 
+  Auth_container, Auth__top
+} from "../../reusableComponents/Auth"
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import loginRight from "../../assets/login-right.webp";
-import logo from "../../assets/logo.webp";
+import { Logo, validate } from "../../reusableComponents"
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
-import validate from "../../reusableComponents/validation";
 
 const LoginScreen = () => {
   const [userDatails, setuserDatails] = useState({
@@ -201,8 +200,8 @@ const LoginScreen = () => {
   return (
     <Auth_container right__img={loginRight}>
       <form aria-label="Sign Up Form">
+        <Logo ml={1} />
         <Auth__top
-          logo={logo}
           heading={"Hey, hello 👋"}
           top__greeting={"Enter your information to get started"}
         />
