@@ -7,7 +7,7 @@
   box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
   cursor: pointer;
   color: blue;
-  border: 2px solid #0CC;
+  border: 2px solid #0cc;
   filter: invert(0%) !important;
   transition: color 0.4s;
   padding: 0 15px;

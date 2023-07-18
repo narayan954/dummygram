@@ -29,14 +29,14 @@
 
 .button-style {
   /* background: linear-gradient(40deg, #e107c1, #59afc7); */
-  background: linear-gradient(40deg, #0CC, #fff);
+  background: linear-gradient(40deg, #0cc, #fff);
   border-radius: 20px;
   margin: 10px;
   margin-right: 10px !important;
 }
 
 .button-style:hover {
-  background: linear-gradient(-40deg,#fff, #0CC);
+  background: linear-gradient(-40deg, #fff, #0cc);
 }
 
 .nav-menu {
@@ -64,7 +64,7 @@
   font-size: 32px;
   font-weight: 700;
   text-shadow: var(--logo-text-shadow);
-  background: linear-gradient(40deg,#0CC, #fff);
+  background: linear-gradient(40deg, #0cc, #fff);
   -webkit-background-clip: text;
   background-clip: text;
   margin-left: 20px;
