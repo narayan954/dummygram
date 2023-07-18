@@ -47,8 +47,7 @@
   transition: all;
   transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
-  box-shadow:
-    rgba(86, 238, 218, 0.8) 0px 3px 6px,
+  box-shadow: rgba(86, 238, 218, 0.8) 0px 3px 6px,
     rgba(108, 190, 186, 0.8) 0px 3px 6px;
 }
 
@@ -82,7 +81,7 @@
   padding: 8px;
   font-weight: 400;
   font-size: 15px;
-  color: var(--text-secondary);
+  color: var(--text-black-only);
   white-space: pre-line;
 }
 
@@ -142,6 +141,9 @@
   background: lightgray;
   border-radius: 10px;
 }
+.commentCard .comment span {
+  color: var(--text-black-only) !important;
+}
 
 .comment-box-title-style {
   display: inline-block;
@@ -200,7 +202,7 @@
 }
 
 .comment-input {
-  background-color: var(--bg-color) !important;
+  background-color: var(--dark-post-bg) !important;
   color: var(--color);
   border-radius: 22px;
   margin-top: 4px;
