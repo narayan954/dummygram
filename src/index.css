@@ -126,7 +126,7 @@ input:focus {
 }
 
 .rowConvert {
-  color: var(--btn-color);
+  color: var(--text-secondary);
   display: flex;
   margin-right: 12px;
   transition: all;
