@@ -75,7 +75,7 @@ body {
   filter: var(--filter-img);
 }
 
-.app__header {
+/* .app__header {
   align-items: center;
   background-color: var(--bg-color);
   border-bottom: 1px solid rgb(219, 219, 219);
@@ -89,7 +89,7 @@ body {
   top: 0;
   width: 100%;
   z-index: 1;
-}
+} */
 
 input:hover {
   cursor: text;

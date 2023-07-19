@@ -1,6 +1,7 @@
 import "./index.css";
 
 import React, { useEffect } from "react";
+import { Darkmode } from "../../reusableComponents";
 
 import { AiOutlineInsertRowAbove } from "react-icons/ai";
 import { Logo } from "../../reusableComponents";
@@ -30,11 +31,14 @@ function Navbar({ onClick, user, setUser }) {
     location.pathname !== "/dummygram/signup" && (
       <div className="app__header">
         <Logo />
-        <div className="container">
-          <div className="rowConvert" onClick={onClick}>
-            <AiOutlineInsertRowAbove style={{ margin: "auto" }} size={30} />
+        <div className="navSpace">
+          <div className="container">
+            <div className="rowConvert" onClick={onClick}>
+              <AiOutlineInsertRowAbove style={{ margin: "auto" }} size={30} />
+            </div>
           </div>
-        </div>
+          <Darkmode themeClass="themeButton" />
+          </div>
       </div>
     )
   );
