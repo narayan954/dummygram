@@ -92,7 +92,7 @@ function App() {
 
   const handleSearch = (e) => {
     setSearchText(e.target.value);
-    console.log(searchText);
+    
   };
 
   const scrollTop = () => {
@@ -171,7 +171,7 @@ function App() {
       // );
     }
     setLoadMorePosts(false);
-    console.log(posts);
+    
   }, [loadMorePosts]);
 
   useEffect(() => {
@@ -187,7 +187,7 @@ function App() {
               .includes(searchText?.toLowerCase())
         )
       );
-      console.log(searchedPosts);
+      
     };
 
     fetchSearchResults();
