@@ -10,7 +10,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineClose } from "react-icons/ai";
 import { Dialog } from "@mui/material";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import CollectionsBookmarkOutlinedIcon from "@mui/icons-material/CollectionsBookmarkOutlined";
 import HomeIcon from "@mui/icons-material/Home";
 import ImgUpload from "../ImgUpload";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -69,7 +69,8 @@ function SideBar() {
             }
           >
             <div className="sidebar_align">
-              <FavoriteBorderIcon className="icon" /> <span>Favourites</span>
+              <CollectionsBookmarkOutlinedIcon className="icon" />{" "}
+              <span>Favourites</span>
             </div>
           </li>
           <li
