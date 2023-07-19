@@ -6,11 +6,11 @@ import {
 } from "@mui/icons-material";
 import { IconButton, Typography } from "@mui/material";
 import React, { useState } from "react";
-import { playSuccessSound } from "../../js/sounds";
 
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import Flexbetween from "../../reusableComponents/Flexbetween";
+import { playSuccessSound } from "../../js/sounds";
 import { useSnackbar } from "notistack";
 
 const PostNav = ({
@@ -70,7 +70,7 @@ const PostNav = ({
     <Flexbetween gap={!fullScreen && "1.6rem"} sx={{ marginInline: "auto" }}>
       <Flexbetween sx={{ cursor: "pointer" }} onClick={likesHandler}>
         <IconButton>
-          {tempLikeCount.indexOf(user.uid) != -1 ? (
+          {tempLikeCount.indexOf(user?.uid) != -1 ? (
             <FavoriteOutlined
               sx={{
                 color: "red",

@@ -1,7 +1,9 @@
 import "./index.css";
 
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { auth, db } from "../../lib/firebase";
+import { doc, getDoc } from "firebase/firestore";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -13,15 +15,24 @@ import HomeIcon from "@mui/icons-material/Home";
 import ImgUpload from "../ImgUpload";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import SearchIcon from "@mui/icons-material/Search";
-import { auth } from "../../lib/firebase";
 
 const Footer = React.lazy(() => import("./Footer"));
 
 function SideBar() {
   const navigate = useNavigate();
   const [openNewUpload, setOpenNewUpload] = useState(false);
+  const [username, setUsername] = useState("");
   const user = auth.currentUser;
   const location = useLocation();
+
+  useEffect(() => {
+    async function getUsername() {
+      const docRef = doc(db, "users", user?.uid);
+      const docSnap = await getDoc(docRef);
+      setUsername(docSnap.data().username);
+    }
+    getUsername();
+  }, []);
 
   return (
     <div className="sidebar">
@@ -73,17 +84,9 @@ function SideBar() {
           </li>
           <li
             className={
-              location.pathname == "/dummygram/profile" ? "activeTab" : ""
+              location.pathname == `/dummygram/${username}` ? "activeTab" : ""
             }
-            onClick={() =>
-              navigate("/dummygram/profile", {
-                state: {
-                  name: user.displayName,
-                  email: user.email,
-                  avatar: user.photoURL,
-                },
-              })
-            }
+            onClick={() => navigate(`/dummygram/${username}`)}
           >
             <div className="sidebar_align">
               {user && user.photoURL ? (
