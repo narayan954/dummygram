@@ -55,6 +55,8 @@ body {
 
 /* App styles */
 .app {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow-x: auto;
@@ -106,7 +108,7 @@ input:focus {
 
 /* Post style */
 .app__posts {
-  padding: 5.5em 20px 20px 17vw;
+  padding: 1.5em 20px 20px 8vw;
 }
 
 .app_posts_column {
@@ -131,14 +133,21 @@ input:focus {
   transform: scale(1.04);
 }
 
+.home-posts-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+ 
+}
+
 @media only screen and (max-width: 1200px) {
   .app__posts,
   .home-posts-container .app_posts_column,
   .home-posts-container .app_posts {
-    padding: 5.5em 15px 20px 9vw;
+    padding: 1.5em 15px 15px 6vw;
   }
   .post-page-container {
-    padding: 5.5em 15px 15px 8vw;
+    padding: 5.5em 15px 15px 17vw;
   }
   .post-card {
     margin: 50px auto !important;
@@ -159,7 +168,7 @@ input:focus {
   }
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 912px) {
   .rowConvert {
     display: none;
   }
@@ -318,12 +327,14 @@ input:focus {
 @media only screen and (min-width: 1200px) {
   .app__posts {
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
     gap: 2rem;
     justify-content: center;
+    padding: 1.5rem 20px 20px 9vw;
   }
   .post-page-container {
-    padding: 5.5em 15px 15px 17vw;
+    /* padding: 5.5em 15px 15px 8vw; */
   }
   .post-card {
     margin: 50px auto !important;
@@ -582,26 +593,46 @@ input {
   overflow: hidden;
 }
 
-.search-input-home {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  border-radius: 25px;
-  background: #fff;
-  border: none;
-  font-size: 16px;
-  padding-left: 20px;
-  margin-top: -2px;
-}
- .search-box {
-  position: relative;
-  left: 45%;
+
+
+ 
+.search-box {
+  margin-top: 5%;
+  padding: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  
+
+ 
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 770px) {
   .search-box {
     left: 0%;
     display: flex;
     justify-content: center;
   }
 }
+
+@media (max-width:1200px){
+  .search-box{
+    margin-top: 10%;
+    left: 23%;
+  }
+
+
+}
+
+
+
+  /* @media (max-width:1280px){
+    .search-box{
+      left: 40%;
+    }
+  } */
+
+  /* @media (max-width:1024px){
+    .search-box{
+      left: 25%;
+    }
+  } */

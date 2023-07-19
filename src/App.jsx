@@ -78,6 +78,7 @@ function App() {
   const [rowMode, setRowMode] = useState(false);
   const [showScroll, setShowScroll] = useState(false);
   const [searchText, setSearchText] = useState("");
+  const [searchedPosts, setSearchedPosts] = useState([]);
 
   const navigate = useNavigate();
 
@@ -91,6 +92,7 @@ function App() {
 
   const handleSearch = (e) => {
     setSearchText(e.target.value);
+    console.log(searchText);
   };
 
   const scrollTop = () => {
@@ -156,9 +158,40 @@ function App() {
             ];
           });
         });
+      // setSearchedPosts(
+      //   posts.filter(
+      //     (post) =>
+      //       post.post?.displayName
+      //         ?.toLowerCase()
+      //         .includes(searchText?.toLowerCase()) ||
+      //       post.post?.username
+      //         ?.toLowerCase()
+      //         .includes(searchText?.toLowerCase())
+      //   )
+      // );
     }
     setLoadMorePosts(false);
+    console.log(posts);
   }, [loadMorePosts]);
+
+  useEffect(() => {
+    const fetchSearchResults = async () => {
+      setSearchedPosts(
+        posts.filter(
+          (post) =>
+            post.post?.displayName
+              ?.toLowerCase()
+              .includes(searchText?.toLowerCase()) ||
+            post.post?.username
+              ?.toLowerCase()
+              .includes(searchText?.toLowerCase())
+        )
+      );
+      console.log(searchedPosts);
+    };
+
+    fetchSearchResults();
+  }, [searchText, posts.length]);
 
   return (
     <RowModeContext.Provider value={rowMode}>
@@ -185,55 +218,53 @@ function App() {
               path="/dummygram/"
               element={
                 user ? (
-                  <div className="flex">
+                  <div style={{ display: "flex", justifyContent: "center" }}>
                     <ErrorBoundary inApp={true}>
                       <SideBar />
                     </ErrorBoundary>
-                    <div className="search-box">
-                      <input
-                        type="search"
-                        style={{
-                          background: "white",
-                          marginTop: "100px",
-                          width: "300px",
-                        }}
-                        // className="search-input"
-                        value={searchText}
-                        placeholder="Search Here..."
-                        onChange={handleSearch}
-                      />
-                    </div>
                     <div
-                      className="home-posts-container"
-                      style={
-                        !loadingPosts
-                          ? {}
-                          : {
-                              width: "100%",
-                              minHeight: "100vh",
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                            }
-                      }
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        flexDirection:rowMode? "row" :"column",
+                      }}
                     >
-                      {loadingPosts ? (
-                        <Loader />
-                      ) : (
-                        <div
-                          className={`${
-                            rowMode ? "app__posts" : "app_posts_column flex"
-                          }`}
-                        >
-                          <ErrorBoundary inApp>
-                            {searchText
-                              ? posts
-                                  .filter((post) =>
-                                    post.post.username
-                                      ?.toLowerCase()
-                                      .includes(searchText.toLowerCase())
-                                  )
-                                  .map(({ id, post }) => (
+                      <div
+                        className="home-posts-container"
+                        style={
+                          !loadingPosts
+                            ? {}
+                            : {
+                                width: "100%",
+                                minHeight: "100vh",
+                                display: "flex",
+                                flexDirection:rowMode? "row" :"column",
+                                justifyContent: "center",
+                                alignItems: "center",
+                              }
+                        }
+                      >
+                        {loadingPosts ? (
+                          <Loader />
+                        ) : (
+                          <div
+                          style={{display:"flex",flexDirection:"column"}}
+                            className={`${
+                              rowMode ? "app__posts " : "app_posts_column flex"
+                            }`}
+                          >
+                            <div className="search-box ">
+                              <input
+                                type="text"
+                                placeholder="Search here.."
+                                value={searchText}
+                                onChange={handleSearch}
+                              />
+                            </div>
+                            <ErrorBoundary inApp>
+                             <div  className={rowMode? "app__posts" : ""}>
+                             {searchText
+                                ? searchedPosts.map(({ id, post }) => (
                                     <Post
                                       rowMode={rowMode}
                                       key={id}
@@ -245,21 +276,23 @@ function App() {
                                       setPostText={setPostText}
                                     />
                                   ))
-                              : posts.map(({ id, post }) => (
-                                  <Post
-                                    rowMode={rowMode}
-                                    key={id}
-                                    postId={id}
-                                    user={user}
-                                    post={post}
-                                    shareModal={setOpenShareModal}
-                                    setLink={setCurrentPostLink}
-                                    setPostText={setPostText}
-                                  />
-                                ))}
-                          </ErrorBoundary>
-                        </div>
-                      )}
+                                : posts.map(({ id, post }) => (
+                                    <Post
+                                      rowMode={rowMode}
+                                      key={id}
+                                      postId={id}
+                                      user={user}
+                                      post={post}
+                                      shareModal={setOpenShareModal}
+                                      setLink={setCurrentPostLink}
+                                      setPostText={setPostText}
+                                    />
+                                  ))}
+                             </div>
+                            </ErrorBoundary>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 ) : (
