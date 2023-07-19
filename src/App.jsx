@@ -9,7 +9,7 @@ import ErrorBoundary from "./reusableComponents/ErrorBoundary";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { RowModeContext } from "./hooks/useRowMode";
 import { makeStyles } from "@mui/styles";
-
+import { ChatPage } from "./pages";
 // ------------------------------------ Pages ----------------------------------------------------
 const About = React.lazy(() => import("./pages/FooterPages/About"));
 const Guidelines = React.lazy(() => import("./pages/FooterPages/Guidelines"));
@@ -172,7 +172,7 @@ function App() {
             currentPostLink={currentPostLink}
             postText={postText}
           />
-          <Darkmode />
+          {!(location.pathname == "/dummygram/chat") && <Darkmode />}
           <Routes>
             <Route
               exact
@@ -234,6 +234,15 @@ function App() {
               element={
                 <ErrorBoundary inApp={true}>
                   <Profile />
+                </ErrorBoundary>
+              }
+            />
+
+            <Route
+              path="/dummygram/chat"
+              element={
+                <ErrorBoundary inApp={true}>
+                  <ChatPage user={user}/>
                 </ErrorBoundary>
               }
             />

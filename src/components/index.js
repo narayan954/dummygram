@@ -9,6 +9,7 @@ import Post from "./Post";
 import ReadMore from "./ReadMore";
 import SearchBar from "./SearchBar";
 import SideBar from "./SideBar";
+import ChatBox from "./CommunityChat";
 
 export {
   ImgUpload,
@@ -22,6 +23,7 @@ export {
   NotFound,
   Notifications,
   SearchBar,
+  ChatBox
 };
 
 export default Post;

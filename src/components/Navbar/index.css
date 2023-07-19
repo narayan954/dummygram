@@ -57,3 +57,12 @@
   padding: 0.5rem;
   cursor: pointer;
 }
+
+.chatIcon{
+  font-size: 55px;
+  margin-top: 5px;
+}
+
+#chat-icon{
+  display: inline-block;
+}
