@@ -31,7 +31,7 @@ const PostDetails = ({
             {tempLikeCount.indexOf(user?.uid) !== -1 ? (
               <FavoriteOutlined sx={{ color: "red" }} />
             ) : (
-              <FavoriteBorderOutlined />
+              <FavoriteBorderOutlined style={{ color: "var(--post-nav-icons)" }} />
             )}
           </IconButton>
           <Typography fontSize={14}>
@@ -58,7 +58,7 @@ const PostDetails = ({
           }}
         >
           <IconButton>
-            <ShareOutlined color={"#FFF"} />
+            <ShareOutlined style={{ color: "var(--post-nav-icons)" }} />
           </IconButton>
           <Typography fontSize={14}>Share</Typography>
         </Flexbetween>

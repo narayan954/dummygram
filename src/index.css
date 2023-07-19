@@ -20,6 +20,10 @@
   --page-over-color: #5ec3fd;
   --slide-color: #9be5ea;
   --label-color: rgb(200, 246, 248);
+  --text-light: rgba(0, 0, 0, 0.6);
+  --post-error-boundary: rgba(0, 0, 0, 0.54);
+  --text-black-only: black;
+  --dark-post-bg: rgb(255, 255, 255);;
 }
 
 .darkmode {
@@ -42,6 +46,11 @@
   --page-over-color: #3a3e44;
   --slide-color: #524a54;
   --label-color: #6a656b;
+  --text-black-only: black;
+  --text-light: rgba(255, 255, 255, 0.6);
+  --post-error-boundary: rgba(255, 255, 255, 0.54);
+  --darkmode-white: white;
+  --dark-post-bg: #2a323c;
 }
 
 * {
@@ -117,7 +126,7 @@ input:focus {
 }
 
 .rowConvert {
-  color: var(--btn-color);
+  color: var(--text-secondary);
   display: flex;
   margin-right: 12px;
   transition: all;
@@ -511,6 +520,15 @@ input {
   background: var(--btn-color-hover);
 }
 
+.no-comments,
+.light-text,
+.post-page-caption span {
+  color: var(--text-light);
+}
+.create-post-input label {
+  color: var(--darkmode-white);
+}
+
 /* end */
 
 /* login sign up forms */
@@ -589,3 +607,6 @@ input {
     padding: 0;
   }
 }
+
+.post,
+.postColumn{background-color: var(--dark-post-bg);}
