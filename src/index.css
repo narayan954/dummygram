@@ -23,7 +23,7 @@
   --text-light: rgba(0, 0, 0, 0.6);
   --post-error-boundary: rgba(0, 0, 0, 0.54);
   --text-black-only: black;
-  --dark-post-bg: rgb(255, 255, 255);;
+  --dark-post-bg: rgb(255, 255, 255);
 }
 
 .darkmode {
@@ -142,11 +142,10 @@ input:focus {
   transform: scale(1.04);
 }
 
-.home-posts-container{
+.home-posts-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
- 
 }
 
 @media only screen and (max-width: 1200px) {
@@ -612,17 +611,11 @@ input {
   overflow: hidden;
 }
 
-
-
- 
 .search-box {
   margin-top: 10%;
   padding: 5px;
   margin-left: auto;
   margin-right: auto;
-  
-
- 
 }
 
 @media (max-width: 770px) {
@@ -633,14 +626,14 @@ input {
   }
 }
 
-@media (max-width:1200px){
-  .search-box{
+@media (max-width: 1200px) {
+  .search-box {
     margin-top: 10%;
     left: 23%;
   }
-
-
 }
 
 .post,
-.postColumn{background-color: var(--dark-post-bg);}
+.postColumn {
+  background-color: var(--dark-post-bg);
+}

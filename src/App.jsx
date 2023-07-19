@@ -92,7 +92,6 @@ function App() {
 
   const handleSearch = (e) => {
     setSearchText(e.target.value);
-    
   };
 
   const scrollTop = () => {
@@ -171,7 +170,6 @@ function App() {
       // );
     }
     setLoadMorePosts(false);
-    
   }, [loadMorePosts]);
 
   useEffect(() => {
@@ -187,7 +185,6 @@ function App() {
               .includes(searchText?.toLowerCase())
         )
       );
-      
     };
 
     fetchSearchResults();
@@ -226,7 +223,7 @@ function App() {
                       style={{
                         display: "flex",
                         justifyContent: "center",
-                        flexDirection:rowMode? "row" :"column",
+                        flexDirection: rowMode ? "row" : "column",
                       }}
                     >
                       <div
@@ -238,7 +235,7 @@ function App() {
                                 width: "100%",
                                 minHeight: "100vh",
                                 display: "flex",
-                                flexDirection:rowMode? "row" :"column",
+                                flexDirection: rowMode ? "row" : "column",
                                 justifyContent: "center",
                                 alignItems: "center",
                               }
@@ -248,7 +245,7 @@ function App() {
                           <Loader />
                         ) : (
                           <div
-                          style={{display:"flex",flexDirection:"column"}}
+                            style={{ display: "flex", flexDirection: "column" }}
                             className={`${
                               rowMode ? "app__posts " : "app_posts_column flex"
                             }`}
@@ -262,33 +259,33 @@ function App() {
                               />
                             </div>
                             <ErrorBoundary inApp>
-                             <div  className={rowMode? "app__posts" : ""}>
-                             {searchText
-                                ? searchedPosts.map(({ id, post }) => (
-                                    <Post
-                                      rowMode={rowMode}
-                                      key={id}
-                                      postId={id}
-                                      user={user}
-                                      post={post}
-                                      shareModal={setOpenShareModal}
-                                      setLink={setCurrentPostLink}
-                                      setPostText={setPostText}
-                                    />
-                                  ))
-                                : posts.map(({ id, post }) => (
-                                    <Post
-                                      rowMode={rowMode}
-                                      key={id}
-                                      postId={id}
-                                      user={user}
-                                      post={post}
-                                      shareModal={setOpenShareModal}
-                                      setLink={setCurrentPostLink}
-                                      setPostText={setPostText}
-                                    />
-                                  ))}
-                             </div>
+                              <div className={rowMode ? "app__posts" : ""}>
+                                {searchText
+                                  ? searchedPosts.map(({ id, post }) => (
+                                      <Post
+                                        rowMode={rowMode}
+                                        key={id}
+                                        postId={id}
+                                        user={user}
+                                        post={post}
+                                        shareModal={setOpenShareModal}
+                                        setLink={setCurrentPostLink}
+                                        setPostText={setPostText}
+                                      />
+                                    ))
+                                  : posts.map(({ id, post }) => (
+                                      <Post
+                                        rowMode={rowMode}
+                                        key={id}
+                                        postId={id}
+                                        user={user}
+                                        post={post}
+                                        shareModal={setOpenShareModal}
+                                        setLink={setCurrentPostLink}
+                                        setPostText={setPostText}
+                                      />
+                                    ))}
+                              </div>
                             </ErrorBoundary>
                           </div>
                         )}
