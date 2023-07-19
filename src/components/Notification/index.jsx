@@ -3,6 +3,7 @@ import "./index.css";
 import { Loader, ShareModal } from "../../reusableComponents";
 import React, { useEffect, useState } from "react";
 import { auth, db } from "../../lib/firebase";
+import { FaUserCircle } from "react-icons/fa";
 
 import { Box } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -49,45 +50,54 @@ function Notifications() {
             postText={postText}
           />
           <Box>
-            <div
-              className="profile__favourites"
-              style={{ marginTop: "5.5rem", marginBottom: "1.5rem" }}
-              align="center"
-            >
-              {notifications.length ? (
-                <>
-                  <h1 className="notification-heading">
-                    Notifications{" "}
-                    <span className="notification-count">
-                      {notifications.length}
-                    </span>
-                  </h1>
-                  {notifications.map((notification) => (
-                    <div
-                      key={notification.id}
-                      className="notif-message-container"
-                    >
-                      <p className="notif-message">
-                        {notification.message}
-                        <Link className="friend-request-sender-name">
-                          {notification.senderName
-                            ? ` from ${notification.senderName}.`
-                            : ""}
-                        </Link>
-                      </p>
-                      <div>
-                        <button className="accept-btn notif-btn">Accept</button>
-                        <button className="decline-btn notif-btn">
-                          Decline
-                        </button>
+            <>
+              <div
+                className="profile__favourites"
+                style={{ marginTop: "5.5rem", marginBottom: "1.5rem" }}
+                align="center"
+              >
+                {notifications.length ? (
+                  <>
+                    <h1 className="notification-heading">
+                      Notifications{" "}
+                      <span className="notification-count">
+                        {notifications.length}
+                      </span>
+                    </h1>
+                    {notifications.map((notification) => (
+                      <div
+                        key={notification.id}
+                        className="notif-message-container"
+                      >
+                        <FaUserCircle
+                          style={{ width: "80px", height: "80px" }}
+                        />
+
+                        <p className="notif-message">
+                          {notification.message}
+                          <Link className="friend-request-sender-name">
+                            {notification.senderName
+                              ? ` from ${notification.senderName}.`
+                              : ""}
+                          </Link>
+                        <div style={{marginTop:"10px"}}>
+                          <button className="accept-btn notif-btn">
+                            Accept
+                          </button>
+                          <button className="decline-btn notif-btn">
+                            Decline
+                          </button>
+                        </div>
+                        </p>
+                        
                       </div>
-                    </div>
-                  ))}
-                </>
-              ) : (
-                <p style={{ color: "var(--color)" }}>No notifications</p>
-              )}
-            </div>
+                    ))}
+                  </>
+                ) : (
+                  <p style={{ color: "var(--color)" }}>No notifications</p>
+                )}
+              </div>
+            </>
           </Box>
         </div>
       )}
