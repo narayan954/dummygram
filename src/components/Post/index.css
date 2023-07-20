@@ -265,6 +265,12 @@
   align-items: center;
 }
 
+.profile-picture {
+  height: 30px;
+  width: 30px;
+  border-radius: 100%;
+}
+
 @media only screen and (max-width: 800px) {
   .post__commentBox input {
     width: 200px;

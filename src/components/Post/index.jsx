@@ -60,7 +60,7 @@ function Post(prop) {
             snapshot.docs.map((doc) => ({
               id: doc.id,
               content: doc.data(),
-            })),
+            }))
           );
         });
     }
@@ -82,12 +82,19 @@ function Post(prop) {
 
   const postComment = (event) => {
     event.preventDefault();
-    db.collection("posts").doc(postId).collection("comments").add({
-      text: comment,
-      username: user.displayName,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    });
-    setComment("");
+    try {
+      db.collection("posts").doc(postId).collection("comments").add({
+        text: comment,
+        username: user.uid, // TODO  must be username
+        displayName: user.displayName,
+        avatar: user.photoURL,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setComment("");
+    }
   };
 
   const deleteComment = async (event, commentRef) => {

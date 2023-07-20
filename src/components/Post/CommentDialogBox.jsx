@@ -11,7 +11,7 @@ import {
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import React from "react";
 import ReadMore from "../ReadMore";
 
@@ -26,7 +26,6 @@ const CommentDialogBox = ({
   deleteComment,
   deleteCommentID,
 }) => {
-  const navigate = useNavigate();
   const { isAnonymous } = user;
   return (
     <Box
@@ -52,9 +51,17 @@ const CommentDialogBox = ({
                       isAnonymous ? "signup" : userComment.content.username
                     }`}
                   >
-                    <AccountCircleIcon />
+                    {userComment.content.avatar ? (
+                      <img
+                        src={userComment.content.avatar}
+                        alt="profile picture"
+                        className="profile-picture"
+                      />
+                    ) : (
+                      <AccountCircleIcon className="icon" />
+                    )}{" "}
                     <span className="comment-doer-name">
-                      {userComment.content.username}
+                      {userComment.content.displayName}
                     </span>
                   </Link>
                   <p className="comment">
