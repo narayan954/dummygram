@@ -5,12 +5,13 @@ import React, { useEffect, useState } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
+import { ChatPage } from "./pages";
 import ErrorBoundary from "./reusableComponents/ErrorBoundary";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { GuestSignUpBtn } from "./components";
 import { RowModeContext } from "./hooks/useRowMode";
 import { makeStyles } from "@mui/styles";
-import { ChatPage } from "./pages";
+
 // ------------------------------------ Pages ----------------------------------------------------
 const About = React.lazy(() => import("./pages/FooterPages/About"));
 const Guidelines = React.lazy(() => import("./pages/FooterPages/Guidelines"));
@@ -180,9 +181,9 @@ function App() {
             postText={postText}
           />
           {(location.pathname == "/dummygram/login" ||
-              location.pathname == "/dummygram/signup") && (
-              <Darkmode themeClass="themeButton themeButton-login" />
-            )}
+            location.pathname == "/dummygram/signup") && (
+            <Darkmode themeClass="themeButton themeButton-login" />
+          )}
           <Routes>
             <Route
               exact
@@ -252,7 +253,7 @@ function App() {
               path="/dummygram/chat"
               element={
                 <ErrorBoundary inApp={true}>
-                  <ChatPage user={user}/>
+                  <ChatPage user={user} />
                 </ErrorBoundary>
               }
             />
