@@ -9,13 +9,13 @@ import SignupScreen from "./Signup";
 import ChatPage from "./Chat";
 
 export {
+  About,
+  ChatPage,
+  Feedback,
+  Guidelines,
   LoginScreen,
   PostView,
   Profile,
-  SignupScreen,
-  About,
-  Feedback,
   Settings,
-  Guidelines,
-  ChatPage,
+  SignupScreen,
 };

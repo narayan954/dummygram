@@ -12,18 +12,18 @@ import SideBar from "./SideBar";
 import ChatBox from "./CommunityChat";
 
 export {
-  ImgUpload,
-  Navbar,
-  Post,
-  ReadMore,
-  SideBar,
   Caption,
+  ChatBox,
   Favorite,
+  ImgUpload,
   LandingAnimation,
+  Navbar,
   NotFound,
   Notifications,
+  Post,
+  ReadMore,
   SearchBar,
-  ChatBox
+  SideBar,
 };
 
 export default Post;
