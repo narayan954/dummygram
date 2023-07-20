@@ -1,6 +1,15 @@
 import "../Login/index";
 import "./index.css";
 
+import {
+  Auth__ctn__group,
+  Auth__image__input,
+  Auth__pass__input,
+  Auth__text__input,
+  Auth__top,
+  Auth_container,
+} from "../../reusableComponents/Auth";
+import { Logo, validate } from "../../reusableComponents";
 import React, { useRef, useState } from "react";
 import {
   auth,
@@ -10,15 +19,7 @@ import {
   storage,
 } from "../../lib/firebase";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
-import {
-  Auth__ctn__group,
-  Auth__image__input,
-  Auth__pass__input,
-  Auth__text__input,
-  Auth_container,
-  Auth__top,
-} from "../../reusableComponents/Auth";
-import { Logo, validate } from "../../reusableComponents";
+
 import blank_profile from "../../assets/blank-profile.webp";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import loginRight from "../../assets/login-right.webp";
@@ -119,7 +120,7 @@ const SignupScreen = () => {
                 photoURL: auth.currentUser.photoURL,
                 posts: [],
                 friends: [],
-              }),
+              })
             )
             .then(() => {
               playSuccessSound();
@@ -127,7 +128,7 @@ const SignupScreen = () => {
                 `Congratulations ${fullName},you have joined Dummygram`,
                 {
                   variant: "success",
-                },
+                }
               );
               navigate("/dummygram");
             })
@@ -163,7 +164,7 @@ const SignupScreen = () => {
                   });
                 })
                 .catch((error) => console.error(error));
-            },
+            }
           );
         })
         .catch((error) => {
@@ -287,7 +288,7 @@ const SignupScreen = () => {
           `Congratulations ${fullName},you have joined Dummygram`,
           {
             variant: "success",
-          },
+          }
         );
         navigate("/dummygram");
       })
