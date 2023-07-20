@@ -2,11 +2,12 @@ import "./index.css";
 
 import { Darkmode, Loader, ShareModal } from "./reusableComponents";
 import React, { useEffect, useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
 import ErrorBoundary from "./reusableComponents/ErrorBoundary";
 import { FaArrowCircleUp } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 import { RowModeContext } from "./hooks/useRowMode";
 import { makeStyles } from "@mui/styles";
 
@@ -23,7 +24,7 @@ const ForgotPassword = React.lazy(() => import("./pages/ForgotPassword"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 const Settings = React.lazy(() => import("./pages/Settings"));
 const Contributors = React.lazy(() =>
-  import("./pages/FooterPages/ContributorPage/index"),
+  import("./pages/FooterPages/ContributorPage/index")
 );
 // ------------------------------------- Components ------------------------------------------------
 const Favorite = React.lazy(() => import("./components/Favorite.jsx"));
@@ -77,8 +78,11 @@ function App() {
   const [postText, setPostText] = useState("");
   const [rowMode, setRowMode] = useState(false);
   const [showScroll, setShowScroll] = useState(false);
+  const [searchText, setSearchText] = useState("");
+  const [searchedPosts, setSearchedPosts] = useState([]);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const checkScrollTop = () => {
     if (!showScroll && window.pageYOffset > 400) {
@@ -86,6 +90,10 @@ function App() {
     } else if (showScroll && window.pageYOffset <= 400) {
       setShowScroll(false);
     }
+  };
+
+  const handleSearch = (e) => {
+    setSearchText(e.target.value);
   };
 
   const scrollTop = () => {
@@ -120,7 +128,7 @@ function App() {
           snapshot.docs.map((doc) => ({
             id: doc.id,
             post: doc.data(),
-          })),
+          }))
         );
       });
   }, []);
@@ -155,6 +163,24 @@ function App() {
     setLoadMorePosts(false);
   }, [loadMorePosts]);
 
+  useEffect(() => {
+    const fetchSearchResults = async () => {
+      setSearchedPosts(
+        posts.filter(
+          (post) =>
+            post.post?.displayName
+              ?.toLowerCase()
+              .includes(searchText?.toLowerCase()) ||
+            post.post?.username
+              ?.toLowerCase()
+              .includes(searchText?.toLowerCase())
+        )
+      );
+    };
+
+    fetchSearchResults();
+  }, [searchText, posts.length]);
+
   return (
     <RowModeContext.Provider value={rowMode}>
       <ErrorBoundary inApp={true}>
@@ -172,55 +198,100 @@ function App() {
             currentPostLink={currentPostLink}
             postText={postText}
           />
-          <Darkmode />
+          {location.pathname &&
+            (location.pathname == "/dummygram/login" ||
+              location.pathname == "/dummygram/signup") && (
+              <Darkmode themeClass="themeButton themeButton-login" />
+            )}
+
           <Routes>
             <Route
               exact
               path="/dummygram/"
               element={
                 user ? (
-                  <div className="flex">
+                  <div style={{ display: "flex", justifyContent: "center" }}>
                     <ErrorBoundary inApp={true}>
                       <SideBar />
                     </ErrorBoundary>
                     <div
-                      className="home-posts-container"
-                      style={
-                        !loadingPosts
-                          ? {}
-                          : {
-                              width: "100%",
-                              minHeight: "100vh",
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                            }
-                      }
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        flexDirection: rowMode ? "row" : "column",
+                      }}
                     >
-                      {loadingPosts ? (
-                        <Loader />
-                      ) : (
-                        <div
-                          className={`${
-                            rowMode ? "app__posts" : "app_posts_column flex"
-                          }`}
-                        >
-                          <ErrorBoundary inApp>
-                            {posts.map(({ id, post }) => (
-                              <Post
-                                rowMode={rowMode}
-                                key={id}
-                                postId={id}
-                                user={user}
-                                post={post}
-                                shareModal={setOpenShareModal}
-                                setLink={setCurrentPostLink}
-                                setPostText={setPostText}
+                      <div
+                        className="home-posts-container"
+                        style={
+                          !loadingPosts
+                            ? {}
+                            : {
+                                width: "100%",
+                                minHeight: "100vh",
+                                display: "flex",
+                                flexDirection: rowMode ? "row" : "column",
+                                justifyContent: "center",
+                                alignItems: "center",
+                              }
+                        }
+                      >
+                        {loadingPosts ? (
+                          <Loader />
+                        ) : (
+                          <div
+                            style={{ display: "flex", flexDirection: "column" }}
+                            className={`${
+                              rowMode ? "app__posts " : "app_posts_column flex"
+                            }`}
+                          >
+                            <div
+                              className="search-bar"
+                              style={{ minWidth: "300px" }}
+                            >
+                              <input
+                                type="search"
+                                className="search-input"
+                                value={searchText}
+                                placeholder="Search Here..."
+                                onChange={handleSearch}
                               />
-                            ))}
-                          </ErrorBoundary>
-                        </div>
-                      )}
+                              <label className="search-icon">
+                                <FaSearch />
+                              </label>
+                            </div>
+                            <ErrorBoundary inApp={true}>
+                              <div className={rowMode ? "app__posts" : ""}>
+                                {searchText
+                                  ? searchedPosts.map(({ id, post }) => (
+                                      <Post
+                                        rowMode={rowMode}
+                                        key={id}
+                                        postId={id}
+                                        user={user}
+                                        post={post}
+                                        shareModal={setOpenShareModal}
+                                        setLink={setCurrentPostLink}
+                                        setPostText={setPostText}
+                                      />
+                                    ))
+                                  : posts.map(({ id, post }) => (
+                                      <Post
+                                        rowMode={rowMode}
+                                        key={id}
+                                        postId={id}
+                                        user={user}
+                                        post={post}
+                                        shareModal={setOpenShareModal}
+                                        setLink={setCurrentPostLink}
+                                        setPostText={setPostText}
+                                      />
+                                    ))}
+                              </div>
+                            </ErrorBoundary>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 ) : (
