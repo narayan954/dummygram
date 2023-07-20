@@ -3,9 +3,9 @@ import "./index.css";
 import { Loader, ShareModal } from "../../reusableComponents";
 import React, { useEffect, useState } from "react";
 import { auth, db } from "../../lib/firebase";
-import { FaUserCircle } from "react-icons/fa";
 
 import { Box } from "@mui/material";
+import { FaUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { SideBar } from "../index";
 
@@ -80,16 +80,15 @@ function Notifications() {
                               ? ` from ${notification.senderName}.`
                               : ""}
                           </Link>
-                        <div style={{marginTop:"10px"}}>
-                          <button className="accept-btn notif-btn">
-                            Accept
-                          </button>
-                          <button className="decline-btn notif-btn">
-                            Decline
-                          </button>
-                        </div>
+                          <div style={{ marginTop: "10px" }}>
+                            <button className="accept-btn notif-btn">
+                              Accept
+                            </button>
+                            <button className="decline-btn notif-btn">
+                              Decline
+                            </button>
+                          </div>
                         </p>
-                        
                       </div>
                     ))}
                   </>
