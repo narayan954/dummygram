@@ -8,12 +8,12 @@ import Settings from "./Settings";
 import SignupScreen from "./Signup";
 
 export {
+  About,
+  Feedback,
+  Guidelines,
   LoginScreen,
   PostView,
   Profile,
-  SignupScreen,
-  About,
-  Feedback,
   Settings,
-  Guidelines,
+  SignupScreen,
 };

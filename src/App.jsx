@@ -7,7 +7,7 @@ import { auth, db } from "./lib/firebase";
 
 import ErrorBoundary from "./reusableComponents/ErrorBoundary";
 import { FaArrowCircleUp } from "react-icons/fa";
-import { FaSearch } from "react-icons/fa";
+import { GuestSignUpBtn } from "./components";
 import { RowModeContext } from "./hooks/useRowMode";
 import { makeStyles } from "@mui/styles";
 
@@ -78,8 +78,7 @@ function App() {
   const [postText, setPostText] = useState("");
   const [rowMode, setRowMode] = useState(false);
   const [showScroll, setShowScroll] = useState(false);
-  const [searchText, setSearchText] = useState("");
-  const [searchedPosts, setSearchedPosts] = useState([]);
+  const [anonymous, setAnonymous] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -92,10 +91,6 @@ function App() {
     }
   };
 
-  const handleSearch = (e) => {
-    setSearchText(e.target.value);
-  };
-
   const scrollTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -106,6 +101,7 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         setUser(authUser);
+        setAnonymous(authUser.isAnonymous);
       } else {
         setUser(null);
         navigate("/dummygram/login");
@@ -163,24 +159,6 @@ function App() {
     setLoadMorePosts(false);
   }, [loadMorePosts]);
 
-  useEffect(() => {
-    const fetchSearchResults = async () => {
-      setSearchedPosts(
-        posts.filter(
-          (post) =>
-            post.post?.displayName
-              ?.toLowerCase()
-              .includes(searchText?.toLowerCase()) ||
-            post.post?.username
-              ?.toLowerCase()
-              .includes(searchText?.toLowerCase())
-        )
-      );
-    };
-
-    fetchSearchResults();
-  }, [searchText, posts.length]);
-
   return (
     <RowModeContext.Provider value={rowMode}>
       <ErrorBoundary inApp={true}>
@@ -192,6 +170,9 @@ function App() {
               setUser={setUser}
             />
           </ErrorBoundary>
+          {anonymous &&
+            location.pathname !== "/dummygram/signup" &&
+            location.pathname !== "/dummygram/login" && <GuestSignUpBtn />}
           <ShareModal
             openShareModal={openShareModal}
             setOpenShareModal={setOpenShareModal}
@@ -210,88 +191,48 @@ function App() {
               path="/dummygram/"
               element={
                 user ? (
-                  <div style={{ display: "flex", justifyContent: "center" }}>
+                  <div className="flex">
                     <ErrorBoundary inApp={true}>
-                      <SideBar />
+                      <SideBar anonymous={anonymous}/>
                     </ErrorBoundary>
                     <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        flexDirection: rowMode ? "row" : "column",
-                      }}
+                      className="home-posts-container"
+                      style={
+                        !loadingPosts
+                          ? {}
+                          : {
+                              width: "100%",
+                              minHeight: "100vh",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }
+                      }
                     >
-                      <div
-                        className="home-posts-container"
-                        style={
-                          !loadingPosts
-                            ? {}
-                            : {
-                                width: "100%",
-                                minHeight: "100vh",
-                                display: "flex",
-                                flexDirection: rowMode ? "row" : "column",
-                                justifyContent: "center",
-                                alignItems: "center",
-                              }
-                        }
-                      >
-                        {loadingPosts ? (
-                          <Loader />
-                        ) : (
-                          <div
-                            style={{ display: "flex", flexDirection: "column" }}
-                            className={`${
-                              rowMode ? "app__posts " : "app_posts_column flex"
-                            }`}
-                          >
-                            <div
-                              className="search-bar"
-                              style={{ minWidth: "300px" }}
-                            >
-                              <input
-                                type="search"
-                                className="search-input"
-                                value={searchText}
-                                placeholder="Search Here..."
-                                onChange={handleSearch}
+                      {loadingPosts ? (
+                        <Loader />
+                      ) : (
+                        <div
+                          className={`${
+                            rowMode ? "app__posts" : "app_posts_column flex"
+                          }`}
+                        >
+                          <ErrorBoundary inApp>
+                            {posts.map(({ id, post }) => (
+                              <Post
+                                rowMode={rowMode}
+                                key={id}
+                                postId={id}
+                                user={user}
+                                post={post}
+                                shareModal={setOpenShareModal}
+                                setLink={setCurrentPostLink}
+                                setPostText={setPostText}
                               />
-                              <label className="search-icon">
-                                <FaSearch />
-                              </label>
-                            </div>
-                            <ErrorBoundary inApp={true}>
-                              <div className={rowMode ? "app__posts" : ""}>
-                                {searchText
-                                  ? searchedPosts.map(({ id, post }) => (
-                                      <Post
-                                        rowMode={rowMode}
-                                        key={id}
-                                        postId={id}
-                                        user={user}
-                                        post={post}
-                                        shareModal={setOpenShareModal}
-                                        setLink={setCurrentPostLink}
-                                        setPostText={setPostText}
-                                      />
-                                    ))
-                                  : posts.map(({ id, post }) => (
-                                      <Post
-                                        rowMode={rowMode}
-                                        key={id}
-                                        postId={id}
-                                        user={user}
-                                        post={post}
-                                        shareModal={setOpenShareModal}
-                                        setLink={setCurrentPostLink}
-                                        setPostText={setPostText}
-                                      />
-                                    ))}
-                              </div>
-                            </ErrorBoundary>
-                          </div>
-                        )}
-                      </div>
+                            ))}
+                          </ErrorBoundary>
+                        </div>
+                      )}
                     </div>
                   </div>
                 ) : (
