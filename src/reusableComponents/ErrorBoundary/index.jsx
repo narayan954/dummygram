@@ -8,7 +8,6 @@ import { ErrorBoundary as Error } from "react-error-boundary";
 import Loader from "../Loader";
 
 const ErrorFallBack = ({ error, info, resetErrorBoundary, inApp }) => {
-  console.log(inApp);
   return (
     <div className={!inApp ? "error-boundary-wrapper" : "error-boundary-app"}>
       {inApp ? (
