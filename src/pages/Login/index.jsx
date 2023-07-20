@@ -1,19 +1,20 @@
 import "./index.css";
 import "../Signup/index.css";
 
-import React, { useState } from "react";
-import { auth, db, facebookProvider, googleProvider } from "../../lib/firebase";
-import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import {
   Auth__ctn__group,
   Auth__pass__input,
   Auth__text__input,
-  Auth_container,
   Auth__top,
+  Auth_container,
 } from "../../reusableComponents/Auth";
+import { Logo, validate } from "../../reusableComponents";
+import React, { useState } from "react";
+import { auth, db, facebookProvider, googleProvider } from "../../lib/firebase";
+import { playErrorSound, playSuccessSound } from "../../js/sounds";
+
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import loginRight from "../../assets/login-right.webp";
-import { Logo, validate } from "../../reusableComponents";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
@@ -251,6 +252,7 @@ const LoginScreen = () => {
             have_acct_nav={navigateToSignup}
             have__acct_action={"Sign up"}
             forgot_pass_nav={navigateToForgot}
+            showGuestSignIn={false}
           />
         </div>
       </form>

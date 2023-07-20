@@ -5,11 +5,11 @@ import ErrorBoundary from "./ErrorBoundary";
 import Flexbetween from "./Flexbetween";
 import ImageSlider from "./ImageSlider";
 import Loader from "./Loader";
+import Logo from "./Logo";
 import Popup from "./Popup";
 import Scroll from "./Scroll";
 import ShareModal from "./ShareModal";
 import SnackBar from "./SnackBar";
-import Logo from "./Logo";
 import validate from "./validation";
 
 export {
@@ -20,11 +20,11 @@ export {
   Flexbetween,
   ImageSlider,
   Loader,
+  Logo,
   Popup,
   Scroll,
   ShareModal,
   SnackBar,
-  Logo,
   validate,
 };
 

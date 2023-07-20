@@ -1,0 +1,72 @@
+.profile-dialog-box-container {
+  background: var(--profile-container);
+  color: var(--text-secondary);
+  box-shadow: var(--post-box-shadow);
+  position: absolute;
+  top: -30px;
+  left: 60px;
+  z-index: 333;
+  border-radius: 20px;
+  padding: 20px;
+  padding-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  gap: 10px;
+  animation: fade-in 0.4s linear;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.dialog-box-img {
+  border-radius: 50%;
+  width: 75px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  border: 1px solid #eee;
+  box-shadow: 1px 1px 3px #bcbbbb, -1px -1px 3px #bcbbbb;
+}
+
+.dialog-box-img:hover {
+  transform: scale(1.1);
+  box-shadow: 2px 2px 5px #faf7f7, -2px -2px 5px #faf7f7;
+}
+
+.dialog-box-display-name {
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.dialog-box-display-name:hover {
+  text-decoration: underline;
+}
+
+.dialog-box-username {
+  font-weight: 500;
+  color: var(--profile-color);
+}
+
+.dialog-box-bio {
+  color: var(--profile-color);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.dialog-box-follow-container {
+  display: flex;
+  gap: 40px;
+  margin-top: 20px;
+}
+
+.dialog-box-follow-container > p > span {
+  font-weight: 600;
+}

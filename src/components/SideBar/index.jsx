@@ -18,7 +18,7 @@ import SearchIcon from "@mui/icons-material/Search";
 
 const Footer = React.lazy(() => import("./Footer"));
 
-function SideBar() {
+function SideBar({ anonymous }) {
   const navigate = useNavigate();
   const [openNewUpload, setOpenNewUpload] = useState(false);
   const [username, setUsername] = useState("");
@@ -47,13 +47,19 @@ function SideBar() {
               <HomeIcon className="icon" /> <span>Home</span>
             </div>
           </li>
-          <li onClick={() => setOpenNewUpload(true)}>
+          <li
+            onClick={() =>
+              anonymous ? navigate("/dummygram/signup") : setOpenNewUpload(true)
+            }
+          >
             <div className="sidebar_align">
               <AddCircleOutlineIcon className="icon" /> <span>New Post</span>
             </div>
           </li>
           <li
-            onClick={() => navigate("/dummygram/search")}
+            onClick={() =>
+              navigate(`/dummygram/${anonymous ? "signup" : "search"}`)
+            }
             className={
               location.pathname == "/dummygram/search" ? "activeTab" : ""
             }
@@ -63,7 +69,9 @@ function SideBar() {
             </div>
           </li>
           <li
-            onClick={() => navigate("/dummygram/favourites")}
+            onClick={() =>
+              navigate(`/dummygram/${anonymous ? "signup" : "favourites"}`)
+            }
             className={
               location.pathname == "/dummygram/favourites" ? "activeTab" : ""
             }
@@ -73,7 +81,9 @@ function SideBar() {
             </div>
           </li>
           <li
-            onClick={() => navigate("/dummygram/notifications")}
+            onClick={() =>
+              navigate(`/dummygram/${anonymous ? "signup" : "notifications"}`)
+            }
             className={
               location.pathname == "/dummygram/notifications" ? "activeTab" : ""
             }
@@ -84,7 +94,10 @@ function SideBar() {
           </li>
           <li
             className={
-              location.pathname == `/dummygram/${username}` ? "activeTab" : ""
+              location.pathname ==
+              `/dummygram/${anonymous ? "signup" : username}`
+                ? "activeTab"
+                : ""
             }
             onClick={() => navigate(`/dummygram/${username}`)}
           >
