@@ -47,13 +47,9 @@ const CommentDialogBox = ({
                 <div>
                 <div className="comment-doer">
                 <AccountCircleIcon />
-                <span className="comment-doer-name" onClick={() => {
-                  navigate("/dummygram/profile", {
-                    state: {
-                      name: userComment.content.username,
-                    },
-                  });
-                }}>
+                <span className="comment-doer-name" onClick={() => 
+                  navigate(`/dummygram/${userComment.content.username}`)
+                }>
                   {userComment.content.username}
                 </span>
                   </div>
