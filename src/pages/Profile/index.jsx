@@ -489,7 +489,11 @@ function Profile() {
                 </div>
                 {name !== user?.displayName && (
                   <Button
-                    onClick={handleSendFriendRequest}
+                    onClick={() =>
+                      user.isAnonymous
+                        ? navigate("/dummygram/signup")
+                        : handleSendFriendRequest()
+                    }
                     variant="contained"
                     color="primary"
                     sx={{ marginTop: "1rem" }}

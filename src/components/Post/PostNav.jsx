@@ -11,6 +11,7 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import Flexbetween from "../../reusableComponents/Flexbetween";
 import { playSuccessSound } from "../../js/sounds";
+import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
 const PostNav = ({
@@ -28,9 +29,11 @@ const PostNav = ({
   const { enqueueSnackbar } = useSnackbar();
   const [Open, setOpen] = useState(false);
   const [favoritePosts, setFavoritePosts] = useState(
-    JSON.parse(localStorage.getItem("posts")) || [],
+    JSON.parse(localStorage.getItem("posts")) || []
   );
   const [isSaved, setisSaved] = useState(false);
+  const navigate = useNavigate();
+  const { isAnonymous } = user;
 
   const save = async () => {
     let localStoragePosts = JSON.parse(localStorage.getItem("posts")) || [];
@@ -68,7 +71,12 @@ const PostNav = ({
 
   return (
     <Flexbetween gap={!fullScreen && "1.6rem"} sx={{ marginInline: "auto" }}>
-      <Flexbetween sx={{ cursor: "pointer" }} onClick={likesHandler}>
+      <Flexbetween
+        sx={{ cursor: "pointer" }}
+        onClick={() =>
+          isAnonymous ? navigate("/dummygram/signup") : likesHandler()
+        }
+      >
         <IconButton>
           {tempLikeCount.indexOf(user?.uid) != -1 ? (
             <FavoriteOutlined
@@ -90,7 +98,7 @@ const PostNav = ({
       <Flexbetween
         sx={{ cursor: "pointer" }}
         onClick={() => {
-          setisCommentOpen(!Open);
+          isAnonymous ? navigate("/dummygram/signup") : setisCommentOpen(!Open);
         }}
       >
         <IconButton sx={{ padding: "2px" }}>
@@ -106,9 +114,13 @@ const PostNav = ({
       <Flexbetween
         sx={{ cursor: "pointer" }}
         onClick={() => {
-          setLink(`https://narayan954.github.io/dummygram/posts/${postId}`);
-          setPostText(caption);
-          shareModal(true);
+          if (isAnonymous) {
+            navigate("/dummygram/signup");
+          } else {
+            setLink(`https://narayan954.github.io/dummygram/posts/${postId}`);
+            setPostText(caption);
+            shareModal(true);
+          }
         }}
       >
         <IconButton>
@@ -119,7 +131,10 @@ const PostNav = ({
         </Typography>
       </Flexbetween>
 
-      <Flexbetween sx={{ cursor: "pointer" }} onClick={save}>
+      <Flexbetween
+        sx={{ cursor: "pointer" }}
+        onClick={() => (isAnonymous ? navigate("/dummygram/signup") : save())}
+      >
         <IconButton>
           {favoritePosts.indexOf(postId) !== -1 ? (
             <BookmarksIcon sx={{ color: "green" }} />

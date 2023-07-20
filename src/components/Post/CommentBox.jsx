@@ -3,6 +3,7 @@ import { IconButton } from "@mui/material";
 import React from "react";
 import { Send } from "@mui/icons-material";
 import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
+import { useNavigate } from "react-router-dom";
 
 const CommentBox = ({
   user,
@@ -13,6 +14,8 @@ const CommentBox = ({
   setComment,
   postComment,
 }) => {
+  const { isAnonymous } = user;
+  const navigate = useNavigate();
   return (
     <div className="comment-box">
       {user && (
@@ -64,7 +67,9 @@ const CommentBox = ({
             className="post__button"
             disabled={comment.trim().length < 1}
             type="submit"
-            onClick={postComment}
+            onClick={(e) =>
+              isAnonymous ? navigate("/dummygram/signup") : postComment(e)
+            }
             style={{
               padding: 0,
               paddingRight: "5px",

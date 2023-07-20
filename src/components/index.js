@@ -1,5 +1,7 @@
 import Caption from "./Post/Caption";
 import Favorite from "./Favorite";
+import GuestSignInBtn from "./Guest/GuestSignInBtn";
+import GuestSignUpBtn from "./Guest/GuestSignUpBtn";
 import ImgUpload from "./ImgUpload";
 import LandingAnimation from "./LandingAnimation";
 import Navbar from "./Navbar";
@@ -15,6 +17,8 @@ export {
   Caption,
   ChatBox,
   Favorite,
+  GuestSignInBtn,
+  GuestSignUpBtn,
   ImgUpload,
   LandingAnimation,
   Navbar,

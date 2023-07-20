@@ -7,6 +7,7 @@ import { auth, db } from "./lib/firebase";
 
 import ErrorBoundary from "./reusableComponents/ErrorBoundary";
 import { FaArrowCircleUp } from "react-icons/fa";
+import { GuestSignUpBtn } from "./components";
 import { RowModeContext } from "./hooks/useRowMode";
 import { makeStyles } from "@mui/styles";
 import { ChatPage } from "./pages";
@@ -77,6 +78,7 @@ function App() {
   const [postText, setPostText] = useState("");
   const [rowMode, setRowMode] = useState(false);
   const [showScroll, setShowScroll] = useState(false);
+  const [anonymous, setAnonymous] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -99,6 +101,7 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         setUser(authUser);
+        setAnonymous(authUser.isAnonymous);
       } else {
         setUser(null);
         navigate("/dummygram/login");
@@ -167,6 +170,9 @@ function App() {
               setUser={setUser}
             />
           </ErrorBoundary>
+          {anonymous &&
+            location.pathname !== "/dummygram/signup" &&
+            location.pathname !== "/dummygram/login" && <GuestSignUpBtn />}
           <ShareModal
             openShareModal={openShareModal}
             setOpenShareModal={setOpenShareModal}
@@ -185,7 +191,7 @@ function App() {
                 user ? (
                   <div className="flex">
                     <ErrorBoundary inApp={true}>
-                      <SideBar />
+                      <SideBar anonymous={anonymous}/>
                     </ErrorBoundary>
                     <div
                       className="home-posts-container"
