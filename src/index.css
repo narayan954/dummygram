@@ -142,6 +142,7 @@ input:focus {
 }
 
 .post__header {
+  position: relative;
   align-items: center;
   display: flex;
   flex-wrap: wrap;
