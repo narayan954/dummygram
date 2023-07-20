@@ -1,0 +1,10 @@
+.guest-sign-in-button {
+  background-color: grey;
+  color: #000 !important;
+}
+
+.guest-sign-in-button:hover {
+  color: grey;
+  background-color: white;
+  border: 1px solid grey;
+}

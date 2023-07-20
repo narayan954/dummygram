@@ -102,6 +102,11 @@
   align-items: last baseline;
 }
 
+/* hide scrollbar */
+::-webkit-scrollbar {
+  display: none;
+}
+
 /* .pass-container-both input {
   width: 70%;
 } */
