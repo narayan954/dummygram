@@ -33,7 +33,6 @@ const ChatBox = () => {
         const unsubscribe = db
             .collection("messages")
             .orderBy("createdAt")
-            .limit(20)
             .onSnapshot(querySnapshot => {
                 const data = querySnapshot.docs.map(doc => ({
                     ...doc.data(),
@@ -52,22 +51,20 @@ const ChatBox = () => {
 
     function handleOnSubmit(e) {
         e.preventDefault()
-
-        if (db) {
-            db.collection('messages').add({
-                text: newMessage,
-                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                uid: user.uid,
-                displayName: user.displayName,
-                photoURL: user.photoURL,
-            })
-
-            setNewMessage("")
-        }
+        if(newMessage.trim() !== "" && db){
+                db.collection('messages').add({
+                    text: newMessage,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    uid: user.uid,
+                    displayName: user.displayName,
+                    photoURL: user.photoURL,
+                })
+    
+                setNewMessage("")
+            }
     }
 
     function goToUserProfile(uid) {
-        console.log(uid)
         async function getUsername() {
             const docRef = db.collection("users").doc(uid);
             docRef
@@ -119,7 +116,6 @@ const ChatBox = () => {
                     <SendIcon
                         className="chat-msg-send-btn"
                         onClick={handleOnSubmit}
-                        disabled={!newMessage}
                     />
                 </button>
             </form>

@@ -36,13 +36,13 @@ function Navbar({ onClick, user, setUser }) {
             <div className="rowConvert" onClick={onClick}>
               <AiOutlineInsertRowAbove style={{ margin: "auto" }} size={30} />
             </div>
-            <div 
-            className="rowConvert" 
-            id="chat-icon" 
-            onClick={() => navigate("/dummygram/chat")}
-          >
-            <ChatIcon className="chatIcon" />
-          </div>
+            <div
+              className="rowConvert"
+              id="chat-icon"
+              onClick={() => navigate("/dummygram/chat")}
+            >
+              <ChatIcon className="chatIcon" />
+            </div>
           </div>
           <Darkmode themeClass="themeButton" />
         </div>

@@ -63,8 +63,9 @@
 }
 
 .chatIcon{
-  font-size: 55px;
   margin-top: 5px;
+  transform: scale(1.2);
+  margin-top: 11px;
 }
 
 #chat-icon{
