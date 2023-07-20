@@ -9,29 +9,25 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { auth, db, storage } from "../../lib/firebase";
-import { collection, doc, getDoc, onSnapshot, query, where } from "firebase/firestore";
-import profileBackgroundImg from "../../assets/profile-background.jpg"
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { getModalStyle, useStyles } from "../../App";
 import { lazy, useEffect, useState } from "react";
-import {
-  playErrorSound,
-  playSuccessSound,
-  playTapSound,
-} from "../../js/sounds";
+import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useNavigate, useParams } from "react-router-dom";
-import EditIcon from '@mui/icons-material/Edit';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 import { AnimatedButton } from "../../reusableComponents";
+import EditIcon from "@mui/icons-material/Edit";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import { FaUserCircle } from "react-icons/fa";
 import { Loader } from "../../reusableComponents";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Modal from "@mui/material/Modal";
 import SettingsIcon from "@mui/icons-material/Settings";
-import ViewsCounter from "./views";
+import ViewsCounter from "../../reusableComponents/views";
 import firebase from "firebase/compat/app";
 import logo from "../../assets/logo.webp";
+import profileBackgroundImg from "../../assets/profile-background.jpg";
 import { useSnackbar } from "notistack";
 
 const Post = lazy(() => import("../../components/Post"));
@@ -231,7 +227,7 @@ function Profile() {
     const uploadTask = storage.ref(`images/${image?.name}`).put(image);
     uploadTask.on(
       "state_changed",
-      () => { },
+      () => {},
       (error) => {
         playErrorSound();
         enqueueSnackbar(error.message, {
@@ -272,7 +268,7 @@ function Profile() {
             });
           })
           .catch((error) => console.error(error));
-      },
+      }
     );
     setVisible(false);
   };
@@ -295,7 +291,11 @@ function Profile() {
       {userData ? (
         <>
           <div className="background-image">
-            <img src={profileBackgroundImg} alt="" className="background-image" />
+            <img
+              src={profileBackgroundImg}
+              alt=""
+              className="background-image"
+            />
           </div>
           <Modal
             open={open}
@@ -398,9 +398,7 @@ function Profile() {
             </Box>
           </Modal>
 
-          <Box
-            className="outer-profile-box"
-          >
+          <Box className="outer-profile-box">
             <Box
               display="flex"
               width="90%"
@@ -464,7 +462,9 @@ function Profile() {
                   {name}
                 </Typography>
                 <p className="profile-bio">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus atque eaque mollitia iusto odit! Voluptatum iusto beatae esse exercitationem.
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Accusamus atque eaque mollitia iusto odit! Voluptatum iusto
+                  beatae esse exercitationem.
                 </p>
                 <div className="username-and-location-container">
                   <Typography className="profile-user-username">
@@ -498,9 +498,7 @@ function Profile() {
                   </Button>
                 )}
                 {name === user?.displayName && (
-                  <Box
-                    className="setting-logout"
-                  >
+                  <Box className="setting-logout">
                     <Button
                       variant="contained"
                       startIcon={<SettingsIcon style={{ color: "black" }} />}
@@ -530,7 +528,8 @@ function Profile() {
                         Log Out
                       </Typography>
                     </Button>
-                  </Box>)}
+                  </Box>
+                )}
 
                 <Modal open={logout} onClose={() => setLogout(false)}>
                   <div style={getModalStyle()} className={classes.paper}>

@@ -81,7 +81,7 @@
   color: var(--btn-color);
 }
 
-.img-save{
+.img-save {
   width: 100%;
 }
 
@@ -136,7 +136,7 @@
 
 .setting-logout {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 15px;
   margin-block: 20px;
 }
