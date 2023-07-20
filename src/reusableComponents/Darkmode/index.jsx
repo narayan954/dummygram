@@ -1,8 +1,12 @@
 import "./index.css";
 
-import React from "react";
+import React, { useState } from "react";
 
-const Darkmode = () => {
+import { DarkMode } from "@mui/icons-material";
+import { LightMode } from "@mui/icons-material";
+
+const Darkmode = ({ themeClass }) => {
+  const [modeStatus, setModeStatus] = useState(false);
   let darkMode = localStorage.getItem("darkMode");
 
   function enableDarkMode() {
@@ -18,7 +22,7 @@ const Darkmode = () => {
     document.body.classList.remove("darkmode");
 
     //update darkmode in the localstorage
-    localStorage.setItem("darkMode", null);
+    localStorage.setItem("darkMode", "disable");
   }
 
   if (darkMode === "enabled") {
@@ -29,17 +33,28 @@ const Darkmode = () => {
     darkMode = localStorage.getItem("darkMode");
 
     if (darkMode !== "enabled") {
+      setModeStatus(false);
       enableDarkMode();
     } else {
+      setModeStatus(true);
       disableDarkMode();
     }
   };
 
+  const styles = {
+    activity: { height: 30, width: 40, color: "#0516cbb0" },
+    disable: { height: 30, width: 40, color: "#d8860b" },
+  };
+
   return (
-    <div className="darkmode-btn">
-      <button onClick={darkModeToggle}>
+    <div>
+      <button onClick={darkModeToggle} className={themeClass}>
         <span>
-          <span></span>
+          {modeStatus == false ? (
+            <LightMode style={styles.disable} />
+          ) : (
+            <DarkMode style={styles.activity} />
+          )}
         </span>
       </button>
     </div>
