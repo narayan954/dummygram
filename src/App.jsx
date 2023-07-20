@@ -7,6 +7,7 @@ import { auth, db } from "./lib/firebase";
 
 import ErrorBoundary from "./reusableComponents/ErrorBoundary";
 import { FaArrowCircleUp } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 import { RowModeContext } from "./hooks/useRowMode";
 import { makeStyles } from "@mui/styles";
 
@@ -158,17 +159,6 @@ function App() {
             ];
           });
         });
-      // setSearchedPosts(
-      //   posts.filter(
-      //     (post) =>
-      //       post.post?.displayName
-      //         ?.toLowerCase()
-      //         .includes(searchText?.toLowerCase()) ||
-      //       post.post?.username
-      //         ?.toLowerCase()
-      //         .includes(searchText?.toLowerCase())
-      //   )
-      // );
     }
     setLoadMorePosts(false);
   }, [loadMorePosts]);
@@ -255,15 +245,22 @@ function App() {
                               rowMode ? "app__posts " : "app_posts_column flex"
                             }`}
                           >
-                            <div className="search-box ">
+                            <div
+                              className="search-bar"
+                              style={{ minWidth: "300px" }}
+                            >
                               <input
-                                type="text"
-                                placeholder="Search here.."
+                                type="search"
+                                className="search-input"
                                 value={searchText}
+                                placeholder="Search Here..."
                                 onChange={handleSearch}
                               />
+                              <label className="search-icon">
+                                <FaSearch />
+                              </label>
                             </div>
-                            <ErrorBoundary inApp>
+                            <ErrorBoundary inApp={true}>
                               <div className={rowMode ? "app__posts" : ""}>
                                 {searchText
                                   ? searchedPosts.map(({ id, post }) => (
