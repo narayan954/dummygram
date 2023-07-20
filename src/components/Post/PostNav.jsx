@@ -6,12 +6,12 @@ import {
 } from "@mui/icons-material";
 import { IconButton, Typography } from "@mui/material";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import Flexbetween from "../../reusableComponents/Flexbetween";
 import { playSuccessSound } from "../../js/sounds";
+import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
 const PostNav = ({
@@ -29,12 +29,11 @@ const PostNav = ({
   const { enqueueSnackbar } = useSnackbar();
   const [Open, setOpen] = useState(false);
   const [favoritePosts, setFavoritePosts] = useState(
-    JSON.parse(localStorage.getItem("posts")) || [],
+    JSON.parse(localStorage.getItem("posts")) || []
   );
   const [isSaved, setisSaved] = useState(false);
-  const navigate = useNavigate()
-  const { isAnonymous } = user
-
+  const navigate = useNavigate();
+  const { isAnonymous } = user;
 
   const save = async () => {
     let localStoragePosts = JSON.parse(localStorage.getItem("posts")) || [];
@@ -72,9 +71,11 @@ const PostNav = ({
 
   return (
     <Flexbetween gap={!fullScreen && "1.6rem"} sx={{ marginInline: "auto" }}>
-      <Flexbetween 
-        sx={{ cursor: "pointer" }} 
-        onClick={() => isAnonymous? navigate("/dummygram/signup") : likesHandler()}
+      <Flexbetween
+        sx={{ cursor: "pointer" }}
+        onClick={() =>
+          isAnonymous ? navigate("/dummygram/signup") : likesHandler()
+        }
       >
         <IconButton>
           {tempLikeCount.indexOf(user?.uid) != -1 ? (
@@ -130,9 +131,9 @@ const PostNav = ({
         </Typography>
       </Flexbetween>
 
-      <Flexbetween 
-        sx={{ cursor: "pointer" }} 
-        onClick={() => isAnonymous? navigate("/dummygram/signup") : save()}
+      <Flexbetween
+        sx={{ cursor: "pointer" }}
+        onClick={() => (isAnonymous ? navigate("/dummygram/signup") : save())}
       >
         <IconButton>
           {favoritePosts.indexOf(postId) !== -1 ? (
@@ -145,7 +146,7 @@ const PostNav = ({
           Save
         </Typography>
       </Flexbetween>
-    </Flexbetween >
+    </Flexbetween>
   );
 };
 

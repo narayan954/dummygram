@@ -47,13 +47,19 @@ function SideBar({ anonymous }) {
               <HomeIcon className="icon" /> <span>Home</span>
             </div>
           </li>
-          <li onClick={() => anonymous? navigate("/dummygram/signup") : setOpenNewUpload(true)}>
+          <li
+            onClick={() =>
+              anonymous ? navigate("/dummygram/signup") : setOpenNewUpload(true)
+            }
+          >
             <div className="sidebar_align">
               <AddCircleOutlineIcon className="icon" /> <span>New Post</span>
             </div>
           </li>
           <li
-            onClick={() => navigate(`/dummygram/${anonymous? "signup" : "search"}`)}
+            onClick={() =>
+              navigate(`/dummygram/${anonymous ? "signup" : "search"}`)
+            }
             className={
               location.pathname == "/dummygram/search" ? "activeTab" : ""
             }
@@ -63,7 +69,9 @@ function SideBar({ anonymous }) {
             </div>
           </li>
           <li
-            onClick={() => navigate(`/dummygram/${anonymous? "signup" : "favourites"}`)}
+            onClick={() =>
+              navigate(`/dummygram/${anonymous ? "signup" : "favourites"}`)
+            }
             className={
               location.pathname == "/dummygram/favourites" ? "activeTab" : ""
             }
@@ -73,7 +81,9 @@ function SideBar({ anonymous }) {
             </div>
           </li>
           <li
-            onClick={() => navigate(`/dummygram/${anonymous? "signup" : "notifications"}`)}
+            onClick={() =>
+              navigate(`/dummygram/${anonymous ? "signup" : "notifications"}`)
+            }
             className={
               location.pathname == "/dummygram/notifications" ? "activeTab" : ""
             }
@@ -84,7 +94,10 @@ function SideBar({ anonymous }) {
           </li>
           <li
             className={
-              location.pathname == `/dummygram/${anonymous? "signup" : username}` ? "activeTab" : ""
+              location.pathname ==
+              `/dummygram/${anonymous ? "signup" : username}`
+                ? "activeTab"
+                : ""
             }
             onClick={() => navigate(`/dummygram/${username}`)}
           >

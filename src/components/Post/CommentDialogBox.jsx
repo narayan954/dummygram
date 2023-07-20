@@ -26,7 +26,7 @@ const CommentDialogBox = ({
   deleteComment,
   deleteCommentID,
 }) => {
-  const { isAnonymous } = user
+  const { isAnonymous } = user;
   return (
     <Box
       sx={{
@@ -47,7 +47,9 @@ const CommentDialogBox = ({
                 <div>
                   <Link
                     className="comment-doer"
-                    to={`/dummygram/${isAnonymous? "signup": userComment.content.username}`}
+                    to={`/dummygram/${
+                      isAnonymous ? "signup" : userComment.content.username
+                    }`}
                   >
                     <AccountCircleIcon />
                     <span className="comment-doer-name">

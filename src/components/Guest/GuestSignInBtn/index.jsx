@@ -1,39 +1,42 @@
-import "./index.css"
-import { auth } from "../../../lib/firebase"
-import { useNavigate } from "react-router-dom";
-import { useSnackbar } from "notistack";
+import "./index.css";
+
 import { playErrorSound, playSuccessSound } from "../../../js/sounds";
 
-const GuestSignInBtn = ({show}) => {
-    const navigate = useNavigate();
-    const { enqueueSnackbar } = useSnackbar();
+import { auth } from "../../../lib/firebase";
+import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
-    function guestSignIn() {
-        auth.signInAnonymously()
-            .then(() => {
-                playSuccessSound()
-                enqueueSnackbar("Guest Sign In successfull", {
-                    variant: "success",
-                });
-                navigate("/dummygram/")
-            })
-            .catch((error) => {
-                playErrorSound()
-                enqueueSnackbar(error.message, {
-                    variant: "error",
-                });
-            });
-    }
+const GuestSignInBtn = ({ show }) => {
+  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
 
-    return (
-        <button 
-        onClick={guestSignIn}
-        className="guest-sign-in-button other__login"
-        style={{display: show? "inline-block": "none"}}
-        >
-            Sign In as Guest
-        </button>
-    )
-}
+  function guestSignIn() {
+    auth
+      .signInAnonymously()
+      .then(() => {
+        playSuccessSound();
+        enqueueSnackbar("Guest Sign In successfull", {
+          variant: "success",
+        });
+        navigate("/dummygram/");
+      })
+      .catch((error) => {
+        playErrorSound();
+        enqueueSnackbar(error.message, {
+          variant: "error",
+        });
+      });
+  }
 
-export default GuestSignInBtn
+  return (
+    <button
+      onClick={guestSignIn}
+      className="guest-sign-in-button other__login"
+      style={{ display: show ? "inline-block" : "none" }}
+    >
+      Sign In as Guest
+    </button>
+  );
+};
+
+export default GuestSignInBtn;

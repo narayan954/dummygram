@@ -13,7 +13,7 @@ const Auth__ctn__group = ({
   have__acct_action,
   have_acct_nav,
   forgot_pass_nav,
-  showGuestSignIn=true,
+  showGuestSignIn = true,
 }) => {
   return (
     <>
@@ -32,7 +32,7 @@ const Auth__ctn__group = ({
           <div className="line" />
         </div>
         <div className="google__fb--login">
-        <GuestSignInBtn show={showGuestSignIn}/>
+          <GuestSignInBtn show={showGuestSignIn} />
           <button
             className="other__login google"
             type="submit"

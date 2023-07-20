@@ -81,10 +81,12 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
         className="post__avatar  flex avatar"
         alt={displayName}
         src={avatar}
-        onClick={() => navigate(`/dummygram/${isAnonymous? "signup" : username}`)}
+        onClick={() =>
+          navigate(`/dummygram/${isAnonymous ? "signup" : username}`)
+        }
       />
       <Link
-        to={`/dummygram/${isAnonymous? "signup" : `posts/${postId}`}`}
+        to={`/dummygram/${isAnonymous ? "signup" : `posts/${postId}`}`}
         style={{ textDecoration: "none" }}
       >
         <h3 className="post__username">{displayName}</h3>
@@ -97,7 +99,11 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
           aria-controls={open ? "long-menu" : undefined}
           aria-expanded={open ? "true" : undefined}
           aria-haspopup="true"
-          onClick={(event) => isAnonymous? navigate("/dummygram/signup") : setAnchorEl(event.currentTarget)}
+          onClick={(event) =>
+            isAnonymous
+              ? navigate("/dummygram/signup")
+              : setAnchorEl(event.currentTarget)
+          }
           sx={{
             color: "var(--color)",
           }}

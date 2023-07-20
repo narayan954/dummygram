@@ -8,9 +8,9 @@ import { auth, db } from "./lib/firebase";
 import ErrorBoundary from "./reusableComponents/ErrorBoundary";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
+import { GuestSignUpBtn } from "./components";
 import { RowModeContext } from "./hooks/useRowMode";
 import { makeStyles } from "@mui/styles";
-import { GuestSignUpBtn } from "./components";
 
 // ------------------------------------ Pages ----------------------------------------------------
 const About = React.lazy(() => import("./pages/FooterPages/About"));
@@ -108,7 +108,7 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         setUser(authUser);
-        setAnonymous(authUser.isAnonymous)
+        setAnonymous(authUser.isAnonymous);
       } else {
         setUser(null);
         navigate("/dummygram/login");
@@ -195,11 +195,9 @@ function App() {
               setUser={setUser}
             />
           </ErrorBoundary>
-          {(anonymous &&
+          {anonymous &&
             location.pathname !== "/dummygram/signup" &&
-            location.pathname !== "/dummygram/login"
-          ) && <GuestSignUpBtn />
-          }
+            location.pathname !== "/dummygram/login" && <GuestSignUpBtn />}
           <ShareModal
             openShareModal={openShareModal}
             setOpenShareModal={setOpenShareModal}
@@ -235,13 +233,13 @@ function App() {
                           !loadingPosts
                             ? {}
                             : {
-                              width: "100%",
-                              minHeight: "100vh",
-                              display: "flex",
-                              flexDirection: rowMode ? "row" : "column",
-                              justifyContent: "center",
-                              alignItems: "center",
-                            }
+                                width: "100%",
+                                minHeight: "100vh",
+                                display: "flex",
+                                flexDirection: rowMode ? "row" : "column",
+                                justifyContent: "center",
+                                alignItems: "center",
+                              }
                         }
                       >
                         {loadingPosts ? (
@@ -249,8 +247,9 @@ function App() {
                         ) : (
                           <div
                             style={{ display: "flex", flexDirection: "column" }}
-                            className={`${rowMode ? "app__posts " : "app_posts_column flex"
-                              }`}
+                            className={`${
+                              rowMode ? "app__posts " : "app_posts_column flex"
+                            }`}
                           >
                             <div
                               className="search-bar"
@@ -271,29 +270,29 @@ function App() {
                               <div className={rowMode ? "app__posts" : ""}>
                                 {searchText
                                   ? searchedPosts.map(({ id, post }) => (
-                                    <Post
-                                      rowMode={rowMode}
-                                      key={id}
-                                      postId={id}
-                                      user={user}
-                                      post={post}
-                                      shareModal={setOpenShareModal}
-                                      setLink={setCurrentPostLink}
-                                      setPostText={setPostText}
-                                    />
-                                  ))
+                                      <Post
+                                        rowMode={rowMode}
+                                        key={id}
+                                        postId={id}
+                                        user={user}
+                                        post={post}
+                                        shareModal={setOpenShareModal}
+                                        setLink={setCurrentPostLink}
+                                        setPostText={setPostText}
+                                      />
+                                    ))
                                   : posts.map(({ id, post }) => (
-                                    <Post
-                                      rowMode={rowMode}
-                                      key={id}
-                                      postId={id}
-                                      user={user}
-                                      post={post}
-                                      shareModal={setOpenShareModal}
-                                      setLink={setCurrentPostLink}
-                                      setPostText={setPostText}
-                                    />
-                                  ))}
+                                      <Post
+                                        rowMode={rowMode}
+                                        key={id}
+                                        postId={id}
+                                        user={user}
+                                        post={post}
+                                        shareModal={setOpenShareModal}
+                                        setLink={setCurrentPostLink}
+                                        setPostText={setPostText}
+                                      />
+                                    ))}
                               </div>
                             </ErrorBoundary>
                           </div>
@@ -430,10 +429,10 @@ function App() {
           </Routes>
           {/* below scroll button must be checked for implementation */}
           {location.pathname === "/dummygram/" ||
-            location.pathname === "/dummygram/favourites" ||
-            location.pathname === "/dummygram/about" ||
-            location.pathname === "/dummygram/guidelines" ||
-            location.pathname === "/dummygram/contributors" ? (
+          location.pathname === "/dummygram/favourites" ||
+          location.pathname === "/dummygram/about" ||
+          location.pathname === "/dummygram/guidelines" ||
+          location.pathname === "/dummygram/contributors" ? (
             <FaArrowCircleUp
               fill="#777"
               className="scrollTop"
