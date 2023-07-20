@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { db } from "../../lib/firebase";
+import { db } from "../lib/firebase";
 
 const ViewsCounter = ({ uid }) => {
   const [views, setViews] = useState(1);
