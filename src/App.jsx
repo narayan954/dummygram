@@ -7,6 +7,7 @@ import { auth, db } from "./lib/firebase";
 
 import ErrorBoundary from "./reusableComponents/ErrorBoundary";
 import { FaArrowCircleUp } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 import { RowModeContext } from "./hooks/useRowMode";
 import { makeStyles } from "@mui/styles";
 
@@ -77,6 +78,8 @@ function App() {
   const [postText, setPostText] = useState("");
   const [rowMode, setRowMode] = useState(false);
   const [showScroll, setShowScroll] = useState(false);
+  const [searchText, setSearchText] = useState("");
+  const [searchedPosts, setSearchedPosts] = useState([]);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -87,6 +90,10 @@ function App() {
     } else if (showScroll && window.pageYOffset <= 400) {
       setShowScroll(false);
     }
+  };
+
+  const handleSearch = (e) => {
+    setSearchText(e.target.value);
   };
 
   const scrollTop = () => {
@@ -156,6 +163,24 @@ function App() {
     setLoadMorePosts(false);
   }, [loadMorePosts]);
 
+  useEffect(() => {
+    const fetchSearchResults = async () => {
+      setSearchedPosts(
+        posts.filter(
+          (post) =>
+            post.post?.displayName
+              ?.toLowerCase()
+              .includes(searchText?.toLowerCase()) ||
+            post.post?.username
+              ?.toLowerCase()
+              .includes(searchText?.toLowerCase())
+        )
+      );
+    };
+
+    fetchSearchResults();
+  }, [searchText, posts.length]);
+
   return (
     <RowModeContext.Provider value={rowMode}>
       <ErrorBoundary inApp={true}>
@@ -185,48 +210,88 @@ function App() {
               path="/dummygram/"
               element={
                 user ? (
-                  <div className="flex">
+                  <div style={{ display: "flex", justifyContent: "center" }}>
                     <ErrorBoundary inApp={true}>
                       <SideBar />
                     </ErrorBoundary>
                     <div
-                      className="home-posts-container"
-                      style={
-                        !loadingPosts
-                          ? {}
-                          : {
-                              width: "100%",
-                              minHeight: "100vh",
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                            }
-                      }
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        flexDirection: rowMode ? "row" : "column",
+                      }}
                     >
-                      {loadingPosts ? (
-                        <Loader />
-                      ) : (
-                        <div
-                          className={`${
-                            rowMode ? "app__posts" : "app_posts_column flex"
-                          }`}
-                        >
-                          <ErrorBoundary inApp>
-                            {posts.map(({ id, post }) => (
-                              <Post
-                                rowMode={rowMode}
-                                key={id}
-                                postId={id}
-                                user={user}
-                                post={post}
-                                shareModal={setOpenShareModal}
-                                setLink={setCurrentPostLink}
-                                setPostText={setPostText}
+                      <div
+                        className="home-posts-container"
+                        style={
+                          !loadingPosts
+                            ? {}
+                            : {
+                                width: "100%",
+                                minHeight: "100vh",
+                                display: "flex",
+                                flexDirection: rowMode ? "row" : "column",
+                                justifyContent: "center",
+                                alignItems: "center",
+                              }
+                        }
+                      >
+                        {loadingPosts ? (
+                          <Loader />
+                        ) : (
+                          <div
+                            style={{ display: "flex", flexDirection: "column" }}
+                            className={`${
+                              rowMode ? "app__posts " : "app_posts_column flex"
+                            }`}
+                          >
+                            <div
+                              className="search-bar"
+                              style={{ minWidth: "300px" }}
+                            >
+                              <input
+                                type="search"
+                                className="search-input"
+                                value={searchText}
+                                placeholder="Search Here..."
+                                onChange={handleSearch}
                               />
-                            ))}
-                          </ErrorBoundary>
-                        </div>
-                      )}
+                              <label className="search-icon">
+                                <FaSearch />
+                              </label>
+                            </div>
+                            <ErrorBoundary inApp={true}>
+                              <div className={rowMode ? "app__posts" : ""}>
+                                {searchText
+                                  ? searchedPosts.map(({ id, post }) => (
+                                      <Post
+                                        rowMode={rowMode}
+                                        key={id}
+                                        postId={id}
+                                        user={user}
+                                        post={post}
+                                        shareModal={setOpenShareModal}
+                                        setLink={setCurrentPostLink}
+                                        setPostText={setPostText}
+                                      />
+                                    ))
+                                  : posts.map(({ id, post }) => (
+                                      <Post
+                                        rowMode={rowMode}
+                                        key={id}
+                                        postId={id}
+                                        user={user}
+                                        post={post}
+                                        shareModal={setOpenShareModal}
+                                        setLink={setCurrentPostLink}
+                                        setPostText={setPostText}
+                                      />
+                                    ))}
+                              </div>
+                            </ErrorBoundary>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 ) : (
