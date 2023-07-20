@@ -24,7 +24,7 @@ import { useState } from "react";
 
 const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
   const time = useCreatedAt(timestamp);
-  const { fullScreen } = user; // needs fixing
+  const { fullScreen, isAnonymous } = user; // needs fixing
   const { username, caption, imageUrl, displayName, avatar } = postData;
 
   const [Open, setOpen] = useState(false);
@@ -81,10 +81,10 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
         className="post__avatar  flex avatar"
         alt={displayName}
         src={avatar}
-        onClick={() => navigate(`/dummygram/${username}`)}
+        onClick={() => navigate(`/dummygram/${isAnonymous? "signup" : username}`)}
       />
       <Link
-        to={`/dummygram/posts/${postId}`}
+        to={`/dummygram/${isAnonymous? "signup" : `posts/${postId}`}`}
         style={{ textDecoration: "none" }}
       >
         <h3 className="post__username">{displayName}</h3>
@@ -97,7 +97,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
           aria-controls={open ? "long-menu" : undefined}
           aria-expanded={open ? "true" : undefined}
           aria-haspopup="true"
-          onClick={(event) => setAnchorEl(event.currentTarget)}
+          onClick={(event) => isAnonymous? navigate("/dummygram/signup") : setAnchorEl(event.currentTarget)}
           sx={{
             color: "var(--color)",
           }}

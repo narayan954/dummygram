@@ -251,6 +251,7 @@ const LoginScreen = () => {
             have_acct_nav={navigateToSignup}
             have__acct_action={"Sign up"}
             forgot_pass_nav={navigateToForgot}
+            showGuestSignIn={false}
           />
         </div>
       </form>

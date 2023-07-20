@@ -9,6 +9,8 @@ import Post from "./Post";
 import ReadMore from "./ReadMore";
 import SearchBar from "./SearchBar";
 import SideBar from "./SideBar";
+import GuestSignUpBtn from "./Guest/GuestSignUpBtn";
+import GuestSignInBtn from "./Guest/GuestSignInBtn"
 
 export {
   ImgUpload,
@@ -22,6 +24,8 @@ export {
   NotFound,
   Notifications,
   SearchBar,
+  GuestSignUpBtn,
+  GuestSignInBtn,
 };
 
 export default Post;
