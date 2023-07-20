@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
+import { ChatPage } from "./pages";
 import ErrorBoundary from "./reusableComponents/ErrorBoundary";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { GuestSignUpBtn } from "./components";
@@ -179,12 +180,10 @@ function App() {
             currentPostLink={currentPostLink}
             postText={postText}
           />
-          {location.pathname &&
-            (location.pathname == "/dummygram/login" ||
-              location.pathname == "/dummygram/signup") && (
-              <Darkmode themeClass="themeButton themeButton-login" />
-            )}
-
+          {(location.pathname == "/dummygram/login" ||
+            location.pathname == "/dummygram/signup") && (
+            <Darkmode themeClass="themeButton themeButton-login" />
+          )}
           <Routes>
             <Route
               exact
@@ -193,7 +192,7 @@ function App() {
                 user ? (
                   <div className="flex">
                     <ErrorBoundary inApp={true}>
-                      <SideBar anonymous={anonymous}/>
+                      <SideBar anonymous={anonymous} />
                     </ErrorBoundary>
                     <div
                       className="home-posts-container"
@@ -246,6 +245,15 @@ function App() {
               element={
                 <ErrorBoundary inApp={true}>
                   <Profile />
+                </ErrorBoundary>
+              }
+            />
+
+            <Route
+              path="/dummygram/chat"
+              element={
+                <ErrorBoundary inApp={true}>
+                  <ChatPage user={user} />
                 </ErrorBoundary>
               }
             />

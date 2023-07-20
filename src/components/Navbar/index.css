@@ -61,3 +61,13 @@
   padding: 0.5rem;
   cursor: pointer;
 }
+
+.chatIcon{
+  margin-top: 5px;
+  transform: scale(1.2);
+  margin-top: 11px;
+}
+
+#chat-icon{
+  display: inline-block;
+}
