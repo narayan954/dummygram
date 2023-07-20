@@ -2,7 +2,9 @@ import "./index.css";
 
 import { playErrorSound, playSuccessSound } from "../../../js/sounds";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { auth } from "../../../lib/firebase";
+import { faRedditAlien } from "@fortawesome/free-brands-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
@@ -34,7 +36,7 @@ const GuestSignInBtn = ({ show }) => {
       className="guest-sign-in-button other__login"
       style={{ display: show ? "inline-block" : "none" }}
     >
-      Sign In as Guest
+      <FontAwesomeIcon icon={faRedditAlien} /> Sign up as a Guest!
     </button>
   );
 };
