@@ -192,7 +192,7 @@ function App() {
                 user ? (
                   <div className="flex">
                     <ErrorBoundary inApp={true}>
-                      <SideBar anonymous={anonymous}/>
+                      <SideBar anonymous={anonymous} />
                     </ErrorBoundary>
                     <div
                       className="home-posts-container"

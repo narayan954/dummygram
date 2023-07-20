@@ -12,12 +12,13 @@ const ChatBox = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [user, setUser] = useState(null);
+
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
-      if (authUser) {
+      if (authUser && !authUser.isAnonymous) {
         setUser(authUser);
       } else {
         setUser(null);
@@ -34,6 +35,7 @@ const ChatBox = () => {
     const unsubscribe = db
       .collection("messages")
       .orderBy("createdAt")
+      .limitToLast(20)
       .onSnapshot((querySnapshot) => {
         const data = querySnapshot.docs.map((doc) => ({
           ...doc.data(),
@@ -52,7 +54,7 @@ const ChatBox = () => {
 
   function handleOnSubmit(e) {
     e.preventDefault();
-    if (newMessage.trim() !== "" && db) {
+    if (newMessage.trim()) {
       db.collection("messages").add({
         text: newMessage,
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
@@ -62,6 +64,10 @@ const ChatBox = () => {
       });
 
       setNewMessage("");
+    } else {
+      enqueueSnackbar(`Enter something!`, {
+        variant: "error",
+      });
     }
   }
 
@@ -85,6 +91,7 @@ const ChatBox = () => {
 
   return (
     <div className="chat-main-container">
+      <span className="chat-header">showing last 20 messages</span>
       <div className="all-chat-msg-container">
         <ul className="chat-msg-container">
           {messages.map((message) => (
