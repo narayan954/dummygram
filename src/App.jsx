@@ -2,7 +2,7 @@ import "./index.css";
 
 import { Darkmode, Loader, ShareModal } from "./reusableComponents";
 import React, { useEffect, useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
 import ErrorBoundary from "./reusableComponents/ErrorBoundary";
@@ -81,6 +81,7 @@ function App() {
   const [searchedPosts, setSearchedPosts] = useState([]);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const checkScrollTop = () => {
     if (!showScroll && window.pageYOffset > 400) {
@@ -207,7 +208,11 @@ function App() {
             currentPostLink={currentPostLink}
             postText={postText}
           />
-          <Darkmode />
+          {location.pathname &&
+            (location.pathname == "/dummygram/login" ||
+              location.pathname == "/dummygram/signup") && (
+              <Darkmode themeClass="themeButton themeButton-login" />
+            )}
 
           <Routes>
             <Route
