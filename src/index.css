@@ -20,10 +20,11 @@
   --page-over-color: #5ec3fd;
   --slide-color: #9be5ea;
   --label-color: rgb(200, 246, 248);
+  --profile-color: #7d7575;
   --text-light: rgba(0, 0, 0, 0.6);
   --post-error-boundary: rgba(0, 0, 0, 0.54);
   --text-black-only: black;
-  --dark-post-bg: rgb(255, 255, 255);;
+  --dark-post-bg: rgb(255, 255, 255);
 }
 
 .darkmode {
@@ -46,6 +47,7 @@
   --page-over-color: #3a3e44;
   --slide-color: #524a54;
   --label-color: #6a656b;
+  --profile-color: #c8c6c6;
   --text-black-only: black;
   --text-light: rgba(255, 255, 255, 0.6);
   --post-error-boundary: rgba(255, 255, 255, 0.54);
@@ -73,22 +75,6 @@ body {
   object-fit: contain;
   width: 150px;
   filter: var(--filter-img);
-}
-
-.app__header {
-  align-items: center;
-  background-color: var(--bg-color);
-  border-bottom: 1px solid rgb(219, 219, 219);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  object-fit: contain;
-  padding-bottom: 10px;
-  padding-top: 10px;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1;
 }
 
 input:hover {
@@ -247,19 +233,6 @@ input:focus {
 }
 
 .scrollTop {
-  /* align-self: center; 
-   animation: fadeIn 0.2s;
-  bottom: 20px;
-  cursor: pointer;
-  display: flex;
-  height: 50px;
-  justify-content: center;
-  opacity: 0.9;
-  position: fixed;
-  left: 18%;
-  transition: opacity 0.4s;
-  width: 60px;
-  z-index: 1000; */
   position: fixed;
   bottom: 4%;
   height: 50px;
@@ -609,4 +582,6 @@ input {
 }
 
 .post,
-.postColumn{background-color: var(--dark-post-bg);}
+.postColumn {
+  background-color: var(--dark-post-bg);
+}
