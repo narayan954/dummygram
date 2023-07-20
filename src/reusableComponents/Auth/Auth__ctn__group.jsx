@@ -1,7 +1,7 @@
 import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import { GuestSignInBtn } from "../../components";
 
 const Auth__ctn__group = ({
   handleSubmit,
@@ -13,6 +13,7 @@ const Auth__ctn__group = ({
   have__acct_action,
   have_acct_nav,
   forgot_pass_nav,
+  showGuestSignIn = true,
 }) => {
   return (
     <>
@@ -31,6 +32,7 @@ const Auth__ctn__group = ({
           <div className="line" />
         </div>
         <div className="google__fb--login">
+          <GuestSignInBtn show={showGuestSignIn} />
           <button
             className="other__login google"
             type="submit"
