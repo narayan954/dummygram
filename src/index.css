@@ -20,6 +20,7 @@
   --page-over-color: #5ec3fd;
   --slide-color: #9be5ea;
   --label-color: rgb(200, 246, 248);
+  --profile-color: #7d7575;
   --text-light: rgba(0, 0, 0, 0.6);
   --post-error-boundary: rgba(0, 0, 0, 0.54);
   --text-black-only: black;
@@ -46,6 +47,7 @@
   --page-over-color: #3a3e44;
   --slide-color: #524a54;
   --label-color: #6a656b;
+  --profile-color: #c8c6c6;
   --text-black-only: black;
   --text-light: rgba(255, 255, 255, 0.6);
   --post-error-boundary: rgba(255, 255, 255, 0.54);
