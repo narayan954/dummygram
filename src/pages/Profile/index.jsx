@@ -12,23 +12,22 @@ import { auth, db, storage } from "../../lib/firebase";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { getModalStyle, useStyles } from "../../App";
 import { lazy, useEffect, useState } from "react";
-import {
-  playErrorSound,
-  playSuccessSound,
-  playTapSound,
-} from "../../js/sounds";
+import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { AnimatedButton } from "../../reusableComponents";
+import EditIcon from "@mui/icons-material/Edit";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import { FaUserCircle } from "react-icons/fa";
 import { Loader } from "../../reusableComponents";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Modal from "@mui/material/Modal";
 import SettingsIcon from "@mui/icons-material/Settings";
-import ViewsCounter from "./views";
+import ViewsCounter from "../../reusableComponents/views";
 import firebase from "firebase/compat/app";
 import logo from "../../assets/logo.webp";
+import profileBackgroundImg from "../../assets/profile-background.jpg";
 import { useSnackbar } from "notistack";
 
 const Post = lazy(() => import("../../components/Post"));
@@ -269,7 +268,7 @@ function Profile() {
             });
           })
           .catch((error) => console.error(error));
-      },
+      }
     );
     setVisible(false);
   };
@@ -291,6 +290,13 @@ function Profile() {
       </ErrorBoundary>
       {userData ? (
         <>
+          <div className="background-image">
+            <img
+              src={profileBackgroundImg}
+              alt=""
+              className="background-image"
+            />
+          </div>
           <Modal
             open={open}
             onClose={handleClose}
@@ -349,20 +355,7 @@ function Profile() {
                           accept="image/*"
                         />
                         <label htmlFor="file">
-                          <div
-                            className="img-edit"
-                            style={{
-                              marginTop: "0.5rem",
-                              marginBottom: "0.5rem",
-                              color: "var(--text-secondary)",
-                              padding: "1.5rem",
-                              borderRadius: "32px",
-                              fontWeight: "600",
-                              letterSpacing: "3px",
-                            }}
-                          >
-                            Edit Profile Pic
-                          </div>
+                          <EditIcon className="edit-image-icon" />
                         </label>
                       </Box>
                     )}
@@ -382,46 +375,34 @@ function Profile() {
                   </div>
                 </div>
               ) : (
-                <img
-                  style={{
-                    objectFit: "cover",
-                    margin: 0,
-                    position: "absolute",
-                    height: "90%",
-                    width: "90%",
-                    transform: "translate(-50%, -50%)",
-                    borderRadius: "6%",
-                    top: "50%",
-                    left: "50%",
-                  }}
-                  width={isNonMobile ? "50%" : "50%"}
-                  height={isNonMobile ? "50%" : "50%"}
-                  src={avatar}
-                  alt={name}
-                />
+                <>
+                  <img
+                    style={{
+                      objectFit: "cover",
+                      margin: 0,
+                      position: "absolute",
+                      height: "90%",
+                      width: "90%",
+                      transform: "translate(-50%, -50%)",
+                      borderRadius: "6%",
+                      top: "50%",
+                      left: "50%",
+                    }}
+                    width={isNonMobile ? "50%" : "50%"}
+                    height={isNonMobile ? "50%" : "50%"}
+                    src={avatar}
+                    alt={name}
+                  />
+                </>
               )}
             </Box>
           </Modal>
 
-          <Box
-            className="outer-profile-box"
-            width="90%"
-            paddingY={5}
-            paddingX={6}
-            sx={{
-              border: "none",
-              margin: "6rem auto 2rem",
-            }}
-            display="flex"
-            justifyContent={"center"}
-            alignItems={"center"}
-            textAlign={"center"}
-            color="var(--color)"
-          >
+          <Box className="outer-profile-box">
             <Box
               display="flex"
               width="90%"
-              flexDirection="row"
+              flexDirection="column"
               justifyContent="space-between"
               gap={1}
               className="inner-profile"
@@ -438,16 +419,6 @@ function Profile() {
                     alt={name}
                     src={avatar}
                     className="profile-pic-container"
-                    sx={{
-                      bgcolor: "black",
-                      border: "none",
-                      boxShadow: "0 0 4px black",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      cursor: "pointer",
-                      marginBottom: "1.2rem",
-                    }}
                   />
                 ) : (
                   <FaUserCircle style={{ width: "22vh", height: "22vh" }} />
@@ -462,17 +433,7 @@ function Profile() {
                       accept="image/*"
                     />
                     <label htmlFor="file">
-                      <div
-                        className="img-edit"
-                        style={{
-                          marginTop: "0.5rem",
-                          color: "var(--text-primary)",
-                          padding: "4px 15px",
-                          marginBottom: "0",
-                        }}
-                      >
-                        Edit Profile Pic
-                      </div>
+                      <EditIcon className="edit-image-icon" />
                     </label>
                   </Box>
                 )}
@@ -497,26 +458,31 @@ function Profile() {
                 marginTop="10px"
                 className="profile-right"
               >
-                <Typography fontSize="1.3rem" fontWeight="600">
-                  {username}
-                </Typography>
-                <Typography
-                  fontSize="1.3rem"
-                  fontWeight="600"
-                  paddingBottom="10px"
-                >
+                <Typography className="profile-user-display-name">
                   {name}
                 </Typography>
-                <div style={{ display: "flex" }}>
-                  <Typography fontSize="1.1rem" fontWeight="600">
-                    Total Posts:&nbsp;
-                    <span style={{ fontWeight: "300" }}>
-                      {feed.length} &nbsp;
-                    </span>
+                <p className="profile-bio">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Accusamus atque eaque mollitia iusto odit! Voluptatum iusto
+                  beatae esse exercitationem.
+                </p>
+                <div className="username-and-location-container">
+                  <Typography className="profile-user-username">
+                    {username}
                   </Typography>
-                  <Typography fontSize="1.1rem" fontWeight="600">
+                  <span className="dot-seperator"></span>
+                  <Typography className="profile-user-username">
+                    <LocationOnIcon className="location-icon" /> India
+                  </Typography>
+                </div>
+                <div style={{ display: "flex", gap: "30px" }}>
+                  <Typography className="posts-views">
+                    All Posts:&nbsp;
+                    <span>{feed.length}</span>
+                  </Typography>
+                  <Typography className="posts-views">
                     Views:&nbsp;
-                    <span style={{ fontWeight: "300" }}>
+                    <span>
                       <ViewsCounter uid={uid} />
                     </span>
                   </Typography>
@@ -531,43 +497,39 @@ function Profile() {
                     {friendRequestSent ? "Remove friend request" : "Add Friend"}
                   </Button>
                 )}
-                <Box
-                  className="setting-logout"
-                  display="flex"
-                  flexDirection="column"
-                  gap={3}
-                  marginY={5}
-                >
-                  <Button
-                    variant="contained"
-                    startIcon={<SettingsIcon style={{ color: "black" }} />}
-                    style={{ backgroundColor: "#8beeff" }}
-                    onClick={() => navigate("/dummygram/settings")}
-                  >
-                    <Typography
-                      fontSize="5rem"
-                      color="black"
-                      textTransform="capitalize"
+                {name === user?.displayName && (
+                  <Box className="setting-logout">
+                    <Button
+                      variant="contained"
+                      startIcon={<SettingsIcon style={{ color: "black" }} />}
+                      style={{ backgroundColor: "#8beeff" }}
+                      onClick={() => navigate("/dummygram/settings")}
                     >
-                      Settings
-                    </Typography>
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    startIcon={<LogoutIcon style={{ color: "black" }} />}
-                    style={{ backgroundColor: "#8beeff" }}
-                    onClick={() => setLogout(true)}
-                  >
-                    <Typography
-                      fontSize="0.9rem"
-                      color="black"
-                      textTransform="capitalize"
+                      <Typography
+                        fontSize="1rem"
+                        color="black"
+                        textTransform="capitalize"
+                      >
+                        Settings
+                      </Typography>
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      startIcon={<LogoutIcon style={{ color: "black" }} />}
+                      style={{ backgroundColor: "#8beeff" }}
+                      onClick={() => setLogout(true)}
                     >
-                      Log Out
-                    </Typography>
-                  </Button>
-                </Box>
+                      <Typography
+                        fontSize="1rem"
+                        color="black"
+                        textTransform="capitalize"
+                      >
+                        Log Out
+                      </Typography>
+                    </Button>
+                  </Box>
+                )}
 
                 <Modal open={logout} onClose={() => setLogout(false)}>
                   <div style={getModalStyle()} className={classes.paper}>
@@ -589,7 +551,6 @@ function Profile() {
                           fontFamily: "monospace",
                           padding: "10%",
                           color: "var(--color)",
-                          // marginBottom:800
                         }}
                       >
                         Are you sure you want to Logout?
