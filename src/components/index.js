@@ -11,17 +11,17 @@ import SearchBar from "./SearchBar";
 import SideBar from "./SideBar";
 
 export {
-  ImgUpload,
-  Navbar,
-  Post,
-  ReadMore,
-  SideBar,
   Caption,
   Favorite,
+  ImgUpload,
   LandingAnimation,
+  Navbar,
   NotFound,
   Notifications,
+  Post,
+  ReadMore,
   SearchBar,
+  SideBar,
 };
 
 export default Post;
