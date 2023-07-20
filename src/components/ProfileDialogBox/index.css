@@ -55,10 +55,12 @@
 
 .dialog-box-username {
     font-weight: 500;
+    color: var(--profile-color);
 }
 
 .dialog-box-bio {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--profile-color);
+    font-size: 15px;
     font-weight: 600;
 }
 

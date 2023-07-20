@@ -38,7 +38,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
     name: displayName,
     username: username,
     avatar: avatar,
-    bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis incidunt voluptates in dolores necessitatibus quasi",
+    bio: "Lorem 🌺ipsum dolorsit amet consectetur adipisicing elit. Corporis incidunt voluptates😎 in dolores necessitatibus quasi",
     followers: 2314,
     following: 1514,
   })

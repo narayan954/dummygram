@@ -33,10 +33,11 @@ const ProfileDialogBox = ({ mouseOnProfileImg, userData }) => {
                 alt={name}
                 className="dialog-box-img"
                 onClick={() => navigate(`/dummygram/${username}`)}
-            />
+                />
             <div className="dialog-box-name-container">
                 <h4 
                     className="dialog-box-display-name"
+                    onClick={() => navigate(`/dummygram/${username}`)}
                 >
                     {name}
                 </h4>
