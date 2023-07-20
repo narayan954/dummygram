@@ -6,14 +6,16 @@ import PostView from "./PostView";
 import Profile from "./Profile";
 import Settings from "./Settings";
 import SignupScreen from "./Signup";
+import ChatPage from "./Chat";
 
 export {
+  About,
+  ChatPage,
+  Feedback,
+  Guidelines,
   LoginScreen,
   PostView,
   Profile,
-  SignupScreen,
-  About,
-  Feedback,
   Settings,
-  Guidelines,
+  SignupScreen,
 };

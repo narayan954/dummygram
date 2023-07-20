@@ -1,3 +1,5 @@
+import "./index.css";
+
 import React, { memo, useEffect, useState } from "react";
 import { auth, db } from "../../lib/firebase";
 
@@ -66,10 +68,7 @@ function SearchBar() {
         currentPostLink={currentPostLink}
         postText={postText}
       />
-      <div
-        className="search-bar"
-        style={{ marginTop: "-150px", minWidth: "380px" }}
-      >
+      <div className="search-bar" style={{ marginTop: "-150px" }}>
         <input
           type="search"
           className="search-input"

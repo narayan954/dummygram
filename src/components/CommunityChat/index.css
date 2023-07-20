@@ -1,0 +1,135 @@
+.chat-main-container {
+  position: relative;
+  margin-top: 63px;
+  margin-left: 17vw;
+  min-height: 100vh;
+  padding: 15px;
+}
+
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+  font-weight: 300;
+  color: var(--text-secondary);
+}
+
+.all-chat-msg-container {
+  margin-bottom: 60px;
+}
+
+.chat-input-container {
+  position: fixed;
+  width: 80%;
+  bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.chat-input {
+  flex: 1;
+  margin-top: 0;
+  font-size: 1em;
+}
+
+.chat-msg-send-btn-container {
+  background-color: transparent;
+  border: none;
+}
+
+.chat-msg-send-btn {
+  color: var(--color);
+  margin-top: 7px;
+  transform: scale(1.3);
+  cursor: pointer;
+}
+
+.chat-msg-container {
+  padding-inline: 0;
+}
+
+.chat-message {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 13px;
+}
+
+.chat-message:hover {
+  background: none;
+}
+
+.chat-user-img {
+  width: 40px;
+  aspect-ratio: 1;
+  border: 1px solid;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 1px solid #eee;
+  box-shadow: 1px 1px 5px #888585;
+  align-self: flex-start;
+  transition: 0.2s ease-in-out;
+}
+
+.chat-user-img:hover {
+  transform: scale(1.1);
+}
+
+.current-user-msg {
+  flex-direction: row-reverse;
+  margin-left: auto;
+  padding-left: 20px;
+}
+
+.chat-msg-text {
+  color: var(--text-secondary);
+  border-radius: 20px;
+  padding: 8px;
+  padding-right: 20px;
+  width: fit-content;
+  max-width: 70%;
+  box-shadow: 1px 1px 5px #59afc7;
+}
+
+.current-user-msg > img {
+  align-self: flex-start;
+}
+
+.chat-msg-send-btn:hover {
+  color: cyan;
+}
+
+.hide {
+  display: none;
+}
+
+@media screen and (max-width: 1200px) {
+  .chat-main-container {
+    margin-left: 8vw;
+  }
+
+  .chat-input-container {
+    width: 88%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .chat-main-container {
+    margin-left: 0;
+  }
+
+  .all-chat-msg-container {
+    margin-bottom: 120px;
+  }
+  .chat-input-container {
+    width: 95%;
+    bottom: 70px;
+  }
+  .chat-msg-text {
+    max-width: 75%;
+  }
+}
