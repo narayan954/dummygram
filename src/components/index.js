@@ -11,9 +11,11 @@ import Post from "./Post";
 import ReadMore from "./ReadMore";
 import SearchBar from "./SearchBar";
 import SideBar from "./SideBar";
+import ChatBox from "./CommunityChat";
 
 export {
   Caption,
+  ChatBox,
   Favorite,
   GuestSignInBtn,
   GuestSignUpBtn,
