@@ -1,0 +1,39 @@
+/* search file css */
+.search-bar {
+  position: relative;
+  height: 50px;
+  max-width: 380px;
+  background: #fff;
+  margin: 30px auto;
+  border: 1px solid #0cc;
+  border-radius: 25px;
+}
+.search-input {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: 25px;
+  background: #fff;
+  border: none;
+  font-size: 16px;
+  padding-left: 20px;
+  margin-top: -2px;
+}
+.search-icon {
+  position: absolute;
+  right: 0px;
+  top: 0;
+  width: 54px;
+  background: linear-gradient(40deg, #0cc, #daf1f7);
+  height: 103%;
+  text-align: center;
+  line-height: 50px;
+  color: #fff;
+  font-size: 20px;
+  border-radius: 0 25px 25px 0;
+  margin-top: -2px;
+}
+
+.text-white {
+  color: var(--color);
+}

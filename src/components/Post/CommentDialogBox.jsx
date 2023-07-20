@@ -27,6 +27,7 @@ const CommentDialogBox = ({
   deleteCommentID,
 }) => {
   const navigate = useNavigate();
+  const { isAnonymous } = user;
   return (
     <Box
       sx={{
@@ -45,14 +46,17 @@ const CommentDialogBox = ({
             <div key={userComment.id}>
               <div className="commentCard">
                 <div>
-                <div className="comment-doer">
-                <AccountCircleIcon />
-                <span className="comment-doer-name" onClick={() => 
-                  navigate(`/dummygram/${userComment.content.username}`)
-                }>
-                  {userComment.content.username}
-                </span>
-                  </div>
+                  <Link
+                    className="comment-doer"
+                    to={`/dummygram/${
+                      isAnonymous ? "signup" : userComment.content.username
+                    }`}
+                  >
+                    <AccountCircleIcon />
+                    <span className="comment-doer-name">
+                      {userComment.content.username}
+                    </span>
+                  </Link>
                   <p className="comment">
                     <ReadMore>{userComment.content.text}</ReadMore>
                   </p>
