@@ -12,9 +12,9 @@
   z-index: 1000;
 }
 
-.themeButton{
+.themeButton {
   border-radius: 50%;
-  width: 50px;
+  width: 45px;
   aspect-ratio: 1;
   cursor: pointer;
   display: flex;
@@ -26,7 +26,7 @@
 
 .darkmode-btn button {
   border-radius: 50%;
-  width: 50px;
+  width: 40px;
   aspect-ratio: 1;
   cursor: pointer;
   display: flex;

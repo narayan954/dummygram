@@ -1,10 +1,11 @@
 import "./index.css";
 
 import React, { useState } from "react";
+
 import { DarkMode } from "@mui/icons-material";
 import { LightMode } from "@mui/icons-material";
 
-const Darkmode = ({themeClass}) => {
+const Darkmode = ({ themeClass }) => {
   const [modeStatus, setModeStatus] = useState(false);
   let darkMode = localStorage.getItem("darkMode");
 
@@ -41,22 +42,22 @@ const Darkmode = ({themeClass}) => {
   };
 
   const styles = {
-    activity: { height: 30, width: 50, color: "#0516cbb0" },
-    disable: { height: 30, width: 50, color: "#d8860b" },
+    activity: { height: 30, width: 40, color: "#0516cbb0" },
+    disable: { height: 30, width: 40, color: "#d8860b" },
   };
 
   return (
     <div>
-    <button onClick={darkModeToggle} className={themeClass}>
-    <span>
-      {modeStatus == false ? (
-        <LightMode style={styles.disable} />
-      ) : (
-        <DarkMode style={styles.activity} />
-      )}
-    </span>
-  </button>
-</div>
+      <button onClick={darkModeToggle} className={themeClass}>
+        <span>
+          {modeStatus == false ? (
+            <LightMode style={styles.disable} />
+          ) : (
+            <DarkMode style={styles.activity} />
+          )}
+        </span>
+      </button>
+    </div>
   );
 };
 

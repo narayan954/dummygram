@@ -1,12 +1,11 @@
 import "./index.css";
 
 import React, { useEffect } from "react";
-import { Darkmode } from "../../reusableComponents";
 
 import { AiOutlineInsertRowAbove } from "react-icons/ai";
+import { Darkmode } from "../../reusableComponents";
 import { Logo } from "../../reusableComponents";
 import { auth } from "../../lib/firebase";
-import { blue } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
 
 function Navbar({ onClick, user, setUser }) {
@@ -38,7 +37,7 @@ function Navbar({ onClick, user, setUser }) {
             </div>
           </div>
           <Darkmode themeClass="themeButton" />
-          </div>
+        </div>
       </div>
     )
   );
