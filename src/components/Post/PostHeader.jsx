@@ -14,14 +14,14 @@ import {
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { doc, updateDoc } from "firebase/firestore";
-import ProfileDialogBox from "../ProfileDialogBox";
-import { useSnackbar } from "notistack";
 
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
+import ProfileDialogBox from "../ProfileDialogBox";
 import TextField from "@mui/material/TextField";
 import { db } from "../../lib/firebase";
 import { saveAs } from "file-saver";
 import useCreatedAt from "../../hooks/useCreatedAt";
+import { useSnackbar } from "notistack";
 import { useState } from "react";
 
 const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
@@ -33,7 +33,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
   const [anchorEl, setAnchorEl] = useState(false);
   const [openEditCaption, setOpenEditCaption] = useState(false);
   const [editCaption, setEditCaption] = useState(caption);
-  const [mouseOnProfileImg, setMouseOnProfileImg] = useState(false)
+  const [mouseOnProfileImg, setMouseOnProfileImg] = useState(false);
   const [userData, setUserData] = useState({
     name: displayName,
     username: username,
@@ -41,7 +41,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
     bio: "Lorem 🌺ipsum dolorsit amet consectetur adipisicing elit. Corporis incidunt voluptates😎 in dolores necessitatibus quasi",
     followers: 2314,
     following: 1514,
-  })
+  });
   const { enqueueSnackbar } = useSnackbar();
   const open = Boolean(anchorEl);
   const ITEM_HEIGHT = 48;
@@ -88,12 +88,12 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
   }
 
   function showProfileDialogBox() {
-    setMouseOnProfileImg(true)
+    setMouseOnProfileImg(true);
     // const fetchUserByUsername = async (username) => {
     //   try {
     //     const usersRef = db.collection('users');
     //     const querySnapshot = await usersRef.where('username', '==', username).get();
-    
+
     //     const data = querySnapshot.docs[0].data();
     //     console.log(data)
 
@@ -108,10 +108,9 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
 
   function hideProfileDialogBox() {
     setTimeout(() => {
-      setMouseOnProfileImg(false)
-    }, 1200)
+      setMouseOnProfileImg(false);
+    }, 1200);
   }
-
 
   return (
     <div className="post__header">
