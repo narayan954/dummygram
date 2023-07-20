@@ -66,8 +66,6 @@ body {
 
 /* App styles */
 .app {
-  display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow-x: auto;
@@ -87,9 +85,23 @@ input:focus {
   outline: none;
 }
 
+/* Add media query in navbar for responsiveness */
+@media only screen and (max-width: 460px) {
+  .app__header__img {
+    object-fit: contain;
+    width: 120px;
+  }
+
+  .app__header {
+    font-size: 8px;
+    padding: 10px;
+    width: 100%;
+  }
+}
+
 /* Post style */
 .app__posts {
-  padding: 4.5em 20px 20px 8vw;
+  padding: 5.5em 20px 20px 17vw;
 }
 
 .app_posts_column {
@@ -114,12 +126,44 @@ input:focus {
   transform: scale(1.04);
 }
 
-.home-posts-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+@media only screen and (max-width: 1200px) {
+  .app__posts,
+  .home-posts-container .app_posts_column,
+  .home-posts-container .app_posts {
+    padding: 5.5em 15px 20px 9vw;
+  }
+  .post-page-container {
+    padding: 5.5em 15px 15px 8vw;
+  }
+  .post-card {
+    margin: 50px auto !important;
+  }
+}
+@media only screen and (max-width: 800px) {
+  .app__posts,
+  .home-posts-container .app_posts_column {
+    padding: 5.5em 15px 5.5em 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+  }
+  .post-page-container {
+    padding: 0;
+    padding-top: 5.5em;
+  }
 }
 
+@media only screen and (max-width: 900px) {
+  .rowConvert {
+    display: none;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .app__posts {
+    padding-inline: auto;
+  }
+}
 .post__img {
   max-width: 100%;
   object-fit: contain;
@@ -142,6 +186,7 @@ input:focus {
 }
 
 .post__header {
+  position: relative;
   align-items: center;
   display: flex;
   flex-wrap: wrap;
@@ -201,6 +246,88 @@ input:focus {
   opacity: 1;
 }
 
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 790px) {
+  .scrollTop {
+    margin-left: 20px;
+    margin-bottom: 8%;
+  }
+  .post-page-container {
+    padding: 0;
+  }
+  .app__newpost__button {
+    left: -6%;
+  }
+  .home-posts-container .app_posts_column {
+    padding: 5.5em 15px 5em 15px;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .app__newpost__button {
+    left: -4.8%;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .sideToTop {
+    left: 19.6%;
+  }
+
+  .app__newpost__button {
+    left: -4.2%;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 911px) {
+  .sideToTop {
+    left: 19.6%;
+  }
+
+  .app__newpost__button {
+    left: -2.5%;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 800px) {
+  .app__posts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+  }
+  .post-page-container {
+    padding: 5.5em 15px 15px 17vw;
+  }
+  .post-card {
+    margin: 50px auto !important;
+  }
+  .scrollTop {
+    left: 40.7%;
+  }
+
+  .sideToTop {
+    left: 19.6%;
+  }
+
+  .app__newpost__button {
+    left: -1.2%;
+  }
+  .home-posts-container .app_posts_column {
+    padding: 5.5em 20px 20px 17vw;
+  }
+}
+
+@media (min-width: 1200px) {
+  .scrollTop {
+    left: 47.7%;
+  }
+}
+
 .darkmode-toggle {
   z-index: 1;
 }
@@ -232,6 +359,21 @@ div#picker {
   opacity: 0;
   position: absolute;
   width: 0.1px;
+}
+
+::-webkit-scrollbar {
+  border-radius: 0.3rem;
+  width: 0.3rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgb(255, 255, 255);
+  border-radius: 0.8rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color);
+  border-radius: 2em;
 }
 
 /* landing animation */
@@ -310,6 +452,7 @@ input {
 }
 
 /* login with google or facebook button */
+
 .google-fb-login button {
   font-size: 22px;
   height: 50px;
@@ -422,202 +565,24 @@ input {
   overflow: hidden;
 }
 
+.login__left {
+  overflow-y: scroll;
+}
+
+@media only screen and (max-width: 700px) {
+  .login__section {
+    height: 100%;
+    overflow: visible;
+  }
+
+  .login__left {
+    height: 100%;
+    overflow-y: visible;
+    padding: 0;
+  }
+}
+
 .post,
 .postColumn {
   background-color: var(--dark-post-bg);
-}
-
-/* search file css */
-.search-bar {
-  position: relative;
-  height: 50px;
-  max-width: 380px;
-  background: #fff;
-  margin: 30px auto;
-  border: 1px solid #0cc;
-  border-radius: 25px;
-}
-.search-input {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  border-radius: 25px;
-  background: #fff;
-  border: none;
-  font-size: 16px;
-  padding-left: 20px;
-  margin-top: -2px;
-}
-.search-icon {
-  position: absolute;
-  right: 0px;
-  top: 0;
-  width: 54px;
-  background: linear-gradient(40deg, #0cc, #daf1f7);
-  height: 103%;
-  text-align: center;
-  line-height: 50px;
-  color: #fff;
-  font-size: 20px;
-  border-radius: 0 25px 25px 0;
-  margin-top: -2px;
-}
-
-.text-white {
-  color: var(--color);
-}
-
-/* Styles for Scrollbar */
-::-webkit-scrollbar {
-  border-radius: 0.3rem;
-  width: 0.3rem;
-}
-
-::-webkit-scrollbar-track {
-  background-color: rgb(255, 255, 255);
-  border-radius: 0.8rem;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color);
-  border-radius: 2em;
-}
-
-/* Add media query in navbar for responsiveness */
-@media only screen and (max-width: 460px) {
-  .app__header__img {
-    object-fit: contain;
-    width: 120px;
-  }
-
-  .app__header {
-    font-size: 8px;
-    padding: 10px;
-    width: 100%;
-  }
-}
-
-/* Media Query for posts and post container */
-@media only screen and (max-width: 1200px) {
-  .app__posts,
-  .home-posts-container .app_posts_column,
-  .home-posts-container .app_posts {
-    padding: 1.5em 15px 15px 6vw;
-  }
-  .post-page-container {
-    padding: 5.5em 15px 15px 17vw;
-  }
-  .post-card {
-    margin: 50px auto !important;
-  }
-}
-
-@media only screen and (max-width: 800px) {
-  .app__posts,
-  .home-posts-container .app_posts_column {
-    padding: 3.5em 15px 1em 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1em;
-  }
-  .post-page-container {
-    padding: 0;
-    padding-top: 1em;
-  }
-}
-
-@media only screen and (max-width: 912px) {
-  .rowConvert {
-    display: none;
-  }
-}
-@media only screen and (max-width: 700px) {
-  .app__posts {
-    padding-inline: auto;
-  }
-}
-
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 790px) {
-  .scrollTop {
-    margin-left: 20px;
-    margin-bottom: 8%;
-  }
-  .post-page-container {
-    padding: 0;
-  }
-  .app__newpost__button {
-    left: -6%;
-  }
-  .home-posts-container .app_posts_column {
-    padding: 5.5em 15px 1em 15px;
-  }
-}
-
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-  .app__newpost__button {
-    left: -4.8%;
-  }
-}
-
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-  .sideToTop {
-    left: 19.6%;
-  }
-
-  .app__newpost__button {
-    left: -4.2%;
-  }
-}
-
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 911px) {
-  .sideToTop {
-    left: 19.6%;
-  }
-
-  .app__newpost__button {
-    left: -2.5%;
-  }
-}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 800px) {
-  .app__posts {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 2rem;
-    justify-content: center;
-    padding: 1.5rem 20px 20px 9vw;
-  }
-  /* .post-page-container {
-    padding: 5.5em 15px 15px 8vw;
-  } */
-  .post-card {
-    margin: 50px auto !important;
-  }
-  .scrollTop {
-    left: 40.7%;
-  }
-
-  .sideToTop {
-    left: 19.6%;
-  }
-
-  .app__newpost__button {
-    left: -1.2%;
-  }
-  .home-posts-container .app_posts_column {
-    padding: 5.5em 20px 20px 17vw;
-  }
-}
-
-@media (min-width: 1200px) {
-  .scrollTop {
-    left: 47.7%;
-  }
 }
