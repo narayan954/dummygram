@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineClose } from "react-icons/ai";
-import BookmarkBorderIcon from "@mui/icons-material/CollectionsBookmarkOutlined";
+import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import { Dialog } from "@mui/material";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import HomeIcon from "@mui/icons-material/Home";
@@ -77,7 +77,7 @@ function SideBar({ anonymous }) {
             }
           >
             <div className="sidebar_align">
-              <BookmarkBorderIcon className="icon" />
+              <BookmarksIcon className="icon" />
               <span>Saved</span>
             </div>
           </li>
