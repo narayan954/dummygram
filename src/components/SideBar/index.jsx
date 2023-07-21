@@ -77,7 +77,7 @@ function SideBar({ anonymous }) {
             }
           >
             <div className="sidebar_align">
-              <CollectionsBookmarkOutlinedIcon className="icon" /><span>Favourites</span>
+              <CollectionsBookmarkOutlinedIcon className="icon" /><span>Saved</span>
             </div>
           </li>
           <li
