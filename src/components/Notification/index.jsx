@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { auth, db } from "../../lib/firebase";
 
 import { Box } from "@mui/material";
+import { FaUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { SideBar } from "../index";
 
@@ -67,6 +68,8 @@ function Notifications() {
                       key={notification.id}
                       className="notif-message-container"
                     >
+                      <FaUserCircle style={{ width: "80px", height: "80px" }} />
+
                       <p className="notif-message">
                         {notification.message}
                         <Link className="friend-request-sender-name">
@@ -74,13 +77,15 @@ function Notifications() {
                             ? ` from ${notification.senderName}.`
                             : ""}
                         </Link>
+                        <div style={{ marginTop: "10px" }}>
+                          <button className="accept-btn notif-btn">
+                            Accept
+                          </button>
+                          <button className="decline-btn notif-btn">
+                            Decline
+                          </button>
+                        </div>
                       </p>
-                      <div>
-                        <button className="accept-btn notif-btn">Accept</button>
-                        <button className="decline-btn notif-btn">
-                          Decline
-                        </button>
-                      </div>
                     </div>
                   ))}
                 </>
