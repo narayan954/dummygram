@@ -48,6 +48,7 @@ function Profile() {
   const [logout, setLogout] = useState(false);
   const [friendRequestSent, setFriendRequestSent] = useState(false);
   const [userData, setUserData] = useState(null);
+  const [updatedUrl, setUpdatedUrl] = useState("");
   const { username } = useParams();
 
   let name = "";
@@ -245,7 +246,7 @@ function Profile() {
               displayName: name,
               photoURL: url,
             });
-
+            setUpdatedUrl(url);
             //Updating profile image in users collection
             const docRef = db.collection("users").doc(uid);
             await docRef.update({
@@ -286,7 +287,7 @@ function Profile() {
   return (
     <>
       <ErrorBoundary>
-        <SideBar />
+        <SideBar updatedUrl = {updatedUrl} />
       </ErrorBoundary>
       {userData ? (
         <>
@@ -333,7 +334,7 @@ function Profile() {
                     }}
                     width={isNonMobile ? "50%" : "50%"}
                     height={isNonMobile ? "50%" : "50%"}
-                    src={avatar}
+                    src={updatedUrl ? updatedUrl : avatar}
                     alt={name}
                   />
                   <div
@@ -417,7 +418,7 @@ function Profile() {
                   <Avatar
                     onClick={() => setOpen((on) => !on)}
                     alt={name}
-                    src={avatar}
+                    src={updatedUrl ? updatedUrl : avatar}
                     className="profile-pic-container"
                   />
                 ) : (
@@ -600,6 +601,7 @@ function Profile() {
                     shareModal={true}
                     setLink="/"
                     setPostText=""
+                    updatedUrl={updatedUrl}
                   />
                 ))}
               </ErrorBoundary>
