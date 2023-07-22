@@ -359,7 +359,14 @@ For further queries and whereabouts you can communicate and reach out to the own
 
 Thanks a lot for spending your time helping dummygram grow. Thanks a lot! Keep rocking 🍻
 
-[![Contributors](https://contrib.rocks/image?repo=narayan954/dummygram)](https://github.com/narayan954/dummygram/graphs/contributors)
+<details>
+    <summary>Contributors</summary>
+    <div>
+      <a href="https://github.com/narayan954/dummygram/graphs/contributors">
+      <img src="https://contrib.rocks/image?repo=narayan954/dummygram"/>
+      </a>
+    </div>
+</details>
 
 ## License
 
