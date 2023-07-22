@@ -334,7 +334,7 @@ function Profile() {
                     }}
                     width={isNonMobile ? "50%" : "50%"}
                     height={isNonMobile ? "50%" : "50%"}
-                    src={updatedUrl ? updatedUrl : avatar}
+                    src={profilePic ? profilePic : avatar}
                     alt={name}
                   />
                   <div
