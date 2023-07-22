@@ -3,7 +3,7 @@ import "./index.css";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-const ProfileDialogBox = ({ mouseOnProfileImg, userData }) => {
+const ProfileDialogBox = ({ mouseOnProfileImg, userData, updatedUrl }) => {
   const [isHoverActive, setIsHoverActive] = useState(false);
   const { name, username, avatar, bio, followers, following } = userData;
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ const ProfileDialogBox = ({ mouseOnProfileImg, userData }) => {
       className="profile-dialog-box-container"
     >
       <img
-        src={avatar}
+        src={updatedUrl ? updatedUrl : avatar}
         alt={name}
         className="dialog-box-img"
         onClick={() => navigate(`/dummygram/${username}`)}
