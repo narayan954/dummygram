@@ -287,7 +287,7 @@ function Profile() {
   return (
     <>
       <ErrorBoundary>
-        <SideBar updatedUrl = {updatedUrl} />
+        <SideBar updatedUrl={updatedUrl} />
       </ErrorBoundary>
       {userData ? (
         <>
