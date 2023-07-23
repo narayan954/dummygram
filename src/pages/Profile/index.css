@@ -215,7 +215,7 @@
     height: 140px !important;
   }
 
-  .app__posts {
+  .feed-main-container .app__posts {
     padding-top: 0;
   }
 
