@@ -242,6 +242,11 @@ input:focus {
   width: 50px;
   margin-left: -29%;
   cursor: pointer;
+  opacity: 0.7;
+}
+
+.centeredScroll {
+  margin-left: 0;
 }
 
 .scrollTop:hover {
@@ -274,10 +279,6 @@ input:focus {
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-  .sideToTop {
-    left: 19.6%;
-  }
-
   .app__newpost__button {
     left: -4.2%;
   }
@@ -285,10 +286,6 @@ input:focus {
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 911px) {
-  .sideToTop {
-    left: 19.6%;
-  }
-
   .app__newpost__button {
     left: -2.5%;
   }
@@ -310,10 +307,6 @@ input:focus {
   }
   .scrollTop {
     left: 40.7%;
-  }
-
-  .sideToTop {
-    left: 19.6%;
   }
 
   .app__newpost__button {
