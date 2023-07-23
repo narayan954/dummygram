@@ -13,14 +13,12 @@
       <img src="https://forthebadge.com/images/badges/powered-by-responsibility.svg" />
       <br>
       <img src="https://img.shields.io/github/repo-size/narayan954/dummygram?style=for-the-badge" />
-      <img src="https://img.shields.io/github/issues/narayan954/dummygram?style=for-the-badge" />
       <img src="https://img.shields.io/github/issues-raw/narayan954/dummygram?style=for-the-badge" />
       <img src="https://img.shields.io/github/forks/narayan954/dummygram?style=for-the-badge" />
       <img src="https://img.shields.io/github/issues-pr-closed/narayan954/dummygram?style=for-the-badge" />
       <br>
       <img src="https://img.shields.io/github/stars/narayan954/dummygram?style=for-the-badge" />
       <img src="https://img.shields.io/github/contributors/narayan954/dummygram?style=for-the-badge" />
-      <img src="https://img.shields.io/github/issues-pr-closed/narayan954/dummygram?style=for-the-badge" />
       <img src="https://img.shields.io/github/last-commit/narayan954/dummygram?style=for-the-badge" />
  </div>
 
@@ -320,8 +318,10 @@ Dummygram is now part of GitHub. For code of conduct, please see [GitHub's Commu
 
 <div  align="center"><img  height="70px"  src="https://user-images.githubusercontent.com/77617189/192942891-31b9152c-918b-4fac-af05-0ad6b1f594aa.svg"  /></div>
 
-## <h1 align=center>Open Source Programs</h1>
+## Programs
 
+<details>
+    <summary>List</summary>
 <p align="center">
 
 <a href="https://hacktoberfest.com/"><img alt="hacktoberfest logo" src="https://user-images.githubusercontent.com/79099734/189589410-ca17afb8-5855-4316-918a-054f27594809.png"></a>
@@ -336,6 +336,7 @@ Dummygram is now part of GitHub. For code of conduct, please see [GitHub's Commu
 <a href="https://jwoc.tech/"><img alt="jwoc program" src="https://user-images.githubusercontent.com/77617189/219851281-59de273a-388a-4367-a7c6-39d37196ee90.png"></a>
 
 </p>
+</details>
 
 ## Feedback
 
