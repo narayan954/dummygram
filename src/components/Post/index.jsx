@@ -29,7 +29,7 @@ const ImgBox = lazy(() => import("./ImgBox"));
 const PostNav = lazy(() => import("./PostNav"));
 
 function Post(prop) {
-  const { postId, user, post, shareModal, setLink, setPostText, rowMode } =
+  const { postId, user, post, shareModal, setLink, setPostText, rowMode,profile } =
     prop;
     const updatedUrl = prop.updatedUrl;
   const { caption, imageUrl, likecount, timestamp } = post;
@@ -189,6 +189,8 @@ function Post(prop) {
       }}
     >
       <ErrorBoundary>
+        {
+          !profile &&  
         <PostHeader
           user={user}
           postData={post}
@@ -197,6 +199,7 @@ function Post(prop) {
           timestamp={timestamp}
           updatedUrl={updatedUrl}
         />
+        }
       </ErrorBoundary>
       <Divider />
       <div className="post__container">

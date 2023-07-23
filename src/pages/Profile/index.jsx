@@ -590,6 +590,7 @@ function Profile() {
           <Divider style={{ background: "var(--profile-divider)" }} />
           <Box className="flex feed-main-container">
             <div className="app__posts" id="feed-sub-container">
+
               <ErrorBoundary>
                 {feed.map(({ post, id }) => (
                   <Post
@@ -602,6 +603,7 @@ function Profile() {
                     setLink="/"
                     setPostText=""
                     updatedUrl={updatedUrl}
+                    profile = {true}
                   />
                 ))}
               </ErrorBoundary>
