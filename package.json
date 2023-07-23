@@ -64,5 +64,10 @@
   },
   "bugs": {
     "url": "https://github.com/narayan954/dummygram/issues"
+  },
+  "husky": {
+    "hooks": {
+      "pre-install": "npm run test"
+    }
   }
 }
