@@ -22,8 +22,9 @@
 
 .profile-pic-container {
   margin-top: -100px;
-  background-color: black;
+  background-color: #fff;
   border: none;
+  border-radius: 100%;
   box-shadow: 0 0 4px black;
   display: flex;
   justify-content: center;
@@ -186,8 +187,8 @@
   }
 
   .profile-pic-container {
-    width: 110px;
-    height: 110px;
+    width: 110px !important;
+    height: 110px !important;
   }
 
   .inner-profile {
@@ -210,8 +211,8 @@
 
 @media screen and (min-width: 600px) {
   .profile-pic-container {
-    width: 140px;
-    height: 140px;
+    width: 140px !important;
+    height: 140px !important;
   }
 
   .app__posts {
@@ -249,8 +250,8 @@
   }
 
   .profile-pic-container {
-    width: 180px;
-    height: 180px;
+    width: 160px !important;
+    height: 160px !important;
   }
 
   .img-edit,

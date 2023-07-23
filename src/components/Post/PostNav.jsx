@@ -43,14 +43,14 @@ const PostNav = ({
       localStoragePosts.push(postId);
       localStorage.setItem("posts", JSON.stringify(localStoragePosts));
       playSuccessSound();
-      enqueueSnackbar("Post added to favourites!", {
+      enqueueSnackbar("Post added to saved!", {
         variant: "success",
       });
     } else {
       localStoragePosts = localStoragePosts.filter((post) => post !== postId);
       localStorage.setItem("posts", JSON.stringify(localStoragePosts));
       playSuccessSound();
-      enqueueSnackbar("Post is removed from favourites!", {
+      enqueueSnackbar("Post is removed from saved!", {
         variant: "info",
       });
     }
