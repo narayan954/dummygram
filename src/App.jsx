@@ -377,7 +377,7 @@ function App() {
           location.pathname === "/dummygram/guidelines" ||
           location.pathname === "/dummygram/contributors" ? (
             <FaArrowCircleUp
-              fill="#777"
+              fill="#0cc"
               className="scrollTop"
               onClick={scrollTop}
               style={{
