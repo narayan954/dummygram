@@ -6,9 +6,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { VscChromeClose } from "react-icons/vsc";
 import logo from "../../../assets/logo.webp";
-import social from "../../../assets/about-social.png";
 import about from "../../../assets/about-us.png";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
 const About = () => {
