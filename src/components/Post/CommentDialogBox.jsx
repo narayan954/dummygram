@@ -68,14 +68,15 @@ const CommentDialogBox = ({
                     <ReadMore>{userComment.content.text}</ReadMore>
                   </p>
                 </div>
+
                 <div
                   onClick={() => {
                     setOpenToDeleteComment(!openToDeleteComment);
                     setDeleteCommentID(userComment);
                   }}
-                >
+                >                  
                   {user &&
-                    userComment.content.username === user.displayName && (
+                    userComment?.content?.username == user._delegate.uid && (
                       <DeleteTwoToneIcon
                         fontSize="small"
                         className="comment-delete-icon"
@@ -111,6 +112,7 @@ const CommentDialogBox = ({
                     </Dialog>
                   }
                 </div>
+
               </div>
               <Divider />
             </div>
