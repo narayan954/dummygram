@@ -11,7 +11,8 @@
     "deploy": "gh-pages -d dist",
     "preview": "vite preview",
     "cypress:open": "cypress open",
-    "pretty": "prettier --write \"./**/*.{js,jsx,ts,tsx,json}\""
+    "pretty": "prettier --write \"./**/*.{js,jsx,ts,tsx,json}\"",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@emailjs/browser": "^3.11.0",
@@ -64,10 +65,5 @@
   },
   "bugs": {
     "url": "https://github.com/narayan954/dummygram/issues"
-  },
-  "husky": {
-    "hooks": {
-      "pre-install": "npm run test"
-    }
   }
 }
