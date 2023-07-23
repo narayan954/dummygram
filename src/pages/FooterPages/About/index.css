@@ -26,7 +26,7 @@
 }
 
 .about-headings {
-  font-size: 40px;
+  font-size: 2rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
@@ -98,6 +98,14 @@
   .btn-content {
     font-size: 28px;
   }
+  .back-icon {
+    height: 100px;
+  }  .back-icon {
+    height: 100px !important;
+  }
+.about-headings {
+  font-size: 2.4rem;
+}
 }
 
 @media only screen and (min-width: 1200px) {
@@ -113,6 +121,9 @@
   .about-header-img,
   .about-header-img img {
     height: 300px !important;
+  }
+  .back-icon {
+    height: 90px;
   }
 }
 
@@ -150,7 +161,7 @@
   }
   .back-icon {
     margin-left: 20px;
-    height: 70px;
+    height: 60px !important;
     margin-top: 10px;
   }
   .back-icon .icon {

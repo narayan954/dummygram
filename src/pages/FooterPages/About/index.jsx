@@ -3,7 +3,7 @@ import "../design.css";
 
 import { useEffect, useState } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { VscChromeClose } from "react-icons/vsc";
 import logo from "../../../assets/logo.webp";
 import about from "../../../assets/about-us.png";
@@ -14,6 +14,7 @@ const About = () => {
   const [stars, setStars] = useState(0);
   const [commits, setCommits] = useState(0);
   const [contributors, setContributors] = useState(0);
+  const navigate = useNavigate();
 
   const getCount = (url) => {
     return fetch(url)
@@ -74,7 +75,7 @@ const About = () => {
           />
         </div>
       </div>
-      <div className="back-icon">
+      <div className="back-icon" style={{height: "90px"}} onClick={() => navigate("/dummygram/")}>
         <KeyboardBackspaceIcon className="icon" /> <span>Back to Home</span>
       </div>
       <div className="about-us-section">
