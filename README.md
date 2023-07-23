@@ -172,6 +172,9 @@ npm start
 
 ## Testing
 
+<details>
+    <summary>Instructions</summary>
+
 Here we will see, how to run tests and how to setup new test cases.
 _We will be using Cypress for our testing purposes._
 
@@ -253,6 +256,7 @@ E2E Files: `/cypress/e2e/`
    npm run cypress:open
    ```
 
+</details>
 </details>
 
 ---
