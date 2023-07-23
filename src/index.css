@@ -26,6 +26,7 @@
   --text-black-only: black;
   --dark-post-bg: rgb(255, 255, 255);
   --btn-hover: rgb(0, 204, 204);
+  --link-color: #3A82C4;
 }
 
 .darkmode {
@@ -55,6 +56,7 @@
   --darkmode-white: white;
   --dark-post-bg: #2a323c;
   --btn-hover: rgb(0, 204, 204);
+  --link-color: #3679B7;
 }
 
 * {
