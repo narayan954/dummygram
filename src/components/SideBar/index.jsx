@@ -18,7 +18,7 @@ import SearchIcon from "@mui/icons-material/Search";
 
 const Footer = React.lazy(() => import("./Footer"));
 
-function SideBar({ anonymous }) {
+function SideBar({ anonymous, updatedUrl }) {
   const navigate = useNavigate();
   const [openNewUpload, setOpenNewUpload] = useState(false);
   const [username, setUsername] = useState("");
@@ -105,7 +105,7 @@ function SideBar({ anonymous }) {
             <div className="sidebar_align">
               {user && user.photoURL ? (
                 <img
-                  src={user.photoURL}
+                  src={updatedUrl ? updatedUrl : user.photoURL}
                   alt="profile picture"
                   className="profile-picture"
                 />
