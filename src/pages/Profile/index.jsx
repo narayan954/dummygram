@@ -223,6 +223,12 @@ function Profile() {
     }
   };
 
+  const handleCancel = () => {
+    setProfilePic("");
+    setVisible(false);
+    setOpen(false);
+  };
+
   const handleSave = () => {
     setOpen(false);
     const uploadTask = storage.ref(`images/${image?.name}`).put(image);
@@ -287,7 +293,7 @@ function Profile() {
   return (
     <>
       <ErrorBoundary>
-        <SideBar updatedUrl = {updatedUrl} />
+        <SideBar updatedUrl={updatedUrl} />
       </ErrorBoundary>
       {userData ? (
         <>
@@ -361,17 +367,31 @@ function Profile() {
                       </Box>
                     )}
                     {visible && (
-                      <Button
-                        className="img-save"
-                        onClick={handleSave}
-                        variant="outlined"
-                        sx={{
-                          marginTop: "1rem",
-                          padding: "5px 25px",
-                        }}
-                      >
-                        Save
-                      </Button>
+                      <div style={{ display: "flex" }}>
+                        <Button
+                          className="img-save"
+                          onClick={handleSave}
+                          variant="outlined"
+                          sx={{
+                            marginTop: "1rem",
+                            padding: "5px 25px",
+                            marginRight: "1rem",
+                          }}
+                        >
+                          Save
+                        </Button>
+                        <Button
+                          className="img-save"
+                          onClick={handleCancel}
+                          variant="outlined"
+                          sx={{
+                            marginTop: "1rem",
+                            padding: "5px 25px",
+                          }}
+                        >
+                          Cancel
+                        </Button>
+                      </div>
                     )}
                   </div>
                 </div>
