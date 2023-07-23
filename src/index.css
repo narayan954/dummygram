@@ -25,6 +25,7 @@
   --post-error-boundary: rgba(0, 0, 0, 0.54);
   --text-black-only: black;
   --dark-post-bg: rgb(255, 255, 255);
+  --btn-hover: rgb(0, 204, 204);
 }
 
 .darkmode {
@@ -53,6 +54,7 @@
   --post-error-boundary: rgba(255, 255, 255, 0.54);
   --darkmode-white: white;
   --dark-post-bg: #2a323c;
+  --btn-hover: rgb(0, 204, 204);
 }
 
 * {
@@ -121,7 +123,7 @@ input:focus {
 }
 
 .rowConvert:hover {
-  color: var(--btn-color-hover);
+  color: var(--btn-hover);
   cursor: pointer;
   transform: scale(1.04);
 }
