@@ -87,9 +87,8 @@
 
 .chat-msg-text {
   color: var(--text-secondary);
-  border-radius: 20px;
-  padding: 8px;
-  padding-right: 20px;
+  border-radius: 6px;
+  padding: 4px 8px;
   width: fit-content;
   max-width: 70%;
   box-shadow: 1px 1px 5px #59afc7;
