@@ -342,7 +342,7 @@ Dummygram is now part of GitHub. For code of conduct, please see [GitHub's Commu
 If you have any feedback or suggestions please reach out to the Project-Maintainer [Narayan Soni](https://github.com/narayan954)
 
 <div align="left">
-For further queries and whereabouts you can communicate and reach out to the owner through <a href="https://www.linkedin.com/in/narayan-soni/">Linkedin</a> & <a href="https://mail.google.com/mail/u/0/#inbox">email</a>
+For further queries and whereabouts you can communicate and reach out to the owner through <a href="https://www.linkedin.com/in/narayan-soni/">Linkedin</a> & <a href="mailto:narayansoni954@gmail.com">email</a>
 </div>
 
 ## 👩🏽‍💻 Contributing
