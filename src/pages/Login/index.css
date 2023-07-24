@@ -106,10 +106,12 @@
   border: 1px solid rgba(104, 85, 224, 1);
   border-radius: 4px;
   align-items: center;
-  white-space: nowrap;
-  position: relative;
+   white-space: nowrap; 
+   position: relative; 
   overflow: hidden;
   width: 100%;
+  background: rgb(0, 132, 255);
+  
 }
 
 .show__hide--pass {
@@ -118,7 +120,8 @@
   border: none;
   outline: none;
   cursor: pointer;
-  margin: auto;
+  color:white;
+  font-size: large;
 }
 
 .pass__input__container input {
