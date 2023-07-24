@@ -89,7 +89,7 @@ const LoginScreen = () => {
         // alert(((await userRef.get()).docs.length))
 
         if ((await userRef.get()).docs.length < 1) {
-          const usernameDoc = db.collection(`users`);
+          const usernameDoc = db.collection("users");
           await usernameDoc.doc(auth.currentUser.uid).set({
             uid: val.user.uid,
             username: val.user.uid,
@@ -100,7 +100,7 @@ const LoginScreen = () => {
             posts: [],
           });
         } else {
-          const usernameDoc = db.collection(`users`);
+          const usernameDoc = db.collection("users");
           usernameDoc
             .doc(auth.currentUser.uid)
             .get()
@@ -142,7 +142,7 @@ const LoginScreen = () => {
           .collection("users")
           .where("uid", "==", val?.user?.uid);
         if ((await userRef.get()).docs.length < 1) {
-          const usernameDoc = db.collection(`users`);
+          const usernameDoc = db.collection("users");
           await usernameDoc.doc(auth.currentUser.uid).set({
             uid: val.user.uid,
             username: val.user.uid,
@@ -153,7 +153,7 @@ const LoginScreen = () => {
             posts: [],
           });
         } else {
-          const usernameDoc = db.collection(`users`);
+          const usernameDoc = db.collection("users");
           usernameDoc
             .doc(auth.currentUser.uid)
             .get()
