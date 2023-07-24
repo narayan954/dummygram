@@ -145,7 +145,7 @@ function Profile() {
           const notificationData = {
             recipient: targetUserUid,
             sender: currentUserUid,
-            message: `You have received a friend request`,
+            message: "You have received a friend request",
             senderName: auth?.currentUser?.displayName,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
           };
