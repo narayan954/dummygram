@@ -96,6 +96,12 @@ function App() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const isCenteredScroll =
+    location.pathname === "/dummygram/favourites" ||
+    location.pathname === "/dummygram/about" ||
+    location.pathname === "/dummygram/guidelines" ||
+    location.pathname === "/dummygram/contributors";
+
   window.addEventListener("scroll", checkScrollTop);
 
   useEffect(() => {
@@ -371,33 +377,16 @@ function App() {
             />
           </Routes>
           {/* below scroll button must be checked for implementation */}
-          {location.pathname === "/dummygram/" ||
-          location.pathname === "/dummygram/favourites" ||
-          location.pathname === "/dummygram/about" ||
-          location.pathname === "/dummygram/guidelines" ||
-          location.pathname === "/dummygram/contributors" ? (
-            <FaArrowCircleUp
-              fill="#777"
-              className="scrollTop"
-              onClick={scrollTop}
-              style={{
-                height: 50,
-                display: showScroll ? "flex" : "none",
-                position: "fixed",
-              }}
-            />
-          ) : (
-            <FaArrowCircleUp
-              fill="#777"
-              className="scrollTop sideToTop"
-              onClick={scrollTop}
-              style={{
-                height: 50,
-                display: showScroll ? "flex" : "none",
-                position: "fixed",
-              }}
-            />
-          )}
+          <FaArrowCircleUp
+            fill="#0cc"
+            className={`scrollTop ${isCenteredScroll ? "centeredScroll" : ""}`}
+            onClick={scrollTop}
+            style={{
+              height: 50,
+              display: showScroll ? "flex" : "none",
+              position: "fixed",
+            }}
+          />
         </div>
       </ErrorBoundary>
     </RowModeContext.Provider>

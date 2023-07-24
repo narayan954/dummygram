@@ -178,7 +178,7 @@ const PostCommentView = ({
               />
             </ErrorBoundary>
           ) : (
-            <PostContentText>
+            <PostContentText style={{padding: "1rem"}}>
               {caption.length >= 300 ? (
                 <Typography variant="body3" color="text.secondary">
                   <ErrorBoundary>
@@ -256,7 +256,7 @@ const PostCommentView = ({
           {/* caption box */}
           {postHasImages && caption ? (
             <ErrorBoundary>
-              <PostCaption>
+              <PostCaption style={{paddingRight: "1rem"}}>
                 <Typography
                   variant="body2"
                   className="post-page-caption"
