@@ -65,7 +65,7 @@ const ChatBox = () => {
 
       setNewMessage("");
     } else {
-      enqueueSnackbar(`Enter something!`, {
+      enqueueSnackbar("Enter something!", {
         variant: "error",
       });
     }
@@ -104,7 +104,7 @@ const ChatBox = () => {
               <img
                 src={message.photoURL}
                 alt={message.displayName}
-                className={`chat-user-img`}
+                className={"chat-user-img"}
                 onClick={() => goToUserProfile(message.uid)}
               />
               <p className="chat-msg-text">{message.text}</p>

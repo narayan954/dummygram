@@ -52,11 +52,11 @@
   font-weight: bold;
 }
 
-.guideline-link{
+.guideline-link {
   color: var(--text-primary);
 }
 
-.guideline-link:hover{
+.guideline-link:hover {
   text-decoration: none;
 }
 

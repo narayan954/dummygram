@@ -178,7 +178,7 @@ const PostCommentView = ({
               />
             </ErrorBoundary>
           ) : (
-            <PostContentText style={{padding: "1rem"}}>
+            <PostContentText style={{ padding: "1rem" }}>
               {caption.length >= 300 ? (
                 <Typography variant="body3" color="text.secondary">
                   <ErrorBoundary>
@@ -256,7 +256,7 @@ const PostCommentView = ({
           {/* caption box */}
           {postHasImages && caption ? (
             <ErrorBoundary>
-              <PostCaption style={{paddingRight: "1rem"}}>
+              <PostCaption style={{ paddingRight: "1rem" }}>
                 <Typography
                   variant="body2"
                   className="post-page-caption"
@@ -332,18 +332,18 @@ const PostCommentView = ({
                 margin: "4px 0px",
               }}
             />
-         <IconButton
-            className="post__button"
-            disabled={commentRef?.current?.value === null}
-            type="submit"
-            onClick={postComment}
-            style={{
-              padding: 0,
-              paddingRight: "5px",
-            }}
-          >
-            <Send className="send-comment-btn" />
-          </IconButton>
+            <IconButton
+              className="post__button"
+              disabled={commentRef?.current?.value === null}
+              type="submit"
+              onClick={postComment}
+              style={{
+                padding: 0,
+                paddingRight: "5px",
+              }}
+            >
+              <Send className="send-comment-btn" />
+            </IconButton>
           </CommentForm>
           <ErrorBoundary>
             {comments?.length ? (
