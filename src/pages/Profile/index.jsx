@@ -9,7 +9,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { auth, db, storage } from "../../lib/firebase";
+import { auth, db } from "../../lib/firebase";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { getModalStyle, useStyles } from "../../App";
 import { lazy, useEffect, useState } from "react";
@@ -17,6 +17,7 @@ import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useNavigate, useParams } from "react-router-dom";
 
 import EditIcon from "@mui/icons-material/Edit";
+import { EditProfile } from "../../components";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import { FaUserCircle } from "react-icons/fa";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -40,26 +41,27 @@ function Profile() {
   const { enqueueSnackbar } = useSnackbar();
 
   const [user, setUser] = useState(null);
-  const [image, setImage] = useState("");
-  const [visible, setVisible] = useState(false);
   const [feed, setFeed] = useState([]);
-  const [profilePic, setProfilePic] = useState("");
   const [open, setOpen] = useState(false);
   const [logout, setLogout] = useState(false);
   const [friendRequestSent, setFriendRequestSent] = useState(false);
   const [userData, setUserData] = useState(null);
-  const [updatedUrl, setUpdatedUrl] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
   const [userExists, setUserExists] = useState(true);
   const { username } = useParams();
 
   let name = "";
   let avatar = "";
   let uid = "";
+  let bio = "";
+  let country = "";
 
   if (userData) {
     name = userData.name;
     avatar = userData.avatar;
     uid = userData.uid;
+    bio = userData.bio;
+    country = userData.country;
   }
 
   const handleClose = () => setOpen(false);
@@ -79,6 +81,10 @@ function Profile() {
               name: doc.data().name,
               avatar: doc.data().photoURL,
               uid: doc.data().uid,
+              bio: doc.data().bio
+                ? doc.data().bio
+                : "Lorem ipsum dolor sit amet consectetur",
+              country: doc.data().country ? doc.data().country : "Global",
             });
           } else {
             setUserExists(false);
@@ -220,71 +226,6 @@ function Profile() {
     });
   }, [user, name]);
 
-  const handleChange = (e) => {
-    if (e.target.files[0]) {
-      setProfilePic(URL.createObjectURL(e.target.files[0]));
-      setImage(e.target.files[0]);
-      setVisible(true);
-    }
-  };
-
-  const handleCancel = () => {
-    setProfilePic("");
-    setVisible(false);
-    setOpen(false);
-  };
-
-  const handleSave = () => {
-    setOpen(false);
-    const uploadTask = storage.ref(`images/${image?.name}`).put(image);
-    uploadTask.on(
-      "state_changed",
-      () => {},
-      (error) => {
-        playErrorSound();
-        enqueueSnackbar(error.message, {
-          variant: "error",
-        });
-      },
-      () => {
-        storage
-          .ref("images")
-          .child(image?.name)
-          .getDownloadURL()
-          .then(async (url) => {
-            //Updating profile image in auth
-            auth.currentUser.updateProfile({
-              displayName: name,
-              photoURL: url,
-            });
-            setUpdatedUrl(url);
-            //Updating profile image in users collection
-            const docRef = db.collection("users").doc(uid);
-            await docRef.update({
-              photoURL: url,
-            });
-
-            //Updating profile image in all posts
-            const postsRef = db.collection("posts").where("uid", "==", uid);
-            postsRef.get().then((postsSnapshot) => {
-              postsSnapshot.forEach((post) => {
-                const postRef = post.ref;
-                postRef.update({
-                  avatar: url,
-                });
-              });
-            });
-            playSuccessSound();
-            enqueueSnackbar("Upload Successful!!!", {
-              variant: "success",
-            });
-          })
-          .catch((error) => console.error(error));
-      }
-    );
-    setVisible(false);
-  };
-
   const signOut = () => {
     auth.signOut().finally(() => {
       playSuccessSound();
@@ -298,8 +239,16 @@ function Profile() {
   return (
     <>
       <ErrorBoundary>
-        <SideBar updatedUrl={updatedUrl} />
+        <SideBar />
       </ErrorBoundary>
+      {isEditing && (
+        <EditProfile
+          userData={userData}
+          username={username}
+          setIsEditing={setIsEditing}
+          setUserData={setUserData}
+        />
+      )}
       {userData && userExists ? (
         <>
           <div className="background-image">
@@ -331,7 +280,7 @@ function Profile() {
                 borderRadius: "5%",
               }}
             >
-              {name === user?.displayName ? (
+              {uid === user?.uid ? (
                 <div style={{ display: "flex", flexDirection: "column" }}>
                   <img
                     style={{
@@ -345,7 +294,7 @@ function Profile() {
                     }}
                     width={isNonMobile ? "50%" : "50%"}
                     height={isNonMobile ? "50%" : "50%"}
-                    src={profilePic ? profilePic : avatar}
+                    src={avatar}
                     alt={name}
                   />
                   <div
@@ -357,54 +306,10 @@ function Profile() {
                       color: "var(--text-secondary)",
                     }}
                   >
-                    {name === user?.displayName && (
-                      <Box>
-                        <input
-                          type="file"
-                          id="file"
-                          className="file"
-                          onChange={handleChange}
-                          accept="image/*"
-                        />
-                        <label htmlFor="file">
-                          <EditIcon className="edit-image-icon" />
-                        </label>
+                    {uid === user?.uid && (
+                      <Box className="edit-btn">
+                        <EditIcon className="edit-image-icon" />
                       </Box>
-                    )}
-                    {visible && (
-                      <div style={{ display: "flex" }}>
-                        <Button
-                          className="img-save"
-                          onClick={handleSave}
-                          variant="outlined"
-                          sx={{
-                            marginTop: "1rem",
-                            background: "var(--btn-color)",
-                            padding: "5px 25px",
-                            marginRight: "1rem",
-                            "&:hover": {
-                              background: "var(--btn-color-hover)",
-                            },
-                          }}
-                        >
-                          Save
-                        </Button>
-                        <Button
-                          className="img-save"
-                          onClick={handleCancel}
-                          variant="outlined"
-                          sx={{
-                            marginTop: "1rem",
-                            background: "var(--btn-color)",
-                            padding: "5px 25px",
-                            "&:hover": {
-                              background: "var(--btn-color-hover)",
-                            },
-                          }}
-                        >
-                          Cancel
-                        </Button>
-                      </div>
                     )}
                   </div>
                 </div>
@@ -451,38 +356,19 @@ function Profile() {
                   <Avatar
                     onClick={() => setOpen((on) => !on)}
                     alt={name}
-                    src={updatedUrl ? updatedUrl : avatar}
+                    src={avatar}
                     className="profile-pic-container"
                   />
                 ) : (
                   <FaUserCircle className="profile-pic-container" />
                 )}
-                {name === user?.displayName && (
+                {uid === user?.uid && (
                   <Box className="edit-btn">
-                    <input
-                      type="file"
-                      id="file"
-                      className="file"
-                      onChange={handleChange}
-                      accept="image/*"
+                    <EditIcon
+                      className="edit-image-icon"
+                      onClick={() => setIsEditing(true)}
                     />
-                    <label htmlFor="file">
-                      <EditIcon className="edit-image-icon" />
-                    </label>
                   </Box>
-                )}
-                {visible && (
-                  <Button
-                    className="img-save"
-                    onClick={handleSave}
-                    variant="outlined"
-                    sx={{
-                      marginTop: "1rem",
-                      padding: "5px 25px",
-                    }}
-                  >
-                    Save
-                  </Button>
                 )}
               </Box>
               <Box
@@ -495,18 +381,14 @@ function Profile() {
                 <Typography className="profile-user-display-name">
                   {name}
                 </Typography>
-                <p className="profile-bio">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Accusamus atque eaque mollitia iusto odit! Voluptatum iusto
-                  beatae esse exercitationem.
-                </p>
+                <p className="profile-bio">{bio}</p>
                 <div className="username-and-location-container">
                   <Typography className="profile-user-username">
                     {username}
                   </Typography>
                   <span className="dot-seperator"></span>
                   <Typography className="profile-user-username">
-                    <LocationOnIcon className="location-icon" /> India
+                    <LocationOnIcon className="location-icon" /> {country}
                   </Typography>
                 </div>
                 <div style={{ display: "flex", gap: "30px" }}>
@@ -521,7 +403,7 @@ function Profile() {
                     </span>
                   </Typography>
                 </div>
-                {name !== user?.displayName && (
+                {uid !== user?.uid && (
                   <Button
                     onClick={() =>
                       user.isAnonymous
@@ -535,7 +417,7 @@ function Profile() {
                     {friendRequestSent ? "Remove friend request" : "Add Friend"}
                   </Button>
                 )}
-                {name === user?.displayName && (
+                {uid === user?.uid && (
                   <Box className="setting-logout">
                     <Button
                       variant="contained"
@@ -634,7 +516,6 @@ function Profile() {
                     shareModal={true}
                     setLink="/"
                     setPostText=""
-                    updatedUrl={updatedUrl}
                   />
                 ))}
               </ErrorBoundary>
