@@ -15,11 +15,11 @@ import { lazy, useEffect, useState } from "react";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { AnimatedButton } from "../../reusableComponents";
+import NotFound from "../NotFound";
+import { AnimatedButton, Loader } from "../../reusableComponents";
 import EditIcon from "@mui/icons-material/Edit";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import { FaUserCircle } from "react-icons/fa";
-import { Loader } from "../../reusableComponents";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Modal from "@mui/material/Modal";
@@ -49,6 +49,7 @@ function Profile() {
   const [friendRequestSent, setFriendRequestSent] = useState(false);
   const [userData, setUserData] = useState(null);
   const [updatedUrl, setUpdatedUrl] = useState("");
+  const [userExists, setUserExists] = useState(true)
   const { username } = useParams();
 
   let name = "";
@@ -72,12 +73,17 @@ function Profile() {
       docRef
         .get()
         .then((snapshot) => {
-          const doc = snapshot.docs[0];
-          setUserData({
-            name: doc.data().name,
-            avatar: doc.data().photoURL,
-            uid: doc.data().uid,
-          });
+          if(snapshot.exists){
+            const doc = snapshot.docs[0];
+            setUserData({
+              name: doc.data().name,
+              avatar: doc.data().photoURL,
+              uid: doc.data().uid,
+            });
+          }
+          else { 
+            setUserExists(false)
+          }
         })
         .catch((error) => {
           enqueueSnackbar(`Error Occured: ${error}`, {
@@ -295,7 +301,7 @@ function Profile() {
       <ErrorBoundary>
         <SideBar updatedUrl={updatedUrl} />
       </ErrorBoundary>
-      {userData ? (
+      {(userData && userExists)? (
         <>
           <div className="background-image">
             <img
@@ -637,7 +643,7 @@ function Profile() {
           </Box>
         </>
       ) : (
-        <Loader />
+        userExists? <Loader /> : <NotFound />
       )}
     </>
   );
