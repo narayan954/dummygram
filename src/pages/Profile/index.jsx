@@ -223,6 +223,12 @@ function Profile() {
     }
   };
 
+  const handleCancel = () => {
+    setProfilePic("");
+    setVisible(false);
+    setOpen(false);
+  };
+
   const handleSave = () => {
     setOpen(false);
     const uploadTask = storage.ref(`images/${image?.name}`).put(image);
@@ -361,17 +367,39 @@ function Profile() {
                       </Box>
                     )}
                     {visible && (
-                      <Button
-                        className="img-save"
-                        onClick={handleSave}
-                        variant="outlined"
-                        sx={{
-                          marginTop: "1rem",
-                          padding: "5px 25px",
-                        }}
-                      >
-                        Save
-                      </Button>
+                      <div style={{ display: "flex" }}>
+                        <Button
+                          className="img-save"
+                          onClick={handleSave}
+                          variant="outlined"
+                          sx={{
+                            marginTop: "1rem",
+                            background: "var(--btn-color)",
+                            padding: "5px 25px",
+                            marginRight: "1rem",
+                            "&:hover": {
+                              background: "var(--btn-color-hover)",
+                            },
+                          }}
+                        >
+                          Save
+                        </Button>
+                        <Button
+                          className="img-save"
+                          onClick={handleCancel}
+                          variant="outlined"
+                          sx={{
+                            marginTop: "1rem",
+                            background: "var(--btn-color)",
+                            padding: "5px 25px",
+                            "&:hover": {
+                              background: "var(--btn-color-hover)",
+                            },
+                          }}
+                        >
+                          Cancel
+                        </Button>
+                      </div>
                     )}
                   </div>
                 </div>
