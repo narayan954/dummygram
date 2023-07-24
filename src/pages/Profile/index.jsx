@@ -16,10 +16,8 @@ import { lazy, useEffect, useState } from "react";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { AnimatedButton, Loader } from "../../reusableComponents";
-import { EditProfile } from "../../components";
-import NotFound from "../NotFound";
 import EditIcon from "@mui/icons-material/Edit";
+import { EditProfile } from "../../components";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import { FaUserCircle } from "react-icons/fa";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -48,7 +46,7 @@ function Profile() {
   const [logout, setLogout] = useState(false);
   const [friendRequestSent, setFriendRequestSent] = useState(false);
   const [userData, setUserData] = useState(null);
-  const [isEditing, setIsEditing] = useState(false)
+  const [isEditing, setIsEditing] = useState(false);
   const [userExists, setUserExists] = useState(true);
   const { username } = useParams();
 
@@ -83,8 +81,10 @@ function Profile() {
               name: doc.data().name,
               avatar: doc.data().photoURL,
               uid: doc.data().uid,
-              bio: doc.data().bio? doc.data().bio : "Lorem ipsum dolor sit amet consectetur",
-              country: doc.data().country? doc.data().country : "Global",
+              bio: doc.data().bio
+                ? doc.data().bio
+                : "Lorem ipsum dolor sit amet consectetur",
+              country: doc.data().country ? doc.data().country : "Global",
             });
           } else {
             setUserExists(false);
@@ -241,12 +241,14 @@ function Profile() {
       <ErrorBoundary>
         <SideBar />
       </ErrorBoundary>
-      {isEditing && <EditProfile 
-                      userData={userData} 
-                      username={username} 
-                      setIsEditing={setIsEditing} 
-                      setUserData={setUserData}
-                    />}
+      {isEditing && (
+        <EditProfile
+          userData={userData}
+          username={username}
+          setIsEditing={setIsEditing}
+          setUserData={setUserData}
+        />
+      )}
       {userData && userExists ? (
         <>
           <div className="background-image">
@@ -306,9 +308,9 @@ function Profile() {
                   >
                     {uid === user?.uid && (
                       <Box className="edit-btn">
-                          <EditIcon className="edit-image-icon" />
+                        <EditIcon className="edit-image-icon" />
                       </Box>
-                     )}                    
+                    )}
                   </div>
                 </div>
               ) : (
@@ -362,10 +364,10 @@ function Profile() {
                 )}
                 {uid === user?.uid && (
                   <Box className="edit-btn">
-                      <EditIcon 
-                        className="edit-image-icon"
-                        onClick={() => setIsEditing(true)}
-                      />
+                    <EditIcon
+                      className="edit-image-icon"
+                      onClick={() => setIsEditing(true)}
+                    />
                   </Box>
                 )}
               </Box>
@@ -379,9 +381,7 @@ function Profile() {
                 <Typography className="profile-user-display-name">
                   {name}
                 </Typography>
-                <p className="profile-bio">
-                  {bio}
-                </p>
+                <p className="profile-bio">{bio}</p>
                 <div className="username-and-location-container">
                   <Typography className="profile-user-username">
                     {username}
