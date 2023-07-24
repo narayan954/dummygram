@@ -1,13 +1,13 @@
 import "./index.css";
 import "../design.css";
 
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import { Link, useNavigate } from "react-router-dom";
-import { VscChromeClose } from "react-icons/vsc";
-import logo from "../../../assets/logo.webp";
-import about from "../../../assets/about-us.png";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import { VscChromeClose } from "react-icons/vsc";
+import about from "../../../assets/about-us.png";
+import logo from "../../../assets/logo.webp";
 
 const About = () => {
   const [forks, setForks] = useState(0);
@@ -65,17 +65,15 @@ const About = () => {
   return (
     <div className="about-container footer-page-para-color">
       <div className="about-header">
-        <div
-          className="about-header-img"
-          style={{ position: "relative"}}
-        >
-          <img
-            src={about}
-            style={{ objectFit: "cover"}}
-          />
+        <div className="about-header-img" style={{ position: "relative" }}>
+          <img src={about} style={{ objectFit: "cover" }} />
         </div>
       </div>
-      <div className="back-icon" style={{height: "90px"}} onClick={() => navigate("/dummygram/")}>
+      <div
+        className="back-icon"
+        style={{ height: "90px", cursor: "pointer" }}
+        onClick={() => navigate("/dummygram/")}
+      >
         <KeyboardBackspaceIcon className="icon" /> <span>Back to Home</span>
       </div>
       <div className="about-us-section">
@@ -130,20 +128,26 @@ const About = () => {
           <div className="stat-btns">
             <div className="btn1">
               <div className="btn-content">
-                <span  style={{fontWeight: "800"}}>{commits}</span>
-                <span className="stats-headings" style={{fontWeight: "600"}}>Total Commits</span>
+                <span style={{ fontWeight: "800" }}>{commits}</span>
+                <span className="stats-headings" style={{ fontWeight: "600" }}>
+                  Total Commits
+                </span>
               </div>
             </div>
             <div className="btn2">
               <div className="btn-content">
-                <span  style={{fontWeight: "800"}}>{forks}</span>
-                <span className="stats-headings" style={{fontWeight: "600"}}>Forks</span>
+                <span style={{ fontWeight: "800" }}>{forks}</span>
+                <span className="stats-headings" style={{ fontWeight: "600" }}>
+                  Forks
+                </span>
               </div>
             </div>
             <div className="btn3">
               <div className="btn-content">
-                <span  style={{fontWeight: "800"}}>{stars}</span>
-                <span className="stats-headings" style={{fontWeight: "600"}}>Stars</span>
+                <span style={{ fontWeight: "800" }}>{stars}</span>
+                <span className="stats-headings" style={{ fontWeight: "600" }}>
+                  Stars
+                </span>
               </div>
             </div>
           </div>

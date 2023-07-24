@@ -100,12 +100,13 @@
   }
   .back-icon {
     height: 100px;
-  }  .back-icon {
+  }
+  .back-icon {
     height: 100px !important;
   }
-.about-headings {
-  font-size: 2.4rem;
-}
+  .about-headings {
+    font-size: 2.4rem;
+  }
 }
 
 @media only screen and (min-width: 1200px) {
