@@ -4,6 +4,7 @@ import { auth, db, storage } from "../../lib/firebase";
 import { useRef, useState } from "react";
 
 import CancelIcon from "@mui/icons-material/Cancel";
+import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
 const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
@@ -20,6 +21,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
   const { enqueueSnackbar } = useSnackbar();
   const usernameRef = useRef("");
   const { name, newUsername, bio, country, uid, avatar } = editedData;
+  const navigate = useNavigate();
 
   function debounce(func, timeout = 500) {
     let timer;
@@ -172,6 +174,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
             })
           )
           .then(() => setUserData(editedData))
+          .then(() => navigate(`/dummygram/${newUsername}`))
           .catch((error) => {
             enqueueSnackbar(error, {
               variant: "error",
