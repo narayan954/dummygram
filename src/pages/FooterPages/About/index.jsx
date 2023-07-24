@@ -1,10 +1,12 @@
 import "./index.css";
 import "../design.css";
 
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import { Link } from "react-router-dom";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { VscChromeClose } from "react-icons/vsc";
+import about from "../../../assets/about-us.png";
 import logo from "../../../assets/logo.webp";
 
 const About = () => {
@@ -12,6 +14,7 @@ const About = () => {
   const [stars, setStars] = useState(0);
   const [commits, setCommits] = useState(0);
   const [contributors, setContributors] = useState(0);
+  const navigate = useNavigate();
 
   const getCount = (url) => {
     return fetch(url)
@@ -22,7 +25,7 @@ const About = () => {
         if (match) {
           const lastPageUrl = match[1];
           const pageCount = new URLSearchParams(
-            new URL(lastPageUrl).search,
+            new URL(lastPageUrl).search
           ).get("page");
           return parseInt(pageCount);
         } else {
@@ -36,12 +39,12 @@ const About = () => {
 
   useEffect(() => {
     getCount(
-      "https://api.github.com/repos/narayan954/dummygram/commits?sha=master&per_page=1&page=1",
+      "https://api.github.com/repos/narayan954/dummygram/commits?sha=master&per_page=1&page=1"
     ).then((count) => {
       setCommits(count);
     });
     getCount(
-      "https://api.github.com/repos/narayan954/dummygram/contributors?per_page=1&anon=true",
+      "https://api.github.com/repos/narayan954/dummygram/contributors?per_page=1&anon=true"
     ).then((count) => {
       setContributors(count);
     });
@@ -61,65 +64,92 @@ const About = () => {
 
   return (
     <div className="about-container footer-page-para-color">
-      <div className="about-sub-container">
-        <span className="grad1 grad"></span>
-        <span className="grad2 grad"></span>
-        <span className="grad3 grad"></span>
-        <span className="grad4 grad"></span>
-        <div className="about-section glassmorphism-effect">
-          <div
-            className="closeIcon"
-            style={{
-              fontSize: "30px",
-              marginBottom: "-10px",
-              position: "absolute",
-              top: "0",
-              right: "0",
-            }}
-          >
-            <Link to="/dummygram/">
-              <VscChromeClose style={{ fontWeight: "bold" }} />
-            </Link>
-          </div>
-          <img
-            className="about-logo"
-            src={logo}
-            alt="dummygram"
-            id="about-dummygram-logo"
-          />
-          <p className="about-section-text">
+      <div className="about-header">
+        <div className="about-header-img" style={{ position: "relative" }}>
+          <img src={about} style={{ objectFit: "cover" }} />
+        </div>
+      </div>
+      <div
+        className="back-icon"
+        style={{ height: "90px", cursor: "pointer" }}
+        onClick={() => navigate("/dummygram/")}
+      >
+        <KeyboardBackspaceIcon className="icon" /> <span>Back to Home</span>
+      </div>
+      <div className="about-us-section">
+        <div className="about-us">
+          <h2 className="about-headings footer-page-heading-color">
+            Who we are?
+          </h2>
+          <p>
             Welcome to Dummygram, an exciting platform that aims to reimagine
             and revolutionize the way we connect and share moments with others.
             A creative space where you can showcase your unique perspective,
             explore diverse content, and foster meaningful connections with
             like-minded individuals from around the globe.
           </p>
-          <h2 className="about-headings footer-page-heading-color">VISION</h2>
-          <p className="about-section-text">
+        </div>
+        <div className="vision">
+          <h2 className="about-headings footer-page-heading-color">Vision</h2>
+          <p>
             Combine the best features of Instagram while adding a touch of
             innovation and uniqueness. We strive to create a platform that
             encourages creativity, authenticity, and positive interactions.
           </p>
-          <h2 className="about-headings footer-page-heading-color">CREATORS</h2>
-          <p className="about-section-text">
+        </div>
+        <div className="creators">
+          <h2 className="about-headings footer-page-heading-color">Creators</h2>
+          <p>
             Dummygram's development has been started by{" "}
-            <a href="https://www.linkedin.com/in/narayan-soni/">Narayan Soni</a>{" "}
+            <a
+              href="https://www.linkedin.com/in/narayan-soni/"
+              style={{ color: "var(--link-color) " }}
+            >
+              Narayan Soni
+            </a>{" "}
             in September 2022 and now has over {contributors} contributors to
             success. Together let's move ahead and make dummygram a huge
             success. Join us today on{" "}
-            <a href="https://github.com/narayan954/dummygram">GitHub!</a>
+            <a
+              href="https://github.com/narayan954/dummygram"
+              style={{ color: "var(--link-color) " }}
+            >
+              GitHub!
+            </a>
           </p>
-          <h2 className="about-headings footer-page-heading-color">STATS</h2>
-          <div className="about-section-stats-container">
-            <p className="about-section-stats">
-              <span className="about-stats">Total Commits:</span> {commits}
-            </p>
-            <p className="about-section-stats">
-              <span className="about-stats">Forks:</span> {forks}
-            </p>
-            <p className="about-section-stats">
-              <span className="about-stats">Stars:</span> {stars}
-            </p>
+        </div>
+        <div className="stats">
+          <h2
+            className="about-headings footer-page-heading-color"
+            style={{ marginBottom: "1.5rem" }}
+          >
+            Stats
+          </h2>
+          <div className="stat-btns">
+            <div className="btn1">
+              <div className="btn-content">
+                <span style={{ fontWeight: "800" }}>{commits}</span>
+                <span className="stats-headings" style={{ fontWeight: "600" }}>
+                  Total Commits
+                </span>
+              </div>
+            </div>
+            <div className="btn2">
+              <div className="btn-content">
+                <span style={{ fontWeight: "800" }}>{forks}</span>
+                <span className="stats-headings" style={{ fontWeight: "600" }}>
+                  Forks
+                </span>
+              </div>
+            </div>
+            <div className="btn3">
+              <div className="btn-content">
+                <span style={{ fontWeight: "800" }}>{stars}</span>
+                <span className="stats-headings" style={{ fontWeight: "600" }}>
+                  Stars
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
