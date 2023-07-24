@@ -17,6 +17,7 @@
   --logo-text-shadow: none;
   --btn-color: linear-gradient(-40deg, #daf1f7, #0cc);
   --btn-color-hover: linear-gradient(40deg, #0cc, #daf1f7);
+  --btn-hover: rgb(0, 204, 204);
   --page-over-color: #5ec3fd;
   --slide-color: #9be5ea;
   --label-color: rgb(200, 246, 248);
@@ -25,7 +26,6 @@
   --post-error-boundary: rgba(0, 0, 0, 0.54);
   --text-black-only: black;
   --dark-post-bg: rgb(255, 255, 255);
-  --btn-hover: rgb(0, 204, 204);
 }
 
 .darkmode {
@@ -45,6 +45,7 @@
   --logo-text-shadow: 0 0 10px #eeeeee, 0 0 20px #0cc, 0 0 30px #fff;
   --btn-color: linear-gradient(40deg, #0cc, #daf1f7);
   --btn-color-hover: linear-gradient(-40deg, #daf1f7, #0cc);
+  --btn-hover: rgb(0, 204, 204);
   --page-over-color: #3a3e44;
   --slide-color: #524a54;
   --label-color: #6a656b;
@@ -54,7 +55,6 @@
   --post-error-boundary: rgba(255, 255, 255, 0.54);
   --darkmode-white: white;
   --dark-post-bg: #2a323c;
-  --btn-hover: rgb(0, 204, 204);
 }
 
 * {

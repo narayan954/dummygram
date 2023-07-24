@@ -374,8 +374,12 @@ function Profile() {
                           variant="outlined"
                           sx={{
                             marginTop: "1rem",
+                            background: "var(--btn-color)",
                             padding: "5px 25px",
                             marginRight: "1rem",
+                            "&:hover": {
+                              background: "var(--btn-color-hover)",
+                            },
                           }}
                         >
                           Save
@@ -386,7 +390,11 @@ function Profile() {
                           variant="outlined"
                           sx={{
                             marginTop: "1rem",
+                            background: "var(--btn-color)",
                             padding: "5px 25px",
+                            "&:hover": {
+                              background: "var(--btn-color-hover)",
+                            },
                           }}
                         >
                           Cancel
