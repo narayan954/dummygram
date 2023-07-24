@@ -1,5 +1,6 @@
 import "./index.css";
 
+import { AnimatedButton, Loader } from "../../reusableComponents";
 import {
   Avatar,
   Box,
@@ -15,14 +16,13 @@ import { lazy, useEffect, useState } from "react";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useNavigate, useParams } from "react-router-dom";
 
-import NotFound from "../NotFound";
-import { AnimatedButton, Loader } from "../../reusableComponents";
 import EditIcon from "@mui/icons-material/Edit";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import { FaUserCircle } from "react-icons/fa";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Modal from "@mui/material/Modal";
+import NotFound from "../NotFound";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ViewsCounter from "../../reusableComponents/views";
 import firebase from "firebase/compat/app";
@@ -73,7 +73,7 @@ function Profile() {
       docRef
         .get()
         .then((snapshot) => {
-          if (snapshot.exists) {
+          if (snapshot.docs) {
             const doc = snapshot.docs[0];
             setUserData({
               name: doc.data().name,
@@ -280,7 +280,7 @@ function Profile() {
             });
           })
           .catch((error) => console.error(error));
-      },
+      }
     );
     setVisible(false);
   };
