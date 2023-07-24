@@ -60,7 +60,7 @@ function Post(prop) {
             snapshot.docs.map((doc) => ({
               id: doc.id,
               content: doc.data(),
-            }))
+            })),
           );
         });
     }
@@ -207,7 +207,7 @@ function Post(prop) {
             caption={caption}
           />
         </ErrorBoundary>
-        <Divider style={{paddingTop: "6px"}} />
+        <Divider style={{ paddingTop: "6px" }} />
         <Flexbetween>
           <Typography
             marginLeft={1}

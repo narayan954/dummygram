@@ -6,7 +6,7 @@ import { AiOutlineInsertRowAbove } from "react-icons/ai";
 import { Darkmode } from "../../reusableComponents";
 import { Logo } from "../../reusableComponents";
 import { auth } from "../../lib/firebase";
-import ChatIcon from '@mui/icons-material/Chat';
+import ChatIcon from "@mui/icons-material/Chat";
 import { useNavigate } from "react-router-dom";
 
 function Navbar({ onClick, user, setUser }) {

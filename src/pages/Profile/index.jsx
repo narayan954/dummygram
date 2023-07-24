@@ -15,12 +15,12 @@ import { lazy, useEffect, useState } from "react";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { AnimatedButton } from "../../reusableComponents";
+import { AnimatedButton, Loader } from "../../reusableComponents";
 import { EditProfile } from "../../components";
+import NotFound from "../NotFound";
 import EditIcon from "@mui/icons-material/Edit";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import { FaUserCircle } from "react-icons/fa";
-import { Loader } from "../../reusableComponents";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Modal from "@mui/material/Modal";
@@ -47,6 +47,7 @@ function Profile() {
   const [friendRequestSent, setFriendRequestSent] = useState(false);
   const [userData, setUserData] = useState(null);
   const [isEditing, setIsEditing] = useState(false)
+  const [userExists, setUserExists] = useState(true);
   const { username } = useParams();
 
   let name = "";
@@ -74,14 +75,18 @@ function Profile() {
       docRef
         .get()
         .then((snapshot) => {
-          const doc = snapshot.docs[0];
-          setUserData({
-            name: doc.data().name,
-            avatar: doc.data().photoURL,
-            uid: doc.data().uid,
-            bio: doc.data().bio? doc.data().bio : "Lorem ipsum dolor sit amet consectetur",
-            country: doc.data().country? doc.data().country : "Global",
-          });
+          if (snapshot.exists) {
+            const doc = snapshot.docs[0];
+            setUserData({
+              name: doc.data().name,
+              avatar: doc.data().photoURL,
+              uid: doc.data().uid,
+              bio: doc.data().bio? doc.data().bio : "Lorem ipsum dolor sit amet consectetur",
+              country: doc.data().country? doc.data().country : "Global",
+            });
+          } else {
+            setUserExists(false);
+          }
         })
         .catch((error) => {
           enqueueSnackbar(`Error Occured: ${error}`, {
@@ -144,7 +149,7 @@ function Profile() {
           const notificationData = {
             recipient: targetUserUid,
             sender: currentUserUid,
-            message: `You have received a friend request`,
+            message: "You have received a friend request",
             senderName: auth?.currentUser?.displayName,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
           };
@@ -219,7 +224,6 @@ function Profile() {
     });
   }, [user, name]);
 
-
   const signOut = () => {
     auth.signOut().finally(() => {
       playSuccessSound();
@@ -241,7 +245,7 @@ function Profile() {
                       setIsEditing={setIsEditing} 
                       setUserData={setUserData}
                     />}
-      {userData ? (
+      {userData && userExists ? (
         <>
           <div className="background-image">
             <img
@@ -302,7 +306,7 @@ function Profile() {
                       <Box className="edit-btn">
                           <EditIcon className="edit-image-icon" />
                       </Box>
-                     )}
+                     )}                    
                   </div>
                 </div>
               ) : (
@@ -516,8 +520,10 @@ function Profile() {
             </div>
           </Box>
         </>
-      ) : (
+      ) : userExists ? (
         <Loader />
+      ) : (
+        <NotFound />
       )}
     </>
   );
