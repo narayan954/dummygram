@@ -185,6 +185,10 @@
   transition: 0.3s ease-in-out;
 }
 
+.comment-doer-name {
+  cursor: pointer;
+}
+
 .comment-delete-icon:hover {
   background-color: rgb(187, 187, 187);
 }
@@ -259,6 +263,12 @@
 .social__icons__wrapper {
   display: flex;
   align-items: center;
+}
+
+.profile-picture {
+  height: 30px;
+  width: 30px;
+  border-radius: 100%;
 }
 
 @media only screen and (max-width: 800px) {

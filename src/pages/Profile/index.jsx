@@ -352,7 +352,7 @@ function Profile() {
                     className="profile-pic-container"
                   />
                 ) : (
-                  <FaUserCircle style={{ width: "22vh", height: "22vh" }} />
+                  <FaUserCircle className="profile-pic-container" />
                 )}
                 {uid === user?.uid && (
                   <Box className="edit-btn">

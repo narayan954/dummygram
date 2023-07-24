@@ -4,7 +4,7 @@ import { auth, db, storage } from "../../lib/firebase";
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useSnackbar } from "notistack";
 
-const EditProfile = ({ userData, username, setIsEditing, setReload, setUserData }) => {
+const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
     const [editedData, setEditedData] = useState({
         name: userData.name,
         newUsername: username,
@@ -112,7 +112,6 @@ const EditProfile = ({ userData, username, setIsEditing, setReload, setUserData 
                             const postsRef = db.collection("posts").where("uid", "==", uid);
                             await postsRef.get().then((postsSnapshot) => {
                                 postsSnapshot.forEach((post) => {
-                                    console.log(post.data())
                                     const postRef = post.ref;
                                     postRef.update({
                                         avatar: url,

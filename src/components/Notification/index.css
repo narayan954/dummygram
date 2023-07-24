@@ -1,130 +1,127 @@
 .loader-container {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .notification-container {
-    border: 1px solid pink;
-    min-height: 100vh;
-    margin-left: 17vw;
+  border: 1px solid pink;
+  min-height: 100vh;
+  margin-left: 17vw;
 }
 
 .notification-heading {
-    color: var(--color);
-    font-size: 50px;
-    margin-bottom: 50px;
+  color: var(--color);
+  font-size: 50px;
+  margin-bottom: 50px;
 }
 
 .notification-count {
-    position: relative;
-    border: 1px solid gray;
-    padding: 10px 15px;
-    border-radius: 50%;
-    font-size: 25px;
-    top: -10px;
-    background-color: var(--color);
-    color: var(--bg-color);
-    font-family: cursive;
+  position: relative;
+  border: 1px solid gray;
+  padding: 10px 20px;
+  border-radius: 50%;
+  font-size: 25px;
+  top: -10px;
+  background-color: var(--color);
+  color: var(--bg-color);
+  font-family: cursive;
 }
 
 .notif-message-container {
-    border: 1px solid #c4c2c2;
-    width: 80%;
-    padding: 15px 20px;
-    text-align: left;
-    font-size: 20px;
-    color: var(--color);
-    border-radius: 50px;
-    margin-bottom: 20px;
-    box-shadow: 0 0 5px 0 rgba(0,0,0,0.25);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
+  width: 80%;
+  padding: 15px 20px;
+  text-align: left;
+  font-size: 20px;
+  color: var(--color);
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .notif-message {
-    display: inline-block;
-    margin-right: 30px;
+  display: inline-block;
+  margin-left: 30px;
 }
 
 .notif-type {
-    color: rgb(3, 3, 110);
+  color: rgb(3, 3, 110);
 }
 
 .friend-request-sender-name {
-    font-weight: 600;
-    cursor: pointer;
-    color: var(--text-primary);
-    text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--text-primary);
+  text-decoration: none;
 }
 
 .friend-request-sender-name:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .notif-btn {
-    margin-right: 10px;
-    padding: 8px 25px;
-    font-size: 18px;
-    border-radius: 50px;
-    color: white;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    transition: 0.3s all ease-in-out;
+  margin-right: 10px;
+  padding: 8px 25px;
+  font-size: 18px;
+  border-radius: 5px;
+  color: white;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s all ease-in-out;
 }
 
 .accept-btn {
-    background-color: rgb(9, 153, 9);
+  background-color: rgb(9, 153, 9);
 }
 .accept-btn:hover {
-    background-color: rgb(3, 117, 3);
+  background-color: rgb(3, 117, 3);
 }
 
 .decline-btn {
-    background-color: rgb(230, 26, 26);
+  background-color: rgb(230, 26, 26);
 }
 .decline-btn:hover {
-    background-color: rgb(167, 13, 13);
+  background-color: rgb(167, 13, 13);
 }
 
 @media screen and (max-width: 1200px) {
-    .notification-container {
-        margin-left: 8vw;
-    }
+  .notification-container {
+    margin-left: 8vw;
+  }
 }
 
 @media screen and (max-width: 800px) {
-    .notification-container {
-        margin-left: 0;
-    }
-    .notification-heading {
-        font-size: 30px;
-    }
+  .notification-container {
+    margin-left: 0;
+  }
+  .notification-heading {
+    font-size: 30px;
+  }
 
-    .notification-count {
-        padding: 5px 10px;
-        border-radius: 50%;
-        font-size: 15px;
-        top: -5px;
-    }
+  .notification-count {
+    padding: 5px 10px;
+    border-radius: 50%;
+    font-size: 15px;
+    top: -5px;
+  }
 
-    .notif-message-container {
-        font-size: 15px;
-    }
+  .notif-message-container {
+    font-size: 15px;
+  }
 
-    .notif-message {
-        margin-right: 0px;
-    }
+  .notif-message {
+    margin-right: 0px;
+  }
 
-    .notif-btn{
-        padding: 5px 20px;
-        font-size: 13px;
-    }
-
+  .notif-btn {
+    padding: 5px 20px;
+    font-size: 13px;
+  }
 }

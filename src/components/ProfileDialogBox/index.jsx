@@ -7,7 +7,6 @@ const ProfileDialogBox = ({ mouseOnProfileImg, userData }) => {
   const [isHoverActive, setIsHoverActive] = useState(false);
   const { name, username, avatar, bio, followers, following } = userData;
   const navigate = useNavigate();
-  // console.log(userData);
 
   function hoverOver() {
     setIsHoverActive(true);

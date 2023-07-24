@@ -51,9 +51,17 @@ const CommentDialogBox = ({
                       isAnonymous ? "signup" : userComment.content.username
                     }`}
                   >
-                    <AccountCircleIcon />
+                    {userComment.content.avatar ? (
+                      <img
+                        src={userComment.content.avatar}
+                        alt="profile picture"
+                        className="profile-picture"
+                      />
+                    ) : (
+                      <AccountCircleIcon className="icon" />
+                    )}{" "}
                     <span className="comment-doer-name">
-                      {userComment.content.username}
+                      {userComment.content.displayName}
                     </span>
                   </Link>
                   <p className="comment">
