@@ -11,6 +11,7 @@ import Post from "./Post";
 import ReadMore from "./ReadMore";
 import SearchBar from "./SearchBar";
 import SideBar from "./SideBar";
+import EditProfile from "./EditProfile";
 
 export {
   Caption,
@@ -26,6 +27,7 @@ export {
   ReadMore,
   SearchBar,
   SideBar,
+  EditProfile,
 };
 
 export default Post;

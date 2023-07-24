@@ -1,0 +1,76 @@
+.edit-profile-container {
+    z-index: 999;
+    position: absolute;
+    top: 150px;
+    left: 50%;
+    width: 50%;
+    transform: translate(-50%, 0%);
+    padding: 60px;
+    background: var(--btn-color);
+}
+
+.edit-profile-sub-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.cancel-editing-icon {
+    position: absolute;
+    top: -30px;
+    right: -20px;
+    transform: scale(1.4);
+    cursor: pointer;
+}
+
+.edit-profile-label {
+    font-weight: 600;
+    font-size: 17px;
+}
+
+.edit-profile-input {
+    margin-top: 0;
+    width: 100% !important;
+}
+
+.edit-profile-img {
+    width: 120px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+}
+
+.edit-profile-bio {
+    padding: 10px;
+    font-size: 16px;
+    height: 100px;
+    border: 1px solid rgba(104, 85, 224, 1);
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(104, 85, 224, 0.2);
+}
+
+.edit-profile-save-btn {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    background-color: white;
+    border: none;
+    color: white;
+    background: linear-gradient(rgb(102, 102, 250), rgb(81, 81, 245));
+    cursor: pointer;
+}
+
+.edit-profile-save-btn:hover {
+    background: linear-gradient(rgb(64, 64, 198), rgb(81, 81, 245));
+}
+
+.edit-profile-save-btn:active {
+    background: linear-gradient(blue, blue);
+}
+
+.error-border {
+    border: 2px solid red;
+}
