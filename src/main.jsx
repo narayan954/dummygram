@@ -44,5 +44,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </BrowserRouter>
       </SnackbarProvider>
     </ThemeProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

@@ -49,7 +49,7 @@ function Profile() {
   const [friendRequestSent, setFriendRequestSent] = useState(false);
   const [userData, setUserData] = useState(null);
   const [updatedUrl, setUpdatedUrl] = useState("");
-  const [userExists, setUserExists] = useState(true)
+  const [userExists, setUserExists] = useState(true);
   const { username } = useParams();
 
   let name = "";
@@ -73,16 +73,15 @@ function Profile() {
       docRef
         .get()
         .then((snapshot) => {
-          if(snapshot.exists){
+          if (snapshot.exists) {
             const doc = snapshot.docs[0];
             setUserData({
               name: doc.data().name,
               avatar: doc.data().photoURL,
               uid: doc.data().uid,
             });
-          }
-          else { 
-            setUserExists(false)
+          } else {
+            setUserExists(false);
           }
         })
         .catch((error) => {
@@ -281,7 +280,7 @@ function Profile() {
             });
           })
           .catch((error) => console.error(error));
-      }
+      },
     );
     setVisible(false);
   };
@@ -301,7 +300,7 @@ function Profile() {
       <ErrorBoundary>
         <SideBar updatedUrl={updatedUrl} />
       </ErrorBoundary>
-      {(userData && userExists)? (
+      {userData && userExists ? (
         <>
           <div className="background-image">
             <img
@@ -642,8 +641,10 @@ function Profile() {
             </div>
           </Box>
         </>
+      ) : userExists ? (
+        <Loader />
       ) : (
-        userExists? <Loader /> : <NotFound />
+        <NotFound />
       )}
     </>
   );
