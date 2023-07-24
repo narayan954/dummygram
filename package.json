@@ -58,7 +58,7 @@
     "dummygram"
   ],
   "author": "narayan954",
-  "license": "ISC",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/narayan954/dummygram.git"
