@@ -280,7 +280,7 @@ function Profile() {
             });
           })
           .catch((error) => console.error(error));
-      }
+      },
     );
     setVisible(false);
   };
