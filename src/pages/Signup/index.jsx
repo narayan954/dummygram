@@ -100,7 +100,7 @@ const SignupScreen = () => {
     }
 
     if (submitable) {
-      const userCollectionRef = db.collection(`users`);
+      const userCollectionRef = db.collection("users");
       const usernameDoc = db.doc(`usernames/${username}`);
       const batch = db.batch();
       await auth
@@ -266,7 +266,7 @@ const SignupScreen = () => {
     setFullName(val?.user?.displayName);
     setEmail(val?.user?.email);
     setIsOauthSignUp(true);
-    const userCollectionRef = db.collection(`users`);
+    const userCollectionRef = db.collection("users");
     const usernameDoc = db.doc(`usernames/${username}`);
     const batch = db.batch();
     batch.set(usernameDoc, { uid: val.user.uid });
