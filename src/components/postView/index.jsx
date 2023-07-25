@@ -56,7 +56,7 @@ const PostCommentView = ({
 
   const [comments, setComments] = React.useState(null);
   const [likesNo, setLikesNo] = React.useState(
-    likecount ? likecount.length : 0,
+    likecount ? likecount.length : 0
   );
   const tempLikeCount = likecount ? [...likecount] : [];
   const [showEmojis, setShowEmojis] = React.useState(false);
@@ -118,7 +118,7 @@ const PostCommentView = ({
             snapshot.docs.map((doc) => ({
               id: doc.id,
               content: doc.data(),
-            })),
+            }))
           );
         });
     }
@@ -354,7 +354,7 @@ const PostCommentView = ({
                   >
                     <div className={"post_comment_details"}>
                       <div className="post_comment_header">
-                        <span>{userComment.content.username}</span>
+                        <span>{userComment.content.displayName}</span>
                         <PostViewComments
                           fullScreen={fullScreen}
                           postId={postId}
