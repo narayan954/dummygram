@@ -60,7 +60,7 @@ function Post(prop) {
             snapshot.docs.map((doc) => ({
               id: doc.id,
               content: doc.data(),
-            })),
+            }))
           );
         });
     }
@@ -137,13 +137,6 @@ function Post(prop) {
   const postHasImages = postImages.some((image) => Boolean(image.imageUrl));
 
   const tempLikeCount = likecount ? [...likecount] : [];
-
-  const buttonStyle = {
-    ":hover": {
-      color: "#FF4D4D",
-      fontSize: "29px",
-    },
-  };
 
   async function likesHandler() {
     if (user && likecount !== undefined) {
