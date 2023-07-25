@@ -53,7 +53,8 @@ function SideBar({ anonymous }) {
             }
           >
             <div className="sidebar_align">
-              <AddCircleOutlineIcon className="icon" /> <span>New Post/Story</span>
+              <AddCircleOutlineIcon className="icon" />{" "}
+              <span>New Post/Story</span>
             </div>
           </li>
           <li

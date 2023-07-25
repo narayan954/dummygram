@@ -1,4 +1,5 @@
 import Caption from "./Post/Caption";
+import ChatBox from "./CommunityChat";
 import EditProfile from "./EditProfile";
 import Favorite from "./Favorite";
 import GuestSignInBtn from "./Guest/GuestSignInBtn";
@@ -12,7 +13,6 @@ import Post from "./Post";
 import ReadMore from "./ReadMore";
 import SearchBar from "./SearchBar";
 import SideBar from "./SideBar";
-import ChatBox from "./CommunityChat";
 import StoryView from "./Story";
 
 export {
@@ -31,7 +31,7 @@ export {
   ReadMore,
   SearchBar,
   SideBar,
-  StoryView
+  StoryView,
 };
 
 export default Post;
