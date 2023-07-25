@@ -20,6 +20,7 @@ const DialogBox = ({
 }) => {
   return (
     <Dialog
+      // component={CustomDialogContainer}
       fullWidth
       open={open}
       onClose={onClose}
@@ -45,7 +46,7 @@ const DialogBox = ({
       <DialogContent
         sx={{ color: "var(--color)", backgroundColor: "var(--bg-color)" }}
       >
-        <DialogContentText>{children}</DialogContentText>
+        <div>{children}</div>
       </DialogContent>
 
       <Divider />
