@@ -7,21 +7,13 @@
   flex-direction: column;
   align-items: flex-start;
 }
-.guidelines-header,
-.guidelines-header-img,
-.guidelines-header-img img {
+.footer-page-header,
+.footer-page-header-img,
+.footer-page-header-img img {
   width: 100%;
   height: 350px;
 }
-.guidelines-section {
-  display: flex;
-  flex-direction: column;
-  margin: 20px 40px;
-  padding: 20px;
-  padding-top: 0;
-  margin-top: 0;
-  gap: 2rem;
-}
+
 
 .guidelines-heading {
   font-size: 2rem;
@@ -59,47 +51,12 @@
 }
 
 @media only screen and (max-width: 1000px) {
-  .about-grad {
-    display: none;
-  }
   .guidelines {
     max-width: 95%;
   }
 }
-@media only screen and (min-width: 1000px) {
-  .guidelines-header,
-  .guidelines-header-img,
-  .guidelines-header-img img {
-    height: 400px !important;
-  }
-  .back-icon {
-    height: 100px;
-  }
-  .back-icon {
-    height: 100px !important;
-  }
-  .guidelines-headings {
-    font-size: 2.4rem;
-  }
-}
-@media only screen and (min-width: 1200px) {
-  .guidelines-header,
-  .guidelines-header-img,
-  .guidelines-header-img img {
-    height: 500px !important;
-  }
-}
-@media only screen and (max-width: 768px) {
-  .guidelines-header,
-  .guidelines-header-img,
-  .guidelines-header-img img {
-    height: 300px !important;
-  }
-  .back-icon {
-    height: 90px;
-  }
-}
-@media only screen and (max-width: 500px) {
+
+/* @media only screen and (max-width: 500px) {
   .guidelines-sub-container {
     width: 95vw;
     padding: 20px;
@@ -108,37 +65,5 @@
   .guidelines-heading {
     margin-top: 20px;
   }
-}
+} */
 
-@media only screen and (max-width: 600px) {
-  .guidelines-header,
-  .guidelines-header-img,
-  .guidelines-header-img img {
-    height: 250px !important;
-  }
-  .guidelines-section {
-    margin: 20px 20px;
-    padding: 20px;
-    padding-top: 0;
-    margin-top: 0;
-    gap: 1.5rem;
-  }
-  .guidelines-headings {
-    font-size: 1.5rem;
-  }
-  .guidelines-box > li {
-    font-size: 13px;
-  }
-  .back-icon {
-    margin-left: 20px;
-    height: 60px !important;
-    margin-top: 10px;
-  }
-  .back-icon .icon {
-    font-size: 3.5rem;
-  }
-  .back-icon span {
-    padding-left: 1.5rem;
-    font-size: 1rem;
-  }
-}
