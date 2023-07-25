@@ -9,7 +9,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { auth, db, storage } from "../../lib/firebase";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { collection, deleteField, onSnapshot, query, where } from "firebase/firestore";
 import { getModalStyle, useStyles } from "../../App";
 import { lazy, useEffect, useState } from "react";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
@@ -29,6 +29,7 @@ import firebase from "firebase/compat/app";
 import logo from "../../assets/logo.webp";
 import profileBackgroundImg from "../../assets/profile-background.jpg";
 import { useSnackbar } from "notistack";
+import { StoryView } from "../../components";
 
 const Post = lazy(() => import("../../components/Post"));
 const SideBar = lazy(() => import("../../components/SideBar"));
@@ -49,16 +50,19 @@ function Profile() {
   const [friendRequestSent, setFriendRequestSent] = useState(false);
   const [userData, setUserData] = useState(null);
   const [updatedUrl, setUpdatedUrl] = useState("");
+  const [viewStory, setViewStory] = useState(false)
   const { username } = useParams();
 
   let name = "";
   let avatar = "";
   let uid = "";
+  let storyTimestamp = null;
 
   if (userData) {
     name = userData.name;
     avatar = userData.avatar;
     uid = userData.uid;
+    storyTimestamp = userData.storyTimestamp;
   }
 
   const handleClose = () => setOpen(false);
@@ -73,10 +77,40 @@ function Profile() {
         .get()
         .then((snapshot) => {
           const doc = snapshot.docs[0];
+
+          const currTimestamp = firebase.firestore.Timestamp.now().seconds;
+          const storyTimestamp = doc.data().storyTimestamp?.seconds;
+
+          //Check if story is expired or not
+          if (storyTimestamp && (currTimestamp - storyTimestamp > 86400)) {
+            async function deleteStory() {
+              const querySnapshot = await db
+                .collection("story")
+                .where("username", '==', username)
+                .get();
+
+              // Delete the story that are expired
+              querySnapshot?.forEach((doc) => {
+                doc.ref.delete()
+                  .catch((error) => {
+                    console.error('Error deleting document: ', error);
+                  });
+              });
+
+              const docRef = doc.ref
+              docRef.update({
+                storyTimestamp: deleteField(),
+              })
+            }
+            deleteStory()
+          }
+
+          const data = doc.data();
           setUserData({
-            name: doc.data().name,
-            avatar: doc.data().photoURL,
-            uid: doc.data().uid,
+            name: data.name,
+            avatar: data.photoURL,
+            uid: data.uid,
+            storyTimestamp: data.storyTimestamp,
           });
         })
         .catch((error) => {
@@ -228,7 +262,7 @@ function Profile() {
     const uploadTask = storage.ref(`images/${image?.name}`).put(image);
     uploadTask.on(
       "state_changed",
-      () => {},
+      () => { },
       (error) => {
         playErrorSound();
         enqueueSnackbar(error.message, {
@@ -289,6 +323,7 @@ function Profile() {
       <ErrorBoundary>
         <SideBar updatedUrl={updatedUrl} />
       </ErrorBoundary>
+      {viewStory && <StoryView username={username} setViewStory={setViewStory} setUserData={setUserData}/>}
       {userData ? (
         <>
           <div className="background-image">
@@ -416,10 +451,14 @@ function Profile() {
               >
                 {avatar ? (
                   <Avatar
-                    onClick={() => setOpen((on) => !on)}
+                    onClick={() => {
+                      if(storyTimestamp) {
+                        setViewStory(true)
+                      }
+                    }}
                     alt={name}
                     src={updatedUrl ? updatedUrl : avatar}
-                    className="profile-pic-container"
+                    className={`profile-pic-container ${storyTimestamp? "story_available_border" : null}`}
                   />
                 ) : (
                   <FaUserCircle className="profile-pic-container" />

@@ -135,6 +135,10 @@
   font-weight: 600;
 }
 
+.story_available_border {
+  border: 6px solid rgba(2, 106, 242, 0.6);
+}
+
 .setting-logout {
   display: flex;
   flex-direction: row;

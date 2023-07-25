@@ -139,13 +139,6 @@ function Post(prop) {
 
   const tempLikeCount = likecount ? [...likecount] : [];
 
-  const buttonStyle = {
-    ":hover": {
-      color: "#FF4D4D",
-      fontSize: "29px",
-    },
-  };
-
   async function likesHandler() {
     if (user && likecount !== undefined) {
       let ind = tempLikeCount.indexOf(user.uid);
