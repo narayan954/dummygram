@@ -8,7 +8,7 @@
 }
 
 .share__button:hover {
-  background: var(--btn-color-hover);
+  background: var(--btn-color);
 }
 
 .back_button {
@@ -17,7 +17,7 @@
   align-items: center;
   border-radius: 1rem;
   font-size: 1rem;
-  background: var(--btn-color);
+  background: var(--btn-color-hover);
   color: white;
   padding: 5px 10px;
   cursor: pointer;
@@ -79,7 +79,7 @@
   display: block;
   position: relative;
   border-radius: 20px;
-  background: linear-gradient(40deg, #0cc, #daf1f7);
+  background: linear-gradient(40deg, #5F85DB, #daf1f7);
   box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
@@ -180,7 +180,7 @@ input {
 .close-btn {
   margin: 6px;
   padding: 10px;
-  background: #0cc;
+  background: #5F85DB;
   background: var(--btn-color);
   /* border: 1px solid var(--color); */
   border: none;
@@ -268,7 +268,7 @@ input {
 
   .next_button {
     display: block;
-    background: linear-gradient(40deg, #0cc, #daf1f7);
+    background: linear-gradient(40deg, #5F85DB, #daf1f7);
     width: 100%;
     color: white;
     padding: 0.6rem;

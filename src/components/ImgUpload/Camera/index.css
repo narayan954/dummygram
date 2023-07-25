@@ -18,7 +18,7 @@
 .cameraBtn button {
   margin: 6px;
   padding: 10px;
-  background: linear-gradient(40deg, #0cc 30%, #fff 100%);
+  background: linear-gradient(40deg, #5F85DB 30%, #fff 100%);
   border: none;
   box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
   border-radius: 10px;
@@ -27,7 +27,7 @@
 }
 
 .cameraBtn button:hover {
-  background: linear-gradient(-40deg, #fff, #0cc);
+  background: linear-gradient(-40deg, #fff, #5F85DB);
 }
 
 .takePic {
@@ -48,8 +48,8 @@
 .outputContainer button {
   margin: 6px;
   padding: 10px;
-  background: #0cc;
-  background: linear-gradient(40deg, #0cc 30%, rgb(219, 247, 252) 100%);
+  background: #5F85DB;
+  background: linear-gradient(40deg, #5F85DB 30%, rgb(219, 247, 252) 100%);
   /* border: 1px solid var(--color); */
   border: none;
   box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
