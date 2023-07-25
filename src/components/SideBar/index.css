@@ -90,9 +90,9 @@ footer {
   list-style-type: none;
   /* flex-wrap: wrap; */
   padding: 0;
-  text-align:center;
-  margin-right:20px;
-  margin-top:20px;
+  text-align: center;
+  margin-right: 20px;
+  margin-top: 20px;
 }
 
 .sidebar-footer-container > li {
@@ -106,14 +106,14 @@ footer {
 
 .footer-link:hover {
   /* text-decoration: underline; */
-  color:var(--color);
+  color: var(--color);
 }
 
 .copyright {
   margin-top: 10px;
   color: var(--color);
-  text-align:center;
-  margin-right:25px;
+  text-align: center;
+  margin-right: 25px;
 }
 
 .activeTab {
