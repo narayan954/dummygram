@@ -9,8 +9,14 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { auth, db } from "../../lib/firebase";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { auth, db, storage } from "../../lib/firebase";
+import {
+  collection,
+  deleteField,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import { getModalStyle, useStyles } from "../../App";
 import { lazy, useEffect, useState } from "react";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
@@ -25,6 +31,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import Modal from "@mui/material/Modal";
 import NotFound from "../NotFound";
 import SettingsIcon from "@mui/icons-material/Settings";
+import { StoryView } from "../../components";
 import ViewsCounter from "../../reusableComponents/views";
 import firebase from "firebase/compat/app";
 import logo from "../../assets/logo.webp";
@@ -48,6 +55,7 @@ function Profile() {
   const [userData, setUserData] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [userExists, setUserExists] = useState(true);
+  const [viewStory, setViewStory] = useState(false);
   const { username } = useParams();
 
   let name = "";
@@ -55,6 +63,7 @@ function Profile() {
   let uid = "";
   let bio = "";
   let country = "";
+  let storyTimestamp = null;
 
   if (userData) {
     name = userData.name;
@@ -62,6 +71,7 @@ function Profile() {
     uid = userData.uid;
     bio = userData.bio;
     country = userData.country;
+    storyTimestamp = userData.storyTimestamp;
   }
 
   const handleClose = () => setOpen(false);
@@ -77,14 +87,43 @@ function Profile() {
         .then((snapshot) => {
           if (snapshot.docs) {
             const doc = snapshot.docs[0];
+
+            const currTimestamp = firebase.firestore.Timestamp.now().seconds;
+            const storyTimestamp = doc.data().storyTimestamp?.seconds;
+
+            //Check if story is expired or not
+            if (storyTimestamp && currTimestamp - storyTimestamp > 86400) {
+              async function deleteStory() {
+                const querySnapshot = await db
+                  .collection("story")
+                  .where("username", "==", username)
+                  .get();
+
+                // Delete the story that are expired
+                querySnapshot?.forEach((doc) => {
+                  doc.ref.delete().catch((error) => {
+                    console.error("Error deleting document: ", error);
+                  });
+                });
+
+                const docRef = doc.ref;
+                docRef.update({
+                  storyTimestamp: deleteField(),
+                });
+              }
+              deleteStory();
+            }
+
+            const data = doc.data();
             setUserData({
-              name: doc.data().name,
-              avatar: doc.data().photoURL,
-              uid: doc.data().uid,
-              bio: doc.data().bio
-                ? doc.data().bio
+              name: data.name,
+              avatar: data.photoURL,
+              uid: data.uid,
+              bio: data.bio
+                ? data.bio
                 : "Lorem ipsum dolor sit amet consectetur",
-              country: doc.data().country ? doc.data().country : "Global",
+              country: data.country ? data.country : "Global",
+              storyTimestamp: data.storyTimestamp,
             });
           } else {
             setUserExists(false);
@@ -241,6 +280,13 @@ function Profile() {
       <ErrorBoundary>
         <SideBar />
       </ErrorBoundary>
+      {viewStory && (
+        <StoryView
+          username={username}
+          setViewStory={setViewStory}
+          setUserData={setUserData}
+        />
+      )}
       {isEditing && (
         <EditProfile
           userData={userData}
@@ -354,10 +400,16 @@ function Profile() {
               >
                 {avatar ? (
                   <Avatar
-                    onClick={() => setOpen((on) => !on)}
+                    onClick={() => {
+                      if (storyTimestamp) {
+                        setViewStory(true);
+                      }
+                    }}
                     alt={name}
                     src={avatar}
-                    className="profile-pic-container"
+                    className={`profile-pic-container ${
+                      storyTimestamp ? "story_available_border" : null
+                    }`}
                   />
                 ) : (
                   <FaUserCircle className="profile-pic-container" />
