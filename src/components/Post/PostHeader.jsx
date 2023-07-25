@@ -118,7 +118,9 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
         className="post__avatar  flex avatar"
         alt={displayName}
         src={avatar}
-        onClick={() => navigate(`/dummygram/${isAnonymous ? "signup" : username}`)}
+        onClick={() =>
+          navigate(`/dummygram/${isAnonymous ? "signup" : username}`)
+        }
         onMouseEnter={showProfileDialogBox}
         onMouseLeave={hideProfileDialogBox}
       />

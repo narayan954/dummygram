@@ -9,7 +9,7 @@
   position: fixed;
   width: 100%;
   top: 0;
-  z-index: 1;
+  z-index: 999;
   padding-top: 10px;
   padding-bottom: 10px;
   object-fit: contain;
@@ -60,4 +60,14 @@
   display: flex;
   padding: 0.5rem;
   cursor: pointer;
+}
+
+.chatIcon {
+  margin-top: 5px;
+  transform: scale(1.2);
+  margin-top: 11px;
+}
+
+#chat-icon {
+  display: inline-block;
 }

@@ -47,7 +47,8 @@
   transition: all;
   transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
-  box-shadow: rgba(86, 238, 218, 0.8) 0px 3px 6px,
+  box-shadow:
+    rgba(86, 238, 218, 0.8) 0px 3px 6px,
     rgba(108, 190, 186, 0.8) 0px 3px 6px;
 }
 
@@ -185,6 +186,10 @@
   transition: 0.3s ease-in-out;
 }
 
+.comment-doer-name {
+  cursor: pointer;
+}
+
 .comment-delete-icon:hover {
   background-color: rgb(187, 187, 187);
 }
@@ -259,6 +264,12 @@
 .social__icons__wrapper {
   display: flex;
   align-items: center;
+}
+
+.profile-picture {
+  height: 30px;
+  width: 30px;
+  border-radius: 100%;
 }
 
 @media only screen and (max-width: 800px) {

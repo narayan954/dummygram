@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
+import { ChatPage } from "./pages";
 import ErrorBoundary from "./reusableComponents/ErrorBoundary";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { GuestSignUpBtn } from "./components";
@@ -24,7 +25,7 @@ const ForgotPassword = React.lazy(() => import("./pages/ForgotPassword"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 const Settings = React.lazy(() => import("./pages/Settings"));
 const Contributors = React.lazy(() =>
-  import("./pages/FooterPages/ContributorPage/index")
+  import("./pages/FooterPages/ContributorPage/index"),
 );
 // ------------------------------------- Components ------------------------------------------------
 const Favorite = React.lazy(() => import("./components/Favorite.jsx"));
@@ -95,6 +96,12 @@ function App() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const isCenteredScroll =
+    location.pathname === "/dummygram/favourites" ||
+    location.pathname === "/dummygram/about" ||
+    location.pathname === "/dummygram/guidelines" ||
+    location.pathname === "/dummygram/contributors";
+
   window.addEventListener("scroll", checkScrollTop);
 
   useEffect(() => {
@@ -124,7 +131,7 @@ function App() {
           snapshot.docs.map((doc) => ({
             id: doc.id,
             post: doc.data(),
-          }))
+          })),
         );
       });
   }, []);
@@ -179,12 +186,10 @@ function App() {
             currentPostLink={currentPostLink}
             postText={postText}
           />
-          {location.pathname &&
-            (location.pathname == "/dummygram/login" ||
-              location.pathname == "/dummygram/signup") && (
-              <Darkmode themeClass="themeButton themeButton-login" />
-            )}
-
+          {(location.pathname == "/dummygram/login" ||
+            location.pathname == "/dummygram/signup") && (
+            <Darkmode themeClass="themeButton themeButton-login" />
+          )}
           <Routes>
             <Route
               exact
@@ -193,7 +198,7 @@ function App() {
                 user ? (
                   <div className="flex">
                     <ErrorBoundary inApp={true}>
-                      <SideBar anonymous={anonymous}/>
+                      <SideBar anonymous={anonymous} />
                     </ErrorBoundary>
                     <div
                       className="home-posts-container"
@@ -246,6 +251,15 @@ function App() {
               element={
                 <ErrorBoundary inApp={true}>
                   <Profile />
+                </ErrorBoundary>
+              }
+            />
+
+            <Route
+              path="/dummygram/chat"
+              element={
+                <ErrorBoundary inApp={true}>
+                  <ChatPage user={user} />
                 </ErrorBoundary>
               }
             />
@@ -363,33 +377,16 @@ function App() {
             />
           </Routes>
           {/* below scroll button must be checked for implementation */}
-          {location.pathname === "/dummygram/" ||
-          location.pathname === "/dummygram/favourites" ||
-          location.pathname === "/dummygram/about" ||
-          location.pathname === "/dummygram/guidelines" ||
-          location.pathname === "/dummygram/contributors" ? (
-            <FaArrowCircleUp
-              fill="#777"
-              className="scrollTop"
-              onClick={scrollTop}
-              style={{
-                height: 50,
-                display: showScroll ? "flex" : "none",
-                position: "fixed",
-              }}
-            />
-          ) : (
-            <FaArrowCircleUp
-              fill="#777"
-              className="scrollTop sideToTop"
-              onClick={scrollTop}
-              style={{
-                height: 50,
-                display: showScroll ? "flex" : "none",
-                position: "fixed",
-              }}
-            />
-          )}
+          <FaArrowCircleUp
+            fill="#0cc"
+            className={`scrollTop ${isCenteredScroll ? "centeredScroll" : ""}`}
+            onClick={scrollTop}
+            style={{
+              height: 50,
+              display: showScroll ? "flex" : "none",
+              position: "fixed",
+            }}
+          />
         </div>
       </ErrorBoundary>
     </RowModeContext.Provider>

@@ -1,6 +1,15 @@
 import "../Login/index";
 import "./index.css";
 
+import {
+  Auth__ctn__group,
+  Auth__image__input,
+  Auth__pass__input,
+  Auth__text__input,
+  Auth__top,
+  Auth_container,
+} from "../../reusableComponents/Auth";
+import { Logo, validate } from "../../reusableComponents";
 import React, { useRef, useState } from "react";
 import {
   auth,
@@ -10,15 +19,7 @@ import {
   storage,
 } from "../../lib/firebase";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
-import {
-  Auth__ctn__group,
-  Auth__image__input,
-  Auth__pass__input,
-  Auth__text__input,
-  Auth_container,
-  Auth__top,
-} from "../../reusableComponents/Auth";
-import { Logo, validate } from "../../reusableComponents";
+
 import blank_profile from "../../assets/blank-profile.webp";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import loginRight from "../../assets/login-right.webp";
@@ -99,7 +100,7 @@ const SignupScreen = () => {
     }
 
     if (submitable) {
-      const userCollectionRef = db.collection(`users`);
+      const userCollectionRef = db.collection("users");
       const usernameDoc = db.doc(`usernames/${username}`);
       const batch = db.batch();
       await auth
@@ -265,7 +266,7 @@ const SignupScreen = () => {
     setFullName(val?.user?.displayName);
     setEmail(val?.user?.email);
     setIsOauthSignUp(true);
-    const userCollectionRef = db.collection(`users`);
+    const userCollectionRef = db.collection("users");
     const usernameDoc = db.doc(`usernames/${username}`);
     const batch = db.batch();
     batch.set(usernameDoc, { uid: val.user.uid });

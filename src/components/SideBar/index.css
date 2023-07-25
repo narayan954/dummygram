@@ -146,9 +146,16 @@ footer {
     border-top: 1px solid rgb(219, 219, 219);
     border-right: none;
     width: 100vw;
-    height: 8vh;
-    top: 92vh;
+    height: 60px;
+    position: fixed;
+    padding-block: 5px;
+    bottom: 0;
     z-index: 2;
+    margin: 0;
+  }
+
+  .sidebar hr {
+    display: none;
   }
 
   #sidebar-home-link {
@@ -158,7 +165,7 @@ footer {
   .sidebar-links {
     justify-content: space-around;
     flex-direction: row;
-    height: 8vh;
+    height: 60px;
   }
 
   .sidebar-links li {

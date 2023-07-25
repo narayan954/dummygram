@@ -13,14 +13,12 @@
       <img src="https://forthebadge.com/images/badges/powered-by-responsibility.svg" />
       <br>
       <img src="https://img.shields.io/github/repo-size/narayan954/dummygram?style=for-the-badge" />
-      <img src="https://img.shields.io/github/issues/narayan954/dummygram?style=for-the-badge" />
       <img src="https://img.shields.io/github/issues-raw/narayan954/dummygram?style=for-the-badge" />
       <img src="https://img.shields.io/github/forks/narayan954/dummygram?style=for-the-badge" />
       <img src="https://img.shields.io/github/issues-pr-closed/narayan954/dummygram?style=for-the-badge" />
       <br>
       <img src="https://img.shields.io/github/stars/narayan954/dummygram?style=for-the-badge" />
       <img src="https://img.shields.io/github/contributors/narayan954/dummygram?style=for-the-badge" />
-      <img src="https://img.shields.io/github/issues-pr-closed/narayan954/dummygram?style=for-the-badge" />
       <img src="https://img.shields.io/github/last-commit/narayan954/dummygram?style=for-the-badge" />
  </div>
 
@@ -174,6 +172,9 @@ npm start
 
 ## Testing
 
+<details>
+    <summary>Instructions</summary>
+
 Here we will see, how to run tests and how to setup new test cases.
 _We will be using Cypress for our testing purposes._
 
@@ -256,6 +257,7 @@ E2E Files: `/cypress/e2e/`
    ```
 
 </details>
+</details>
 
 ---
 
@@ -320,8 +322,10 @@ Dummygram is now part of GitHub. For code of conduct, please see [GitHub's Commu
 
 <div  align="center"><img  height="70px"  src="https://user-images.githubusercontent.com/77617189/192942891-31b9152c-918b-4fac-af05-0ad6b1f594aa.svg"  /></div>
 
-## <h1 align=center>Open Source Programs</h1>
+## Programs
 
+<details>
+    <summary>List</summary>
 <p align="center">
 
 <a href="https://hacktoberfest.com/"><img alt="hacktoberfest logo" src="https://user-images.githubusercontent.com/79099734/189589410-ca17afb8-5855-4316-918a-054f27594809.png"></a>
@@ -336,13 +340,14 @@ Dummygram is now part of GitHub. For code of conduct, please see [GitHub's Commu
 <a href="https://jwoc.tech/"><img alt="jwoc program" src="https://user-images.githubusercontent.com/77617189/219851281-59de273a-388a-4367-a7c6-39d37196ee90.png"></a>
 
 </p>
+</details>
 
 ## Feedback
 
 If you have any feedback or suggestions please reach out to the Project-Maintainer [Narayan Soni](https://github.com/narayan954)
 
 <div align="left">
-For further queries and whereabouts you can communicate and reach out to the owner through <a href="https://www.linkedin.com/in/narayan-soni/">Linkedin</a> & <a href="https://mail.google.com/mail/u/0/#inbox">email</a>
+For further queries and whereabouts you can communicate and reach out to the owner through <a href="https://www.linkedin.com/in/narayan-soni/">Linkedin</a> & <a href="mailto:narayansoni954@gmail.com">email</a>
 </div>
 
 ## 👩🏽‍💻 Contributing
@@ -359,7 +364,14 @@ For further queries and whereabouts you can communicate and reach out to the own
 
 Thanks a lot for spending your time helping dummygram grow. Thanks a lot! Keep rocking 🍻
 
-[![Contributors](https://contrib.rocks/image?repo=narayan954/dummygram)](https://github.com/narayan954/dummygram/graphs/contributors)
+<details>
+    <summary>Contributors</summary>
+    <div>
+      <a href="https://github.com/narayan954/dummygram/graphs/contributors">
+      <img src="https://contrib.rocks/image?repo=narayan954/dummygram"/>
+      </a>
+    </div>
+</details>
 
 ## License
 

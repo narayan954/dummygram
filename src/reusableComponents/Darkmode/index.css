@@ -24,6 +24,12 @@
   margin-right: 20px;
 }
 
+.themeButton span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .darkmode-btn button {
   border-radius: 50%;
   width: 40px;

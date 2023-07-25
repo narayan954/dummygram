@@ -110,6 +110,7 @@
   position: relative;
   overflow: hidden;
   width: 100%;
+  background: rgb(0, 132, 255);
 }
 
 .show__hide--pass {
@@ -118,7 +119,8 @@
   border: none;
   outline: none;
   cursor: pointer;
-  margin: auto;
+  color: white;
+  font-size: large;
 }
 
 .pass__input__container input {

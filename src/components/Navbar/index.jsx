@@ -3,6 +3,7 @@ import "./index.css";
 import React, { useEffect } from "react";
 
 import { AiOutlineInsertRowAbove } from "react-icons/ai";
+import ChatIcon from "@mui/icons-material/Chat";
 import { Darkmode } from "../../reusableComponents";
 import { Logo } from "../../reusableComponents";
 import { auth } from "../../lib/firebase";
@@ -34,6 +35,13 @@ function Navbar({ onClick, user, setUser }) {
           <div className="container">
             <div className="rowConvert" onClick={onClick}>
               <AiOutlineInsertRowAbove style={{ margin: "auto" }} size={30} />
+            </div>
+            <div
+              className="rowConvert"
+              id="chat-icon"
+              onClick={() => navigate("/dummygram/chat")}
+            >
+              <ChatIcon className="chatIcon" />
             </div>
           </div>
           <Darkmode themeClass="themeButton" />
