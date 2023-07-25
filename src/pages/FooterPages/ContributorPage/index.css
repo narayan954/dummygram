@@ -2,10 +2,12 @@
 .navigation nav ul li button{
   border-radius: 50%;
   margin: 0 0.5rem;
+  color: var(--color);
+  border: 1px solid var(--pagination-border);
 }
 .contributors-outer {
   width: 90vw;
-  margin: 0 auto 3rem;
+  margin: 0 auto 3.3rem;
 }
 
 @media only screen and (max-width: 640px) {
