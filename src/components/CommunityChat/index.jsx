@@ -107,7 +107,14 @@ const ChatBox = () => {
                 className={"chat-user-img"}
                 onClick={() => goToUserProfile(message.uid)}
               />
-              <p className="chat-msg-text">{message.text}</p>
+              <div className="chat-msg-text">
+                <h5 
+                  className="chat-msg-sender-name" 
+                  onClick={() => goToUserProfile(message.uid)}>
+                  {message.displayName}
+                </h5>
+                <p>{message.text}</p>
+              </div>
             </li>
           ))}
         </ul>
