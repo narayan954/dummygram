@@ -1,18 +1,21 @@
-import "../design.css";
 import "./index.css";
+import "../design.css";
 
 import { Box, Pagination, Typography, useMediaQuery } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
 import ContributorCard from "./ContributorCard";
-import { Link } from "react-router-dom";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { VscChromeClose } from "react-icons/vsc";
+import backgroundimg from "../../../assets/contributors.png";
 
 function Contributor() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const [contributors, setContributors] = useState([]);
   const isNonMobileScreen = useMediaQuery("(max-width: 800px)");
+  const navigate = useNavigate();
 
   const getData = async () => {
     const res = await fetch(
@@ -35,78 +38,62 @@ function Contributor() {
   }, [currentPage]);
 
   return (
-    <div className="contributor-container footer-page-para-color">
-      <div className="contributor-sub-container">
-        <span className="grad1 grad"></span>
-        <span className="grad2 grad"></span>
-        <span className="grad3 grad"></span>
-        <span className="grad4 grad"></span>
-        <span className="grad5 grad"></span>
-        <span className="grad6 grad"></span>
-        <span className="grad7 grad"></span>
-        <span className="grad8 grad"></span>
-        <span className="grad9 grad"></span>
-        <span className="grad10 grad"></span>
-        <span className="grad11 grad"></span>
-        <span className="grad12 grad"></span>
-        <div className="contributor-section glassmorphism-effect">
-          <Box
-            margin={isNonMobileScreen ? "1rem 3rem" : "1rem 3rem"}
-            position="relative"
-          >
-            <div
-              className="closeIcon"
-              style={{
-                fontSize: "30px",
-                position: "absolute",
-                top: "0",
-                right: "0",
-              }}
-            >
-              <Link to="/dummygram/">
-                <VscChromeClose style={{ fontWeight: "bold" }} />
-              </Link>
-            </div>
-            <Typography
-              textAlign="center"
-              fontFamily="serif"
-              fontSize="3.2rem"
-              fontWeight="600"
-              m="2rem 0"
-            >
-              Our Contributors
-            </Typography>
-            <Box
-              sx={{
-                width: "100%",
-                display: "flex",
-                flexWrap: "wrap",
-                rowGap: "2rem",
-                justifyContent: "space-around",
-              }}
-            >
-              {contributors.map((contributor) => (
-                <ContributorCard
-                  key={contributor.id}
-                  image={contributor.avatar_url}
-                  title={contributor.login}
-                  commits={contributor.contributions}
-                  profile={contributor.html_url}
-                />
-              ))}
-            </Box>
-
-            <Box display="flex" justifyContent="center" mt="2rem">
-              <Pagination
-                page={currentPage}
-                onChange={handleChange}
-                variant="outlined"
-                color="primary"
-                count={10}
-              />
-            </Box>
-          </Box>
+    <div className="footer-page-container footer-page-para-color">
+      <div className="footer-page-header">
+        <div
+          className="footer-page-header-img"
+          style={{ position: "relative" }}
+        >
+          <img src={backgroundimg} style={{ objectFit: "cover" }} />
         </div>
+      </div>
+      <div
+        className="back-icon"
+        style={{ height: "90px", cursor: "pointer" }}
+        onClick={() => navigate("/dummygram/")}
+      >
+        <KeyboardBackspaceIcon className="icon" /> <span>Back to Home</span>
+      </div>
+      <div className="footer-page-section">
+        <h2 className="footer-page-headings footer-page-heading-color">
+          Our Contributors
+        </h2>
+      </div>
+      <div className="contributors-outer">
+        <Box
+          className="contributors-container"
+          sx={{
+            width: "100%",
+            display: "flex",
+            flexWrap: "wrap",
+            rowGap: "2rem",
+            justifyContent: "space-around",
+          }}
+        >
+          {contributors.map((contributor) => (
+            <ContributorCard
+              key={contributor.id}
+              image={contributor.avatar_url}
+              title={contributor.login}
+              commits={contributor.contributions}
+              profile={contributor.html_url}
+            />
+          ))}
+        </Box>
+        <Box
+          className="navigation"
+          display="flex"
+          justifyContent="center"
+          mt="3rem"
+        >
+          <Pagination
+            page={currentPage}
+            onChange={handleChange}
+            variant="outlined"
+            color="primary"
+            count={10}
+          />
+        </Box>
       </div>
     </div>
   );
