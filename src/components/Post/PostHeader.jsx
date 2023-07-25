@@ -24,7 +24,7 @@ import useCreatedAt from "../../hooks/useCreatedAt";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
 
-const PostHeader = ({ postId, user, postData, postHasImages, timestamp, updatedUrl }) => {
+const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
   const time = useCreatedAt(timestamp);
   const { fullScreen, isAnonymous } = user; // needs fixing
   const { username, caption, imageUrl, displayName, avatar } = postData;
@@ -118,14 +118,15 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp, updatedU
         className="post__avatar  flex avatar"
         alt={displayName}
         src={avatar}
-        onClick={() => navigate(`/dummygram/${isAnonymous ? "signup" : username}`)}
+        onClick={() =>
+          navigate(`/dummygram/${isAnonymous ? "signup" : username}`)
+        }
         onMouseEnter={showProfileDialogBox}
         onMouseLeave={hideProfileDialogBox}
       />
       <ProfileDialogBox
         mouseOnProfileImg={mouseOnProfileImg}
         userData={userData}
-        updatedUrl={updatedUrl}
       />
       <Link
         to={`/dummygram/${isAnonymous ? "signup" : `posts/${postId}`}`}

@@ -17,6 +17,7 @@
   --logo-text-shadow: none;
   --btn-color: linear-gradient(-40deg, #daf1f7, #0cc);
   --btn-color-hover: linear-gradient(40deg, #0cc, #daf1f7);
+  --btn-hover: rgb(0, 204, 204);
   --page-over-color: #5ec3fd;
   --slide-color: #9be5ea;
   --label-color: rgb(200, 246, 248);
@@ -25,7 +26,7 @@
   --post-error-boundary: rgba(0, 0, 0, 0.54);
   --text-black-only: black;
   --dark-post-bg: rgb(255, 255, 255);
-  --btn-hover: rgb(0, 204, 204);
+  --link-color: #3a82c4;
 }
 
 .darkmode {
@@ -45,6 +46,7 @@
   --logo-text-shadow: 0 0 10px #eeeeee, 0 0 20px #0cc, 0 0 30px #fff;
   --btn-color: linear-gradient(40deg, #0cc, #daf1f7);
   --btn-color-hover: linear-gradient(-40deg, #daf1f7, #0cc);
+  --btn-hover: rgb(0, 204, 204);
   --page-over-color: #3a3e44;
   --slide-color: #524a54;
   --label-color: #6a656b;
@@ -54,7 +56,7 @@
   --post-error-boundary: rgba(255, 255, 255, 0.54);
   --darkmode-white: white;
   --dark-post-bg: #2a323c;
-  --btn-hover: rgb(0, 204, 204);
+  --link-color: #3679b7;
 }
 
 * {
@@ -242,6 +244,11 @@ input:focus {
   width: 50px;
   margin-left: -29%;
   cursor: pointer;
+  opacity: 0.7;
+}
+
+.centeredScroll {
+  margin-left: 0;
 }
 
 .scrollTop:hover {
@@ -274,10 +281,6 @@ input:focus {
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-  .sideToTop {
-    left: 19.6%;
-  }
-
   .app__newpost__button {
     left: -4.2%;
   }
@@ -285,10 +288,6 @@ input:focus {
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 911px) {
-  .sideToTop {
-    left: 19.6%;
-  }
-
   .app__newpost__button {
     left: -2.5%;
   }
@@ -310,10 +309,6 @@ input:focus {
   }
   .scrollTop {
     left: 40.7%;
-  }
-
-  .sideToTop {
-    left: 19.6%;
   }
 
   .app__newpost__button {

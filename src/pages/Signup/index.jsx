@@ -100,7 +100,7 @@ const SignupScreen = () => {
     }
 
     if (submitable) {
-      const userCollectionRef = db.collection(`users`);
+      const userCollectionRef = db.collection("users");
       const usernameDoc = db.doc(`usernames/${username}`);
       const batch = db.batch();
       await auth
@@ -120,7 +120,7 @@ const SignupScreen = () => {
                 photoURL: auth.currentUser.photoURL,
                 posts: [],
                 friends: [],
-              })
+              }),
             )
             .then(() => {
               playSuccessSound();
@@ -128,7 +128,7 @@ const SignupScreen = () => {
                 `Congratulations ${fullName},you have joined Dummygram`,
                 {
                   variant: "success",
-                }
+                },
               );
               navigate("/dummygram");
             })
@@ -164,7 +164,7 @@ const SignupScreen = () => {
                   });
                 })
                 .catch((error) => console.error(error));
-            }
+            },
           );
         })
         .catch((error) => {
@@ -266,7 +266,7 @@ const SignupScreen = () => {
     setFullName(val?.user?.displayName);
     setEmail(val?.user?.email);
     setIsOauthSignUp(true);
-    const userCollectionRef = db.collection(`users`);
+    const userCollectionRef = db.collection("users");
     const usernameDoc = db.doc(`usernames/${username}`);
     const batch = db.batch();
     batch.set(usernameDoc, { uid: val.user.uid });
@@ -288,7 +288,7 @@ const SignupScreen = () => {
           `Congratulations ${fullName},you have joined Dummygram`,
           {
             variant: "success",
-          }
+          },
         );
         navigate("/dummygram");
       })
