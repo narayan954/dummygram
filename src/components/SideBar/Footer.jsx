@@ -12,32 +12,32 @@ const Footer = () => {
         </li>
         <li>
           <Link to="/dummygram/about" className="footer-link">
-            about
+            About
           </Link>
         </li>
         <li>
           <Link to="/dummygram/feedback" className="footer-link">
-            feedback
+            Feedback
           </Link>
         </li>
         <li>
           <Link to="/dummygram/contributors" className="footer-link">
-            contributors
+            Contributors
           </Link>
         </li>
         <li>
           <Link to="/dummygram/help-center" className="footer-link">
-            help-center
+            Help-center
           </Link>
         </li>
         <li>
           <Link to="/dummygram/guidelines" className="footer-link">
-            guidelines
+            Guidelines
           </Link>
         </li>
         <li>
           <Link to="/dummygram/guidelines" className="footer-link">
-            policy
+            Policy
           </Link>
         </li>
       </ul>

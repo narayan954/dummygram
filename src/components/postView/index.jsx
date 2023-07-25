@@ -1,12 +1,10 @@
 import {
   Avatar,
   ClickAwayListener,
+  IconButton,
   Typography,
   useMediaQuery,
-  IconButton,
 } from "@mui/material";
-import { Send } from "@mui/icons-material";
-
 import {
   CommentForm,
   CommentItem,
@@ -23,6 +21,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import Caption from "../Post/Caption.jsx";
 import EmojiPicker from "emoji-picker-react";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
+import { Send } from "@mui/icons-material";
 import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
 import { db } from "../../lib/firebase.js";
 import firebase from "firebase/compat/app";
@@ -56,7 +55,7 @@ const PostCommentView = ({
 
   const [comments, setComments] = React.useState(null);
   const [likesNo, setLikesNo] = React.useState(
-    likecount ? likecount.length : 0,
+    likecount ? likecount.length : 0
   );
   const tempLikeCount = likecount ? [...likecount] : [];
   const [showEmojis, setShowEmojis] = React.useState(false);
@@ -80,7 +79,6 @@ const PostCommentView = ({
       };
       await updateDoc(docRef, data)
         .then(() => setFetchAgain(!fetchAgain))
-
         .catch((error) => {
           console.error("Error updating document: ", error);
         });
@@ -118,7 +116,7 @@ const PostCommentView = ({
             snapshot.docs.map((doc) => ({
               id: doc.id,
               content: doc.data(),
-            })),
+            }))
           );
         });
     }
@@ -224,13 +222,7 @@ const PostCommentView = ({
                     },
                   }}
                   onClick={() => {
-                    navigate("/dummygram/profile", {
-                      state: {
-                        name: username,
-                        avatar: avatar,
-                        email: email,
-                      },
-                    });
+                    navigate(`/dummygram/${username}`);
                   }}
                 />
               }
@@ -354,7 +346,7 @@ const PostCommentView = ({
                   >
                     <div className={"post_comment_details"}>
                       <div className="post_comment_header">
-                        <span>{userComment.content.username}</span>
+                        <span>{userComment.content.displayName}</span>
                         <PostViewComments
                           fullScreen={fullScreen}
                           postId={postId}
