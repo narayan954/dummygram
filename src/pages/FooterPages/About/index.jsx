@@ -25,7 +25,7 @@ const About = () => {
         if (match) {
           const lastPageUrl = match[1];
           const pageCount = new URLSearchParams(
-            new URL(lastPageUrl).search
+            new URL(lastPageUrl).search,
           ).get("page");
           return parseInt(pageCount);
         } else {
@@ -39,12 +39,12 @@ const About = () => {
 
   useEffect(() => {
     getCount(
-      "https://api.github.com/repos/narayan954/dummygram/commits?sha=master&per_page=1&page=1"
+      "https://api.github.com/repos/narayan954/dummygram/commits?sha=master&per_page=1&page=1",
     ).then((count) => {
       setCommits(count);
     });
     getCount(
-      "https://api.github.com/repos/narayan954/dummygram/contributors?per_page=1&anon=true"
+      "https://api.github.com/repos/narayan954/dummygram/contributors?per_page=1&anon=true",
     ).then((count) => {
       setContributors(count);
     });
