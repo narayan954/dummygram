@@ -1,5 +1,4 @@
-
-.navigation nav ul li button{
+.navigation nav ul li button {
   border-radius: 50%;
   margin: 0 0.5rem;
   color: var(--color);
@@ -19,7 +18,7 @@
     width: 100%;
     padding: 1.5rem;
   }
-  .navigation nav ul li button{
+  .navigation nav ul li button {
     height: 2.2rem;
     width: 2.2rem;
     margin: 0 0.3rem;
@@ -34,7 +33,7 @@
     gap: 1rem;
     row-gap: 2rem;
   }
-  .navigation nav ul li button{
+  .navigation nav ul li button {
     height: 2.8rem;
     width: 2.8rem;
   }
@@ -47,7 +46,7 @@
   .contributors-outer {
     width: 85vw;
   }
-  .navigation nav ul li button{
+  .navigation nav ul li button {
     height: 3.2rem;
     width: 3.2rem;
   }

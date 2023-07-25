@@ -35,14 +35,19 @@ function ContributorCard(props) {
           style={{ width: "10rem", height: "10rem", borderRadius: "50%" }}
         />
       </Box>
-      <Link to={profile} style={{textDecoration:"none"}} target="_blank" referrerPolicy="no-referrer">
+      <Link
+        to={profile}
+        style={{ textDecoration: "none" }}
+        target="_blank"
+        referrerPolicy="no-referrer"
+      >
         <div style={{ display: "flex", alignItems: "center" }}>
           <span
             style={{
               marginRight: "10px",
               display: "flex",
               alignItems: "center",
-              color:"var(--link-color)"
+              color: "var(--link-color)",
             }}
           >
             <GitHub />

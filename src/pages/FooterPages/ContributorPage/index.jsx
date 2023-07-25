@@ -2,13 +2,13 @@ import "./index.css";
 import "../design.css";
 
 import { Box, Pagination, Typography, useMediaQuery } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
 import ContributorCard from "./ContributorCard";
-import { Link, useNavigate } from "react-router-dom";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { VscChromeClose } from "react-icons/vsc";
 import backgroundimg from "../../../assets/contributors.png";
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
 function Contributor() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -80,7 +80,12 @@ function Contributor() {
             />
           ))}
         </Box>
-        <Box className="navigation" display="flex" justifyContent="center" mt="3rem">
+        <Box
+          className="navigation"
+          display="flex"
+          justifyContent="center"
+          mt="3rem"
+        >
           <Pagination
             page={currentPage}
             onChange={handleChange}
