@@ -28,7 +28,7 @@ const ImageSlider = ({ slides, doubleClickHandler }) => {
 
   return slides.length ? (
     <div className="slider" onDoubleClick={doubleClickHandler}>
-      {slides.map(({ imageUrl, imageWidth, imageHeight, thumbnail }, index) => (
+      {slides.map(({ imageUrl, thumbnail }, index) => (
         <div
           style={{
             display: index === current ? "contents" : "none",
