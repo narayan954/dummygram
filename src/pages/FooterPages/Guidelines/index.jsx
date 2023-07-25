@@ -1,30 +1,32 @@
 import "./index.css";
 import "../design.css";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { VscChromeClose } from "react-icons/vsc";
+import background from "../../../assets/guidelines.png";
 
 const Guidelines = () => {
+  const navigate = useNavigate();
+
   return (
-    <div className="guidlines-container footer-page-para-color">
-      <span className="grad1 grad"></span>
-      <span className="grad2 grad"></span>
-      <span className="grad3 grad about-grad"></span>
-      <span className="grad4 grad"></span>
-      <div className="glassmorphism-effect guidelines-sub-container">
-        <div
-          className="closeIcon"
-          style={{ fontSize: "30px", marginBottom: "-100px" }}
-        >
-          <Link to="/dummygram/">
-            <VscChromeClose style={{ fontWeight: "bold" }} />
-          </Link>
+    <div className="footer-page-container footer-page-para-color">
+      <div className="footer-page-header">
+        <div className="footer-page-header-img">
+          <img src={background} style={{ objectFit: "cover" }} />
         </div>
-        <h1 className="guidelines-heading footer-page-heading-color">
-          GUIDELINES
-        </h1>
+      </div>
+      <div
+        className="back-icon"
+        style={{ height: "90px", cursor: "pointer" }}
+        onClick={() => navigate("/dummygram/")}
+      >
+        <KeyboardBackspaceIcon className="icon" /> <span>Back to Home</span>
+      </div>
+      <div className="footer-page-section">
         <div className="guidelines">
-          <h2 className="guidelines-sub-heading footer-page-heading-color">
+          <h2 className="footer-page-headings footer-page-heading-color">
             Account Creation
           </h2>
           <ul className="guidelines-box">
@@ -40,7 +42,7 @@ const Guidelines = () => {
           </ul>
         </div>
         <div className="guidelines">
-          <h2 className="guidelines-sub-heading footer-page-heading-color">
+          <h2 className="footer-page-headings footer-page-heading-color">
             User Conduct
           </h2>
           <ul className="guidelines-box">
@@ -67,7 +69,7 @@ const Guidelines = () => {
           </ul>
         </div>
         <div className="guidelines">
-          <h2 className="guidelines-sub-heading footer-page-heading-color">
+          <h2 className="footer-page-headings footer-page-heading-color">
             Intellectual Property
           </h2>
           <ul className="guidelines-box">
@@ -85,7 +87,7 @@ const Guidelines = () => {
           </ul>
         </div>
         <div className="guidelines">
-          <h2 className="guidelines-sub-heading footer-page-heading-color">
+          <h2 className="footer-page-headings footer-page-heading-color">
             Safety and Security
           </h2>
           <ul className="guidelines-box">
@@ -109,7 +111,7 @@ const Guidelines = () => {
           </ul>
         </div>
         <div className="guidelines">
-          <h2 className="guidelines-sub-heading footer-page-heading-color">
+          <h2 className="footer-page-headings footer-page-heading-color">
             Moderation and Enforcement
           </h2>
           <ul className="guidelines-box">
@@ -134,7 +136,7 @@ const Guidelines = () => {
           </ul>
         </div>
         <div className="guidelines">
-          <h2 className="guidelines-sub-heading footer-page-heading-color">
+          <h2 className="footer-page-headings footer-page-heading-color">
             Data Privacy and Security
           </h2>
           <ul className="guidelines-box">
@@ -150,7 +152,7 @@ const Guidelines = () => {
           </ul>
         </div>
         <div className="guidelines">
-          <h2 className="guidelines-sub-heading footer-page-heading-color">
+          <h2 className="footer-page-headings footer-page-heading-color">
             Legal Compliance
           </h2>
           <ul className="guidelines-box">
@@ -165,7 +167,7 @@ const Guidelines = () => {
           </ul>
         </div>
         <div className="guidelines">
-          <h2 className="guidelines-sub-heading footer-page-heading-color">
+          <h2 className="footer-page-headings footer-page-heading-color">
             Updates to Guidelines
           </h2>
           <ul className="guidelines-box">
