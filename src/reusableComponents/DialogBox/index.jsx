@@ -6,7 +6,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   Divider,
 } from "@mui/material";
@@ -20,7 +19,6 @@ const DialogBox = ({
 }) => {
   return (
     <Dialog
-      // component={CustomDialogContainer}
       fullWidth
       open={open}
       onClose={onClose}
@@ -38,7 +36,6 @@ const DialogBox = ({
           >
             {title}
           </DialogTitle>
-
           <Divider />
         </>
       )}
