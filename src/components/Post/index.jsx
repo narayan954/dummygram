@@ -31,7 +31,6 @@ const PostNav = lazy(() => import("./PostNav"));
 function Post(prop) {
   const { postId, user, post, shareModal, setLink, setPostText, rowMode } =
     prop;
-    const updatedUrl = prop.updatedUrl;
   const { caption, imageUrl, likecount, timestamp } = post;
 
   const [comments, setComments] = useState([]);
@@ -61,7 +60,7 @@ function Post(prop) {
             snapshot.docs.map((doc) => ({
               id: doc.id,
               content: doc.data(),
-            }))
+            })),
           );
         });
     }
@@ -188,7 +187,6 @@ function Post(prop) {
           postHasImages={postHasImages}
           postId={postId}
           timestamp={timestamp}
-          updatedUrl={updatedUrl}
         />
       </ErrorBoundary>
       <Divider />
@@ -202,7 +200,7 @@ function Post(prop) {
             caption={caption}
           />
         </ErrorBoundary>
-        <Divider style={{paddingTop: "6px"}} />
+        <Divider style={{ paddingTop: "6px" }} />
         <Flexbetween>
           <Typography
             marginLeft={1}

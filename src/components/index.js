@@ -1,4 +1,5 @@
 import Caption from "./Post/Caption";
+import EditProfile from "./EditProfile";
 import Favorite from "./Favorite";
 import GuestSignInBtn from "./Guest/GuestSignInBtn";
 import GuestSignUpBtn from "./Guest/GuestSignUpBtn";
@@ -17,6 +18,7 @@ import StoryView from "./Story";
 export {
   Caption,
   ChatBox,
+  EditProfile,
   Favorite,
   GuestSignInBtn,
   GuestSignUpBtn,

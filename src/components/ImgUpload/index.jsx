@@ -463,6 +463,7 @@ return (
             )}
           </div>
           <TextField
+            className="create-post-input"
             onChange={(e) => setCaption(e.target.value)}
             value={caption}
             variant="filled"
@@ -478,8 +479,10 @@ return (
               },
               "& .MuiFilledInput-root": {
                 background: "transparent",
+                color: "var(--color)",
               },
             }}
+            style={{ color: "var(--color) !important" }}
           />
           <div className="shareBtnContainer">
             <button

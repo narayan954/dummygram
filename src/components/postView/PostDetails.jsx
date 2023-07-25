@@ -31,7 +31,9 @@ const PostDetails = ({
             {tempLikeCount.indexOf(user?.uid) !== -1 ? (
               <FavoriteOutlined sx={{ color: "red" }} />
             ) : (
-              <FavoriteBorderOutlined style={{ color: "var(--post-nav-icons)" }} />
+              <FavoriteBorderOutlined
+                style={{ color: "var(--post-nav-icons)" }}
+              />
             )}
           </IconButton>
           <Typography fontSize={14}>
