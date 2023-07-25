@@ -13,6 +13,7 @@ import Post from "./Post";
 import ReadMore from "./ReadMore";
 import SearchBar from "./SearchBar";
 import SideBar from "./SideBar";
+import StoryView from "./Story";
 
 export {
   Caption,
@@ -30,6 +31,7 @@ export {
   ReadMore,
   SearchBar,
   SideBar,
+  StoryView,
 };
 
 export default Post;
