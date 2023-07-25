@@ -1,4 +1,6 @@
 import Caption from "./Post/Caption";
+import ChatBox from "./CommunityChat";
+import EditProfile from "./EditProfile";
 import Favorite from "./Favorite";
 import GuestSignInBtn from "./Guest/GuestSignInBtn";
 import GuestSignUpBtn from "./Guest/GuestSignUpBtn";
@@ -11,11 +13,11 @@ import Post from "./Post";
 import ReadMore from "./ReadMore";
 import SearchBar from "./SearchBar";
 import SideBar from "./SideBar";
-import ChatBox from "./CommunityChat";
 
 export {
   Caption,
   ChatBox,
+  EditProfile,
   Favorite,
   GuestSignInBtn,
   GuestSignUpBtn,
