@@ -12,7 +12,7 @@
   display: flex;
   gap: 1rem;
   justify-content: center;
-  padding: 2.5rem 1rem;
+  padding: 1px 1rem;
   overflow-y: scroll;
 }
 
@@ -27,7 +27,7 @@
 
 .greetings h3 {
   color: var(--color);
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 
 .greetings p {
