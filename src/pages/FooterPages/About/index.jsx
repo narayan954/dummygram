@@ -25,7 +25,7 @@ const About = () => {
         if (match) {
           const lastPageUrl = match[1];
           const pageCount = new URLSearchParams(
-            new URL(lastPageUrl).search,
+            new URL(lastPageUrl).search
           ).get("page");
           return parseInt(pageCount);
         } else {
@@ -39,12 +39,12 @@ const About = () => {
 
   useEffect(() => {
     getCount(
-      "https://api.github.com/repos/narayan954/dummygram/commits?sha=master&per_page=1&page=1",
+      "https://api.github.com/repos/narayan954/dummygram/commits?sha=master&per_page=1&page=1"
     ).then((count) => {
       setCommits(count);
     });
     getCount(
-      "https://api.github.com/repos/narayan954/dummygram/contributors?per_page=1&anon=true",
+      "https://api.github.com/repos/narayan954/dummygram/contributors?per_page=1&anon=true"
     ).then((count) => {
       setContributors(count);
     });
@@ -63,9 +63,12 @@ const About = () => {
   }, []);
 
   return (
-    <div className="about-container footer-page-para-color">
-      <div className="about-header">
-        <div className="about-header-img" style={{ position: "relative" }}>
+    <div className="footer-page-container footer-page-para-color">
+      <div className="footer-page-header">
+        <div
+          className="footer-page-header-img"
+          style={{ position: "relative" }}
+        >
           <img src={about} style={{ objectFit: "cover" }} />
         </div>
       </div>
@@ -76,9 +79,9 @@ const About = () => {
       >
         <KeyboardBackspaceIcon className="icon" /> <span>Back to Home</span>
       </div>
-      <div className="about-us-section">
+      <div className="footer-page-section">
         <div className="about-us">
-          <h2 className="about-headings footer-page-heading-color">
+          <h2 className="footer-page-headings footer-page-heading-color">
             Who we are?
           </h2>
           <p>
@@ -90,7 +93,9 @@ const About = () => {
           </p>
         </div>
         <div className="vision">
-          <h2 className="about-headings footer-page-heading-color">Vision</h2>
+          <h2 className="footer-page-headings footer-page-heading-color">
+            Vision
+          </h2>
           <p>
             Combine the best features of Instagram while adding a touch of
             innovation and uniqueness. We strive to create a platform that
@@ -98,7 +103,9 @@ const About = () => {
           </p>
         </div>
         <div className="creators">
-          <h2 className="about-headings footer-page-heading-color">Creators</h2>
+          <h2 className="footer-page-headings footer-page-heading-color">
+            Creators
+          </h2>
           <p>
             Dummygram's development has been started by{" "}
             <a
@@ -120,7 +127,7 @@ const About = () => {
         </div>
         <div className="stats">
           <h2
-            className="about-headings footer-page-heading-color"
+            className="footer-page-headings footer-page-heading-color"
             style={{ marginBottom: "1.5rem" }}
           >
             Stats
