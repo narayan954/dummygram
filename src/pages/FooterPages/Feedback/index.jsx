@@ -19,7 +19,7 @@ export const Feedback = () => {
         "service_hg3vdpg",
         "dummygram_feedback",
         form.current,
-        "OV1vxF7lxYkw_RRWy",
+        "OV1vxF7lxYkw_RRWy"
       )
       .then(
         (result) => {
@@ -30,7 +30,7 @@ export const Feedback = () => {
         },
         (error) => {
           console.error("Error:", error);
-        },
+        }
       );
   };
 
@@ -62,6 +62,7 @@ export const Feedback = () => {
           />
           <label>Feedback</label>
           <textarea
+            maxLength={1000}
             name="message"
             placeholder="Feedback..."
             className="feedback_textarea"
