@@ -15,27 +15,28 @@
   --profile-box-shadow: 0 0 6px 0 black;
   --profile-divider: "";
   --logo-text-shadow: none;
-  --btn-color: linear-gradient(-40deg, #daf1f7, #0cc);
-  --btn-color-hover: linear-gradient(40deg, #0cc, #daf1f7);
-  --btn-hover: rgb(0, 204, 204);
-  --page-over-color: #5ec3fd;
-  --slide-color: #9be5ea;
+  --btn-color: linear-gradient(-40deg, #daf1f7, #5f85db);
+  --btn-color-hover: linear-gradient(40deg, #5f85db, #daf1f7);
+  --btn-hover: #5f85db;
+  --page-over-color: #5f85db;
+  --slide-color: #90b8f8;
   --label-color: rgb(200, 246, 248);
   --profile-color: #7d7575;
   --text-light: rgba(0, 0, 0, 0.6);
   --post-error-boundary: rgba(0, 0, 0, 0.54);
   --text-black-only: black;
   --dark-post-bg: rgb(255, 255, 255);
-  --link-color: #3a82c4;
+  --link-color: #068FFF;
   --pagination-border: rgba(0, 0, 0, 0.23);
 }
 
 .darkmode {
-  --bg-color: #1c2128;
+  --bg-color: black;
   --text-primary: rgb(255, 255, 255);
   --text-secondary: white;
   --color: rgb(226, 226, 226);
-  --logo-text-shadow: 0 0 10px #eeeeee, 0 0 20px #ff4da6, 0 0 30px #ff4da6;
+  /* --logo-text-shadow: 0 0 7px #eeeeee, 0 0 10px #ff4da6, 0 0 20px #ff4da6; */
+  --logo-text-shadow: none;
   --filter-img: invert(100%);
   --sidebar-link-hover: rgba(255, 255, 255, 0.15);
   --post-box-shadow: 0px 0px 5px 1px rgba(255, 255, 255, 0.4);
@@ -44,10 +45,10 @@
   --profile-container: rgb(50, 48, 48);
   --profile-box-shadow: 0 0 6px white;
   --profile-divider: #898989;
-  --logo-text-shadow: 0 0 10px #eeeeee, 0 0 20px #0cc, 0 0 30px #fff;
-  --btn-color: linear-gradient(40deg, #0cc, #daf1f7);
-  --btn-color-hover: linear-gradient(-40deg, #daf1f7, #0cc);
-  --btn-hover: rgb(0, 204, 204);
+  /* --logo-text-shadow: 0 0 10px #eeeeee, 0 0 20px #5F85DB, 0 0 30px #fff; */
+  --btn-color: linear-gradient(40deg, #5f85db, #daf1f7);
+  --btn-color-hover: linear-gradient(-40deg, #daf1f7, #5f85db);
+  --btn-hover: #5f85db;
   --page-over-color: #3a3e44;
   --slide-color: #524a54;
   --label-color: #6a656b;
@@ -56,8 +57,8 @@
   --text-light: rgba(255, 255, 255, 0.6);
   --post-error-boundary: rgba(255, 255, 255, 0.54);
   --darkmode-white: white;
-  --dark-post-bg: #2a323c;
-  --link-color: #3679b7;
+  --dark-post-bg: #191919;
+  --link-color: #068FFF;
   --pagination-border: rgba(255, 255, 255, 0.23);
 }
 

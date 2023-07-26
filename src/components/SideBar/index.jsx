@@ -132,7 +132,7 @@ function SideBar({ anonymous }) {
       >
         <div
           style={{
-            backgroundColor: "var(--bg-color)",
+            backgroundColor: "var(--dark-post-bg)",
             textAlign: "center",
             color: "var(--color)",
           }}
