@@ -40,7 +40,7 @@
   max-width: 400px;
   margin-top: 20px;
   /* padding: 5px; */
-  border: 2px solid #90B8F8;
+  border: 2px solid #90b8f8;
   border-radius: 5px;
   margin-bottom: 20px;
   word-wrap: break-word;
@@ -201,7 +201,7 @@
 
 .send-comment-btn {
   font-weight: bold;
-  color: #5F85DB;
+  color: #5f85db;
   border-radius: 50%;
   padding: 5px;
 }
