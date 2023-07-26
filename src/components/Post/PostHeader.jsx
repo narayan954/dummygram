@@ -22,7 +22,7 @@ import { db } from "../../lib/firebase";
 import { saveAs } from "file-saver";
 import useCreatedAt from "../../hooks/useCreatedAt";
 import { useSnackbar } from "notistack";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
   const time = useCreatedAt(timestamp);
@@ -34,18 +34,61 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
   const [openEditCaption, setOpenEditCaption] = useState(false);
   const [editCaption, setEditCaption] = useState(caption);
   const [mouseOnProfileImg, setMouseOnProfileImg] = useState(false);
-  const [userData, setUserData] = useState({
-    name: displayName,
-    username: username,
-    avatar: avatar,
-    bio: "Lorem 🌺ipsum dolorsit amet consectetur adipisicing elit. Corporis incidunt voluptates😎 in dolores necessitatibus quasi",
-    followers: 2314,
-    following: 1514,
-  });
+  const [userData, setUserData] =useState({})
+  // const [userData, setUserData] = useState({
+  //   name: displayName,
+  //   username: username,
+  //   avatar: avatar,
+  //   bio: "Lorem 🌺ipsum dolorsit amet consectetur adipisicing elit. Corporis incidunt voluptates😎 in dolores necessitatibus quasi",
+  //   followers: "",
+  //   following: "",
+  // });
   const { enqueueSnackbar } = useSnackbar();
   const open = Boolean(anchorEl);
   const ITEM_HEIGHT = 48;
   const navigate = useNavigate();
+
+
+  useEffect(() => {
+    async function getUserData() {
+      const docRef = db
+        .collection("users")
+        .where("uid", "==", postData.uid)
+        .limit(1);
+      docRef
+        .get()
+        .then((snapshot) => {
+          if (snapshot.docs) {
+            const doc = snapshot.docs[0];
+
+            const data = doc.data();
+            console.log(data)
+            setUserData({
+              name: data.name,
+              username: data.username,
+              avatar: data.photoURL,
+              uid: data.uid,
+              posts: data.posts.length,
+              bio: data.bio
+                ? data.bio
+                : "Lorem ipsum dolor sit amet consectetur",
+              followers: "",
+              following: "",
+              country: data.country ? data.country : "",
+              storyTimestamp: data.storyTimestamp,
+            });
+          } else {
+            setUserExists(false);
+          }
+        })
+        .catch((error) => {
+          enqueueSnackbar(`Error Occured: ${error}`, {
+            variant: "error",
+          });
+        });
+    }
+    getUserData();
+  }, []);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -89,6 +132,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
 
   function showProfileDialogBox() {
     setMouseOnProfileImg(true);
+    console.log(userDatanew)
     // const fetchUserByUsername = async (username) => {
     //   try {
     //     const usersRef = db.collection('users');
@@ -114,6 +158,8 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
 
   return (
     <div className="post__header">
+      {/* {console.log("post",postData)} */}
+      {/* {console.log("user",user)} */}
       <Avatar
         className="post__avatar  flex avatar"
         alt={displayName}
