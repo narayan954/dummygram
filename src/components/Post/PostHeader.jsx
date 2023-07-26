@@ -119,7 +119,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
         alt={displayName}
         src={avatar}
         onClick={() =>
-          navigate(`/dummygram/${isAnonymous ? "signup" : username}`)
+          navigate(`/dummygram/${isAnonymous ? "signup" : `user/${username}`}`)
         }
         onMouseEnter={showProfileDialogBox}
         onMouseLeave={hideProfileDialogBox}
@@ -177,7 +177,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
           {postHasImages && (
             <MenuItem onClick={handleDownload}> Download </MenuItem>
           )}
-          <MenuItem onClick={() => navigate(`/dummygram/${username}`)}>
+          <MenuItem onClick={() => navigate(`/dummygram/user/${username}`)}>
             Visit Profile
           </MenuItem>
         </Menu>
