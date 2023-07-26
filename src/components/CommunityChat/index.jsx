@@ -1,7 +1,7 @@
 import "./index.css";
 
 import { auth, db } from "../../lib/firebase";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import EmojiPicker from "emoji-picker-react";
 import SendIcon from "@mui/icons-material/Send";
@@ -13,10 +13,10 @@ import { useSnackbar } from "notistack";
 const ChatBox = () => {
   const [showEmojis, setShowEmojis] = useState(false);
   const [messages, setMessages] = useState([]);
-  const [loadMoreMsgs, setLoadMoreMsgs] = useState(false)
+  const [loadMoreMsgs, setLoadMoreMsgs] = useState(false);
   const [newMessage, setNewMessage] = useState("");
   const [user, setUser] = useState(null);
-  const [isLastMsgRecieved, setIsLastMsgRecieved] = useState(false)
+  const [isLastMsgRecieved, setIsLastMsgRecieved] = useState(false);
   const chatMsgContainerRef = useRef(null);
   let latestDoc = null;
 
@@ -37,9 +37,9 @@ const ChatBox = () => {
       window.scrollTo({ top: window.innerHeight + 800 });
     };
     if (!isLastMsgRecieved) {
-      scrollTop()
+      scrollTop();
     }
-  }, [messages])
+  }, [messages]);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -71,13 +71,12 @@ const ChatBox = () => {
         setMessages(data);
       });
 
-
     return unsubscribe;
   }, [db]);
 
   const handleMouseScroll = (event) => {
     if (event.target.documentElement.scrollTop === 0 && !isLastMsgRecieved) {
-      setLoadMoreMsgs(true)
+      setLoadMoreMsgs(true);
     }
   };
 
@@ -100,7 +99,7 @@ const ChatBox = () => {
           });
           latestDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
           if (querySnapshot.empty) {
-            setIsLastMsgRecieved(true)
+            setIsLastMsgRecieved(true);
           }
         });
     }
@@ -156,8 +155,9 @@ const ChatBox = () => {
           {messages.map((message) => (
             <li
               key={message.id}
-              className={`chat-message ${user?.uid == message.uid ? "current-user-msg" : ""
-                }`}
+              className={`chat-message ${
+                user?.uid == message.uid ? "current-user-msg" : ""
+              }`}
             >
               <img
                 src={message.photoURL}
