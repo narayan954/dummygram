@@ -1,8 +1,8 @@
 import "./index.css";
 
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 const ProfileDialogBox = ({ mouseOnProfileImg, userData }) => {
   const [isHoverActive, setIsHoverActive] = useState(false);
@@ -47,15 +47,20 @@ const ProfileDialogBox = ({ mouseOnProfileImg, userData }) => {
             {name}
           </h4>
           <h5 className="dialog-box-username">@{username}</h5>
-          <span
-            className="dialog-box-username"
-          >
+          <span className="dialog-box-username">
             <LocationOnIcon className="hover-location-icon" fontSize="small" />{" "}
             {country}
           </span>
         </div>
       </div>
-      <p className="dialog-box-bio">Bio: <span style={{fontWeight: "400", fontSize:"13px", lineHeight:"0.0rem"}}>{bio}</span></p>
+      <p className="dialog-box-bio">
+        Bio:{" "}
+        <span
+          style={{ fontWeight: "400", fontSize: "13px", lineHeight: "0.0rem" }}
+        >
+          {bio}
+        </span>
+      </p>
       <p className="dialog-box-bio">Posts: {posts}</p>
       {followers && following ? (
         <div className="dialog-box-follow-container">
