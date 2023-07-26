@@ -1,3 +1,39 @@
+.glassmorphism-effect {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0)
+  );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.grad {
+  display: inline-block;
+  position: absolute;
+  z-index: -1;
+  background-image: linear-gradient(109.6deg, #0cc, #fff 91.1%);
+}
+
+.grad3 {
+  top: 10%;
+  right: -10%;
+  width: 200px;
+  aspect-ratio: 1/2;
+  transform: rotateZ(15deg);
+  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
+}
+
+.grad4 {
+  top: 600px;
+  right: 10%;
+  width: 300px;
+  aspect-ratio: 1;
+  border-radius: 32% 68% 74% 26% / 20% 65% 35% 80%;
+}
+
 .footer-page-heading-color {
   color: var(--color);
 }
@@ -119,5 +155,11 @@
   }
   .guidelines-box > li {
     font-size: 14px !important;
+  }
+  .grad3 {
+    width: 150px;
+  }
+  .grad4 {
+    width: 200px;
   }
 }
