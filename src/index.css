@@ -27,6 +27,7 @@
   --text-black-only: black;
   --dark-post-bg: rgb(255, 255, 255);
   --link-color: #3a82c4;
+  --pagination-border: rgba(0, 0, 0, 0.23);
 }
 
 .darkmode {
@@ -57,6 +58,7 @@
   --darkmode-white: white;
   --dark-post-bg: #2a323c;
   --link-color: #3679b7;
+  --pagination-border: rgba(255, 255, 255, 0.23);
 }
 
 * {
