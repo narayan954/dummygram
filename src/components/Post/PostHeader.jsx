@@ -55,7 +55,6 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
             const doc = snapshot.docs[0];
 
             const data = doc.data();
-            console.log(data);
             setUserData({
               name: data.name,
               username: data.username,
