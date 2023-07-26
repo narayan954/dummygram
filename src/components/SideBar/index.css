@@ -12,6 +12,7 @@
 .sidebar-container {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   height: 100vh;
   overflow-y: scroll;
 }
@@ -76,7 +77,9 @@
 }
 
 footer {
-  margin-block: auto;
+  display: absolute;
+  bottom: 0;
+  margin-bottom: 2em;
   font-size: 13px;
   background-color: var(--dark-post-bg);
   padding-left: 12px;
