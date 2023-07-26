@@ -63,7 +63,16 @@
 
 .post__background {
   min-height: 200px;
-  background: url(../../assets/postbg.webp);
+  background: linear-gradient( 
+    130deg,
+    #dee2ed,
+    #dee2ed,
+    #9aa9d1,
+    #b6c8e3,
+    #b6afd0,
+    #d3c0d8
+  );
+
   background-size: cover;
   color: black;
   justify-content: center;
