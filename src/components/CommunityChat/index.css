@@ -33,6 +33,7 @@
   flex: 1;
   margin-top: 0;
   font-size: 1em;
+  width: 70%;
 }
 
 .chat-msg-send-btn-container {
@@ -116,6 +117,15 @@
   display: none;
 }
 
+.communitychat-emoji-btn {
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.communitychat-emoji-btn:hover {
+  transform: scale(1.1);
+}
+
 @media screen and (max-width: 1200px) {
   .chat-main-container {
     margin-left: 8vw;
@@ -136,7 +146,7 @@
   }
   .chat-input-container {
     width: 95%;
-    bottom: 70px;
+    bottom: 80px;
   }
   .chat-msg-text {
     max-width: 75%;

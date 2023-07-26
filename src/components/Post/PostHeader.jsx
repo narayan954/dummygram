@@ -12,7 +12,7 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { doc, updateDoc } from "firebase/firestore";
 
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
@@ -46,6 +46,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
   const open = Boolean(anchorEl);
   const ITEM_HEIGHT = 48;
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -119,7 +120,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
         alt={displayName}
         src={avatar}
         onClick={() =>
-          navigate(`/dummygram/${isAnonymous ? "signup" : username}`)
+          navigate(`/dummygram/${isAnonymous ? "signup" : `user/${username}`}`)
         }
         onMouseEnter={showProfileDialogBox}
         onMouseLeave={hideProfileDialogBox}
@@ -136,23 +137,26 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
         <p className="post__time">{time}</p>
       </Link>
       <div className="social__icon__last">
-        <IconButton
-          aria-label="more"
-          id="long-button"
-          aria-controls={open ? "long-menu" : undefined}
-          aria-expanded={open ? "true" : undefined}
-          aria-haspopup="true"
-          onClick={(event) =>
-            isAnonymous
-              ? navigate("/dummygram/signup")
-              : setAnchorEl(event.currentTarget)
-          }
-          sx={{
-            color: "var(--color)",
-          }}
-        >
-          <MoreHorizOutlinedIcon />
-        </IconButton>
+        {!location.pathname.includes("/dummygram/user") && (
+          <IconButton
+            aria-label="more"
+            id="long-button"
+            aria-controls={open ? "long-menu" : undefined}
+            aria-expanded={open ? "true" : undefined}
+            aria-haspopup="true"
+            onClick={(event) =>
+              isAnonymous
+                ? navigate("/dummygram/signup")
+                : setAnchorEl(event.currentTarget)
+            }
+            sx={{
+              color: "var(--color)",
+            }}
+          >
+            <MoreHorizOutlinedIcon />
+          </IconButton>
+        )}
+
         <Menu
           id="long-menu"
           MenuListProps={{
@@ -177,7 +181,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
           {postHasImages && (
             <MenuItem onClick={handleDownload}> Download </MenuItem>
           )}
-          <MenuItem onClick={() => navigate(`/dummygram/${username}`)}>
+          <MenuItem onClick={() => navigate(`/dummygram/user/${username}`)}>
             Visit Profile
           </MenuItem>
         </Menu>
