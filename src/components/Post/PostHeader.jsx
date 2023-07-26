@@ -12,7 +12,7 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
-import { Link, useNavigate,useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { doc, updateDoc } from "firebase/firestore";
 
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
@@ -137,28 +137,25 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
         <p className="post__time">{time}</p>
       </Link>
       <div className="social__icon__last">
-       
-        {
-          
-          (user?.uid == username || location.pathname == "/dummygram/" || location.pathname == "/dummygram/favourites" || location.pathname == "/dummygram/search") && 
-        <IconButton
-          aria-label="more"
-          id="long-button"
-          aria-controls={open ? "long-menu" : undefined}
-          aria-expanded={open ? "true" : undefined}
-          aria-haspopup="true"
-          onClick={(event) =>
-            isAnonymous
-              ? navigate("/dummygram/signup")
-              : setAnchorEl(event.currentTarget)
-          }
-          sx={{
-            color: "var(--color)",
-          }}
-        >
-          <MoreHorizOutlinedIcon />
-        </IconButton>
-        }
+        {!location.pathname.includes("/dummygram/user") && (
+          <IconButton
+            aria-label="more"
+            id="long-button"
+            aria-controls={open ? "long-menu" : undefined}
+            aria-expanded={open ? "true" : undefined}
+            aria-haspopup="true"
+            onClick={(event) =>
+              isAnonymous
+                ? navigate("/dummygram/signup")
+                : setAnchorEl(event.currentTarget)
+            }
+            sx={{
+              color: "var(--color)",
+            }}
+          >
+            <MoreHorizOutlinedIcon />
+          </IconButton>
+        )}
 
         <Menu
           id="long-menu"
