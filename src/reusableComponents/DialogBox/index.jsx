@@ -23,7 +23,6 @@ const DialogBox = ({
       open={open}
       onClose={onClose}
       aria-labelledby="responsive-dialog-title"
-      
     >
       {showTitle && (
         <>

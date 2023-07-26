@@ -26,7 +26,7 @@
   --post-error-boundary: rgba(0, 0, 0, 0.54);
   --text-black-only: black;
   --dark-post-bg: rgb(255, 255, 255);
-  --link-color: #068FFF;
+  --link-color: #068fff;
   --pagination-border: rgba(0, 0, 0, 0.23);
 }
 
@@ -58,7 +58,7 @@
   --post-error-boundary: rgba(255, 255, 255, 0.54);
   --darkmode-white: white;
   --dark-post-bg: #191919;
-  --link-color: #068FFF;
+  --link-color: #068fff;
   --pagination-border: rgba(255, 255, 255, 0.23);
 }
 
