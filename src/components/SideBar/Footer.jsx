@@ -5,9 +5,9 @@ const Footer = () => {
   return (
     <footer>
       <ul className="sidebar-footer-container">
-        <li>
+        <li className="github-icon">
           <a href="https://github.com/narayan954/dummygram" target="_blank">
-            <GitHubIcon />
+            <GitHubIcon sx={{ color: "#4775df" }} />
           </a>
         </li>
         <li>
