@@ -1,11 +1,13 @@
 import "./index.css";
 
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const ProfileDialogBox = ({ mouseOnProfileImg, userData }) => {
   const [isHoverActive, setIsHoverActive] = useState(false);
-  const { name, username, avatar, bio, followers, following } = userData;
+  const { name, username, avatar, posts, bio, followers, following, country } =
+    userData;
   const navigate = useNavigate();
 
   function hoverOver() {
@@ -27,30 +29,51 @@ const ProfileDialogBox = ({ mouseOnProfileImg, userData }) => {
       onMouseLeave={hoverOut}
       className="profile-dialog-box-container"
     >
-      <img
-        src={avatar}
-        alt={name}
-        className="dialog-box-img"
-        onClick={() => navigate(`/dummygram/user/${username}`)}
-      />
-      <div className="dialog-box-name-container">
-        <h4
-          className="dialog-box-display-name"
+      <div style={{ display: "flex", gap: "2rem" }}>
+        <img
+          src={avatar}
+          alt={name}
+          className="dialog-box-img"
           onClick={() => navigate(`/dummygram/user/${username}`)}
+        />
+        <div
+          className="dialog-box-name-container"
+          style={{ marginTop: "10px" }}
         >
-          {name}
-        </h4>
-        <h5 className="dialog-box-username">@{username}</h5>
+          <h4
+            className="dialog-box-display-name"
+            onClick={() => navigate(`/dummygram/user/${username}`)}
+          >
+            {name}
+          </h4>
+          <h5 className="dialog-box-username">@{username}</h5>
+          <span className="dialog-box-username">
+            <LocationOnIcon className="hover-location-icon" fontSize="small" />{" "}
+            {country}
+          </span>
+        </div>
       </div>
-      <p className="dialog-box-bio">{bio}</p>
-      <div className="dialog-box-follow-container">
-        <p>
-          <span>{following}</span> Following
-        </p>
-        <p>
-          <span>{followers}</span> Followers
-        </p>
-      </div>
+      <p className="dialog-box-bio">
+        Bio:{" "}
+        <span
+          style={{ fontWeight: "400", fontSize: "13px", lineHeight: "0.0rem" }}
+        >
+          {bio}
+        </span>
+      </p>
+      <p className="dialog-box-bio">Posts: {posts}</p>
+      {followers && following ? (
+        <div className="dialog-box-follow-container">
+          <p>
+            <span>{following}</span> Following
+          </p>
+          <p>
+            <span>{followers}</span> Followers
+          </p>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
