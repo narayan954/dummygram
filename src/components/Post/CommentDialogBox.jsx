@@ -74,9 +74,10 @@ const CommentDialogBox = ({
                     setOpenToDeleteComment(!openToDeleteComment);
                     setDeleteCommentID(userComment);
                   }}
-                >                  
+                >   
+                {console.log(userComment,"datayy")}               
                   {user &&
-                    userComment?.content?.username == user._delegate.uid && (
+                    userComment?.content?.displayName == user?.displayName && (
                       <DeleteTwoToneIcon
                         fontSize="small"
                         className="comment-delete-icon"
