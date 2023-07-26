@@ -1,7 +1,6 @@
 import "react-lazy-load-image-component/src/effects/blur.css";
 import "./index.css";
 
-
 import {
   DialogBox,
   ErrorBoundary,
@@ -17,7 +16,6 @@ import {
 } from "@mui/material";
 import { doc, updateDoc } from "firebase/firestore";
 import { lazy, useEffect, useState } from "react";
-
 
 import { db } from "../../lib/firebase";
 import firebase from "firebase/compat/app";
@@ -43,8 +41,6 @@ function Post(prop) {
   const [deleteCommentID, setDeleteCommentID] = useState("");
   const [openToDeleteComment, setOpenToDeleteComment] = useState(false);
 
-
-
   const theme = useTheme();
   const { enqueueSnackbar } = useSnackbar();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -64,7 +60,7 @@ function Post(prop) {
             snapshot.docs.map((doc) => ({
               id: doc.id,
               content: doc.data(),
-            })),
+            }))
           );
         });
     }
@@ -299,7 +295,6 @@ function Post(prop) {
           </div>
         )}
       </div>
- 
     </div>
   );
 }

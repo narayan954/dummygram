@@ -3,12 +3,12 @@ import "./index.css";
 import { auth, db } from "../../lib/firebase";
 import { useEffect, useState } from "react";
 
+import EmojiPicker from "emoji-picker-react";
 import SendIcon from "@mui/icons-material/Send";
+import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfied";
 import firebase from "firebase/compat/app";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
-import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied'; 
-import EmojiPicker from "emoji-picker-react";
 
 const ChatBox = () => {
   const [showEmojis, setShowEmojis] = useState(false);
@@ -24,7 +24,7 @@ const ChatBox = () => {
     setNewMessage((prevInput) => prevInput + emojiObject.emoji);
     setShowEmojis(false);
   };
-  
+
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -109,8 +109,9 @@ const ChatBox = () => {
           {messages.map((message) => (
             <li
               key={message.id}
-              className={`chat-message ${user?.uid == message.uid ? "current-user-msg" : ""
-                }`}
+              className={`chat-message ${
+                user?.uid == message.uid ? "current-user-msg" : ""
+              }`}
             >
               <img
                 src={message.photoURL}
@@ -133,7 +134,14 @@ const ChatBox = () => {
       </div>
       <form className="chat-input-container" onSubmit={handleOnSubmit}>
         {showEmojis && (
-          <div style={{position:'absolute',top: '-350px', left: 0, zIndex: 999}}>
+          <div
+            style={{
+              position: "absolute",
+              top: "-350px",
+              left: 0,
+              zIndex: 999,
+            }}
+          >
             <EmojiPicker
               emojiStyle="native"
               height={330}
@@ -146,7 +154,10 @@ const ChatBox = () => {
             />
           </div>
         )}
-        <SentimentVerySatisfiedIcon style={{color:'rgb(242, 186, 4)', fontSize:'2rem'}} onClick={handleEmojiClick}/>
+        <SentimentVerySatisfiedIcon
+          style={{ color: "rgb(242, 186, 4)", fontSize: "2rem" }}
+          onClick={handleEmojiClick}
+        />
         <input
           type="text"
           onChange={handleChange}
