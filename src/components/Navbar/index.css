@@ -13,11 +13,11 @@
   padding-top: 10px;
   padding-bottom: 10px;
   object-fit: contain;
-  border-bottom: 1px solid rgb(219, 219, 219);
+  /* border-bottom: 1px solid rgb(219, 219, 219); */
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  background-color: var(--bg-color);
+  background-color: var(--dark-post-bg);
 }
 
 .navSpace {
