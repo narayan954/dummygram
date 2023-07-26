@@ -242,10 +242,11 @@ input:focus {
 
 .scrollTop {
   position: fixed;
-  bottom: 4%;
+  position: relative;
+  bottom: 8%;
   height: 50px;
   width: 50px;
-  margin-left: -29%;
+  margin-left: -27%;
   cursor: pointer;
   opacity: 0.7;
 }
