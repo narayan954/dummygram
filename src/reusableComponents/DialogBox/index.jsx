@@ -6,7 +6,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   Divider,
 } from "@mui/material";
@@ -38,7 +37,6 @@ const DialogBox = ({
           >
             {title}
           </DialogTitle>
-
           <Divider />
         </>
       )}
@@ -46,7 +44,7 @@ const DialogBox = ({
       <DialogContent
         sx={{ color: "var(--color)", backgroundColor: "var(--dark-post-bg)" }}
       >
-        <DialogContentText>{children}</DialogContentText>
+        <div>{children}</div>
       </DialogContent>
 
       <Divider />

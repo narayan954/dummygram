@@ -190,6 +190,22 @@ input {
   font-size: large;
 }
 
+.shareBtnContainer {
+  width: 100%;
+  display: flex;
+  gap: 5px;
+}
+
+.disable_post_btn {
+  background: grey;
+  cursor: not-allowed;
+}
+
+.disable_post_btn:hover {
+  background: grey;
+  cursor: not-allowed;
+}
+
 @media only screen and (min-width: 800px) {
   .dialogStyle {
     width: 60vw;
@@ -239,6 +255,7 @@ input {
 
   .small_post_view {
     display: none;
+    width: 100%;
   }
 }
 
@@ -263,7 +280,7 @@ input {
   }
 
   .post__caption_section {
-    width: 48vw;
+    width: 100%;
   }
 
   .next_button {
