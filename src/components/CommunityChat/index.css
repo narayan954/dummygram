@@ -95,6 +95,16 @@
   box-shadow: 1px 1px 5px #59afc7;
 }
 
+.chat-msg-sender-name {
+  margin-bottom: 3px;
+  color: #59afc7;
+  cursor: pointer;
+}
+
+.chat-msg-sender-name:hover {
+  text-decoration: underline;
+}
+
 .current-user-msg > img {
   align-self: flex-start;
 }
