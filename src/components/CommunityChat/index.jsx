@@ -155,6 +155,7 @@ const ChatBox = () => {
           </div>
         )}
         <SentimentVerySatisfiedIcon
+          className="communitychat-emoji-btn"
           style={{ color: "rgb(242, 186, 4)", fontSize: "2rem" }}
           onClick={handleEmojiClick}
         />
