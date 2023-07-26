@@ -200,7 +200,7 @@ function Post(prop) {
             caption={caption}
           />
         </ErrorBoundary>
-        <Divider style={{ paddingTop: "6px" }} />
+        <Divider />
         <Flexbetween>
           <Typography
             marginLeft={1}

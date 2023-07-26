@@ -27,6 +27,7 @@ const CommentDialogBox = ({
   deleteCommentID,
 }) => {
   const { isAnonymous } = user;
+
   return (
     <Box
       sx={{
@@ -74,8 +75,7 @@ const CommentDialogBox = ({
                     setOpenToDeleteComment(!openToDeleteComment);
                     setDeleteCommentID(userComment);
                   }}
-                >   
-                {console.log(userComment,"datayy")}               
+                >
                   {user &&
                     userComment?.content?.displayName == user?.displayName && (
                       <DeleteTwoToneIcon
@@ -113,7 +113,6 @@ const CommentDialogBox = ({
                     </Dialog>
                   }
                 </div>
-
               </div>
               <Divider />
             </div>
