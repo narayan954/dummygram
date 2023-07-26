@@ -5,10 +5,13 @@
   padding: 10px;
   font-size: 1rem;
   cursor: pointer;
+  border-radius: 25px;
+  border: none;
+  margin: 5px;
 }
 
 .share__button:hover {
-  background: var(--btn-color);
+  background: var(--btn-color-hover);
 }
 
 .back_button {
@@ -17,7 +20,7 @@
   align-items: center;
   border-radius: 1rem;
   font-size: 1rem;
-  background: var(--btn-color-hover);
+  background: var(--btn-color);
   color: white;
   padding: 5px 10px;
   cursor: pointer;
@@ -60,6 +63,14 @@
   /* width: 100%; */
 }
 
+.upload-picture:hover {
+  opacity: 0.8;
+}
+
+.openpopup:hover {
+  opacity: 0.8;
+}
+
 .file {
   opacity: 0;
   width: 0.1px;
@@ -79,7 +90,7 @@
   display: block;
   position: relative;
   border-radius: 20px;
-  background: linear-gradient(40deg, #5F85DB, #daf1f7);
+  background: linear-gradient(40deg, #5f85db, #daf1f7);
   box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
@@ -180,7 +191,7 @@ input {
 .close-btn {
   margin: 6px;
   padding: 10px;
-  background: #5F85DB;
+  background: #5f85db;
   background: var(--btn-color);
   /* border: 1px solid var(--color); */
   border: none;
@@ -285,7 +296,7 @@ input {
 
   .next_button {
     display: block;
-    background: linear-gradient(40deg, #5F85DB, #daf1f7);
+    background: linear-gradient(40deg, #5f85db, #daf1f7);
     width: 100%;
     color: white;
     padding: 0.6rem;
