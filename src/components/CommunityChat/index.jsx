@@ -89,7 +89,7 @@ const ChatBox = () => {
       docRef
         .get()
         .then((doc) => {
-          navigate(`/dummygram/${doc.data().username}`);
+          navigate(`/dummygram/user/${doc.data().username}`);
         })
         .catch((error) => {
           enqueueSnackbar(`Error Occured: ${error}`, {
