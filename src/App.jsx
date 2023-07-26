@@ -247,7 +247,7 @@ function App() {
             />
 
             <Route
-              path="/dummygram/:username"
+              path="/dummygram/user/:username"
               element={
                 <ErrorBoundary inApp={true}>
                   <Profile />
