@@ -1,23 +1,15 @@
-import GitHubIcon from "@mui/icons-material/GitHub";
-import InfoIcon from "@mui/icons-material/Info";
-import FeedbackIcon from "@mui/icons-material/Feedback";
-import HelpIcon from "@mui/icons-material/Help";
 import ContributorsIcon from "@mui/icons-material/Diversity3";
+import FeedbackIcon from "@mui/icons-material/Feedback";
+import GitHubIcon from "@mui/icons-material/GitHub";
 import GuidelinesIcon from "@mui/icons-material/LibraryBooks";
+import HelpIcon from "@mui/icons-material/Help";
+import InfoIcon from "@mui/icons-material/Info";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
     <footer>
       <ul className="sidebar-footer-container">
-        <li>
-          <a href="https://github.com/narayan954/dummygram" target="_blank">
-            <span style={{ display: "flex", gap: "6px" }}>
-              <GitHubIcon className="footer-icons" fontSize="small" />{" "}
-              Repository
-            </span>
-          </a>
-        </li>
         <li>
           <Link to="/dummygram/about" className="footer-link">
             <span style={{ display: "flex", gap: "6px" }}>
