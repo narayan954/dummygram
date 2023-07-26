@@ -45,7 +45,7 @@
 
 .sidebar-links li:hover {
   /* background: rgba(0, 0, 0, 0.05); */
-  background-color: #5F85DB;
+  background-color: #5f85db;
 }
 
 .sidebar-links li a,
@@ -77,26 +77,17 @@
 
 footer {
   margin-block: auto;
-  padding-left: 20px;
-  padding-block: 12px;
   font-size: 13px;
   background-color: var(--dark-post-bg);
 }
 
 .sidebar-footer-container {
-  display: grid;
-  /* justify-content: flex-start; */
-  align-items: center;
+  display: flex;
   list-style-type: none;
-  /* flex-wrap: wrap; */
+  flex-direction: column;
   padding: 0;
   text-align: center;
-  margin-right: 20px;
   margin-top: 20px;
-}
-
-.sidebar-footer-container > li {
-  margin-right: 10px;
 }
 
 .footer-link {
@@ -105,19 +96,22 @@ footer {
 }
 
 .footer-link:hover {
-  /* text-decoration: underline; */
   color: var(--color);
+}
+
+.github-icon {
+  font-size: 20px;
+  transition: all 0.2s ease;
 }
 
 .copyright {
   margin-top: 10px;
   color: var(--color);
   text-align: center;
-  margin-right: 25px;
 }
 
 .activeTab {
-  border: 2px solid #5F85DB;
+  border: 2px solid #5f85db;
 }
 
 /* media query */
@@ -143,7 +137,6 @@ footer {
 
   footer {
     font-size: 10px;
-    padding-left: 8px;
   }
 }
 
