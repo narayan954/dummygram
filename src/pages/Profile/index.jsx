@@ -9,7 +9,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { auth, db, storage } from "../../lib/firebase";
+import { auth, db } from "../../lib/firebase";
 import {
   collection,
   deleteField,
@@ -21,6 +21,7 @@ import { getModalStyle, useStyles } from "../../App";
 import { lazy, useEffect, useState } from "react";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useNavigate, useParams } from "react-router-dom";
+import ProfieFeed from "./feed";
 
 import EditIcon from "@mui/icons-material/Edit";
 import { EditProfile } from "../../components";
@@ -38,7 +39,6 @@ import logo from "../../assets/logo.webp";
 import profileBackgroundImg from "../../assets/profile-background.jpg";
 import { useSnackbar } from "notistack";
 
-const Post = lazy(() => import("../../components/Post"));
 const SideBar = lazy(() => import("../../components/SideBar"));
 
 function Profile() {
@@ -554,25 +554,8 @@ function Profile() {
               </Box>
             </Box>
           </Box>
-          <Divider style={{ background: "var(--profile-divider)" }} />
-          <Box className="flex feed-main-container">
-            <div className="app__posts" id="feed-sub-container">
-              <ErrorBoundary>
-                {feed.map(({ post, id }) => (
-                  <Post
-                    rowMode={true}
-                    key={id}
-                    postId={id}
-                    user={user}
-                    post={post}
-                    shareModal={true}
-                    setLink="/"
-                    setPostText=""
-                  />
-                ))}
-              </ErrorBoundary>
-            </div>
-          </Box>
+          <Divider className="profile_feed_divider" />
+          <ProfieFeed feed={feed} user={user}/>
         </>
       ) : userExists ? (
         <Loader />
