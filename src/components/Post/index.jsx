@@ -21,6 +21,7 @@ import { db } from "../../lib/firebase";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
 import { useTheme } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
 
 const PostHeader = lazy(() => import("./PostHeader"));
 const CommentBox = lazy(() => import("./CommentBox"));
@@ -44,6 +45,7 @@ function Post(prop) {
   const theme = useTheme();
   const { enqueueSnackbar } = useSnackbar();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const navigate = useNavigate()
 
   const docRef = doc(db, "posts", postId);
   useEffect(() => {
@@ -206,7 +208,8 @@ function Post(prop) {
             marginLeft={1}
             fontSize={13}
             padding={1}
-            sx={{ color: "grey" }}
+            sx={{ color: "grey", cursor: "pointer" }}
+            onClick={() => navigate(`/dummygram/posts/${postId}/likes`)}
           >
             {likesNo} {likesNo > 1 ? "Likes" : "Like"}
           </Typography>
