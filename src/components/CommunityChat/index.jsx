@@ -7,12 +7,24 @@ import SendIcon from "@mui/icons-material/Send";
 import firebase from "firebase/compat/app";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied'; 
+import EmojiPicker from "emoji-picker-react";
 
 const ChatBox = () => {
+  const [showEmojis, setShowEmojis] = useState(false);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [user, setUser] = useState(null);
 
+  const handleEmojiClick = () => {
+    setShowEmojis((prevShowEmojis) => !prevShowEmojis);
+  };
+
+  const onEmojiClick = (emojiObject, event) => {
+    setNewMessage((prevInput) => prevInput + emojiObject.emoji);
+    setShowEmojis(false);
+  };
+  
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -97,9 +109,8 @@ const ChatBox = () => {
           {messages.map((message) => (
             <li
               key={message.id}
-              className={`chat-message ${
-                user?.uid == message.uid ? "current-user-msg" : ""
-              }`}
+              className={`chat-message ${user?.uid == message.uid ? "current-user-msg" : ""
+                }`}
             >
               <img
                 src={message.photoURL}
@@ -113,6 +124,21 @@ const ChatBox = () => {
         </ul>
       </div>
       <form className="chat-input-container" onSubmit={handleOnSubmit}>
+        {showEmojis && (
+          <div style={{position:'absolute',top: '-350px', left: 0, zIndex: 999}}>
+            <EmojiPicker
+              emojiStyle="native"
+              height={330}
+              searchDisabled
+              style={{ zIndex: 999 }}
+              onEmojiClick={onEmojiClick}
+              previewConfig={{
+                showPreview: false,
+              }}
+            />
+          </div>
+        )}
+        <SentimentVerySatisfiedIcon style={{color:'rgb(242, 186, 4)', fontSize:'2rem'}} onClick={handleEmojiClick}/>
         <input
           type="text"
           onChange={handleChange}

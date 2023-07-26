@@ -33,6 +33,7 @@
   flex: 1;
   margin-top: 0;
   font-size: 1em;
+  width: 70%;
 }
 
 .chat-msg-send-btn-container {
