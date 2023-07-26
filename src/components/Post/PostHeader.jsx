@@ -159,8 +159,6 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
 
   return (
     <div className="post__header">
-      {/* {console.log("post",postData)} */}
-      {/* {console.log("user",user)} */}
       <Avatar
         className="post__avatar  flex avatar"
         alt={displayName}
