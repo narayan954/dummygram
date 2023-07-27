@@ -67,7 +67,7 @@ function SearchBar() {
             type="search"
             className="search-input"
             value={searchQuery}
-            placeholder="Search Here..."
+            placeholder="Search users..."
             onChange={handleSearch}
           />
           <label className="search-icon">
