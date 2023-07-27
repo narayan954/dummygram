@@ -1,109 +1,107 @@
 import "./index.css";
 
-import React, { memo, useEffect, useState } from "react";
-import { auth, db } from "../../lib/firebase";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { db } from "../../lib/firebase";
 
 import { Box } from "@mui/material";
+import blankImg from "../../assets/blank-profile.webp"
 import { FaSearch } from "react-icons/fa";
-import Post from "../Post";
-import ShareModal from "../../reusableComponents";
 import SideBar from "../SideBar";
 
-const MemoizedPost = memo(Post);
-const PAGESIZE = 10;
+const PAGESIZE = 7;
 
 function SearchBar() {
-  const [searchText, setSearchText] = useState("");
-  const [openShareModal, setOpenShareModal] = useState(false);
-  const [currentPostLink, setCurrentPostLink] = useState("");
-  const [postText, setPostText] = useState("");
-  const [posts, setPosts] = useState([]);
-  const handleSearch = (e) => {
-    setSearchText(e.target.value);
-  };
-
-  // Code to fetch posts from database
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [debouncedQuery, setDebouncedQuery] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      if (searchText.length > 0) {
-        const firstChar = searchText.charAt(0).toLowerCase();
-        const lastChar =
-          firstChar === searchText.charAt(0)
-            ? firstChar
-            : firstChar.toUpperCase();
+    const timerId = setTimeout(() => {
+      setDebouncedQuery(searchQuery);
+    }, 2000);
 
-        const querySnapshot = await db
-          .collection("posts")
-          .where("username", ">=", firstChar)
-          .where("username", "<=", lastChar + "\uf8ff")
-          .limit(PAGESIZE)
-          .get();
-
-        const fetchedPosts = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          post: doc.data(),
-        }));
-        setPosts(fetchedPosts);
-      } else {
-        setPosts([]);
-      }
+    return () => {
+      clearTimeout(timerId);
     };
+  }, [searchQuery]);
 
-    fetchPosts();
-  }, [searchText]);
+  useEffect(() => {
+    // Call fetchUsers function whenever debouncedQuery changes after the 2-second delay
+    fetchUsers();
+  }, [debouncedQuery]);
 
-  // code to filter posts accornding to searchtext
 
-  const filteredPosts = posts.filter((post) =>
-    post.post.username.toLowerCase().includes(searchText.toLowerCase()),
-  );
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+  };
 
+  const fetchUsers = async () => {
+    const value = searchQuery;
+    if (value.length > 0) {
+      const usersCollection = await db
+        .collection("users")
+        .orderBy("name", "asc")
+        .startAt(value.toUpperCase())
+        .endAt(value.toLowerCase())
+        .limit(PAGESIZE)
+        .get();
+
+      const fetchedUsers = usersCollection.docs.map((doc) => ({
+        id: doc.id,
+        user: doc.data(),
+      }));
+      setSearchResults(fetchedUsers);
+    } else {
+      setSearchResults([]);
+    }
+  };
   return (
     <div>
       <SideBar />
-      <ShareModal
-        openShareModal={openShareModal}
-        setOpenShareModal={setOpenShareModal}
-        currentPostLink={currentPostLink}
-        postText={postText}
-      />
-      <div className="search-bar" style={{ marginTop: "-150px" }}>
-        <input
-          type="search"
-          className="search-input"
-          value={searchText}
-          placeholder="Search Here..."
-          onChange={handleSearch}
-        />
-        <label className="search-icon">
-          <FaSearch />
-        </label>
-      </div>
-      <Box>
-        <div
-          style={{ marginTop: "5px", marginBottom: "1.5rem" }}
-          align="center"
-        >
-          {filteredPosts.length ? (
-            <>
-              {filteredPosts.map(({ id, post }) => (
-                <MemoizedPost
-                  key={id}
-                  postId={id}
-                  post={post}
-                  user={auth.currentUser}
-                  shareModal={setOpenShareModal}
-                  setLink={setCurrentPostLink}
-                  setPostText={setPostText}
-                />
-              ))}
-            </>
+      <div>
+        <div className="search-container">
+          <div className="search-bar">
+            <input
+              type="search"
+              className="search-input"
+              value={searchQuery}
+              placeholder="Search Here..."
+              onChange={handleSearch}
+            />
+            <label className="search-icon">
+              <FaSearch />
+            </label>
+          </div>
+          {searchResults.length > 0 ? (
+            <section className="searched-user-container">
+              <ul className="searched-user-sub-container">
+                {searchResults.map(({ id, user }) => {
+                  return (
+                    <li key={id} className="searched-user-li" onClick={() => navigate(`/dummygram/${user.username}`)}>
+                      <img src={user?.photoURL ? user.photoURL : blankImg} alt={user.name} className="searched-user-avatar" />
+                      <span>
+                        <h5 className="searched-user-name">{user.name}</h5>
+                        <p className="searched-user-username">@{user.username}</p>
+                      </span>
+                    </li>
+                  )
+                })}
+              </ul>
+            </section>
           ) : (
-            <>{<div className="text-white">Nothing to search</div>}</> // TODO: Employ TailwindCSS here
+            <Box>
+              <div
+                style={{ marginTop: "5px", marginBottom: "1.5rem" }}
+                align="center"
+              >
+                <div className="text-white">Nothing to search</div>
+              </div>
+            </Box>
           )}
         </div>
-      </Box>
+      </div>
     </div>
   );
 }
