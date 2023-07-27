@@ -554,7 +554,6 @@ function Profile() {
               </Box>
             </Box>
           </Box>
-          <Divider style={{ background: "var(--profile-divider)" }} />
           <Box className="flex feed-main-container">
             <div className="app__posts" id="feed-sub-container">
               <ErrorBoundary>

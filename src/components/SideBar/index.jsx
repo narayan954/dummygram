@@ -20,10 +20,11 @@ const Footer = React.lazy(() => import("./Footer"));
 
 function SideBar({ anonymous }) {
   const navigate = useNavigate();
-  const [openNewUpload, setOpenNewUpload] = useState(false);
-  const [username, setUsername] = useState("");
   const user = auth.currentUser;
   const location = useLocation();
+
+  const [openNewUpload, setOpenNewUpload] = useState(false);
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
     async function getUsername() {
@@ -96,9 +97,8 @@ function SideBar({ anonymous }) {
           </li>
           <li
             className={
-              location.pathname ==
-                `/dummygram/user/${username}` ?
-                "activeTab"
+              location.pathname == `/dummygram/user/${username}`
+                ? "activeTab"
                 : ""
             }
             onClick={() => navigate(`/dummygram/user/${username}`)}
