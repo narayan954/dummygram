@@ -474,7 +474,7 @@ function Profile() {
                     <Button
                       variant="contained"
                       startIcon={<SettingsIcon style={{ color: "black" }} />}
-                      style={{ backgroundColor: "#8beeff" }}
+                      style={{ backgroundColor: "#5F85DB" }}
                       onClick={() => navigate("/dummygram/settings")}
                     >
                       <Typography
@@ -489,7 +489,7 @@ function Profile() {
                       variant="contained"
                       color="primary"
                       startIcon={<LogoutIcon style={{ color: "black" }} />}
-                      style={{ backgroundColor: "#8beeff" }}
+                      style={{ backgroundColor: "#5F85DB" }}
                       onClick={() => setLogout(true)}
                     >
                       <Typography

@@ -49,7 +49,9 @@ const CommentDialogBox = ({
                   <Link
                     className="comment-doer"
                     to={`/dummygram/${
-                      isAnonymous ? "signup" : userComment.content.username
+                      isAnonymous
+                        ? "signup"
+                        : `user/${userComment.content.username}`
                     }`}
                   >
                     {userComment.content.avatar ? (
