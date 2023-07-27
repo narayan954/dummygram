@@ -97,8 +97,8 @@ function SideBar({ anonymous }) {
           <li
             className={
               location.pathname ==
-              `/dummygram/${anonymous ? "signup" : username}`
-                ? "activeTab"
+                `/dummygram/user/${username}` ?
+                "activeTab"
                 : ""
             }
             onClick={() => navigate(`/dummygram/user/${username}`)}
