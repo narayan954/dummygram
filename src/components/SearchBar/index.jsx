@@ -1,13 +1,13 @@
 import "./index.css";
 
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { db } from "../../lib/firebase";
 
 import { Box } from "@mui/material";
-import blankImg from "../../assets/blank-profile.webp";
 import { FaSearch } from "react-icons/fa";
 import SideBar from "../SideBar";
+import blankImg from "../../assets/blank-profile.webp";
+import { db } from "../../lib/firebase";
+import { useNavigate } from "react-router-dom";
 
 const PAGESIZE = 7;
 
