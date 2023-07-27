@@ -59,7 +59,7 @@ export default function ImgUpload(props) {
   const handleChange = (e) => {
     if (!e.target.files[0]) {
       enqueueSnackbar("Select min 1 image!", {
-        variant: "error",
+        variant: "error"
       });
       setisValidimage(false);
       e.stopPropagation();
@@ -69,7 +69,7 @@ export default function ImgUpload(props) {
       const img = e.target.files[i];
       if (!img.name.match(/\.(jpg|jpeg|png|gif|svg)$/)) {
         enqueueSnackbar("Select a valid image!", {
-          variant: "error",
+          variant: "error"
         });
         setisValidimage(false);
         return false;
@@ -101,7 +101,7 @@ export default function ImgUpload(props) {
           displayName: props.user.displayName,
           avatar: props.user.photoURL,
           likecount: [],
-          uid: auth?.currentUser?.uid,
+          uid: auth?.currentUser?.uid
         });
 
         const postId = postRef.id; // Store post ID in a separate variable
@@ -110,14 +110,14 @@ export default function ImgUpload(props) {
           .collection("users")
           .doc(props.user.uid)
           .update({
-            posts: firebase.firestore.FieldValue.arrayUnion(postId), // Use postId instead of postRef.id
+            posts: firebase.firestore.FieldValue.arrayUnion(postId) // Use postId instead of postRef.id
           });
       } else {
         await db.collection("story").add({
           caption: caption,
           imageUrl,
           username: username,
-          uid: auth?.currentUser?.uid,
+          uid: auth?.currentUser?.uid
         });
 
         const querySnapshot = await db
@@ -128,14 +128,14 @@ export default function ImgUpload(props) {
           const userRef = querySnapshot.docs[0].ref;
           // Update the 'storyTimestamp' field
           await userRef.update({
-            storyTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            storyTimestamp: firebase.firestore.FieldValue.serverTimestamp()
           });
         }
       }
 
       playSuccessSound();
       enqueueSnackbar(`${type} uploaded successfully!`, {
-        variant: "success",
+        variant: "success"
       });
 
       setProgress(0);
@@ -151,7 +151,7 @@ export default function ImgUpload(props) {
     } catch (err) {
       playErrorSound();
       enqueueSnackbar(err.message, {
-        variant: "error",
+        variant: "error"
       });
 
       if (props.onUploadError) {
@@ -165,7 +165,7 @@ export default function ImgUpload(props) {
   function handleUpload(type) {
     if ((!image && !caption) || !isValidimage) {
       enqueueSnackbar("Upload valid image and caption!", {
-        variant: "error",
+        variant: "error"
       });
       return false;
     }
@@ -188,14 +188,14 @@ export default function ImgUpload(props) {
         if (props.onUploadProgress) {
           props.onUploadProgress(percentage);
         }
-      },
+      }
     })
       .then((urls) => {
         savePost(JSON.stringify(urls), type);
       })
       .catch((err) => {
         enqueueSnackbar(err.message, {
-          variant: "error",
+          variant: "error"
         });
         setUploadingPost(false);
 
@@ -262,7 +262,7 @@ export default function ImgUpload(props) {
                   style={{
                     width: "100%",
                     height: "100%",
-                    objectFit: "cover",
+                    objectFit: "cover"
                   }}
                 />
                 {imagePreviews.length > 1 ? (
@@ -302,8 +302,8 @@ export default function ImgUpload(props) {
                     "&:hover": {
                       boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 17px 0px",
                       border: "2px solid black",
-                      scale: "1.1",
-                    },
+                      scale: "1.1"
+                    }
                   }}
                 />
                 <Link style={{ textDecoration: "none" }}>
@@ -326,12 +326,12 @@ export default function ImgUpload(props) {
             sx={{
               width: "100%",
               "& .MuiFormLabel-root.Mui-focused": {
-                fontWeight: "bold",
+                fontWeight: "bold"
               },
               "& .MuiFilledInput-root": {
                 background: "transparent",
-                color: "var(--color)",
-              },
+                color: "var(--color)"
+              }
             }}
             style={{ color: "var(--color) !important" }}
           />
@@ -402,7 +402,7 @@ export default function ImgUpload(props) {
                   style={{
                     width: "100%",
                     height: "100%",
-                    objectFit: "cover",
+                    objectFit: "cover"
                   }}
                 />
                 {imagePreviews.length > 1 ? (
@@ -454,8 +454,8 @@ export default function ImgUpload(props) {
                       "&:hover": {
                         boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 17px 0px",
                         border: "2px solid black",
-                        scale: "1.1",
-                      },
+                        scale: "1.1"
+                      }
                     }}
                   />
                   <Link style={{ textDecoration: "none" }}>
@@ -477,12 +477,12 @@ export default function ImgUpload(props) {
               sx={{
                 width: "100%",
                 "& .MuiFormLabel-root.Mui-focused": {
-                  fontWeight: "bold",
+                  fontWeight: "bold"
                 },
                 "& .MuiFilledInput-root": {
                   background: "transparent",
-                  color: "var(--color)",
-                },
+                  color: "var(--color)"
+                }
               }}
               style={{ color: "var(--color) !important" }}
             />

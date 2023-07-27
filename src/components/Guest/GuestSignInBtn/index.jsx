@@ -18,14 +18,14 @@ const GuestSignInBtn = ({ show }) => {
       .then(() => {
         playSuccessSound();
         enqueueSnackbar("Guest Sign In successfull", {
-          variant: "success",
+          variant: "success"
         });
         navigate("/dummygram/");
       })
       .catch((error) => {
         playErrorSound();
         enqueueSnackbar(error.message, {
-          variant: "error",
+          variant: "error"
         });
       });
   }

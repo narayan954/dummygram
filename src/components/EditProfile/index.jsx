@@ -14,7 +14,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
     bio: userData.bio,
     country: userData.country,
     avatar: userData.avatar,
-    uid: userData.uid,
+    uid: userData.uid
   });
   const [image, setImage] = useState(null);
   const [usernameAvailable, setUsernameAvailable] = useState(true);
@@ -59,7 +59,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
     setEditedData((prevFormData) => {
       return {
         ...prevFormData,
-        [e.target.name]: e.target.value,
+        [e.target.name]: e.target.value
       };
     });
   }
@@ -68,7 +68,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
       setImage(e.target.files[0]);
       setEditedData((prevData) => ({
         ...prevData,
-        avatar: URL.createObjectURL(e.target.files[0]),
+        avatar: URL.createObjectURL(e.target.files[0])
       }));
     }
   };
@@ -85,7 +85,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
         (error) => {
           // playErrorSound();
           enqueueSnackbar(error.message, {
-            variant: "error",
+            variant: "error"
           });
         },
         () => {
@@ -97,7 +97,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
               //Updating profile data in auth
               await auth.currentUser.updateProfile({
                 displayName: name,
-                photoURL: url,
+                photoURL: url
               });
 
               //Updating profile data in users collection
@@ -107,7 +107,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
                 name: name,
                 username: newUsername,
                 bio: bio,
-                country: country,
+                country: country
               });
 
               //Updating profile data in all posts
@@ -118,20 +118,20 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
                   postRef.update({
                     avatar: url,
                     displayName: name,
-                    username: newUsername,
+                    username: newUsername
                   });
                 });
               });
             })
             .then(
               enqueueSnackbar("Upload Successfull", {
-                variant: "success",
+                variant: "success"
               })
             )
             .then(() => setUserData(editedData))
             .catch((error) => {
               enqueueSnackbar(error, {
-                variant: "error",
+                variant: "error"
               });
             })
             .finally(() => {
@@ -143,7 +143,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
       async function upload() {
         //Updating profile data in auth
         await auth.currentUser.updateProfile({
-          displayName: name,
+          displayName: name
         });
 
         //Updating profile data in users collection
@@ -152,7 +152,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
           name: name,
           username: newUsername,
           bio: bio,
-          country: country,
+          country: country
         });
 
         //Updating profile data in all posts
@@ -164,20 +164,20 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
               const postRef = post.ref;
               postRef.update({
                 displayName: name,
-                username: newUsername,
+                username: newUsername
               });
             });
           })
           .then(
             enqueueSnackbar("Upload Successfull", {
-              variant: "success",
+              variant: "success"
             })
           )
           .then(() => setUserData(editedData))
           .then(() => navigate(`/dummygram/user/${newUsername}`))
           .catch((error) => {
             enqueueSnackbar(error, {
-              variant: "error",
+              variant: "error"
             });
           })
           .finally(() => {

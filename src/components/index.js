@@ -31,7 +31,7 @@ export {
   ReadMore,
   SearchBar,
   SideBar,
-  StoryView,
+  StoryView
 };
 
 export default Post;

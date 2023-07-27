@@ -12,7 +12,7 @@ const Auth__text__input = ({
   errorMesssage,
   fieldName,
   maxLength,
-  type = "text",
+  type = "text"
 }) => {
   return (
     <div className="input__group">

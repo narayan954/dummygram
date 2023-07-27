@@ -10,7 +10,7 @@ import {
   DialogTitle,
   IconButton,
   Menu,
-  MenuItem,
+  MenuItem
 } from "@mui/material";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { doc, updateDoc } from "firebase/firestore";
@@ -67,7 +67,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
               followers: "",
               following: "",
               country: data.country ? data.country : "",
-              storyTimestamp: data.storyTimestamp,
+              storyTimestamp: data.storyTimestamp
             });
           } else {
             setUserExists(false);
@@ -75,7 +75,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
         })
         .catch((error) => {
           enqueueSnackbar(`Error Occured: ${error}`, {
-            variant: "error",
+            variant: "error"
           });
         });
     }
@@ -106,7 +106,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
 
     try {
       await updateDoc(taskDocRef, {
-        caption: editCaption,
+        caption: editCaption
       });
     } catch (err) {
       alert(err);
@@ -169,7 +169,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
                 : setAnchorEl(event.currentTarget)
             }
             sx={{
-              color: "var(--color)",
+              color: "var(--color)"
             }}
           >
             <MoreHorizOutlinedIcon />
@@ -179,7 +179,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
         <Menu
           id="long-menu"
           MenuListProps={{
-            "aria-labelledby": "long-button",
+            "aria-labelledby": "long-button"
           }}
           anchorEl={anchorEl}
           open={open}
@@ -187,8 +187,8 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
           PaperProps={{
             style: {
               maxHeight: ITEM_HEIGHT * 4,
-              width: "18ch",
-            },
+              width: "18ch"
+            }
           }}
         >
           {user && displayName === user.displayName && (

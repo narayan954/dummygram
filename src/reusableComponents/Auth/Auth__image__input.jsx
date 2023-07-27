@@ -4,7 +4,7 @@ const Auth__image__input = ({
   address,
   image,
   blank_profile,
-  handleChange,
+  handleChange
 }) => {
   return (
     <div className="input__group">

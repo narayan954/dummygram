@@ -6,7 +6,7 @@ import {
   DialogContentText,
   DialogTitle,
   IconButton,
-  Typography,
+  Typography
 } from "@mui/material";
 import React, { useState } from "react";
 

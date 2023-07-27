@@ -9,7 +9,7 @@ const options = {
   // buttonColorLight: "#fff", // default: '#fff'
   saveInCookies: true, // default: true,
   label: "🌓", // default: ''
-  autoMatchOsTheme: true, // default: true
+  autoMatchOsTheme: true // default: true
 };
 
 // document.getElementById("scrollbar_style").innerHTML =

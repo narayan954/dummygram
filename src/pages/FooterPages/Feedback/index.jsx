@@ -25,7 +25,7 @@ export const Feedback = () => {
         (result) => {
           playSuccessSound();
           enqueueSnackbar("Thanks For Your Feedback!", {
-            variant: "success",
+            variant: "success"
           });
         },
         (error) => {

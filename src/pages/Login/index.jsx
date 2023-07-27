@@ -6,7 +6,7 @@ import {
   Auth__pass__input,
   Auth__text__input,
   Auth__top,
-  Auth_container,
+  Auth_container
 } from "../../reusableComponents/Auth";
 import { Logo, validate } from "../../reusableComponents";
 import React, { useState } from "react";
@@ -21,7 +21,7 @@ import { useSnackbar } from "notistack";
 const LoginScreen = () => {
   const [userDatails, setuserDatails] = useState({
     email: "",
-    password: "",
+    password: ""
   });
   const [error, setError] = useState({ email: true });
 
@@ -36,7 +36,7 @@ const LoginScreen = () => {
         .then(() => {
           playSuccessSound();
           enqueueSnackbar("Login successful!", {
-            variant: "success",
+            variant: "success"
           });
           navigate("/dummygram");
         })
@@ -44,36 +44,36 @@ const LoginScreen = () => {
           if (error.code === "auth/invalid-email") {
             playErrorSound();
             enqueueSnackbar("Invalid email address", {
-              variant: "error",
+              variant: "error"
             });
           } else if (error.code === "auth/user-not-found") {
             playErrorSound();
             enqueueSnackbar("User not found", {
-              variant: "error",
+              variant: "error"
             });
           } else if (error.code === "auth/wrong-password") {
             playErrorSound();
             enqueueSnackbar("Wrong password", {
-              variant: "error",
+              variant: "error"
             });
           } else if (
             error.code === "auth/account-exists-with-different-credential"
           ) {
             playErrorSound();
             enqueueSnackbar("Account exists with a different credential", {
-              variant: "error",
+              variant: "error"
             });
           } else {
             playErrorSound();
             enqueueSnackbar(error.message, {
-              variant: "error",
+              variant: "error"
             });
           }
         });
     } else {
       playErrorSound();
       enqueueSnackbar("Please fill all fields with valid data", {
-        variant: "error",
+        variant: "error"
       });
     }
   };
@@ -97,7 +97,7 @@ const LoginScreen = () => {
             photoURL: val.user.photoURL,
             displayName: val.user.displayName,
             Friends: [],
-            posts: [],
+            posts: []
           });
         } else {
           const usernameDoc = db.collection("users");
@@ -107,14 +107,14 @@ const LoginScreen = () => {
             .then((doc) => {
               if (!doc.data().username) {
                 doc.ref.update({
-                  username: doc.data().uid,
+                  username: doc.data().uid
                 });
               }
             });
         }
         playSuccessSound();
         enqueueSnackbar("Login successful!", {
-          variant: "success",
+          variant: "success"
         });
         navigate("/dummygram");
       })
@@ -122,12 +122,12 @@ const LoginScreen = () => {
         if (error.code === "auth/account-exists-with-different-credential") {
           playErrorSound();
           enqueueSnackbar("Account exists with a different credential", {
-            variant: "error",
+            variant: "error"
           });
         } else {
           playErrorSound();
           enqueueSnackbar(error.message, {
-            variant: "error",
+            variant: "error"
           });
         }
       });
@@ -150,7 +150,7 @@ const LoginScreen = () => {
             photoURL: val.user.photoURL,
             displayName: val.user.displayName,
             Friends: [],
-            posts: [],
+            posts: []
           });
         } else {
           const usernameDoc = db.collection("users");
@@ -160,14 +160,14 @@ const LoginScreen = () => {
             .then((doc) => {
               if (!doc.data().username) {
                 doc.ref.update({
-                  username: doc.data().uid,
+                  username: doc.data().uid
                 });
               }
             });
         }
         playSuccessSound();
         enqueueSnackbar("Login successful!", {
-          variant: "success",
+          variant: "success"
         });
         navigate("/dummygram");
       })
@@ -175,11 +175,11 @@ const LoginScreen = () => {
         playErrorSound();
         if (error.code === "auth/account-exists-with-different-credential") {
           enqueueSnackbar("Account exists with a different credential", {
-            variant: "error",
+            variant: "error"
           });
         } else {
           enqueueSnackbar(error.message, {
-            variant: "error",
+            variant: "error"
           });
         }
       });

@@ -11,7 +11,7 @@ export default function Error() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        minHeight: "100vh",
+        minHeight: "100vh"
       }}
     >
       <Container maxWidth="md">
@@ -31,8 +31,8 @@ export default function Error() {
                   fontWeight: "bold",
                   "&:hover": {
                     backgroundColor: "#39bae4",
-                    color: "black",
-                  },
+                    color: "black"
+                  }
                 }}
               >
                 Back Home

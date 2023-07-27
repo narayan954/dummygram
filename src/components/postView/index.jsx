@@ -3,7 +3,7 @@ import {
   ClickAwayListener,
   IconButton,
   Typography,
-  useMediaQuery,
+  useMediaQuery
 } from "@mui/material";
 import {
   CommentForm,
@@ -13,7 +13,7 @@ import {
   PostGridItem,
   PostGridItemContainer,
   PostHeader,
-  PostViewGrid,
+  PostViewGrid
 } from "../../pages/PostView/PostViewStyled.jsx";
 import React, { useEffect } from "react";
 import { doc, updateDoc } from "firebase/firestore";
@@ -44,7 +44,7 @@ const PostCommentView = ({
   user,
   post,
   setLink,
-  setPostText,
+  setPostText
 }) => {
   const navigate = useNavigate();
   const theme = useTheme();
@@ -75,7 +75,7 @@ const PostCommentView = ({
       }
 
       const data = {
-        likecount: tempLikeCount,
+        likecount: tempLikeCount
       };
       await updateDoc(docRef, data)
         .then(() => setFetchAgain(!fetchAgain))
@@ -92,7 +92,7 @@ const PostCommentView = ({
       db.collection("posts").doc(postId).collection("comments").add({
         text: commentValue,
         username: user.displayName,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
       });
       commentRef.current.value = "";
     }
@@ -115,7 +115,7 @@ const PostCommentView = ({
           setComments(
             snapshot.docs.map((doc) => ({
               id: doc.id,
-              content: doc.data(),
+              content: doc.data()
             }))
           );
         });
@@ -146,7 +146,7 @@ const PostCommentView = ({
       imageUrl: url,
       imageWidth: 0,
       imageHeight: 0,
-      thumbnail: null,
+      thumbnail: null
     }));
   }
 
@@ -218,8 +218,8 @@ const PostCommentView = ({
                     "&:hover": {
                       boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 17px 0px",
                       border: "2px solid black",
-                      scale: "1.1",
-                    },
+                      scale: "1.1"
+                    }
                   }}
                   onClick={() => {
                     navigate(`/dummygram/user/${username}`);
@@ -300,7 +300,7 @@ const PostCommentView = ({
                       style={{ zIndex: 999 }}
                       onEmojiClick={onEmojiClick}
                       previewConfig={{
-                        showPreview: false,
+                        showPreview: false
                       }}
                     />
                   </div>
@@ -320,7 +320,7 @@ const PostCommentView = ({
               style={{
                 color: "var(--color)",
                 borderRadius: "16px",
-                margin: "4px 0px",
+                margin: "4px 0px"
               }}
             />
             <IconButton
@@ -330,7 +330,7 @@ const PostCommentView = ({
               onClick={postComment}
               style={{
                 padding: 0,
-                paddingRight: "5px",
+                paddingRight: "5px"
               }}
             >
               <Send className="send-comment-btn" />

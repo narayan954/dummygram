@@ -8,7 +8,7 @@ const ImgBox = ({
   postImages,
   likesHandler,
   caption,
-  postId,
+  postId
 }) => {
   return (
     <div>

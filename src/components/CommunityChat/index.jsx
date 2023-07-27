@@ -51,7 +51,7 @@ const ChatBox = () => {
       .onSnapshot((querySnapshot) => {
         const data = querySnapshot.docs.map((doc) => ({
           ...doc.data(),
-          id: doc.id,
+          id: doc.id
         }));
         setMessages(data);
       });
@@ -72,13 +72,13 @@ const ChatBox = () => {
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
         uid: user.uid,
         displayName: user.displayName,
-        photoURL: user.photoURL,
+        photoURL: user.photoURL
       });
 
       setNewMessage("");
     } else {
       enqueueSnackbar("Enter something!", {
-        variant: "error",
+        variant: "error"
       });
     }
   }
@@ -93,7 +93,7 @@ const ChatBox = () => {
         })
         .catch((error) => {
           enqueueSnackbar(`Error Occured: ${error}`, {
-            variant: "error",
+            variant: "error"
           });
         });
     }
@@ -139,7 +139,7 @@ const ChatBox = () => {
               position: "absolute",
               top: "-350px",
               left: 0,
-              zIndex: 999,
+              zIndex: 999
             }}
           >
             <EmojiPicker
@@ -149,7 +149,7 @@ const ChatBox = () => {
               style={{ zIndex: 999 }}
               onEmojiClick={onEmojiClick}
               previewConfig={{
-                showPreview: false,
+                showPreview: false
               }}
             />
           </div>

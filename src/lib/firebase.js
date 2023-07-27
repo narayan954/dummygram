@@ -11,7 +11,7 @@ const firebaseApp = firebase.initializeApp({
   projectId: import.meta.env.VITE_DUMMYGRAM_PROJECTID,
   storageBucket: import.meta.env.VITE_DUMMYGRAM_STORAGEBUCKET,
   messagingSenderId: import.meta.env.VITE_DUMMYGRAM_MESSAGINGSENDERID,
-  appId: import.meta.env.VITE_DUMMYGRAM_APPID,
+  appId: import.meta.env.VITE_DUMMYGRAM_APPID
 });
 
 // Use these for db & auth
@@ -37,7 +37,7 @@ function handleMultiUpload(files, options = {}) {
        * @param {number} _percentage
        */
       onUploadProgress: (_percentage) => {},
-      generateThumbnails: false,
+      generateThumbnails: false
     },
     options
   );
@@ -110,7 +110,7 @@ function handleMultiUpload(files, options = {}) {
                     thumbnail: canvas.toDataURL(),
                     imageWidth: image.naturalWidth,
                     imageHeight: image.naturalHeight,
-                    imageUrl: url,
+                    imageUrl: url
                   });
                 });
 
@@ -119,7 +119,7 @@ function handleMultiUpload(files, options = {}) {
                     imageUrl: url,
                     thumbnail: null,
                     imageWidth: 0,
-                    imageHeight: 0,
+                    imageHeight: 0
                   });
                 });
               } else {

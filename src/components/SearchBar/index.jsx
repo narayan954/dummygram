@@ -49,7 +49,7 @@ function SearchBar() {
 
       const fetchedUsers = usersCollection.docs.map((doc) => ({
         id: doc.id,
-        user: doc.data(),
+        user: doc.data()
       }));
       setSearchResults(fetchedUsers);
     } else {

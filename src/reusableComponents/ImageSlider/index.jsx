@@ -32,7 +32,7 @@ const ImageSlider = ({ slides, doubleClickHandler }) => {
         <div
           style={{
             display: index === current ? "contents" : "none",
-            width: "100%",
+            width: "100%"
           }}
           className={index === current ? "slide active" : "slide"}
           key={index}
@@ -47,7 +47,7 @@ const ImageSlider = ({ slides, doubleClickHandler }) => {
             style={{
               width: "100%",
               height: "100%",
-              objectFit: "contain",
+              objectFit: "contain"
             }}
           />
           {slides.length > 1 ? (

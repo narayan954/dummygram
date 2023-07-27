@@ -47,7 +47,7 @@ export function getModalStyle() {
     padding: `${padding}%`,
     borderRadius: `${radius}%`,
     textAlign: "center",
-    backgroundColor: "var(--bg-color)",
+    backgroundColor: "var(--bg-color)"
   };
 }
 
@@ -59,12 +59,12 @@ export const useStyles = makeStyles((theme) => ({
     boxShadow: "var(--profile-box-shadow)",
     padding: theme.spacing(2, 4, 3),
     color: "var(--color)",
-    margin: "auto",
+    margin: "auto"
   },
   logout: {
     display: "flex",
-    justifyContent: "space-between",
-  },
+    justifyContent: "space-between"
+  }
 }));
 
 const PAGESIZE = 10;
@@ -130,7 +130,7 @@ function App() {
         setPosts(
           snapshot.docs.map((doc) => ({
             id: doc.id,
-            post: doc.data(),
+            post: doc.data()
           }))
         );
       });
@@ -157,8 +157,8 @@ function App() {
               ...loadedPosts,
               ...snapshot.docs.map((doc) => ({
                 id: doc.id,
-                post: doc.data(),
-              })),
+                post: doc.data()
+              }))
             ];
           });
         });
@@ -210,7 +210,7 @@ function App() {
                               minHeight: "100vh",
                               display: "flex",
                               justifyContent: "center",
-                              alignItems: "center",
+                              alignItems: "center"
                             }
                       }
                     >
@@ -384,7 +384,7 @@ function App() {
             style={{
               height: 50,
               display: showScroll ? "flex" : "none",
-              position: "fixed",
+              position: "fixed"
             }}
           />
         </div>

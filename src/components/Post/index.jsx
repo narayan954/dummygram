@@ -4,7 +4,7 @@ import "./index.css";
 import {
   DialogBox,
   ErrorBoundary,
-  Flexbetween,
+  Flexbetween
 } from "../../reusableComponents";
 import {
   DialogTitle,
@@ -12,7 +12,7 @@ import {
   Paper,
   Typography,
   styled,
-  useMediaQuery,
+  useMediaQuery
 } from "@mui/material";
 import { doc, updateDoc } from "firebase/firestore";
 import { lazy, useEffect, useState } from "react";
@@ -59,7 +59,7 @@ function Post(prop) {
           setComments(
             snapshot.docs.map((doc) => ({
               id: doc.id,
-              content: doc.data(),
+              content: doc.data()
             }))
           );
         });
@@ -77,7 +77,7 @@ function Post(prop) {
     ...theme.typography.body2,
     padding: theme.spacing(1),
     textAlign: "center",
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.secondary
   }));
 
   const postComment = (event) => {
@@ -88,7 +88,7 @@ function Post(prop) {
         username: user.uid, // TODO  must be username
         displayName: user.displayName,
         avatar: user.photoURL,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
       });
     } catch (err) {
       console.error(err);
@@ -130,7 +130,7 @@ function Post(prop) {
       imageUrl: url,
       imageWidth: 0,
       imageHeight: 0,
-      thumbnail: null,
+      thumbnail: null
     }));
   }
 
@@ -151,7 +151,7 @@ function Post(prop) {
       }
 
       const data = {
-        likecount: tempLikeCount,
+        likecount: tempLikeCount
       };
       await updateDoc(docRef, data)
         // .then((docRef) => {
@@ -159,7 +159,7 @@ function Post(prop) {
         // })
         .catch((error) => {
           enqueueSnackbar(error, {
-            variant: "error",
+            variant: "error"
           });
         });
     }

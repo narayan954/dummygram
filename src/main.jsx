@@ -22,7 +22,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         autoHideDuration={4500}
         anchorOrigin={{
           vertical: "top",
-          horizontal: "right",
+          horizontal: "right"
         }}
         dense
         action={(snackbarId) => {
