@@ -57,7 +57,7 @@ const ChatBox = () => {
       });
 
     return unsubscribe;
-  }, [db]);
+  }, [db]); // TODO - won't this cause infinite calling/refreshing if the db is under use / always changing?
 
   function handleChange(e) {
     e.preventDefault();
