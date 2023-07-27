@@ -13,7 +13,7 @@
   height: 50px;
   /* max-width: 380px; */
   background: #fff;
-  border: 1px solid #0cc;
+  border: 1px solid #5f85db;
   border-radius: 25px;
   display: flex;
   justify-content: center;
@@ -36,7 +36,7 @@
   right: 0px;
   top: 0;
   width: 54px;
-  background: linear-gradient(40deg, #0cc, #daf1f7);
+  background: linear-gradient(40deg, #5f85db, #daf1f7);
   height: 103%;
   text-align: center;
   line-height: 50px;
@@ -44,6 +44,11 @@
   font-size: 20px;
   border-radius: 0 25px 25px 0;
   margin-top: -2px;
+}
+
+.search-icon:hover {
+  cursor: pointer;
+  background: linear-gradient(40deg, #daf1f7, #5f85db);
 }
 
 .text-white {
