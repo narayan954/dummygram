@@ -1,10 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap");
 
-.app__header__img {
-  object-fit: contain;
-  width: 150px;
-}
-
 .app__header {
   position: fixed;
   width: 100%;
