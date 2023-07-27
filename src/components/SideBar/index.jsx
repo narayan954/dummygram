@@ -128,7 +128,7 @@ function SideBar({ anonymous }) {
             </div>
           </li>
         </ul>
-        <hr />
+        {/* <hr /> */}
         <ErrorBoundary>
           <Footer />
         </ErrorBoundary>
