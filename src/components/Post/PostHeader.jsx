@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { doc, updateDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
 
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import ProfileDialogBox from "../ProfileDialogBox";
@@ -22,11 +23,10 @@ import { db } from "../../lib/firebase";
 import { saveAs } from "file-saver";
 import useCreatedAt from "../../hooks/useCreatedAt";
 import { useSnackbar } from "notistack";
-import { useState } from "react";
 
 const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
   const time = useCreatedAt(timestamp);
-  const { fullScreen, isAnonymous } = user; // needs fixing
+  const { fullScreen, isAnonymous } = user; // TODO: needs fixing
   const { username, caption, imageUrl, displayName, avatar } = postData;
 
   const [Open, setOpen] = useState(false);
@@ -34,19 +34,53 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
   const [openEditCaption, setOpenEditCaption] = useState(false);
   const [editCaption, setEditCaption] = useState(caption);
   const [mouseOnProfileImg, setMouseOnProfileImg] = useState(false);
-  const [userData, setUserData] = useState({
-    name: displayName,
-    username: username,
-    avatar: avatar,
-    bio: "Lorem 🌺ipsum dolorsit amet consectetur adipisicing elit. Corporis incidunt voluptates😎 in dolores necessitatibus quasi",
-    followers: 2314,
-    following: 1514,
-  });
+  const [userData, setUserData] = useState({});
+
   const { enqueueSnackbar } = useSnackbar();
   const open = Boolean(anchorEl);
   const ITEM_HEIGHT = 48;
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    async function getUserData() {
+      const docRef = db
+        .collection("users")
+        .where("uid", "==", postData.uid)
+        .limit(1);
+      docRef
+        .get()
+        .then((snapshot) => {
+          if (snapshot.docs) {
+            const doc = snapshot.docs[0];
+
+            const data = doc.data();
+            setUserData({
+              name: data.name,
+              username: data.username,
+              avatar: data.photoURL,
+              uid: data.uid,
+              posts: data.posts.length,
+              bio: data.bio
+                ? data.bio
+                : "Lorem ipsum dolor sit amet consectetur",
+              followers: "",
+              following: "",
+              country: data.country ? data.country : "",
+              storyTimestamp: data.storyTimestamp,
+            });
+          } else {
+            setUserExists(false);
+          }
+        })
+        .catch((error) => {
+          enqueueSnackbar(`Error Occured: ${error}`, {
+            variant: "error",
+          });
+        });
+    }
+    getUserData();
+  }, []);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -90,21 +124,6 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
 
   function showProfileDialogBox() {
     setMouseOnProfileImg(true);
-    // const fetchUserByUsername = async (username) => {
-    //   try {
-    //     const usersRef = db.collection('users');
-    //     const querySnapshot = await usersRef.where('username', '==', username).get();
-
-    //     const data = querySnapshot.docs[0].data();
-    //     console.log(data)
-
-    //   } catch (error) {
-    //     enqueueSnackbar(error, {
-    //       variant: "error",
-    //     });
-    //   }
-    // };
-    // fetchUserByUsername(username)
   }
 
   function hideProfileDialogBox() {
