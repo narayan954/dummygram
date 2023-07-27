@@ -101,7 +101,7 @@ function SideBar({ anonymous }) {
                 ? "activeTab"
                 : ""
             }
-            onClick={() => navigate(`/dummygram/${username}`)}
+            onClick={() => navigate(`/dummygram/user/${username}`)}
           >
             <div className="sidebar_align">
               {user && user.photoURL ? (
@@ -132,7 +132,7 @@ function SideBar({ anonymous }) {
       >
         <div
           style={{
-            backgroundColor: "var(--bg-color)",
+            backgroundColor: "var(--dark-post-bg)",
             textAlign: "center",
             color: "var(--color)",
           }}

@@ -40,16 +40,16 @@
   max-width: 400px;
   margin-top: 20px;
   /* padding: 5px; */
-  border: 1px solid rgba(0, 0, 0, 0.373);
+  border: 2px solid #90b8f8;
   border-radius: 5px;
   margin-bottom: 20px;
   word-wrap: break-word;
   transition: all;
   transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
-  box-shadow:
+  /* box-shadow:
     rgba(86, 238, 218, 0.8) 0px 3px 6px,
-    rgba(108, 190, 186, 0.8) 0px 3px 6px;
+    rgba(108, 190, 186, 0.8) 0px 3px 6px; */
 }
 
 .postColumn:hover {
@@ -201,7 +201,7 @@
 
 .send-comment-btn {
   font-weight: bold;
-  color: rgb(19, 19, 191);
+  color: #5f85db;
   border-radius: 50%;
   padding: 5px;
 }
