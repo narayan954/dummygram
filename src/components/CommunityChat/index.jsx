@@ -3,16 +3,28 @@ import "./index.css";
 import { auth, db } from "../../lib/firebase";
 import { useEffect, useState } from "react";
 
+import EmojiPicker from "emoji-picker-react";
 import SendIcon from "@mui/icons-material/Send";
 import HighlightOffRoundedIcon from '@mui/icons-material/HighlightOffRounded';
+import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfied";
 import firebase from "firebase/compat/app";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
 const ChatBox = () => {
+  const [showEmojis, setShowEmojis] = useState(false);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [user, setUser] = useState(null);
+
+  const handleEmojiClick = () => {
+    setShowEmojis((prevShowEmojis) => !prevShowEmojis);
+  };
+
+  const onEmojiClick = (emojiObject, event) => {
+    setNewMessage((prevInput) => prevInput + emojiObject.emoji);
+    setShowEmojis(false);
+  };
 
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
@@ -78,7 +90,7 @@ const ChatBox = () => {
       docRef
         .get()
         .then((doc) => {
-          navigate(`/dummygram/${doc.data().username}`);
+          navigate(`/dummygram/user/${doc.data().username}`);
         })
         .catch((error) => {
           enqueueSnackbar(`Error Occured: ${error}`, {
@@ -124,6 +136,32 @@ const ChatBox = () => {
 
       </div>    
       <form className="chat-input-container" onSubmit={handleOnSubmit}>
+        {showEmojis && (
+          <div
+            style={{
+              position: "absolute",
+              top: "-350px",
+              left: 0,
+              zIndex: 999,
+            }}
+          >
+            <EmojiPicker
+              emojiStyle="native"
+              height={330}
+              searchDisabled
+              style={{ zIndex: 999 }}
+              onEmojiClick={onEmojiClick}
+              previewConfig={{
+                showPreview: false,
+              }}
+            />
+          </div>
+        )}
+        <SentimentVerySatisfiedIcon
+          className="communitychat-emoji-btn"
+          style={{ color: "rgb(242, 186, 4)", fontSize: "2rem" }}
+          onClick={handleEmojiClick}
+        />
         <input
           type="text"
           onChange={handleChange}

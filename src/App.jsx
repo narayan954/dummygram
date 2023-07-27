@@ -247,7 +247,7 @@ function App() {
             />
 
             <Route
-              path="/dummygram/:username"
+              path="/dummygram/user/:username"
               element={
                 <ErrorBoundary inApp={true}>
                   <Profile />
@@ -378,7 +378,7 @@ function App() {
           </Routes>
           {/* below scroll button must be checked for implementation */}
           <FaArrowCircleUp
-            fill="#0cc"
+            fill="#5F85DB"
             className={`scrollTop ${isCenteredScroll ? "centeredScroll" : ""}`}
             onClick={scrollTop}
             style={{
