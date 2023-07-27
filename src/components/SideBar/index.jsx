@@ -43,8 +43,8 @@ function SideBar({ anonymous }) {
             id="sidebar-home-link"
             onClick={() => navigate("/dummygram")}
             className={
-              location.pathname == "/dummygram/" ||
-              location.pathname == "/dummygram"
+              location.pathname === "/dummygram/" ||
+              location.pathname === "/dummygram"
                 ? "activeTab"
                 : ""
             }
