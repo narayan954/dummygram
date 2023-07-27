@@ -104,7 +104,11 @@ const ChatBox = () => {
 
   return (
     <div className="chat-main-container">
+      <div className="roundedBtn">
+      <HighlightOffRoundedIcon className="closeBtn" onClick={()=>navigate("/dummygram/")} />
+      </div>
       <span className="chat-header">showing last 20 messages</span>
+
       <div className="all-chat-msg-container">
         <ul className="chat-msg-container">
           {messages.map((message) => (
@@ -132,8 +136,6 @@ const ChatBox = () => {
             </li>
           ))}
         </ul>
-        <HighlightOffRoundedIcon className="closeBtn" onClick={()=>null} />
-
       </div>    
       <form className="chat-input-container" onSubmit={handleOnSubmit}>
         {showEmojis && (
