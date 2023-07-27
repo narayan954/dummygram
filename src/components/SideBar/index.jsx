@@ -40,9 +40,14 @@ function SideBar({ anonymous }) {
       <div className="sidebar-container">
         <ul className="sidebar-links">
           <li
-            onClick={() => navigate("/dummygram/")}
             id="sidebar-home-link"
-            className={location.pathname == "/dummygram/" ? "activeTab" : ""}
+            onClick={() => navigate("/dummygram")}
+            className={
+              location.pathname == "/dummygram/" ||
+              location.pathname == "/dummygram"
+                ? "activeTab"
+                : ""
+            }
           >
             <div className="sidebar_align">
               <HomeIcon className="icon" /> <span>Home</span>
@@ -63,7 +68,7 @@ function SideBar({ anonymous }) {
               navigate(`/dummygram/${anonymous ? "signup" : "search"}`)
             }
             className={
-              location.pathname == "/dummygram/search" ? "activeTab" : ""
+              location.pathname.includes("/dummygram/search") ? "activeTab" : ""
             }
           >
             <div className="sidebar_align">
@@ -75,7 +80,9 @@ function SideBar({ anonymous }) {
               navigate(`/dummygram/${anonymous ? "signup" : "favourites"}`)
             }
             className={
-              location.pathname == "/dummygram/favourites" ? "activeTab" : ""
+              location.pathname.includes("/dummygram/favourites")
+                ? "activeTab"
+                : ""
             }
           >
             <div className="sidebar_align">
@@ -88,7 +95,9 @@ function SideBar({ anonymous }) {
               navigate(`/dummygram/${anonymous ? "signup" : "notifications"}`)
             }
             className={
-              location.pathname == "/dummygram/notifications" ? "activeTab" : ""
+              location.pathname.includes("/dummygram/notifications")
+                ? "activeTab"
+                : ""
             }
           >
             <div className="sidebar_align">
@@ -96,12 +105,14 @@ function SideBar({ anonymous }) {
             </div>
           </li>
           <li
-            className={
-              location.pathname == `/dummygram/user/${username}`
-                ? "activeTab"
-                : ""
+            onClick={() =>
+              navigate(
+                `/dummygram/${anonymous ? "signup" : `user/${username}`}`,
+              )
             }
-            onClick={() => navigate(`/dummygram/user/${username}`)}
+            className={
+              location.pathname.includes("/dummygram/user") ? "activeTab" : ""
+            }
           >
             <div className="sidebar_align">
               {user && user.photoURL ? (
