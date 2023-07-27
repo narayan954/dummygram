@@ -4,6 +4,7 @@ import { auth, db } from "../../lib/firebase";
 import { useEffect, useState } from "react";
 
 import SendIcon from "@mui/icons-material/Send";
+import HighlightOffRoundedIcon from '@mui/icons-material/HighlightOffRounded';
 import firebase from "firebase/compat/app";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
@@ -119,7 +120,9 @@ const ChatBox = () => {
             </li>
           ))}
         </ul>
-      </div>
+        <HighlightOffRoundedIcon className="closeBtn" onClick={()=>null} />
+
+      </div>    
       <form className="chat-input-container" onSubmit={handleOnSubmit}>
         <input
           type="text"
