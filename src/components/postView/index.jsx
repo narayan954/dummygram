@@ -1,12 +1,10 @@
 import {
   Avatar,
   ClickAwayListener,
+  IconButton,
   Typography,
   useMediaQuery,
-  IconButton,
 } from "@mui/material";
-import { Send } from "@mui/icons-material";
-
 import {
   CommentForm,
   CommentItem,
@@ -23,6 +21,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import Caption from "../Post/Caption.jsx";
 import EmojiPicker from "emoji-picker-react";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
+import { Send } from "@mui/icons-material";
 import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
 import { db } from "../../lib/firebase.js";
 import firebase from "firebase/compat/app";
@@ -80,7 +79,6 @@ const PostCommentView = ({
       };
       await updateDoc(docRef, data)
         .then(() => setFetchAgain(!fetchAgain))
-
         .catch((error) => {
           console.error("Error updating document: ", error);
         });
@@ -177,7 +175,7 @@ const PostCommentView = ({
               />
             </ErrorBoundary>
           ) : (
-            <PostContentText>
+            <PostContentText style={{ padding: "1rem" }}>
               {caption.length >= 300 ? (
                 <Typography variant="body3" color="text.secondary">
                   <ErrorBoundary>
@@ -224,13 +222,7 @@ const PostCommentView = ({
                     },
                   }}
                   onClick={() => {
-                    navigate("/dummygram/profile", {
-                      state: {
-                        name: username,
-                        avatar: avatar,
-                        email: email,
-                      },
-                    });
+                    navigate(`/dummygram/user/${username}`);
                   }}
                 />
               }
@@ -255,7 +247,7 @@ const PostCommentView = ({
           {/* caption box */}
           {postHasImages && caption ? (
             <ErrorBoundary>
-              <PostCaption>
+              <PostCaption style={{ paddingRight: "1rem" }}>
                 <Typography
                   variant="body2"
                   className="post-page-caption"
@@ -331,18 +323,18 @@ const PostCommentView = ({
                 margin: "4px 0px",
               }}
             />
-         <IconButton
-            className="post__button"
-            disabled={commentRef?.current?.value === null}
-            type="submit"
-            onClick={postComment}
-            style={{
-              padding: 0,
-              paddingRight: "5px",
-            }}
-          >
-            <Send className="send-comment-btn" />
-          </IconButton>
+            <IconButton
+              className="post__button"
+              disabled={commentRef?.current?.value === null}
+              type="submit"
+              onClick={postComment}
+              style={{
+                padding: 0,
+                paddingRight: "5px",
+              }}
+            >
+              <Send className="send-comment-btn" />
+            </IconButton>
           </CommentForm>
           <ErrorBoundary>
             {comments?.length ? (
@@ -354,7 +346,7 @@ const PostCommentView = ({
                   >
                     <div className={"post_comment_details"}>
                       <div className="post_comment_header">
-                        <span>{userComment.content.username}</span>
+                        <span>{userComment.content.displayName}</span>
                         <PostViewComments
                           fullScreen={fullScreen}
                           postId={postId}

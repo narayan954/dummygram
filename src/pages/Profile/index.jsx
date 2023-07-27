@@ -1,5 +1,6 @@
 import "./index.css";
 
+import { AnimatedButton, Loader } from "../../reusableComponents";
 import {
   Avatar,
   Box,
@@ -9,21 +10,28 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { auth, db, storage } from "../../lib/firebase";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
+import {
+  collection,
+  deleteField,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import { getModalStyle, useStyles } from "../../App";
 import { lazy, useEffect, useState } from "react";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { AnimatedButton } from "../../reusableComponents";
 import EditIcon from "@mui/icons-material/Edit";
+import { EditProfile } from "../../components";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import { FaUserCircle } from "react-icons/fa";
-import { Loader } from "../../reusableComponents";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Modal from "@mui/material/Modal";
+import NotFound from "../NotFound";
 import SettingsIcon from "@mui/icons-material/Settings";
+import { StoryView } from "../../components";
 import ViewsCounter from "../../reusableComponents/views";
 import firebase from "firebase/compat/app";
 import logo from "../../assets/logo.webp";
@@ -40,25 +48,30 @@ function Profile() {
   const { enqueueSnackbar } = useSnackbar();
 
   const [user, setUser] = useState(null);
-  const [image, setImage] = useState("");
-  const [visible, setVisible] = useState(false);
   const [feed, setFeed] = useState([]);
-  const [profilePic, setProfilePic] = useState("");
   const [open, setOpen] = useState(false);
   const [logout, setLogout] = useState(false);
   const [friendRequestSent, setFriendRequestSent] = useState(false);
   const [userData, setUserData] = useState(null);
-  const [updatedUrl, setUpdatedUrl] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+  const [userExists, setUserExists] = useState(true);
+  const [viewStory, setViewStory] = useState(false);
   const { username } = useParams();
 
   let name = "";
   let avatar = "";
   let uid = "";
+  let bio = "";
+  let country = "";
+  let storyTimestamp = null;
 
   if (userData) {
     name = userData.name;
     avatar = userData.avatar;
     uid = userData.uid;
+    bio = userData.bio;
+    country = userData.country;
+    storyTimestamp = userData.storyTimestamp;
   }
 
   const handleClose = () => setOpen(false);
@@ -72,12 +85,49 @@ function Profile() {
       docRef
         .get()
         .then((snapshot) => {
-          const doc = snapshot.docs[0];
-          setUserData({
-            name: doc.data().name,
-            avatar: doc.data().photoURL,
-            uid: doc.data().uid,
-          });
+          if (snapshot.docs) {
+            const doc = snapshot.docs[0];
+
+            const currTimestamp = firebase.firestore.Timestamp.now().seconds;
+            const storyTimestamp = doc.data().storyTimestamp?.seconds;
+
+            //Check if story is expired or not
+            if (storyTimestamp && currTimestamp - storyTimestamp > 86400) {
+              async function deleteStory() {
+                const querySnapshot = await db
+                  .collection("story")
+                  .where("username", "==", username)
+                  .get();
+
+                // Delete the story that are expired
+                querySnapshot?.forEach((doc) => {
+                  doc.ref.delete().catch((error) => {
+                    console.error("Error deleting document: ", error);
+                  });
+                });
+
+                const docRef = doc.ref;
+                docRef.update({
+                  storyTimestamp: deleteField(),
+                });
+              }
+              deleteStory();
+            }
+
+            const data = doc.data();
+            setUserData({
+              name: data.name,
+              avatar: data.photoURL,
+              uid: data.uid,
+              bio: data.bio
+                ? data.bio
+                : "Lorem ipsum dolor sit amet consectetur",
+              country: data.country ? data.country : "Global",
+              storyTimestamp: data.storyTimestamp,
+            });
+          } else {
+            setUserExists(false);
+          }
         })
         .catch((error) => {
           enqueueSnackbar(`Error Occured: ${error}`, {
@@ -140,7 +190,7 @@ function Profile() {
           const notificationData = {
             recipient: targetUserUid,
             sender: currentUserUid,
-            message: `You have received a friend request`,
+            message: "You have received a friend request",
             senderName: auth?.currentUser?.displayName,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
           };
@@ -215,65 +265,6 @@ function Profile() {
     });
   }, [user, name]);
 
-  const handleChange = (e) => {
-    if (e.target.files[0]) {
-      setProfilePic(URL.createObjectURL(e.target.files[0]));
-      setImage(e.target.files[0]);
-      setVisible(true);
-    }
-  };
-
-  const handleSave = () => {
-    setOpen(false);
-    const uploadTask = storage.ref(`images/${image?.name}`).put(image);
-    uploadTask.on(
-      "state_changed",
-      () => {},
-      (error) => {
-        playErrorSound();
-        enqueueSnackbar(error.message, {
-          variant: "error",
-        });
-      },
-      () => {
-        storage
-          .ref("images")
-          .child(image?.name)
-          .getDownloadURL()
-          .then(async (url) => {
-            //Updating profile image in auth
-            auth.currentUser.updateProfile({
-              displayName: name,
-              photoURL: url,
-            });
-            setUpdatedUrl(url);
-            //Updating profile image in users collection
-            const docRef = db.collection("users").doc(uid);
-            await docRef.update({
-              photoURL: url,
-            });
-
-            //Updating profile image in all posts
-            const postsRef = db.collection("posts").where("uid", "==", uid);
-            postsRef.get().then((postsSnapshot) => {
-              postsSnapshot.forEach((post) => {
-                const postRef = post.ref;
-                postRef.update({
-                  avatar: url,
-                });
-              });
-            });
-            playSuccessSound();
-            enqueueSnackbar("Upload Successful!!!", {
-              variant: "success",
-            });
-          })
-          .catch((error) => console.error(error));
-      }
-    );
-    setVisible(false);
-  };
-
   const signOut = () => {
     auth.signOut().finally(() => {
       playSuccessSound();
@@ -287,9 +278,24 @@ function Profile() {
   return (
     <>
       <ErrorBoundary>
-        <SideBar updatedUrl={updatedUrl} />
+        <SideBar />
       </ErrorBoundary>
-      {userData ? (
+      {viewStory && (
+        <StoryView
+          username={username}
+          setViewStory={setViewStory}
+          setUserData={setUserData}
+        />
+      )}
+      {isEditing && (
+        <EditProfile
+          userData={userData}
+          username={username}
+          setIsEditing={setIsEditing}
+          setUserData={setUserData}
+        />
+      )}
+      {userData && userExists ? (
         <>
           <div className="background-image">
             <img
@@ -320,7 +326,7 @@ function Profile() {
                 borderRadius: "5%",
               }}
             >
-              {name === user?.displayName ? (
+              {uid === user?.uid ? (
                 <div style={{ display: "flex", flexDirection: "column" }}>
                   <img
                     style={{
@@ -334,7 +340,7 @@ function Profile() {
                     }}
                     width={isNonMobile ? "50%" : "50%"}
                     height={isNonMobile ? "50%" : "50%"}
-                    src={profilePic ? profilePic : avatar}
+                    src={avatar}
                     alt={name}
                   />
                   <div
@@ -346,32 +352,10 @@ function Profile() {
                       color: "var(--text-secondary)",
                     }}
                   >
-                    {name === user?.displayName && (
-                      <Box>
-                        <input
-                          type="file"
-                          id="file"
-                          className="file"
-                          onChange={handleChange}
-                          accept="image/*"
-                        />
-                        <label htmlFor="file">
-                          <EditIcon className="edit-image-icon" />
-                        </label>
+                    {uid === user?.uid && (
+                      <Box className="edit-btn">
+                        <EditIcon className="edit-image-icon" />
                       </Box>
-                    )}
-                    {visible && (
-                      <Button
-                        className="img-save"
-                        onClick={handleSave}
-                        variant="outlined"
-                        sx={{
-                          marginTop: "1rem",
-                          padding: "5px 25px",
-                        }}
-                      >
-                        Save
-                      </Button>
                     )}
                   </div>
                 </div>
@@ -416,40 +400,27 @@ function Profile() {
               >
                 {avatar ? (
                   <Avatar
-                    onClick={() => setOpen((on) => !on)}
+                    onClick={() => {
+                      if (storyTimestamp) {
+                        setViewStory(true);
+                      }
+                    }}
                     alt={name}
-                    src={updatedUrl ? updatedUrl : avatar}
-                    className="profile-pic-container"
+                    src={avatar}
+                    className={`profile-pic-container ${
+                      storyTimestamp ? "story_available_border" : null
+                    }`}
                   />
                 ) : (
                   <FaUserCircle className="profile-pic-container" />
                 )}
-                {name === user?.displayName && (
+                {uid === user?.uid && (
                   <Box className="edit-btn">
-                    <input
-                      type="file"
-                      id="file"
-                      className="file"
-                      onChange={handleChange}
-                      accept="image/*"
+                    <EditIcon
+                      className="edit-image-icon"
+                      onClick={() => setIsEditing(true)}
                     />
-                    <label htmlFor="file">
-                      <EditIcon className="edit-image-icon" />
-                    </label>
                   </Box>
-                )}
-                {visible && (
-                  <Button
-                    className="img-save"
-                    onClick={handleSave}
-                    variant="outlined"
-                    sx={{
-                      marginTop: "1rem",
-                      padding: "5px 25px",
-                    }}
-                  >
-                    Save
-                  </Button>
                 )}
               </Box>
               <Box
@@ -462,18 +433,14 @@ function Profile() {
                 <Typography className="profile-user-display-name">
                   {name}
                 </Typography>
-                <p className="profile-bio">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Accusamus atque eaque mollitia iusto odit! Voluptatum iusto
-                  beatae esse exercitationem.
-                </p>
+                <p className="profile-bio">{bio}</p>
                 <div className="username-and-location-container">
                   <Typography className="profile-user-username">
                     {username}
                   </Typography>
                   <span className="dot-seperator"></span>
                   <Typography className="profile-user-username">
-                    <LocationOnIcon className="location-icon" /> India
+                    <LocationOnIcon className="location-icon" /> {country}
                   </Typography>
                 </div>
                 <div style={{ display: "flex", gap: "30px" }}>
@@ -488,7 +455,7 @@ function Profile() {
                     </span>
                   </Typography>
                 </div>
-                {name !== user?.displayName && (
+                {uid !== user?.uid && (
                   <Button
                     onClick={() =>
                       user.isAnonymous
@@ -502,12 +469,12 @@ function Profile() {
                     {friendRequestSent ? "Remove friend request" : "Add Friend"}
                   </Button>
                 )}
-                {name === user?.displayName && (
+                {uid === user?.uid && (
                   <Box className="setting-logout">
                     <Button
                       variant="contained"
                       startIcon={<SettingsIcon style={{ color: "black" }} />}
-                      style={{ backgroundColor: "#8beeff" }}
+                      style={{ backgroundColor: "#5F85DB" }}
                       onClick={() => navigate("/dummygram/settings")}
                     >
                       <Typography
@@ -522,7 +489,7 @@ function Profile() {
                       variant="contained"
                       color="primary"
                       startIcon={<LogoutIcon style={{ color: "black" }} />}
-                      style={{ backgroundColor: "#8beeff" }}
+                      style={{ backgroundColor: "#5F85DB" }}
                       onClick={() => setLogout(true)}
                     >
                       <Typography
@@ -601,15 +568,16 @@ function Profile() {
                     shareModal={true}
                     setLink="/"
                     setPostText=""
-                    updatedUrl={updatedUrl}
                   />
                 ))}
               </ErrorBoundary>
             </div>
           </Box>
         </>
-      ) : (
+      ) : userExists ? (
         <Loader />
+      ) : (
+        <NotFound />
       )}
     </>
   );

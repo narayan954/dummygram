@@ -28,15 +28,20 @@
 .dialog-box-img {
   border-radius: 50%;
   width: 75px;
+  height: 75px;
   cursor: pointer;
   transition: 0.2s ease-in-out;
   border: 1px solid #eee;
-  box-shadow: 1px 1px 3px #bcbbbb, -1px -1px 3px #bcbbbb;
+  box-shadow:
+    1px 1px 3px #bcbbbb,
+    -1px -1px 3px #bcbbbb;
 }
 
 .dialog-box-img:hover {
   transform: scale(1.1);
-  box-shadow: 2px 2px 5px #faf7f7, -2px -2px 5px #faf7f7;
+  box-shadow:
+    2px 2px 5px #faf7f7,
+    -2px -2px 5px #faf7f7;
 }
 
 .dialog-box-display-name {
@@ -45,7 +50,11 @@
   cursor: pointer;
   width: fit-content;
 }
-
+.dialog-box-name-container span.dialog-box-username {
+  display: flex;
+  padding-top: 5px;
+  font-size: 13px;
+}
 .dialog-box-display-name:hover {
   text-decoration: underline;
 }

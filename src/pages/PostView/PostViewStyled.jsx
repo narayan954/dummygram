@@ -112,7 +112,7 @@ export const PostCaption = styled("div")(({ theme }) => ({
   paddingBottom: "1rem",
 }));
 export const PostContentText = styled("div")(({ theme }) => ({
-  background: `url(/asset/postbg.webp)`,
+  background: "url(/asset/postbg.webp)",
   backgroundSize: "cover",
   TextAlign: "center",
   padding: 0,

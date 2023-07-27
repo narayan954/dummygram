@@ -6,7 +6,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   Divider,
 } from "@mui/material";
@@ -31,26 +30,25 @@ const DialogBox = ({
             id="responsive-dialog-title"
             sx={{
               fontWeight: "bold",
-              backgroundColor: "var(--bg-color)",
+              backgroundColor: "var(--dark-post-bg)",
               color: "var(--color)",
             }}
           >
             {title}
           </DialogTitle>
-
           <Divider />
         </>
       )}
 
       <DialogContent
-        sx={{ color: "var(--color)", backgroundColor: "var(--bg-color)" }}
+        sx={{ color: "var(--color)", backgroundColor: "var(--dark-post-bg)" }}
       >
-        <DialogContentText>{children}</DialogContentText>
+        <div>{children}</div>
       </DialogContent>
 
       <Divider />
 
-      <DialogActions sx={{ backgroundColor: "var(--bg-color)" }}>
+      <DialogActions sx={{ backgroundColor: "var(--dark-post-bg)" }}>
         <Button
           onClick={onClose}
           sx={{ fontWeight: "bold", color: "var(--color)" }}

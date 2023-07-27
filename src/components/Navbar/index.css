@@ -9,15 +9,15 @@
   position: fixed;
   width: 100%;
   top: 0;
-  z-index: 1;
+  z-index: 999;
   padding-top: 10px;
   padding-bottom: 10px;
   object-fit: contain;
-  border-bottom: 1px solid rgb(219, 219, 219);
+  /* border-bottom: 1px solid rgb(219, 219, 219); */
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  background-color: var(--bg-color);
+  background-color: var(--dark-post-bg);
 }
 
 .navSpace {
@@ -62,12 +62,12 @@
   cursor: pointer;
 }
 
-.chatIcon{
+.chatIcon {
   margin-top: 5px;
   transform: scale(1.2);
   margin-top: 11px;
 }
 
-#chat-icon{
+#chat-icon {
   display: inline-block;
 }

@@ -25,7 +25,7 @@ const ForgotPassword = React.lazy(() => import("./pages/ForgotPassword"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 const Settings = React.lazy(() => import("./pages/Settings"));
 const Contributors = React.lazy(() =>
-  import("./pages/FooterPages/ContributorPage/index")
+  import("./pages/FooterPages/ContributorPage/index"),
 );
 // ------------------------------------- Components ------------------------------------------------
 const Favorite = React.lazy(() => import("./components/Favorite.jsx"));
@@ -131,7 +131,7 @@ function App() {
           snapshot.docs.map((doc) => ({
             id: doc.id,
             post: doc.data(),
-          }))
+          })),
         );
       });
   }, []);
@@ -247,7 +247,7 @@ function App() {
             />
 
             <Route
-              path="/dummygram/:username"
+              path="/dummygram/user/:username"
               element={
                 <ErrorBoundary inApp={true}>
                   <Profile />
@@ -378,7 +378,7 @@ function App() {
           </Routes>
           {/* below scroll button must be checked for implementation */}
           <FaArrowCircleUp
-            fill="#0cc"
+            fill="#5F85DB"
             className={`scrollTop ${isCenteredScroll ? "centeredScroll" : ""}`}
             onClick={scrollTop}
             style={{

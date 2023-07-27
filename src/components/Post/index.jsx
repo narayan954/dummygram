@@ -31,7 +31,6 @@ const PostNav = lazy(() => import("./PostNav"));
 function Post(prop) {
   const { postId, user, post, shareModal, setLink, setPostText, rowMode } =
     prop;
-    const updatedUrl = prop.updatedUrl;
   const { caption, imageUrl, likecount, timestamp } = post;
 
   const [comments, setComments] = useState([]);
@@ -61,7 +60,7 @@ function Post(prop) {
             snapshot.docs.map((doc) => ({
               id: doc.id,
               content: doc.data(),
-            }))
+            })),
           );
         });
     }
@@ -139,13 +138,6 @@ function Post(prop) {
 
   const tempLikeCount = likecount ? [...likecount] : [];
 
-  const buttonStyle = {
-    ":hover": {
-      color: "#FF4D4D",
-      fontSize: "29px",
-    },
-  };
-
   async function likesHandler() {
     if (user && likecount !== undefined) {
       let ind = tempLikeCount.indexOf(user.uid);
@@ -182,12 +174,7 @@ function Post(prop) {
   };
 
   return (
-    <div
-      className={`${rowMode ? "post" : "postColumn"}`}
-      style={{
-        boxShadow: "#fff 0px 3px 6px, #0cc 0px 3px 6px",
-      }}
-    >
+    <div className={`${rowMode ? "post" : "postColumn"}`}>
       <ErrorBoundary>
         <PostHeader
           user={user}
@@ -195,7 +182,6 @@ function Post(prop) {
           postHasImages={postHasImages}
           postId={postId}
           timestamp={timestamp}
-          updatedUrl={updatedUrl}
         />
       </ErrorBoundary>
       <Divider />
@@ -209,7 +195,7 @@ function Post(prop) {
             caption={caption}
           />
         </ErrorBoundary>
-        <Divider />
+        <Divider style={{ paddingTop: "6px" }} />
         <Flexbetween>
           <Typography
             marginLeft={1}
