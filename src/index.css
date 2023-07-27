@@ -13,7 +13,6 @@
   --emoji-btn: black;
   --profile-container: #f4eeff;
   --profile-box-shadow: 0 0 6px 0 black;
-  --profile-divider: "";
   --logo-text-shadow: none;
   --btn-color: linear-gradient(-40deg, #daf1f7, #5f85db);
   --btn-color-hover: linear-gradient(40deg, #5f85db, #daf1f7);
@@ -44,7 +43,6 @@
   --emoji-btn: rgb(240, 240, 123);
   --profile-container: rgb(50, 48, 48);
   --profile-box-shadow: 0 0 6px white;
-  --profile-divider: #898989;
   /* --logo-text-shadow: 0 0 10px #eeeeee, 0 0 20px #5F85DB, 0 0 30px #fff; */
   --btn-color: linear-gradient(40deg, #5f85db, #daf1f7);
   --btn-color-hover: linear-gradient(-40deg, #daf1f7, #5f85db);
