@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { db } from "../../lib/firebase";
 
 import { Box } from "@mui/material";
-import blankImg from "../../assets/blank-profile.webp"
+import blankImg from "../../assets/blank-profile.webp";
 import { FaSearch } from "react-icons/fa";
 import SideBar from "../SideBar";
 
@@ -31,7 +31,6 @@ function SearchBar() {
     // Call fetchUsers function whenever debouncedQuery changes after the 2-second delay
     fetchUsers();
   }, [debouncedQuery]);
-
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
@@ -79,14 +78,24 @@ function SearchBar() {
               <ul className="searched-user-sub-container">
                 {searchResults.map(({ id, user }) => {
                   return (
-                    <li key={id} className="searched-user-li" onClick={() => navigate(`/dummygram/${user.username}`)}>
-                      <img src={user?.photoURL ? user.photoURL : blankImg} alt={user.name} className="searched-user-avatar" />
+                    <li
+                      key={id}
+                      className="searched-user-li"
+                      onClick={() => navigate(`/dummygram/${user.username}`)}
+                    >
+                      <img
+                        src={user?.photoURL ? user.photoURL : blankImg}
+                        alt={user.name}
+                        className="searched-user-avatar"
+                      />
                       <span>
                         <h5 className="searched-user-name">{user.name}</h5>
-                        <p className="searched-user-username">@{user.username}</p>
+                        <p className="searched-user-username">
+                          @{user.username}
+                        </p>
                       </span>
                     </li>
-                  )
+                  );
                 })}
               </ul>
             </section>
