@@ -43,7 +43,7 @@ const Darkmode = ({ themeClass }) => {
 
   const styles = {
     activity: { height: 30, width: 40, color: "#0516cbb0" },
-    disable: { height: 30, width: 40, color: "#d8860b" }
+    disable: { height: 30, width: 40, color: "#d8860b" },
   };
 
   return (

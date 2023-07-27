@@ -29,7 +29,7 @@ const ReadMore = ({ children, picCap = false, postId, readMore = true }) => {
           style={{
             color: "var(--color)",
             fontWeight: "bold",
-            cursor: "pointer"
+            cursor: "pointer",
           }}
         >
           {isReadMore ? " ...read more" : " ...show less"}

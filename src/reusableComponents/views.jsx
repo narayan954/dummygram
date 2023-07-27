@@ -36,7 +36,7 @@ const ViewsCounter = ({ uid }) => {
           // Document doesn't exist, create a new one
           const newDocumentData = {
             uid: uid,
-            views: 1
+            views: 1,
           };
           const newDocumentRef = await db
             .collection("profileViews")
@@ -54,7 +54,7 @@ const ViewsCounter = ({ uid }) => {
 
           documentRef
             .update({
-              views: updatedViews
+              views: updatedViews,
             })
             .catch((error) => {
               console.error("Error updating document:", error);

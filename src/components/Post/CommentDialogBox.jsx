@@ -6,7 +6,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Divider
+  Divider,
 } from "@mui/material";
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -24,7 +24,7 @@ const CommentDialogBox = ({
   fullScreen,
   handleCloseForDeleteComment,
   deleteComment,
-  deleteCommentID
+  deleteCommentID,
 }) => {
   const { isAnonymous } = user;
   return (
@@ -32,8 +32,8 @@ const CommentDialogBox = ({
       sx={{
         overflowY: "scroll",
         "&::-webkit-scrollbar": {
-          width: 0
-        }
+          width: 0,
+        },
       }}
       borderRadius="10px"
       maxHeight="40vh"

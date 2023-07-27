@@ -34,7 +34,7 @@ function Favorite() {
               }
             } catch (error) {
               enqueueSnackbar("Error while fetching all posts", {
-                variant: "error"
+                variant: "error",
               });
               setLoading(false);
             }
@@ -45,7 +45,7 @@ function Favorite() {
           setPosts(posts);
         } catch (error) {
           enqueueSnackbar("Error while fetching all posts", {
-            variant: "error"
+            variant: "error",
           });
           setLoading(false);
         }
@@ -67,7 +67,7 @@ function Favorite() {
             height: "100vh",
             display: "flex",
             justifyContent: "center",
-            alignItems: "center"
+            alignItems: "center",
           }}
         >
           <Loader />

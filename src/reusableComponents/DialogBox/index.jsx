@@ -7,7 +7,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  Divider
+  Divider,
 } from "@mui/material";
 
 const DialogBox = ({
@@ -15,7 +15,7 @@ const DialogBox = ({
   onClose,
   title = "Default title",
   children,
-  showTitle = true
+  showTitle = true,
 }) => {
   return (
     <Dialog
@@ -31,7 +31,7 @@ const DialogBox = ({
             sx={{
               fontWeight: "bold",
               backgroundColor: "var(--dark-post-bg)",
-              color: "var(--color)"
+              color: "var(--color)",
             }}
           >
             {title}

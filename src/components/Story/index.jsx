@@ -23,7 +23,7 @@ const StoryView = ({ username, setViewStory, setUserData }) => {
       docRef.get().then((snapshot) => {
         const doc = snapshot.docs[0];
         setStoryData({
-          ...doc?.data()
+          ...doc?.data(),
         });
         try {
           setStoryImage(JSON.parse(doc.data().imageUrl));
@@ -35,7 +35,7 @@ const StoryView = ({ username, setViewStory, setUserData }) => {
               imageUrl: url,
               imageWidth: 0,
               imageHeight: 0,
-              thumbnail: null
+              thumbnail: null,
             }));
           setStoryImage(img);
         }
@@ -67,12 +67,12 @@ const StoryView = ({ username, setViewStory, setUserData }) => {
     userDocSnapshot?.forEach((doc) => {
       doc.ref
         .update({
-          storyTimestamp: deleteField()
+          storyTimestamp: deleteField(),
         })
         .then(() => {
           setUserData((prevData) => ({
             ...prevData,
-            storyTimestamp: null
+            storyTimestamp: null,
           }));
         })
         .catch((error) => {

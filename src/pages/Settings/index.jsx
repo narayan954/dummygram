@@ -3,7 +3,7 @@ import "./index.css";
 import { Outlet, Route, Routes } from "react-router-dom";
 import {
   SettingsSidebar,
-  SoundSetting
+  SoundSetting,
 } from "../../components/SettingsComponents";
 
 import React from "react";

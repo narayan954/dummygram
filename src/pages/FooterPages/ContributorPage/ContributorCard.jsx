@@ -22,7 +22,7 @@ function ContributorCard(props) {
         borderRadius: "20px",
         boxShadow:
           "0 0 0 2px rgb(255, 255, 255), 0.3em 0.3em 1em rgba(0, 0, 0, 0.3)",
-        ":hover": { scale: "1.03", transition: "ease-in-out" }
+        ":hover": { scale: "1.03", transition: "ease-in-out" },
       }}
     >
       <Box
@@ -47,7 +47,7 @@ function ContributorCard(props) {
               marginRight: "10px",
               display: "flex",
               alignItems: "center",
-              color: "var(--link-color)"
+              color: "var(--link-color)",
             }}
           >
             <GitHub />

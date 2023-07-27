@@ -21,36 +21,36 @@ const ForgotPassword = () => {
       .then(() => {
         playSuccessSound();
         enqueueSnackbar("Check your mail and change the pasword.", {
-          variant: "success"
+          variant: "success",
         });
       })
       .catch((error) => {
         if (error.code === "auth/invalid-email") {
           playErrorSound();
           enqueueSnackbar("Invalid email address", {
-            variant: "error"
+            variant: "error",
           });
         } else if (error.code === "auth/user-not-found") {
           playErrorSound();
           enqueueSnackbar("User not found", {
-            variant: "error"
+            variant: "error",
           });
         } else if (error.code === "auth/wrong-password") {
           playErrorSound();
           enqueueSnackbar("Wrong password", {
-            variant: "error"
+            variant: "error",
           });
         } else if (
           error.code === "auth/account-exists-with-different-credential"
         ) {
           playErrorSound();
           enqueueSnackbar("Account exists with a different credential", {
-            variant: "error"
+            variant: "error",
           });
         } else {
           playErrorSound();
           enqueueSnackbar("Error Occured!", {
-            variant: "error"
+            variant: "error",
           });
         }
       });
@@ -65,7 +65,7 @@ const ForgotPassword = () => {
       style={{
         display: "flex",
         alignContent: "center",
-        justifyContent: "center"
+        justifyContent: "center",
       }}
     >
       <div style={getModalStyle()} className={classes.paper}>
@@ -76,7 +76,7 @@ const ForgotPassword = () => {
             className="modal__signup__img"
             style={{
               width: "80%",
-              filter: "invert(var(--val))"
+              filter: "invert(var(--val))",
             }}
           />
           <input
@@ -97,7 +97,7 @@ const ForgotPassword = () => {
               marginTop: "10px",
               backgroundColor: "white",
               boxShadow: "0 0 20px rgba(104, 85, 224, 0.2)",
-              borderRadius: "4px"
+              borderRadius: "4px",
             }}
           ></div>
           <button type="submit" onClick={signIn} className="button log">

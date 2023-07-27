@@ -11,5 +11,5 @@ export {
   Auth__pass__input,
   Auth__text__input,
   Auth__top,
-  Auth_container
+  Auth_container,
 };

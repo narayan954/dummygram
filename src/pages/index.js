@@ -17,5 +17,5 @@ export {
   PostView,
   Profile,
   Settings,
-  SignupScreen
+  SignupScreen,
 };

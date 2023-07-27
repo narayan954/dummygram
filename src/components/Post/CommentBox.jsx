@@ -12,7 +12,7 @@ const CommentBox = ({
   onEmojiClick,
   comment,
   setComment,
-  postComment
+  postComment,
 }) => {
   const { isAnonymous } = user;
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ const CommentBox = ({
           <div
             className="social__icon"
             style={{
-              cursor: "pointer"
+              cursor: "pointer",
             }}
           >
             <SentimentSatisfiedAltOutlinedIcon
@@ -40,7 +40,7 @@ const CommentBox = ({
                   searchDisabled
                   onEmojiClick={onEmojiClick}
                   previewConfig={{
-                    showPreview: false
+                    showPreview: false,
                   }}
                 />
               </div>
@@ -59,7 +59,7 @@ const CommentBox = ({
               background: "transparent",
               color: "var(--color)",
               borderRadius: "11px",
-              marginTop: "4px"
+              marginTop: "4px",
             }}
           />
 
@@ -72,7 +72,7 @@ const CommentBox = ({
             }
             style={{
               padding: 0,
-              paddingRight: "5px"
+              paddingRight: "5px",
             }}
           >
             <Send className="send-comment-btn" />

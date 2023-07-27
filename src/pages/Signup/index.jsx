@@ -7,7 +7,7 @@ import {
   Auth__pass__input,
   Auth__text__input,
   Auth__top,
-  Auth_container
+  Auth_container,
 } from "../../reusableComponents/Auth";
 import { Logo, validate } from "../../reusableComponents";
 import React, { useRef, useState } from "react";
@@ -16,7 +16,7 @@ import {
   db,
   facebookProvider,
   googleProvider,
-  storage
+  storage,
 } from "../../lib/firebase";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 
@@ -94,7 +94,7 @@ const SignupScreen = () => {
     if (!usernameAvailable) {
       playErrorSound();
       enqueueSnackbar("Username not available!", {
-        variant: "error"
+        variant: "error",
       });
       return;
     }
@@ -107,7 +107,7 @@ const SignupScreen = () => {
         .createUserWithEmailAndPassword(email, password)
         .then(async (authUser) => {
           await updateProfile(auth.currentUser, {
-            displayName: fullName
+            displayName: fullName,
           })
             .then(batch.set(usernameDoc, { uid: auth.currentUser.uid }))
             .then(batch.commit())
@@ -119,7 +119,7 @@ const SignupScreen = () => {
                 email: email,
                 photoURL: auth.currentUser.photoURL,
                 posts: [],
-                friends: []
+                friends: [],
               })
             )
             .then(() => {
@@ -127,7 +127,7 @@ const SignupScreen = () => {
               enqueueSnackbar(
                 `Congratulations ${fullName},you have joined Dummygram`,
                 {
-                  variant: "success"
+                  variant: "success",
                 }
               );
               navigate("/dummygram");
@@ -135,7 +135,7 @@ const SignupScreen = () => {
             .catch((error) => {
               playErrorSound();
               enqueueSnackbar(error.message, {
-                variant: "error"
+                variant: "error",
               });
             });
           const uploadTask = storage.ref(`images/${image?.name}`).put(image);
@@ -145,7 +145,7 @@ const SignupScreen = () => {
             (error) => {
               playErrorSound();
               enqueueSnackbar(error.message, {
-                variant: "error"
+                variant: "error",
               });
             },
             () => {
@@ -156,11 +156,11 @@ const SignupScreen = () => {
                 .then((url) => {
                   authUser.user.updateProfile({
                     displayName: fullName,
-                    photoURL: url
+                    photoURL: url,
                   });
                   playSuccessSound();
                   enqueueSnackbar("Signup Successful!", {
-                    variant: "success"
+                    variant: "success",
                   });
                 })
                 .catch((error) => console.error(error));
@@ -170,7 +170,7 @@ const SignupScreen = () => {
         .catch((error) => {
           playErrorSound();
           enqueueSnackbar(error.message, {
-            variant: "error"
+            variant: "error",
           });
         })
         .finally(() => {
@@ -178,7 +178,7 @@ const SignupScreen = () => {
         });
     } else {
       enqueueSnackbar("Please fill all fields with valid data", {
-        variant: "error"
+        variant: "error",
       });
       return;
     }
@@ -200,7 +200,7 @@ const SignupScreen = () => {
             if (doc.exists) {
               if (!doc.data().username) {
                 doc.ref.update({
-                  username: doc.data().uid
+                  username: doc.data().uid,
                 });
               }
               navigate("/dummygram");
@@ -211,14 +211,14 @@ const SignupScreen = () => {
           .catch((error) => {
             playErrorSound();
             enqueueSnackbar(error.message, {
-              variant: "error"
+              variant: "error",
             });
           });
       })
       .catch((error) => {
         playErrorSound();
         enqueueSnackbar(error.message, {
-          variant: "error"
+          variant: "error",
         });
       });
   };
@@ -239,7 +239,7 @@ const SignupScreen = () => {
             if (doc.exists) {
               if (!doc.data().username) {
                 doc.ref.update({
-                  username: doc.data().uid
+                  username: doc.data().uid,
                 });
               }
               navigate("/dummygram");
@@ -250,14 +250,14 @@ const SignupScreen = () => {
           .catch((error) => {
             playErrorSound();
             enqueueSnackbar(error.message, {
-              variant: "error"
+              variant: "error",
             });
           });
       })
       .catch((error) => {
         playErrorSound();
         enqueueSnackbar(error.message, {
-          variant: "error"
+          variant: "error",
         });
       });
   };
@@ -280,14 +280,14 @@ const SignupScreen = () => {
         email: val.user.email,
         photoURL: val.user.photoURL,
         posts: [],
-        friends: []
+        friends: [],
       })
       .then(() => {
         playSuccessSound();
         enqueueSnackbar(
           `Congratulations ${fullName},you have joined Dummygram`,
           {
-            variant: "success"
+            variant: "success",
           }
         );
         navigate("/dummygram");
@@ -295,7 +295,7 @@ const SignupScreen = () => {
       .catch((error) => {
         playErrorSound();
         enqueueSnackbar(error.message, {
-          variant: "error"
+          variant: "error",
         });
       });
   }

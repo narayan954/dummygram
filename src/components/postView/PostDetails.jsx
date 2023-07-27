@@ -1,7 +1,7 @@
 import {
   FavoriteBorderOutlined,
   FavoriteOutlined,
-  ShareOutlined
+  ShareOutlined,
 } from "@mui/icons-material";
 import { IconButton, Typography } from "@mui/material";
 
@@ -19,7 +19,7 @@ const PostDetails = ({
   setPostText,
   setLink,
   caption,
-  fullScreen
+  fullScreen,
 }) => {
   const tempLikeCount = likecount ? [...likecount] : [];
   return (

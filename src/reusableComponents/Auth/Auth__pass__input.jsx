@@ -11,7 +11,7 @@ const Auth__pass__input = ({
   aria_dsc_by,
   errorMesssage,
   isError,
-  maxLength
+  maxLength,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const handleShowPassword = (e) => {

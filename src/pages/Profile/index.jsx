@@ -7,7 +7,7 @@ import {
   Button,
   Divider,
   Typography,
-  useMediaQuery
+  useMediaQuery,
 } from "@mui/material";
 import { auth, db, storage } from "../../lib/firebase";
 import {
@@ -15,7 +15,7 @@ import {
   deleteField,
   onSnapshot,
   query,
-  where
+  where,
 } from "firebase/firestore";
 import { getModalStyle, useStyles } from "../../App";
 import { lazy, useEffect, useState } from "react";
@@ -108,7 +108,7 @@ function Profile() {
 
                 const docRef = doc.ref;
                 docRef.update({
-                  storyTimestamp: deleteField()
+                  storyTimestamp: deleteField(),
                 });
               }
               deleteStory();
@@ -123,7 +123,7 @@ function Profile() {
                 ? data.bio
                 : "Lorem ipsum dolor sit amet consectetur",
               country: data.country ? data.country : "Global",
-              storyTimestamp: data.storyTimestamp
+              storyTimestamp: data.storyTimestamp,
             });
           } else {
             setUserExists(false);
@@ -131,7 +131,7 @@ function Profile() {
         })
         .catch((error) => {
           enqueueSnackbar(`Error Occured: ${error}`, {
-            variant: "error"
+            variant: "error",
           });
         });
     }
@@ -155,26 +155,26 @@ function Profile() {
             .delete()
             .then(() => {
               enqueueSnackbar("Friend Request removed successfully!", {
-                variant: "success"
+                variant: "success",
               });
               setFriendRequestSent(false);
             })
             .catch((error) => {
               enqueueSnackbar(`Error Occured: ${error}`, {
-                variant: "error"
+                variant: "error",
               });
             });
         })
         .catch((error) => {
           enqueueSnackbar(`Error Occured: ${error}`, {
-            variant: "error"
+            variant: "error",
           });
         });
     } else {
       const friendRequestData = {
         sender: currentUserUid,
         recipient: targetUserUid,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       };
       db.collection("users")
         .doc(targetUserUid)
@@ -185,14 +185,14 @@ function Profile() {
           setFriendRequestSent(true);
           playSuccessSound();
           enqueueSnackbar("Friend request sent!", {
-            variant: "success"
+            variant: "success",
           });
           const notificationData = {
             recipient: targetUserUid,
             sender: currentUserUid,
             message: "You have received a friend request",
             senderName: auth?.currentUser?.displayName,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
           };
           db.collection("users")
             .doc(targetUserUid)
@@ -203,7 +203,7 @@ function Profile() {
         .catch((error) => {
           playErrorSound();
           enqueueSnackbar(error.message, {
-            variant: "error"
+            variant: "error",
           });
         });
     }
@@ -258,7 +258,7 @@ function Profile() {
       querySnapshot.forEach((doc) => {
         userPosts.push({
           id: doc.id,
-          post: doc.data()
+          post: doc.data(),
         });
       });
       setFeed(userPosts);
@@ -269,7 +269,7 @@ function Profile() {
     auth.signOut().finally(() => {
       playSuccessSound();
       enqueueSnackbar("Logged out Successfully !", {
-        variant: "info"
+        variant: "info",
       });
       navigate("/dummygram/");
     });
@@ -323,7 +323,7 @@ function Profile() {
                 border: "1px solid #fff",
                 zIndex: "1000",
                 textAlign: "center",
-                borderRadius: "5%"
+                borderRadius: "5%",
               }}
             >
               {uid === user?.uid ? (
@@ -336,7 +336,7 @@ function Profile() {
                       position: "absolute",
                       top: "30%",
                       left: "50%",
-                      transform: "translate(-50%, -50%)"
+                      transform: "translate(-50%, -50%)",
                     }}
                     width={isNonMobile ? "50%" : "50%"}
                     height={isNonMobile ? "50%" : "50%"}
@@ -349,7 +349,7 @@ function Profile() {
                       top: "70%",
                       left: "50%",
                       transform: "translate(-50%, -30%)",
-                      color: "var(--text-secondary)"
+                      color: "var(--text-secondary)",
                     }}
                   >
                     {uid === user?.uid && (
@@ -371,7 +371,7 @@ function Profile() {
                       transform: "translate(-50%, -50%)",
                       borderRadius: "6%",
                       top: "50%",
-                      left: "50%"
+                      left: "50%",
                     }}
                     width={isNonMobile ? "50%" : "50%"}
                     height={isNonMobile ? "50%" : "50%"}
@@ -513,7 +513,7 @@ function Profile() {
                         style={{
                           width: "80%",
                           marginLeft: "10%",
-                          filter: "var(--filter-img)"
+                          filter: "var(--filter-img)",
                         }}
                       />
 
@@ -522,7 +522,7 @@ function Profile() {
                           fontSize: "15px",
                           fontFamily: "monospace",
                           padding: "10%",
-                          color: "var(--color)"
+                          color: "var(--color)",
                         }}
                       >
                         Are you sure you want to Logout?

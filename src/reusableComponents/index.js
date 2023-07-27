@@ -25,7 +25,7 @@ export {
   Scroll,
   ShareModal,
   SnackBar,
-  validate
+  validate,
 };
 
 export default Scroll;

@@ -125,7 +125,7 @@ function SideBar({ anonymous }) {
 
       <Dialog
         PaperProps={{
-          className: "dialogStyle"
+          className: "dialogStyle",
         }}
         open={openNewUpload}
         onClose={() => setOpenNewUpload(false)}
@@ -134,7 +134,7 @@ function SideBar({ anonymous }) {
           style={{
             backgroundColor: "var(--dark-post-bg)",
             textAlign: "center",
-            color: "var(--color)"
+            color: "var(--color)",
           }}
         >
           <AiOutlineClose

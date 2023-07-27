@@ -14,7 +14,7 @@ const ShareModal = (props) => {
     window.navigator.clipboard.writeText(currentPostLink);
     playSuccessSound();
     enqueueSnackbar("Copied Post Link!", {
-      variant: "success"
+      variant: "success",
     });
   };
 

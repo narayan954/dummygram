@@ -23,7 +23,7 @@ const ProfileDialogBox = ({ mouseOnProfileImg, userData }) => {
   return (
     <div
       style={{
-        display: mouseOnProfileImg || isHoverActive ? "flex" : "none"
+        display: mouseOnProfileImg || isHoverActive ? "flex" : "none",
       }}
       onMouseEnter={hoverOver}
       onMouseLeave={hoverOut}

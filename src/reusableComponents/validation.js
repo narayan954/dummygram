@@ -22,7 +22,7 @@ const validate = {
       : {
           password: true,
           passwordError:
-            "Minimum 8 characters, 1 uppercase, 1 lowercase, 1 symbol (@$%#^&*), 1 number (0-9)."
+            "Minimum 8 characters, 1 uppercase, 1 lowercase, 1 symbol (@$%#^&*), 1 number (0-9).",
         };
   },
 
@@ -31,13 +31,13 @@ const validate = {
       ? value !== password
         ? {
             confirmPassword: true,
-            confirmPasswordError: "Password does not match"
+            confirmPasswordError: "Password does not match",
           }
         : { confirmPassword: false, confirmPasswordError: false }
       : {
           confirmPassword: true,
           confirmPasswordError:
-            "Minimum 8 characters, 1 uppercase, 1 lowercase, 1 symbol (@$%#^&*), 1 number (0-9)."
+            "Minimum 8 characters, 1 uppercase, 1 lowercase, 1 symbol (@$%#^&*), 1 number (0-9).",
         };
   },
 
@@ -45,8 +45,8 @@ const validate = {
     name: true,
     email: true,
     password: true,
-    confirmPassword: true
-  }
+    confirmPassword: true,
+  },
 };
 
 export default validate;

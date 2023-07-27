@@ -7,7 +7,7 @@ import {
   DialogTitle,
   IconButton,
   Menu,
-  MenuItem
+  MenuItem,
 } from "@mui/material";
 import React, { useState } from "react";
 import { doc, updateDoc } from "firebase/firestore";
@@ -29,7 +29,7 @@ const PostViewMenu = ({
   caption,
   setFetchAgain,
   fetchAgain,
-  imageUrl
+  imageUrl,
 }) => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
@@ -58,11 +58,11 @@ const PostViewMenu = ({
     const taskDocRef = doc(db, "posts", postId);
     try {
       await updateDoc(taskDocRef, {
-        caption: editCaption
+        caption: editCaption,
       });
     } catch (err) {
       enqueueSnackbar("Error while updating caption", {
-        variant: "error"
+        variant: "error",
       });
     }
     setFetchAgain(!fetchAgain);
@@ -91,7 +91,7 @@ const PostViewMenu = ({
         aria-haspopup="true"
         onClick={(event) => setAnchorEl(event.currentTarget)}
         sx={{
-          color: "var(--color)"
+          color: "var(--color)",
         }}
       >
         <MoreVertIcon />
@@ -100,7 +100,7 @@ const PostViewMenu = ({
       <Menu
         id="long-menu"
         MenuListProps={{
-          "aria-labelledby": "long-button"
+          "aria-labelledby": "long-button",
         }}
         anchorEl={anchorEl}
         open={open}
@@ -108,8 +108,8 @@ const PostViewMenu = ({
         PaperProps={{
           style: {
             maxHeight: ITEM_HEIGHT * 4.5,
-            width: "20ch"
-          }
+            width: "20ch",
+          },
         }}
       >
         {user && username === user.displayName && (
@@ -126,8 +126,8 @@ const PostViewMenu = ({
             navigate("/dummygram/profile", {
               state: {
                 name: username,
-                avatar: avatar
-              }
+                avatar: avatar,
+              },
             });
           }}
         >

@@ -25,7 +25,7 @@ function Notifications() {
       .onSnapshot((snapshot) => {
         const fetchedNotifications = snapshot.docs.map((doc) => ({
           id: doc.id,
-          ...doc.data()
+          ...doc.data(),
         }));
         setNotifications(fetchedNotifications);
         setLoading(false);

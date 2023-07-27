@@ -2,7 +2,7 @@ import {
   ChatBubbleOutlineRounded,
   FavoriteBorderOutlined,
   FavoriteOutlined,
-  ShareOutlined
+  ShareOutlined,
 } from "@mui/icons-material";
 import { IconButton, Typography } from "@mui/material";
 import React, { useState } from "react";
@@ -24,7 +24,7 @@ const PostNav = ({
   setisCommentOpen,
   setLink,
   setPostText,
-  shareModal
+  shareModal,
 }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [Open, setOpen] = useState(false);
@@ -44,14 +44,14 @@ const PostNav = ({
       localStorage.setItem("posts", JSON.stringify(localStoragePosts));
       playSuccessSound();
       enqueueSnackbar("Post added to saved!", {
-        variant: "success"
+        variant: "success",
       });
     } else {
       localStoragePosts = localStoragePosts.filter((post) => post !== postId);
       localStorage.setItem("posts", JSON.stringify(localStoragePosts));
       playSuccessSound();
       enqueueSnackbar("Post is removed from saved!", {
-        variant: "info"
+        variant: "info",
       });
     }
     setFavoritePosts(JSON.parse(localStorage.getItem("posts")));
@@ -81,7 +81,7 @@ const PostNav = ({
           {tempLikeCount.indexOf(user?.uid) != -1 ? (
             <FavoriteOutlined
               sx={{
-                color: "red"
+                color: "red",
               }}
             />
           ) : (
