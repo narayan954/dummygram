@@ -1,7 +1,14 @@
 import "./index.css";
 
 import { AnimatedButton, Loader, Logo } from "../../reusableComponents";
-import { Avatar, Box, Button, Typography, useMediaQuery, Divider } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Typography,
+  useMediaQuery,
+  Divider,
+} from "@mui/material";
 import { auth, db } from "../../lib/firebase";
 import {
   collection,
@@ -545,7 +552,7 @@ function Profile() {
             </Box>
           </Box>
           <Divider className="profile_feed_divider" />
-          <ProfieFeed feed={feed} user={user}/>
+          <ProfieFeed feed={feed} user={user} />
         </>
       ) : userExists ? (
         <Loader />
