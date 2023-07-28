@@ -12,19 +12,29 @@ import { useNavigate } from "react-router-dom";
 function Contributor() {
   const [currentPage, setCurrentPage] = useState(1);
   const [contributors, setContributors] = useState([]);
+  const [searchResult,setSearchResult] = useState("");
 
   const navigate = useNavigate();
 
   const getData = async () => {
     const res = await fetch(
-      `https://api.github.com/repos/narayan954/dummygram/contributors?page=${currentPage}&&per_page=10`,
+      `https://api.github.com/repos/narayan954/dummygram/contributors?page=${currentPage}&&per_page=${searchResult.length < 1 ? 10:""}`,
     );
 
     const data = await res.json();
     const contributorsData = data.filter(
       (contributor) => !contributor.login.includes("deepsource-autofix[bot]"),
     );
-    setContributors(contributorsData);
+    const value = contributorsData.filter((item) => {
+         return `${item.login.toLowerCase()}`.includes(
+           searchResult.toLowerCase()
+        );
+         });
+        if(searchResult.length > 0){
+          setContributors(value);
+        }else{
+          setContributors(contributorsData);
+        }
   };
 
   const handleChange = (event, value) => {
@@ -33,7 +43,8 @@ function Contributor() {
 
   useEffect(() => {
     getData();
-  }, [currentPage]);
+  }, [currentPage,searchResult]);
+
 
   return (
     <div className="footer-page-container footer-page-para-color">
@@ -57,6 +68,7 @@ function Contributor() {
           Our Contributors
         </h2>
       </div>
+      <input type="text"  placeholder="Search Contributor" className="search" onChange={(e)=>setSearchResult(e.target.value)} />
       <div className="contributors-outer">
         <Box
           className="contributors-container"
@@ -84,6 +96,8 @@ function Contributor() {
           justifyContent="center"
           mt="3rem"
         >
+          {
+            searchResult < 1 && 
           <Pagination
             page={currentPage}
             onChange={handleChange}
@@ -91,6 +105,7 @@ function Contributor() {
             color="primary"
             count={10}
           />
+          }
         </Box>
       </div>
     </div>
