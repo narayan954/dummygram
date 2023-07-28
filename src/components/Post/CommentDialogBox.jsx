@@ -11,8 +11,10 @@ import {
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
+import { auth, db, handleMultiUpload } from "../../lib/firebase";
+import { doc, getDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
-import React from "react";
+import React,{useState,useEffect} from "react";
 import ReadMore from "../ReadMore";
 
 const CommentDialogBox = ({
@@ -27,6 +29,16 @@ const CommentDialogBox = ({
   deleteCommentID,
 }) => {
   const { isAnonymous } = user;
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    async function getUsername() {
+      const docRef = doc(db, "users", auth?.currentUser?.uid);
+      const docSnap = await getDoc(docRef);
+      setUsername(docSnap.data().username);
+    }
+    getUsername();
+  }, []);
 
   return (
     <Box
@@ -79,7 +91,7 @@ const CommentDialogBox = ({
                   }}
                 >
                   {user &&
-                    userComment?.content?.displayName == user?.displayName && (
+                    userComment?.content?.username == username && (
                       <DeleteTwoToneIcon
                         fontSize="small"
                         className="comment-delete-icon"
