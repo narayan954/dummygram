@@ -1,13 +1,7 @@
 import "./index.css";
 
 import { AnimatedButton, Loader, Logo } from "../../reusableComponents";
-import {
-  Avatar,
-  Box,
-  Button,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
+import { Avatar, Box, Button, Typography, useMediaQuery } from "@mui/material";
 import { auth, db } from "../../lib/firebase";
 import {
   collection,
