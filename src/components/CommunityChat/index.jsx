@@ -1,7 +1,7 @@
 import "./index.css";
 
 import { auth, db } from "../../lib/firebase";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import EmojiPicker from "emoji-picker-react";
 import SendIcon from "@mui/icons-material/Send";
@@ -13,8 +13,11 @@ import { useSnackbar } from "notistack";
 const ChatBox = () => {
   const [showEmojis, setShowEmojis] = useState(false);
   const [messages, setMessages] = useState([]);
+  const [loadMoreMsgs, setLoadMoreMsgs] = useState(false);
   const [newMessage, setNewMessage] = useState("");
   const [user, setUser] = useState(null);
+  const [isLastMsgRecieved, setIsLastMsgRecieved] = useState(false);
+  const chatMsgContainerRef = useRef(null);
 
   const handleEmojiClick = () => {
     setShowEmojis((prevShowEmojis) => !prevShowEmojis);
@@ -27,6 +30,15 @@ const ChatBox = () => {
 
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
+
+  useEffect(() => {
+    const scrollTop = () => {
+      window.scrollTo({ top: window.innerHeight + 800 });
+    };
+    if (!isLastMsgRecieved) {
+      scrollTop();
+    }
+  }, [messages]);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -43,7 +55,9 @@ const ChatBox = () => {
     };
   }, [user]);
 
+  //Load messages for the first time
   useEffect(() => {
+    window.addEventListener("scroll", handleMouseScroll);
     const unsubscribe = db
       .collection("messages")
       .orderBy("createdAt")
@@ -56,8 +70,51 @@ const ChatBox = () => {
         setMessages(data);
       });
 
-    return unsubscribe;
-  }, [db]); // TODO - won't this cause infinite calling/refreshing if the db is under use / always changing?
+    return () => {
+      window.removeEventListener("scroll", handleMouseScroll);
+      unsubscribe();
+    };
+  }, []);
+
+  const handleMouseScroll = (event) => {
+    if (event.target.documentElement.scrollTop === 0 && !isLastMsgRecieved) {
+      setLoadMoreMsgs(true);
+    }
+  };
+
+  useEffect(() => {
+    let unsubscribed = false;
+
+    if (loadMoreMsgs && messages.length) {
+      const lastMessageCreatedAt = messages[0].createdAt;
+      db.collection("messages")
+        .orderBy("createdAt")
+        .endBefore(lastMessageCreatedAt)
+        .limitToLast(20)
+        .onSnapshot((querySnapshot) => {
+          if (!unsubscribed) {
+            setMessages((loadedMsgs) => {
+              return [
+                ...querySnapshot.docs.map((doc) => ({
+                  id: doc.id,
+                  ...doc.data(),
+                })),
+                ...loadedMsgs,
+              ];
+            });
+
+            if (querySnapshot.empty) {
+              setIsLastMsgRecieved(true);
+            }
+          }
+        });
+    }
+
+    return () => {
+      setLoadMoreMsgs(false);
+      unsubscribed = true;
+    };
+  }, [loadMoreMsgs]);
 
   function handleChange(e) {
     e.preventDefault();
@@ -97,14 +154,12 @@ const ChatBox = () => {
           });
         });
     }
-
     getUsername();
   }
 
   return (
     <div className="chat-main-container">
-      <span className="chat-header">showing last 20 messages</span>
-      <div className="all-chat-msg-container">
+      <div className="all-chat-msg-container" ref={chatMsgContainerRef}>
         <ul className="chat-msg-container">
           {messages.map((message) => (
             <li
