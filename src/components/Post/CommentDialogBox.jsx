@@ -8,13 +8,13 @@ import {
   DialogTitle,
   Divider,
 } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { auth, db } from "../../lib/firebase";
+import { doc, getDoc } from "firebase/firestore";
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
-import { auth, db, handleMultiUpload } from "../../lib/firebase";
-import { doc, getDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
-import React,{useState,useEffect} from "react";
 import ReadMore from "../ReadMore";
 
 const CommentDialogBox = ({
@@ -83,20 +83,18 @@ const CommentDialogBox = ({
                     <ReadMore>{userComment.content.text}</ReadMore>
                   </p>
                 </div>
-
                 <div
                   onClick={() => {
                     setOpenToDeleteComment(!openToDeleteComment);
                     setDeleteCommentID(userComment);
                   }}
                 >
-                  {user &&
-                    userComment?.content?.username == username && (
-                      <DeleteTwoToneIcon
-                        fontSize="small"
-                        className="comment-delete-icon"
-                      />
-                    )}
+                  {user && userComment?.content?.username == username && (
+                    <DeleteTwoToneIcon
+                      fontSize="small"
+                      className="comment-delete-icon"
+                    />
+                  )}
                   {
                     <Dialog
                       fullScreen={fullScreen}
