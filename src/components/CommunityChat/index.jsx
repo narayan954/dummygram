@@ -4,8 +4,8 @@ import { auth, db } from "../../lib/firebase";
 import { useEffect, useRef, useState } from "react";
 
 import EmojiPicker from "emoji-picker-react";
-import SendIcon from "@mui/icons-material/Send";
 import HighlightOffRoundedIcon from "@mui/icons-material/HighlightOffRounded";
+import SendIcon from "@mui/icons-material/Send";
 import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfied";
 import firebase from "firebase/compat/app";
 import { useNavigate } from "react-router-dom";
@@ -164,7 +164,7 @@ const ChatBox = () => {
     const date = new Date(timeInMilliSec);
     const timeWithSec = date.toLocaleTimeString();
     const [time, timePeriod] = timeWithSec.split(" ");
-    const formattedTime = time.split(':').slice(0, 2).join(':') + timePeriod;
+    const formattedTime = time.split(":").slice(0, 2).join(":") + timePeriod;
     return formattedTime;
   }
 
@@ -201,7 +201,9 @@ const ChatBox = () => {
                   >
                     {message.displayName}
                   </h5>
-                  <h6 className="message-time">{getTime(message?.createdAt?.seconds)}</h6>
+                  <h6 className="message-time">
+                    {getTime(message?.createdAt?.seconds)}
+                  </h6>
                 </span>
                 <p>{message.text}</p>
               </div>
