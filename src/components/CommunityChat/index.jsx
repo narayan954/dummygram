@@ -13,10 +13,10 @@ import { useSnackbar } from "notistack";
 const ChatBox = () => {
   const [showEmojis, setShowEmojis] = useState(false);
   const [messages, setMessages] = useState([]);
-  const [loadMoreMsgs, setLoadMoreMsgs] = useState(false)
+  const [loadMoreMsgs, setLoadMoreMsgs] = useState(false);
   const [newMessage, setNewMessage] = useState("");
   const [user, setUser] = useState(null);
-  const [isLastMsgRecieved, setIsLastMsgRecieved] = useState(false)
+  const [isLastMsgRecieved, setIsLastMsgRecieved] = useState(false);
   const chatMsgContainerRef = useRef(null);
 
   const handleEmojiClick = () => {
@@ -36,9 +36,9 @@ const ChatBox = () => {
       window.scrollTo({ top: window.innerHeight + 800 });
     };
     if (!isLastMsgRecieved) {
-      scrollTop()
+      scrollTop();
     }
-  }, [messages])
+  }, [messages]);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -67,19 +67,18 @@ const ChatBox = () => {
           ...doc.data(),
           id: doc.id,
         }));
-        console.log("running")
         setMessages(data);
       });
-      
-      return () => {
-        window.removeEventListener("scroll", handleMouseScroll);
-        unsubscribe();
-      };
+
+    return () => {
+      window.removeEventListener("scroll", handleMouseScroll);
+      unsubscribe();
+    };
   }, []);
 
   const handleMouseScroll = (event) => {
     if (event.target.documentElement.scrollTop === 0 && !isLastMsgRecieved) {
-      setLoadMoreMsgs(true)
+      setLoadMoreMsgs(true);
     }
   };
 
@@ -93,8 +92,7 @@ const ChatBox = () => {
         .endBefore(lastMessageCreatedAt)
         .limitToLast(20)
         .onSnapshot((querySnapshot) => {
-          if(!unsubscribed) {
-            console.log("runnninnggggg")
+          if (!unsubscribed) {
             setMessages((loadedMsgs) => {
               return [
                 ...querySnapshot.docs.map((doc) => ({
@@ -106,7 +104,7 @@ const ChatBox = () => {
             });
 
             if (querySnapshot.empty) {
-              setIsLastMsgRecieved(true)
+              setIsLastMsgRecieved(true);
             }
           }
         });
@@ -115,7 +113,7 @@ const ChatBox = () => {
     return () => {
       setLoadMoreMsgs(false);
       unsubscribed = true;
-    }
+    };
   }, [loadMoreMsgs]);
 
   function handleChange(e) {
@@ -167,8 +165,9 @@ const ChatBox = () => {
           {messages.map((message) => (
             <li
               key={message.id}
-              className={`chat-message ${user?.uid == message.uid ? "current-user-msg" : ""
-                }`}
+              className={`chat-message ${
+                user?.uid == message.uid ? "current-user-msg" : ""
+              }`}
             >
               <img
                 src={message.photoURL}
