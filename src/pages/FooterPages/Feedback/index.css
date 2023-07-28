@@ -25,7 +25,6 @@
 
 .feedback_textarea {
   width: 100%;
-  height: 150px;
   padding: 12px 20px;
   box-sizing: border-box;
   border: 1px solid rgba(104, 85, 224, 1);
@@ -59,7 +58,6 @@
   .feedback-form-container {
     margin-left: 0;
   }
-
   .feedback_input,
   .feedback_textarea {
     margin-bottom: 20px;
