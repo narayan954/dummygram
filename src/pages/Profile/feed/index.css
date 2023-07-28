@@ -20,7 +20,7 @@
 
 .post_container {
   position: relative;
-  width: calc(33% - 8px);
+  width: calc(33% - 16px);
   aspect-ratio: 1;
   padding: 8px;
   cursor: pointer;
@@ -75,7 +75,7 @@
   }
 
   .post_container {
-    width: calc(33% - 4px);
+    width: calc(33% - 8px);
     aspect-ratio: 1;
     padding: 4px;
   }
