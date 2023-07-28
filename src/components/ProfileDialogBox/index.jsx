@@ -21,7 +21,6 @@ const ProfileDialogBox = ({ mouseOnProfileImg, userData }) => {
       setIsHoverActive(false);
     }, 1000);
   }
-console.log(profileAvatar,"profileAvatar")
   return (
     <div
       style={{
