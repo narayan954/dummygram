@@ -6,15 +6,6 @@
   padding: 15px;
 }
 
-.chat-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  justify-content: center;
-  font-weight: 300;
-  color: var(--text-secondary);
-}
-
 .all-chat-msg-container {
   margin-bottom: 60px;
 }
@@ -78,6 +69,19 @@
 
 .chat-user-img:hover {
   transform: scale(1.1);
+}
+
+.name-and-date-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+}
+
+.message-time {
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--profile-color);
 }
 
 .current-user-msg {
@@ -151,4 +155,17 @@
   .chat-msg-text {
     max-width: 75%;
   }
+}
+.roundedBtn {
+  position: "relative";
+}
+.closeBtn {
+  position: absolute;
+  position: fixed;
+  cursor: pointer;
+  color: #59afc7;
+  padding: 2px;
+  right: 1%;
+  height: 7% !important;
+  width: 4% !important;
 }

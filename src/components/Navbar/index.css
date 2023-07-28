@@ -18,6 +18,7 @@
 .navSpace {
   margin-left: auto;
   display: flex;
+  align-items: center;
 }
 
 .container {
@@ -65,4 +66,125 @@
 
 #chat-icon {
   display: inline-block;
+}
+
+/* search file css */
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 120px;
+  /* margin-left: 17vw; */
+}
+
+.search-input {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: 25px;
+  background: #fff;
+  border: none;
+  font-size: 16px;
+  padding-left: 20px;
+  margin-top: -2px;
+}
+.search-icon {
+  position: absolute;
+  right: 0px;
+  top: 0;
+  width: 54px;
+  background: linear-gradient(40deg, #5f85db, #daf1f7);
+  /* height: 103%; */
+  height: 43px;
+  text-align: center;
+  line-height: 50px;
+  color: #fff;
+  font-size: 20px;
+  border-radius: 0 25px 25px 0;
+  margin: 1px;
+}
+
+.search-icon:hover {
+  cursor: pointer;
+  background: linear-gradient(40deg, #daf1f7, #5f85db);
+}
+
+.text-white {
+  color: var(--color);
+}
+
+.searched-user-container {
+  width: 95%;
+  /* height: 60vh; */
+  height: 85%;
+  /* max-height: 90%; */
+  margin: 20px auto;
+  border-radius: 5%;
+  overflow-y: scroll;
+  display: flex;
+  padding: 0;
+  box-shadow: var(--post-box-shadow);
+}
+
+.searched-user-sub-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  width: 100%;
+}
+
+.searched-user-li {
+  display: flex;
+  gap: 10px;
+  width: 95%;
+  padding: 10px;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 22px;
+}
+
+.searched-user-avatar {
+  width: 40px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid grey;
+}
+
+.searched-user-name {
+  font-size: 16px;
+  cursor: default;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.searched-user-username {
+  font-size: 13px;
+  cursor: default;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.search-bar {
+  position: relative;
+  height: 45px;
+  margin: 20px auto;
+  background: #fff;
+  border: 1px solid #5f85db;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search-closeicon {
+  position: absolute;
+  cursor: pointer;
+  top: 10px;
+  right: 10px;
+  color: var(--text-grey);
+}
+.searchbar {
+  color: var(--text-secondary);
 }
