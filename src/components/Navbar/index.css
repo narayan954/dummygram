@@ -1,10 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap");
 
-.app__header__img {
-  object-fit: contain;
-  width: 150px;
-}
-
 .app__header {
   position: fixed;
   width: 100%;
@@ -13,11 +8,11 @@
   padding-top: 10px;
   padding-bottom: 10px;
   object-fit: contain;
-  border-bottom: 1px solid rgb(219, 219, 219);
+  /* border-bottom: 1px solid rgb(219, 219, 219); */
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  background-color: var(--bg-color);
+  background-color: var(--dark-post-bg);
 }
 
 .navSpace {
