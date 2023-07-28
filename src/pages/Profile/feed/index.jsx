@@ -1,9 +1,10 @@
 import "./index.css";
-import { lazy, useState } from "react";
+
 import { Box } from "@mui/material";
+import ErrorBoundary from "../../../reusableComponents/ErrorBoundary";
+import { lazy } from "react";
 import postBg from "../../../assets/postbg.webp";
 import { useNavigate } from "react-router-dom";
-import ErrorBoundary from "../../../reusableComponents/ErrorBoundary";
 
 const Post = lazy(() => import("../../../components/Post"));
 

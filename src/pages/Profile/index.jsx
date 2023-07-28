@@ -5,9 +5,9 @@ import {
   Avatar,
   Box,
   Button,
+  Divider,
   Typography,
   useMediaQuery,
-  Divider,
 } from "@mui/material";
 import { auth, db } from "../../lib/firebase";
 import {
@@ -21,7 +21,6 @@ import { getModalStyle, useStyles } from "../../App";
 import { lazy, useEffect, useState } from "react";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useNavigate, useParams } from "react-router-dom";
-import ProfieFeed from "./feed";
 
 import EditIcon from "@mui/icons-material/Edit";
 import { EditProfile } from "../../components";
@@ -31,6 +30,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Modal from "@mui/material/Modal";
 import NotFound from "../NotFound";
+import ProfieFeed from "./feed";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { StoryView } from "../../components";
 import ViewsCounter from "../../reusableComponents/views";

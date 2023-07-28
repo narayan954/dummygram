@@ -1,80 +1,78 @@
 .profile-feed-main-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  justify-content: center;
 }
 
 .app__posts__feed {
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-    gap: 0;
-    padding: 0;
-    position: relative;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  gap: 0;
+  padding: 0;
+  position: relative;
 }
 
 .post_container {
-    position: relative;
-    width: calc(33% - 8px);
-    aspect-ratio: 1;
-    gap: 8px;
-    border-right: 8px solid rgb(225, 224, 224);
-    border-bottom: 8px solid rgb(225, 224, 224);
-    cursor: pointer;
-    transition: 0.4s ease-in-out;
+  position: relative;
+  width: calc(33% - 8px);
+  aspect-ratio: 1;
+  gap: 8px;
+  border-right: 8px solid rgb(225, 224, 224);
+  border-bottom: 8px solid rgb(225, 224, 224);
+  cursor: pointer;
+  transition: 0.4s ease-in-out;
 }
 
 .post_sub_container {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .post_image {
-    width: 100%;
-    height: 100%;
-    background-size: cover !important;
+  width: 100%;
+  height: 100%;
+  background-size: cover !important;
 }
 
 .caption_without_image {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
 }
 
-
 @media screen and (min-width: 1200px) {
-    .profile-feed-main-container {
-        margin-left: 17vw;
-    }
+  .profile-feed-main-container {
+    margin-left: 17vw;
+  }
 }
 
 @media screen and (min-width: 800px) and (max-width: 1200px) {
-    .profile-feed-main-container {
-        margin-left: 9vw;
-    }
+  .profile-feed-main-container {
+    margin-left: 9vw;
+  }
 }
 
 @media screen and (min-width: 600px) {
-    .profile-feed-main-container {
-        padding-top: 0;
-    }
+  .profile-feed-main-container {
+    padding-top: 0;
+  }
 }
 
 @media screen and (max-width: 800px) {
+  .post_container {
+    width: calc(33% - 4px);
+    aspect-ratio: 1;
+    border-right: 4px solid rgb(225, 224, 224);
+    border-bottom: 4px solid rgb(225, 224, 224);
+  }
 
-    .post_container {
-        width: calc(33% - 4px);
-        aspect-ratio: 1;
-        border-right: 4px solid rgb(225, 224, 224);
-        border-bottom: 4px solid rgb(225, 224, 224);
-    }
-
-    .caption_without_image {
-        font-size: 10px;
-    }
+  .caption_without_image {
+    font-size: 10px;
+  }
 }
