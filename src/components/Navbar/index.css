@@ -21,7 +21,6 @@
   align-items: center;
 }
 
-
 .container {
   display: flex;
   flex-direction: row;
@@ -104,7 +103,7 @@
   color: #fff;
   font-size: 20px;
   border-radius: 0 25px 25px 0;
-  margin: 1px ;
+  margin: 1px;
 }
 
 .search-icon:hover {
@@ -168,7 +167,6 @@
   cursor: pointer;
 }
 
-
 .search-bar {
   position: relative;
   height: 45px;
@@ -187,4 +185,6 @@
   right: 10px;
   color: var(--text-grey);
 }
-.searchbar {color: var(--text-secondary);}
+.searchbar {
+  color: var(--text-secondary);
+}
