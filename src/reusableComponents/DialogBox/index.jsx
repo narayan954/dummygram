@@ -44,7 +44,6 @@ const DialogBox = ({
         sx={{
           color: "var(--color)",
           backgroundColor: "var(--dark-post-bg)",
-          minHeight: "300px",
         }}
       >
         <div>{children}</div>

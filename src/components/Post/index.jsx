@@ -277,27 +277,21 @@ function Post(prop) {
               </DialogTitle>
               <hr />
               <ErrorBoundary>
-                <div
-                  style={{
-                    marginTop: `${comments.length < 3 ? "40%" : "0px"}`,
-                  }}
-                >
-                  <CommentDialogBox
-                    Item={Item}
-                    postHasImages={postHasImages}
-                    postImages={postImages}
-                    caption={caption}
-                    comments={comments}
-                    setOpenToDeleteComment={setOpenToDeleteComment}
-                    openToDeleteComment={openToDeleteComment}
-                    setDeleteCommentID={setDeleteCommentID}
-                    user={user}
-                    fullScreen={fullScreen}
-                    handleCloseForDeleteComment={handleCloseForDeleteComment}
-                    deleteComment={deleteComment}
-                    deleteCommentID={deleteCommentID}
-                  />
-                </div>
+                <CommentDialogBox
+                  Item={Item}
+                  postHasImages={postHasImages}
+                  postImages={postImages}
+                  caption={caption}
+                  comments={comments}
+                  setOpenToDeleteComment={setOpenToDeleteComment}
+                  openToDeleteComment={openToDeleteComment}
+                  setDeleteCommentID={setDeleteCommentID}
+                  user={user}
+                  fullScreen={fullScreen}
+                  handleCloseForDeleteComment={handleCloseForDeleteComment}
+                  deleteComment={deleteComment}
+                  deleteCommentID={deleteCommentID}
+                />
               </ErrorBoundary>
               <ErrorBoundary>
                 <CommentBox
