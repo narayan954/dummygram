@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 
 import EmojiPicker from "emoji-picker-react";
 import SendIcon from "@mui/icons-material/Send";
+import HighlightOffRoundedIcon from '@mui/icons-material/HighlightOffRounded';
 import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfied";
 import firebase from "firebase/compat/app";
 import { useNavigate } from "react-router-dom";
@@ -159,6 +160,11 @@ const ChatBox = () => {
 
   return (
     <div className="chat-main-container">
+      <div className="roundedBtn">
+      <HighlightOffRoundedIcon className="closeBtn" onClick={()=>navigate("/dummygram/")} />
+      </div>
+      <span className="chat-header">showing last 20 messages</span>
+
       <div className="all-chat-msg-container" ref={chatMsgContainerRef}>
         <ul className="chat-msg-container">
           {messages.map((message) => (
@@ -186,7 +192,7 @@ const ChatBox = () => {
             </li>
           ))}
         </ul>
-      </div>
+      </div>    
       <form className="chat-input-container" onSubmit={handleOnSubmit}>
         {showEmojis && (
           <div

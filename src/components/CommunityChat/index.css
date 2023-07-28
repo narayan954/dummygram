@@ -143,3 +143,16 @@
     max-width: 75%;
   }
 }
+.roundedBtn{
+  position:"relative";
+}
+.closeBtn{
+  position: absolute;
+  position: fixed;
+  cursor: pointer;
+  color: #59afc7;
+  padding: 2px;
+  right: 1%;
+  height: 7%!important;
+  width: 4% !important;
+}
