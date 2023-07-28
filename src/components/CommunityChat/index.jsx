@@ -154,7 +154,6 @@ const ChatBox = () => {
           });
         });
     }
-
     getUsername();
   }
 
