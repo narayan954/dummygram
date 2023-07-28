@@ -265,10 +265,12 @@ input:focus {
   .home-posts-container .app_posts_column {
     padding: 5.5em 15px 5em 15px;
   }
-  .search-modal{
+  .search-modal {
     width: 80vw;
   }
-  .search-bar {width: 80%;}
+  .search-bar {
+    width: 80%;
+  }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -286,7 +288,9 @@ input:focus {
   .search-modal {
     width: 600px;
   }
-  .search-bar{width: 60%;}
+  .search-bar {
+    width: 60%;
+  }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */

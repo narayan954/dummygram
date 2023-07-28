@@ -71,6 +71,19 @@
   transform: scale(1.1);
 }
 
+.name-and-date-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+}
+
+.message-time {
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--profile-color);
+}
+
 .current-user-msg {
   flex-direction: row-reverse;
   margin-left: auto;
@@ -143,16 +156,16 @@
     max-width: 75%;
   }
 }
-.roundedBtn{
-  position:"relative";
+.roundedBtn {
+  position: "relative";
 }
-.closeBtn{
+.closeBtn {
   position: absolute;
   position: fixed;
   cursor: pointer;
   color: #59afc7;
   padding: 2px;
   right: 1%;
-  height: 7%!important;
+  height: 7% !important;
   width: 4% !important;
 }
