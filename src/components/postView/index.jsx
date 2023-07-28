@@ -222,7 +222,7 @@ const PostCommentView = ({
                     },
                   }}
                   onClick={() => {
-                    navigate(`/dummygram/${username}`);
+                    navigate(`/dummygram/user/${username}`);
                   }}
                 />
               }

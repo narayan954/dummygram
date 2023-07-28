@@ -64,14 +64,14 @@ const LikesDialogBox = ({ likecountArr }) => {
                   src={data?.photoURL ? data.photoURL : blankProfileImg}
                   alt={data?.name}
                   className="like_user_img"
-                  onClick={() => navigate(`/dummygram/${data?.username}`)}
+                  onClick={() => navigate(`/dummygram/user/${data?.username}`)}
                 />
               </span>
               <span>
                 <section className="like_user_data">
                   <h3
                     className="like_user_name"
-                    onClick={() => navigate(`/dummygram/${data?.username}`)}
+                    onClick={() => navigate(`/dummygram/user/${data?.username}`)}
                   >
                     {data?.name}
                   </h3>

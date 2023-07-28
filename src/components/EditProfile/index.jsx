@@ -174,7 +174,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
             })
           )
           .then(() => setUserData(editedData))
-          .then(() => navigate(`/dummygram/${newUsername}`))
+          .then(() => navigate(`/dummygram/user/${newUsername}`))
           .catch((error) => {
             enqueueSnackbar(error, {
               variant: "error",

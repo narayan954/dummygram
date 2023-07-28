@@ -1,17 +1,18 @@
 /* sidebar styling */
 
 .sidebar {
-  background: var(--bg-color);
+  background: var(--dark-post-bg);
   position: fixed;
   width: 17vw;
   height: 100vh;
   left: 0;
-  border-right: 1px solid rgb(219, 219, 219);
+  /* border-right: 1px solid rgb(219, 219, 219); */
 }
 
 .sidebar-container {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   height: 100vh;
   overflow-y: scroll;
 }
@@ -34,7 +35,7 @@
 .sidebar-links li {
   cursor: pointer;
   padding: 10px;
-  margin: 10px 0;
+  margin: 0 0 10px;
   border-radius: 10px;
   transition: all 0.5s ease;
 }
@@ -45,7 +46,7 @@
 
 .sidebar-links li:hover {
   /* background: rgba(0, 0, 0, 0.05); */
-  background-color: #0cc;
+  background-color: #5f85db;
 }
 
 .sidebar-links li a,
@@ -76,27 +77,22 @@
 }
 
 footer {
-  margin-block: auto;
-  padding-left: 20px;
-  padding-block: 12px;
+  display: absolute;
+  bottom: 0;
+  margin-bottom: 2em;
   font-size: 13px;
-  background-color: var(--bg-color);
+  background-color: var(--dark-post-bg);
+  padding-left: 12px;
 }
 
 .sidebar-footer-container {
-  display: grid;
-  /* justify-content: flex-start; */
-  align-items: center;
+  display: flex;
   list-style-type: none;
-  /* flex-wrap: wrap; */
+  flex-direction: column;
   padding: 0;
-  text-align: center;
+  text-align: start;
   margin-right: 20px;
   margin-top: 20px;
-}
-
-.sidebar-footer-container > li {
-  margin-right: 10px;
 }
 
 .footer-link {
@@ -105,32 +101,40 @@ footer {
 }
 
 .footer-link:hover {
-  /* text-decoration: underline; */
   color: var(--color);
 }
 
 .copyright {
   margin-top: 10px;
   color: var(--color);
-  text-align: center;
-  margin-right: 25px;
+  text-align: start;
 }
 
 .activeTab {
-  border: 2px solid #0cc;
+  border: 2px solid #5f85db;
+}
+.sidebar-footer-container li a {
+  text-decoration: none;
+  color: #898787;
 }
 
 /* media query */
+@media screen and (min-width: 1200px) {
+  .sidebar-footer-container li {
+    padding-bottom: 5px;
+  }
+}
 
 @media screen and (max-width: 1200px) {
   .sidebar {
     width: 8vw;
   }
-
+  .sidebar-footer-container .footer-icons {
+    display: none;
+  }
   .sidebar-links {
     padding: 0 5px;
   }
-
   .sidebar-links li a,
   .sidebar_align {
     justify-content: center;
@@ -143,10 +147,8 @@ footer {
 
   footer {
     font-size: 10px;
-    padding-left: 8px;
   }
 }
-
 @media screen and (max-width: 800px) {
   .sidebar {
     border-top: 1px solid rgb(219, 219, 219);

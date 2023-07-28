@@ -1,20 +1,18 @@
 import "./index.css";
 import "../design.css";
 
-import { Box, Pagination, Typography, useMediaQuery } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Box, Pagination } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 import ContributorCard from "./ContributorCard";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { VscChromeClose } from "react-icons/vsc";
 import backgroundimg from "../../../assets/contributors.png";
+import { useNavigate } from "react-router-dom";
 
 function Contributor() {
   const [currentPage, setCurrentPage] = useState(1);
-
   const [contributors, setContributors] = useState([]);
-  const isNonMobileScreen = useMediaQuery("(max-width: 800px)");
+
   const navigate = useNavigate();
 
   const getData = async () => {

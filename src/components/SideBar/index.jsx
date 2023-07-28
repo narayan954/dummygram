@@ -20,10 +20,11 @@ const Footer = React.lazy(() => import("./Footer"));
 
 function SideBar({ anonymous }) {
   const navigate = useNavigate();
-  const [openNewUpload, setOpenNewUpload] = useState(false);
-  const [username, setUsername] = useState("");
   const user = auth.currentUser;
   const location = useLocation();
+
+  const [openNewUpload, setOpenNewUpload] = useState(false);
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
     async function getUsername() {
@@ -39,9 +40,14 @@ function SideBar({ anonymous }) {
       <div className="sidebar-container">
         <ul className="sidebar-links">
           <li
-            onClick={() => navigate("/dummygram/")}
             id="sidebar-home-link"
-            className={location.pathname == "/dummygram/" ? "activeTab" : ""}
+            onClick={() => navigate("/dummygram")}
+            className={
+              location.pathname === "/dummygram/" ||
+              location.pathname === "/dummygram"
+                ? "activeTab"
+                : ""
+            }
           >
             <div className="sidebar_align">
               <HomeIcon className="icon" /> <span>Home</span>
@@ -62,7 +68,7 @@ function SideBar({ anonymous }) {
               navigate(`/dummygram/${anonymous ? "signup" : "search"}`)
             }
             className={
-              location.pathname == "/dummygram/search" ? "activeTab" : ""
+              location.pathname.includes("/dummygram/search") ? "activeTab" : ""
             }
           >
             <div className="sidebar_align">
@@ -74,7 +80,9 @@ function SideBar({ anonymous }) {
               navigate(`/dummygram/${anonymous ? "signup" : "favourites"}`)
             }
             className={
-              location.pathname == "/dummygram/favourites" ? "activeTab" : ""
+              location.pathname.includes("/dummygram/favourites")
+                ? "activeTab"
+                : ""
             }
           >
             <div className="sidebar_align">
@@ -87,7 +95,9 @@ function SideBar({ anonymous }) {
               navigate(`/dummygram/${anonymous ? "signup" : "notifications"}`)
             }
             className={
-              location.pathname == "/dummygram/notifications" ? "activeTab" : ""
+              location.pathname.includes("/dummygram/notifications")
+                ? "activeTab"
+                : ""
             }
           >
             <div className="sidebar_align">
@@ -95,13 +105,14 @@ function SideBar({ anonymous }) {
             </div>
           </li>
           <li
-            className={
-              location.pathname ==
-              `/dummygram/${anonymous ? "signup" : username}`
-                ? "activeTab"
-                : ""
+            onClick={() =>
+              navigate(
+                `/dummygram/${anonymous ? "signup" : `user/${username}`}`,
+              )
             }
-            onClick={() => navigate(`/dummygram/${username}`)}
+            className={
+              location.pathname.includes("/dummygram/user") ? "activeTab" : ""
+            }
           >
             <div className="sidebar_align">
               {user && user.photoURL ? (
@@ -117,7 +128,7 @@ function SideBar({ anonymous }) {
             </div>
           </li>
         </ul>
-        <hr />
+        {/* <hr /> */}
         <ErrorBoundary>
           <Footer />
         </ErrorBoundary>
@@ -132,7 +143,7 @@ function SideBar({ anonymous }) {
       >
         <div
           style={{
-            backgroundColor: "var(--bg-color)",
+            backgroundColor: "var(--dark-post-bg)",
             textAlign: "center",
             color: "var(--color)",
           }}
