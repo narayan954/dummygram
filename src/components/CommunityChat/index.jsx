@@ -1,7 +1,7 @@
 import "./index.css";
 
 import { auth, db } from "../../lib/firebase";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import EmojiPicker from "emoji-picker-react";
 import SendIcon from "@mui/icons-material/Send";
