@@ -15,7 +15,6 @@ import { makeStyles } from "@mui/styles";
 // ------------------------------------ Pages ----------------------------------------------------
 const About = React.lazy(() => import("./pages/FooterPages/About"));
 const Guidelines = React.lazy(() => import("./pages/FooterPages/Guidelines"));
-const SearchBar = React.lazy(() => import("./components/SearchBar"));
 const Feedback = React.lazy(() => import("./pages/FooterPages/Feedback"));
 const LoginScreen = React.lazy(() => import("./pages/Login"));
 const PostView = React.lazy(() => import("./pages/PostView"));
@@ -364,14 +363,6 @@ function App() {
               element={
                 <ErrorBoundary inApp={true}>
                   <Favorite />
-                </ErrorBoundary>
-              }
-            />
-            <Route
-              path="/dummygram/search"
-              element={
-                <ErrorBoundary inApp={true}>
-                  <SearchBar />
                 </ErrorBoundary>
               }
             />
