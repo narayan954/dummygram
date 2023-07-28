@@ -101,6 +101,16 @@ const ChatBox = () => {
     getUsername();
   }
 
+  // console.log(messages[0])
+  function getTime(timestamp) {
+    const timeInMilliSec = timestamp * 1000;
+    const date = new Date(timeInMilliSec);
+    const timeWithSec = date.toLocaleTimeString();
+    const [time, timePeriod] = timeWithSec.split(" ");
+    const formattedTime = time.split(':').slice(0, 2).join(':') + timePeriod;
+    return formattedTime;
+  }
+
   return (
     <div className="chat-main-container">
       <span className="chat-header">showing last 20 messages</span>
@@ -120,12 +130,15 @@ const ChatBox = () => {
                 onClick={() => goToUserProfile(message.uid)}
               />
               <div className="chat-msg-text">
-                <h5
-                  className="chat-msg-sender-name"
-                  onClick={() => goToUserProfile(message.uid)}
-                >
-                  {message.displayName}
-                </h5>
+                <span className="name-and-date-container">
+                  <h5
+                    className="chat-msg-sender-name"
+                    onClick={() => goToUserProfile(message.uid)}
+                  >
+                    {message.displayName}
+                  </h5>
+                  <h6 className="message-time">{getTime(message?.createdAt?.seconds)}</h6>
+                </span>
                 <p>{message.text}</p>
               </div>
             </li>
