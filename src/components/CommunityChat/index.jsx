@@ -3,18 +3,30 @@ import "./index.css";
 import { auth, db } from "../../lib/firebase";
 import { useEffect, useState, useRef } from "react";
 
+import EmojiPicker from "emoji-picker-react";
 import SendIcon from "@mui/icons-material/Send";
+import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfied";
 import firebase from "firebase/compat/app";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
 const ChatBox = () => {
+  const [showEmojis, setShowEmojis] = useState(false);
   const [messages, setMessages] = useState([]);
   const [loadMoreMsgs, setLoadMoreMsgs] = useState(false)
   const [newMessage, setNewMessage] = useState("");
   const [user, setUser] = useState(null);
   const [isLastMsgRecieved, setIsLastMsgRecieved] = useState(false)
   const chatMsgContainerRef = useRef(null);
+
+  const handleEmojiClick = () => {
+    setShowEmojis((prevShowEmojis) => !prevShowEmojis);
+  };
+
+  const onEmojiClick = (emojiObject, event) => {
+    setNewMessage((prevInput) => prevInput + emojiObject.emoji);
+    setShowEmojis(false);
+  };
 
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
@@ -55,6 +67,7 @@ const ChatBox = () => {
           ...doc.data(),
           id: doc.id,
         }));
+        console.log("running")
         setMessages(data);
       });
       
@@ -62,7 +75,7 @@ const ChatBox = () => {
         window.removeEventListener("scroll", handleMouseScroll);
         unsubscribe();
       };
-  }, [db]);
+  }, []);
 
   const handleMouseScroll = (event) => {
     if (event.target.documentElement.scrollTop === 0 && !isLastMsgRecieved) {
@@ -81,6 +94,7 @@ const ChatBox = () => {
         .limitToLast(20)
         .onSnapshot((querySnapshot) => {
           if(!unsubscribed) {
+            console.log("runnninnggggg")
             setMessages((loadedMsgs) => {
               return [
                 ...querySnapshot.docs.map((doc) => ({
@@ -134,7 +148,7 @@ const ChatBox = () => {
       docRef
         .get()
         .then((doc) => {
-          navigate(`/dummygram/${doc.data().username}`);
+          navigate(`/dummygram/user/${doc.data().username}`);
         })
         .catch((error) => {
           enqueueSnackbar(`Error Occured: ${error}`, {
@@ -176,6 +190,32 @@ const ChatBox = () => {
         </ul>
       </div>
       <form className="chat-input-container" onSubmit={handleOnSubmit}>
+        {showEmojis && (
+          <div
+            style={{
+              position: "absolute",
+              top: "-350px",
+              left: 0,
+              zIndex: 999,
+            }}
+          >
+            <EmojiPicker
+              emojiStyle="native"
+              height={330}
+              searchDisabled
+              style={{ zIndex: 999 }}
+              onEmojiClick={onEmojiClick}
+              previewConfig={{
+                showPreview: false,
+              }}
+            />
+          </div>
+        )}
+        <SentimentVerySatisfiedIcon
+          className="communitychat-emoji-btn"
+          style={{ color: "rgb(242, 186, 4)", fontSize: "2rem" }}
+          onClick={handleEmojiClick}
+        />
         <input
           type="text"
           onChange={handleChange}

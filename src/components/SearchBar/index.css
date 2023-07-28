@@ -1,12 +1,24 @@
 /* search file css */
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 120px;
+  /* margin-left: 17vw; */
+}
 .search-bar {
   position: relative;
   height: 50px;
-  max-width: 380px;
+  /* max-width: 380px; */
   background: #fff;
-  margin: 30px auto;
-  border: 1px solid #0cc;
+  border: 1px solid #5f85db;
   border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
 }
 .search-input {
   position: absolute;
@@ -24,7 +36,7 @@
   right: 0px;
   top: 0;
   width: 54px;
-  background: linear-gradient(40deg, #0cc, #daf1f7);
+  background: linear-gradient(40deg, #5f85db, #daf1f7);
   height: 103%;
   text-align: center;
   line-height: 50px;
@@ -34,6 +46,56 @@
   margin-top: -2px;
 }
 
+.search-icon:hover {
+  cursor: pointer;
+  background: linear-gradient(40deg, #daf1f7, #5f85db);
+}
+
 .text-white {
   color: var(--color);
+}
+
+.searched-user-container {
+  width: 500px;
+  height: 60vh;
+  max-height: 400px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  overflow-y: scroll;
+  display: flex;
+  padding: 0;
+  box-shadow: var(--post-box-shadow);
+}
+
+.searched-user-sub-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0;
+  width: 100%;
+}
+
+.searched-user-li {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  padding: 10px;
+  align-items: center;
+}
+
+.searched-user-avatar {
+  width: 40px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid grey;
+}
+
+.searched-user-name {
+  font-size: 16px;
+  cursor: default;
+}
+
+.searched-user-username {
+  font-size: 13px;
+  cursor: default;
 }
