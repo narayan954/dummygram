@@ -10,8 +10,8 @@ const Post = lazy(() => import("../../../components/Post"));
 const ProfieFeed = ({ feed }) => {
     const navigate = useNavigate();
     return (
-        <Box className="feed-main-container">
-            <div className="app__posts" id="feed-sub-container">
+        <Box className="profile-feed-main-container">
+            <div className="app__posts__feed" id="feed-sub-container">
                 <ErrorBoundary>
                     {feed.map(({ post, id }) => (
                         <div className="post_container" key={id} onClick={() => navigate(`/dummygram/posts/${id}`)}>
