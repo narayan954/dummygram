@@ -7,10 +7,12 @@
 }
 
 .app__posts__feed {
+  border: 1px solid #dbdbdb;
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
   margin-bottom: 20px;
+  margin-right: 10px;
   gap: 0;
   padding: 0;
   position: relative;
@@ -20,9 +22,7 @@
   position: relative;
   width: calc(33% - 8px);
   aspect-ratio: 1;
-  gap: 8px;
-  border-right: 8px solid rgb(225, 224, 224);
-  border-bottom: 8px solid rgb(225, 224, 224);
+  padding: 8px;
   cursor: pointer;
   transition: 0.4s ease-in-out;
 }
@@ -65,11 +65,19 @@
 }
 
 @media screen and (max-width: 800px) {
+  .profile-feed-main-container {
+    margin-left: 5px;
+    margin-bottom: 60px;
+  }
+
+  .app__posts__feed {
+    margin-right: 5px;
+  }
+
   .post_container {
     width: calc(33% - 4px);
     aspect-ratio: 1;
-    border-right: 4px solid rgb(225, 224, 224);
-    border-bottom: 4px solid rgb(225, 224, 224);
+    padding: 4px;
   }
 
   .caption_without_image {

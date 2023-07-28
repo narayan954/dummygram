@@ -2,11 +2,8 @@ import "./index.css";
 
 import { Box } from "@mui/material";
 import ErrorBoundary from "../../../reusableComponents/ErrorBoundary";
-import { lazy } from "react";
 import postBg from "../../../assets/postbg.webp";
 import { useNavigate } from "react-router-dom";
-
-const Post = lazy(() => import("../../../components/Post"));
 
 const ProfieFeed = ({ feed }) => {
   const navigate = useNavigate();

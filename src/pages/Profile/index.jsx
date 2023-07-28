@@ -5,7 +5,6 @@ import {
   Avatar,
   Box,
   Button,
-  Divider,
   Typography,
   useMediaQuery,
 } from "@mui/material";
@@ -551,7 +550,6 @@ function Profile() {
               </Box>
             </Box>
           </Box>
-          <Divider className="profile_feed_divider" />
           <ProfieFeed feed={feed} user={user} />
         </>
       ) : userExists ? (
