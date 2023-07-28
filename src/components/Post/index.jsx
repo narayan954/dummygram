@@ -37,6 +37,7 @@ function Post(prop) {
   const [comment, setComment] = useState("");
   const [likesNo, setLikesNo] = useState(likecount ? likecount.length : 0);
   const [showEmojis, setShowEmojis] = useState(false);
+  const [showCommentEmojis, setShowCommentEmojis] = useState(false);
   const [isCommentOpen, setisCommentOpen] = useState(false);
   const [deleteCommentID, setDeleteCommentID] = useState("");
   const [openToDeleteComment, setOpenToDeleteComment] = useState(false);
@@ -121,6 +122,7 @@ function Post(prop) {
   const onEmojiClick = (emojiObject, event) => {
     setComment((prevInput) => prevInput + emojiObject.emoji);
     setShowEmojis(false);
+    setShowCommentEmojis(false);
   };
 
   /**
@@ -293,8 +295,8 @@ function Post(prop) {
               </ErrorBoundary>
               <ErrorBoundary>
                 <CommentBox
-                  setShowEmojis={setShowEmojis}
-                  showEmojis={showEmojis}
+                  setShowEmojis={setShowCommentEmojis}
+                  showEmojis={showCommentEmojis}
                   onEmojiClick={onEmojiClick}
                   comment={comment}
                   setComment={setComment}
