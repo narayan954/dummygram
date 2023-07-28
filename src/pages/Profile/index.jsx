@@ -1,14 +1,7 @@
 import "./index.css";
 
-import { AnimatedButton, Loader } from "../../reusableComponents";
-import {
-  Avatar,
-  Box,
-  Button,
-  Divider,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
+import { AnimatedButton, Loader, Logo } from "../../reusableComponents";
+import { Avatar, Box, Button, Typography, useMediaQuery, Divider } from "@mui/material";
 import { auth, db } from "../../lib/firebase";
 import {
   collection,
@@ -35,7 +28,6 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { StoryView } from "../../components";
 import ViewsCounter from "../../reusableComponents/views";
 import firebase from "firebase/compat/app";
-import logo from "../../assets/logo.webp";
 import profileBackgroundImg from "../../assets/profile-background.jpg";
 import { useSnackbar } from "notistack";
 
@@ -46,6 +38,7 @@ function Profile() {
   const navigate = useNavigate();
   const isNonMobile = useMediaQuery("(min-width: 768px)");
   const { enqueueSnackbar } = useSnackbar();
+  const { username } = useParams();
 
   const [user, setUser] = useState(null);
   const [feed, setFeed] = useState([]);
@@ -56,7 +49,6 @@ function Profile() {
   const [isEditing, setIsEditing] = useState(false);
   const [userExists, setUserExists] = useState(true);
   const [viewStory, setViewStory] = useState(false);
-  const { username } = useParams();
 
   let name = "";
   let avatar = "";
@@ -263,16 +255,24 @@ function Profile() {
       });
       setFeed(userPosts);
     });
+
+    return () => {
+      unsubscribe();
+    };
   }, [user, name]);
 
   const signOut = () => {
-    auth.signOut().finally(() => {
-      playSuccessSound();
-      enqueueSnackbar("Logged out Successfully !", {
-        variant: "info",
+    auth
+      .signOut()
+      .then(() => {
+        navigate("/dummygram");
+      })
+      .finally(() => {
+        playSuccessSound();
+        enqueueSnackbar("Logged out Successfully !", {
+          variant: "info",
+        });
       });
-      navigate("/dummygram/");
-    });
   };
 
   return (
@@ -474,7 +474,7 @@ function Profile() {
                     <Button
                       variant="contained"
                       startIcon={<SettingsIcon style={{ color: "black" }} />}
-                      style={{ backgroundColor: "#8beeff" }}
+                      style={{ backgroundColor: "#5F85DB" }}
                       onClick={() => navigate("/dummygram/settings")}
                     >
                       <Typography
@@ -489,7 +489,7 @@ function Profile() {
                       variant="contained"
                       color="primary"
                       startIcon={<LogoutIcon style={{ color: "black" }} />}
-                      style={{ backgroundColor: "#8beeff" }}
+                      style={{ backgroundColor: "#5F85DB" }}
                       onClick={() => setLogout(true)}
                     >
                       <Typography
@@ -506,17 +506,7 @@ function Profile() {
                 <Modal open={logout} onClose={() => setLogout(false)}>
                   <div style={getModalStyle()} className={classes.paper}>
                     <form className="modal__signup">
-                      <img
-                        src={logo}
-                        alt="dummygram"
-                        className="modal__signup__img"
-                        style={{
-                          width: "80%",
-                          marginLeft: "10%",
-                          filter: "var(--filter-img)",
-                        }}
-                      />
-
+                      <Logo />
                       <p
                         style={{
                           fontSize: "15px",
