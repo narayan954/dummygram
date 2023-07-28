@@ -294,7 +294,8 @@
   gap: 10px;
   padding: 10px;
   border-radius: 8px;
-  box-shadow: var(--profile-box-shadow);
+  color: black;
+  background: lightgray;
 }
 
 .like_user_img {
@@ -318,7 +319,7 @@
 .like_user_name {
   cursor: pointer;
   font-weight: 600;
-  color: var(--text-secondary);
+  color: rgb(42, 42, 135);
 }
 
 .like_user_name:hover {
@@ -327,7 +328,7 @@
 
 .like_user_username {
   font-weight: 500;
-  color: var(--profile-color);
+  color: var(--text-black-only);
 }
 
 @media only screen and (max-width: 800px) {
