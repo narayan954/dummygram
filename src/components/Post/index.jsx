@@ -21,7 +21,6 @@ import { db } from "../../lib/firebase";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
 import { useTheme } from "@mui/material/styles";
-import { useNavigate } from "react-router-dom";
 
 const PostHeader = lazy(() => import("./PostHeader"));
 const CommentBox = lazy(() => import("./CommentBox"));
@@ -47,7 +46,6 @@ function Post(prop) {
   const theme = useTheme();
   const { enqueueSnackbar } = useSnackbar();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
-  const navigate = useNavigate()
 
   const docRef = doc(db, "posts", postId);
   useEffect(() => {
@@ -64,7 +62,7 @@ function Post(prop) {
             snapshot.docs.map((doc) => ({
               id: doc.id,
               content: doc.data(),
-            })),
+            }))
           );
         });
     }
@@ -211,7 +209,7 @@ function Post(prop) {
             fontSize={13}
             padding={1}
             sx={{ color: "grey", cursor: "pointer" }}
-            onClick={() => setIsLikesOpen(prev => !prev)}
+            onClick={() => setIsLikesOpen((prev) => !prev)}
           >
             {likesNo} {likesNo > 1 ? "Likes" : "Like"}
           </Typography>
@@ -311,9 +309,7 @@ function Post(prop) {
               onClose={() => setIsLikesOpen(false)}
               title="Likes ❤"
             >
-              <LikesDialogBox 
-                likecountArr={likecount}
-              />
+              <LikesDialogBox likecountArr={likecount} />
             </DialogBox>
           </div>
         )}

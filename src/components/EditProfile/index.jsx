@@ -126,7 +126,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
             .then(
               enqueueSnackbar("Upload Successfull", {
                 variant: "success",
-              }),
+              })
             )
             .then(() => setUserData(editedData))
             .catch((error) => {
@@ -137,7 +137,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
             .finally(() => {
               setIsEditing(false);
             });
-        },
+        }
       );
     } else {
       async function upload() {
@@ -171,7 +171,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
           .then(
             enqueueSnackbar("Upload Successfull", {
               variant: "success",
-            }),
+            })
           )
           .then(() => setUserData(editedData))
           .then(() => navigate(`/dummygram/${newUsername}`))
