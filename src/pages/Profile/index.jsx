@@ -1,7 +1,13 @@
 import "./index.css";
 
 import { AnimatedButton, Loader, Logo } from "../../reusableComponents";
-import { Avatar, Box, Button, Typography, useMediaQuery } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import { auth, db } from "../../lib/firebase";
 import {
   collection,
@@ -23,6 +29,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Modal from "@mui/material/Modal";
 import NotFound from "../NotFound";
+import ProfieFeed from "./feed";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { StoryView } from "../../components";
 import ViewsCounter from "../../reusableComponents/views";
@@ -30,7 +37,6 @@ import firebase from "firebase/compat/app";
 import profileBackgroundImg from "../../assets/profile-background.jpg";
 import { useSnackbar } from "notistack";
 
-const Post = lazy(() => import("../../components/Post"));
 const SideBar = lazy(() => import("../../components/SideBar"));
 
 function Profile() {
@@ -544,24 +550,7 @@ function Profile() {
               </Box>
             </Box>
           </Box>
-          <Box className="flex feed-main-container">
-            <div className="app__posts" id="feed-sub-container">
-              <ErrorBoundary>
-                {feed.map(({ post, id }) => (
-                  <Post
-                    rowMode={true}
-                    key={id}
-                    postId={id}
-                    user={user}
-                    post={post}
-                    shareModal={true}
-                    setLink="/"
-                    setPostText=""
-                  />
-                ))}
-              </ErrorBoundary>
-            </div>
-          </Box>
+          <ProfieFeed feed={feed} user={user} />
         </>
       ) : userExists ? (
         <Loader />
