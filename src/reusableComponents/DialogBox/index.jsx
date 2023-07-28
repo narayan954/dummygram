@@ -41,7 +41,10 @@ const DialogBox = ({
       )}
 
       <DialogContent
-        sx={{ color: "var(--color)", backgroundColor: "var(--dark-post-bg)" }}
+        sx={{
+          color: "var(--color)",
+          backgroundColor: "var(--dark-post-bg)",
+        }}
       >
         <div>{children}</div>
       </DialogContent>
