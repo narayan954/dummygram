@@ -76,12 +76,6 @@ body {
   overflow-x: auto;
 }
 
-.app__header__img {
-  object-fit: contain;
-  width: 150px;
-  filter: var(--filter-img);
-}
-
 input:hover {
   cursor: text;
 }
@@ -92,11 +86,6 @@ input:focus {
 
 /* Add media query in navbar for responsiveness */
 @media only screen and (max-width: 460px) {
-  .app__header__img {
-    object-fit: contain;
-    width: 120px;
-  }
-
   .app__header {
     font-size: 8px;
     padding: 10px;

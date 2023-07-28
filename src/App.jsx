@@ -25,10 +25,10 @@ const ForgotPassword = React.lazy(() => import("./pages/ForgotPassword"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 const Settings = React.lazy(() => import("./pages/Settings"));
 const Contributors = React.lazy(() =>
-  import("./pages/FooterPages/ContributorPage/index"),
+  import("./pages/FooterPages/ContributorPage"),
 );
 // ------------------------------------- Components ------------------------------------------------
-const Favorite = React.lazy(() => import("./components/Favorite.jsx"));
+const Favorite = React.lazy(() => import("./components/Favorite"));
 const Notifications = React.lazy(() => import("./components/Notification"));
 const Post = React.lazy(() => import("./components/Post"));
 const SideBar = React.lazy(() => import("./components/SideBar"));
@@ -85,9 +85,9 @@ function App() {
   const location = useLocation();
 
   const checkScrollTop = () => {
-    if (!showScroll && window.pageYOffset > 400) {
+    if (!showScroll && window.scrollY > 400) {
       setShowScroll(true);
-    } else if (showScroll && window.pageYOffset <= 400) {
+    } else if (showScroll && window.scrollY <= 400) {
       setShowScroll(false);
     }
   };
