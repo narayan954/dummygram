@@ -272,6 +272,55 @@
   border-radius: 100%;
 }
 
+.likedby_list_container {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 3px;
+  gap: 8px;
+}
+
+.likedby_list_item {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: var(--profile-box-shadow);
+}
+
+.like_user_img {
+  width: 50px !important;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid;
+  transition: 0.3s ease-in-out;
+}
+
+.like_user_img:hover {
+  transform: scale(1.1);
+}
+
+.like_user_data {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.like_user_name {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.like_user_name:hover {
+  text-decoration: underline;
+}
+
+.like_user_username {
+  font-weight: 500;
+  color: var(--profile-color);
+}
+
 @media only screen and (max-width: 800px) {
   .post__commentBox input {
     width: 200px;

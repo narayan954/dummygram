@@ -26,6 +26,7 @@ import { useNavigate } from "react-router-dom";
 const PostHeader = lazy(() => import("./PostHeader"));
 const CommentBox = lazy(() => import("./CommentBox"));
 const CommentDialogBox = lazy(() => import("./CommentDialogBox"));
+const LikesDialogBox = lazy(() => import("./LikesDialogBox"));
 const ImgBox = lazy(() => import("./ImgBox"));
 const PostNav = lazy(() => import("./PostNav"));
 
@@ -39,6 +40,7 @@ function Post(prop) {
   const [likesNo, setLikesNo] = useState(likecount ? likecount.length : 0);
   const [showEmojis, setShowEmojis] = useState(false);
   const [isCommentOpen, setisCommentOpen] = useState(false);
+  const [isLikesOpen, setIsLikesOpen] = useState(false);
   const [deleteCommentID, setDeleteCommentID] = useState("");
   const [openToDeleteComment, setOpenToDeleteComment] = useState(false);
 
@@ -209,7 +211,7 @@ function Post(prop) {
             fontSize={13}
             padding={1}
             sx={{ color: "grey", cursor: "pointer" }}
-            onClick={() => navigate(`/dummygram/posts/${postId}/likes`)}
+            onClick={() => setIsLikesOpen(prev => !prev)}
           >
             {likesNo} {likesNo > 1 ? "Likes" : "Like"}
           </Typography>
@@ -250,6 +252,8 @@ function Post(prop) {
                 user={user}
               />
             </ErrorBoundary>
+
+            {/* Comments dialog box */}
             <DialogBox
               open={isCommentOpen}
               onClose={handleCommentClose}
@@ -299,6 +303,17 @@ function Post(prop) {
                   user={user}
                 />
               </ErrorBoundary>
+            </DialogBox>
+
+            {/* Likes Dialog Box */}
+            <DialogBox
+              open={isLikesOpen}
+              onClose={() => setIsLikesOpen(false)}
+              title="Likes ❤"
+            >
+              <LikesDialogBox 
+                likecountArr={likecount}
+              />
             </DialogBox>
           </div>
         )}

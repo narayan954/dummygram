@@ -24,7 +24,6 @@ const SignupScreen = React.lazy(() => import("./pages/Signup"));
 const ForgotPassword = React.lazy(() => import("./pages/ForgotPassword"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 const Settings = React.lazy(() => import("./pages/Settings"));
-const Likes = React.lazy(() => import("./pages/Likes"))
 const Contributors = React.lazy(() =>
   import("./pages/FooterPages/ContributorPage/index"),
 );
@@ -355,15 +354,6 @@ function App() {
                     setLink={setCurrentPostLink}
                     setPostText={setPostText}
                   />
-                </ErrorBoundary>
-              }
-            />
-
-            <Route
-              path="/dummygram/posts/:id/likes"
-              element={
-                <ErrorBoundary inApp={true}>
-                  <Likes />
                 </ErrorBoundary>
               }
             />

@@ -7,7 +7,6 @@ import Profile from "./Profile";
 import Settings from "./Settings";
 import SignupScreen from "./Signup";
 import ChatPage from "./Chat";
-import Likes from "./Likes";
 
 export {
   About,
@@ -19,5 +18,4 @@ export {
   Profile,
   Settings,
   SignupScreen,
-  Likes,
 };
