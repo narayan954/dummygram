@@ -11,7 +11,6 @@ import NotFound from "../pages/NotFound";
 import Notifications from "./Notification";
 import Post from "./Post";
 import ReadMore from "./ReadMore";
-import SearchBar from "./SearchBar";
 import SideBar from "./SideBar";
 import StoryView from "./Story";
 
@@ -29,7 +28,6 @@ export {
   Notifications,
   Post,
   ReadMore,
-  SearchBar,
   SideBar,
   StoryView,
 };
