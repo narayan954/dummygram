@@ -15,7 +15,6 @@ const ChatBox = () => {
   const [user, setUser] = useState(null);
   const [isLastMsgRecieved, setIsLastMsgRecieved] = useState(false)
   const chatMsgContainerRef = useRef(null);
-  let latestDoc = null;
 
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
@@ -58,9 +57,11 @@ const ChatBox = () => {
         }));
         setMessages(data);
       });
-
-
-    return unsubscribe;
+      
+      return () => {
+        window.removeEventListener("scroll", handleMouseScroll);
+        unsubscribe();
+      };
   }, [db]);
 
   const handleMouseScroll = (event) => {
@@ -70,6 +71,8 @@ const ChatBox = () => {
   };
 
   useEffect(() => {
+    let unsubscribed = false;
+
     if (loadMoreMsgs && messages.length) {
       const lastMessageCreatedAt = messages[0].createdAt;
       db.collection("messages")
@@ -77,22 +80,28 @@ const ChatBox = () => {
         .endBefore(lastMessageCreatedAt)
         .limitToLast(20)
         .onSnapshot((querySnapshot) => {
-          setMessages((loadedMsgs) => {
-            return [
-              ...querySnapshot.docs.map((doc) => ({
-                id: doc.id,
-                ...doc.data(),
-              })),
-              ...loadedMsgs,
-            ];
-          });
-          latestDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
-          if (querySnapshot.empty) {
-            setIsLastMsgRecieved(true)
+          if(!unsubscribed) {
+            setMessages((loadedMsgs) => {
+              return [
+                ...querySnapshot.docs.map((doc) => ({
+                  id: doc.id,
+                  ...doc.data(),
+                })),
+                ...loadedMsgs,
+              ];
+            });
+
+            if (querySnapshot.empty) {
+              setIsLastMsgRecieved(true)
+            }
           }
         });
     }
-    setLoadMoreMsgs(false);
+
+    return () => {
+      setLoadMoreMsgs(false);
+      unsubscribed = true;
+    }
   }, [loadMoreMsgs]);
 
   function handleChange(e) {
