@@ -62,6 +62,7 @@
 .dialog-box-username {
   font-weight: 500;
   color: var(--profile-color);
+  max-width: 210px;
 }
 
 .dialog-box-bio {
