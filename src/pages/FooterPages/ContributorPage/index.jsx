@@ -12,19 +12,29 @@ import { useNavigate } from "react-router-dom";
 function Contributor() {
   const [currentPage, setCurrentPage] = useState(1);
   const [contributors, setContributors] = useState([]);
+  const [searchResult, setSearchResult] = useState("");
 
   const navigate = useNavigate();
 
   const getData = async () => {
     const res = await fetch(
-      `https://api.github.com/repos/narayan954/dummygram/contributors?page=${currentPage}&&per_page=10`,
+      `https://api.github.com/repos/narayan954/dummygram/contributors?page=${currentPage}&&per_page=${
+        searchResult.length < 1 ? 10 : ""
+      }`,
     );
 
     const data = await res.json();
     const contributorsData = data.filter(
       (contributor) => !contributor.login.includes("deepsource-autofix[bot]"),
     );
-    setContributors(contributorsData);
+    const value = contributorsData.filter((item) => {
+      return `${item.login.toLowerCase()}`.includes(searchResult.toLowerCase());
+    });
+    if (searchResult.length > 0) {
+      setContributors(value);
+    } else {
+      setContributors(contributorsData);
+    }
   };
 
   const handleChange = (event, value) => {
@@ -33,7 +43,7 @@ function Contributor() {
 
   useEffect(() => {
     getData();
-  }, [currentPage]);
+  }, [currentPage, searchResult]);
 
   return (
     <div className="footer-page-container footer-page-para-color">
@@ -56,6 +66,16 @@ function Contributor() {
         <h2 className="footer-page-headings footer-page-heading-color">
           Our Contributors
         </h2>
+      </div>
+      <div className="search-container">
+        <input
+          type="text"
+          className="search-input"
+          placeholder="&nbsp;"
+          onChange={(e) => setSearchResult(e.target.value)}
+        />
+        <span className="label">Search Contributor</span>
+        <span class="highlight"></span>
       </div>
       <div className="contributors-outer">
         <Box
@@ -84,14 +104,19 @@ function Contributor() {
           justifyContent="center"
           mt="3rem"
         >
-          <Pagination
-            page={currentPage}
-            onChange={handleChange}
-            variant="outlined"
-            color="primary"
-            count={10}
-          />
+          {searchResult < 1 && (
+            <Pagination
+              page={currentPage}
+              onChange={handleChange}
+              variant="outlined"
+              color="primary"
+              count={10}
+            />
+          )}
         </Box>
+        {contributors.length == 0 && (
+          <h1 className="no-result">Sorry no result matches your query</h1>
+        )}
       </div>
     </div>
   );
