@@ -130,7 +130,7 @@ function App() {
           snapshot.docs.map((doc) => ({
             id: doc.id,
             post: doc.data(),
-          }))
+          })),
         );
       });
   }, []);

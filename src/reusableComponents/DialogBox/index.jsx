@@ -1,4 +1,4 @@
-import "./index.css"
+import "./index.css";
 // To use this dialog box create a useState and pass them as open and onClose
 // open is a boolean value to show the dialog box
 
