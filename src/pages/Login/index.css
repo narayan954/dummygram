@@ -9,6 +9,7 @@
 }
 
 .login__left {
+  margin-top:20px;
   display: flex;
   gap: 1rem;
   justify-content: center;
