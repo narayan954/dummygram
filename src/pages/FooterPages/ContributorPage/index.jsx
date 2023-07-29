@@ -67,12 +67,15 @@ function Contributor() {
           Our Contributors
         </h2>
       </div>
-      <div className="search">
+      <div className="search-container">
         <input
           type="text"
-          placeholder="Search Contributor"
+          className="search-input"
+          placeholder="&nbsp;"
           onChange={(e) => setSearchResult(e.target.value)}
         />
+        <span className="label">Search Contributor</span>
+        <span class="highlight"></span>
       </div>
       <div className="contributors-outer">
         <Box
