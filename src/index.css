@@ -18,7 +18,7 @@
   --btn-color-hover: linear-gradient(40deg, #5f85db, #daf1f7);
   --btn-hover: #5f85db;
   --page-over-color: #00bfff;
-  --slide-color: #DFFFD8;
+  --slide-color: #dfffd8;
   --label-color: rgb(200, 246, 248);
   --profile-color: #7d7575;
   --text-light: rgba(0, 0, 0, 0.6);
@@ -48,8 +48,8 @@
   --btn-color: linear-gradient(40deg, #5f85db, #daf1f7);
   --btn-color-hover: linear-gradient(-40deg, #daf1f7, #5f85db);
   --btn-hover: #5f85db;
-  --page-over-color: #26282B;
-  --slide-color: #041C32;
+  --page-over-color: #26282b;
+  --slide-color: #041c32;
   --label-color: #6a656b;
   --profile-color: #c8c6c6;
   --text-black-only: black;
