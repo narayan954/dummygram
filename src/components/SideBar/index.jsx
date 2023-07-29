@@ -2,14 +2,20 @@ import "./index.css";
 
 import React, { useEffect, useState } from "react";
 import { auth, db } from "../../lib/firebase";
+import { getModalStyle, useStyles } from "../../App";
+import Modal from "@mui/material/Modal";
 import { doc, getDoc } from "firebase/firestore";
 import { useLocation, useNavigate } from "react-router-dom";
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import LogoutIcon from "@mui/icons-material/Logout";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineClose } from "react-icons/ai";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import { Dialog } from "@mui/material";
+import { AnimatedButton, Logo } from "../../reusableComponents";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import HomeIcon from "@mui/icons-material/Home";
 import ImgUpload from "../ImgUpload";
@@ -18,21 +24,44 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 const Footer = React.lazy(() => import("./Footer"));
 
 function SideBar({ anonymous }) {
+  const [logout, setLogout] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
+  const classes = useStyles();
   const navigate = useNavigate();
   const user = auth.currentUser;
   const location = useLocation();
 
   const [openNewUpload, setOpenNewUpload] = useState(false);
-  const [username, setUsername] = useState("");
+  const [userData, setUserData] = useState({
+    name: "",
+    username: "",
+  });
 
   useEffect(() => {
     async function getUsername() {
       const docRef = doc(db, "users", user?.uid);
       const docSnap = await getDoc(docRef);
-      setUsername(docSnap.data().username);
+      setUserData({
+        name: docSnap.data().displayName,
+        username: docSnap.data().username,
+      });
     }
     getUsername();
   }, []);
+
+  const signOut = () => {
+    auth
+      .signOut()
+      .then(() => {
+        navigate("/dummygram");
+      })
+      .finally(() => {
+        playSuccessSound();
+        enqueueSnackbar("Logged out Successfully !", {
+          variant: "info",
+        });
+      });
+  };
 
   return (
     <div className="sidebar">
@@ -43,7 +72,7 @@ function SideBar({ anonymous }) {
             onClick={() => navigate("/dummygram")}
             className={
               location.pathname === "/dummygram/" ||
-              location.pathname === "/dummygram"
+                location.pathname === "/dummygram"
                 ? "activeTab"
                 : ""
             }
@@ -92,16 +121,11 @@ function SideBar({ anonymous }) {
             </div>
           </li>
           <li
-            onClick={() =>
-              navigate(
-                `/dummygram/${anonymous ? "signup" : `user/${username}`}`,
-              )
-            }
             className={
               location.pathname.includes("/dummygram/user") ? "activeTab" : ""
             }
           >
-            <div className="sidebar_align">
+            <div className="sidebar_align" onClick={() => setOpenMenu(prev => !prev)}>
               {user && user.photoURL ? (
                 <img
                   src={user.photoURL}
@@ -111,7 +135,7 @@ function SideBar({ anonymous }) {
               ) : (
                 <AccountCircleIcon className="icon" />
               )}{" "}
-              <span>Profile</span>
+              <span className="sidebar_user_dropdown">Me <ArrowDropDownIcon /></span>
             </div>
           </li>
         </ul>
@@ -120,6 +144,71 @@ function SideBar({ anonymous }) {
           <Footer />
         </ErrorBoundary>
       </div>
+
+      <Modal open={logout} onClose={() => setLogout(false)}>
+        <div style={getModalStyle()} className={classes.paper}>
+          <form className="modal__signup">
+            <Logo />
+            <p
+              style={{
+                fontSize: "15px",
+                fontFamily: "monospace",
+                padding: "10%",
+                color: "var(--color)",
+              }}
+            >
+              Are you sure you want to Logout?
+            </p>
+
+            <div className={classes.logout}>
+              <AnimatedButton
+                type="submit"
+                onClick={signOut}
+                variant="contained"
+                color="primary"
+                className="button-style"
+              >
+                Logout
+              </AnimatedButton>
+              <AnimatedButton
+                type="submit"
+                onClick={() => setLogout(false)}
+                variant="contained"
+                color="primary"
+                className="button-style"
+              >
+                Cancel
+              </AnimatedButton>
+            </div>
+          </form>
+        </div>
+      </Modal>
+
+      {openMenu && (<div className="sidebar_user_dropdown_container">
+        <ul className="sidebar_user_dropdown_sub_container">
+          <li
+            onClick={() =>
+              navigate(
+                `/dummygram/${anonymous ? "signup" : `user/${userData.username}`}`,
+              )
+            }
+          >
+            {user && user.photoURL ? (
+                <img
+                  src={user.photoURL}
+                  alt="profile picture"
+                  className="dropdown-list-profile-picture"
+                />
+              ) : (
+                <AccountCircleIcon className="icon" />
+              )} Profile
+          </li>
+          <li onClick={() => navigate("/dummygram/settings")}>
+            <SettingsIcon /> Settings
+          </li>
+          <li onClick={() => setLogout(true)}><LogoutIcon /> Logout</li>
+        </ul>
+      </div>)}
 
       <Dialog
         PaperProps={{

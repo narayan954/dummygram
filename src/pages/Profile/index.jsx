@@ -1,6 +1,6 @@
 import "./index.css";
 
-import { AnimatedButton, Loader, Logo } from "../../reusableComponents";
+import { Loader } from "../../reusableComponents";
 import { Avatar, Box, Button, Typography, useMediaQuery } from "@mui/material";
 import { auth, db } from "../../lib/firebase";
 import {
@@ -10,7 +10,6 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { getModalStyle, useStyles } from "../../App";
 import { lazy, useEffect, useState } from "react";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useNavigate, useParams } from "react-router-dom";
@@ -20,11 +19,9 @@ import { EditProfile } from "../../components";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import { FaUserCircle } from "react-icons/fa";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import LogoutIcon from "@mui/icons-material/Logout";
 import Modal from "@mui/material/Modal";
 import NotFound from "../NotFound";
 import ProfieFeed from "./feed";
-import SettingsIcon from "@mui/icons-material/Settings";
 import { StoryView } from "../../components";
 import ViewsCounter from "../../reusableComponents/views";
 import firebase from "firebase/compat/app";
@@ -34,7 +31,6 @@ import { useSnackbar } from "notistack";
 const SideBar = lazy(() => import("../../components/SideBar"));
 
 function Profile() {
-  const classes = useStyles();
   const navigate = useNavigate();
   const isNonMobile = useMediaQuery("(min-width: 768px)");
   const { enqueueSnackbar } = useSnackbar();
@@ -43,7 +39,6 @@ function Profile() {
   const [user, setUser] = useState(null);
   const [feed, setFeed] = useState([]);
   const [open, setOpen] = useState(false);
-  const [logout, setLogout] = useState(false);
   const [friendRequestSent, setFriendRequestSent] = useState(false);
   const [userData, setUserData] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -261,20 +256,6 @@ function Profile() {
     };
   }, [user, name]);
 
-  const signOut = () => {
-    auth
-      .signOut()
-      .then(() => {
-        navigate("/dummygram");
-      })
-      .finally(() => {
-        playSuccessSound();
-        enqueueSnackbar("Logged out Successfully !", {
-          variant: "info",
-        });
-      });
-  };
-
   return (
     <>
       <ErrorBoundary>
@@ -469,78 +450,6 @@ function Profile() {
                     {friendRequestSent ? "Remove friend request" : "Add Friend"}
                   </Button>
                 )}
-                {uid === user?.uid && (
-                  <Box className="setting-logout">
-                    <Button
-                      variant="contained"
-                      startIcon={<SettingsIcon style={{ color: "black" }} />}
-                      style={{ backgroundColor: "#5F85DB" }}
-                      onClick={() => navigate("/dummygram/settings")}
-                    >
-                      <Typography
-                        fontSize="1rem"
-                        color="black"
-                        textTransform="capitalize"
-                      >
-                        Settings
-                      </Typography>
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      startIcon={<LogoutIcon style={{ color: "black" }} />}
-                      style={{ backgroundColor: "#5F85DB" }}
-                      onClick={() => setLogout(true)}
-                    >
-                      <Typography
-                        fontSize="1rem"
-                        color="black"
-                        textTransform="capitalize"
-                      >
-                        Log Out
-                      </Typography>
-                    </Button>
-                  </Box>
-                )}
-
-                <Modal open={logout} onClose={() => setLogout(false)}>
-                  <div style={getModalStyle()} className={classes.paper}>
-                    <form className="modal__signup">
-                      <Logo />
-                      <p
-                        style={{
-                          fontSize: "15px",
-                          fontFamily: "monospace",
-                          padding: "10%",
-                          color: "var(--color)",
-                        }}
-                      >
-                        Are you sure you want to Logout?
-                      </p>
-
-                      <div className={classes.logout}>
-                        <AnimatedButton
-                          type="submit"
-                          onClick={signOut}
-                          variant="contained"
-                          color="primary"
-                          className="button-style"
-                        >
-                          Logout
-                        </AnimatedButton>
-                        <AnimatedButton
-                          type="submit"
-                          onClick={() => setLogout(false)}
-                          variant="contained"
-                          color="primary"
-                          className="button-style"
-                        >
-                          Cancel
-                        </AnimatedButton>
-                      </div>
-                    </form>
-                  </div>
-                </Modal>
               </Box>
             </Box>
           </Box>
