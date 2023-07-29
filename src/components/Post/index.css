@@ -64,15 +64,13 @@
 
 .post__background {
   min-height: 200px;
-  background: linear-gradient(
-    130deg,
-    #dee2ed,
-    #dee2ed,
-    #9aa9d1,
-    #b6c8e3,
-    #b6afd0,
-    #d3c0d8
-  );
+  background: linear-gradient(130deg,
+      #dee2ed,
+      #dee2ed,
+      #9aa9d1,
+      #b6c8e3,
+      #b6afd0,
+      #d3c0d8);
 
   background-size: cover;
   color: black;
@@ -151,6 +149,7 @@
   background: lightgray;
   border-radius: 10px;
 }
+
 .commentCard .comment span {
   color: var(--text-black-only) !important;
 }
@@ -175,9 +174,11 @@
   text-decoration: none;
   color: black;
 }
+
 .comment-doer-name {
   color: rgb(42, 42, 135);
 }
+
 .comment-doer-name:hover {
   text-decoration: underline;
 }
@@ -355,5 +356,23 @@
     max-width: 320px;
     padding: 5px;
     margin-top: 25px;
+  }
+
+  .like_user_data {
+    flex-direction: column;
+    gap: 0;
+    align-items: flex-start;
+  }
+
+  .like_user_name {
+    font-size: 16px;
+  }
+
+  .like_user_username {
+    margin-top: -5px;
+  }
+
+  .like_user_bio {
+    font-size: 14px;
   }
 }

@@ -77,7 +77,9 @@ const LikesDialogBox = ({ likecountArr }) => {
                   </h3>
                   <h5 className="like_user_username">@{data?.username}</h5>
                 </section>
-                <p>{data?.bio ? data.bio : "..."}</p>
+                <p className="like_user_bio">
+                  {data?.bio ? data.bio : "..."}
+                </p>
               </span>
             </div>
           ))}
