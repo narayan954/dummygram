@@ -71,6 +71,19 @@
   transform: scale(1.1);
 }
 
+.name-and-date-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+}
+
+.message-time {
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--profile-color);
+}
+
 .current-user-msg {
   flex-direction: row-reverse;
   margin-left: auto;
