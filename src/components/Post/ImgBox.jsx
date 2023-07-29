@@ -37,7 +37,7 @@ const ImgBox = ({
       )}
 
       <div className={caption.length ? "p-0" : "post__text"}>
-        {caption && postHasImages && caption.length >= 300 ? (
+        {caption && postHasImages && caption.length >= 200 ? (
           <p style={{ color: "var(--color)", paddingInline: "8px" }}>
             <ReadMore postId={postId}>{caption}</ReadMore>
           </p>
