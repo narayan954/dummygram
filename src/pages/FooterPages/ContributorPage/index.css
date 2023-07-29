@@ -56,5 +56,6 @@
 }
 
 .search {
-  margin: 0 auto 3.3rem;
+  margin: auto;
+  margin-bottom: 3em;
 }

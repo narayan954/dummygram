@@ -67,12 +67,13 @@ function Contributor() {
           Our Contributors
         </h2>
       </div>
-      <input
-        type="text"
-        placeholder="Search Contributor"
-        className="search"
-        onChange={(e) => setSearchResult(e.target.value)}
-      />
+      <div className="search">
+        <input
+          type="text"
+          placeholder="Search Contributor"
+          onChange={(e) => setSearchResult(e.target.value)}
+        />
+      </div>
       <div className="contributors-outer">
         <Box
           className="contributors-container"
@@ -100,7 +101,7 @@ function Contributor() {
           justifyContent="center"
           mt="3rem"
         >
-          {searchResult < 1 ? (
+          {searchResult < 1 && (
             <Pagination
               page={currentPage}
               onChange={handleChange}
@@ -108,10 +109,11 @@ function Contributor() {
               color="primary"
               count={10}
             />
-          ) : (
-            <h1>Sorry no result matches your query</h1>
           )}
         </Box>
+        {contributors.length == 0 && (
+          <h1 className="no-result">Sorry no result matches your query</h1>
+        )}
       </div>
     </div>
   );
