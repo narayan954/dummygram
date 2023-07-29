@@ -9,6 +9,7 @@ import {
   onSnapshot,
   query,
   where,
+  orderBy,
 } from "firebase/firestore";
 import { getModalStyle, useStyles } from "../../App";
 import { lazy, useEffect, useState } from "react";
@@ -244,7 +245,11 @@ function Profile() {
 
   // Get user's posts from posts collection
   useEffect(() => {
-    const q = query(collection(db, "posts"), where("uid", "==", uid));
+    const q = query(
+      collection(db, "posts"),
+      where("uid", "==", uid),
+      orderBy("timestamp", "desc")
+    );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const userPosts = [];
       querySnapshot.forEach((doc) => {
@@ -407,9 +412,8 @@ function Profile() {
                     }}
                     alt={name}
                     src={avatar}
-                    className={`profile-pic-container ${
-                      storyTimestamp ? "story_available_border" : null
-                    }`}
+                    className={`profile-pic-container ${storyTimestamp ? "story_available_border" : null
+                      }`}
                   />
                 ) : (
                   <FaUserCircle className="profile-pic-container" />
