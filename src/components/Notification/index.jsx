@@ -71,11 +71,14 @@ function Notifications() {
                       <FaUserCircle style={{ width: "80px", height: "80px" }} />
 
                       <p className="notif-message">
-                        {notification.message}
-                        <Link className="friend-request-sender-name">
+                        {notification.message} from{" "}
+                        <Link 
+                          className="friend-request-sender-name" 
+                          to={`/dummygram/user/${notification.username? notification.username : ""}`}
+                        >
                           {notification.senderName
-                            ? ` from ${notification.senderName}.`
-                            : ""}
+                            ? notification.senderName
+                            : ""}.
                         </Link>
                         <div style={{ marginTop: "10px" }}>
                           <button className="accept-btn notif-btn">
