@@ -9,7 +9,6 @@
 }
 
 .login__left {
-  margin-top:25px;
   display: flex;
   gap: 1rem;
   justify-content: center;
@@ -18,6 +17,7 @@
 }
 
 .form__top {
+  
   padding: 0rem 0 0.8rem 0;
 }
 
