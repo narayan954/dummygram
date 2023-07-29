@@ -87,7 +87,7 @@ const StoryView = ({ username, setViewStory, setUserData }) => {
         className="story_icons story_close_icon"
         onClick={() => setViewStory(false)}
       />
-      {storyData !== {} ? (
+      {storyData ? (
         <>
           <DeleteIcon
             className="story_icons story_delete_icon"

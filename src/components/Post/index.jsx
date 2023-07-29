@@ -25,6 +25,7 @@ import { useTheme } from "@mui/material/styles";
 const PostHeader = lazy(() => import("./PostHeader"));
 const CommentBox = lazy(() => import("./CommentBox"));
 const CommentDialogBox = lazy(() => import("./CommentDialogBox"));
+const LikesDialogBox = lazy(() => import("./LikesDialogBox"));
 const ImgBox = lazy(() => import("./ImgBox"));
 const PostNav = lazy(() => import("./PostNav"));
 
@@ -39,6 +40,7 @@ function Post(prop) {
   const [showEmojis, setShowEmojis] = useState(false);
   const [showCommentEmojis, setShowCommentEmojis] = useState(false);
   const [isCommentOpen, setisCommentOpen] = useState(false);
+  const [isLikesOpen, setIsLikesOpen] = useState(false);
   const [deleteCommentID, setDeleteCommentID] = useState("");
   const [openToDeleteComment, setOpenToDeleteComment] = useState(false);
   const [username, setUsername] = useState("");
@@ -214,7 +216,8 @@ function Post(prop) {
             marginLeft={1}
             fontSize={13}
             padding={1}
-            sx={{ color: "grey" }}
+            sx={{ color: "grey", cursor: "pointer" }}
+            onClick={() => setIsLikesOpen((prev) => !prev)}
           >
             {likesNo} {likesNo > 1 ? "Likes" : "Like"}
           </Typography>
@@ -255,6 +258,8 @@ function Post(prop) {
                 user={user}
               />
             </ErrorBoundary>
+
+            {/* Comments dialog box */}
             <DialogBox
               open={isCommentOpen}
               onClose={handleCommentClose}
@@ -304,6 +309,15 @@ function Post(prop) {
                   user={user}
                 />
               </ErrorBoundary>
+            </DialogBox>
+
+            {/* Likes Dialog Box */}
+            <DialogBox
+              open={isLikesOpen}
+              onClose={() => setIsLikesOpen(false)}
+              title="Likes ❤"
+            >
+              <LikesDialogBox likecountArr={likecount} />
             </DialogBox>
           </div>
         )}
