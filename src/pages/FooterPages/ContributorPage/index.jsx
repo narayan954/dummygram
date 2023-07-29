@@ -100,7 +100,7 @@ function Contributor() {
           justifyContent="center"
           mt="3rem"
         >
-          {searchResult < 1 && (
+          {searchResult < 1 ? (
             <Pagination
               page={currentPage}
               onChange={handleChange}
@@ -108,6 +108,8 @@ function Contributor() {
               color="primary"
               count={10}
             />
+          ) : (
+            <h1>Sorry no result matches your query</h1>
           )}
         </Box>
       </div>
