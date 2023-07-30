@@ -37,7 +37,11 @@ const CommentDialogBox = ({
       const docSnap = await getDoc(docRef);
       setUsername(docSnap.data().username);
     }
-    getUsername();
+    if (isAnonymous) {
+      setUsername("guest");
+    } else {
+      getUsername();
+    }
   }, []);
 
   return (

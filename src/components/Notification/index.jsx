@@ -70,7 +70,7 @@ function Notifications() {
                     >
                       <FaUserCircle style={{ width: "80px", height: "80px" }} />
 
-                      <p className="notif-message">
+                      <div className="notif-message">
                         {notification.message}
                         <Link className="friend-request-sender-name">
                           {notification.senderName
@@ -85,7 +85,7 @@ function Notifications() {
                             Decline
                           </button>
                         </div>
-                      </p>
+                      </div>
                     </div>
                   ))}
                 </>

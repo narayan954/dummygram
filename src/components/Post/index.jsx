@@ -57,7 +57,11 @@ function Post(prop) {
       const docSnap = await getDoc(docRef);
       setUsername(docSnap.data().username);
     }
-    getUsername();
+    if (auth?.currentUser?.isAnonymous) {
+      setUsername("guest");
+    } else {
+      getUsername();
+    }
   }, []);
 
   useEffect(() => {
