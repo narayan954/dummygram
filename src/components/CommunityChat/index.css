@@ -48,7 +48,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 13px;
+  margin-bottom: 18px;
 }
 
 .chat-message:hover {
@@ -78,6 +78,12 @@
   align-items: center;
 }
 
+.time-reaction-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .message-time {
   font-weight: 600;
   font-size: 12px;
@@ -91,6 +97,7 @@
 }
 
 .chat-msg-text {
+  position: relative;
   color: var(--text-secondary);
   border-radius: 6px;
   padding: 4px 8px;
@@ -128,6 +135,28 @@
 
 .communitychat-emoji-btn:hover {
   transform: scale(1.1);
+}
+
+.rxn-main-container {
+  position: absolute;
+  padding: 0;
+  bottom: -13px;
+  right: 0;
+}
+
+.rxn-container {
+  list-style: none;
+  position: relative;
+  width: fit-content;
+  cursor: default;
+}
+
+.rxn-count {
+  position: absolute;
+  bottom: -6px;
+  right: 0px;
+  font-size: 11px;
+  font-weight: 600;
 }
 
 @media screen and (max-width: 1200px) {
