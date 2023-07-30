@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const ProfieFeed = ({ feed }) => {
   const navigate = useNavigate();
+
   return (
     <Box className="profile-feed-main-container">
       <div className="app__posts__feed" id="feed-sub-container">
