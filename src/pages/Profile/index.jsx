@@ -243,7 +243,7 @@ function Profile() {
     const q = query(
       collection(db, "posts"),
       where("uid", "==", uid),
-      orderBy("timestamp", "desc")
+      orderBy("timestamp", "desc"),
     );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const userPosts = [];
@@ -393,8 +393,9 @@ function Profile() {
                     }}
                     alt={name}
                     src={avatar}
-                    className={`profile-pic-container ${storyTimestamp ? "story_available_border" : null
-                      }`}
+                    className={`profile-pic-container ${
+                      storyTimestamp ? "story_available_border" : null
+                    }`}
                   />
                 ) : (
                   <FaUserCircle className="profile-pic-container" />
