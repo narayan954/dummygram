@@ -121,7 +121,7 @@
 }
 
 .chat-msg-send-btn:hover {
-  color: cyan;
+  color: var(--btn-hover);
 }
 
 .hide {
@@ -185,16 +185,17 @@
     max-width: 75%;
   }
 }
-.roundedBtn {
-  position: "relative";
-}
+
 .closeBtn {
   position: absolute;
   position: fixed;
   cursor: pointer;
-  color: #59afc7;
+  color: var(--color);
   padding: 2px;
-  right: 1%;
-  height: 7% !important;
-  width: 4% !important;
+  right: 3%;
+  transform: scale(2);
+}
+
+.closeBtn:hover {
+  color: var(--btn-hover);
 }

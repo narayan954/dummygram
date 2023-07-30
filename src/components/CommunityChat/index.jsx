@@ -5,13 +5,12 @@ import { useEffect, useRef, useState } from "react";
 
 import EmojiPicker from "emoji-picker-react";
 import HighlightOffRoundedIcon from "@mui/icons-material/HighlightOffRounded";
+import Reaction from "./Reaction";
 import SendIcon from "@mui/icons-material/Send";
 import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfied";
-
 import firebase from "firebase/compat/app";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
-import Reaction from "./Reaction";
 
 const ChatBox = () => {
   const [showEmojis, setShowEmojis] = useState(false);
@@ -169,42 +168,45 @@ const ChatBox = () => {
     return formattedTime;
   }
 
-    function getReaction(reaction) {
-      const reactionsArr = Object.keys(reaction);
-      let emoji = ""
+  function getReaction(reaction) {
+    const reactionsArr = Object.keys(reaction);
+    let emoji = "";
 
-      const rxnList = reactionsArr.map(rxn => {
-          switch (rxn) {
-              case 'smiley':
-                  emoji = "😅";
-                  break;
-              case 'like':
-                  emoji = "❤️";
-                  break;
-              case 'laughing':
-                  emoji = "😂";
-                  break;
-              default:
-                  emoji = "👍";
-          }
+    const rxnList = reactionsArr.map((rxn) => {
+      switch (rxn) {
+        case "smiley":
+          emoji = "😅";
+          break;
+        case "like":
+          emoji = "❤️";
+          break;
+        case "laughing":
+          emoji = "😂";
+          break;
+        default:
+          emoji = "👍";
+      }
 
-          return reaction[rxn].length > 0 && (
-              <li className="rxn-container" key={rxn} onClick={() => setShowRxnList(prev => !prev)}>
-                  {emoji}
-                  <span className="rxn-count">{reaction[rxn].length}</span>
-              </li>
-          )
-      })
-      return rxnList;
+      return (
+        reaction[rxn].length > 0 && (
+          <li
+            className="rxn-container"
+            key={rxn}
+            onClick={() => setShowRxnList((prev) => !prev)}
+          >
+            {emoji}
+            <span className="rxn-count">{reaction[rxn].length}</span>
+          </li>
+        )
+      );
+    });
+    return rxnList;
   }
 
   return (
     <div className="chat-main-container">
-      <div className="roundedBtn">
-        <HighlightOffRoundedIcon
-          className="closeBtn"
-          onClick={() => navigate("/dummygram/")}
-        />
+      <div className="closeBtn">
+        <HighlightOffRoundedIcon onClick={() => navigate("/dummygram/")} />
       </div>
       <span className="chat-header">showing last 20 messages</span>
 
@@ -213,8 +215,9 @@ const ChatBox = () => {
           {messages.map((message) => (
             <li
               key={message.id}
-              className={`chat-message ${user?.uid == message.uid ? "current-user-msg" : ""
-                }`}
+              className={`chat-message ${
+                user?.uid == message.uid ? "current-user-msg" : ""
+              }`}
             >
               <img
                 src={message.photoURL}
