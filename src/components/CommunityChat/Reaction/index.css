@@ -1,0 +1,20 @@
+.msg-reaction-icon {
+  transform: scale(0.8);
+}
+
+.msg-reaction-container {
+  display: flex;
+  border: 1px solid;
+  background-color: white;
+  position: absolute;
+  border-radius: 8px;
+  z-index: 99;
+}
+.msg-reaction-container > p {
+  padding: 8px;
+  border-radius: 50%;
+  cursor: default;
+}
+.msg-reaction-container > p:hover {
+  background-color: #eee;
+}

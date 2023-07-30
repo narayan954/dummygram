@@ -24,6 +24,10 @@
   margin-right: 20px;
 }
 
+.themeButton:hover {
+  background-color: var(--theme-hover);
+}
+
 .themeButton span {
   display: flex;
   justify-content: center;
