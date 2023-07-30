@@ -46,7 +46,14 @@ function SideBar({ anonymous }) {
         username: docSnap.data().username,
       });
     }
-    getUsername();
+    if (anonymous) {
+      setUserData({
+        name: "Guest",
+        username: "guest",
+      });
+    } else {
+      getUsername();
+    }
   }, []);
 
   const signOut = () => {
@@ -139,7 +146,8 @@ function SideBar({ anonymous }) {
                 <AccountCircleIcon className="icon" />
               )}{" "}
               <span className="sidebar_user_dropdown">
-                Me <ArrowDropDownIcon />
+                {user && !anonymous ? user.displayName : userData.name}{" "}
+                <ArrowDropDownIcon />
               </span>
             </div>
           </li>
@@ -212,7 +220,11 @@ function SideBar({ anonymous }) {
               )}{" "}
               Profile
             </li>
-            <li onClick={() => navigate("/dummygram/settings")}>
+            <li
+              onClick={() =>
+                navigate(`/dummygram/${anonymous ? "signup" : "settings"}`)
+              }
+            >
               <SettingsIcon /> Settings
             </li>
             <li onClick={() => setLogout(true)}>
