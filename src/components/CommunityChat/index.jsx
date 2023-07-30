@@ -158,7 +158,6 @@ const ChatBox = () => {
     getUsername();
   }
 
-  // console.log(messages[0])
   function getTime(timestamp) {
     const timeInMilliSec = timestamp * 1000;
     const date = new Date(timeInMilliSec);
