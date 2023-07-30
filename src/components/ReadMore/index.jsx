@@ -18,7 +18,7 @@ const ReadMore = ({ children, picCap = false, postId, readMore = true }) => {
           isReadMore ? (picCap ? text.slice(0, 300) : text.slice(0, 100)) : text
         }
       />
-      {text.length >= 300 && (
+      {text.length >= 200 && (
         <span
           onClick={() => {
             toggleReadMore();

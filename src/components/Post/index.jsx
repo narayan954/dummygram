@@ -14,10 +14,10 @@ import {
   styled,
   useMediaQuery,
 } from "@mui/material";
-import { doc, updateDoc } from "firebase/firestore";
+import { auth, db } from "../../lib/firebase";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { lazy, useEffect, useState } from "react";
 
-import { db } from "../../lib/firebase";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
 import { useTheme } from "@mui/material/styles";
@@ -25,6 +25,7 @@ import { useTheme } from "@mui/material/styles";
 const PostHeader = lazy(() => import("./PostHeader"));
 const CommentBox = lazy(() => import("./CommentBox"));
 const CommentDialogBox = lazy(() => import("./CommentDialogBox"));
+const LikesDialogBox = lazy(() => import("./LikesDialogBox"));
 const ImgBox = lazy(() => import("./ImgBox"));
 const PostNav = lazy(() => import("./PostNav"));
 
@@ -37,15 +38,28 @@ function Post(prop) {
   const [comment, setComment] = useState("");
   const [likesNo, setLikesNo] = useState(likecount ? likecount.length : 0);
   const [showEmojis, setShowEmojis] = useState(false);
+  const [showCommentEmojis, setShowCommentEmojis] = useState(false);
   const [isCommentOpen, setisCommentOpen] = useState(false);
+  const [isLikesOpen, setIsLikesOpen] = useState(false);
   const [deleteCommentID, setDeleteCommentID] = useState("");
   const [openToDeleteComment, setOpenToDeleteComment] = useState(false);
+  const [username, setUsername] = useState("");
 
   const theme = useTheme();
   const { enqueueSnackbar } = useSnackbar();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const docRef = doc(db, "posts", postId);
+
+  useEffect(() => {
+    async function getUsername() {
+      const docRef = doc(db, "users", auth?.currentUser?.uid);
+      const docSnap = await getDoc(docRef);
+      setUsername(docSnap.data().username);
+    }
+    getUsername();
+  }, []);
+
   useEffect(() => {
     let unsubscribe;
 
@@ -85,9 +99,9 @@ function Post(prop) {
     try {
       db.collection("posts").doc(postId).collection("comments").add({
         text: comment,
-        username: user.uid, // TODO  must be username
-        displayName: user.displayName,
-        avatar: user.photoURL,
+        username: username,
+        displayName: auth?.currentUser?.displayName,
+        avatar: auth?.currentUser?.photoURL,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       });
     } catch (err) {
@@ -110,6 +124,7 @@ function Post(prop) {
   const onEmojiClick = (emojiObject, event) => {
     setComment((prevInput) => prevInput + emojiObject.emoji);
     setShowEmojis(false);
+    setShowCommentEmojis(false);
   };
 
   /**
@@ -195,13 +210,14 @@ function Post(prop) {
             caption={caption}
           />
         </ErrorBoundary>
-        <Divider style={{ paddingTop: "6px" }} />
+        <Divider />
         <Flexbetween>
           <Typography
             marginLeft={1}
             fontSize={13}
             padding={1}
-            sx={{ color: "grey" }}
+            sx={{ color: "grey", cursor: "pointer" }}
+            onClick={() => setIsLikesOpen((prev) => !prev)}
           >
             {likesNo} {likesNo > 1 ? "Likes" : "Like"}
           </Typography>
@@ -242,6 +258,8 @@ function Post(prop) {
                 user={user}
               />
             </ErrorBoundary>
+
+            {/* Comments dialog box */}
             <DialogBox
               open={isCommentOpen}
               onClose={handleCommentClose}
@@ -282,8 +300,8 @@ function Post(prop) {
               </ErrorBoundary>
               <ErrorBoundary>
                 <CommentBox
-                  setShowEmojis={setShowEmojis}
-                  showEmojis={showEmojis}
+                  setShowEmojis={setShowCommentEmojis}
+                  showEmojis={showCommentEmojis}
                   onEmojiClick={onEmojiClick}
                   comment={comment}
                   setComment={setComment}
@@ -291,6 +309,15 @@ function Post(prop) {
                   user={user}
                 />
               </ErrorBoundary>
+            </DialogBox>
+
+            {/* Likes Dialog Box */}
+            <DialogBox
+              open={isLikesOpen}
+              onClose={() => setIsLikesOpen(false)}
+              title="Likes ❤"
+            >
+              <LikesDialogBox likecountArr={likecount} />
             </DialogBox>
           </div>
         )}

@@ -14,7 +14,6 @@ import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import HomeIcon from "@mui/icons-material/Home";
 import ImgUpload from "../ImgUpload";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import SearchIcon from "@mui/icons-material/Search";
 
 const Footer = React.lazy(() => import("./Footer"));
 
@@ -61,18 +60,6 @@ function SideBar({ anonymous }) {
             <div className="sidebar_align">
               <AddCircleOutlineIcon className="icon" />{" "}
               <span>New Post/Story</span>
-            </div>
-          </li>
-          <li
-            onClick={() =>
-              navigate(`/dummygram/${anonymous ? "signup" : "search"}`)
-            }
-            className={
-              location.pathname.includes("/dummygram/search") ? "activeTab" : ""
-            }
-          >
-            <div className="sidebar_align">
-              <SearchIcon className="icon" /> <span>Search</span>
             </div>
           </li>
           <li
