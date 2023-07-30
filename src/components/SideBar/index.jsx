@@ -1,25 +1,25 @@
 import "./index.css";
 
+import { AnimatedButton, Logo } from "../../reusableComponents";
 import React, { useEffect, useState } from "react";
 import { auth, db } from "../../lib/firebase";
-import { getModalStyle, useStyles } from "../../App";
-import Modal from "@mui/material/Modal";
 import { doc, getDoc } from "firebase/firestore";
+import { getModalStyle, useStyles } from "../../App";
 import { useLocation, useNavigate } from "react-router-dom";
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import LogoutIcon from "@mui/icons-material/Logout";
-import SettingsIcon from "@mui/icons-material/Settings";
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineClose } from "react-icons/ai";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import { Dialog } from "@mui/material";
-import { AnimatedButton, Logo } from "../../reusableComponents";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import HomeIcon from "@mui/icons-material/Home";
 import ImgUpload from "../ImgUpload";
+import LogoutIcon from "@mui/icons-material/Logout";
+import Modal from "@mui/material/Modal";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 const Footer = React.lazy(() => import("./Footer"));
 
@@ -72,7 +72,7 @@ function SideBar({ anonymous }) {
             onClick={() => navigate("/dummygram")}
             className={
               location.pathname === "/dummygram/" ||
-                location.pathname === "/dummygram"
+              location.pathname === "/dummygram"
                 ? "activeTab"
                 : ""
             }
@@ -125,7 +125,10 @@ function SideBar({ anonymous }) {
               location.pathname.includes("/dummygram/user") ? "activeTab" : ""
             }
           >
-            <div className="sidebar_align" onClick={() => setOpenMenu(prev => !prev)}>
+            <div
+              className="sidebar_align"
+              onClick={() => setOpenMenu((prev) => !prev)}
+            >
               {user && user.photoURL ? (
                 <img
                   src={user.photoURL}
@@ -135,7 +138,9 @@ function SideBar({ anonymous }) {
               ) : (
                 <AccountCircleIcon className="icon" />
               )}{" "}
-              <span className="sidebar_user_dropdown">Me <ArrowDropDownIcon /></span>
+              <span className="sidebar_user_dropdown">
+                Me <ArrowDropDownIcon />
+              </span>
             </div>
           </li>
         </ul>
@@ -184,16 +189,19 @@ function SideBar({ anonymous }) {
         </div>
       </Modal>
 
-      {openMenu && (<div className="sidebar_user_dropdown_container">
-        <ul className="sidebar_user_dropdown_sub_container">
-          <li
-            onClick={() =>
-              navigate(
-                `/dummygram/${anonymous ? "signup" : `user/${userData.username}`}`,
-              )
-            }
-          >
-            {user && user.photoURL ? (
+      {openMenu && (
+        <div className="sidebar_user_dropdown_container">
+          <ul className="sidebar_user_dropdown_sub_container">
+            <li
+              onClick={() =>
+                navigate(
+                  `/dummygram/${
+                    anonymous ? "signup" : `user/${userData.username}`
+                  }`,
+                )
+              }
+            >
+              {user && user.photoURL ? (
                 <img
                   src={user.photoURL}
                   alt="profile picture"
@@ -201,14 +209,18 @@ function SideBar({ anonymous }) {
                 />
               ) : (
                 <AccountCircleIcon className="icon" />
-              )} Profile
-          </li>
-          <li onClick={() => navigate("/dummygram/settings")}>
-            <SettingsIcon /> Settings
-          </li>
-          <li onClick={() => setLogout(true)}><LogoutIcon /> Logout</li>
-        </ul>
-      </div>)}
+              )}{" "}
+              Profile
+            </li>
+            <li onClick={() => navigate("/dummygram/settings")}>
+              <SettingsIcon /> Settings
+            </li>
+            <li onClick={() => setLogout(true)}>
+              <LogoutIcon /> Logout
+            </li>
+          </ul>
+        </div>
+      )}
 
       <Dialog
         PaperProps={{

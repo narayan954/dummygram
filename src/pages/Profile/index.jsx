@@ -1,6 +1,5 @@
 import "./index.css";
 
-import { Loader } from "../../reusableComponents";
 import { Avatar, Box, Button, Typography, useMediaQuery } from "@mui/material";
 import { auth, db } from "../../lib/firebase";
 import {
@@ -18,6 +17,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { EditProfile } from "../../components";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import { FaUserCircle } from "react-icons/fa";
+import { Loader } from "../../reusableComponents";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Modal from "@mui/material/Modal";
 import NotFound from "../NotFound";
