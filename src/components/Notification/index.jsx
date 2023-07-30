@@ -72,13 +72,16 @@ function Notifications() {
 
                       <div className="notif-message">
                         {notification.message} from{" "}
-                        <Link 
-                          className="friend-request-sender-name" 
-                          to={`/dummygram/user/${notification.username? notification.username : ""}`}
+                        <Link
+                          className="friend-request-sender-name"
+                          to={`/dummygram/user/${
+                            notification.username ? notification.username : ""
+                          }`}
                         >
                           {notification.senderName
                             ? notification.senderName
-                            : ""}.
+                            : ""}
+                          .
                         </Link>
                         <div style={{ marginTop: "10px" }}>
                           <button className="accept-btn notif-btn">
