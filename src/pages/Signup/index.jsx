@@ -56,7 +56,7 @@ const SignupScreen = () => {
 
   const checkUsername = () => {
     const name = usernameRef.current;
-    const regex = /^[A-Za-z][A-Za-z0-9_]{4,17}$/gi;
+    const regex = /^[a-z][a-z0-9_]{4,20}$/;
     if (!regex.test(name)) {
       setUsernameAvailable(false);
     } else {
@@ -66,10 +66,14 @@ const SignupScreen = () => {
   };
 
   const findUsernameInDB = async () => {
-    const docId = usernameRef.current; // Assuming `usernameRef.current` contains the document ID
-    const ref = db.doc(`usernames/${docId}`);
-    const { exists } = await ref.get();
-    setUsernameAvailable(!exists);
+    const newName = usernameRef.current; // Assuming `usernameRef.current` contains the document ID
+    const usersRef = db.collection("users");
+    const querySnapshot = await usersRef.where("username", "==", newName).get();
+    if (querySnapshot.empty) {
+      setUsernameAvailable(true);
+    } else {
+      setUsernameAvailable(false);
+    }
   };
 
   const handleChange = (e) => {

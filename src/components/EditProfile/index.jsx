@@ -35,7 +35,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
 
   const checkUsername = () => {
     const name = usernameRef.current;
-    const regex = /^[A-Za-z][A-Za-z0-9_]{4,17}$/gi;
+    const regex = /^[a-z][a-z0-9_]{4,20}$/;
     if (!regex.test(name)) {
       setUsernameAvailable(false);
     } else {
