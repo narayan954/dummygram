@@ -133,34 +133,34 @@ function Navbar({ onClick, user, setUser }) {
               <div className="search-closeicon" onClick={handleSearchModal}>
                 <CloseIcon sx={{ fontSize: 40 }} />
               </div>
-                  <div className="search-bar">
-                    <input
-                      type="search"
-                      className="search-input"
-                      value={searchQuery}
-                      placeholder="Search users..."
-                      onChange={handleSearch}
-                    />
-                    <label className="search-icon">
-                      <FaSearch />
-                    </label>
-                    {!searchQuery ? (
-                      ""
-                    ) : (
-                      <span
-                        style={{
-                          position: "absolute",
-                          right: "57px",
-                          display: "flex",
-                          color: "rgba(0, 0, 0, 0.8)",
-                          cursor: "pointer",
-                        }}
-                        onClick={handlequery}
-                      >
-                        <CloseIcon sx={{ fontSize: "30" }} />
-                      </span>
-                    )}
-                  </div>
+              <div className="search-bar">
+                <input
+                  type="search"
+                  className="search-input"
+                  value={searchQuery}
+                  placeholder="Search users..."
+                  onChange={handleSearch}
+                />
+                <label className="search-icon">
+                  <FaSearch />
+                </label>
+                {!searchQuery ? (
+                  ""
+                ) : (
+                  <span
+                    style={{
+                      position: "absolute",
+                      right: "57px",
+                      display: "flex",
+                      color: "rgba(0, 0, 0, 0.8)",
+                      cursor: "pointer",
+                    }}
+                    onClick={handlequery}
+                  >
+                    <CloseIcon sx={{ fontSize: "30" }} />
+                  </span>
+                )}
+              </div>
               <div
                 style={{
                   // position: "absolute",
