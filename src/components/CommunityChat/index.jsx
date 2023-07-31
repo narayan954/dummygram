@@ -2,6 +2,7 @@ import "./index.css";
 
 import { auth, db } from "../../lib/firebase";
 import { useEffect, useRef, useState } from "react";
+import { ClickAwayListener } from "@mui/material";
 
 import EmojiPicker from "emoji-picker-react";
 import HighlightOffRoundedIcon from "@mui/icons-material/HighlightOffRounded";
@@ -253,25 +254,27 @@ const ChatBox = () => {
       </div>
       <form className="chat-input-container" onSubmit={handleOnSubmit}>
         {showEmojis && (
-          <div
-            style={{
-              position: "absolute",
-              top: "-350px",
-              left: 0,
-              zIndex: 999,
-            }}
-          >
-            <EmojiPicker
-              emojiStyle="native"
-              height={330}
-              searchDisabled
-              style={{ zIndex: 999 }}
-              onEmojiClick={onEmojiClick}
-              previewConfig={{
-                showPreview: false,
+          <ClickAwayListener onClickAway={() => setShowEmojis(false)}>
+            <div
+              style={{
+                position: "absolute",
+                top: "-350px",
+                left: 0,
+                zIndex: 999,
               }}
-            />
-          </div>
+            >
+              <EmojiPicker
+                emojiStyle="native"
+                height={330}
+                searchDisabled
+                style={{ zIndex: 999 }}
+                onEmojiClick={onEmojiClick}
+                previewConfig={{
+                  showPreview: false,
+                }}
+              />
+            </div>
+          </ClickAwayListener>
         )}
         <SentimentVerySatisfiedIcon
           className="communitychat-emoji-btn"
