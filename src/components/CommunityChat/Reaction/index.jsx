@@ -1,6 +1,7 @@
 import "./index.css";
 
 import AddReactionIcon from "@mui/icons-material/AddReaction";
+import { ClickAwayListener } from "@mui/material";
 import { db } from "../../../lib/firebase";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
@@ -73,20 +74,22 @@ const Reaction = ({ message, userUid }) => {
   }
 
   return (
-    <div>
-      <AddReactionIcon
-        className="msg-reaction-icon"
-        onClick={() => setReactionOpen((prev) => !prev)}
-      />
-      {reactionOpen && (
-        <span className="msg-reaction-container">
-          <p onClick={() => addReaction("smiley")}>😅</p>
-          <p onClick={() => addReaction("like")}>❤️</p>
-          <p onClick={() => addReaction("laughing")}>😂</p>
-          <p onClick={() => addReaction("thumbsUp")}>👍</p>
-        </span>
-      )}
-    </div>
+    <ClickAwayListener onClickAway={() => setReactionOpen(false)}>
+      <div>
+        <AddReactionIcon
+          className="msg-reaction-icon"
+          onClick={() => setReactionOpen((prev) => !prev)}
+        />
+        {reactionOpen && (
+          <span className="msg-reaction-container">
+            <p onClick={() => addReaction("smiley")}>😅</p>
+            <p onClick={() => addReaction("like")}>❤️</p>
+            <p onClick={() => addReaction("laughing")}>😂</p>
+            <p onClick={() => addReaction("thumbsUp")}>👍</p>
+          </span>
+        )}
+      </div>
+    </ClickAwayListener>
   );
 };
 
