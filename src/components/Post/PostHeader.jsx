@@ -15,11 +15,12 @@ import {
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { doc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { storage, db } from "../../lib/firebase";
+import firebase from "firebase/compat/app";
 
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import ProfileDialogBox from "../ProfileDialogBox";
 import TextField from "@mui/material/TextField";
-import { db } from "../../lib/firebase";
 import { saveAs } from "file-saver";
 import useCreatedAt from "../../hooks/useCreatedAt";
 import { useSnackbar } from "notistack";
@@ -28,7 +29,6 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
   const time = useCreatedAt(timestamp);
   const { fullScreen, isAnonymous } = user; // TODO: needs fixing
   const { username, caption, imageUrl, displayName, avatar } = postData;
-
   const [Open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(false);
   const [openEditCaption, setOpenEditCaption] = useState(false);
@@ -119,7 +119,35 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
   };
 
   async function deletePost() {
-    await db.collection("posts").doc(postId).delete();
+    if (imageUrl !== "") {
+      const url = JSON.parse(imageUrl);
+      url.map(({ imageUrl }) => {
+        const imageRef = storage.refFromURL(imageUrl);
+        imageRef.delete()
+          .catch((err) => {
+            enqueueSnackbar(`Error Occured: ${err}`, {
+              variant: "error",
+            })
+          })
+      })
+    }
+    const docRef = db.collection('users').doc(user?.uid);
+    docRef.update({
+      posts: firebase.firestore.FieldValue.arrayRemove(postId)
+    })
+      .catch((error) => {
+        enqueueSnackbar(`Error updating doc: ${err}`, {
+          variant: "error"
+        })
+      });
+
+
+    await db.collection("posts").doc(postId).delete()
+    .catch((err) => {
+      enqueueSnackbar(`Error delete post ref: ${err}`, {
+        variant: "error"
+      })
+    })
   }
 
   function showProfileDialogBox() {
