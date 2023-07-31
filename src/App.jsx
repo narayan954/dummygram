@@ -1,13 +1,12 @@
 import "./index.css";
 
-import { Darkmode, Loader, ShareModal } from "./reusableComponents";
+import { Darkmode, ShareModal } from "./reusableComponents";
 import { ErrorBoundary, PostSkeleton } from "./reusableComponents";
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
 import { ChatPage } from "./pages";
-// import ErrorBoundary from "./reusableComponents/ErrorBoundary";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { GuestSignUpBtn } from "./components";
 import { RowModeContext } from "./hooks/useRowMode";
@@ -229,18 +228,20 @@ function App() {
                           </>
                         ) : (
                           <>
-                            {posts.map(({ id, post }) => (
-                              <Post
-                                rowMode={rowMode}
-                                key={id}
-                                postId={id}
-                                user={user}
-                                post={post}
-                                shareModal={setOpenShareModal}
-                                setLink={setCurrentPostLink}
-                                setPostText={setPostText}
-                              />
-                            ))}
+                            <ErrorBoundary inApp>
+                              {posts.map(({ id, post }) => (
+                                <Post
+                                  rowMode={rowMode}
+                                  key={id}
+                                  postId={id}
+                                  user={user}
+                                  post={post}
+                                  shareModal={setOpenShareModal}
+                                  setLink={setCurrentPostLink}
+                                  setPostText={setPostText}
+                                />
+                              ))}
+                            </ErrorBoundary>
                           </>
                         )}
                       </div>
