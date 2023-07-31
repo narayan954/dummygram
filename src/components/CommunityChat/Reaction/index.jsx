@@ -1,10 +1,10 @@
 import "./index.css";
 
 import AddReactionIcon from "@mui/icons-material/AddReaction";
+import { ClickAwayListener } from "@mui/material";
 import { db } from "../../../lib/firebase";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
-import { ClickAwayListener } from "@mui/material";
 
 const Reaction = ({ message, userUid }) => {
   const [reactionOpen, setReactionOpen] = useState(false);

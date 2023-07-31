@@ -2,8 +2,8 @@ import "./index.css";
 
 import { auth, db } from "../../lib/firebase";
 import { useEffect, useRef, useState } from "react";
-import { ClickAwayListener } from "@mui/material";
 
+import { ClickAwayListener } from "@mui/material";
 import EmojiPicker from "emoji-picker-react";
 import HighlightOffRoundedIcon from "@mui/icons-material/HighlightOffRounded";
 import Reaction from "./Reaction";

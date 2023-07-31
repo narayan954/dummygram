@@ -6,13 +6,13 @@ import { auth, db } from "../../lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { getModalStyle, useStyles } from "../../App";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ClickAwayListener } from "@mui/material";
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineClose } from "react-icons/ai";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
+import { ClickAwayListener } from "@mui/material";
 import { Dialog } from "@mui/material";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import HomeIcon from "@mui/icons-material/Home";
