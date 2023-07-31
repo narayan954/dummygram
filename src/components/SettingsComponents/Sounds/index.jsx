@@ -2,9 +2,9 @@ import "./index.css";
 
 import React, { useState } from "react";
 
+import { Switch } from "@mui/material";
 import { VscChromeClose } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
-import { Switch } from "@mui/material";
 
 const SoundSetting = () => {
   const [sound, setSound] = useState(localStorage.getItem("sound"));
@@ -45,7 +45,7 @@ const SoundSetting = () => {
             </label>
             <span className="sound-toggle-switch-container">
               <p>Off</p>
-              <Switch 
+              <Switch
                 onClick={toggleSound}
                 checked={!sound}
                 className="sound-toggle-switch"
