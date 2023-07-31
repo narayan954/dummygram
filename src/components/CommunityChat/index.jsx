@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { ClickAwayListener } from "@mui/material";
 import EmojiPicker from "emoji-picker-react";
 import HighlightOffRoundedIcon from "@mui/icons-material/HighlightOffRounded";
+import { Loader } from "../../reusableComponents";
 import Reaction from "./Reaction";
 import SendIcon from "@mui/icons-material/Send";
 import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfied";
@@ -17,6 +18,7 @@ const ChatBox = () => {
   const [showEmojis, setShowEmojis] = useState(false);
   const [messages, setMessages] = useState([]);
   const [loadMoreMsgs, setLoadMoreMsgs] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [newMessage, setNewMessage] = useState("");
   const [user, setUser] = useState(null);
   const [isLastMsgRecieved, setIsLastMsgRecieved] = useState(false);
@@ -71,6 +73,7 @@ const ChatBox = () => {
           id: doc.id,
         }));
         setMessages(data);
+        setIsLoading(false);
       });
 
     return () => {
@@ -209,49 +212,54 @@ const ChatBox = () => {
       <div className="closeBtn">
         <HighlightOffRoundedIcon onClick={() => navigate("/dummygram/")} />
       </div>
-      <span className="chat-header">showing last 20 messages</span>
 
-      <div className="all-chat-msg-container" ref={chatMsgContainerRef}>
-        <ul className="chat-msg-container">
-          {messages.map((message) => (
-            <li
-              key={message.id}
-              className={`chat-message ${
-                user?.uid == message.uid ? "current-user-msg" : ""
-              }`}
-            >
-              <img
-                src={message.photoURL}
-                alt={message.displayName}
-                className={"chat-user-img"}
-                onClick={() => goToUserProfile(message.uid)}
-              />
-              <div className="chat-msg-text">
-                <span className="name-and-date-container">
-                  <h5
-                    className="chat-msg-sender-name"
-                    onClick={() => goToUserProfile(message.uid)}
-                  >
-                    {message.displayName}
-                  </h5>
-                  <span className="time-reaction-container">
-                    <h6 className="message-time">
-                      {getTime(message?.createdAt?.seconds)}
-                    </h6>
-                    <Reaction message={message} userUid={message.uid} />
+      {isLoading ? (
+        <div className="chat-loader-container">
+          <Loader />
+        </div>
+      ) : (
+        <div className="all-chat-msg-container" ref={chatMsgContainerRef}>
+          <ul className="chat-msg-container">
+            {messages.map((message) => (
+              <li
+                key={message.id}
+                className={`chat-message ${
+                  user?.uid == message.uid ? "current-user-msg" : ""
+                }`}
+              >
+                <img
+                  src={message.photoURL}
+                  alt={message.displayName}
+                  className={"chat-user-img"}
+                  onClick={() => goToUserProfile(message.uid)}
+                />
+                <div className="chat-msg-text">
+                  <span className="name-and-date-container">
+                    <h5
+                      className="chat-msg-sender-name"
+                      onClick={() => goToUserProfile(message.uid)}
+                    >
+                      {message.displayName}
+                    </h5>
+                    <span className="time-reaction-container">
+                      <h6 className="message-time">
+                        {getTime(message?.createdAt?.seconds)}
+                      </h6>
+                      <Reaction message={message} userUid={message.uid} />
+                    </span>
                   </span>
-                </span>
-                <p>{message.text}</p>
-                {message.reaction && (
-                  <ul className="rxn-main-container">
-                    {getReaction(message.reaction)}
-                  </ul>
-                )}
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+                  <p>{message.text}</p>
+                  {message.reaction && (
+                    <ul className="rxn-main-container">
+                      {getReaction(message.reaction)}
+                    </ul>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       <form className="chat-input-container" onSubmit={handleOnSubmit}>
         {showEmojis && (
           <ClickAwayListener onClickAway={() => setShowEmojis(false)}>
