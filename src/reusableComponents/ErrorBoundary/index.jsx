@@ -5,7 +5,6 @@ import React, { useState } from "react";
 
 import AutorenewIcon from "@mui/icons-material/Autorenew";
 import { ErrorBoundary as Error } from "react-error-boundary";
-import Loader from "../Loader";
 
 const ErrorFallBack = ({ error, info, resetErrorBoundary, inApp }) => {
   return (
@@ -74,7 +73,7 @@ export default function ErrorBoundary({ children, inApp }) {
         })
       }
     >
-      <React.Suspense fallback={<Loader />}>{children}</React.Suspense>
+      <React.Suspense>{children}</React.Suspense>
     </Error>
   );
 }
