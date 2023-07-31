@@ -6,9 +6,9 @@ import {
   collection,
   deleteField,
   onSnapshot,
+  orderBy,
   query,
   where,
-  orderBy,
 } from "firebase/firestore";
 import { lazy, useEffect, useState } from "react";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
@@ -394,9 +394,8 @@ function Profile() {
                     }}
                     alt={name}
                     src={avatar}
-                    className={`profile-pic-container ${
-                      storyTimestamp ? "story_available_border" : null
-                    }`}
+                    className={`profile-pic-container ${storyTimestamp ? "story_available_border" : null
+                      }`}
                   />
                 ) : (
                   <FaUserCircle className="profile-pic-container" />
