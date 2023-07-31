@@ -28,10 +28,10 @@ export default function ImgUpload(props) {
   const [isStoryUploaded, setIsStoryUploaded] = useState(false);
   const [username, setUsername] = useState("");
 
-  const displayName = auth.currentUser.displayName;
-  const avatar = auth.currentUser.photoURL;
-  const imgInput = useRef(null);
+  const displayName = auth?.currentUser?.displayName;
+  const avatar = auth?.currentUser?.photoURL;
 
+  const imgInput = useRef(null);
   const { enqueueSnackbar } = useSnackbar();
 
   const ShiftToNextPage = () => {
@@ -53,7 +53,11 @@ export default function ImgUpload(props) {
         setIsStoryUploaded(true);
       }
     }
-    getUsername();
+    if (auth.currentUser.isAnonymous) {
+      setUsername("guest");
+    } else {
+      getUsername();
+    }
   }, []);
 
   const handleChange = (e) => {

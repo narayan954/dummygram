@@ -17,8 +17,8 @@
   --btn-color: linear-gradient(-40deg, #daf1f7, #5f85db);
   --btn-color-hover: linear-gradient(40deg, #5f85db, #daf1f7);
   --btn-hover: #5f85db;
-  --page-over-color: #5f85db;
-  --slide-color: #90b8f8;
+  --page-over-color: #00bfff;
+  --slide-color: #dfffd8;
   --label-color: rgb(200, 246, 248);
   --profile-color: #7d7575;
   --text-light: rgba(0, 0, 0, 0.6);
@@ -28,6 +28,7 @@
   --link-color: #068fff;
   --pagination-border: rgba(0, 0, 0, 0.23);
   --text-grey: rgba(0, 0, 0, 0.8);
+  --theme-hover: rgba(8, 17, 123, 0.69);
 }
 
 .darkmode {
@@ -48,8 +49,8 @@
   --btn-color: linear-gradient(40deg, #5f85db, #daf1f7);
   --btn-color-hover: linear-gradient(-40deg, #daf1f7, #5f85db);
   --btn-hover: #5f85db;
-  --page-over-color: #3a3e44;
-  --slide-color: #524a54;
+  --page-over-color: #26282b;
+  --slide-color: #041c32;
   --label-color: #6a656b;
   --profile-color: #c8c6c6;
   --text-black-only: black;
@@ -60,6 +61,7 @@
   --link-color: #068fff;
   --pagination-border: rgba(255, 255, 255, 0.23);
   --text-grey: rgba(255, 255, 255, 0.8);
+  --theme-hover: rgb(244, 210, 41);
 }
 
 * {

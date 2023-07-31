@@ -4,6 +4,7 @@ import { auth, db, storage } from "../../lib/firebase";
 import { useRef, useState } from "react";
 
 import CancelIcon from "@mui/icons-material/Cancel";
+import { ClickAwayListener } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
@@ -35,7 +36,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
 
   const checkUsername = () => {
     const name = usernameRef.current;
-    const regex = /^[A-Za-z][A-Za-z0-9_]{4,17}$/gi;
+    const regex = /^[a-z][a-z0-9_]{4,20}$/;
     if (!regex.test(name)) {
       setUsernameAvailable(false);
     } else {
@@ -189,86 +190,88 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
   };
 
   return (
-    <div className="edit-profile-container">
-      <div className="edit-profile-sub-container">
-        <CancelIcon
-          className="cancel-editing-icon"
-          onClick={() => setIsEditing(false)}
-        />
-        <div>
-          <input
-            type="file"
-            id="file"
-            className="file"
-            onChange={handleImgChange}
-            accept="image/*"
+    <ClickAwayListener onClickAway={() => setIsEditing(false)}>
+      <div className="edit-profile-container">
+        <div className="edit-profile-sub-container">
+          <CancelIcon
+            className="cancel-editing-icon"
+            onClick={() => setIsEditing(false)}
           />
-          <label htmlFor="file">
-            <img src={avatar} alt={name} className="edit-profile-img" />
-          </label>
-        </div>
+          <div>
+            <input
+              type="file"
+              id="file"
+              className="file"
+              onChange={handleImgChange}
+              accept="image/*"
+            />
+            <label htmlFor="file">
+              <img src={avatar} alt={name} className="edit-profile-img" />
+            </label>
+          </div>
 
-        {/* name  */}
-        <label defaultValue={"Name"}>
-          <p className="edit-profile-label">Name</p>
-          <input
-            type="text"
-            value={name}
-            name="name"
-            className="edit-profile-input"
-            onChange={handleChange}
-          />
-        </label>
-        {/* username  */}
-        <label htmlFor="">
-          <p className="edit-profile-label">Username</p>
-          <input
-            type="text"
-            value={newUsername}
-            name="newUsername"
-            className={`edit-profile-input ${
-              usernameAvailable ? "" : "error-border"
-            }`}
-            ref={usernameRef}
-            onChange={(e) => {
-              usernameRef.current = e.target.value.trim();
-              handleChange(e);
-              checkUsername();
-            }}
-          />
-        </label>
-        {/* bio */}
-        <label htmlFor="">
-          <p className="edit-profile-label">Bio</p>
-          <textarea
-            name="bio"
-            id=""
-            // cols="30"
-            // rows="10"
-            maxLength={170}
-            value={bio}
-            className="edit-profile-input edit-profile-bio"
-            onChange={handleChange}
-          ></textarea>
-        </label>
-        {/* country  */}
-        <label htmlFor="">
-          <p className="edit-profile-label">Country</p>
-          <input
-            type="text"
-            name="country"
-            value={country}
-            className="edit-profile-input"
-            onChange={handleChange}
-          />
-        </label>
-        <div>
-          <button className="edit-profile-save-btn" onClick={handleImgSave}>
-            Save
-          </button>
+          {/* name  */}
+          <label defaultValue={"Name"}>
+            <p className="edit-profile-label">Name</p>
+            <input
+              type="text"
+              value={name}
+              name="name"
+              className="edit-profile-input"
+              onChange={handleChange}
+            />
+          </label>
+          {/* username  */}
+          <label htmlFor="">
+            <p className="edit-profile-label">Username</p>
+            <input
+              type="text"
+              value={newUsername}
+              name="newUsername"
+              className={`edit-profile-input ${
+                usernameAvailable ? "" : "error-border"
+              }`}
+              ref={usernameRef}
+              onChange={(e) => {
+                usernameRef.current = e.target.value.trim();
+                handleChange(e);
+                checkUsername();
+              }}
+            />
+          </label>
+          {/* bio */}
+          <label htmlFor="">
+            <p className="edit-profile-label">Bio</p>
+            <textarea
+              name="bio"
+              id=""
+              // cols="30"
+              // rows="10"
+              maxLength={170}
+              value={bio}
+              className="edit-profile-input edit-profile-bio"
+              onChange={handleChange}
+            ></textarea>
+          </label>
+          {/* country  */}
+          <label htmlFor="">
+            <p className="edit-profile-label">Country</p>
+            <input
+              type="text"
+              name="country"
+              value={country}
+              className="edit-profile-input"
+              onChange={handleChange}
+            />
+          </label>
+          <div>
+            <button className="edit-profile-save-btn" onClick={handleImgSave}>
+              Save
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </ClickAwayListener>
   );
 };
 
