@@ -72,6 +72,15 @@
   right: 10px;
 }
 
+.sound-toggle-switch-container {
+  display: flex;
+  align-items: center;
+}
+
+.sound-toggle-switch > span > input:hover {
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 1400px) {
   .sounds-setting-sub-container {
     margin-left: 160px;
