@@ -7,11 +7,11 @@ import ImageSlider from "./ImageSlider";
 import Loader from "./Loader";
 import Logo from "./Logo";
 import Popup from "./Popup";
+import PostSkeleton from "./PostSkeleton";
 import Scroll from "./Scroll";
 import ShareModal from "./ShareModal";
 import SnackBar from "./SnackBar";
 import validate from "./validation";
-import PostSkeleton from "./PostSkeleton";
 
 export {
   AnimatedButton,
@@ -23,11 +23,11 @@ export {
   Loader,
   Logo,
   Popup,
+  PostSkeleton,
   Scroll,
   ShareModal,
   SnackBar,
   validate,
-  PostSkeleton,
 };
 
 export default Scroll;

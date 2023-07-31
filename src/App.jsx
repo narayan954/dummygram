@@ -1,6 +1,7 @@
 import "./index.css";
 
 import { Darkmode, Loader, ShareModal } from "./reusableComponents";
+import { ErrorBoundary, PostSkeleton } from "./reusableComponents";
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
@@ -11,7 +12,6 @@ import { FaArrowCircleUp } from "react-icons/fa";
 import { GuestSignUpBtn } from "./components";
 import { RowModeContext } from "./hooks/useRowMode";
 import { makeStyles } from "@mui/styles";
-import { PostSkeleton, ErrorBoundary } from "./reusableComponents"
 
 // ------------------------------------ Pages ----------------------------------------------------
 const About = React.lazy(() => import("./pages/FooterPages/About"));
@@ -188,8 +188,8 @@ function App() {
           />
           {(location.pathname == "/dummygram/login" ||
             location.pathname == "/dummygram/signup") && (
-              <Darkmode themeClass="themeButton themeButton-login" />
-            )}
+            <Darkmode themeClass="themeButton themeButton-login" />
+          )}
           <Routes>
             <Route
               exact
@@ -206,17 +206,18 @@ function App() {
                         !loadingPosts
                           ? {}
                           : {
-                            width: "100%",
-                            minHeight: "100vh",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }
+                              width: "100%",
+                              minHeight: "100vh",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }
                       }
                     >
                       <div
-                        className={`${rowMode ? "app__posts" : "app_posts_column flex"
-                          }`}
+                        className={`${
+                          rowMode ? "app__posts" : "app_posts_column flex"
+                        }`}
                       >
                         {loadingPosts ? (
                           <>

@@ -1,29 +1,29 @@
 .skeleton {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 380px;
-    margin-bottom: 20px;
-    border:2px solid #90b8f8;
-    padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 380px;
+  margin-bottom: 20px;
+  border: 2px solid #90b8f8;
+  padding: 10px;
 }
 
 .post-skeleton-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .skeleton-user-name {
-    width: 200px;
+  width: 200px;
 }
 
 .post-skeleton-nav {
-    display: flex;
-    justify-content: space-evenly;
-    gap: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  gap: 20px;
 }
 
 .skeleton-user-caption {
-    width: 380px;
+  width: 380px;
 }
