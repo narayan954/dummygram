@@ -1,30 +1,29 @@
 import "./index.css";
 
-import { AnimatedButton, Loader, Logo } from "../../reusableComponents";
 import { Avatar, Box, Button, Typography, useMediaQuery } from "@mui/material";
-import { auth, db } from "../../lib/firebase";
+import { auth, db, storage } from "../../lib/firebase";
 import {
   collection,
   deleteField,
   onSnapshot,
   query,
   where,
+  orderBy,
 } from "firebase/firestore";
-import { getModalStyle, useStyles } from "../../App";
 import { lazy, useEffect, useState } from "react";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useNavigate, useParams } from "react-router-dom";
 
 import EditIcon from "@mui/icons-material/Edit";
+import Cam from "@mui/icons-material/CameraAltOutlined";
 import { EditProfile } from "../../components";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import { FaUserCircle } from "react-icons/fa";
+import { Loader } from "../../reusableComponents";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import LogoutIcon from "@mui/icons-material/Logout";
 import Modal from "@mui/material/Modal";
 import NotFound from "../NotFound";
 import ProfieFeed from "./feed";
-import SettingsIcon from "@mui/icons-material/Settings";
 import { StoryView } from "../../components";
 import ViewsCounter from "../../reusableComponents/views";
 import firebase from "firebase/compat/app";
@@ -34,7 +33,6 @@ import { useSnackbar } from "notistack";
 const SideBar = lazy(() => import("../../components/SideBar"));
 
 function Profile() {
-  const classes = useStyles();
   const navigate = useNavigate();
   const isNonMobile = useMediaQuery("(min-width: 768px)");
   const { enqueueSnackbar } = useSnackbar();
@@ -43,15 +41,18 @@ function Profile() {
   const [user, setUser] = useState(null);
   const [feed, setFeed] = useState([]);
   const [open, setOpen] = useState(false);
-  const [logout, setLogout] = useState(false);
   const [friendRequestSent, setFriendRequestSent] = useState(false);
   const [userData, setUserData] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [userExists, setUserExists] = useState(true);
   const [viewStory, setViewStory] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [bgimgurl, setBgimgurl] = useState(null);
+  const [backgroundImage, setBackgroundImage] = useState(null);
 
   let name = "";
   let avatar = "";
+  let bgImageUrl = "" ;
   let uid = "";
   let bio = "";
   let country = "";
@@ -60,6 +61,7 @@ function Profile() {
   if (userData) {
     name = userData.name;
     avatar = userData.avatar;
+    bgImageUrl = userData.bgImageUrl;
     uid = userData.uid;
     bio = userData.bio;
     country = userData.country;
@@ -67,6 +69,59 @@ function Profile() {
   }
 
   const handleClose = () => setOpen(false);
+
+  // Inside the Profile component
+  const handleBackgroundImgChange = (e) => {
+    if (e.target.files[0]) {
+      setBackgroundImage(e.target.files[0]);
+      setEditing(true);
+    }
+  };
+
+  const handleBgImageSave = () => {
+    try {
+      if (backgroundImage) {
+        const uploadTask = storage
+          .ref(`background-images/${backgroundImage.name}`)
+          .put(backgroundImage);
+        uploadTask.on(
+          "state_changed",
+          () => {},
+          (error) => {
+            enqueueSnackbar(error.message, {
+              variant: "error",
+            });
+          },
+          () => {
+            storage
+              .ref("background-images")
+              .child(backgroundImage.name)
+              .getDownloadURL()
+              .then(async (url) => {
+                setBgimgurl(url);
+                const docRef = db.collection("users").doc(uid);
+                await docRef.update({
+                  bgImageUrl: url,
+                });
+              })
+              .then(
+                enqueueSnackbar("Background image uploaded successfully !", {
+                  variant: "success",
+                }),
+              )
+              .catch((error) => {
+                enqueueSnackbar(error.message, {
+                  variant: "error",
+                });
+              });
+          },
+        );
+      }
+      setEditing(false);
+    } catch (error) {
+      console.error("Error saving background image URL to Firestore:", error);
+    }
+  };
 
   useEffect(() => {
     async function getUserData() {
@@ -79,10 +134,8 @@ function Profile() {
         .then((snapshot) => {
           if (snapshot.docs) {
             const doc = snapshot.docs[0];
-
             const currTimestamp = firebase.firestore.Timestamp.now().seconds;
             const storyTimestamp = doc.data().storyTimestamp?.seconds;
-
             //Check if story is expired or not
             if (storyTimestamp && currTimestamp - storyTimestamp > 86400) {
               async function deleteStory() {
@@ -105,11 +158,13 @@ function Profile() {
               }
               deleteStory();
             }
-
             const data = doc.data();
             setUserData({
               name: data.name,
               avatar: data.photoURL,
+              bgImageUrl: data.bgImageUrl
+                ? data.bgImageUrl
+                : profileBackgroundImg,
               uid: data.uid,
               bio: data.bio
                 ? data.bio
@@ -128,7 +183,7 @@ function Profile() {
         });
     }
     getUserData();
-  }, []);
+  }, [username, bgimgurl]);
 
   const handleSendFriendRequest = () => {
     const currentUserUid = auth.currentUser.uid;
@@ -183,7 +238,8 @@ function Profile() {
             recipient: targetUserUid,
             sender: currentUserUid,
             message: "You have received a friend request",
-            senderName: auth?.currentUser?.displayName,
+            senderName: name,
+            username: username,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
           };
           db.collection("users")
@@ -244,7 +300,11 @@ function Profile() {
 
   // Get user's posts from posts collection
   useEffect(() => {
-    const q = query(collection(db, "posts"), where("uid", "==", uid));
+    const q = query(
+      collection(db, "posts"),
+      where("uid", "==", uid),
+      orderBy("timestamp", "desc"),
+    );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const userPosts = [];
       querySnapshot.forEach((doc) => {
@@ -260,20 +320,6 @@ function Profile() {
       unsubscribe();
     };
   }, [user, name]);
-
-  const signOut = () => {
-    auth
-      .signOut()
-      .then(() => {
-        navigate("/dummygram");
-      })
-      .finally(() => {
-        playSuccessSound();
-        enqueueSnackbar("Logged out Successfully !", {
-          variant: "info",
-        });
-      });
-  };
 
   return (
     <>
@@ -297,13 +343,39 @@ function Profile() {
       )}
       {userData && userExists ? (
         <>
-          <div className="background-image">
+        <div>
+          <div className="background-image-container" style={{ position: "relative" }}>
             <img
-              src={profileBackgroundImg}
+              src={ bgImageUrl || profileBackgroundImg}
               alt=""
               className="background-image"
             />
+            {uid === user?.uid && (
+              <div
+                className="bg-img-save"
+                style={{ position: "absolute", }}
+              >
+                <div className="bg-icon">
+                  <input
+                    type="file"
+                    id="backgroundImage"
+                    className="file"
+                    onChange={handleBackgroundImgChange}
+                    accept="image/*"
+                  />
+                  <label htmlFor="backgroundImage">
+                    <Cam sx={{ fontSize: 33 }} />
+                  </label>
+                </div>
+                {editing && (
+                  <div className="bg-save-btn" style={{position: "absolute", }}>
+                    <Button variant="outlined" onClick={handleBgImageSave}>Save</Button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
+        </div>
           <Modal
             open={open}
             onClose={handleClose}
@@ -469,78 +541,6 @@ function Profile() {
                     {friendRequestSent ? "Remove friend request" : "Add Friend"}
                   </Button>
                 )}
-                {uid === user?.uid && (
-                  <Box className="setting-logout">
-                    <Button
-                      variant="contained"
-                      startIcon={<SettingsIcon style={{ color: "black" }} />}
-                      style={{ backgroundColor: "#5F85DB" }}
-                      onClick={() => navigate("/dummygram/settings")}
-                    >
-                      <Typography
-                        fontSize="1rem"
-                        color="black"
-                        textTransform="capitalize"
-                      >
-                        Settings
-                      </Typography>
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      startIcon={<LogoutIcon style={{ color: "black" }} />}
-                      style={{ backgroundColor: "#5F85DB" }}
-                      onClick={() => setLogout(true)}
-                    >
-                      <Typography
-                        fontSize="1rem"
-                        color="black"
-                        textTransform="capitalize"
-                      >
-                        Log Out
-                      </Typography>
-                    </Button>
-                  </Box>
-                )}
-
-                <Modal open={logout} onClose={() => setLogout(false)}>
-                  <div style={getModalStyle()} className={classes.paper}>
-                    <form className="modal__signup">
-                      <Logo />
-                      <p
-                        style={{
-                          fontSize: "15px",
-                          fontFamily: "monospace",
-                          padding: "10%",
-                          color: "var(--color)",
-                        }}
-                      >
-                        Are you sure you want to Logout?
-                      </p>
-
-                      <div className={classes.logout}>
-                        <AnimatedButton
-                          type="submit"
-                          onClick={signOut}
-                          variant="contained"
-                          color="primary"
-                          className="button-style"
-                        >
-                          Logout
-                        </AnimatedButton>
-                        <AnimatedButton
-                          type="submit"
-                          onClick={() => setLogout(false)}
-                          variant="contained"
-                          color="primary"
-                          className="button-style"
-                        >
-                          Cancel
-                        </AnimatedButton>
-                      </div>
-                    </form>
-                  </div>
-                </Modal>
               </Box>
             </Box>
           </Box>
