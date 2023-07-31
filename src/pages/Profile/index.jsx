@@ -9,14 +9,13 @@ import {
   orderBy,
   query,
   where,
-  orderBy,
 } from "firebase/firestore";
 import { lazy, useEffect, useState } from "react";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useNavigate, useParams } from "react-router-dom";
 
-import EditIcon from "@mui/icons-material/Edit";
 import Cam from "@mui/icons-material/CameraAltOutlined";
+import EditIcon from "@mui/icons-material/Edit";
 import { EditProfile } from "../../components";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import { FaUserCircle } from "react-icons/fa";
