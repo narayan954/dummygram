@@ -193,7 +193,7 @@
   color: var(--bg-color);
 }
 .bg-save-btn button:hover {
-  border: 3px solid var(--btn-hover) ;
+  border: 3px solid var(--btn-hover);
   background-color: #244a9f;
 }
 
@@ -206,7 +206,9 @@
   position: absolute;
 }
 
-.bg-icon svg {color: var(--color);}
+.bg-icon svg {
+  color: var(--color);
+}
 
 .bg-icon label {
   height: 90%;
@@ -217,8 +219,10 @@
   left: 7px;
   cursor: pointer;
 }
-.bg-icon svg:hover {color: var(--btn-hover);transition: all 0.3s ease;}
-
+.bg-icon svg:hover {
+  color: var(--btn-hover);
+  transition: all 0.3s ease;
+}
 
 /* media query */
 
@@ -275,7 +279,7 @@
     padding: 0 !important;
     padding-top: 4em !important;
   }
-  .bg-img-save{
+  .bg-img-save {
     right: -10px;
     top: 100px;
   }
@@ -283,7 +287,9 @@
     height: 40px;
     width: 40px;
   }
-  .bg-icon svg {font-size: 25px;}
+  .bg-icon svg {
+    font-size: 25px;
+  }
   .bg-save-btn button {
     padding: 6px 15px;
     font-size: 13px;

@@ -53,7 +53,7 @@ function Profile() {
 
   let name = "";
   let avatar = "";
-  let bgImageUrl = "" ;
+  let bgImageUrl = "";
   let uid = "";
   let bio = "";
   let country = "";
@@ -344,39 +344,44 @@ function Profile() {
       )}
       {userData && userExists ? (
         <>
-        <div style={{zIndex: "9"}}>
-          <div className="background-image-container" style={{ position: "relative" }}>
-            <img
-              src={ bgImageUrl || profileBackgroundImg}
-              alt=""
-              className="background-image"
-            />
-            {uid === user?.uid && (
-              <div
-                className="bg-img-save"
-                style={{ position: "absolute", }}
-              >
-                <div className="bg-icon">
-                  <input
-                    type="file"
-                    id="backgroundImage"
-                    className="file"
-                    onChange={handleBackgroundImgChange}
-                    accept="image/*"
-                  />
-                  <label htmlFor="backgroundImage">
-                    <Cam sx={{ fontSize: 33 }} />
-                  </label>
-                </div>
-                {editing && (
-                  <div className="bg-save-btn" style={{position: "absolute", }}>
-                    <Button variant="outlined" onClick={handleBgImageSave}>Save</Button>
+          <div style={{ zIndex: "9" }}>
+            <div
+              className="background-image-container"
+              style={{ position: "relative" }}
+            >
+              <img
+                src={bgImageUrl || profileBackgroundImg}
+                alt=""
+                className="background-image"
+              />
+              {uid === user?.uid && (
+                <div className="bg-img-save" style={{ position: "absolute" }}>
+                  <div className="bg-icon">
+                    <input
+                      type="file"
+                      id="backgroundImage"
+                      className="file"
+                      onChange={handleBackgroundImgChange}
+                      accept="image/*"
+                    />
+                    <label htmlFor="backgroundImage">
+                      <Cam sx={{ fontSize: 33 }} />
+                    </label>
                   </div>
-                )}
-              </div>
-            )}
+                  {editing && (
+                    <div
+                      className="bg-save-btn"
+                      style={{ position: "absolute" }}
+                    >
+                      <Button variant="outlined" onClick={handleBgImageSave}>
+                        Save
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
-        </div>
           <Modal
             open={open}
             onClose={handleClose}
@@ -480,8 +485,9 @@ function Profile() {
                     }}
                     alt={name}
                     src={avatar}
-                    className={`profile-pic-container ${storyTimestamp ? "story_available_border" : null
-                      }`}
+                    className={`profile-pic-container ${
+                      storyTimestamp ? "story_available_border" : null
+                    }`}
                   />
                 ) : (
                   <FaUserCircle className="profile-pic-container" />
