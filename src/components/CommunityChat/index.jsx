@@ -6,11 +6,11 @@ import { useEffect, useRef, useState } from "react";
 import { ClickAwayListener } from "@mui/material";
 import EmojiPicker from "emoji-picker-react";
 import HighlightOffRoundedIcon from "@mui/icons-material/HighlightOffRounded";
+import { Loader } from "../../reusableComponents";
 import Reaction from "./Reaction";
 import SendIcon from "@mui/icons-material/Send";
 import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfied";
 import firebase from "firebase/compat/app";
-import { Loader } from "../../reusableComponents"
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
@@ -223,8 +223,9 @@ const ChatBox = () => {
             {messages.map((message) => (
               <li
                 key={message.id}
-                className={`chat-message ${user?.uid == message.uid ? "current-user-msg" : ""
-                  }`}
+                className={`chat-message ${
+                  user?.uid == message.uid ? "current-user-msg" : ""
+                }`}
               >
                 <img
                   src={message.photoURL}
@@ -257,7 +258,8 @@ const ChatBox = () => {
               </li>
             ))}
           </ul>
-        </div>)}
+        </div>
+      )}
       <form className="chat-input-container" onSubmit={handleOnSubmit}>
         {showEmojis && (
           <ClickAwayListener onClickAway={() => setShowEmojis(false)}>
