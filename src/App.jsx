@@ -227,7 +227,7 @@ function App() {
                             <PostSkeleton />
                           </>
                         ) : (
-                          <ErrorBoundary inApp>
+                          <>
                             {posts.map(({ id, post }) => (
                               <Post
                                 rowMode={rowMode}
@@ -240,7 +240,7 @@ function App() {
                                 setPostText={setPostText}
                               />
                             ))}
-                          </ErrorBoundary>
+                          </>
                         )}
                       </div>
                     </div>
