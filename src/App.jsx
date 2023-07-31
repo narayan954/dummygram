@@ -6,11 +6,12 @@ import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
 import { ChatPage } from "./pages";
-import ErrorBoundary from "./reusableComponents/ErrorBoundary";
+// import ErrorBoundary from "./reusableComponents/ErrorBoundary";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { GuestSignUpBtn } from "./components";
 import { RowModeContext } from "./hooks/useRowMode";
 import { makeStyles } from "@mui/styles";
+import { PostSkeleton, ErrorBoundary } from "./reusableComponents"
 
 // ------------------------------------ Pages ----------------------------------------------------
 const About = React.lazy(() => import("./pages/FooterPages/About"));
@@ -187,8 +188,8 @@ function App() {
           />
           {(location.pathname == "/dummygram/login" ||
             location.pathname == "/dummygram/signup") && (
-            <Darkmode themeClass="themeButton themeButton-login" />
-          )}
+              <Darkmode themeClass="themeButton themeButton-login" />
+            )}
           <Routes>
             <Route
               exact
@@ -205,22 +206,27 @@ function App() {
                         !loadingPosts
                           ? {}
                           : {
-                              width: "100%",
-                              minHeight: "100vh",
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                            }
+                            width: "100%",
+                            minHeight: "100vh",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }
                       }
                     >
-                      {loadingPosts ? (
-                        <Loader />
-                      ) : (
-                        <div
-                          className={`${
-                            rowMode ? "app__posts" : "app_posts_column flex"
+                      <div
+                        className={`${rowMode ? "app__posts" : "app_posts_column flex"
                           }`}
-                        >
+                      >
+                        {loadingPosts ? (
+                          <>
+                            <PostSkeleton />
+                            <PostSkeleton />
+                            <PostSkeleton />
+                            <PostSkeleton />
+                            <PostSkeleton />
+                          </>
+                        ) : (
                           <ErrorBoundary inApp>
                             {posts.map(({ id, post }) => (
                               <Post
@@ -235,8 +241,8 @@ function App() {
                               />
                             ))}
                           </ErrorBoundary>
-                        </div>
-                      )}
+                        )}
+                      </div>
                     </div>
                   </div>
                 ) : (
