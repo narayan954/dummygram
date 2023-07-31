@@ -135,7 +135,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
       .update({
         posts: firebase.firestore.FieldValue.arrayRemove(postId),
       })
-      .catch((error) => {
+      .catch((err) => {
         enqueueSnackbar(`Error updating doc: ${err}`, {
           variant: "error",
         });
