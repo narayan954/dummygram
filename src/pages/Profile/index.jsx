@@ -343,7 +343,7 @@ function Profile() {
       )}
       {userData && userExists ? (
         <>
-        <div>
+        <div style={{zIndex: "9"}}>
           <div className="background-image-container" style={{ position: "relative" }}>
             <img
               src={ bgImageUrl || profileBackgroundImg}
