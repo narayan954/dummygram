@@ -4,8 +4,9 @@ import { auth, db } from "../../lib/firebase";
 import { useEffect, useRef, useState } from "react";
 
 import EmojiPicker from "emoji-picker-react";
+import HighlightOffRoundedIcon from "@mui/icons-material/HighlightOffRounded";
+import Reaction from "./Reaction";
 import SendIcon from "@mui/icons-material/Send";
-import HighlightOffRoundedIcon from '@mui/icons-material/HighlightOffRounded';
 import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfied";
 import firebase from "firebase/compat/app";
 import { useNavigate } from "react-router-dom";
@@ -158,10 +159,54 @@ const ChatBox = () => {
     getUsername();
   }
 
+  function getTime(timestamp) {
+    const timeInMilliSec = timestamp * 1000;
+    const date = new Date(timeInMilliSec);
+    const timeWithSec = date.toLocaleTimeString();
+    const [time, timePeriod] = timeWithSec.split(" ");
+    const formattedTime = time.split(":").slice(0, 2).join(":") + timePeriod;
+    return formattedTime;
+  }
+
+  function getReaction(reaction) {
+    const reactionsArr = Object.keys(reaction);
+    let emoji = "";
+
+    const rxnList = reactionsArr.map((rxn) => {
+      switch (rxn) {
+        case "smiley":
+          emoji = "😅";
+          break;
+        case "like":
+          emoji = "❤️";
+          break;
+        case "laughing":
+          emoji = "😂";
+          break;
+        default:
+          emoji = "👍";
+      }
+
+      return (
+        reaction[rxn].length > 0 && (
+          <li
+            className="rxn-container"
+            key={rxn}
+            onClick={() => setShowRxnList((prev) => !prev)}
+          >
+            {emoji}
+            <span className="rxn-count">{reaction[rxn].length}</span>
+          </li>
+        )
+      );
+    });
+    return rxnList;
+  }
+
   return (
     <div className="chat-main-container">
-      <div className="roundedBtn">
-      <HighlightOffRoundedIcon className="closeBtn" onClick={()=>navigate("/dummygram/")} />
+      <div className="closeBtn">
+        <HighlightOffRoundedIcon onClick={() => navigate("/dummygram/")} />
       </div>
       <span className="chat-header">showing last 20 messages</span>
 
@@ -181,18 +226,31 @@ const ChatBox = () => {
                 onClick={() => goToUserProfile(message.uid)}
               />
               <div className="chat-msg-text">
-                <h5
-                  className="chat-msg-sender-name"
-                  onClick={() => goToUserProfile(message.uid)}
-                >
-                  {message.displayName}
-                </h5>
+                <span className="name-and-date-container">
+                  <h5
+                    className="chat-msg-sender-name"
+                    onClick={() => goToUserProfile(message.uid)}
+                  >
+                    {message.displayName}
+                  </h5>
+                  <span className="time-reaction-container">
+                    <h6 className="message-time">
+                      {getTime(message?.createdAt?.seconds)}
+                    </h6>
+                    <Reaction message={message} userUid={message.uid} />
+                  </span>
+                </span>
                 <p>{message.text}</p>
+                {message.reaction && (
+                  <ul className="rxn-main-container">
+                    {getReaction(message.reaction)}
+                  </ul>
+                )}
               </div>
             </li>
           ))}
         </ul>
-      </div>    
+      </div>
       <form className="chat-input-container" onSubmit={handleOnSubmit}>
         {showEmojis && (
           <div

@@ -3,18 +3,19 @@ import "./index.css";
 import React, { useEffect, useState } from "react";
 
 import { AiOutlineInsertRowAbove } from "react-icons/ai";
+import { Box } from "@mui/material";
 import ChatIcon from "@mui/icons-material/Chat";
-import { Darkmode } from "../../reusableComponents";
-import { Logo } from "../../reusableComponents";
-import { auth } from "../../lib/firebase";
-import { useNavigate } from "react-router-dom";
-import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
+import { Darkmode } from "../../reusableComponents";
 import { FaSearch } from "react-icons/fa";
+import { Logo } from "../../reusableComponents";
+import Modal from "@mui/material/Modal";
+import SearchIcon from "@mui/icons-material/Search";
+import { auth } from "../../lib/firebase";
 import blankImg from "../../assets/blank-profile.webp";
 import { db } from "../../lib/firebase";
-import Modal from "@mui/material/Modal";
-import { Box } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+
 const PAGESIZE = 7;
 
 function Navbar({ onClick, user, setUser }) {
@@ -115,7 +116,6 @@ function Navbar({ onClick, user, setUser }) {
           >
             <Box
               sx={{
-                position: "relative",
                 top: "50%",
                 left: "50%",
                 transform: "translate(-50%, -50%)",
