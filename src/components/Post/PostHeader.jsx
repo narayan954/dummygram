@@ -118,6 +118,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
     setOpen(false);
   };
 
+  // TODO - Use DB Transaction to maintain consistency
   async function deletePost() {
     if (imageUrl !== "") {
       const url = JSON.parse(imageUrl);
