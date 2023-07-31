@@ -151,6 +151,7 @@
   background: lightgray;
   border-radius: 10px;
 }
+
 .commentCard .comment span {
   color: var(--text-black-only) !important;
 }
@@ -175,9 +176,11 @@
   text-decoration: none;
   color: black;
 }
+
 .comment-doer-name {
   color: rgb(42, 42, 135);
 }
+
 .comment-doer-name:hover {
   text-decoration: underline;
 }
@@ -281,6 +284,56 @@
   border-radius: 100%;
 }
 
+.likedby_list_container {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 3px;
+  gap: 8px;
+}
+
+.likedby_list_item {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  color: black;
+  background: lightgray;
+}
+
+.like_user_img {
+  width: 50px !important;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid;
+  transition: 0.3s ease-in-out;
+}
+
+.like_user_img:hover {
+  transform: scale(1.1);
+}
+
+.like_user_data {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.like_user_name {
+  cursor: pointer;
+  font-weight: 600;
+  color: rgb(42, 42, 135);
+}
+
+.like_user_name:hover {
+  text-decoration: underline;
+}
+
+.like_user_username {
+  font-weight: 500;
+  color: var(--text-black-only);
+}
+
 @media only screen and (max-width: 800px) {
   .post__commentBox input {
     width: 200px;
@@ -306,5 +359,23 @@
     max-width: 320px;
     padding: 5px;
     margin-top: 25px;
+  }
+
+  .like_user_data {
+    flex-direction: column;
+    gap: 0;
+    align-items: flex-start;
+  }
+
+  .like_user_name {
+    font-size: 16px;
+  }
+
+  .like_user_username {
+    margin-top: -5px;
+  }
+
+  .like_user_bio {
+    font-size: 14px;
   }
 }
