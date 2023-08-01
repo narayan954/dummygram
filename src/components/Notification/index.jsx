@@ -34,6 +34,33 @@ function Notifications() {
     return () => unsubscribe();
   }, []);
 
+  function handleDeclineRequest(currentUserUid, targetUserUid) {
+    const batch = db.batch();
+    const friendRequestRef = db
+      .collection("users")
+      .doc(currentUserUid)
+      .collection("friendRequests")
+      .doc(targetUserUid);
+
+    const notificationRef = db
+      .collection("users")
+      .doc(currentUserUid)
+      .collection("notifications")
+      .doc(targetUserUid);
+
+    // Queue the delete operations in the batch
+    batch.delete(friendRequestRef);
+    batch.delete(notificationRef);
+
+    // Commit the batch
+    batch.commit()
+      .catch((error) => {
+        enqueueSnackbar(`Error Occurred: ${error}`, {
+          variant: "error",
+        });
+      });
+  }
+
   return (
     <>
       <SideBar />
@@ -74,9 +101,8 @@ function Notifications() {
                         {notification.message} from{" "}
                         <Link
                           className="friend-request-sender-name"
-                          to={`/dummygram/user/${
-                            notification.username ? notification.username : ""
-                          }`}
+                          to={`/dummygram/user/${notification.username ? notification.username : ""
+                            }`}
                         >
                           {notification.senderName
                             ? notification.senderName
@@ -87,7 +113,9 @@ function Notifications() {
                           <button className="accept-btn notif-btn">
                             Accept
                           </button>
-                          <button className="decline-btn notif-btn">
+                          <button
+                            className="decline-btn notif-btn"
+                            onClick={() => handleDeclineRequest(notification.recipient, notification.sender)}>
                             Decline
                           </button>
                         </div>
