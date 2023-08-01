@@ -32,16 +32,12 @@
   cursor: pointer;
   transition: 0.2s ease-in-out;
   border: 1px solid #eee;
-  box-shadow:
-    1px 1px 3px #bcbbbb,
-    -1px -1px 3px #bcbbbb;
+  box-shadow: 1px 1px 3px #bcbbbb, -1px -1px 3px #bcbbbb;
 }
 
 .dialog-box-img:hover {
   transform: scale(1.1);
-  box-shadow:
-    2px 2px 5px #faf7f7,
-    -2px -2px 5px #faf7f7;
+  box-shadow: 2px 2px 5px #faf7f7, -2px -2px 5px #faf7f7;
 }
 
 .dialog-box-display-name {
@@ -83,49 +79,23 @@
 
 @media only screen and (max-width: 460px) {
   .dialog-box-img {
-    border-radius: 50%;
     width: 45px;
     height: 45px;
-    cursor: pointer;
-    transition: 0.2s ease-in-out;
-    border: 1px solid #eee;
-    box-shadow:
-      1px 1px 3px #bcbbbb,
-      -1px -1px 3px #bcbbbb;
   }
   .dialog-box-display-name {
     font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    width: fit-content;
   }
 
   .dialog-box-bio {
-    color: var(--profile-color);
     font-size: 10px;
-    font-weight: 600;
   }
 
   .profile-dialog-box-container {
-    background: var(--profile-container);
-    color: var(--text-secondary);
-    box-shadow: var(--post-box-shadow);
-    position: absolute;
-    top: -30px;
-    left: 60px;
-    z-index: 333;
-    border-radius: 20px;
     padding: 10px;
-    padding-bottom: 30px;
-    display: flex;
-    flex-direction: column;
     width: 75%;
-    gap: 10px;
-    animation: fade-in 0.4s linear;
   }
 
   .dialog-box-name-container span.dialog-box-username {
-    display: flex;
     padding-top: 4px;
     font-size: 12px;
   }
