@@ -99,4 +99,8 @@
     padding-top: 4px;
     font-size: 12px;
   }
+
+  .dialog-box-username {
+    max-width: 150px;
+  }
 }
