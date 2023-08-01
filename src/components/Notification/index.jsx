@@ -53,12 +53,11 @@ function Notifications() {
     batch.delete(notificationRef);
 
     // Commit the batch
-    batch.commit()
-      .catch((error) => {
-        enqueueSnackbar(`Error Occurred: ${error}`, {
-          variant: "error",
-        });
+    batch.commit().catch((error) => {
+      enqueueSnackbar(`Error Occurred: ${error}`, {
+        variant: "error",
       });
+    });
   }
 
   return (
@@ -101,8 +100,9 @@ function Notifications() {
                         {notification.message} from{" "}
                         <Link
                           className="friend-request-sender-name"
-                          to={`/dummygram/user/${notification.username ? notification.username : ""
-                            }`}
+                          to={`/dummygram/user/${
+                            notification.username ? notification.username : ""
+                          }`}
                         >
                           {notification.senderName
                             ? notification.senderName
@@ -115,7 +115,13 @@ function Notifications() {
                           </button>
                           <button
                             className="decline-btn notif-btn"
-                            onClick={() => handleDeclineRequest(notification.recipient, notification.sender)}>
+                            onClick={() =>
+                              handleDeclineRequest(
+                                notification.recipient,
+                                notification.sender,
+                              )
+                            }
+                          >
                             Decline
                           </button>
                         </div>
