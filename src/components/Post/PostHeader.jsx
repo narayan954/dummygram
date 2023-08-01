@@ -15,8 +15,8 @@ import {
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { db, storage } from "../../lib/firebase";
 import { doc, updateDoc } from "firebase/firestore";
-import { useEffect, useState } from "react";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
+import { useEffect, useState } from "react";
 
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import ProfileDialogBox from "../ProfileDialogBox";
@@ -121,28 +121,18 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
 
   async function deletePost() {
     try {
-      await db.runTransaction(async (transaction) => {
+      await db
+        .runTransaction(async (transaction) => {
+          //Delete doc ref from user doc
+          const docRef = db.collection("users").doc(user?.uid);
+          transaction.update(docRef, {
+            posts: firebase.firestore.FieldValue.arrayRemove(postId),
+          });
 
-        //Delete post image from cloud
-        // if (imageUrl !== "") {
-        //   const url = JSON.parse(imageUrl);
-        //   const deleteImagePromises = url.map(({ imageUrl }) => {
-        //     const imageRef = storage.refFromURL(imageUrl);
-        //     return imageRef.delete();
-        //   });
-        //   await Promise.all(deleteImagePromises);
-        // }
-
-        //Delete doc ref from user doc
-        const docRef = db.collection('users').doc(user?.uid);
-        transaction.update(docRef, {
-          posts: firebase.firestore.FieldValue.arrayRemove(postId)
-        });
-
-        // Delete the post document 
-        const postRef = db.collection("posts").doc(postId);
-        transaction.delete(postRef);
-      })
+          // Delete the post document
+          const postRef = db.collection("posts").doc(postId);
+          transaction.delete(postRef);
+        })
         .then(async () => {
           if (imageUrl !== "") {
             const url = JSON.parse(imageUrl);
@@ -153,16 +143,16 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
             await Promise.all(deleteImagePromises);
           }
         })
-
-      playSuccessSound();
-      enqueueSnackbar("Post deleted successfully!", { variant: "success" });
+        .then(() => {
+          playSuccessSound();
+          enqueueSnackbar("Post deleted successfully!", { variant: "success" });
+          setOpen(false);
+        });
     } catch (error) {
       playErrorSound();
       enqueueSnackbar(`Error deleting post: ${error}`, { variant: "error" });
     }
   }
-  
-  
 
   function showProfileDialogBox() {
     setMouseOnProfileImg(true);
