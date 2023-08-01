@@ -125,16 +125,18 @@ function Notifications() {
                     </span>
                   </h1>
                   {notifications.map((notification) => {
-                    const { id, message, username, name, photoURL } = notification
+                    const { id, message, username, name, photoURL } =
+                      notification;
                     return (
-                      <div
-                        key={id}
-                        className="notif-message-container"
-                      >
-                        <img 
-                          src={photoURL} 
-                          alt={name} 
-                          style={{ width: "80px", height: "80px", borderRadius: "50%" }} 
+                      <div key={id} className="notif-message-container">
+                        <img
+                          src={photoURL}
+                          alt={name}
+                          style={{
+                            width: "80px",
+                            height: "80px",
+                            borderRadius: "50%",
+                          }}
                         />
 
                         <div className="notif-message">
@@ -143,14 +145,14 @@ function Notifications() {
                             className="friend-request-sender-name"
                             to={`/dummygram/user/${username ? username : ""}`}
                           >
-                            {name ? name : ""}
-                            .
+                            {name ? name : ""}.
                           </Link>
                           <div style={{ marginTop: "10px" }}>
                             <button className="accept-btn notif-btn">
                               Accept
                             </button>
-                            <button className="decline-btn notif-btn"
+                            <button
+                              className="decline-btn notif-btn"
                               onClick={() =>
                                 handleDeclineRequest(
                                   notification.recipient,
@@ -163,9 +165,8 @@ function Notifications() {
                           </div>
                         </div>
                       </div>
-                    )
-                  }
-                  )}
+                    );
+                  })}
                 </>
               ) : (
                 <p style={{ color: "var(--color)" }}>No notifications</p>
