@@ -380,17 +380,16 @@
   }
 }
 
-.postCaption{
-   color: var(--color);
-   padding-inline: 8px;
-    height:80px;
+.postCaption {
+  color: var(--color);
+  padding-inline: 8px;
+  height: 80px;
 }
 
-.postCaptiontext{
-   color: var(--color);
-   padding-inline: 8px;
-    height:80px;
-    display: flex;
-    align-items: flex-end;
+.postCaptiontext {
+  color: var(--color);
+  padding-inline: 8px;
+  height: 80px;
+  display: flex;
+  align-items: flex-end;
 }
-
