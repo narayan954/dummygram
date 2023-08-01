@@ -8,6 +8,7 @@ import { Box } from "@mui/material";
 import { FaUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { SideBar } from "../index";
+import { useSnackbar } from "notistack";
 
 function Notifications() {
   const [openShareModal, setOpenShareModal] = useState(false);
@@ -15,6 +16,8 @@ function Notifications() {
   const [postText, setPostText] = useState("");
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const unsubscribe = db
@@ -53,11 +56,18 @@ function Notifications() {
     batch.delete(notificationRef);
 
     // Commit the batch
-    batch.commit().catch((error) => {
-      enqueueSnackbar(`Error Occurred: ${error}`, {
-        variant: "error",
+    batch
+      .commit()
+      .then(() => {
+        enqueueSnackbar("Friend Request Declined", {
+          variant: "success",
+        });
+      })
+      .catch((error) => {
+        enqueueSnackbar(`Error Occurred: ${error}`, {
+          variant: "error",
+        });
       });
-    });
   }
 
   return (
