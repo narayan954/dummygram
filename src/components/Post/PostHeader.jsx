@@ -16,6 +16,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { db, storage } from "../../lib/firebase";
 import { doc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { playErrorSound, playSuccessSound } from "../../js/sounds";
 
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import ProfileDialogBox from "../ProfileDialogBox";
@@ -118,40 +119,40 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
     setOpen(false);
   };
 
-  // TODO - Use DB Transaction to maintain consistency
   async function deletePost() {
-    if (imageUrl !== "") {
-      const url = JSON.parse(imageUrl);
-      url.map(({ imageUrl }) => {
-        const imageRef = storage.refFromURL(imageUrl);
-        imageRef.delete().catch((err) => {
-          enqueueSnackbar(`Error Occured: ${err}`, {
-            variant: "error",
+    try {
+      await db.runTransaction(async (transaction) => {
+
+        //Delete post image from cloud
+        if (imageUrl !== "") {
+          const url = JSON.parse(imageUrl);
+          const deleteImagePromises = url.map(({ imageUrl }) => {
+            const imageRef = storage.refFromURL(imageUrl);
+            return imageRef.delete();
           });
+          await Promise.all(deleteImagePromises);
+        }
+
+        //Delete doc ref from user doc
+        const docRef = db.collection('users').doc(user?.uid);
+        transaction.update(docRef, {
+          posts: firebase.firestore.FieldValue.arrayRemove(postId)
         });
-      });
-    }
-    const docRef = db.collection("users").doc(user?.uid);
-    docRef
-      .update({
-        posts: firebase.firestore.FieldValue.arrayRemove(postId),
-      })
-      .catch((err) => {
-        enqueueSnackbar(`Error updating doc: ${err}`, {
-          variant: "error",
-        });
+  
+        // Delete the post document 
+        const postRef = db.collection("posts").doc(postId);
+        transaction.delete(postRef);
       });
 
-    await db
-      .collection("posts")
-      .doc(postId)
-      .delete()
-      .catch((err) => {
-        enqueueSnackbar(`Error delete post ref: ${err}`, {
-          variant: "error",
-        });
-      });
+      playSuccessSound();
+      enqueueSnackbar("Post deleted successfully!", { variant: "success" });
+    } catch (error) {
+      playErrorSound();
+      enqueueSnackbar(`Error deleting post: ${error}`, { variant: "error" });
+    }
   }
+  
+  
 
   function showProfileDialogBox() {
     setMouseOnProfileImg(true);
