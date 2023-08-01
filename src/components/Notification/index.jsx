@@ -5,9 +5,9 @@ import React, { useEffect, useState } from "react";
 import { auth, db } from "../../lib/firebase";
 
 import { Box } from "@mui/material";
-import { FaUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { SideBar } from "../index";
+import { useSnackbar } from "notistack";
 
 function Notifications() {
   const [openShareModal, setOpenShareModal] = useState(false);
@@ -16,6 +16,7 @@ function Notifications() {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const { enqueueSnackbar } = useSnackbar();
 
   const getNotifUserData = async (senderUid) => {
     try {
@@ -61,6 +62,39 @@ function Notifications() {
     return () => unsubscribe();
   }, []);
 
+  function handleDeclineRequest(currentUserUid, targetUserUid) {
+    const batch = db.batch();
+    const friendRequestRef = db
+      .collection("users")
+      .doc(currentUserUid)
+      .collection("friendRequests")
+      .doc(targetUserUid);
+
+    const notificationRef = db
+      .collection("users")
+      .doc(currentUserUid)
+      .collection("notifications")
+      .doc(targetUserUid);
+
+    // Queue the delete operations in the batch
+    batch.delete(friendRequestRef);
+    batch.delete(notificationRef);
+
+    // Commit the batch
+    batch
+      .commit()
+      .then(() => {
+        enqueueSnackbar("Friend Request Declined", {
+          variant: "success",
+        });
+      })
+      .catch((error) => {
+        enqueueSnackbar(`Error Occurred: ${error}`, {
+          variant: "error",
+        });
+      });
+  }
+
   return (
     <>
       <SideBar />
@@ -97,13 +131,17 @@ function Notifications() {
                         key={id}
                         className="notif-message-container"
                       >
-                        <img src={photoURL} alt={name} style={{ width: "80px", height: "80px", borderRadius: "50%" }} />
+                        <img 
+                          src={photoURL} 
+                          alt={name} 
+                          style={{ width: "80px", height: "80px", borderRadius: "50%" }} 
+                        />
 
                         <div className="notif-message">
                           {message} from{" "}
                           <Link
                             className="friend-request-sender-name"
-                            to={`/dummygram/user/${username ? username : "" }`}
+                            to={`/dummygram/user/${username ? username : ""}`}
                           >
                             {name ? name : ""}
                             .
@@ -112,7 +150,14 @@ function Notifications() {
                             <button className="accept-btn notif-btn">
                               Accept
                             </button>
-                            <button className="decline-btn notif-btn">
+                            <button className="decline-btn notif-btn"
+                              onClick={() =>
+                                handleDeclineRequest(
+                                  notification.recipient,
+                                  notification.sender,
+                                )
+                              }
+                            >
                               Decline
                             </button>
                           </div>

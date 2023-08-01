@@ -1,6 +1,7 @@
 import "./index.css";
 
 import React, { useState } from "react";
+import { playLightOnSound, playLightOffSound } from "../../js/sounds";
 
 import { DarkMode } from "@mui/icons-material";
 import { LightMode } from "@mui/icons-material";
@@ -34,10 +35,12 @@ const Darkmode = ({ themeClass }) => {
 
     if (darkMode !== "enabled") {
       setModeStatus(false);
+      playLightOffSound();
       enableDarkMode();
     } else {
       setModeStatus(true);
       disableDarkMode();
+      playLightOnSound();
     }
   };
 

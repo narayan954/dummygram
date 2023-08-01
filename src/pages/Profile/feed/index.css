@@ -7,20 +7,18 @@
 }
 
 .app__posts__feed {
-  border: 1px solid #dbdbdb;
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   margin-bottom: 20px;
   margin-right: 10px;
   gap: 0;
   padding: 0;
-  position: relative;
+  border: 1px solid #dbdbdb;
 }
 
 .post_container {
   position: relative;
-  width: calc(33% - 16px);
   aspect-ratio: 1;
   padding: 8px;
   cursor: pointer;
@@ -35,7 +33,7 @@
 .post_image {
   width: 100%;
   height: 100%;
-  background-size: cover !important;
+  object-fit: cover;
 }
 
 .caption_without_image {
@@ -75,8 +73,6 @@
   }
 
   .post_container {
-    width: calc(33% - 8px);
-    aspect-ratio: 1;
     padding: 4px;
   }
 
