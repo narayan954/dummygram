@@ -1,8 +1,7 @@
 import "./index.css";
 
-import profileAvatar from "../../assets/blank-profile.webp";
-
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import profileAvatar from "../../assets/blank-profile.webp";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -32,7 +31,7 @@ const ProfileDialogBox = ({ mouseOnProfileImg, userData }) => {
     >
       <div style={{ display: "flex", gap: "2rem" }}>
         <img
-          src={avatar ?avatar :profileAvatar}
+          src={avatar ? avatar : profileAvatar}
           alt={name}
           className="dialog-box-img"
           onClick={() => navigate(`/dummygram/user/${username}`)}
