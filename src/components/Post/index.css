@@ -63,7 +63,7 @@
 }
 
 .post__background {
-  min-height: 200px;
+  min-height: 350px;
   background: linear-gradient(
     130deg,
     #dee2ed,
@@ -378,4 +378,18 @@
   .like_user_bio {
     font-size: 14px;
   }
+}
+
+.postCaption {
+  color: var(--color);
+  padding-inline: 8px;
+  height: 80px;
+}
+
+.postCaptiontext {
+  color: var(--color);
+  padding-inline: 8px;
+  height: 80px;
+  display: flex;
+  align-items: flex-end;
 }

@@ -9,6 +9,7 @@ import { useSnackbar } from "notistack";
 const ShareModal = (props) => {
   const { openShareModal, setOpenShareModal, currentPostLink, postText } =
     props;
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleCopyLink = () => {
     window.navigator.clipboard.writeText(currentPostLink);
@@ -23,8 +24,6 @@ const ShareModal = (props) => {
       Copy Link
     </button>
   );
-
-  const { enqueueSnackbar } = useSnackbar();
 
   return (
     <Dialog

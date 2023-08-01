@@ -21,6 +21,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import Modal from "@mui/material/Modal";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import SettingsIcon from "@mui/icons-material/Settings";
+import { useSnackbar } from "notistack";
 
 const Footer = React.lazy(() => import("./Footer"));
 
@@ -31,6 +32,7 @@ function SideBar({ anonymous }) {
   const navigate = useNavigate();
   const user = auth.currentUser;
   const location = useLocation();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [openNewUpload, setOpenNewUpload] = useState(false);
   const [userData, setUserData] = useState({
@@ -95,8 +97,7 @@ function SideBar({ anonymous }) {
             }
           >
             <div className="sidebar_align">
-              <AddCircleOutlineIcon className="icon" />{" "}
-              <span>New Post/Story</span>
+              <AddCircleOutlineIcon className="icon" /> <span>Create</span>
             </div>
           </li>
           <li
