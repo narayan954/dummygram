@@ -124,25 +124,35 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
       await db.runTransaction(async (transaction) => {
 
         //Delete post image from cloud
-        if (imageUrl !== "") {
-          const url = JSON.parse(imageUrl);
-          const deleteImagePromises = url.map(({ imageUrl }) => {
-            const imageRef = storage.refFromURL(imageUrl);
-            return imageRef.delete();
-          });
-          await Promise.all(deleteImagePromises);
-        }
+        // if (imageUrl !== "") {
+        //   const url = JSON.parse(imageUrl);
+        //   const deleteImagePromises = url.map(({ imageUrl }) => {
+        //     const imageRef = storage.refFromURL(imageUrl);
+        //     return imageRef.delete();
+        //   });
+        //   await Promise.all(deleteImagePromises);
+        // }
 
         //Delete doc ref from user doc
         const docRef = db.collection('users').doc(user?.uid);
         transaction.update(docRef, {
           posts: firebase.firestore.FieldValue.arrayRemove(postId)
         });
-  
+
         // Delete the post document 
         const postRef = db.collection("posts").doc(postId);
         transaction.delete(postRef);
-      });
+      })
+        .then(async () => {
+          if (imageUrl !== "") {
+            const url = JSON.parse(imageUrl);
+            const deleteImagePromises = url.map(({ imageUrl }) => {
+              const imageRef = storage.refFromURL(imageUrl);
+              return imageRef.delete();
+            });
+            await Promise.all(deleteImagePromises);
+          }
+        })
 
       playSuccessSound();
       enqueueSnackbar("Post deleted successfully!", { variant: "success" });
