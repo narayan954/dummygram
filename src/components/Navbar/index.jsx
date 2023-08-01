@@ -121,7 +121,7 @@ function Navbar({ onClick, user, setUser }) {
                 transform: "translate(-50%, -50%)",
                 height: "80vh",
                 boxShadow: 24,
-                backdropFilter: "blur(7px)",
+                // backdropFilter: "blur(7px)",
                 border: "1px solid #fff",
                 zIndex: "1000",
                 textAlign: "center",
@@ -133,42 +133,42 @@ function Navbar({ onClick, user, setUser }) {
               <div className="search-closeicon" onClick={handleSearchModal}>
                 <CloseIcon sx={{ fontSize: 40 }} />
               </div>
+              <div className="search-bar">
+                <input
+                  type="search"
+                  className="search-input"
+                  value={searchQuery}
+                  placeholder="Search users..."
+                  onChange={handleSearch}
+                />
+                <label className="search-icon">
+                  <FaSearch />
+                </label>
+                {!searchQuery ? (
+                  ""
+                ) : (
+                  <span
+                    style={{
+                      position: "absolute",
+                      right: "57px",
+                      display: "flex",
+                      color: "rgba(0, 0, 0, 0.8)",
+                      cursor: "pointer",
+                    }}
+                    onClick={handlequery}
+                  >
+                    <CloseIcon sx={{ fontSize: "30" }} />
+                  </span>
+                )}
+              </div>
               <div
                 style={{
-                  position: "absolute",
-                  top: "50px",
+                  // position: "absolute",
+                  marginTop: "10px",
                   width: "100%",
-                  height: "90%",
+                  height: "calc(100% - 60px)",
                 }}
               >
-                <div className="search-bar">
-                  <input
-                    type="search"
-                    className="search-input"
-                    value={searchQuery}
-                    placeholder="Search users..."
-                    onChange={handleSearch}
-                  />
-                  <label className="search-icon">
-                    <FaSearch />
-                  </label>
-                  {!searchQuery ? (
-                    ""
-                  ) : (
-                    <span
-                      style={{
-                        position: "absolute",
-                        right: "57px",
-                        display: "flex",
-                        color: "rgba(0, 0, 0, 0.8)",
-                        cursor: "pointer",
-                      }}
-                      onClick={handlequery}
-                    >
-                      <CloseIcon sx={{ fontSize: "30" }} />
-                    </span>
-                  )}
-                </div>
                 {searchResults.length > 0 ? (
                   <section className="searched-user-container">
                     <ul className="searched-user-sub-container">

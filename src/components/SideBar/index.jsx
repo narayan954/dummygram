@@ -12,6 +12,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineClose } from "react-icons/ai";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
+import { ClickAwayListener } from "@mui/material";
 import { Dialog } from "@mui/material";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import HomeIcon from "@mui/icons-material/Home";
@@ -198,40 +199,42 @@ function SideBar({ anonymous }) {
       </Modal>
 
       {openMenu && (
-        <div className="sidebar_user_dropdown_container">
-          <ul className="sidebar_user_dropdown_sub_container">
-            <li
-              onClick={() =>
-                navigate(
-                  `/dummygram/${
-                    anonymous ? "signup" : `user/${userData.username}`
-                  }`,
-                )
-              }
-            >
-              {user && user.photoURL ? (
-                <img
-                  src={user.photoURL}
-                  alt="profile picture"
-                  className="dropdown-list-profile-picture"
-                />
-              ) : (
-                <AccountCircleIcon className="icon" />
-              )}{" "}
-              Profile
-            </li>
-            <li
-              onClick={() =>
-                navigate(`/dummygram/${anonymous ? "signup" : "settings"}`)
-              }
-            >
-              <SettingsIcon /> Settings
-            </li>
-            <li onClick={() => setLogout(true)}>
-              <LogoutIcon /> Logout
-            </li>
-          </ul>
-        </div>
+        <ClickAwayListener onClickAway={() => setOpenMenu(false)}>
+          <div className="sidebar_user_dropdown_container">
+            <ul className="sidebar_user_dropdown_sub_container">
+              <li
+                onClick={() =>
+                  navigate(
+                    `/dummygram/${
+                      anonymous ? "signup" : `user/${userData.username}`
+                    }`,
+                  )
+                }
+              >
+                {user && user.photoURL ? (
+                  <img
+                    src={user.photoURL}
+                    alt="profile picture"
+                    className="dropdown-list-profile-picture"
+                  />
+                ) : (
+                  <AccountCircleIcon className="icon" />
+                )}{" "}
+                Profile
+              </li>
+              <li
+                onClick={() =>
+                  navigate(`/dummygram/${anonymous ? "signup" : "settings"}`)
+                }
+              >
+                <SettingsIcon /> Settings
+              </li>
+              <li onClick={() => setLogout(true)}>
+                <LogoutIcon /> Logout
+              </li>
+            </ul>
+          </div>
+        </ClickAwayListener>
       )}
 
       <Dialog
