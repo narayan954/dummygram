@@ -1,4 +1,10 @@
-import { errorSound, successSound, backBtnSound, lightOnSound, lightOffSound } from "../assets/sounds";
+import {
+  errorSound,
+  successSound,
+  backBtnSound,
+  lightOnSound,
+  lightOffSound,
+} from "../assets/sounds";
 
 export function playSuccessSound() {
   const sound = localStorage.getItem("sound");
