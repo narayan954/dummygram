@@ -2,7 +2,7 @@ import "./index.css";
 
 import { Darkmode, ShareModal } from "./reusableComponents";
 import { ErrorBoundary, PostSkeleton } from "./reusableComponents";
-import React, { useEffect, useState, Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
@@ -10,8 +10,9 @@ import { ChatPage } from "./pages";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { GuestSignUpBtn } from "./components";
 import { RowModeContext } from "./hooks/useRowMode";
+import { Suggestion } from "./components";
 import { makeStyles } from "@mui/styles";
-import { Suggestion } from "./components"
+
 // ------------------------------------ Pages ----------------------------------------------------
 const About = React.lazy(() => import("./pages/FooterPages/About"));
 const Guidelines = React.lazy(() => import("./pages/FooterPages/Guidelines"));
@@ -79,7 +80,7 @@ function App() {
   const [rowMode, setRowMode] = useState(false);
   const [showScroll, setShowScroll] = useState(false);
   const [anonymous, setAnonymous] = useState(false);
-  const [windowWidth, setWindowWidth] = useState("700")
+  const [windowWidth, setWindowWidth] = useState("700");
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -176,8 +177,8 @@ function App() {
       setWindowWidth(getWindowDimensions());
     }
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
@@ -256,7 +257,9 @@ function App() {
                                     setLink={setCurrentPostLink}
                                     setPostText={setPostText}
                                   />
-                                {(index === 1 && windowWidth.width < 1300) && <Suggestion currentUserUid={user.uid} />}
+                                  {index === 1 && windowWidth.width < 1300 && (
+                                    <Suggestion currentUserUid={user.uid} />
+                                  )}
                                 </Fragment>
                               ))}
                             </ErrorBoundary>

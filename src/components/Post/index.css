@@ -2,7 +2,8 @@
   padding: 0%;
 }
 
-.post, .postColumn {
+.post,
+.postColumn {
   max-width: 400px;
   margin-block: 20px;
   border: 2px solid #90b8f8;
@@ -37,7 +38,6 @@
 .post__time {
   color: var(--text-primary);
 }
-
 
 .postColumn:hover {
   transform: scale(1.01);
