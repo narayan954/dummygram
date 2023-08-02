@@ -1,19 +1,20 @@
 import "./index.css";
 
 import { Avatar, Box, Button, Typography, useMediaQuery } from "@mui/material";
-import { auth, db } from "../../lib/firebase";
+import { auth, db, storage } from "../../lib/firebase";
 import {
   collection,
   deleteField,
   onSnapshot,
+  orderBy,
   query,
   where,
-  orderBy,
 } from "firebase/firestore";
 import { lazy, useEffect, useState } from "react";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useNavigate, useParams } from "react-router-dom";
 
+import Cam from "@mui/icons-material/CameraAltOutlined";
 import EditIcon from "@mui/icons-material/Edit";
 import { EditProfile } from "../../components";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
@@ -45,9 +46,13 @@ function Profile() {
   const [isEditing, setIsEditing] = useState(false);
   const [userExists, setUserExists] = useState(true);
   const [viewStory, setViewStory] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [bgimgurl, setBgimgurl] = useState(null);
+  const [backgroundImage, setBackgroundImage] = useState(null);
 
   let name = "";
   let avatar = "";
+  let bgImageUrl = "";
   let uid = "";
   let bio = "";
   let country = "";
@@ -56,6 +61,7 @@ function Profile() {
   if (userData) {
     name = userData.name;
     avatar = userData.avatar;
+    bgImageUrl = userData.bgImageUrl;
     uid = userData.uid;
     bio = userData.bio;
     country = userData.country;
@@ -63,6 +69,59 @@ function Profile() {
   }
 
   const handleClose = () => setOpen(false);
+
+  // Inside the Profile component
+  const handleBackgroundImgChange = (e) => {
+    if (e.target.files[0]) {
+      setBackgroundImage(e.target.files[0]);
+      setEditing(true);
+    }
+  };
+
+  const handleBgImageSave = () => {
+    try {
+      if (backgroundImage) {
+        const uploadTask = storage
+          .ref(`background-images/${backgroundImage.name}`)
+          .put(backgroundImage);
+        uploadTask.on(
+          "state_changed",
+          () => {},
+          (error) => {
+            enqueueSnackbar(error.message, {
+              variant: "error",
+            });
+          },
+          () => {
+            storage
+              .ref("background-images")
+              .child(backgroundImage.name)
+              .getDownloadURL()
+              .then(async (url) => {
+                setBgimgurl(url);
+                const docRef = db.collection("users").doc(uid);
+                await docRef.update({
+                  bgImageUrl: url,
+                });
+              })
+              .then(
+                enqueueSnackbar("Background image uploaded successfully !", {
+                  variant: "success",
+                }),
+              )
+              .catch((error) => {
+                enqueueSnackbar(error.message, {
+                  variant: "error",
+                });
+              });
+          },
+        );
+      }
+      setEditing(false);
+    } catch (error) {
+      console.error("Error saving background image URL to Firestore:", error);
+    }
+  };
 
   useEffect(() => {
     async function getUserData() {
@@ -75,10 +134,8 @@ function Profile() {
         .then((snapshot) => {
           if (snapshot.docs) {
             const doc = snapshot.docs[0];
-
             const currTimestamp = firebase.firestore.Timestamp.now().seconds;
             const storyTimestamp = doc.data().storyTimestamp?.seconds;
-
             //Check if story is expired or not
             if (storyTimestamp && currTimestamp - storyTimestamp > 86400) {
               async function deleteStory() {
@@ -101,11 +158,13 @@ function Profile() {
               }
               deleteStory();
             }
-
             const data = doc.data();
             setUserData({
               name: data.name,
               avatar: data.photoURL,
+              bgImageUrl: data.bgImageUrl
+                ? data.bgImageUrl
+                : profileBackgroundImg,
               uid: data.uid,
               bio: data.bio
                 ? data.bio
@@ -124,7 +183,7 @@ function Profile() {
         });
     }
     getUserData();
-  }, []);
+  }, [username, bgimgurl]);
 
   const handleSendFriendRequest = () => {
     const currentUserUid = auth.currentUser.uid;
@@ -179,8 +238,6 @@ function Profile() {
             recipient: targetUserUid,
             sender: currentUserUid,
             message: "You have received a friend request",
-            senderName: name,
-            username: username,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
           };
           db.collection("users")
@@ -284,12 +341,43 @@ function Profile() {
       )}
       {userData && userExists ? (
         <>
-          <div className="background-image">
-            <img
-              src={profileBackgroundImg}
-              alt=""
-              className="background-image"
-            />
+          <div style={{ zIndex: "9" }}>
+            <div
+              className="background-image-container"
+              style={{ position: "relative" }}
+            >
+              <img
+                src={bgImageUrl || profileBackgroundImg}
+                alt=""
+                className="background-image"
+              />
+              {uid === user?.uid && (
+                <div className="bg-img-save" style={{ position: "absolute" }}>
+                  <div className="bg-icon">
+                    <input
+                      type="file"
+                      id="backgroundImage"
+                      className="file"
+                      onChange={handleBackgroundImgChange}
+                      accept="image/*"
+                    />
+                    <label htmlFor="backgroundImage">
+                      <Cam sx={{ fontSize: 33 }} />
+                    </label>
+                  </div>
+                  {editing && (
+                    <div
+                      className="bg-save-btn"
+                      style={{ position: "absolute" }}
+                    >
+                      <Button variant="outlined" onClick={handleBgImageSave}>
+                        Save
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
           <Modal
             open={open}

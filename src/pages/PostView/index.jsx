@@ -11,33 +11,32 @@ import { useParams } from "react-router-dom";
 const PostView = (props) => {
   const { id } = useParams();
   const { user, shareModal, setLink, setPostText } = props;
+
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [fetchAgain, setFetchAgain] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
-    if (loading) {
-      const docRef = doc(db, "posts", id);
-      getDoc(docRef)
-        .then((docSnap) => {
-          if (docSnap.exists()) {
-            setPost(docSnap.data());
-          }
-
-          setLoading(false);
-        })
-        .catch(() => {
-          setLoading(false);
-        });
-    }
-  }, [post, fetchAgain]);
+    const docRef = doc(db, "posts", id);
+    getDoc(docRef)
+      .then((docSnap) => {
+        if (docSnap.exists()) {
+          setPost(docSnap.data());
+        }
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <>
       <SideBar />
       <PostViewContainer className="post-page-container">
-        {post && user ? (
+        {loading ? (
+          <Loader />
+        ) : (
           <PostCommentView
             key={id}
             postId={id}
@@ -49,8 +48,6 @@ const PostView = (props) => {
             setFetchAgain={setFetchAgain}
             fetchAgain={fetchAgain}
           />
-        ) : (
-          <Loader />
         )}
       </PostViewContainer>
     </>

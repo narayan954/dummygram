@@ -13,13 +13,15 @@ import {
   MenuItem,
 } from "@mui/material";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { db, storage } from "../../lib/firebase";
 import { doc, updateDoc } from "firebase/firestore";
+import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useEffect, useState } from "react";
 
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import ProfileDialogBox from "../ProfileDialogBox";
 import TextField from "@mui/material/TextField";
-import { db } from "../../lib/firebase";
+import firebase from "firebase/compat/app";
 import { saveAs } from "file-saver";
 import useCreatedAt from "../../hooks/useCreatedAt";
 import { useSnackbar } from "notistack";
@@ -28,7 +30,6 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
   const time = useCreatedAt(timestamp);
   const { fullScreen, isAnonymous } = user; // TODO: needs fixing
   const { username, caption, imageUrl, displayName, avatar } = postData;
-
   const [Open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(false);
   const [openEditCaption, setOpenEditCaption] = useState(false);
@@ -119,7 +120,38 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
   };
 
   async function deletePost() {
-    await db.collection("posts").doc(postId).delete();
+    try {
+      await db
+        .runTransaction(async (transaction) => {
+          //Delete doc ref from user doc
+          const docRef = db.collection("users").doc(user?.uid);
+          transaction.update(docRef, {
+            posts: firebase.firestore.FieldValue.arrayRemove(postId),
+          });
+
+          // Delete the post document
+          const postRef = db.collection("posts").doc(postId);
+          transaction.delete(postRef);
+        })
+        .then(async () => {
+          if (imageUrl !== "") {
+            const url = JSON.parse(imageUrl);
+            const deleteImagePromises = url.map(({ imageUrl }) => {
+              const imageRef = storage.refFromURL(imageUrl);
+              return imageRef.delete();
+            });
+            await Promise.all(deleteImagePromises);
+          }
+        })
+        .then(() => {
+          playSuccessSound();
+          enqueueSnackbar("Post deleted successfully!", { variant: "success" });
+          setOpen(false);
+        });
+    } catch (error) {
+      playErrorSound();
+      enqueueSnackbar(`Error deleting post: ${error}`, { variant: "error" });
+    }
   }
 
   function showProfileDialogBox() {
