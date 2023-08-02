@@ -83,40 +83,43 @@ const StoryView = ({ username, setViewStory, setUserData }) => {
 
   return (
     <div className="story_main_container">
-      <CloseIcon
-        className="story_icons story_close_icon"
-        onClick={() => setViewStory(false)}
-      />
-      {storyData ? (
-        <>
-          <DeleteIcon
-            className="story_icons story_delete_icon"
-            onClick={() => {
-              deleteStory();
-              setViewStory(false);
-            }}
-          />
-          <div className="story_container">
-            {imageUrl == "" ? (
-              <div className="story_without_image">
-                <img src={storyBg} alt={username} className="story_bg" />
-                <p className="caption_without_image">{caption}</p>
-              </div>
-            ) : (
-              <div className="story_container">
-                <img
-                  src={storyImage && storyImage[0]?.imageUrl}
-                  alt={username}
-                  className="story_image"
-                />
-                <p className="caption_with_image">{caption}</p>
-              </div>
-            )}
-          </div>
-        </>
-      ) : (
-        <p style={{ color: "white" }}>Sorry😓 No story!</p>
-      )}
+      <div style={{display: "flex", position:"relative" }}>
+        <CloseIcon style={{ }}
+          className="story_icons story_close_icon"
+          onClick={() => setViewStory(false)}
+        />
+        {storyData ? (
+          <>
+            <DeleteIcon style={{}}
+              className="story_icons story_delete_icon"
+              onClick={() => {
+                deleteStory();
+                setViewStory(false);
+              }}
+            />
+            <div className="story_container">
+              {imageUrl == "" ? (
+                <div className="story_without_image">
+                  <img src={storyBg} alt={username} className="story_bg" />
+                  <p className="caption_without_image">{caption}</p>
+                </div>
+              ) : (
+                <div className="story_container">
+                  <img
+                    src={storyImage && storyImage[0]?.imageUrl}
+                    alt={username}
+                    className="story_image"
+                  />
+                  <p className="caption_with_image">{caption}</p>
+                </div>
+              )}
+            </div>
+          </>
+        ) : (
+          <p style={{ color: "white" }}>Sorry😓 No story!</p>
+        )}
+
+      </div>
     </div>
   );
 };
