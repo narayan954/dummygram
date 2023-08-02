@@ -238,8 +238,6 @@ function Profile() {
             recipient: targetUserUid,
             sender: currentUserUid,
             message: "You have received a friend request",
-            senderName: name,
-            username: username,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
           };
           db.collection("users")
