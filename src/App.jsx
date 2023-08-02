@@ -264,7 +264,7 @@ function App() {
                         )}
                       </div>
                     </div>
-                    {window.width > 1300 && <Suggestion />}
+                    {windowWidth.width > 1300 && <Suggestion />}
                   </div>
                 ) : (
                   <></>
