@@ -26,6 +26,7 @@ import NotFound from "../NotFound";
 import ProfieFeed from "./feed";
 import { StoryView } from "../../components";
 import ViewsCounter from "../../reusableComponents/views";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import firebase from "firebase/compat/app";
 import profileBackgroundImg from "../../assets/profile-background.jpg";
 import { useSnackbar } from "notistack";
@@ -505,26 +506,35 @@ function Profile() {
                 marginTop="10px"
                 className="profile-right"
               >
-                <Typography className="profile-user-display-name">
+                <Typography className="profile-user-display-name padding-bottom">
                   {name}
                 </Typography>
-                <p className="profile-bio">{bio}</p>
-                <div className="username-and-location-container">
-                  <Typography className="profile-user-username">
-                    {username}
+                <p className="profile-bio text-dim padding-bottom">{bio}</p>
+                <div className="username-and-location-container padding-bottom">
+                  <Typography
+                    style={{ letterSpacing: "1px" }}
+                    className="profile-user-username text-dim"
+                  >
+                    @{username}
                   </Typography>
-                  <span className="dot-seperator"></span>
-                  <Typography className="profile-user-username">
+                  <span className="dot-seperator text-dim"></span>
+                  <Typography className="profile-user-username text-dim flexx">
                     <LocationOnIcon className="location-icon" /> {country}
                   </Typography>
                 </div>
                 <div style={{ display: "flex", gap: "30px" }}>
-                  <Typography className="posts-views">
-                    All Posts:&nbsp;
+                  <Typography className="posts-views text-dim">
+                    All Posts&nbsp;
                     <span>{feed.length}</span>
                   </Typography>
-                  <Typography className="posts-views">
-                    Views:&nbsp;
+                  <Typography className="posts-views text-dim flexx">
+                    <VisibilityIcon
+                      style={{
+                        marginRight: "5px",
+                        marginBottom: "2px",
+                        color: "var(--profile-color)",
+                      }}
+                    />
                     <span>
                       <ViewsCounter uid={uid} />
                     </span>
