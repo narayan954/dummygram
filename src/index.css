@@ -99,7 +99,7 @@ input:focus {
 
 /* Post style */
 .app__posts {
-  padding: 5.5em 20px 20px 17vw;
+  padding: 5.5em 17vw 20px 17vw;
 }
 
 .app_posts_column {
@@ -107,6 +107,7 @@ input:focus {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 5.5em 17vw 20px 17vw;
 }
 
 .rowConvert,
@@ -126,7 +127,7 @@ input:focus {
   transform: scale(1.04);
 }
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1300px) {
   .app__posts,
   .home-posts-container .app_posts_column,
   .home-posts-container .app_posts {
@@ -324,7 +325,7 @@ input:focus {
     left: -1.2%;
   }
   .home-posts-container .app_posts_column {
-    padding: 5.5em 20px 20px 17vw;
+    padding: 5.5em 17vw 20px 17vw;
   }
 }
 

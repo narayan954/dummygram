@@ -47,7 +47,9 @@
     margin-left: 9vw;
   }
 
-  .story-caption {font-size: 14px;}
+  .story-caption {
+    font-size: 14px;
+  }
 }
 
 @media screen and (min-width: 600px) {
@@ -71,7 +73,9 @@
     margin-bottom: 60px;
   }
 
-  .story-caption {font-size: 12px;}
+  .story-caption {
+    font-size: 12px;
+  }
 
   .caption_without_image {
     font-size: 16px;
