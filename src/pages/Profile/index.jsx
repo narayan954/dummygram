@@ -26,10 +26,10 @@ import NotFound from "../NotFound";
 import ProfieFeed from "./feed";
 import { StoryView } from "../../components";
 import ViewsCounter from "../../reusableComponents/views";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import firebase from "firebase/compat/app";
 import profileBackgroundImg from "../../assets/profile-background.jpg";
 import { useSnackbar } from "notistack";
-import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const SideBar = lazy(() => import("../../components/SideBar"));
 
@@ -511,7 +511,10 @@ function Profile() {
                 </Typography>
                 <p className="profile-bio text-dim padding-bottom">{bio}</p>
                 <div className="username-and-location-container padding-bottom">
-                  <Typography style={{letterSpacing:"1px"}} className="profile-user-username text-dim">
+                  <Typography
+                    style={{ letterSpacing: "1px" }}
+                    className="profile-user-username text-dim"
+                  >
                     @h{username}
                   </Typography>
                   <span className="dot-seperator text-dim"></span>
@@ -525,7 +528,13 @@ function Profile() {
                     <span>{feed.length}</span>
                   </Typography>
                   <Typography className="posts-views text-dim flexx">
-                    <VisibilityIcon style={{marginRight:"5px", marginBottom:"2px", color:"var(--profile-color)"}} />
+                    <VisibilityIcon
+                      style={{
+                        marginRight: "5px",
+                        marginBottom: "2px",
+                        color: "var(--profile-color)",
+                      }}
+                    />
                     <span>
                       <ViewsCounter uid={uid} />
                     </span>
