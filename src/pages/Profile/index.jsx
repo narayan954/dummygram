@@ -13,6 +13,7 @@ import {
 import { lazy, useEffect, useState } from "react";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useNavigate, useParams } from "react-router-dom";
+import deleteImg from "../../js/deleteImg";
 
 import Cam from "@mui/icons-material/CameraAltOutlined";
 import EditIcon from "@mui/icons-material/Edit";
@@ -80,7 +81,8 @@ function Profile() {
 
   const handleBgImageSave = () => {
     try {
-      if (backgroundImage) {
+      const imgdeleted = deleteImg(bgImageUrl)
+      if (backgroundImage && imgdeleted) {
         const uploadTask = storage
           .ref(`background-images/${backgroundImage.name}`)
           .put(backgroundImage);

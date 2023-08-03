@@ -7,6 +7,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { ClickAwayListener } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import deleteImg from "../../js/deleteImg";
 
 const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
   const [editedData, setEditedData] = useState({
@@ -17,6 +18,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
     avatar: userData.avatar,
     uid: userData.uid,
   });
+
   const [image, setImage] = useState(null);
   const [usernameAvailable, setUsernameAvailable] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
@@ -78,7 +80,8 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
     if (!usernameAvailable) {
       return;
     }
-    if (image) {
+    const isImgDeleted = deleteImg(userData.avatar)
+    if (image && isImgDeleted) {
       const uploadTask = storage.ref(`images/${image?.name}`).put(image);
       uploadTask.on(
         "state_changed",
