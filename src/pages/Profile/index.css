@@ -197,6 +197,7 @@
   padding: 8px 25px;
   border-radius: 25px;
   color: var(--bg-color);
+  font-weight: 600;
 }
 .bg-save-btn button:hover {
   border: 3px solid var(--btn-hover);
