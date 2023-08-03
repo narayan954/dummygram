@@ -51,7 +51,7 @@ const PostCommentView = ({
   const navigate = useNavigate();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
-  const { username, caption, imageUrl, avatar, likecount, timestamp, email } =
+  const { username, caption, imageUrl, avatar, likecount, timestamp, uid } =
     post;
   const time = useCreatedAt(timestamp);
 
@@ -267,6 +267,8 @@ const PostCommentView = ({
           <ErrorBoundary>
             <PostDetails
               user={user}
+              postUserUid={uid}
+              imageUrl={imageUrl}
               postId={postId}
               likecount={likecount}
               likesHandler={likesHandler}

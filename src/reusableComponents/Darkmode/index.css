@@ -1,10 +1,3 @@
-.darkmode-btn {
-  position: fixed;
-  right: 20px;
-  bottom: 30px;
-  z-index: 1000;
-}
-
 .themeButton-login {
   position: fixed;
   right: 20px;
@@ -24,49 +17,13 @@
   margin-right: 20px;
 }
 
-.themeButton:hover {
-  background-color: var(--theme-hover);
-}
-
-.themeButton span {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.darkmode-btn button {
-  border-radius: 50%;
-  width: 40px;
-  aspect-ratio: 1;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--color);
-}
-
-.darkmode-btn button span {
-  position: relative;
-  border-radius: 50%;
-  width: 20px;
-  aspect-ratio: 1;
-  background-color: gray;
-  border: 1px solid black;
-}
-
-.darkmode-btn button span span {
-  position: absolute;
-  width: 10px;
-  height: 20px;
-  border-radius: 0 12rem 12rem 0;
-  background-color: rgb(244, 210, 41);
-  z-index: 333;
+.theme-toggle-btn {
   border: none;
+  width: fit-content;
+  padding: 0;
+  background: none;
 }
 
-@media screen and (max-width: 768px) {
-  .darkmode-btn {
-    margin-bottom: 2em;
-    right: 1em;
-  }
+.toggle-btn-mui > span > span > input {
+  cursor: pointer;
 }

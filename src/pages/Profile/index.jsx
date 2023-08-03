@@ -26,6 +26,7 @@ import NotFound from "../NotFound";
 import ProfieFeed from "./feed";
 import { StoryView } from "../../components";
 import ViewsCounter from "../../reusableComponents/views";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import firebase from "firebase/compat/app";
 import profileBackgroundImg from "../../assets/profile-background.jpg";
 import { useSnackbar } from "notistack";
