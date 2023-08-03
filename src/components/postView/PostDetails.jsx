@@ -15,8 +15,8 @@ import {
 } from "@mui/icons-material";
 
 import DeleteIcon from "@mui/icons-material/Delete";
-import Flexbetween from "../../reusableComponents/Flexbetween.jsx";
-import deletePost from "../../js/DeletePost.js";
+import Flexbetween from "../../reusableComponents/Flexbetween";
+import deletePost from "../../js/deletePost.js";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
