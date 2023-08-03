@@ -13,14 +13,14 @@ import {
   MenuItem,
 } from "@mui/material";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { db } from "../../lib/firebase";
 import { doc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import deletePost from "../../js/DeletePost";
 
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import ProfileDialogBox from "../ProfileDialogBox";
 import TextField from "@mui/material/TextField";
+import { db } from "../../lib/firebase";
+import deletePost from "../../js/DeletePost";
 import { saveAs } from "file-saver";
 import useCreatedAt from "../../hooks/useCreatedAt";
 import { useSnackbar } from "notistack";
@@ -243,7 +243,17 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={() => deletePost(user?.uid, postId, imageUrl, enqueueSnackbar, setOpen)}>
+            <Button
+              onClick={() =>
+                deletePost(
+                  user?.uid,
+                  postId,
+                  imageUrl,
+                  enqueueSnackbar,
+                  setOpen,
+                )
+              }
+            >
               Delete
             </Button>
           </DialogActions>

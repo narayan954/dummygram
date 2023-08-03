@@ -1,9 +1,4 @@
 import {
-  FavoriteBorderOutlined,
-  FavoriteOutlined,
-  ShareOutlined,
-} from "@mui/icons-material";
-import {
   Button,
   Dialog,
   DialogActions,
@@ -11,14 +6,20 @@ import {
   DialogContentText,
   DialogTitle,
   IconButton,
-  Typography
+  Typography,
 } from "@mui/material";
-import { useState } from "react";
-import DeleteIcon from '@mui/icons-material/Delete';
-import deletePost from "../../js/DeletePost.js";
+import {
+  FavoriteBorderOutlined,
+  FavoriteOutlined,
+  ShareOutlined,
+} from "@mui/icons-material";
+
+import DeleteIcon from "@mui/icons-material/Delete";
 import Flexbetween from "../../reusableComponents/Flexbetween.jsx";
-import { useSnackbar } from "notistack";
+import deletePost from "../../js/DeletePost.js";
 import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "notistack";
+import { useState } from "react";
 
 const PostDetails = ({
   user,
@@ -74,7 +75,7 @@ const PostDetails = ({
         {currentUserUid === postUserUid && (
           <Flexbetween
             sx={{ cursor: "pointer" }}
-            onClick={() => setOpen(prev => !prev)}
+            onClick={() => setOpen((prev) => !prev)}
           >
             <IconButton>
               <DeleteIcon />
@@ -83,15 +84,12 @@ const PostDetails = ({
           </Flexbetween>
         )}
       </Flexbetween>
-
       <Dialog
         open={open}
         onClose={() => setOpen(false)}
         aria-labelledby="responsive-dialog-title"
       >
-        <DialogTitle id="responsive-dialog-title">
-          {"Delete Post?"}
-        </DialogTitle>
+        <DialogTitle id="responsive-dialog-title">{"Delete Post?"}</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Are you sure you want to delete this post?
@@ -99,10 +97,18 @@ const PostDetails = ({
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpen(false)}>Cancel</Button>
-          <Button onClick={async () => {
-            await deletePost(postUserUid, postId, imageUrl, enqueueSnackbar, setOpen);
-            navigate("/dummygram/")
-          }}>
+          <Button
+            onClick={async () => {
+              await deletePost(
+                postUserUid,
+                postId,
+                imageUrl,
+                enqueueSnackbar,
+                setOpen,
+              );
+              navigate("/dummygram/");
+            }}
+          >
             Delete
           </Button>
         </DialogActions>

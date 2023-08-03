@@ -1,8 +1,15 @@
 import { db, storage } from "../lib/firebase";
-import { playSuccessSound, playErrorSound } from "./sounds"
+import { playErrorSound, playSuccessSound } from "./sounds";
+
 import firebase from "firebase/compat/app";
 
-export default async function deletePost(uid, postId, imageUrl, enqueueSnackbar, setOpen) {
+export default async function deletePost(
+  uid,
+  postId,
+  imageUrl,
+  enqueueSnackbar,
+  setOpen,
+) {
   try {
     await db
       .runTransaction(async (transaction) => {
@@ -29,10 +36,10 @@ export default async function deletePost(uid, postId, imageUrl, enqueueSnackbar,
       .then(() => {
         playSuccessSound();
         enqueueSnackbar("Post deleted successfully!", { variant: "success" });
-        setOpen(false)
+        setOpen(false);
       });
   } catch (error) {
     playErrorSound();
     enqueueSnackbar(`Error deleting post: ${error}`, { variant: "error" });
-  } 
+  }
 }
