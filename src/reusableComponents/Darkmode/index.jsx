@@ -1,12 +1,15 @@
 import "./index.css";
 
 import React, { useState } from "react";
-import { playLightOnSound, playLightOffSound } from "../../js/sounds";
+import { playLightOffSound, playLightOnSound } from "../../js/sounds";
+
 import CustomizedSwitch from "./ToggleSwitch";
 
 const Darkmode = () => {
   let darkMode = localStorage.getItem("darkMode");
-  const [modeStatus, setModeStatus] = useState(darkMode=="enabled"? false : true);
+  const [modeStatus, setModeStatus] = useState(
+    darkMode == "enabled" ? false : true,
+  );
 
   function enableDarkMode() {
     //add the class darkmode to the body
@@ -42,11 +45,10 @@ const Darkmode = () => {
     }
   };
 
-
   return (
     <div>
       <button onClick={darkModeToggle} className="theme-toggle-btn">
-        <CustomizedSwitch modeStatus={modeStatus}/>
+        <CustomizedSwitch modeStatus={modeStatus} />
       </button>
     </div>
   );
