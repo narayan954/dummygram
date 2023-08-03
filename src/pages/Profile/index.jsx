@@ -420,9 +420,8 @@ function Profile() {
               </Box>
               <p className="bio space-btw text-dim">{bio}</p>
               <div className="username-and-location-container space-btw">
-                <p className="username text-dim">{username}</p>
-                <span className="dot-seperator text-dim"></span>
-                <Typography className="profile-user-username flex">
+                <p className="username text-dim">{username}</p>&nbsp;&nbsp;
+                <Typography className="profile-user-username flexx">
                   <LocationOnIcon className="location-icon" />
                 </Typography>
                 <p className="username text-dim">{country}</p>

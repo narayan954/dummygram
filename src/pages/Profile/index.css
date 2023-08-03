@@ -4,7 +4,7 @@
 .text-dim {
   color: var(--text-dim);
 }
-.flex {
+.flexx {
   display: flex;
   align-items: center;
 }
@@ -41,7 +41,7 @@
 }
 .edit-details{
   position: absolute;
-  left: 90%;
+  left: 80%;
   padding-top: 10px;
 }
 
@@ -126,17 +126,11 @@
   align-items: center;
 }
 
-.dot-seperator {
-  width: 5px;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background-color: var(--profile-color);
-}
-
 .location-icon {
   font-size: 18px;
   display: flex;
   align-items: center;
+  color: var(--profile-color);
 }
 
 .posts-views {
