@@ -19,7 +19,6 @@
 .user-details-section {
   display: flex;
   z-index: 99;
-  padding: 0 19vw;
   padding-bottom: 2rem !important;
   margin: auto;
   height: auto;
@@ -84,15 +83,13 @@
   padding: 10px;
   background: var(--sidebar-link-hover);
   font-size: 32px !important;
-  color: var(--text-secondary);
-  /* color: var(--link-color); */
+  color: var(--btn-hover);
 }
 
 .edit-image-icon:hover {
-  background-color: var(--link-color);
+  background-color: var(--btn-hover);
   transition: all 0.3s ease-in;
-  /* color: var(--text-secondary); */
-  /* color: #fff; */
+  color: var(--text-secondary);
 }
 
 .edit-btn {
@@ -292,7 +289,7 @@
     margin-top: 0;
   }
   .user-details-section {
-    padding: 0 2rem 2rem 2rem !important;
+    padding: 0 2.5rem 2rem 2.5rem !important;
   }
 }
 
