@@ -1,14 +1,15 @@
 import "./index.css";
 
 import React, { useState } from "react";
-import { playLightOnSound, playLightOffSound } from "../../js/sounds";
+import { playLightOffSound, playLightOnSound } from "../../js/sounds";
 
-import { DarkMode } from "@mui/icons-material";
-import { LightMode } from "@mui/icons-material";
+import CustomizedSwitch from "./ToggleSwitch";
 
-const Darkmode = ({ themeClass }) => {
-  const [modeStatus, setModeStatus] = useState(false);
+const Darkmode = () => {
   let darkMode = localStorage.getItem("darkMode");
+  const [modeStatus, setModeStatus] = useState(
+    darkMode == "enabled" ? false : true,
+  );
 
   function enableDarkMode() {
     //add the class darkmode to the body
@@ -44,21 +45,10 @@ const Darkmode = ({ themeClass }) => {
     }
   };
 
-  const styles = {
-    activity: { height: 30, width: 40, color: "#0516cbb0" },
-    disable: { height: 30, width: 40, color: "#d8860b" },
-  };
-
   return (
     <div>
-      <button onClick={darkModeToggle} className={themeClass}>
-        <span>
-          {modeStatus == false ? (
-            <LightMode style={styles.disable} />
-          ) : (
-            <DarkMode style={styles.activity} />
-          )}
-        </span>
+      <button onClick={darkModeToggle} className="theme-toggle-btn">
+        <CustomizedSwitch modeStatus={modeStatus} />
       </button>
     </div>
   );
