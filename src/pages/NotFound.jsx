@@ -17,8 +17,10 @@ export default function Error() {
       <Container maxWidth="md">
         <Grid container spacing={2}>
           <Grid xs={6}>
-            <Typography variant="h1" style={{color: "var(--text-secondary)"}}>404</Typography>
-            <Typography variant="h6" style={{color: "var(--text-secondary)"}}>
+            <Typography variant="h1" style={{ color: "var(--text-secondary)" }}>
+              404
+            </Typography>
+            <Typography variant="h6" style={{ color: "var(--text-secondary)" }}>
               The page you're looking for doesn't exist.
             </Typography>
             <Link to="/dummygram/">
@@ -34,7 +36,7 @@ export default function Error() {
                     backgroundColor: "#2d5dc9",
                     color: "black",
                   },
-                }} 
+                }}
                 // style={{ backgroundColor: "var(--btn-hover)"}}
               >
                 Back Home
@@ -47,7 +49,7 @@ export default function Error() {
               alt="error image"
               width={500}
               height={250}
-              style={{borderRadius:"12px"}}
+              style={{ borderRadius: "12px" }}
             />
           </Grid>
         </Grid>
