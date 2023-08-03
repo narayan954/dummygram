@@ -515,7 +515,7 @@ function Profile() {
                     style={{ letterSpacing: "1px" }}
                     className="profile-user-username text-dim"
                   >
-                    @h{username}
+                    @{username}
                   </Typography>
                   <span className="dot-seperator text-dim"></span>
                   <Typography className="profile-user-username text-dim flexx">
