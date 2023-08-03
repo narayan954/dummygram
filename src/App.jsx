@@ -2,7 +2,7 @@ import "./index.css";
 
 import { Darkmode, ShareModal } from "./reusableComponents";
 import { ErrorBoundary, PostSkeleton } from "./reusableComponents";
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
@@ -10,6 +10,7 @@ import { ChatPage } from "./pages";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { GuestSignUpBtn } from "./components";
 import { RowModeContext } from "./hooks/useRowMode";
+import { Suggestion } from "./components";
 import { makeStyles } from "@mui/styles";
 
 // ------------------------------------ Pages ----------------------------------------------------
@@ -79,6 +80,7 @@ function App() {
   const [rowMode, setRowMode] = useState(false);
   const [showScroll, setShowScroll] = useState(false);
   const [anonymous, setAnonymous] = useState(false);
+  const [windowWidth, setWindowWidth] = useState("700");
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -165,6 +167,20 @@ function App() {
     setLoadMorePosts(false);
   }, [loadMorePosts]);
 
+  function getWindowDimensions() {
+    const { innerWidth: width } = window;
+    return { width };
+  }
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowWidth(getWindowDimensions());
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <RowModeContext.Provider value={rowMode}>
       <ErrorBoundary inApp={true}>
@@ -229,23 +245,29 @@ function App() {
                         ) : (
                           <>
                             <ErrorBoundary inApp>
-                              {posts.map(({ id, post }) => (
-                                <Post
-                                  rowMode={rowMode}
-                                  key={id}
-                                  postId={id}
-                                  user={user}
-                                  post={post}
-                                  shareModal={setOpenShareModal}
-                                  setLink={setCurrentPostLink}
-                                  setPostText={setPostText}
-                                />
+                              {posts.map(({ id, post }, index) => (
+                                <Fragment key={id}>
+                                  <Post
+                                    rowMode={rowMode}
+                                    key={id}
+                                    postId={id}
+                                    user={user}
+                                    post={post}
+                                    shareModal={setOpenShareModal}
+                                    setLink={setCurrentPostLink}
+                                    setPostText={setPostText}
+                                  />
+                                  {index === 1 && windowWidth.width < 1300 && (
+                                    <Suggestion currentUserUid={user.uid} />
+                                  )}
+                                </Fragment>
                               ))}
                             </ErrorBoundary>
                           </>
                         )}
                       </div>
                     </div>
+                    {windowWidth.width > 1300 && <Suggestion />}
                   </div>
                 ) : (
                   <></>
