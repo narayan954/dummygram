@@ -32,16 +32,12 @@
   cursor: pointer;
   transition: 0.2s ease-in-out;
   border: 1px solid #eee;
-  box-shadow:
-    1px 1px 3px #bcbbbb,
-    -1px -1px 3px #bcbbbb;
+  box-shadow: 1px 1px 3px #bcbbbb, -1px -1px 3px #bcbbbb;
 }
 
 .dialog-box-img:hover {
   transform: scale(1.1);
-  box-shadow:
-    2px 2px 5px #faf7f7,
-    -2px -2px 5px #faf7f7;
+  box-shadow: 2px 2px 5px #faf7f7, -2px -2px 5px #faf7f7;
 }
 
 .dialog-box-display-name {
@@ -62,6 +58,7 @@
 .dialog-box-username {
   font-weight: 500;
   color: var(--profile-color);
+  max-width: 210px;
 }
 
 .dialog-box-bio {
@@ -78,4 +75,32 @@
 
 .dialog-box-follow-container > p > span {
   font-weight: 600;
+}
+
+@media only screen and (max-width: 460px) {
+  .dialog-box-img {
+    width: 45px;
+    height: 45px;
+  }
+  .dialog-box-display-name {
+    font-size: 14px;
+  }
+
+  .dialog-box-bio {
+    font-size: 10px;
+  }
+
+  .profile-dialog-box-container {
+    padding: 10px;
+    width: 75%;
+  }
+
+  .dialog-box-name-container span.dialog-box-username {
+    padding-top: 4px;
+    font-size: 12px;
+  }
+
+  .dialog-box-username {
+    max-width: 150px;
+  }
 }
