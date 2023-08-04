@@ -46,6 +46,7 @@ function Profile() {
   const [editing, setEditing] = useState(false);
   const [bgimgurl, setBgimgurl] = useState(null);
   const [backgroundImage, setBackgroundImage] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null);
 
   let name = "";
   let avatar = "";
@@ -64,6 +65,13 @@ function Profile() {
     country = userData.country;
     storyTimestamp = userData.storyTimestamp;
   }
+
+  const handleCancel = () => {
+    // Reset the state to the previous background image
+    setBackgroundImage(null);
+    setEditing(false);
+  };
+  
 
   // Inside the Profile component
   const handleBackgroundImgChange = (e) => {
@@ -342,7 +350,8 @@ function Profile() {
               style={{ position: "relative" }}
             >
               <img
-                src={bgImageUrl || profileBackgroundImg}
+                // src={bgImageUrl || profileBackgroundImg}
+                src={backgroundImage ? URL.createObjectURL(backgroundImage) : bgImageUrl || profileBackgroundImg}
                 alt=""
                 className="background-image"
               />
@@ -367,6 +376,9 @@ function Profile() {
                     >
                       <Button variant="outlined" onClick={handleBgImageSave}>
                         Save
+                      </Button>
+                      <Button variant="outlined" onClick={handleCancel}>
+                        Cancel
                       </Button>
                     </div>
                   )}
