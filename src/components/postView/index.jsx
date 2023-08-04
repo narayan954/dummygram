@@ -88,15 +88,17 @@ const PostCommentView = ({
   }
 
   const postComment = (event) => {
-    event.preventDefault();
-    const commentValue = commentRef?.current?.value;
-    if (commentValue && commentRef?.current?.value?.trim().length >= 1) {
-      db.collection("posts").doc(postId).collection("comments").add({
-        text: commentValue,
-        username: user.displayName,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      });
-      commentRef.current.value = "";
+    if (event.key === "Enter" || event.type == "click") {
+      event.preventDefault();
+      const commentValue = commentRef?.current?.value;
+      if (commentValue && commentRef?.current?.value?.trim().length >= 1) {
+        db.collection("posts").doc(postId).collection("comments").add({
+          text: commentValue,
+          username: user.displayName,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        });
+        commentRef.current.value = "";
+      }
     }
   };
 
@@ -313,6 +315,7 @@ const PostCommentView = ({
             </ClickAwayListener>
             <input
               className="post__input"
+              onKeyDown={postComment}
               type="text"
               placeholder={
                 comments?.length !== 0
@@ -327,6 +330,7 @@ const PostCommentView = ({
                 margin: "4px 0px",
               }}
             />
+
             <IconButton
               className="post__button"
               disabled={commentRef?.current?.value === null}
