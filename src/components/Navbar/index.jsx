@@ -3,13 +3,13 @@ import "./index.css";
 import React, { useEffect, useState } from "react";
 
 import { AiOutlineInsertRowAbove } from "react-icons/ai";
-import appLogo from "../../assets/app-logo.webp"
-import { ClickAwayListener } from "@mui/material";
 import ChatIcon from "@mui/icons-material/Chat";
+import { ClickAwayListener } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Darkmode } from "../../reusableComponents";
 import { Logo } from "../../reusableComponents";
 import SearchIcon from "@mui/icons-material/Search";
+import appLogo from "../../assets/app-logo.webp";
 import { auth } from "../../lib/firebase";
 import blankImg from "../../assets/blank-profile.webp";
 import { db } from "../../lib/firebase";
@@ -21,7 +21,7 @@ function Navbar({ onClick, user, setUser }) {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [expandSearchBar, setExpandSearchBar] = useState(false)
+  const [expandSearchBar, setExpandSearchBar] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [windowWidth, setWindowWidth] = useState(700);
   const [debouncedQuery, setDebouncedQuery] = useState("");
@@ -112,7 +112,9 @@ function Navbar({ onClick, user, setUser }) {
         <div className="navSpace">
           <div className="search_bar_main_container">
             <div
-              className={`hidden_search_bar_container ${expandSearchBar ? "show_search_bar" : "hide_search_bar"}`}
+              className={`hidden_search_bar_container ${
+                expandSearchBar ? "show_search_bar" : "hide_search_bar"
+              }`}
             >
               <ClickAwayListener onClickAway={() => setExpandSearchBar(false)}>
                 <div className="searchbar" onClick={handleSearchModal}>
@@ -139,7 +141,7 @@ function Navbar({ onClick, user, setUser }) {
                 </div>
               </ClickAwayListener>
             </div>
-            {(expandSearchBar && searchResults.length > 0) && (
+            {expandSearchBar && searchResults.length > 0 && (
               <div className="searched_user_container">
                 <ul className="searched_user_sub_container">
                   {searchResults.map(({ id, user }) => {
@@ -163,9 +165,7 @@ function Navbar({ onClick, user, setUser }) {
                             alignItems: "flex-start",
                           }}
                         >
-                          <h5 className="searched_user_name">
-                            {user.name}
-                          </h5>
+                          <h5 className="searched_user_name">{user.name}</h5>
                           <p className="searched_user_username">
                             @{user.username}
                           </p>
