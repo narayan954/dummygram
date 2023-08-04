@@ -154,7 +154,6 @@ function SideBar({ anonymous }) {
             </div>
           </li>
         </ul>
-        {/* <hr /> */}
         <ErrorBoundary>
           <Footer />
         </ErrorBoundary>
@@ -216,7 +215,7 @@ function SideBar({ anonymous }) {
                   <img
                     src={user.photoURL}
                     alt="profile picture"
-                    className="dropdown-list-profile-picture"
+                    className="dropdown-list-profile-picture icon"
                   />
                 ) : (
                   <AccountCircleIcon className="icon" />
@@ -228,10 +227,10 @@ function SideBar({ anonymous }) {
                   navigate(`/dummygram/${anonymous ? "signup" : "settings"}`)
                 }
               >
-                <SettingsIcon /> Settings
+                <SettingsIcon className="icon" /> Settings
               </li>
               <li onClick={() => setLogout(true)}>
-                <LogoutIcon /> Logout
+                <LogoutIcon className="icon" /> Logout
               </li>
             </ul>
           </div>

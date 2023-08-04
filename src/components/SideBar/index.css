@@ -117,7 +117,8 @@
   background: var(--btn-color-hover);
 }
 .dropdown-list-profile-picture {
-  width: 25px;
+  width: 30px;
+  aspect-ratio: 1;
   border-radius: 50%;
   border: 1px solid #eee;
   margin-left: -3px;
