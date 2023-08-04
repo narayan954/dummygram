@@ -15,6 +15,7 @@ function Contributor() {
   const [searchResult, setSearchResult] = useState("");
 
   const navigate = useNavigate();
+ 
 
   const getData = async () => {
     const res = await fetch(
@@ -85,7 +86,7 @@ function Contributor() {
             display: "flex",
             flexWrap: "wrap",
             rowGap: "2rem",
-            justifyContent: "space-around",
+            // justifyContent: "space-between",
           }}
         >
           {contributors.map((contributor) => (
