@@ -35,12 +35,24 @@
   height: 160px;
   width: 160px;
   display: flex;
+  cursor: pointer;
 }
 
 .edit-profile-image img {
   height: 100%;
   width: 100%;
   object-fit: cover;
+}
+
+.edit-profile-image-icon {
+  position: absolute;
+  left: 98%;
+  transform: translate(-98%);
+  color: rgba(8, 17, 123, 0.69);
+  background-color: rgb(255,255,255,0.7);
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
 }
 
 .cancel-editing-icon {

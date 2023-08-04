@@ -4,6 +4,7 @@ import { auth, db, storage } from "../../lib/firebase";
 import { useRef, useState } from "react";
 
 import CancelIcon from "@mui/icons-material/Cancel";
+import EditIcon from '@mui/icons-material/Edit';
 import BackIcon from "@mui/icons-material/ArrowBackIosNew";
 import { ClickAwayListener } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -214,6 +215,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
               onChange={handleImgChange}
               accept="image/*"
             />
+              <EditIcon  className="edit-profile-image-icon" />
             <label htmlFor="file">
               <img src={avatar} alt={name} className="edit-profile-img" />
             </label>
