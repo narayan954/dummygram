@@ -22,10 +22,6 @@ const ImageSlider = ({ slides, doubleClickHandler }) => {
     setTimeout(nextStep, 1000);
   }, [slides]);
 
-  // useEffect(() => {
-  //   setTimeout(() => setCurrent(current + 1), 1000);
-  // }, [slides]);
-
   return slides.length ? (
     <div className="slider" onDoubleClick={doubleClickHandler}>
       {slides.map(({ imageUrl, thumbnail }, index) => (
@@ -38,17 +34,12 @@ const ImageSlider = ({ slides, doubleClickHandler }) => {
           key={index}
         >
           <LazyLoadImage
-            className="image"
+            className="image post__image"
             src={imageUrl}
             placeholderSrc={thumbnail}
             effect="blur"
             alt={" upload"}
             delayTime={1000}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "contain",
-            }}
           />
           {slides.length > 1 ? (
             <div className={"slider-action"}>
@@ -56,13 +47,11 @@ const ImageSlider = ({ slides, doubleClickHandler }) => {
                 className="circle"
                 onClick={prevStep}
                 title={"View Previous Image"}
-                // style={isCommentBox ? {width: "60%"} : {width: "60%"}}
               />
               <FaChevronCircleRight
                 className="chevron"
                 onClick={nextStep}
                 title={"View Next Image"}
-                // style={isCommentBox ? {width: "60%"} : {width: "60%"}}
               />
             </div>
           ) : (
@@ -75,5 +64,3 @@ const ImageSlider = ({ slides, doubleClickHandler }) => {
 };
 
 export default ImageSlider;
-
-// className={index === current ? "slide active" : "slide"}
