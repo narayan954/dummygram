@@ -11,7 +11,6 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineClose } from "react-icons/ai";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import { ClickAwayListener } from "@mui/material";
 import { Dialog } from "@mui/material";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
@@ -98,21 +97,6 @@ function SideBar({ anonymous }) {
           >
             <div className="sidebar_align">
               <AddCircleOutlineIcon className="icon" /> <span>Create</span>
-            </div>
-          </li>
-          <li
-            onClick={() =>
-              navigate(`/dummygram/${anonymous ? "signup" : "favourites"}`)
-            }
-            className={
-              location.pathname.includes("/dummygram/favourites")
-                ? "activeTab"
-                : ""
-            }
-          >
-            <div className="sidebar_align">
-              <BookmarksIcon className="icon" />
-              <span>Saved</span>
             </div>
           </li>
           <li
