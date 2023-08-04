@@ -26,14 +26,14 @@ import { useSnackbar } from "notistack";
 const Footer = React.lazy(() => import("./Footer"));
 
 function SideBar({ anonymous }) {
-  const [logout, setLogout] = useState(false);
-  const [openMenu, setOpenMenu] = useState(false);
   const classes = useStyles();
   const navigate = useNavigate();
   const user = auth.currentUser;
   const location = useLocation();
   const { enqueueSnackbar } = useSnackbar();
 
+  const [logout, setLogout] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
   const [openNewUpload, setOpenNewUpload] = useState(false);
   const [userData, setUserData] = useState({
     name: "",
