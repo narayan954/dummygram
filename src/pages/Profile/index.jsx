@@ -10,7 +10,7 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { lazy, useEffect, useState, useRef } from "react";
+import { lazy, useEffect, useRef, useState } from "react";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -82,7 +82,7 @@ function Profile() {
           .put(backgroundImage);
         uploadTask.on(
           "state_changed",
-          () => { },
+          () => {},
           (error) => {
             enqueueSnackbar(error.message, {
               variant: "error",
@@ -122,14 +122,14 @@ function Profile() {
   useEffect(() => {
     const bg = bgRef.current;
     function handleScroll() {
-      bg.style.height = 160 - +window.pageYOffset/16 + "%";
-      bg.style.width = 160 - +window.pageYOffset/16 + "%";
-      bg.style.opacity = 1 - +window.pageYOffset/500 + "";
+      bg.style.height = 160 - +window.scrollY / 16 + "%";
+      bg.style.width = 160 - +window.scrollY / 16 + "%";
+      bg.style.opacity = 1 - +window.scrollY / 500 + "";
     }
-    window.addEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", handleScroll);
 
-    return (() => window.removeEventListener("scroll", handleScroll))
-  })
+    return () => window.removeEventListener("scroll", handleScroll);
+  });
 
   useEffect(() => {
     async function getUserData() {
@@ -354,9 +354,7 @@ function Profile() {
               className="background-image-container"
               style={{ position: "relative" }}
             >
-              <div 
-                className="background-image-sub-container"
-                >
+              <div className="background-image-sub-container">
                 <img
                   ref={bgRef}
                   src={bgImageUrl || profileBackgroundImg}
@@ -432,7 +430,7 @@ function Profile() {
               </Box>
               <p className="bio space-btw text-dim">{bio}</p>
               <div className="username-and-location-container space-btw">
-                <p className="username text-dim">{username}</p>&nbsp;&nbsp;
+                <p className="username text-dim">@{username}</p>&nbsp;&nbsp;
                 <Typography className="profile-user-username flexx">
                   <LocationOnIcon className="location-icon" />
                 </Typography>
