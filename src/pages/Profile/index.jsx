@@ -1,6 +1,6 @@
 import "./index.css";
 
-import { Avatar, Box, Button, Typography, useMediaQuery } from "@mui/material";
+import { Avatar, Box, Button, Typography } from "@mui/material";
 import { auth, db, storage } from "../../lib/firebase";
 import {
   collection,
@@ -21,12 +21,10 @@ import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import { FaUserCircle } from "react-icons/fa";
 import { Loader } from "../../reusableComponents";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import Modal from "@mui/material/Modal";
 import NotFound from "../NotFound";
 import ProfieFeed from "./feed";
 import { StoryView } from "../../components";
 import ViewsCounter from "../../reusableComponents/views";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import firebase from "firebase/compat/app";
 import profileBackgroundImg from "../../assets/profile-background.jpg";
 import { useSnackbar } from "notistack";
@@ -35,13 +33,11 @@ const SideBar = lazy(() => import("../../components/SideBar"));
 
 function Profile() {
   const navigate = useNavigate();
-  const isNonMobile = useMediaQuery("(min-width: 768px)");
   const { enqueueSnackbar } = useSnackbar();
   const { username } = useParams();
 
   const [user, setUser] = useState(null);
   const [feed, setFeed] = useState([]);
-  const [open, setOpen] = useState(false);
   const [friendRequestSent, setFriendRequestSent] = useState(false);
   const [userData, setUserData] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -68,8 +64,6 @@ function Profile() {
     country = userData.country;
     storyTimestamp = userData.storyTimestamp;
   }
-
-  const handleClose = () => setOpen(false);
 
   // Inside the Profile component
   const handleBackgroundImgChange = (e) => {
