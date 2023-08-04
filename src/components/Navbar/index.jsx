@@ -3,14 +3,13 @@ import "./index.css";
 import React, { useEffect, useState } from "react";
 
 import { AiOutlineInsertRowAbove } from "react-icons/ai";
-import { Box } from "@mui/material";
 import ChatIcon from "@mui/icons-material/Chat";
+import { ClickAwayListener } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Darkmode } from "../../reusableComponents";
-import { FaSearch } from "react-icons/fa";
 import { Logo } from "../../reusableComponents";
-import Modal from "@mui/material/Modal";
 import SearchIcon from "@mui/icons-material/Search";
+import appLogo from "../../assets/app-logo.webp";
 import { auth } from "../../lib/firebase";
 import blankImg from "../../assets/blank-profile.webp";
 import { db } from "../../lib/firebase";
@@ -22,15 +21,28 @@ function Navbar({ onClick, user, setUser }) {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [expandSearchBar, setExpandSearchBar] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
+  const [windowWidth, setWindowWidth] = useState(700);
   const [debouncedQuery, setDebouncedQuery] = useState("");
 
-  const handlequery = () => {
-    setSearchQuery("");
-  };
   const handleSearchModal = () => {
     setOpen(!open);
   };
+
+  function getWindowDimensions() {
+    const { innerWidth: width } = window;
+    return width;
+  }
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowWidth(getWindowDimensions());
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const timerId = setTimeout(() => {
@@ -90,11 +102,82 @@ function Navbar({ onClick, user, setUser }) {
     location.pathname !== "/dummygram/login" &&
     location.pathname !== "/dummygram/signup" && (
       <div className="app__header">
-        <Logo />
+        {windowWidth > 600 ? (
+          <span className="nav_text_logo">
+            <Logo />
+          </span>
+        ) : (
+          <img src={appLogo} alt="dummygram" className="nav_img_logo" />
+        )}
         <div className="navSpace">
-          <div className="searchbar" onClick={handleSearchModal}>
-            <SearchIcon sx={{ fontSize: 30 }} className="icon" />
+          <div className="search_bar_main_container">
+            <div
+              className={`hidden_search_bar_container ${
+                expandSearchBar ? "show_search_bar" : "hide_search_bar"
+              }`}
+            >
+              <ClickAwayListener onClickAway={() => setExpandSearchBar(false)}>
+                <div className="searchbar" onClick={handleSearchModal}>
+                  {expandSearchBar ? (
+                    <>
+                      <input
+                        type="text"
+                        className="search_bar_input"
+                        value={searchQuery}
+                        placeholder="Search users..."
+                        onChange={handleSearch}
+                      />
+                      <CloseIcon
+                        onClick={() => setExpandSearchBar(false)}
+                        className="icon search_icon"
+                      />
+                    </>
+                  ) : (
+                    <SearchIcon
+                      className="icon search_icon"
+                      onClick={() => setExpandSearchBar(true)}
+                    />
+                  )}
+                </div>
+              </ClickAwayListener>
+            </div>
+            {expandSearchBar && searchResults.length > 0 && (
+              <div className="searched_user_container">
+                <ul className="searched_user_sub_container">
+                  {searchResults.map(({ id, user }) => {
+                    return (
+                      <li
+                        key={id}
+                        className="searched_user_li"
+                        onClick={() =>
+                          navigate(`/dummygram/user/${user.username}`)
+                        }
+                      >
+                        <img
+                          src={user?.photoURL ? user.photoURL : blankImg}
+                          alt={user.name}
+                          className="searched_user_avatar"
+                        />
+                        <span
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "flex-start",
+                          }}
+                        >
+                          <h5 className="searched_user_name">{user.name}</h5>
+                          <p className="searched_user_username">
+                            @{user.username}
+                          </p>
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
           </div>
+
           <div className="container">
             <div className="rowConvert" onClick={onClick}>
               <AiOutlineInsertRowAbove style={{ margin: "auto" }} size={30} />
@@ -108,116 +191,6 @@ function Navbar({ onClick, user, setUser }) {
             </div>
           </div>
           <Darkmode themeClass="themeButton" />
-          <Modal
-            open={open}
-            onClose={handleSearchModal}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box
-              sx={{
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                height: "80vh",
-                boxShadow: 24,
-                // backdropFilter: "blur(7px)",
-                border: "1px solid #fff",
-                zIndex: "1000",
-                textAlign: "center",
-                borderRadius: "5%",
-                position: "relative",
-              }}
-              className="search-modal"
-            >
-              <div className="search-closeicon" onClick={handleSearchModal}>
-                <CloseIcon sx={{ fontSize: 40 }} />
-              </div>
-              <div className="search-bar">
-                <input
-                  type="search"
-                  className="search-input"
-                  value={searchQuery}
-                  placeholder="Search users..."
-                  onChange={handleSearch}
-                />
-                <label className="search-icon">
-                  <FaSearch />
-                </label>
-                {!searchQuery ? (
-                  ""
-                ) : (
-                  <span
-                    style={{
-                      position: "absolute",
-                      right: "57px",
-                      display: "flex",
-                      color: "rgba(0, 0, 0, 0.8)",
-                      cursor: "pointer",
-                    }}
-                    onClick={handlequery}
-                  >
-                    <CloseIcon sx={{ fontSize: "30" }} />
-                  </span>
-                )}
-              </div>
-              <div
-                style={{
-                  // position: "absolute",
-                  marginTop: "10px",
-                  width: "100%",
-                  height: "calc(100% - 60px)",
-                }}
-              >
-                {searchResults.length > 0 ? (
-                  <section className="searched-user-container">
-                    <ul className="searched-user-sub-container">
-                      {searchResults.map(({ id, user }) => {
-                        return (
-                          <li
-                            key={id}
-                            className="searched-user-li"
-                            onClick={() =>
-                              navigate(`/dummygram/user/${user.username}`)
-                            }
-                          >
-                            <img
-                              src={user?.photoURL ? user.photoURL : blankImg}
-                              alt={user.name}
-                              className="searched-user-avatar"
-                            />
-                            <span
-                              style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "flex-start",
-                              }}
-                            >
-                              <h5 className="searched-user-name">
-                                {user.name}
-                              </h5>
-                              <p className="searched-user-username">
-                                @{user.username}
-                              </p>
-                            </span>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </section>
-                ) : (
-                  <Box>
-                    <div
-                      style={{ marginTop: "5px", marginBottom: "1.5rem" }}
-                      align="center"
-                    >
-                      <div className="text-white">Nothing to search</div>
-                    </div>
-                  </Box>
-                )}
-              </div>
-            </Box>
-          </Modal>
         </div>
       </div>
     )

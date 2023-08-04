@@ -3,15 +3,16 @@
   display: flex;
   justify-content: center;
   margin: 0 auto;
-  /* min-height: 300px; */
   height: 350px;
-  /* min-width: 300px; */
-  /* max-width: 350px; */
   position: relative;
-  /* width: 100%; */
-  /* object-fit:scale-down; */
   overflow: hidden;
-  /* aspect-ratio: 16/1; */
+  border-bottom: 2px solid #eee;
+}
+
+.post__image {
+  width: 100% !important;
+  height: 100%;
+  object-fit: cover;
 }
 
 .slide {
@@ -42,7 +43,6 @@
 
 .slider-action {
   display: flex;
-  /*height: 100%;*/
   justify-content: space-between;
   position: absolute;
   width: 90%;
@@ -59,77 +59,8 @@
   width: 5%;
 }
 
-/*.chevron:hover, .circle:hover {*/
-/*    !*color: #ab4bc2;*!*/
-/*    transform: scale(1.2);*/
-/*}*/
-
 .chevron:active,
 .circle:active {
   transform: scale(1);
   z-index: 9;
 }
-
-/*.overlay {*/
-/*    position: absolute;*/
-/*    top: 0;*/
-/*    left: 0;*/
-/*    width: 100%;*/
-/*    height: 100%;*/
-/*    background-color: rgba(0, 0, 0, 0.5);*/
-/*    z-index: 1;*/
-/*    opacity: 0;*/
-/*    transition: opacity 0.3s ease;*/
-/*}*/
-
-/*.slide:hover .overlay {*/
-/*    opacity: 1;*/
-/*}*/
-
-/*.overlay-content {*/
-/*    position: absolute;*/
-/*    top: 50%;*/
-/*    left: 50%;*/
-/*    transform: translate(-50%, -50%);*/
-/*    text-align: center;*/
-/*    color: white;*/
-/*}*/
-
-/*.overlay-content h3 {*/
-/*    font-size: 24px;*/
-/*    margin-bottom: 10px;*/
-/*}*/
-
-/*.overlay-content p {*/
-/*    font-size: 16px;*/
-/*}*/
-
-/*.slide-button {*/
-/*    position: absolute;*/
-/*    top: 50%;*/
-/*    transform: translateY(-50%);*/
-/*    width: 40px;*/
-/*    height: 40px;*/
-/*    border-radius: 50%;*/
-/*    background-color: #ab4bc2;*/
-/*    display: flex;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-/*    color: white;*/
-/*    font-size: 20px;*/
-/*    cursor: pointer;*/
-/*    opacity: 0;*/
-/*    transition: opacity 0.3s ease;*/
-/*}*/
-
-/*.slide-button:hover {*/
-/*    opacity: 1;*/
-/*}*/
-
-/*.slide-button.left {*/
-/*    left: 20px;*/
-/*}*/
-
-/*.slide-button.right {*/
-/*    right: 20px;*/
-/*}*/
