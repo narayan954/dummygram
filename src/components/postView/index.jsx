@@ -88,7 +88,7 @@ const PostCommentView = ({
   }
 
   const postComment = (event) => {
-    if (event.key === 'Enter' || event.type =="click") {
+    if (event.key === "Enter" || event.type == "click") {
       event.preventDefault();
       const commentValue = commentRef?.current?.value;
       if (commentValue && commentRef?.current?.value?.trim().length >= 1) {
@@ -333,7 +333,6 @@ const PostCommentView = ({
 
             <IconButton
               className="post__button"
-              
               disabled={commentRef?.current?.value === null}
               type="submit"
               onClick={postComment}
