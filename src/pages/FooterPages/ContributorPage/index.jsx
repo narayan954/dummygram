@@ -70,7 +70,7 @@ function Contributor() {
       <div className="search-container">
         <input
           type="text"
-          className="search-input"
+          className="search-input search-Contributor"
           placeholder="&nbsp;"
           onChange={(e) => setSearchResult(e.target.value)}
         />
