@@ -75,7 +75,7 @@ function Contributor() {
           onChange={(e) => setSearchResult(e.target.value)}
         />
         <span className="label">Search Contributor</span>
-        <span class="highlight"></span>
+        <span className="highlight"></span>
       </div>
       <div className="contributors-outer">
         <Box
