@@ -52,6 +52,7 @@
 
 #chat-icon {
   display: inline-block;
+  margin-left: 5px;
 }
 
 /* search file css */
@@ -174,6 +175,7 @@
 .nav_img_logo {
   display: none;
   width: 80px;
+  display: inline-block;
 }
 
 @media only screen and (max-width: 900px) {
@@ -186,14 +188,6 @@
   .search_bar_input {
     padding-inline: 10px;
     font-size: 15px;
-  }
-
-  .nav_img_logo {
-    display: inline-block;
-  }
-
-  .nav_text_logo {
-    display: none;
   }
 
   .searched_user_container {
@@ -211,5 +205,15 @@
   
   .searched_user_username {
     font-size: 10px;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .nav_img_logo {
+    width: 60px;
+  }
+
+  #chat-icon{
+    margin-right: 0;
   }
 }

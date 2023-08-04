@@ -23,14 +23,26 @@ function Navbar({ onClick, user, setUser }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [expandSearchBar, setExpandSearchBar] = useState(false)
   const [searchResults, setSearchResults] = useState([]);
+  const [windowWidth, setWindowWidth] = useState(700);
   const [debouncedQuery, setDebouncedQuery] = useState("");
 
-  const handlequery = () => {
-    setSearchQuery("");
-  };
   const handleSearchModal = () => {
     setOpen(!open);
   };
+
+  function getWindowDimensions() {
+    const { innerWidth: width } = window;
+    return width;
+  }
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowWidth(getWindowDimensions());
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const timerId = setTimeout(() => {
@@ -90,10 +102,13 @@ function Navbar({ onClick, user, setUser }) {
     location.pathname !== "/dummygram/login" &&
     location.pathname !== "/dummygram/signup" && (
       <div className="app__header">
-        <img src={appLogo} alt="dummygram" className="nav_img_logo" />
-        <span className="nav_text_logo">
-          <Logo />
-        </span>
+        {windowWidth > 600 ? (
+          <span className="nav_text_logo">
+            <Logo />
+          </span>
+        ) : (
+          <img src={appLogo} alt="dummygram" className="nav_img_logo" />
+        )}
         <div className="navSpace">
           <div className="search_bar_main_container">
             <div
@@ -104,7 +119,7 @@ function Navbar({ onClick, user, setUser }) {
                   {expandSearchBar ? (
                     <>
                       <input
-                        type="search"
+                        type="text"
                         className="search_bar_input"
                         value={searchQuery}
                         placeholder="Search users..."
