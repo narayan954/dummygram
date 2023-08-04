@@ -10,7 +10,7 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { lazy, useEffect, useState } from "react";
+import { lazy, useEffect, useState, useRef } from "react";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -50,6 +50,7 @@ function Profile() {
   const [editing, setEditing] = useState(false);
   const [bgimgurl, setBgimgurl] = useState(null);
   const [backgroundImage, setBackgroundImage] = useState(null);
+  const bgRef = useRef(null);
 
   let name = "";
   let avatar = "";
@@ -87,7 +88,7 @@ function Profile() {
           .put(backgroundImage);
         uploadTask.on(
           "state_changed",
-          () => {},
+          () => { },
           (error) => {
             enqueueSnackbar(error.message, {
               variant: "error",
@@ -123,6 +124,18 @@ function Profile() {
       console.error("Error saving background image URL to Firestore:", error);
     }
   };
+
+  useEffect(() => {
+    const bg = bgRef.current;
+    function handleScroll() {
+      bg.style.height = 160 - +window.pageYOffset/16 + "%";
+      bg.style.width = 160 - +window.pageYOffset/16 + "%";
+      bg.style.opacity = 1 - +window.pageYOffset/500 + "";
+    }
+    window.addEventListener("scroll", handleScroll)
+
+    return (() => window.removeEventListener("scroll", handleScroll))
+  })
 
   useEffect(() => {
     async function getUserData() {
@@ -347,11 +360,16 @@ function Profile() {
               className="background-image-container"
               style={{ position: "relative" }}
             >
-              <img
-                src={bgImageUrl || profileBackgroundImg}
-                alt=""
-                className="background-image"
-              />
+              <div 
+                className="background-image-sub-container"
+                >
+                <img
+                  ref={bgRef}
+                  src={bgImageUrl || profileBackgroundImg}
+                  alt=""
+                  className="background-image"
+                />
+              </div>
               {uid === user?.uid && (
                 <div className="bg-img-save" style={{ position: "absolute" }}>
                   <div className="bg-icon">
@@ -483,9 +501,8 @@ function Profile() {
                     }}
                     alt={name}
                     src={avatar}
-                    className={`profile-pic-container ${
-                      storyTimestamp ? "story_available_border" : null
-                    }`}
+                    className={`profile-pic-container ${storyTimestamp ? "story_available_border" : null
+                      }`}
                   />
                 ) : (
                   <FaUserCircle className="profile-pic-container" />
