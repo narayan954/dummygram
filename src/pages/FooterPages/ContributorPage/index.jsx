@@ -15,7 +15,6 @@ function Contributor() {
   const [searchResult, setSearchResult] = useState("");
 
   const navigate = useNavigate();
- 
 
   const getData = async () => {
     const res = await fetch(
