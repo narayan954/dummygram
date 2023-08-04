@@ -442,6 +442,26 @@ function Profile() {
                 </span>
               </Typography>
             </div>
+            <div>
+              {uid !== user?.uid && (
+                <Button
+                  onClick={() =>
+                    user.isAnonymous
+                      ? navigate("/dummygram/signup")
+                      : handleSendFriendRequest()
+                  }
+                  variant="contained"
+                  color="primary"
+                  sx={{
+                    marginTop: "10px",
+                    borderRadius: "22px",
+                    padding: "10px 25px",
+                  }}
+                >
+                  {friendRequestSent ? "Remove friend request" : "Add Friend"}
+                </Button>
+              )}
+            </div>
           </div>
 
           <ProfieFeed feed={feed} user={user} />
