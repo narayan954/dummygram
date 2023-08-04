@@ -194,17 +194,18 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
     <ClickAwayListener onClickAway={() => setIsEditing(false)}>
       <div className="edit-profile-container">
         <div className="edit-profile-sub-container">
-          <div className="edit-profile-header" style={{ width: "60%" }}>
+          <div className="edit-profile-header">
             <BackIcon
               onClick={() => setIsEditing(false)}
               style={{ display: "flex", marginTop: "6px" }}
             />
             <h2>Edit Profile</h2>
+            <div>
+              <span className="edit-profile-save-btn" onClick={handleImgSave}>
+                Save
+              </span>
+            </div>
           </div>
-          {/* <CancelIcon
-            className="cancel-editing-icon"
-            onClick={() => setIsEditing(false)}
-          /> */}
           <div className="edit-profile-image">
             <input
               type="file"
@@ -217,8 +218,8 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
               <img src={avatar} alt={name} className="edit-profile-img" />
             </label>
           </div>
-          <div style={{display:"flex", justifyContent:"space-between", flexWrap:"wrap"}}>
-          {/* name  */}
+          <div className="edit-user-details">
+            {/* name  */}
             <label defaultValue={"Name"}>
               <p className="edit-profile-label">Name</p>
               <input
@@ -274,12 +275,6 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
               onChange={handleChange}
             ></textarea>
           </label>
-
-          <div>
-            <button className="edit-profile-save-btn" onClick={handleImgSave}>
-              Save
-            </button>
-          </div>
         </div>
       </div>
     </ClickAwayListener>
