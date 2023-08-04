@@ -322,7 +322,7 @@ function Post(prop) {
               title="Likes ❤"
             >
               {likesNo === 0 ? (
-                <p style={{textAlign: "center"}}>No likes🥺</p>
+                <p style={{ textAlign: "center" }}>No likes🥺</p>
               ) : (
                 <LikesDialogBox likecountArr={likecount} />
               )}
