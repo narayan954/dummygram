@@ -303,7 +303,7 @@ const PostCommentView = ({
                       emojiStyle="native"
                       height={280}
                       searchDisabled
-                      style={{ zIndex: 999 }}                      
+                      style={{ zIndex: 999 }}
                       onEmojiClick={onEmojiClick}
                       previewConfig={{
                         showPreview: false,
