@@ -64,7 +64,7 @@ const ProfileDialogBox = ({ mouseOnProfileImg, userData }) => {
         <span
           style={{ fontWeight: "400", fontSize: "13px", lineHeight: "0.0rem" }}
         >
-          {bio.length > 90 ? trimBio(bio) : bio}
+          {bio?.length > 90 ? trimBio(bio) : bio}
         </span>
       </p>
       <p className="dialog-box-bio">Posts: {posts}</p>
