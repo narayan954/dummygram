@@ -140,9 +140,9 @@ function Profile() {
   useEffect(() => {
     const bg = bgRef.current;
     function handleScroll() {
-      bg.style.height = 100 + +window.scrollY / 16 + "%";
-      bg.style.width = 100 + +window.scrollY / 16 + "%";
-      bg.style.opacity = 1 - +window.scrollY / 500 + "";
+      bg.style.height = `${100 + window.scrollY / 16}%`;
+      bg.style.width = `${100 + window.scrollY / 16}%`;
+      bg.style.opacity = 1 - window.scrollY / 500;
     }
     window.addEventListener("scroll", handleScroll);
 
@@ -151,63 +151,61 @@ function Profile() {
 
   useEffect(() => {
     async function getUserData() {
-      const docRef = db
-        .collection("users")
-        .where("username", "==", username)
-        .limit(1);
-      docRef
-        .get()
-        .then((snapshot) => {
-          if (snapshot.docs) {
-            const doc = snapshot.docs[0];
-            const currTimestamp = firebase.firestore.Timestamp.now().seconds;
-            const storyTimestamp = doc.data().storyTimestamp?.seconds;
-            //Check if story is expired or not
-            if (storyTimestamp && currTimestamp - storyTimestamp > 86400) {
-              async function deleteStory() {
-                const querySnapshot = await db
-                  .collection("story")
-                  .where("username", "==", username)
-                  .get();
+      try {
+        const docRef = db
+          .collection("users")
+          .where("username", "==", username)
+          .limit(1);
+        const snapshot = await docRef.get();
 
-                // Delete the story that are expired
-                querySnapshot?.forEach((doc) => {
-                  doc.ref.delete().catch((error) => {
-                    console.error("Error deleting document: ", error);
-                  });
-                });
+        if (!snapshot.empty) {
+          const doc = snapshot.docs[0];
+          const currTimestamp = firebase.firestore.Timestamp.now().toMillis();
+          const storyTimestamp = doc.data().storyTimestamp?.toMillis();
+          //Check if story is expired or not
+          if (storyTimestamp && currTimestamp - storyTimestamp > 86400 * 1000) {
+            async function deleteStory() {
+              const querySnapshot = await db
+                .collection("story")
+                .where("username", "==", username)
+                .get();
 
-                const docRef = doc.ref;
-                docRef.update({
-                  storyTimestamp: deleteField(),
+              // Delete the story that are expired
+              querySnapshot.forEach((doc) => {
+                doc.ref.delete().catch((error) => {
+                  console.error("Error deleting document: ", error);
                 });
-              }
-              deleteStory();
+              });
+
+              const docRef = doc.ref;
+              docRef.update({
+                storyTimestamp: deleteField(),
+              });
             }
-            const data = doc.data();
-            setUserData({
-              name: data.name,
-              avatar: data.photoURL,
-              bgImageUrl: data.bgImageUrl
-                ? data.bgImageUrl
-                : profileBackgroundImg,
-              uid: data.uid,
-              bio: data.bio
-                ? data.bio
-                : "Lorem ipsum dolor sit amet consectetur",
-              country: data.country ? data.country : "Global",
-              storyTimestamp: data.storyTimestamp,
-            });
-          } else {
-            setUserExists(false);
+            deleteStory();
           }
-        })
-        .catch((error) => {
-          enqueueSnackbar(`Error Occured: ${error}`, {
-            variant: "error",
+          const data = doc.data();
+          setUserData({
+            name: data.name,
+            avatar: data.photoURL,
+            bgImageUrl: data.bgImageUrl
+              ? data.bgImageUrl
+              : profileBackgroundImg,
+            uid: data.uid,
+            bio: data.bio ? data.bio : "Hi there! I am using Dummygram.",
+            country: data.country ? data.country : "Global",
+            storyTimestamp: data.storyTimestamp,
           });
+        } else {
+          setUserExists(false);
+        }
+      } catch (error) {
+        enqueueSnackbar(`Error Occured: ${error}`, {
+          variant: "error",
         });
+      }
     }
+
     getUserData();
   }, [username, bgimgurl]);
 
@@ -306,7 +304,7 @@ function Profile() {
       };
       checkFriendRequestSent();
     }
-  }, []);
+  }, [uid]);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -329,21 +327,28 @@ function Profile() {
       where("uid", "==", uid),
       orderBy("timestamp", "desc"),
     );
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const userPosts = [];
-      querySnapshot.forEach((doc) => {
-        userPosts.push({
-          id: doc.id,
-          post: doc.data(),
+    const unsubscribe = onSnapshot(
+      q,
+      (querySnapshot) => {
+        const userPosts = [];
+        querySnapshot.forEach((doc) => {
+          userPosts.push({
+            id: doc.id,
+            post: doc.data(),
+          });
         });
-      });
-      setFeed(userPosts);
-    });
+        setFeed(userPosts);
+      },
+      (error) => {
+        console.error("Error fetching user posts:", error);
+        // Handle error, e.g., show an error message or set an empty feed state
+      },
+    );
 
     return () => {
       unsubscribe();
     };
-  }, [user, name]);
+  }, [uid]);
 
   async function getSavedPosts() {
     let savedPostsArr = JSON.parse(localStorage.getItem("posts")) || [];

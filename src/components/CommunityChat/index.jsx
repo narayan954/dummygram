@@ -24,6 +24,9 @@ const ChatBox = () => {
   const [isLastMsgRecieved, setIsLastMsgRecieved] = useState(false);
   const chatMsgContainerRef = useRef(null);
 
+  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
+
   const handleEmojiClick = () => {
     setShowEmojis((prevShowEmojis) => !prevShowEmojis);
   };
@@ -32,9 +35,6 @@ const ChatBox = () => {
     setNewMessage((prevInput) => prevInput + emojiObject.emoji);
     setShowEmojis(false);
   };
-
-  const navigate = useNavigate();
-  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const scrollTop = () => {
@@ -45,23 +45,13 @@ const ChatBox = () => {
     }
   }, [messages]);
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((authUser) => {
-      if (authUser && !authUser.isAnonymous) {
-        setUser(authUser);
-      } else {
-        setUser(null);
-        navigate("/dummygram/login");
-      }
-    });
-
-    return () => {
-      unsubscribe();
-    };
-  }, [user]);
-
   //Load messages for the first time
   useEffect(() => {
+    const handleMouseScroll = (event) => {
+      if (event.target.documentElement.scrollTop === 0 && !isLastMsgRecieved) {
+        setLoadMoreMsgs(true);
+      }
+    };
     window.addEventListener("scroll", handleMouseScroll);
     const unsubscribe = db
       .collection("messages")
@@ -81,12 +71,6 @@ const ChatBox = () => {
       unsubscribe();
     };
   }, []);
-
-  const handleMouseScroll = (event) => {
-    if (event.target.documentElement.scrollTop === 0 && !isLastMsgRecieved) {
-      setLoadMoreMsgs(true);
-    }
-  };
 
   useEffect(() => {
     let unsubscribed = false;

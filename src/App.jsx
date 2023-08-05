@@ -118,11 +118,15 @@ function App() {
     return () => {
       unsubscribe();
     };
-  }, [user]);
+  }, []);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleMouseScroll);
-    db.collection("posts")
+    const scrollEventListener = window.addEventListener(
+      "scroll",
+      handleMouseScroll,
+    );
+    const unsubscribe = db
+      .collection("posts")
       .orderBy("timestamp", "desc")
       .limit(PAGESIZE)
       .onSnapshot((snapshot) => {
@@ -134,6 +138,11 @@ function App() {
           })),
         );
       });
+
+    return () => {
+      window.removeEventListener("scroll", scrollEventListener);
+      unsubscribe();
+    };
   }, []);
 
   const handleMouseScroll = (event) => {
@@ -146,8 +155,11 @@ function App() {
   };
 
   useEffect(() => {
+    let unsubscribe;
+
     if (loadMorePosts && posts.length) {
-      db.collection("posts")
+      unsubscribe = db
+        .collection("posts")
         .orderBy("timestamp", "desc")
         .startAfter(posts[posts.length - 1].post.timestamp)
         .limit(PAGESIZE)
@@ -162,8 +174,13 @@ function App() {
             ];
           });
         });
+      setLoadMorePosts(false);
     }
-    setLoadMorePosts(false);
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    };
   }, [loadMorePosts]);
 
   function getWindowDimensions() {

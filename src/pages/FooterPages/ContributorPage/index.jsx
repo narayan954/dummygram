@@ -16,32 +16,43 @@ function Contributor() {
 
   const navigate = useNavigate();
 
-  const getData = async () => {
-    const res = await fetch(
-      `https://api.github.com/repos/narayan954/dummygram/contributors?page=${currentPage}&&per_page=${
-        searchResult.length < 1 ? 10 : ""
-      }`,
-    );
-
-    const data = await res.json();
-    const contributorsData = data.filter(
-      (contributor) => !contributor.login.includes("deepsource-autofix[bot]"),
-    );
-    const value = contributorsData.filter((item) => {
-      return `${item.login.toLowerCase()}`.includes(searchResult.toLowerCase());
-    });
-    if (searchResult.length > 0) {
-      setContributors(value);
-    } else {
-      setContributors(contributorsData);
-    }
-  };
-
   const handleChange = (event, value) => {
     setCurrentPage(value);
   };
 
   useEffect(() => {
+    const getData = async () => {
+      try {
+        const res = await fetch(
+          `https://api.github.com/repos/narayan954/dummygram/contributors?page=${currentPage}&&per_page=${
+            searchResult.length < 1 ? 10 : ""
+          }`,
+        );
+
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const data = await res.json();
+        const contributorsData = data.filter(
+          (contributor) =>
+            !contributor.login.includes("deepsource-autofix[bot]"),
+        );
+        const value = contributorsData.filter((item) =>
+          item.login.toLowerCase().includes(searchResult.toLowerCase()),
+        );
+        if (searchResult.length > 0) {
+          setContributors(value);
+        } else {
+          setContributors(contributorsData);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        // Handle the error or display an error message to the user
+        // For example, you could set an error state to display an error message on the UI
+        setContributors([]);
+      }
+    };
     getData();
   }, [currentPage, searchResult]);
 

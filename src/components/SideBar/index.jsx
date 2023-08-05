@@ -41,13 +41,23 @@ function SideBar({ anonymous }) {
 
   useEffect(() => {
     async function getUsername() {
-      const docRef = doc(db, "users", user?.uid);
-      const docSnap = await getDoc(docRef);
-      setUserData({
-        name: docSnap.data().displayName,
-        username: docSnap.data().username,
-      });
+      try {
+        const docRef = doc(db, "users", user?.uid);
+        const docSnap = await getDoc(docRef);
+        const data = docSnap.data();
+        setUserData({
+          name: data?.displayName || "Guest",
+          username: data?.username || "guest",
+        });
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setUserData({
+          name: "Guest",
+          username: "guest",
+        });
+      }
     }
+
     if (anonymous) {
       setUserData({
         name: "Guest",
@@ -56,20 +66,15 @@ function SideBar({ anonymous }) {
     } else {
       getUsername();
     }
-  }, []);
+  }, [user, anonymous]);
 
   const signOut = () => {
-    auth
-      .signOut()
-      .then(() => {
-        navigate("/dummygram");
-      })
-      .finally(() => {
-        playSuccessSound();
-        enqueueSnackbar("Logged out Successfully !", {
-          variant: "info",
-        });
+    auth.signOut().finally(() => {
+      playSuccessSound();
+      enqueueSnackbar("Logged out Successfully !", {
+        variant: "info",
       });
+    });
   };
 
   return (
