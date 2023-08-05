@@ -10,15 +10,18 @@ import {
   query,
   where,
 } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { lazy, useEffect, useState } from "react";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useNavigate, useParams } from "react-router-dom";
 
+import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import Cam from "@mui/icons-material/CameraAltOutlined";
 import EditIcon from "@mui/icons-material/Edit";
 import { EditProfile } from "../../components";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import { FaUserCircle } from "react-icons/fa";
+import GridOnIcon from "@mui/icons-material/GridOn";
 import { Loader } from "../../reusableComponents";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import NotFound from "../NotFound";
@@ -38,6 +41,9 @@ function Profile() {
 
   const [user, setUser] = useState(null);
   const [feed, setFeed] = useState([]);
+  const [savedPosts, setSavedPosts] = useState([]);
+  // const [open, setOpen] = useState(false);
+  const [isSavedPostsLoading, setIsSavedPostsLoading] = useState(true);
   const [friendRequestSent, setFriendRequestSent] = useState(false);
   const [userData, setUserData] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -46,6 +52,7 @@ function Profile() {
   const [editing, setEditing] = useState(false);
   const [bgimgurl, setBgimgurl] = useState(null);
   const [backgroundImage, setBackgroundImage] = useState(null);
+  const [showSaved, setShowSaved] = useState(false);
 
   let name = "";
   let avatar = "";
@@ -314,6 +321,41 @@ function Profile() {
     };
   }, [user, name]);
 
+  async function getSavedPosts() {
+    let savedPostsArr = JSON.parse(localStorage.getItem("posts")) || [];
+    const posts = [];
+    if (savedPostsArr.length > 0 && savedPosts.length === 0) {
+      try {
+        const fetchSavedPosts = savedPostsArr.map(async (id) => {
+          try {
+            const docRef = doc(db, "posts", id);
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+              posts.push({ id: docSnap.id, post: docSnap.data() });
+            }
+          } catch (error) {
+            console.log(error, "err");
+            enqueueSnackbar("Error while fetching all posts", {
+              variant: "error",
+            });
+          } finally {
+            setIsSavedPostsLoading(false);
+          }
+        });
+        await Promise.all(fetchSavedPosts); // Wait for all fetch requests to complete
+        setSavedPosts(posts);
+      } catch (error) {
+        enqueueSnackbar("Error while fetching all posts", {
+          variant: "error",
+        });
+      } finally {
+        setIsSavedPostsLoading(false);
+      }
+    } else {
+      setIsSavedPostsLoading(false);
+    }
+  }
+
   return (
     <>
       <ErrorBoundary>
@@ -458,7 +500,40 @@ function Profile() {
             </div>
           </div>
 
-          <ProfieFeed feed={feed} user={user} />
+          <div className="feed_btn_container">
+            <button
+              className={`feed_change_btn ${
+                showSaved ? "feed_btn_deactivated" : "feed_btn_activated"
+              }`}
+              onClick={() => setShowSaved(false)}
+            >
+              <GridOnIcon /> <span className="feed_btn_text">Feed</span>
+            </button>
+            {user?.uid === uid && (
+              <button
+                className={`feed_change_btn ${
+                  showSaved ? "feed_btn_activated" : "feed_btn_deactivated"
+                }`}
+                onClick={() => {
+                  getSavedPosts();
+                  setShowSaved(true);
+                }}
+              >
+                <BookmarksIcon /> <span className="feed_btn_text">Saved</span>
+              </button>
+            )}
+          </div>
+          {showSaved ? (
+            isSavedPostsLoading ? (
+              <Loader />
+            ) : savedPosts.length === 0 ? (
+              <p className="no_posts_msg">Nothing in saved</p>
+            ) : (
+              <ProfieFeed feed={savedPosts} />
+            )
+          ) : (
+            <ProfieFeed feed={feed} />
+          )}
         </>
       ) : userExists ? (
         <Loader />
