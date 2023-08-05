@@ -2,9 +2,9 @@ import "./index.css";
 
 import { Box } from "@mui/material";
 import ErrorBoundary from "../../../reusableComponents/ErrorBoundary";
+import { Skeleton } from "@mui/material";
 import postBg from "../../../assets/postbg.webp";
 import { useNavigate } from "react-router-dom";
-import { Skeleton } from "@mui/material";
 
 const ProfileFeed = ({ feed, isLoading }) => {
   const navigate = useNavigate();
@@ -54,37 +54,51 @@ export default ProfileFeed;
 function FeedSkeleton() {
   return (
     <>
-            <Skeleton variant="rectangular" style={{
-              width: "100%",
-              height: "100%",
-              aspectRatio: "1"
-            }}
-              className="shimmer_bg" />
-            <Skeleton variant="rectangular" style={{
-              width: "100%",
-              height: "100%",
-              aspectRatio: "1"
-            }}
-              className="shimmer_bg" />
-            <Skeleton variant="rectangular" style={{
-              width: "100%",
-              height: "100%",
-              aspectRatio: "1"
-            }}
-              className="shimmer_bg" />
-            <Skeleton variant="rectangular" style={{
-              width: "100%",
-              height: "100%",
-              aspectRatio: "1"
-            }}
-              className="shimmer_bg" />
-            <Skeleton variant="rectangular" style={{
-              width: "100%",
-              height: "100%",
-              aspectRatio: "1"
-            }}
-              className="shimmer_bg" 
-            />
-          </>
-  )
+      <Skeleton
+        variant="rectangular"
+        style={{
+          width: "100%",
+          height: "100%",
+          aspectRatio: "1",
+        }}
+        className="shimmer_bg"
+      />
+      <Skeleton
+        variant="rectangular"
+        style={{
+          width: "100%",
+          height: "100%",
+          aspectRatio: "1",
+        }}
+        className="shimmer_bg"
+      />
+      <Skeleton
+        variant="rectangular"
+        style={{
+          width: "100%",
+          height: "100%",
+          aspectRatio: "1",
+        }}
+        className="shimmer_bg"
+      />
+      <Skeleton
+        variant="rectangular"
+        style={{
+          width: "100%",
+          height: "100%",
+          aspectRatio: "1",
+        }}
+        className="shimmer_bg"
+      />
+      <Skeleton
+        variant="rectangular"
+        style={{
+          width: "100%",
+          height: "100%",
+          aspectRatio: "1",
+        }}
+        className="shimmer_bg"
+      />
+    </>
+  );
 }

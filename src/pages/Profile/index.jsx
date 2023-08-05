@@ -98,7 +98,7 @@ function Profile() {
           .put(backgroundImage);
         uploadTask.on(
           "state_changed",
-          () => { },
+          () => {},
           (error) => {
             enqueueSnackbar(error.message, {
               variant: "error",
