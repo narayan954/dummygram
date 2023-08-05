@@ -408,7 +408,7 @@ function Profile() {
               style={{ position: "relative" }}
             >
               <div className="background-image-sub-container">
-              {imageLoaded ? null : <div className="blur-effect" />}
+                {!imageLoaded && <div className="blur-effect" />}
                 <img
                   ref={bgRef}
                   src={
