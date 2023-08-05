@@ -1,6 +1,7 @@
 import "./index.css";
 
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import profileAvatar from "../../assets/blank-profile.webp";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -20,6 +21,11 @@ const ProfileDialogBox = ({ mouseOnProfileImg, userData }) => {
     }, 1000);
   }
 
+  function trimBio(bio) {
+    const str = bio.substr(0, 90) + " ...";
+    return str;
+  }
+
   return (
     <div
       style={{
@@ -31,7 +37,7 @@ const ProfileDialogBox = ({ mouseOnProfileImg, userData }) => {
     >
       <div style={{ display: "flex", gap: "2rem" }}>
         <img
-          src={avatar}
+          src={avatar ? avatar : profileAvatar}
           alt={name}
           className="dialog-box-img"
           onClick={() => navigate(`/dummygram/user/${username}`)}
@@ -58,11 +64,11 @@ const ProfileDialogBox = ({ mouseOnProfileImg, userData }) => {
         <span
           style={{ fontWeight: "400", fontSize: "13px", lineHeight: "0.0rem" }}
         >
-          {bio}
+          {bio?.length > 90 ? trimBio(bio) : bio}
         </span>
       </p>
       <p className="dialog-box-bio">Posts: {posts}</p>
-      {followers && following ? (
+      {followers && following && (
         <div className="dialog-box-follow-container">
           <p>
             <span>{following}</span> Following
@@ -71,8 +77,6 @@ const ProfileDialogBox = ({ mouseOnProfileImg, userData }) => {
             <span>{followers}</span> Followers
           </p>
         </div>
-      ) : (
-        ""
       )}
     </div>
   );

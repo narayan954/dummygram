@@ -4,39 +4,26 @@
   position: fixed;
   width: 100%;
   top: 0;
-  z-index: 999;
+  z-index: 9999;
   padding-top: 10px;
   padding-bottom: 10px;
   object-fit: contain;
-  /* border-bottom: 1px solid rgb(219, 219, 219); */
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
   background-color: var(--dark-post-bg);
+  justify-content: space-between;
 }
 
 .navSpace {
-  margin-left: auto;
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
 .container {
   display: flex;
   flex-direction: row;
   justify-content: center;
-}
-
-.button-style {
-  /* background: linear-gradient(40deg, #e107c1, #59afc7); */
-  background: linear-gradient(40deg, #0cc, #fff);
-  border-radius: 20px;
-  margin: 10px;
-  margin-right: 10px !important;
-}
-
-.button-style:hover {
-  background: linear-gradient(-40deg, #fff, #0cc);
 }
 
 .nav-menu {
@@ -66,156 +53,168 @@
 
 #chat-icon {
   display: inline-block;
+  margin-left: 5px;
 }
 
 /* search file css */
 
-.search-container {
+.searched_user_name {
+  font-size: 16px;
+  cursor: default;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.searched_user_username {
+  font-size: 13px;
+  cursor: default;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.search_bar_main_container {
+  margin-left: auto;
+  width: 100%;
+  position: relative;
+}
+
+.hidden_search_bar_container {
+  transition: 0.4s ease-in-out;
+  width: 34px;
+  border-radius: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  padding-top: 120px;
-  /* margin-left: 17vw; */
+  background: var(--profile-container);
+  margin-right: 13px;
+  margin-left: auto;
 }
 
-.search-modal {
-  background: rgba(255, 255, 255, 0);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  max-height: 700px;
-}
-
-.search-input {
-  position: absolute;
-  height: 100% !important;
-  width: 100% !important;
-  border-radius: 25px;
-  background: #fff;
-  border: none;
-  font-size: 16px;
-  padding-left: 20px;
-  margin-top: -2px;
-}
-
-.search-icon {
-  position: absolute;
-  right: 0px;
-  top: 0;
-  width: 54px;
-  background: linear-gradient(40deg, #5f85db, #daf1f7);
-  height: 43px;
-  text-align: center;
-  line-height: 50px;
-  color: #fff;
-  font-size: 20px;
-  border-radius: 0 25px 25px 0;
-  margin: 1px;
-}
-
-.search-icon:hover {
-  cursor: pointer;
-  background: linear-gradient(40deg, #daf1f7, #5f85db);
-}
-
-.text-white {
-  color: var(--color);
-}
-
-.searched-user-container {
-  width: 95%;
-  height: 90%;
-  margin: 20px auto;
-  border-radius: 5%;
-  overflow-y: scroll;
-  display: flex;
-  padding: 0;
+.show_search_bar {
+  width: 100%;
+  max-width: 600px;
+  border: 1px solid var(--btn-color);
   box-shadow: var(--post-box-shadow);
 }
 
-.searched-user-sub-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 10px;
+.search_bar_input {
+  border: none;
   width: 100%;
+  border-radius: 40px;
+  margin: 0;
+  padding-inline: 25px;
+  font-size: 20px;
+  color: var(--text-secondary);
+  background: var(--profile-container);
+  box-shadow: none;
 }
 
-.searched-user-li {
-  display: flex;
-  gap: 10px;
-  width: 95%;
-  padding: 10px;
-  align-items: center;
-  cursor: pointer;
-  border-radius: 22px;
+.searched_user_container {
+  position: absolute;
+  border-radius: 20px;
   background-color: var(--profile-container);
-  transition: 0.3s ease-in-out;
+  width: 100%;
+  max-width: 600px;
+  right: 10px;
+  margin-top: 5px;
+  box-shadow: var(--post-box-shadow);
 }
 
-.searched-user-li:hover {
-  background-color: var(--profile-container);
-  transform: scale(1.03);
+.searched_user_sub_container {
+  padding: 0;
+  width: 100%;
+  max-height: 70vh;
+  overflow: scroll;
 }
 
-.searched-user-avatar {
+.searched_user_avatar {
   width: 40px;
   aspect-ratio: 1;
   border-radius: 50%;
   border: 1px solid grey;
 }
 
-.searched-user-name {
-  font-size: 16px;
-  cursor: default;
-  color: var(--text-secondary);
-  /* color: white; */
-  cursor: pointer;
-}
-
-.searched-user-username {
-  font-size: 13px;
-  cursor: default;
-  color: var(--text-secondary);
-  /* color: white; */
-  cursor: pointer;
-}
-
-.search-bar {
-  position: relative;
-  height: 45px;
-  margin: 0px auto;
-  background: #fff;
-  border: 1px solid #5f85db;
-  border-radius: 25px;
+.searched_user_li {
   display: flex;
-  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px;
   align-items: center;
-  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 22px;
+  margin-right: 0;
+  transition: 0.3s ease-in-out;
+  box-sizing: border-box;
 }
 
-.search-closeicon {
-  position: absolute;
-  cursor: pointer;
-  top: 10px;
-  right: 10px;
-  color: var(--text-grey);
+.search_icon {
+  margin-left: auto;
+  transform: scale(1.3);
+  border-radius: 50%;
+  padding: 6px;
+  background-color: rgba(0, 0, 0, 0.23);
+  background: var(--profile-container);
+}
+
+.search_close_icon {
+  margin-left: auto;
 }
 
 .searchbar {
   color: var(--text-secondary);
-  /* color: white; */
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
 }
 
-@media only screen and (max-width: 450px) {
-  .searched-user-name {
+.searchbar:hover {
+  transform: scale(1);
+}
+
+.nav_img_logo {
+  display: none;
+  width: 80px;
+  display: inline-block;
+}
+
+@media only screen and (max-width: 900px) {
+  .searched_user_container {
+    right: 0;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .search_bar_input {
+    padding-inline: 10px;
+    font-size: 15px;
+  }
+
+  .searched_user_container {
+    width: 84vw;
+    right: 50%;
+    transform: translateX(50%);
+  }
+
+  .search_icon {
+    transform: scale(1.1);
+  }
+  .searched_user_name {
     font-size: 14px;
   }
 
-  .searched-user-username {
+  .searched_user_username {
     font-size: 10px;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .nav_img_logo {
+    width: 60px;
+  }
+
+  #chat-icon {
+    margin-right: 0;
   }
 }

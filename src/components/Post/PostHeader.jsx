@@ -20,6 +20,7 @@ import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import ProfileDialogBox from "../ProfileDialogBox";
 import TextField from "@mui/material/TextField";
 import { db } from "../../lib/firebase";
+import deletePost from "../../js/deletePost";
 import { saveAs } from "file-saver";
 import useCreatedAt from "../../hooks/useCreatedAt";
 import { useSnackbar } from "notistack";
@@ -28,7 +29,6 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
   const time = useCreatedAt(timestamp);
   const { fullScreen, isAnonymous } = user; // TODO: needs fixing
   const { username, caption, imageUrl, displayName, avatar } = postData;
-
   const [Open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(false);
   const [openEditCaption, setOpenEditCaption] = useState(false);
@@ -117,10 +117,6 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
   const handleClose = () => {
     setOpen(false);
   };
-
-  async function deletePost() {
-    await db.collection("posts").doc(postId).delete();
-  }
 
   function showProfileDialogBox() {
     setMouseOnProfileImg(true);
@@ -247,7 +243,19 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={deletePost}>Delete</Button>
+            <Button
+              onClick={() =>
+                deletePost(
+                  user?.uid,
+                  postId,
+                  imageUrl,
+                  enqueueSnackbar,
+                  setOpen,
+                )
+              }
+            >
+              Delete
+            </Button>
           </DialogActions>
         </Dialog>
       </div>
