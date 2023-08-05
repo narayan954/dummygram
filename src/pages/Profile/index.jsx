@@ -11,7 +11,7 @@ import {
   where,
 } from "firebase/firestore";
 import { doc, getDoc } from "firebase/firestore";
-import { lazy, useEffect, useState } from "react";
+import { lazy, useEffect, useRef, useState } from "react";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -54,6 +54,8 @@ function Profile() {
   const [backgroundImage, setBackgroundImage] = useState(null);
   const [showSaved, setShowSaved] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
+
+  const bgRef = useRef(null);
 
   let name = "";
   let avatar = "";
@@ -130,6 +132,18 @@ function Profile() {
       console.error("Error saving background image URL to Firestore:", error);
     }
   };
+
+  useEffect(() => {
+    const bg = bgRef.current;
+    function handleScroll() {
+      bg.style.height = 100 + +window.scrollY / 16 + "%";
+      bg.style.width = 100 + +window.scrollY / 16 + "%";
+      bg.style.opacity = 1 - +window.scrollY / 500 + "";
+    }
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  });
 
   useEffect(() => {
     async function getUserData() {
@@ -389,16 +403,14 @@ function Profile() {
               className="background-image-container"
               style={{ position: "relative" }}
             >
-              <img
-                // src={bgImageUrl || profileBackgroundImg}
-                src={
-                  backgroundImage
-                    ? URL.createObjectURL(backgroundImage)
-                    : bgImageUrl || profileBackgroundImg
-                }
-                alt=""
-                className="background-image"
-              />
+              <div className="background-image-sub-container">
+                <img
+                  ref={bgRef}
+                  src={bgImageUrl || profileBackgroundImg}
+                  alt=""
+                  className="background-image"
+                />
+              </div>
               {uid === user?.uid && (
                 <div className="bg-img-save" style={{ position: "absolute" }}>
                   <div className="bg-icon">
@@ -474,7 +486,7 @@ function Profile() {
               </Box>
               <p className="bio space-btw text-dim">{bio}</p>
               <div className="username-and-location-container space-btw">
-                <p className="username text-dim">{username}</p>&nbsp;&nbsp;
+                <p className="username text-dim">@{username}</p>&nbsp;&nbsp;
                 <Typography className="profile-user-username flexx">
                   <LocationOnIcon className="location-icon" />
                 </Typography>
