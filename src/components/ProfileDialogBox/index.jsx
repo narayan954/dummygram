@@ -68,7 +68,7 @@ const ProfileDialogBox = ({ mouseOnProfileImg, userData }) => {
         </span>
       </p>
       <p className="dialog-box-bio">Posts: {posts}</p>
-      {followers && following ? (
+      {followers && following && (
         <div className="dialog-box-follow-container">
           <p>
             <span>{following}</span> Following
@@ -77,8 +77,6 @@ const ProfileDialogBox = ({ mouseOnProfileImg, userData }) => {
             <span>{followers}</span> Followers
           </p>
         </div>
-      ) : (
-        ""
       )}
     </div>
   );

@@ -272,6 +272,22 @@
   border-radius: 100%;
 }
 
+.dialog_box_skeleton {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.dialog_box_text_skeleton {
+  width: 80%;
+}
+
+.dialog_box_text_skeleton > * {
+  width: 100%;
+}
+
 .likedby_list_container {
   margin: 0;
   display: flex;
@@ -311,6 +327,7 @@
   cursor: pointer;
   font-weight: 600;
   color: rgb(42, 42, 135);
+  text-decoration: none;
 }
 
 .like_user_name:hover {
