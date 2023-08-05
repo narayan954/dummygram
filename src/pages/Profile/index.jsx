@@ -1,6 +1,6 @@
 import "./index.css";
 
-import { Avatar, Box, Button, Typography, useMediaQuery } from "@mui/material";
+import { Avatar, Box, Button, Typography } from "@mui/material";
 import { auth, db, storage } from "../../lib/firebase";
 import {
   collection,
@@ -22,7 +22,6 @@ import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import { FaUserCircle } from "react-icons/fa";
 import { Loader } from "../../reusableComponents";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import Modal from "@mui/material/Modal";
 import NotFound from "../NotFound";
 import ProfieFeed from "./feed";
 import { StoryView } from "../../components";
@@ -35,13 +34,11 @@ const SideBar = lazy(() => import("../../components/SideBar"));
 
 function Profile() {
   const navigate = useNavigate();
-  const isNonMobile = useMediaQuery("(min-width: 768px)");
   const { enqueueSnackbar } = useSnackbar();
   const { username } = useParams();
 
   const [user, setUser] = useState(null);
   const [feed, setFeed] = useState([]);
-  const [open, setOpen] = useState(false);
   const [friendRequestSent, setFriendRequestSent] = useState(false);
   const [userData, setUserData] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -68,8 +65,6 @@ function Profile() {
     country = userData.country;
     storyTimestamp = userData.storyTimestamp;
   }
-
-  const handleClose = () => setOpen(false);
 
   // Inside the Profile component
   const handleBackgroundImgChange = (e) => {
@@ -382,100 +377,9 @@ function Profile() {
               )}
             </div>
           </div>
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box
-              sx={{
-                position: "relative",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                width: `${isNonMobile ? "40vw" : "80vw"}`,
-                height: `${isNonMobile ? "40vw" : "80vw"}`,
-                boxShadow: 24,
-                backdropFilter: "blur(7px)",
-                border: "1px solid #fff",
-                zIndex: "1000",
-                textAlign: "center",
-                borderRadius: "5%",
-              }}
-            >
-              {uid === user?.uid ? (
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <img
-                    style={{
-                      objectFit: "cover",
-                      borderRadius: "50%",
-                      margin: 0,
-                      position: "absolute",
-                      top: "30%",
-                      left: "50%",
-                      transform: "translate(-50%, -50%)",
-                    }}
-                    width={isNonMobile ? "50%" : "50%"}
-                    height={isNonMobile ? "50%" : "50%"}
-                    src={avatar}
-                    alt={name}
-                  />
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "70%",
-                      left: "50%",
-                      transform: "translate(-50%, -30%)",
-                      color: "var(--text-secondary)",
-                    }}
-                  >
-                    {uid === user?.uid && (
-                      <Box className="edit-btn">
-                        <EditIcon className="edit-image-icon" />
-                      </Box>
-                    )}
-                  </div>
-                </div>
-              ) : (
-                <>
-                  <img
-                    style={{
-                      objectFit: "cover",
-                      margin: 0,
-                      position: "absolute",
-                      height: "90%",
-                      width: "90%",
-                      transform: "translate(-50%, -50%)",
-                      borderRadius: "6%",
-                      top: "50%",
-                      left: "50%",
-                    }}
-                    width={isNonMobile ? "50%" : "50%"}
-                    height={isNonMobile ? "50%" : "50%"}
-                    src={avatar}
-                    alt={name}
-                  />
-                </>
-              )}
-            </Box>
-          </Modal>
-
-          <Box className="outer-profile-box">
-            <Box
-              display="flex"
-              width="90%"
-              flexDirection="column"
-              justifyContent="space-between"
-              gap={1}
-              className="inner-profile"
-            >
-              <Box
-                display="flex"
-                marginRight="10px"
-                flexDirection="column"
-                className="profile-left"
-              >
+          <div className="user-details-section">
+            <div className="image-edit-container">
+              <div className="user-image-container">
                 {avatar ? (
                   <Avatar
                     onClick={() => {
@@ -485,70 +389,78 @@ function Profile() {
                     }}
                     alt={name}
                     src={avatar}
-                    className={`profile-pic-container ${storyTimestamp ? "story_available_border" : null
-                      }`}
+                    className={`profile-pic-container ${
+                      storyTimestamp ? "story_available_border" : null
+                    } user-image`}
                   />
                 ) : (
                   <FaUserCircle className="profile-pic-container" />
                 )}
-                {uid === user?.uid && (
-                  <Box className="edit-btn">
-                    <EditIcon
-                      className="edit-image-icon"
-                      onClick={() => setIsEditing(true)}
-                    />
-                  </Box>
-                )}
-              </Box>
+              </div>
+              {uid === user?.uid && (
+                <Box className="edit-details">
+                  <EditIcon
+                    className="edit-details-icon edit-image-icon"
+                    onClick={() => setIsEditing(true)}
+                  />
+                </Box>
+              )}
+            </div>
+            <div className="user-details">
               <Box
+                className="space-btw"
                 display="flex"
-                flexDirection="column"
-                alignItems="flex-start"
-                marginTop="10px"
-                className="profile-right"
+                flexDirection="row"
+                justifyContent="space-between"
               >
-                <Typography className="profile-user-display-name">
-                  {name}
-                </Typography>
-                <p className="profile-bio">{bio}</p>
-                <div className="username-and-location-container">
-                  <Typography className="profile-user-username">
-                    {username}
-                  </Typography>
-                  <span className="dot-seperator"></span>
-                  <Typography className="profile-user-username">
-                    <LocationOnIcon className="location-icon" /> {country}
-                  </Typography>
-                </div>
-                <div style={{ display: "flex", gap: "30px" }}>
-                  <Typography className="posts-views">
-                    All Posts:&nbsp;
-                    <span>{feed.length}</span>
-                  </Typography>
-                  <Typography className="posts-views">
-                    Views:&nbsp;
-                    <span>
-                      <ViewsCounter uid={uid} />
-                    </span>
-                  </Typography>
-                </div>
-                {uid !== user?.uid && (
-                  <Button
-                    onClick={() =>
-                      user.isAnonymous
-                        ? navigate("/dummygram/signup")
-                        : handleSendFriendRequest()
-                    }
-                    variant="contained"
-                    color="primary"
-                    sx={{ marginTop: "1rem" }}
-                  >
-                    {friendRequestSent ? "Remove friend request" : "Add Friend"}
-                  </Button>
-                )}
+                <Typography className="user-name">{name}</Typography>
               </Box>
-            </Box>
-          </Box>
+              <p className="bio space-btw text-dim">{bio}</p>
+              <div className="username-and-location-container space-btw">
+                <p className="username text-dim">{username}</p>&nbsp;&nbsp;
+                <Typography className="profile-user-username flexx">
+                  <LocationOnIcon className="location-icon" />
+                </Typography>
+                <p className="username text-dim">{country}</p>
+              </div>
+            </div>
+            <div
+              className="space-btw text-dim"
+              style={{ display: "flex", gap: "30px" }}
+            >
+              <Typography className="posts-views text-dim">
+                All Posts&nbsp;&nbsp;
+                <span>{feed.length}</span>
+              </Typography>
+              <Typography className="posts-views text-dim">
+                Views&nbsp;&nbsp;
+                <span>
+                  <ViewsCounter uid={uid} />
+                </span>
+              </Typography>
+            </div>
+            <div>
+              {uid !== user?.uid && (
+                <Button
+                  onClick={() =>
+                    user.isAnonymous
+                      ? navigate("/dummygram/signup")
+                      : handleSendFriendRequest()
+                  }
+                  variant="contained"
+                  color="primary"
+                  sx={{
+                    marginTop: "10px",
+                    borderRadius: "22px",
+                    padding: "10px 25px",
+                  }}
+                >
+                  {friendRequestSent ? "Remove friend request" : "Add Friend"}
+                </Button>
+              )}
+            </div>
+          </div>
+
           <ProfieFeed feed={feed} user={user} />
         </>
       ) : userExists ? (
