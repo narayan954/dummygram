@@ -1,7 +1,6 @@
 import Caption from "./Post/Caption";
 import ChatBox from "./CommunityChat";
 import EditProfile from "./EditProfile";
-import Favorite from "./Favorite";
 import GuestSignInBtn from "./Guest/GuestSignInBtn";
 import GuestSignUpBtn from "./Guest/GuestSignUpBtn";
 import ImgUpload from "./ImgUpload";
@@ -19,7 +18,6 @@ export {
   Caption,
   ChatBox,
   EditProfile,
-  Favorite,
   GuestSignInBtn,
   GuestSignUpBtn,
   ImgUpload,
