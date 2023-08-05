@@ -1,16 +1,23 @@
 import "./index.css";
-import { Box } from "@mui/material";
+
 import { useEffect, useState } from "react";
-import { db } from "../../lib/firebase";
-import { useSnackbar } from "notistack";
+
+import { Box } from "@mui/material";
 import DialogBoxSkeleton from "./DialogBoxSkeleton";
 import { Link } from "react-router-dom";
 import blankProfileImg from "../../assets/blank-profile.webp";
+import { db } from "../../lib/firebase";
+import { useSnackbar } from "notistack";
 
 const LikesDialogBox = ({ likecountArr }) => {
   const [userData, setUserData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
+
+  function trimBio(bio) {
+    const str = bio.substr(0, 90) + " ...";
+    return str;
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,7 +65,10 @@ const LikesDialogBox = ({ likecountArr }) => {
         <div className="likedby_list_container">
           {userData.map((data) => (
             <div key={data.uid} className="likedby_list_item">
-              <Link to={`/dummygram/user/${data?.username}`} style={{ color: "var(--color)" }}>
+              <Link
+                to={`/dummygram/user/${data?.username}`}
+                style={{ color: "var(--color)" }}
+              >
                 <img
                   src={data?.photoURL ? data.photoURL : blankProfileImg}
                   alt={data?.name}
@@ -67,16 +77,21 @@ const LikesDialogBox = ({ likecountArr }) => {
               </Link>
               <span>
                 <section className="like_user_data">
-                  <Link to={`/dummygram/user/${data?.username}`} style={{ textDecoration: "none" }}>
-                    <h3
-                      className="like_user_name"
-                    >
-                      {data?.name}
-                    </h3>
+                  <Link
+                    to={`/dummygram/user/${data?.username}`}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <h3 className="like_user_name">{data?.name}</h3>
                   </Link>
                   <h5 className="like_user_username">@{data?.username}</h5>
                 </section>
-                <p className="like_user_bio">{data?.bio ? data.bio : "..."}</p>
+                <p className="like_user_bio">
+                  {data?.bio
+                    ? data.bio?.length > 90
+                      ? trimBio(data.bio)
+                      : data.bio
+                    : "..."}
+                </p>
               </span>
             </div>
           ))}
