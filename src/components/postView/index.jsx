@@ -162,38 +162,8 @@ const PostCommentView = ({
   };
 
   return (
-    <div>
-      <div style={{display: "flex"}}>
-        <div style={{display: "flex"}}>
-          <div className="post-image-container">
-            {/* {postHasImages ? ("has") : (<hi style={{marginTop:"50px"}}>No</hi>)} */}
-            {postHasImages ? (
-              <ErrorBoundary>
-                <ImageSlider
-                slides={postImages}
-                isCommentBox={true}
-                doubleClickHandler={likesHandler}
-              />
-              </ErrorBoundary>
-            ): (
-              ""
-            )}
-          </div>
-          <div className="post-action-container">
-            {caption}
-          </div>
-        </div>
-        {/* <div>kjg</div> */}
-      </div>
-    </div>
-
-    
-  );
-};
-export default PostCommentView;
-
-{/*<PostViewGrid container className="post-card">
-       <PostGridItemContainer item xs={12} sm={6}>
+    <PostViewGrid container className="post-card">
+      <PostGridItemContainer item xs={12} sm={6}>
         <PostGridItem
           postHasImages={postHasImages}
           textPost={!postHasImages && caption}
@@ -282,7 +252,7 @@ export default PostCommentView;
               subheader={time}
             />
           </ErrorBoundary>
-          // caption box 
+          {/* caption box */}
           {postHasImages && caption ? (
             <ErrorBoundary>
               <PostCaption>
@@ -298,7 +268,7 @@ export default PostCommentView;
           ) : null}
         </PostGridItem>
 
-        // post/ like ...  box
+        {/* post/ like ...  box */}
         <PostGridItem postActions>
           <ErrorBoundary>
             <PostDetails
@@ -317,7 +287,7 @@ export default PostCommentView;
           </ErrorBoundary>
         </PostGridItem>
 
-        // Comment box 
+        {/* Comment box  */}
         <PostGridItem isComments={comments?.length > 0}>
           <CommentForm>
             <ClickAwayListener onClickAway={() => setShowEmojis(false)}>
@@ -420,5 +390,9 @@ export default PostCommentView;
             )}
           </ErrorBoundary>
         </PostGridItem>
-      </PostGridItemContainer> 
-    </PostViewGrid>*/}
+        {/*<div style={{flexGrow: 1}}/>*/}
+      </PostGridItemContainer>
+    </PostViewGrid>
+  );
+};
+export default PostCommentView;
