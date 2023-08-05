@@ -20,6 +20,12 @@ const ProfileDialogBox = ({ mouseOnProfileImg, userData }) => {
       setIsHoverActive(false);
     }, 1000);
   }
+
+  function trimBio(bio) {
+    const str = bio.substr(0, 90) + " ...";
+    return str;
+  }
+
   return (
     <div
       style={{
@@ -58,11 +64,11 @@ const ProfileDialogBox = ({ mouseOnProfileImg, userData }) => {
         <span
           style={{ fontWeight: "400", fontSize: "13px", lineHeight: "0.0rem" }}
         >
-          {bio}
+          {bio?.length > 90 ? trimBio(bio) : bio}
         </span>
       </p>
       <p className="dialog-box-bio">Posts: {posts}</p>
-      {followers && following ? (
+      {followers && following && (
         <div className="dialog-box-follow-container">
           <p>
             <span>{following}</span> Following
@@ -71,8 +77,6 @@ const ProfileDialogBox = ({ mouseOnProfileImg, userData }) => {
             <span>{followers}</span> Followers
           </p>
         </div>
-      ) : (
-        ""
       )}
     </div>
   );

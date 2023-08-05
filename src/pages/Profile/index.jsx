@@ -28,6 +28,7 @@ import NotFound from "../NotFound";
 import ProfileFeed from "./feed";
 import { StoryView } from "../../components";
 import ViewsCounter from "../../reusableComponents/views";
+import deleteImg from "../../js/deleteImg";
 import firebase from "firebase/compat/app";
 import profileBackgroundImg from "../../assets/profile-background.jpg";
 import { useSnackbar } from "notistack";
@@ -53,6 +54,7 @@ function Profile() {
   const [bgimgurl, setBgimgurl] = useState(null);
   const [backgroundImage, setBackgroundImage] = useState(null);
   const [showSaved, setShowSaved] = useState(false);
+  const [previewImage, setPreviewImage] = useState(null);
 
   const bgRef = useRef(null);
 
@@ -74,6 +76,11 @@ function Profile() {
     storyTimestamp = userData.storyTimestamp;
   }
 
+  const handleCancel = () => {
+    // Reset the state to the previous background image
+    setBackgroundImage(null);
+    setEditing(false);
+  };
   // Inside the Profile component
   const handleBackgroundImgChange = (e) => {
     if (e.target.files[0]) {
@@ -84,6 +91,7 @@ function Profile() {
 
   const handleBgImageSave = () => {
     try {
+      const oldImg = bgImageUrl;
       if (backgroundImage) {
         const uploadTask = storage
           .ref(`background-images/${backgroundImage.name}`)
@@ -107,6 +115,7 @@ function Profile() {
                 await docRef.update({
                   bgImageUrl: url,
                 });
+                await deleteImg(oldImg);
               })
               .then(
                 enqueueSnackbar("Background image uploaded successfully !", {
@@ -401,7 +410,11 @@ function Profile() {
               <div className="background-image-sub-container">
                 <img
                   ref={bgRef}
-                  src={bgImageUrl || profileBackgroundImg}
+                  src={
+                    backgroundImage
+                      ? URL.createObjectURL(backgroundImage)
+                      : bgImageUrl || profileBackgroundImg
+                  }
                   alt=""
                   className="background-image"
                 />
@@ -427,6 +440,13 @@ function Profile() {
                     >
                       <Button variant="outlined" onClick={handleBgImageSave}>
                         Save
+                      </Button>
+                      <Button
+                        className="cancel-btn"
+                        variant="outlined"
+                        onClick={handleCancel}
+                      >
+                        Cancel
                       </Button>
                     </div>
                   )}
