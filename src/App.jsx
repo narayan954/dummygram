@@ -12,6 +12,7 @@ import { GuestSignUpBtn } from "./components";
 import { RowModeContext } from "./hooks/useRowMode";
 import { Suggestion } from "./components";
 import { makeStyles } from "@mui/styles";
+import { useSnackbar } from "notistack";
 
 // ------------------------------------ Pages ----------------------------------------------------
 const About = React.lazy(() => import("./pages/FooterPages/About"));
@@ -83,14 +84,7 @@ function App() {
 
   const navigate = useNavigate();
   const location = useLocation();
-
-  const checkScrollTop = () => {
-    if (!showScroll && window.scrollY > 400) {
-      setShowScroll(true);
-    } else if (showScroll && window.scrollY <= 400) {
-      setShowScroll(false);
-    }
-  };
+  const { enqueueSnackbar } = useSnackbar();
 
   const scrollTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -102,7 +96,42 @@ function App() {
     location.pathname === "/dummygram/guidelines" ||
     location.pathname === "/dummygram/contributors";
 
-  window.addEventListener("scroll", checkScrollTop);
+  useEffect(() => {
+    const checkScrollTop = () => {
+      if (!showScroll && window.scrollY > 400) {
+        setShowScroll(true);
+      } else if (showScroll && window.scrollY <= 400) {
+        setShowScroll(false);
+      }
+    };
+    window.addEventListener("scroll", checkScrollTop);
+    return () => {
+      window.removeEventListener("scroll", checkScrollTop);
+    };
+  }, []);
+
+  useEffect(() => {
+    const showOfflineNotification = () => {
+      enqueueSnackbar("You are offline", {
+        variant: "error",
+      });
+    };
+
+    const showOnlineNotification = () => {
+      enqueueSnackbar("You are online", {
+        variant: "success",
+      });
+    };
+
+    window.addEventListener("offline", showOfflineNotification);
+
+    window.addEventListener("online", showOnlineNotification);
+
+    return () => {
+      window.removeEventListener("offline", showOfflineNotification);
+      window.removeEventListener("online", showOnlineNotification);
+    };
+  }, []);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -121,6 +150,14 @@ function App() {
   }, []);
 
   useEffect(() => {
+    const handleMouseScroll = (event) => {
+      if (
+        window.innerHeight + event.target.documentElement.scrollTop + 1 >=
+        event.target.documentElement.scrollHeight
+      ) {
+        setLoadMorePosts(true);
+      }
+    };
     const scrollEventListener = window.addEventListener(
       "scroll",
       handleMouseScroll,
@@ -144,15 +181,6 @@ function App() {
       unsubscribe();
     };
   }, []);
-
-  const handleMouseScroll = (event) => {
-    if (
-      window.innerHeight + event.target.documentElement.scrollTop + 1 >=
-      event.target.documentElement.scrollHeight
-    ) {
-      setLoadMorePosts(true);
-    }
-  };
 
   useEffect(() => {
     let unsubscribe;
@@ -183,12 +211,11 @@ function App() {
     };
   }, [loadMorePosts]);
 
-  function getWindowDimensions() {
-    const { innerWidth: width } = window;
-    return { width };
-  }
-
   useEffect(() => {
+    function getWindowDimensions() {
+      const { innerWidth: width } = window;
+      return { width };
+    }
     function handleResize() {
       setWindowWidth(getWindowDimensions());
     }
