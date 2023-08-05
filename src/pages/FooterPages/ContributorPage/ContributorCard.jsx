@@ -12,7 +12,6 @@ function ContributorCard(props) {
     <Box
       className="contributors-card"
       // width={isNonMobileScreen ? "100%" : "25%"}
-      padding="2rem"
       display="flex"
       flexDirection="column"
       justifyContent="center"
@@ -53,7 +52,7 @@ function ContributorCard(props) {
             <GitHub />
           </span>
           <Typography
-            fontSize="1.6rem"
+            fontSize="1.3rem"
             fontFamily="serif"
             textAlign="center"
             my="1rem"

@@ -63,6 +63,7 @@
 
   background-size: cover;
   color: black;
+  display: flex;
   justify-content: center;
   align-items: center;
   font-weight: 600;
