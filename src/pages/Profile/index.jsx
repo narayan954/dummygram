@@ -122,8 +122,8 @@ function Profile() {
   useEffect(() => {
     const bg = bgRef.current;
     function handleScroll() {
-      bg.style.height = 160 - +window.pageYOffset/16 + "%";
-      bg.style.width = 160 - +window.pageYOffset/16 + "%";
+      bg.style.height = 100 + +window.pageYOffset/16 + "%";
+      bg.style.width = 100 + +window.pageYOffset/16 + "%";
       bg.style.opacity = 1 - +window.pageYOffset/500 + "";
     }
     window.addEventListener("scroll", handleScroll)
