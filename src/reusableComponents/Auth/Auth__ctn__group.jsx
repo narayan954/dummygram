@@ -20,7 +20,7 @@ const Auth__ctn__group = ({
       <button
         type="submit"
         onClick={handleSubmit}
-        className="action__btn login__btn"
+        className="action__btn login__btn hoverlogin"
       >
         {btn__label} <FontAwesomeIcon icon={submit__icon} />
       </button>

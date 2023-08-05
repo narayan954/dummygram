@@ -5,6 +5,7 @@
   font-family: "DM Sans", sans-serif;
   grid-template-columns: 1fr 1fr;
   width: 100vw;
+  height: fit-content;
   box-sizing: border-box;
 }
 

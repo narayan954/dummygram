@@ -17,7 +17,7 @@
   --btn-color: linear-gradient(-40deg, #daf1f7, #5f85db);
   --btn-color-hover: linear-gradient(40deg, #5f85db, #daf1f7);
   --btn-hover: #5f85db;
-  --page-over-color: #00bfff;
+  --page-over-color: linear-gradient(0.25turn, #ffa184ec, #c2b8b8, #20cdd6);
   --slide-color: #dfffd8;
   --label-color: rgb(200, 246, 248);
   --profile-color: #7d7575;
@@ -74,6 +74,7 @@
 body {
   background-color: var(--bg-color) !important;
 }
+
 
 /* App styles */
 .app {
@@ -516,13 +517,14 @@ input {
 
 /* login sign up forms */
 .page-over {
-  background-color: var(--page-over-color);
+  background: var(--page-over-color);
+  /* background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c); */
   height: 100%;
-  width: 100%;
+  width: 100vw;
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
-  min-height: 100vh;
+  min-height: 94.9vh;
 }
 .login__section {
   border: 1px solid black;
@@ -532,6 +534,7 @@ input {
   box-shadow: 0 0 10px 1px rgb(66, 49, 66);
   max-width: 1360px;
   min-width: 300px;
+  margin-top: 10vh;
 }
 .other__login {
   margin: 0 auto;

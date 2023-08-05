@@ -204,8 +204,8 @@ const LoginScreen = () => {
       <form aria-label="Sign Up Form">
         <Logo ml={1} />
         <Auth__top
-          heading={"Hey, hello 👋"}
-          top__greeting={"Enter your information to get started"}
+          // heading={"Enter your credentials"}
+          top__greeting={<b><u>Enter your credentials.</u></b>}
         />
         <div className="form__bottom">
           {/* Email Input for the form */}

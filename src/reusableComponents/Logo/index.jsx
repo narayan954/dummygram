@@ -8,7 +8,7 @@ const Logo = ({ ml }) => {
   return (
     <p
       id="dummygram-logo"
-      style={{ marginLeft: ml ? ml : "20px" }}
+      style={{ display:"flex", margin:".5vh auto", marginBottom:"2vh"}}
       onClick={() => {
         if (
           location.pathname !== "/dummygram/login" &&
