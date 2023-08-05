@@ -1,6 +1,6 @@
 import "./index.css";
 
-import { Avatar, Box, Button, Typography, useMediaQuery } from "@mui/material";
+import { Avatar, Box, Button, Typography } from "@mui/material";
 import { auth, db, storage } from "../../lib/firebase";
 import {
   collection,
@@ -10,22 +10,25 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { lazy, useEffect, useState } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { lazy, useEffect, useRef, useState } from "react";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useNavigate, useParams } from "react-router-dom";
 
+import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import Cam from "@mui/icons-material/CameraAltOutlined";
 import EditIcon from "@mui/icons-material/Edit";
 import { EditProfile } from "../../components";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import { FaUserCircle } from "react-icons/fa";
+import GridOnIcon from "@mui/icons-material/GridOn";
 import { Loader } from "../../reusableComponents";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import Modal from "@mui/material/Modal";
 import NotFound from "../NotFound";
 import ProfieFeed from "./feed";
 import { StoryView } from "../../components";
 import ViewsCounter from "../../reusableComponents/views";
+import deleteImg from "../../js/deleteImg";
 import firebase from "firebase/compat/app";
 import profileBackgroundImg from "../../assets/profile-background.jpg";
 import { useSnackbar } from "notistack";
@@ -34,13 +37,14 @@ const SideBar = lazy(() => import("../../components/SideBar"));
 
 function Profile() {
   const navigate = useNavigate();
-  const isNonMobile = useMediaQuery("(min-width: 768px)");
   const { enqueueSnackbar } = useSnackbar();
   const { username } = useParams();
 
   const [user, setUser] = useState(null);
   const [feed, setFeed] = useState([]);
-  const [open, setOpen] = useState(false);
+  const [savedPosts, setSavedPosts] = useState([]);
+  // const [open, setOpen] = useState(false);
+  const [isSavedPostsLoading, setIsSavedPostsLoading] = useState(true);
   const [friendRequestSent, setFriendRequestSent] = useState(false);
   const [userData, setUserData] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -49,6 +53,9 @@ function Profile() {
   const [editing, setEditing] = useState(false);
   const [bgimgurl, setBgimgurl] = useState(null);
   const [backgroundImage, setBackgroundImage] = useState(null);
+  const [showSaved, setShowSaved] = useState(false);
+
+  const bgRef = useRef(null);
 
   let name = "";
   let avatar = "";
@@ -68,8 +75,6 @@ function Profile() {
     storyTimestamp = userData.storyTimestamp;
   }
 
-  const handleClose = () => setOpen(false);
-
   // Inside the Profile component
   const handleBackgroundImgChange = (e) => {
     if (e.target.files[0]) {
@@ -80,6 +85,7 @@ function Profile() {
 
   const handleBgImageSave = () => {
     try {
+      const oldImg = bgImageUrl;
       if (backgroundImage) {
         const uploadTask = storage
           .ref(`background-images/${backgroundImage.name}`)
@@ -103,6 +109,7 @@ function Profile() {
                 await docRef.update({
                   bgImageUrl: url,
                 });
+                await deleteImg(oldImg);
               })
               .then(
                 enqueueSnackbar("Background image uploaded successfully !", {
@@ -122,6 +129,18 @@ function Profile() {
       console.error("Error saving background image URL to Firestore:", error);
     }
   };
+
+  useEffect(() => {
+    const bg = bgRef.current;
+    function handleScroll() {
+      bg.style.height = 100 + +window.scrollY / 16 + "%";
+      bg.style.width = 100 + +window.scrollY / 16 + "%";
+      bg.style.opacity = 1 - +window.scrollY / 500 + "";
+    }
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  });
 
   useEffect(() => {
     async function getUserData() {
@@ -319,6 +338,41 @@ function Profile() {
     };
   }, [user, name]);
 
+  async function getSavedPosts() {
+    let savedPostsArr = JSON.parse(localStorage.getItem("posts")) || [];
+    const posts = [];
+    if (savedPostsArr.length > 0 && savedPosts.length === 0) {
+      try {
+        const fetchSavedPosts = savedPostsArr.map(async (id) => {
+          try {
+            const docRef = doc(db, "posts", id);
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+              posts.push({ id: docSnap.id, post: docSnap.data() });
+            }
+          } catch (error) {
+            console.log(error, "err");
+            enqueueSnackbar("Error while fetching all posts", {
+              variant: "error",
+            });
+          } finally {
+            setIsSavedPostsLoading(false);
+          }
+        });
+        await Promise.all(fetchSavedPosts); // Wait for all fetch requests to complete
+        setSavedPosts(posts);
+      } catch (error) {
+        enqueueSnackbar("Error while fetching all posts", {
+          variant: "error",
+        });
+      } finally {
+        setIsSavedPostsLoading(false);
+      }
+    } else {
+      setIsSavedPostsLoading(false);
+    }
+  }
+
   return (
     <>
       <ErrorBoundary>
@@ -346,11 +400,14 @@ function Profile() {
               className="background-image-container"
               style={{ position: "relative" }}
             >
-              <img
-                src={bgImageUrl || profileBackgroundImg}
-                alt=""
-                className="background-image"
-              />
+              <div className="background-image-sub-container">
+                <img
+                  ref={bgRef}
+                  src={bgImageUrl || profileBackgroundImg}
+                  alt=""
+                  className="background-image"
+                />
+              </div>
               {uid === user?.uid && (
                 <div className="bg-img-save" style={{ position: "absolute" }}>
                   <div className="bg-icon">
@@ -379,100 +436,9 @@ function Profile() {
               )}
             </div>
           </div>
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box
-              sx={{
-                position: "relative",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                width: `${isNonMobile ? "40vw" : "80vw"}`,
-                height: `${isNonMobile ? "40vw" : "80vw"}`,
-                boxShadow: 24,
-                backdropFilter: "blur(7px)",
-                border: "1px solid #fff",
-                zIndex: "1000",
-                textAlign: "center",
-                borderRadius: "5%",
-              }}
-            >
-              {uid === user?.uid ? (
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <img
-                    style={{
-                      objectFit: "cover",
-                      borderRadius: "50%",
-                      margin: 0,
-                      position: "absolute",
-                      top: "30%",
-                      left: "50%",
-                      transform: "translate(-50%, -50%)",
-                    }}
-                    width={isNonMobile ? "50%" : "50%"}
-                    height={isNonMobile ? "50%" : "50%"}
-                    src={avatar}
-                    alt={name}
-                  />
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "70%",
-                      left: "50%",
-                      transform: "translate(-50%, -30%)",
-                      color: "var(--text-secondary)",
-                    }}
-                  >
-                    {uid === user?.uid && (
-                      <Box className="edit-btn">
-                        <EditIcon className="edit-image-icon" />
-                      </Box>
-                    )}
-                  </div>
-                </div>
-              ) : (
-                <>
-                  <img
-                    style={{
-                      objectFit: "cover",
-                      margin: 0,
-                      position: "absolute",
-                      height: "90%",
-                      width: "90%",
-                      transform: "translate(-50%, -50%)",
-                      borderRadius: "6%",
-                      top: "50%",
-                      left: "50%",
-                    }}
-                    width={isNonMobile ? "50%" : "50%"}
-                    height={isNonMobile ? "50%" : "50%"}
-                    src={avatar}
-                    alt={name}
-                  />
-                </>
-              )}
-            </Box>
-          </Modal>
-
-          <Box className="outer-profile-box">
-            <Box
-              display="flex"
-              width="90%"
-              flexDirection="column"
-              justifyContent="space-between"
-              gap={1}
-              className="inner-profile"
-            >
-              <Box
-                display="flex"
-                marginRight="10px"
-                flexDirection="column"
-                className="profile-left"
-              >
+          <div className="user-details-section">
+            <div className="image-edit-container">
+              <div className="user-image-container">
                 {avatar ? (
                   <Avatar
                     onClick={() => {
@@ -484,70 +450,110 @@ function Profile() {
                     src={avatar}
                     className={`profile-pic-container ${
                       storyTimestamp ? "story_available_border" : null
-                    }`}
+                    } user-image`}
                   />
                 ) : (
                   <FaUserCircle className="profile-pic-container" />
                 )}
-                {uid === user?.uid && (
-                  <Box className="edit-btn">
-                    <EditIcon
-                      className="edit-image-icon"
-                      onClick={() => setIsEditing(true)}
-                    />
-                  </Box>
-                )}
-              </Box>
+              </div>
+              {uid === user?.uid && (
+                <Box className="edit-details">
+                  <EditIcon
+                    className="edit-details-icon edit-image-icon"
+                    onClick={() => setIsEditing(true)}
+                  />
+                </Box>
+              )}
+            </div>
+            <div className="user-details">
               <Box
+                className="space-btw"
                 display="flex"
-                flexDirection="column"
-                alignItems="flex-start"
-                marginTop="10px"
-                className="profile-right"
+                flexDirection="row"
+                justifyContent="space-between"
               >
-                <Typography className="profile-user-display-name">
-                  {name}
-                </Typography>
-                <p className="profile-bio">{bio}</p>
-                <div className="username-and-location-container">
-                  <Typography className="profile-user-username">
-                    {username}
-                  </Typography>
-                  <span className="dot-seperator"></span>
-                  <Typography className="profile-user-username">
-                    <LocationOnIcon className="location-icon" /> {country}
-                  </Typography>
-                </div>
-                <div style={{ display: "flex", gap: "30px" }}>
-                  <Typography className="posts-views">
-                    All Posts:&nbsp;
-                    <span>{feed.length}</span>
-                  </Typography>
-                  <Typography className="posts-views">
-                    Views:&nbsp;
-                    <span>
-                      <ViewsCounter uid={uid} />
-                    </span>
-                  </Typography>
-                </div>
-                {uid !== user?.uid && (
-                  <Button
-                    onClick={() =>
-                      user.isAnonymous
-                        ? navigate("/dummygram/signup")
-                        : handleSendFriendRequest()
-                    }
-                    variant="contained"
-                    color="primary"
-                    sx={{ marginTop: "1rem" }}
-                  >
-                    {friendRequestSent ? "Remove friend request" : "Add Friend"}
-                  </Button>
-                )}
+                <Typography className="user-name">{name}</Typography>
               </Box>
-            </Box>
-          </Box>
-          <ProfieFeed feed={feed} user={user} />
+              <p className="bio space-btw text-dim">{bio}</p>
+              <div className="username-and-location-container space-btw">
+                <p className="username text-dim">@{username}</p>&nbsp;&nbsp;
+                <Typography className="profile-user-username flexx">
+                  <LocationOnIcon className="location-icon" />
+                </Typography>
+                <p className="username text-dim">{country}</p>
+              </div>
+            </div>
+            <div
+              className="space-btw text-dim"
+              style={{ display: "flex", gap: "30px" }}
+            >
+              <Typography className="posts-views text-dim">
+                All Posts&nbsp;&nbsp;
+                <span>{feed.length}</span>
+              </Typography>
+              <Typography className="posts-views text-dim">
+                Views&nbsp;&nbsp;
+                <span>
+                  <ViewsCounter uid={uid} />
+                </span>
+              </Typography>
+            </div>
+            <div>
+              {uid !== user?.uid && (
+                <Button
+                  onClick={() =>
+                    user.isAnonymous
+                      ? navigate("/dummygram/signup")
+                      : handleSendFriendRequest()
+                  }
+                  variant="contained"
+                  color="primary"
+                  sx={{
+                    marginTop: "10px",
+                    borderRadius: "22px",
+                    padding: "10px 25px",
+                  }}
+                >
+                  {friendRequestSent ? "Remove friend request" : "Add Friend"}
+                </Button>
+              )}
+            </div>
+          </div>
+
+          <div className="feed_btn_container">
+            <button
+              className={`feed_change_btn ${
+                showSaved ? "feed_btn_deactivated" : "feed_btn_activated"
+              }`}
+              onClick={() => setShowSaved(false)}
+            >
+              <GridOnIcon /> <span className="feed_btn_text">Feed</span>
+            </button>
+            {user?.uid === uid && (
+              <button
+                className={`feed_change_btn ${
+                  showSaved ? "feed_btn_activated" : "feed_btn_deactivated"
+                }`}
+                onClick={() => {
+                  getSavedPosts();
+                  setShowSaved(true);
+                }}
+              >
+                <BookmarksIcon /> <span className="feed_btn_text">Saved</span>
+              </button>
+            )}
+          </div>
+          {showSaved ? (
+            isSavedPostsLoading ? (
+              <Loader />
+            ) : savedPosts.length === 0 ? (
+              <p className="no_posts_msg">Nothing in saved</p>
+            ) : (
+              <ProfieFeed feed={savedPosts} />
+            )
+          ) : (
+            <ProfieFeed feed={feed} />
+          )}
         </>
       ) : userExists ? (
         <Loader />
