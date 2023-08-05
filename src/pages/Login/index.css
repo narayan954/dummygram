@@ -123,6 +123,33 @@
   cursor: pointer;
   color: white;
   font-size: large;
+  padding-left: 30px;
+}
+
+@media (max-width:500px){
+  .show__hide--pass {
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: white;
+    font-size: large;
+    padding:0;
+  }
+}
+
+@media (max-width:720px){
+  .show__hide--pass {
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: white;
+    font-size: large;
+    padding:0;
+  }
 }
 
 .pass__input__container input {

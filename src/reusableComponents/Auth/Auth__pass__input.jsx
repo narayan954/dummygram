@@ -47,7 +47,6 @@ const Auth__pass__input = ({
           onClick={(e) => handleShowPassword(e)}
           className="show-password show__hide--pass"
           aria-label={showPassword ? "Hide Password" : "Show Password"}
-          style={{margin:"8px 0 0 24px "}}
         >
           {showPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
         </button>
