@@ -25,7 +25,7 @@ import GridOnIcon from "@mui/icons-material/GridOn";
 import { Loader } from "../../reusableComponents";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import NotFound from "../NotFound";
-import ProfieFeed from "./feed";
+import ProfileFeed from "./feed";
 import { StoryView } from "../../components";
 import ViewsCounter from "../../reusableComponents/views";
 import firebase from "firebase/compat/app";
@@ -41,9 +41,9 @@ function Profile() {
 
   const [user, setUser] = useState(null);
   const [feed, setFeed] = useState([]);
-  const [savedPosts, setSavedPosts] = useState([]);
-  // const [open, setOpen] = useState(false);
+  const [isFeedLoading, setIsFeedLoading] = useState(true);
   const [isSavedPostsLoading, setIsSavedPostsLoading] = useState(true);
+  const [savedPosts, setSavedPosts] = useState([]);
   const [friendRequestSent, setFriendRequestSent] = useState(false);
   const [userData, setUserData] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -88,7 +88,7 @@ function Profile() {
           .put(backgroundImage);
         uploadTask.on(
           "state_changed",
-          () => {},
+          () => { },
           (error) => {
             enqueueSnackbar(error.message, {
               variant: "error",
@@ -314,6 +314,7 @@ function Profile() {
         });
       });
       setFeed(userPosts);
+      setIsFeedLoading(false);
     });
 
     return () => {
@@ -524,15 +525,9 @@ function Profile() {
             )}
           </div>
           {showSaved ? (
-            isSavedPostsLoading ? (
-              <Loader />
-            ) : savedPosts.length === 0 ? (
-              <p className="no_posts_msg">Nothing in saved</p>
-            ) : (
-              <ProfieFeed feed={savedPosts} />
-            )
+            <ProfileFeed feed={savedPosts} isLoading={isSavedPostsLoading} />
           ) : (
-            <ProfieFeed feed={feed} />
+            <ProfileFeed feed={feed} isLoading={isFeedLoading} />
           )}
         </>
       ) : userExists ? (

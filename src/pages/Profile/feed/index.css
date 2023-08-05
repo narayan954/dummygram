@@ -12,9 +12,10 @@
   grid-template-columns: 1fr 1fr 1fr;
   margin-bottom: 20px;
   margin-right: 10px;
-  gap: 0;
+  gap: 10px;
   padding: 0;
   border: 1px solid #dbdbdb;
+  width: 100%;
 }
 
 .post_container {
