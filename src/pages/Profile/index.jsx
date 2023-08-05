@@ -11,7 +11,7 @@ import {
   where,
 } from "firebase/firestore";
 import { doc, getDoc } from "firebase/firestore";
-import { lazy, useEffect, useState } from "react";
+import { lazy, useEffect, useRef, useState } from "react";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -28,6 +28,7 @@ import NotFound from "../NotFound";
 import ProfieFeed from "./feed";
 import { StoryView } from "../../components";
 import ViewsCounter from "../../reusableComponents/views";
+import deleteImg from "../../js/deleteImg";
 import firebase from "firebase/compat/app";
 import profileBackgroundImg from "../../assets/profile-background.jpg";
 import { useSnackbar } from "notistack";
@@ -53,6 +54,9 @@ function Profile() {
   const [bgimgurl, setBgimgurl] = useState(null);
   const [backgroundImage, setBackgroundImage] = useState(null);
   const [showSaved, setShowSaved] = useState(false);
+  const [previewImage, setPreviewImage] = useState(null);
+
+  const bgRef = useRef(null);
 
   let name = "";
   let avatar = "";
@@ -72,6 +76,11 @@ function Profile() {
     storyTimestamp = userData.storyTimestamp;
   }
 
+  const handleCancel = () => {
+    // Reset the state to the previous background image
+    setBackgroundImage(null);
+    setEditing(false);
+  };
   // Inside the Profile component
   const handleBackgroundImgChange = (e) => {
     if (e.target.files[0]) {
@@ -82,6 +91,7 @@ function Profile() {
 
   const handleBgImageSave = () => {
     try {
+      const oldImg = bgImageUrl;
       if (backgroundImage) {
         const uploadTask = storage
           .ref(`background-images/${backgroundImage.name}`)
@@ -105,6 +115,7 @@ function Profile() {
                 await docRef.update({
                   bgImageUrl: url,
                 });
+                await deleteImg(oldImg);
               })
               .then(
                 enqueueSnackbar("Background image uploaded successfully !", {
@@ -124,6 +135,18 @@ function Profile() {
       console.error("Error saving background image URL to Firestore:", error);
     }
   };
+
+  useEffect(() => {
+    const bg = bgRef.current;
+    function handleScroll() {
+      bg.style.height = 100 + +window.scrollY / 16 + "%";
+      bg.style.width = 100 + +window.scrollY / 16 + "%";
+      bg.style.opacity = 1 - +window.scrollY / 500 + "";
+    }
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  });
 
   useEffect(() => {
     async function getUserData() {
@@ -383,11 +406,18 @@ function Profile() {
               className="background-image-container"
               style={{ position: "relative" }}
             >
-              <img
-                src={bgImageUrl || profileBackgroundImg}
-                alt=""
-                className="background-image"
-              />
+              <div className="background-image-sub-container">
+                <img
+                  ref={bgRef}
+                  src={
+                    backgroundImage
+                      ? URL.createObjectURL(backgroundImage)
+                      : bgImageUrl || profileBackgroundImg
+                  }
+                  alt=""
+                  className="background-image"
+                />
+              </div>
               {uid === user?.uid && (
                 <div className="bg-img-save" style={{ position: "absolute" }}>
                   <div className="bg-icon">
@@ -409,6 +439,13 @@ function Profile() {
                     >
                       <Button variant="outlined" onClick={handleBgImageSave}>
                         Save
+                      </Button>
+                      <Button
+                        className="cancel-btn"
+                        variant="outlined"
+                        onClick={handleCancel}
+                      >
+                        Cancel
                       </Button>
                     </div>
                   )}
@@ -456,7 +493,7 @@ function Profile() {
               </Box>
               <p className="bio space-btw text-dim">{bio}</p>
               <div className="username-and-location-container space-btw">
-                <p className="username text-dim">{username}</p>&nbsp;&nbsp;
+                <p className="username text-dim">@{username}</p>&nbsp;&nbsp;
                 <Typography className="profile-user-username flexx">
                   <LocationOnIcon className="location-icon" />
                 </Typography>
