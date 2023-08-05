@@ -22,6 +22,8 @@
   --label-color: rgb(200, 246, 248);
   --profile-color: #7d7575;
   --text-light: rgba(0, 0, 0, 0.6);
+  --text-light-black: rgba(0, 0, 0, 0.6);
+  --text-dim: rgba(0, 0, 0, 0.8);
   --post-error-boundary: rgba(0, 0, 0, 0.54);
   --text-black-only: black;
   --dark-post-bg: rgb(255, 255, 255);
@@ -55,6 +57,8 @@
   --profile-color: #c8c6c6;
   --text-black-only: black;
   --text-light: rgba(255, 255, 255, 0.6);
+  --text-light-black: rgba(0, 0, 0, 0.6);
+  --text-dim: rgba(255, 255, 255, 0.8);
   --post-error-boundary: rgba(255, 255, 255, 0.54);
   --darkmode-white: white;
   --dark-post-bg: #191919;

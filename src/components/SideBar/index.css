@@ -85,7 +85,7 @@
 
 .sidebar_user_dropdown_container {
   position: absolute;
-  top: 390px;
+  top: 333px;
   left: 100px;
   padding: 0;
   border-radius: 10px;
@@ -117,7 +117,8 @@
   background: var(--btn-color-hover);
 }
 .dropdown-list-profile-picture {
-  width: 25px;
+  width: 30px;
+  aspect-ratio: 1;
   border-radius: 50%;
   border: 1px solid #eee;
   margin-left: -3px;
@@ -214,7 +215,6 @@ footer {
     position: fixed;
     padding-block: 5px;
     bottom: 0;
-    z-index: 2;
     margin: 0;
   }
 

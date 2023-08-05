@@ -3,8 +3,10 @@ import "./index.css";
 import { auth, db, storage } from "../../lib/firebase";
 import { useRef, useState } from "react";
 
-import CancelIcon from "@mui/icons-material/Cancel";
+import BackIcon from "@mui/icons-material/ArrowBackIosNew";
 import { ClickAwayListener } from "@mui/material";
+import deleteImg from "../../js/deleteImg";
+import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
@@ -17,8 +19,10 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
     avatar: userData.avatar,
     uid: userData.uid,
   });
+
   const [image, setImage] = useState(null);
   const [usernameAvailable, setUsernameAvailable] = useState(true);
+
   const { enqueueSnackbar } = useSnackbar();
   const usernameRef = useRef("");
   const { name, newUsername, bio, country, uid, avatar } = editedData;
@@ -78,6 +82,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
     if (!usernameAvailable) {
       return;
     }
+    const oldImg = userData.avatar;
     if (image) {
       const uploadTask = storage.ref(`images/${image?.name}`).put(image);
       uploadTask.on(
@@ -123,6 +128,8 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
                   });
                 });
               });
+
+              await deleteImg(oldImg);
             })
             .then(
               enqueueSnackbar("Upload Successfull", {
@@ -193,11 +200,19 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
     <ClickAwayListener onClickAway={() => setIsEditing(false)}>
       <div className="edit-profile-container">
         <div className="edit-profile-sub-container">
-          <CancelIcon
-            className="cancel-editing-icon"
-            onClick={() => setIsEditing(false)}
-          />
-          <div>
+          <div className="edit-profile-header">
+            <BackIcon
+              onClick={() => setIsEditing(false)}
+              style={{ display: "flex", marginTop: "6px", cursor: "pointer" }}
+            />
+            <h2>Edit Profile</h2>
+            <div>
+              <span className="edit-profile-save-btn" onClick={handleImgSave}>
+                Save
+              </span>
+            </div>
+          </div>
+          <div className="edit-profile-image">
             <input
               type="file"
               id="file"
@@ -205,43 +220,64 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
               onChange={handleImgChange}
               accept="image/*"
             />
+            <EditIcon className="edit-profile-image-icon" />
             <label htmlFor="file">
               <img src={avatar} alt={name} className="edit-profile-img" />
             </label>
           </div>
-
-          {/* name  */}
-          <label defaultValue={"Name"}>
-            <p className="edit-profile-label">Name</p>
-            <input
-              type="text"
-              value={name}
-              name="name"
-              className="edit-profile-input"
-              onChange={handleChange}
-            />
-          </label>
-          {/* username  */}
-          <label htmlFor="">
-            <p className="edit-profile-label">Username</p>
-            <input
-              type="text"
-              value={newUsername}
-              name="newUsername"
-              className={`edit-profile-input ${
-                usernameAvailable ? "" : "error-border"
-              }`}
-              ref={usernameRef}
-              onChange={(e) => {
-                usernameRef.current = e.target.value.trim();
-                handleChange(e);
-                checkUsername();
-              }}
-            />
-          </label>
+          <div className="edit-user-details">
+            {/* name  */}
+            <div className="user-field">
+              <label defaultValue={"Name"}>
+                <p className="edit-profile-label">Name</p>
+                <input
+                  type="text"
+                  value={name}
+                  name="name"
+                  className="edit-profile-input name-input"
+                  onChange={handleChange}
+                />
+              </label>
+            </div>
+            {/* username  */}
+            <div className="user-field">
+              <label htmlFor="">
+                <p className="edit-profile-label">Username</p>
+                <input
+                  type="text"
+                  value={newUsername}
+                  name="newUsername"
+                  className={`edit-profile-input username-input ${
+                    usernameAvailable ? "" : "error-border"
+                  }`}
+                  ref={usernameRef}
+                  onChange={(e) => {
+                    usernameRef.current = e.target.value.trim();
+                    handleChange(e);
+                    checkUsername();
+                  }}
+                />
+              </label>
+            </div>
+            {/* country  */}
+            <div className="user-field">
+              <label htmlFor="">
+                <p className="edit-profile-label">Country</p>
+                <input
+                  type="text"
+                  name="country"
+                  value={country}
+                  className="edit-profile-input country-input"
+                  onChange={handleChange}
+                />
+              </label>
+            </div>
+          </div>
           {/* bio */}
           <label htmlFor="">
-            <p className="edit-profile-label">Bio</p>
+            <p style={{ paddingTop: "0" }} className="edit-profile-label">
+              Bio
+            </p>
             <textarea
               name="bio"
               id=""
@@ -253,22 +289,6 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
               onChange={handleChange}
             ></textarea>
           </label>
-          {/* country  */}
-          <label htmlFor="">
-            <p className="edit-profile-label">Country</p>
-            <input
-              type="text"
-              name="country"
-              value={country}
-              className="edit-profile-input"
-              onChange={handleChange}
-            />
-          </label>
-          <div>
-            <button className="edit-profile-save-btn" onClick={handleImgSave}>
-              Save
-            </button>
-          </div>
         </div>
       </div>
     </ClickAwayListener>
