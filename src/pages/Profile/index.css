@@ -27,16 +27,16 @@
 
 .feed_change_btn {
   font-size: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 15px;
-    padding-bottom: 10px;
-    padding-inline: 20px;
-    cursor: pointer;
-    background: var(--bg-color);
-    border: none;
-    color: var(--text-secondary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 15px;
+  padding-bottom: 10px;
+  padding-inline: 20px;
+  cursor: pointer;
+  background: var(--bg-color);
+  border: none;
+  color: var(--text-secondary);
 }
 
 .feed_btn_deactivated {
@@ -329,7 +329,6 @@
     margin-left: 8vw;
   }
 }
-
 
 @media screen and (max-width: 800px) {
   .outer-profile-box {

@@ -10,18 +10,18 @@ import {
   query,
   where,
 } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { lazy, useEffect, useState } from "react";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useNavigate, useParams } from "react-router-dom";
-import GridOnIcon from '@mui/icons-material/GridOn';
-import BookmarksIcon from "@mui/icons-material/Bookmarks";
-import { doc, getDoc } from "firebase/firestore";
 
+import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import Cam from "@mui/icons-material/CameraAltOutlined";
 import EditIcon from "@mui/icons-material/Edit";
 import { EditProfile } from "../../components";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import { FaUserCircle } from "react-icons/fa";
+import GridOnIcon from "@mui/icons-material/GridOn";
 import { Loader } from "../../reusableComponents";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import NotFound from "../NotFound";
@@ -88,7 +88,7 @@ function Profile() {
           .put(backgroundImage);
         uploadTask.on(
           "state_changed",
-          () => { },
+          () => {},
           (error) => {
             enqueueSnackbar(error.message, {
               variant: "error",
@@ -321,7 +321,6 @@ function Profile() {
     };
   }, [user, name]);
 
-
   async function getSavedPosts() {
     let savedPostsArr = JSON.parse(localStorage.getItem("posts")) || [];
     const posts = [];
@@ -335,12 +334,11 @@ function Profile() {
               posts.push({ id: docSnap.id, post: docSnap.data() });
             }
           } catch (error) {
-            console.log(error, "err")
+            console.log(error, "err");
             enqueueSnackbar("Error while fetching all posts", {
               variant: "error",
             });
-          }
-          finally {
+          } finally {
             setIsSavedPostsLoading(false);
           }
         });
@@ -350,12 +348,10 @@ function Profile() {
         enqueueSnackbar("Error while fetching all posts", {
           variant: "error",
         });
-      }
-      finally {
+      } finally {
         setIsSavedPostsLoading(false);
       }
-    }
-    else {
+    } else {
       setIsSavedPostsLoading(false);
     }
   }
@@ -432,8 +428,9 @@ function Profile() {
                     }}
                     alt={name}
                     src={avatar}
-                    className={`profile-pic-container ${storyTimestamp ? "story_available_border" : null
-                      } user-image`}
+                    className={`profile-pic-container ${
+                      storyTimestamp ? "story_available_border" : null
+                    } user-image`}
                   />
                 ) : (
                   <FaUserCircle className="profile-pic-container" />
@@ -505,17 +502,21 @@ function Profile() {
 
           <div className="feed_btn_container">
             <button
-              className={`feed_change_btn ${showSaved ? "feed_btn_deactivated" : "feed_btn_activated"}`}
+              className={`feed_change_btn ${
+                showSaved ? "feed_btn_deactivated" : "feed_btn_activated"
+              }`}
               onClick={() => setShowSaved(false)}
             >
               <GridOnIcon /> <span className="feed_btn_text">Feed</span>
             </button>
             {user?.uid === uid && (
               <button
-                className={`feed_change_btn ${showSaved ? "feed_btn_activated" : "feed_btn_deactivated"}`}
+                className={`feed_change_btn ${
+                  showSaved ? "feed_btn_activated" : "feed_btn_deactivated"
+                }`}
                 onClick={() => {
-                  getSavedPosts()
-                  setShowSaved(true)
+                  getSavedPosts();
+                  setShowSaved(true);
                 }}
               >
                 <BookmarksIcon /> <span className="feed_btn_text">Saved</span>
@@ -523,7 +524,13 @@ function Profile() {
             )}
           </div>
           {showSaved ? (
-            isSavedPostsLoading? <Loader /> : (savedPosts.length === 0? <p className="no_posts_msg">Nothing in saved</p> : <ProfieFeed feed={savedPosts} />)
+            isSavedPostsLoading ? (
+              <Loader />
+            ) : savedPosts.length === 0 ? (
+              <p className="no_posts_msg">Nothing in saved</p>
+            ) : (
+              <ProfieFeed feed={savedPosts} />
+            )
           ) : (
             <ProfieFeed feed={feed} />
           )}
