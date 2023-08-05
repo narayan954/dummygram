@@ -80,12 +80,12 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
     if (!usernameAvailable) {
       return;
     }
-    const isImgDeleted = deleteImg(userData.avatar)
-    if (image && isImgDeleted) {
+    const oldImg = userData.avatar;
+    if (image) {
       const uploadTask = storage.ref(`images/${image?.name}`).put(image);
       uploadTask.on(
         "state_changed",
-        () => {},
+        () => { },
         (error) => {
           // playErrorSound();
           enqueueSnackbar(error.message, {
@@ -126,6 +126,8 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
                   });
                 });
               });
+
+              await deleteImg(oldImg);
             })
             .then(
               enqueueSnackbar("Upload Successfull", {
@@ -231,9 +233,8 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
               type="text"
               value={newUsername}
               name="newUsername"
-              className={`edit-profile-input ${
-                usernameAvailable ? "" : "error-border"
-              }`}
+              className={`edit-profile-input ${usernameAvailable ? "" : "error-border"
+                }`}
               ref={usernameRef}
               onChange={(e) => {
                 usernameRef.current = e.target.value.trim();
