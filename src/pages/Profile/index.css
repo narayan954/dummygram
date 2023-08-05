@@ -240,7 +240,7 @@
   top: 60px;
   margin-top: 10px;
   display: flex;
-  gap: 1rem;
+  gap: 0.7rem;
 }
 .bg-save-btn button {
   border: 3px solid #244a9f;
