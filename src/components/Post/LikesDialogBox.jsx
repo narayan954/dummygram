@@ -3,15 +3,14 @@ import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { db } from "../../lib/firebase";
 import { useSnackbar } from "notistack";
-import { Loader } from "../../reusableComponents";
-import { useNavigate } from "react-router-dom";
+import DialogBoxSkeleton from "./DialogBoxSkeleton";
+import { Link } from "react-router-dom";
 import blankProfileImg from "../../assets/blank-profile.webp";
 
 const LikesDialogBox = ({ likecountArr }) => {
   const [userData, setUserData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,24 +58,22 @@ const LikesDialogBox = ({ likecountArr }) => {
         <div className="likedby_list_container">
           {userData.map((data) => (
             <div key={data.uid} className="likedby_list_item">
-              <span>
+              <Link to={`/dummygram/user/${data?.username}`} style={{ color: "var(--color)" }}>
                 <img
                   src={data?.photoURL ? data.photoURL : blankProfileImg}
                   alt={data?.name}
                   className="like_user_img"
-                  onClick={() => navigate(`/dummygram/user/${data?.username}`)}
                 />
-              </span>
+              </Link>
               <span>
                 <section className="like_user_data">
-                  <h3
-                    className="like_user_name"
-                    onClick={() =>
-                      navigate(`/dummygram/user/${data?.username}`)
-                    }
-                  >
-                    {data?.name}
-                  </h3>
+                  <Link to={`/dummygram/user/${data?.username}`} style={{ textDecoration: "none" }}>
+                    <h3
+                      className="like_user_name"
+                    >
+                      {data?.name}
+                    </h3>
+                  </Link>
                   <h5 className="like_user_username">@{data?.username}</h5>
                 </section>
                 <p className="like_user_bio">{data?.bio ? data.bio : "..."}</p>
@@ -85,7 +82,7 @@ const LikesDialogBox = ({ likecountArr }) => {
           ))}
         </div>
       ) : (
-        <Loader />
+        <DialogBoxSkeleton />
       )}
     </Box>
   );
