@@ -238,12 +238,14 @@
   display: flex;
   justify-content: center;
   top: 120px;
-  right: 20px;
+  right: 60px;
 }
 
 .bg-save-btn {
   top: 60px;
   margin-top: 10px;
+  display: flex;
+  gap: 0.7rem;
 }
 .bg-save-btn button {
   border: 3px solid #244a9f;
@@ -253,6 +255,12 @@
   color: var(--bg-color);
   font-weight: 600;
 }
+.cancel-btn {
+  background-color: rgb(255, 255, 255, 0.4) !important;
+  color: black !important;
+  padding: 2px 12px !important;
+}
+
 .bg-save-btn button:hover {
   border: 3px solid var(--btn-hover);
   background-color: #244a9f;
@@ -349,7 +357,7 @@
     padding-top: 4em !important;
   }
   .bg-img-save {
-    right: -10px;
+    right: 25px;
     top: 100px;
   }
   .bg-icon {
@@ -390,5 +398,19 @@
 
   .bg-img-save {
     top: 100px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .bg-save-btn {
+    flex-direction: column;
+  }
+  .bg-save-btn button {
+    font-size: 10px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+  .bg-img-save {
+    right: -10px;
   }
 }
