@@ -11,7 +11,6 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineClose } from "react-icons/ai";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import { ClickAwayListener } from "@mui/material";
 import { Dialog } from "@mui/material";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
@@ -26,14 +25,14 @@ import { useSnackbar } from "notistack";
 const Footer = React.lazy(() => import("./Footer"));
 
 function SideBar({ anonymous }) {
-  const [logout, setLogout] = useState(false);
-  const [openMenu, setOpenMenu] = useState(false);
   const classes = useStyles();
   const navigate = useNavigate();
   const user = auth.currentUser;
   const location = useLocation();
   const { enqueueSnackbar } = useSnackbar();
 
+  const [logout, setLogout] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
   const [openNewUpload, setOpenNewUpload] = useState(false);
   const [userData, setUserData] = useState({
     name: "",
@@ -102,21 +101,6 @@ function SideBar({ anonymous }) {
           </li>
           <li
             onClick={() =>
-              navigate(`/dummygram/${anonymous ? "signup" : "favourites"}`)
-            }
-            className={
-              location.pathname.includes("/dummygram/favourites")
-                ? "activeTab"
-                : ""
-            }
-          >
-            <div className="sidebar_align">
-              <BookmarksIcon className="icon" />
-              <span>Saved</span>
-            </div>
-          </li>
-          <li
-            onClick={() =>
               navigate(`/dummygram/${anonymous ? "signup" : "notifications"}`)
             }
             className={
@@ -154,7 +138,6 @@ function SideBar({ anonymous }) {
             </div>
           </li>
         </ul>
-        {/* <hr /> */}
         <ErrorBoundary>
           <Footer />
         </ErrorBoundary>
@@ -216,7 +199,7 @@ function SideBar({ anonymous }) {
                   <img
                     src={user.photoURL}
                     alt="profile picture"
-                    className="dropdown-list-profile-picture"
+                    className="dropdown-list-profile-picture icon"
                   />
                 ) : (
                   <AccountCircleIcon className="icon" />
@@ -228,10 +211,10 @@ function SideBar({ anonymous }) {
                   navigate(`/dummygram/${anonymous ? "signup" : "settings"}`)
                 }
               >
-                <SettingsIcon /> Settings
+                <SettingsIcon className="icon" /> Settings
               </li>
               <li onClick={() => setLogout(true)}>
-                <LogoutIcon /> Logout
+                <LogoutIcon className="icon" /> Logout
               </li>
             </ul>
           </div>

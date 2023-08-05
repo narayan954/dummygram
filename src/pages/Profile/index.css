@@ -16,6 +16,55 @@
   margin: auto;
 }
 
+.feed_btn_container {
+  margin-left: 17vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  padding: 10px;
+}
+
+.feed_change_btn {
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 15px;
+  padding-bottom: 10px;
+  padding-inline: 20px;
+  cursor: pointer;
+  background: var(--bg-color);
+  border: none;
+  color: var(--text-secondary);
+}
+
+.feed_btn_deactivated {
+  opacity: 0.7;
+  color: var(--profile-color);
+}
+
+.feed_btn_deactivated:hover {
+  opacity: 1;
+}
+
+.feed_btn_activated {
+  border-top: 4px solid;
+}
+
+.feed_btn_text {
+  margin-left: 8px;
+}
+
+.outer-profile-box {
+  position: relative;
+  margin-top: 0;
+  width: 85%;
+  padding-block: 5px;
+  padding-inline: 6px;
+  border: none;
+  margin: 0rem auto 2rem;
+}
 .user-details-section {
   display: flex;
   z-index: 99;
@@ -231,6 +280,12 @@
   transition: all 0.3s ease;
 }
 
+.no_posts_msg {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
 /* media query */
 
 @media screen and (max-width: 600px) {
@@ -265,7 +320,25 @@
   }
 }
 
+@media screen and (max-width: 1200px) {
+  .background-image-container {
+    padding: 4em 0 0 8vw;
+  }
+
+  .feed_btn_container {
+    margin-left: 8vw;
+  }
+}
+
 @media screen and (max-width: 800px) {
+  .outer-profile-box {
+    width: calc(100% - 10vw);
+  }
+
+  .feed_btn_container {
+    margin-left: 0;
+  }
+
   .background-image-container {
     padding: 0 !important;
     padding-top: 4em !important;
@@ -291,15 +364,6 @@
   }
   .user-details-section {
     padding: 0 2.5rem 2rem 2.5rem !important;
-  }
-}
-
-@media screen and (max-width: 1200px) {
-  .background-image-container {
-    padding: 4em 0 0 8vw;
-  }
-  .user-details-section {
-    padding: 0 12vw;
   }
 }
 
