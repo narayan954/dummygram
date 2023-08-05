@@ -86,7 +86,7 @@ function Contributor() {
             display: "flex",
             flexWrap: "wrap",
             rowGap: "2rem",
-            // justifyContent: "space-between",
+            justifyContent: "center",
           }}
         >
           {contributors.map((contributor) => (
