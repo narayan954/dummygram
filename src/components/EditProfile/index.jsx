@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 
 import BackIcon from "@mui/icons-material/ArrowBackIosNew";
 import { ClickAwayListener } from "@mui/material";
+import deleteImg from "../../js/deleteImg";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
@@ -18,6 +19,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
     avatar: userData.avatar,
     uid: userData.uid,
   });
+
   const [image, setImage] = useState(null);
   const [usernameAvailable, setUsernameAvailable] = useState(true);
 
@@ -80,6 +82,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
     if (!usernameAvailable) {
       return;
     }
+    const oldImg = userData.avatar;
     if (image) {
       const uploadTask = storage.ref(`images/${image?.name}`).put(image);
       uploadTask.on(
@@ -125,6 +128,8 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
                   });
                 });
               });
+
+              await deleteImg(oldImg);
             })
             .then(
               enqueueSnackbar("Upload Successfull", {
