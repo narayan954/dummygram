@@ -53,7 +53,7 @@ function Profile() {
   const [bgimgurl, setBgimgurl] = useState(null);
   const [backgroundImage, setBackgroundImage] = useState(null);
   const [showSaved, setShowSaved] = useState(false);
-  
+
   const bgRef = useRef(null);
 
   let name = "";
@@ -130,9 +130,9 @@ function Profile() {
   useEffect(() => {
     const bg = bgRef.current;
     function handleScroll() {
-      bg.style.height = 100 + +window.pageYOffset/16 + "%";
-      bg.style.width = 100 + +window.pageYOffset/16 + "%";
-      bg.style.opacity = 1 - +window.pageYOffset/500 + "";
+      bg.style.height = 100 + +window.scrollY / 16 + "%";
+      bg.style.width = 100 + +window.scrollY / 16 + "%";
+      bg.style.opacity = 1 - +window.scrollY / 500 + "";
     }
     window.addEventListener("scroll", handleScroll);
 
