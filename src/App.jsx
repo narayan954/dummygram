@@ -28,7 +28,6 @@ const Contributors = React.lazy(() =>
   import("./pages/FooterPages/ContributorPage"),
 );
 // ------------------------------------- Components ------------------------------------------------
-const Favorite = React.lazy(() => import("./components/Favorite"));
 const Notifications = React.lazy(() => import("./components/Notification"));
 const Post = React.lazy(() => import("./components/Post"));
 const SideBar = React.lazy(() => import("./components/SideBar"));
@@ -388,14 +387,6 @@ function App() {
             />
 
             <Route path="*" element={<NotFound />} />
-            <Route
-              path="/dummygram/favourites"
-              element={
-                <ErrorBoundary inApp={true}>
-                  <Favorite />
-                </ErrorBoundary>
-              }
-            />
           </Routes>
           {/* below scroll button must be checked for implementation */}
           <FaArrowCircleUp
