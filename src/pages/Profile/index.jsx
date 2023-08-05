@@ -13,7 +13,6 @@ import {
 import { lazy, useEffect, useState } from "react";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useNavigate, useParams } from "react-router-dom";
-import deleteImg from "../../js/deleteImg";
 
 import Cam from "@mui/icons-material/CameraAltOutlined";
 import EditIcon from "@mui/icons-material/Edit";
@@ -26,6 +25,7 @@ import NotFound from "../NotFound";
 import ProfieFeed from "./feed";
 import { StoryView } from "../../components";
 import ViewsCounter from "../../reusableComponents/views";
+import deleteImg from "../../js/deleteImg";
 import firebase from "firebase/compat/app";
 import profileBackgroundImg from "../../assets/profile-background.jpg";
 import { useSnackbar } from "notistack";
@@ -76,14 +76,14 @@ function Profile() {
 
   const handleBgImageSave = () => {
     try {
-      const oldImg = bgImageUrl
+      const oldImg = bgImageUrl;
       if (backgroundImage) {
         const uploadTask = storage
           .ref(`background-images/${backgroundImage.name}`)
           .put(backgroundImage);
         uploadTask.on(
           "state_changed",
-          () => { },
+          () => {},
           (error) => {
             enqueueSnackbar(error.message, {
               variant: "error",
@@ -100,7 +100,7 @@ function Profile() {
                 await docRef.update({
                   bgImageUrl: url,
                 });
-                await deleteImg(oldImg)
+                await deleteImg(oldImg);
               })
               .then(
                 enqueueSnackbar("Background image uploaded successfully !", {

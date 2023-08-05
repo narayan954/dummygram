@@ -5,9 +5,9 @@ import { useRef, useState } from "react";
 
 import CancelIcon from "@mui/icons-material/Cancel";
 import { ClickAwayListener } from "@mui/material";
+import deleteImg from "../../js/deleteImg";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
-import deleteImg from "../../js/deleteImg";
 
 const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
   const [editedData, setEditedData] = useState({
@@ -85,7 +85,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
       const uploadTask = storage.ref(`images/${image?.name}`).put(image);
       uploadTask.on(
         "state_changed",
-        () => { },
+        () => {},
         (error) => {
           // playErrorSound();
           enqueueSnackbar(error.message, {
@@ -233,8 +233,9 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
               type="text"
               value={newUsername}
               name="newUsername"
-              className={`edit-profile-input ${usernameAvailable ? "" : "error-border"
-                }`}
+              className={`edit-profile-input ${
+                usernameAvailable ? "" : "error-border"
+              }`}
               ref={usernameRef}
               onChange={(e) => {
                 usernameRef.current = e.target.value.trim();
