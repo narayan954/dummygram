@@ -78,8 +78,6 @@ function Profile() {
     setBackgroundImage(null);
     setEditing(false);
   };
-  
-
   // Inside the Profile component
   const handleBackgroundImgChange = (e) => {
     if (e.target.files[0]) {
@@ -393,7 +391,11 @@ function Profile() {
             >
               <img
                 // src={bgImageUrl || profileBackgroundImg}
-                src={backgroundImage ? URL.createObjectURL(backgroundImage) : bgImageUrl || profileBackgroundImg}
+                src={
+                  backgroundImage
+                    ? URL.createObjectURL(backgroundImage)
+                    : bgImageUrl || profileBackgroundImg
+                }
                 alt=""
                 className="background-image"
               />
@@ -419,7 +421,11 @@ function Profile() {
                       <Button variant="outlined" onClick={handleBgImageSave}>
                         Save
                       </Button>
-                      <Button variant="outlined" onClick={handleCancel}>
+                      <Button
+                        className="cancel-btn"
+                        variant="outlined"
+                        onClick={handleCancel}
+                      >
                         Cancel
                       </Button>
                     </div>
