@@ -18,13 +18,7 @@ export default function Loader(props) {
 
   return (
     <div className="loader-container">
-      <div
-        className="loader"
-        style={{
-          width: `${width}px`,
-          height: `${height}px`,
-        }}
-      />
+      <span class="loader"></span>
     </div>
   );
 }
