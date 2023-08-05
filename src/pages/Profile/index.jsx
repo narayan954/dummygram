@@ -406,7 +406,11 @@ function Profile() {
               <div className="background-image-sub-container">
                 <img
                   ref={bgRef}
-                  src={bgImageUrl || profileBackgroundImg}
+                  src={
+                    backgroundImage
+                      ? URL.createObjectURL(backgroundImage)
+                      : bgImageUrl || profileBackgroundImg
+                  }
                   alt=""
                   className="background-image"
                 />
