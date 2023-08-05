@@ -1,24 +1,9 @@
 import "./index.css";
 
-/**
- *
- * @param {{
- *     width: number,
- *     height:number
- * }} props
- */
-export default function Loader(props) {
-  const { width, height } = Object.assign(
-    {
-      width: 30,
-      height: 30,
-    },
-    props,
-  );
-
+export default function Loader() {
   return (
     <div className="loader-container">
-      <span class="loader"></span>
+      <span className="loader"></span>
     </div>
   );
 }
