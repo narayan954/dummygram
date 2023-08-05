@@ -3,9 +3,9 @@ import "./index.css";
 import { auth, db, storage } from "../../lib/firebase";
 import { useRef, useState } from "react";
 
-import EditIcon from "@mui/icons-material/Edit";
 import BackIcon from "@mui/icons-material/ArrowBackIosNew";
 import { ClickAwayListener } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
@@ -198,7 +198,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
           <div className="edit-profile-header">
             <BackIcon
               onClick={() => setIsEditing(false)}
-              style={{ display: "flex", marginTop: "6px" }}
+              style={{ display: "flex", marginTop: "6px", cursor: "pointer" }}
             />
             <h2>Edit Profile</h2>
             <div>
@@ -270,7 +270,9 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
           </div>
           {/* bio */}
           <label htmlFor="">
-            <p style={{paddingTop:"0"}} className="edit-profile-label">Bio</p>
+            <p style={{ paddingTop: "0" }} className="edit-profile-label">
+              Bio
+            </p>
             <textarea
               name="bio"
               id=""
