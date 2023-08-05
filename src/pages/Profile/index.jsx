@@ -53,6 +53,7 @@ function Profile() {
   const [bgimgurl, setBgimgurl] = useState(null);
   const [backgroundImage, setBackgroundImage] = useState(null);
   const [showSaved, setShowSaved] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const bgRef = useRef(null);
 
@@ -398,10 +399,12 @@ function Profile() {
               style={{ position: "relative" }}
             >
               <div className="background-image-sub-container">
+              {imageLoaded ? null : <div className="blur-effect" />}
                 <img
                   ref={bgRef}
                   src={bgImageUrl || profileBackgroundImg}
-                  alt=""
+                  alt={name}
+                  onLoad={() => setImageLoaded(true)}
                   className="background-image"
                 />
               </div>
