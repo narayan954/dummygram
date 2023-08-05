@@ -50,7 +50,6 @@
 }
 
 .post__background {
-  /* min-height: 350px; */
   height: 350px;
   background: linear-gradient(
     130deg,
@@ -64,6 +63,7 @@
 
   background-size: cover;
   color: black;
+  display: flex;
   justify-content: center;
   align-items: center;
   font-weight: 600;
