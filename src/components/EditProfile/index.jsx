@@ -7,6 +7,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import EditIcon from "@mui/icons-material/Edit";
 import BackIcon from "@mui/icons-material/ArrowBackIosNew";
 import { ClickAwayListener } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
@@ -21,6 +22,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
   });
   const [image, setImage] = useState(null);
   const [usernameAvailable, setUsernameAvailable] = useState(true);
+
   const { enqueueSnackbar } = useSnackbar();
   const usernameRef = useRef("");
   const { name, newUsername, bio, country, uid, avatar } = editedData;

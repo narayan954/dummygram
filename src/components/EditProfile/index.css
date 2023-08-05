@@ -49,7 +49,7 @@
   left: 98%;
   transform: translate(-98%);
   color: rgba(8, 17, 123, 0.69);
-  background-color: rgb(255,255,255,0.7);
+  background-color: rgb(255, 255, 255, 0.7);
   border-radius: 50%;
   padding: 10px;
   cursor: pointer;
@@ -124,7 +124,6 @@
 
 .edit-profile-save-btn:hover {
   color: rgba(8, 17, 123, 0.9);
-
 }
 
 .edit-profile-save-btn:active {
