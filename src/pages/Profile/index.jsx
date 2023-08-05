@@ -55,6 +55,7 @@ function Profile() {
   const [backgroundImage, setBackgroundImage] = useState(null);
   const [showSaved, setShowSaved] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [previewImage, setPreviewImage] = useState(null);
 
   const bgRef = useRef(null);
 
@@ -76,6 +77,11 @@ function Profile() {
     storyTimestamp = userData.storyTimestamp;
   }
 
+  const handleCancel = () => {
+    // Reset the state to the previous background image
+    setBackgroundImage(null);
+    setEditing(false);
+  };
   // Inside the Profile component
   const handleBackgroundImgChange = (e) => {
     if (e.target.files[0]) {
@@ -405,7 +411,11 @@ function Profile() {
               {imageLoaded ? null : <div className="blur-effect" />}
                 <img
                   ref={bgRef}
-                  src={bgImageUrl || profileBackgroundImg}
+                  src={
+                    backgroundImage
+                      ? URL.createObjectURL(backgroundImage)
+                      : bgImageUrl || profileBackgroundImg
+                  }
                   alt={name}
                   onLoad={() => setImageLoaded(true)}
                   className="background-image"
@@ -432,6 +442,13 @@ function Profile() {
                     >
                       <Button variant="outlined" onClick={handleBgImageSave}>
                         Save
+                      </Button>
+                      <Button
+                        className="cancel-btn"
+                        variant="outlined"
+                        onClick={handleCancel}
+                      >
+                        Cancel
                       </Button>
                     </div>
                   )}
