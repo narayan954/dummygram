@@ -1,0 +1,94 @@
+.story_main_container {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.story_icons {
+  position: absolute;
+  top: -40px;
+  z-index: 99;
+  transform: scale(1.4);
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 10px;
+}
+
+.story_close_icon {
+  right: 30px;
+  color: white;
+}
+
+.story_icons:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.story_delete_icon {
+  right: 80px;
+  color: red;
+}
+
+.story-container-outer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  justify-content: flex-start;
+  align-items: center;
+  max-width: 500px;
+  max-height: 500px;
+}
+
+.story_container-inner {
+  display: flex;
+  width: 100%;
+}
+.story-cont-with-img .story_container-inner {
+  flex-direction: column;
+}
+
+.story-image-container {
+  width: 100%;
+  height: 100%;
+}
+
+.story-caption {
+  width: 100%;
+  padding: 20px 0 20px 10px;
+  font-size: 16px;
+  color: #fff;
+}
+
+.story_bg {
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  border-radius: 22px;
+}
+
+.story_without_image {
+  position: relative;
+  /* border-radius: 22px; */
+  max-width: 500px;
+}
+
+.caption_without_image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+}
+
+.story_image {
+  width: 100%;
+  height: 100%;
+  border-radius: 22px;
+  aspect-ratio: initial;
+}

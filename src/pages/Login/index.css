@@ -9,10 +9,11 @@
 }
 
 .login__left {
+  margin-top: 20px;
   display: flex;
   gap: 1rem;
   justify-content: center;
-  padding: 2.5rem 1rem;
+  padding: 1px 1rem;
   overflow-y: scroll;
 }
 
@@ -27,7 +28,7 @@
 
 .greetings h3 {
   color: var(--color);
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 
 .greetings p {
@@ -110,6 +111,7 @@
   position: relative;
   overflow: hidden;
   width: 100%;
+  background: rgb(0, 132, 255);
 }
 
 .show__hide--pass {
@@ -118,7 +120,8 @@
   border: none;
   outline: none;
   cursor: pointer;
-  margin: auto;
+  color: white;
+  font-size: large;
 }
 
 .pass__input__container input {
@@ -248,6 +251,7 @@
     padding: 1.5rem;
   }
   .login__left {
+    margin-top: 10px;
     padding: 0;
   }
   .form__top {

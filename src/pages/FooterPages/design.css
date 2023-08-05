@@ -17,22 +17,6 @@
   background-image: linear-gradient(109.6deg, #0cc, #fff 91.1%);
 }
 
-.grad1 {
-  top: 0%;
-  left: -10%;
-  width: 329px;
-  aspect-ratio: 3/2;
-  border-radius: 81% 19% 74% 26% / 69% 39% 61% 31%;
-}
-
-.grad2 {
-  bottom: 10%;
-  left: -10%;
-  width: 200px;
-  aspect-ratio: 1;
-  border-radius: 53% 47% 53% 47% / 52% 33% 67% 48%;
-}
-
 .grad3 {
   top: 10%;
   right: -10%;
@@ -50,78 +34,6 @@
   border-radius: 32% 68% 74% 26% / 20% 65% 35% 80%;
 }
 
-.grad5 {
-  top: 95%;
-  right: -5%;
-  width: 200px;
-  aspect-ratio: 1/2;
-  transform: rotateZ(15deg);
-  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
-}
-
-.grad6 {
-  top: 80%;
-  right: 90%;
-  width: 200px;
-  aspect-ratio: 3/2;
-  transform: rotateZ(15deg);
-  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
-}
-
-.grad7 {
-  top: 60%;
-  right: -40%;
-  width: 200px;
-  aspect-ratio: 1;
-  transform: rotateZ(15deg);
-  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
-}
-
-.grad8 {
-  top: 45%;
-  right: 90%;
-  width: 200px;
-  aspect-ratio: 1/2;
-  transform: rotateZ(15deg);
-  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
-}
-
-.grad9 {
-  top: 55%;
-  right: -80%;
-  width: 200px;
-  aspect-ratio: 1/2;
-  transform: rotateZ(15deg);
-  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
-}
-
-.grad10 {
-  top: 75%;
-  right: -10%;
-  width: 200px;
-  aspect-ratio: 1;
-  transform: rotateZ(15deg);
-  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
-}
-
-.grad11 {
-  top: 35%;
-  right: -40%;
-  width: 200px;
-  aspect-ratio: 1/2;
-  transform: rotateZ(15deg);
-  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
-}
-
-.grad12 {
-  top: 25%;
-  right: 50%;
-  width: 200px;
-  aspect-ratio: 1/2;
-  transform: rotateZ(15deg);
-  border-radius: 63% 37% 59% 41% / 32% 80% 20% 68%;
-}
-
 .footer-page-heading-color {
   color: var(--color);
 }
@@ -129,16 +41,121 @@
 .footer-page-para-color {
   color: var(--text-secondary);
 }
+.about-header,
+.about-header-img,
+.about-header-img img {
+  width: 100%;
+  height: 350px;
+}
+.footer-page-container {
+  position: relative;
+  margin-top: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.footer-page-section {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 40px;
+  padding: 20px;
+  padding-top: 0;
+  margin-top: 0;
+  gap: 2rem;
+}
+.footer-page-headings {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.back-icon {
+  display: flex;
+  align-items: center;
+  margin-left: 40px;
+  padding-left: 10px;
+  height: 120px;
+  color: var(--link-color);
+  margin-top: 20px;
+}
+.back-icon span {
+  padding-left: 1.8rem;
+  font-size: 1.5rem;
+}
+.back-icon .icon {
+  font-size: 5rem;
+}
 
-@media only screen and (max-width: 650px) {
-  .grad1 {
-    width: 209px;
+@media only screen and (min-width: 1000px) {
+  .footer-page-header,
+  .footer-page-header-img,
+  .footer-page-header-img img {
+    height: 400px !important;
   }
-
-  .grad2 {
-    width: 200px;
+  .btn-content {
+    font-size: 28px;
   }
+  .back-icon {
+    height: 100px !important;
+  }
+  .footer-page-headings {
+    font-size: 2.4rem;
+  }
+}
 
+@media only screen and (min-width: 1200px) {
+  .footer-page-header,
+  .footer-page-header-img,
+  .footer-page-header-img img {
+    height: 500px !important;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .footer-page-header,
+  .footer-page-header-img,
+  .footer-page-header-img img {
+    height: 300px !important;
+  }
+  .back-icon {
+    height: 90px;
+  }
+  .footer-page-headings {
+    font-size: 1.8rem;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .footer-page-header,
+  .footer-page-header-img,
+  .footer-page-header-img img {
+    height: 250px !important;
+  }
+  .footer-page-section {
+    margin: 20px 20px;
+    gap: 1.5rem;
+  }
+  .footer-page-headings {
+    font-size: 1.5rem;
+  }
+  .about-us-section p {
+    font-size: 13px;
+  }
+  .back-icon {
+    margin-left: 20px;
+    height: 60px !important;
+    margin-top: 10px;
+  }
+  .back-icon .icon {
+    font-size: 3.5rem;
+  }
+  .back-icon span {
+    padding-left: 1.2rem;
+    font-size: 1rem;
+  }
+  .guidelines-box > li {
+    font-size: 14px !important;
+  }
   .grad3 {
     width: 150px;
   }

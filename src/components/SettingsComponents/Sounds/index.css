@@ -71,3 +71,30 @@
   top: 10px;
   right: 10px;
 }
+
+.sound-toggle-switch-container {
+  display: flex;
+  align-items: center;
+}
+
+.sound-toggle-switch > span > input:hover {
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 1400px) {
+  .sounds-setting-sub-container {
+    margin-left: 160px;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .sounds-setting-sub-container {
+    margin-inline: 20px;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  .sounds-setting-sub-container {
+    margin-top: 80px;
+  }
+}

@@ -25,12 +25,13 @@ export default function ImgUpload(props) {
   const [imagePreviews, setImagePreviews] = useState([]);
   const [isValidimage, setisValidimage] = useState(true);
   const [buttonPopup, setButtonPopup] = useState(false);
+  const [isStoryUploaded, setIsStoryUploaded] = useState(false);
   const [username, setUsername] = useState("");
 
-  const displayName = auth.currentUser.displayName;
-  const avatar = auth.currentUser.photoURL;
-  const imgInput = useRef(null);
+  const displayName = auth?.currentUser?.displayName;
+  const avatar = auth?.currentUser?.photoURL;
 
+  const imgInput = useRef(null);
   const { enqueueSnackbar } = useSnackbar();
 
   const ShiftToNextPage = () => {
@@ -48,9 +49,15 @@ export default function ImgUpload(props) {
       const docRef = doc(db, "users", auth?.currentUser?.uid);
       const docSnap = await getDoc(docRef);
       setUsername(docSnap.data().username);
+      if (docSnap.data().storyTimestamp) {
+        setIsStoryUploaded(true);
+      }
     }
-
-    getUsername();
+    if (auth.currentUser.isAnonymous) {
+      setUsername("guest");
+    } else {
+      getUsername();
+    }
   }, []);
 
   const handleChange = (e) => {
@@ -87,30 +94,51 @@ export default function ImgUpload(props) {
     setImagePreviews(images);
   };
 
-  const savePost = async (imageUrl = "") => {
+  const savePost = async (imageUrl = "", type) => {
     try {
-      const postRef = await db.collection("posts").add({
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        caption: caption,
-        imageUrl,
-        username: username,
-        displayName: props.user.displayName,
-        avatar: props.user.photoURL,
-        likecount: [],
-        uid: auth?.currentUser?.uid,
-      });
-
-      const postId = postRef.id; // Store post ID in a separate variable
-
-      await db
-        .collection("users")
-        .doc(props.user.uid)
-        .update({
-          posts: firebase.firestore.FieldValue.arrayUnion(postId), // Use postId instead of postRef.id
+      if (type === "Post") {
+        const postRef = await db.collection("posts").add({
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          caption: caption,
+          imageUrl,
+          username: username,
+          displayName: props.user.displayName,
+          avatar: props.user.photoURL,
+          likecount: [],
+          uid: auth?.currentUser?.uid,
         });
 
+        const postId = postRef.id; // Store post ID in a separate variable
+
+        await db
+          .collection("users")
+          .doc(props.user.uid)
+          .update({
+            posts: firebase.firestore.FieldValue.arrayUnion(postId), // Use postId instead of postRef.id
+          });
+      } else {
+        await db.collection("story").add({
+          caption: caption,
+          imageUrl,
+          username: username,
+          uid: auth?.currentUser?.uid,
+        });
+
+        const querySnapshot = await db
+          .collection("users")
+          .where("username", "==", username)
+          .get();
+        if (!querySnapshot.empty) {
+          const userRef = querySnapshot.docs[0].ref;
+          // Update the 'storyTimestamp' field
+          await userRef.update({
+            storyTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          });
+        }
+      }
+
       playSuccessSound();
-      enqueueSnackbar("Post was uploaded successfully!", {
+      enqueueSnackbar(`${type} uploaded successfully!`, {
         variant: "success",
       });
 
@@ -138,7 +166,7 @@ export default function ImgUpload(props) {
     }
   };
 
-  function handleUpload() {
+  function handleUpload(type) {
     if ((!image && !caption) || !isValidimage) {
       enqueueSnackbar("Upload valid image and caption!", {
         variant: "error",
@@ -152,7 +180,7 @@ export default function ImgUpload(props) {
     }
 
     if (!image) {
-      savePost();
+      savePost("", type);
       return;
     }
 
@@ -167,7 +195,7 @@ export default function ImgUpload(props) {
       },
     })
       .then((urls) => {
-        savePost(JSON.stringify(urls));
+        savePost(JSON.stringify(urls), type);
       })
       .catch((err) => {
         enqueueSnackbar(err.message, {
@@ -288,7 +316,8 @@ export default function ImgUpload(props) {
               </>
             )}
           </div>
-          <TextField className="create-post-input"
+          <TextField
+            className="create-post-input"
             onChange={(e) => setCaption(e.target.value)}
             value={caption}
             variant="filled"
@@ -305,18 +334,29 @@ export default function ImgUpload(props) {
               },
               "& .MuiFilledInput-root": {
                 background: "transparent",
-                color: "var(--color)"
+                color: "var(--color)",
               },
             }}
-            style={{color: "var(--color) !important"}}
+            style={{ color: "var(--color) !important" }}
           />
-          <button
-            onClick={handleUpload}
-            disabled={uploadingPost}
-            className="share__button"
-          >
-            Share
-          </button>
+          <div className="shareBtnContainer">
+            <button
+              onClick={() => handleUpload("Post")}
+              disabled={uploadingPost}
+              className="share__button"
+            >
+              Add Post
+            </button>
+            <button
+              onClick={() => handleUpload("Story")}
+              disabled={uploadingPost || isStoryUploaded}
+              className={`share__button ${
+                isStoryUploaded ? "disable_post_btn" : null
+              }`}
+            >
+              Create Story
+            </button>
+          </div>
         </div>
       </div>
       <div className="small_post_view">
@@ -429,6 +469,7 @@ export default function ImgUpload(props) {
               )}
             </div>
             <TextField
+              className="create-post-input"
               onChange={(e) => setCaption(e.target.value)}
               value={caption}
               variant="filled"
@@ -444,16 +485,29 @@ export default function ImgUpload(props) {
                 },
                 "& .MuiFilledInput-root": {
                   background: "transparent",
+                  color: "var(--color)",
                 },
               }}
+              style={{ color: "var(--color) !important" }}
             />
-            <button
-              onClick={handleUpload}
-              disabled={uploadingPost}
-              className="share__button"
-            >
-              Share
-            </button>
+            <div className="shareBtnContainer">
+              <button
+                onClick={() => handleUpload("Post")}
+                disabled={uploadingPost}
+                className="share__button"
+              >
+                Add Post
+              </button>
+              <button
+                onClick={() => handleUpload("Story")}
+                disabled={uploadingPost || isStoryUploaded}
+                className={`share__button ${
+                  isStoryUploaded ? "disable_post_btn" : null
+                }`}
+              >
+                Create Story
+              </button>
+            </div>
           </div>
         )}
       </div>

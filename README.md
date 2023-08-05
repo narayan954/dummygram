@@ -13,14 +13,12 @@
       <img src="https://forthebadge.com/images/badges/powered-by-responsibility.svg" />
       <br>
       <img src="https://img.shields.io/github/repo-size/narayan954/dummygram?style=for-the-badge" />
-      <img src="https://img.shields.io/github/issues/narayan954/dummygram?style=for-the-badge" />
       <img src="https://img.shields.io/github/issues-raw/narayan954/dummygram?style=for-the-badge" />
       <img src="https://img.shields.io/github/forks/narayan954/dummygram?style=for-the-badge" />
       <img src="https://img.shields.io/github/issues-pr-closed/narayan954/dummygram?style=for-the-badge" />
       <br>
       <img src="https://img.shields.io/github/stars/narayan954/dummygram?style=for-the-badge" />
       <img src="https://img.shields.io/github/contributors/narayan954/dummygram?style=for-the-badge" />
-      <img src="https://img.shields.io/github/issues-pr-closed/narayan954/dummygram?style=for-the-badge" />
       <img src="https://img.shields.io/github/last-commit/narayan954/dummygram?style=for-the-badge" />
  </div>
 
@@ -32,15 +30,17 @@
 
 ## Vision
 
-When embarking on the journey of learning ReactJS, it's essential to engage in projects that capture your interest. One compelling idea is to create a clone of the app developed by the company that released ReactJS itself. In this case, let's consider building an Instagram clone, which not only replicates the features offered by the popular social media platform but also introduces new functionalities.
+When you start learning ReactJS, it's crucial to work on projects that interest you. One exciting idea is to create a clone of the app made by the company that created ReactJS. In this case, let's build an Instagram clone. It will have similar features to the popular social media platform, but we can also add some new functions.
 
-Developing an Instagram clone presents an incredible opportunity for learning and growth. By undertaking this project, you can contribute to the ReactJS community while expanding your knowledge and skills
+Creating an Instagram clone is a fantastic chance for learning and improvement. By doing this project, you can contribute to the ReactJS community while also growing your knowledge and skills. It will be a fun way to practice and make something cool!
 
 ## Status
 
-Since its inception in September 2022, Dummygram has been a passion project with a strong commitment to excellence. From its earliest stages, the project found a home on GitHub, a testament to its collaborative nature and openness to community contributions. While the current priorities and ongoing development efforts are clear, the team behind Dummygram remains dedicated to infusing the application with a distinctive visual appeal and a wealth of exciting features.
+Since September 2022, Dummygram has been a project that the team is passionate about and committed to making excellent. They put the project on GitHub from the beginning to work together with the community and welcome contributions from others.
 
-With a keen eye for design, the Dummygram team is determined to give the app a unique look that sets it apart from its counterparts. Through thoughtful and creative design choices, they aim to create a visually stunning user interface that captures the attention and imagination of users. By leveraging the power of ReactJS, the team has the flexibility to implement custom styles and create an engaging and immersive user experience:sparkles:
+The team has clear priorities and ongoing work to improve Dummygram, but they also focus on making it look unique and attractive. They have a great sense of design and want the app to stand out from other similar apps. Using ReactJS, they can add custom styles and create a fun and exciting experience for users.
+
+Overall, the Dummygram team loves what they do and wants to make the app visually stunning and enjoyable for everyone!
 
 ## Features
 
@@ -174,6 +174,9 @@ npm start
 
 ## Testing
 
+<details>
+    <summary>Instructions</summary>
+
 Here we will see, how to run tests and how to setup new test cases.
 _We will be using Cypress for our testing purposes._
 
@@ -256,6 +259,7 @@ E2E Files: `/cypress/e2e/`
    ```
 
 </details>
+</details>
 
 ---
 
@@ -320,8 +324,10 @@ Dummygram is now part of GitHub. For code of conduct, please see [GitHub's Commu
 
 <div  align="center"><img  height="70px"  src="https://user-images.githubusercontent.com/77617189/192942891-31b9152c-918b-4fac-af05-0ad6b1f594aa.svg"  /></div>
 
-## <h1 align=center>Open Source Programs</h1>
+## Programs
 
+<details>
+    <summary>List</summary>
 <p align="center">
 
 <a href="https://hacktoberfest.com/"><img alt="hacktoberfest logo" src="https://user-images.githubusercontent.com/79099734/189589410-ca17afb8-5855-4316-918a-054f27594809.png"></a>
@@ -332,17 +338,23 @@ Dummygram is now part of GitHub. For code of conduct, please see [GitHub's Commu
 <a href="https://kwoc.kossiitkgp.org/"><img alt="kwoc" src="https://user-images.githubusercontent.com/77617189/205456062-b28a333d-c48b-41ef-96c3-676ef2363ade.png" width="47%" height="400"></a>
 </p>
 
+<p align="center">
+<a href="https://gssoc.girlscript.tech/"><img alt="Girlscript Summer of Code Logo" src="src/assets/gssoc.png" width="47%"></a>
+&nbsp; &nbsp; &nbsp; &nbsp;
+<a href="https://jwoc.tech/"><img alt="jwoc program" src="https://user-images.githubusercontent.com/77617189/219851281-59de273a-388a-4367-a7c6-39d37196ee90.png"  width="47%"></a>
+</p>
+
 <a href="https://iwoc.live/"><img alt="iwoc program" src="https://user-images.githubusercontent.com/77617189/215256338-87d294c6-c33e-4da6-8236-f8ab6fae6c4b.png"></a>
-<a href="https://jwoc.tech/"><img alt="jwoc program" src="https://user-images.githubusercontent.com/77617189/219851281-59de273a-388a-4367-a7c6-39d37196ee90.png"></a>
 
 </p>
+</details>
 
 ## Feedback
 
 If you have any feedback or suggestions please reach out to the Project-Maintainer [Narayan Soni](https://github.com/narayan954)
 
 <div align="left">
-For further queries and whereabouts you can communicate and reach out to the owner through <a href="https://www.linkedin.com/in/narayan-soni/">Linkedin</a> & <a href="https://mail.google.com/mail/u/0/#inbox">email</a>
+For further queries and whereabouts you can communicate and reach out to the owner through <a href="https://www.linkedin.com/in/narayan-soni/">Linkedin</a> & <a href="mailto:narayansoni954@gmail.com">email</a>
 </div>
 
 ## 👩🏽‍💻 Contributing
@@ -359,7 +371,14 @@ For further queries and whereabouts you can communicate and reach out to the own
 
 Thanks a lot for spending your time helping dummygram grow. Thanks a lot! Keep rocking 🍻
 
-[![Contributors](https://contrib.rocks/image?repo=narayan954/dummygram)](https://github.com/narayan954/dummygram/graphs/contributors)
+<details>
+    <summary>Contributors</summary>
+    <div>
+      <a href="https://github.com/narayan954/dummygram/graphs/contributors">
+      <img src="https://contrib.rocks/image?repo=narayan954/dummygram"/>
+      </a>
+    </div>
+</details>
 
 ## License
 

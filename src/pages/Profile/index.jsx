@@ -1,66 +1,153 @@
 import "./index.css";
 
-import {
-  Avatar,
-  Box,
-  Button,
-  Divider,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
+import { Avatar, Box, Button, Typography } from "@mui/material";
 import { auth, db, storage } from "../../lib/firebase";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
-import { getModalStyle, useStyles } from "../../App";
-import { lazy, useEffect, useState } from "react";
+import {
+  collection,
+  deleteField,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
+import { lazy, useEffect, useRef, useState } from "react";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { AnimatedButton } from "../../reusableComponents";
+import BookmarksIcon from "@mui/icons-material/Bookmarks";
+import Cam from "@mui/icons-material/CameraAltOutlined";
 import EditIcon from "@mui/icons-material/Edit";
+import { EditProfile } from "../../components";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import { FaUserCircle } from "react-icons/fa";
+import GridOnIcon from "@mui/icons-material/GridOn";
 import { Loader } from "../../reusableComponents";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import LogoutIcon from "@mui/icons-material/Logout";
-import Modal from "@mui/material/Modal";
-import SettingsIcon from "@mui/icons-material/Settings";
+import NotFound from "../NotFound";
+import ProfieFeed from "./feed";
+import { StoryView } from "../../components";
 import ViewsCounter from "../../reusableComponents/views";
+import deleteImg from "../../js/deleteImg";
 import firebase from "firebase/compat/app";
-import logo from "../../assets/logo.webp";
 import profileBackgroundImg from "../../assets/profile-background.jpg";
 import { useSnackbar } from "notistack";
 
-const Post = lazy(() => import("../../components/Post"));
 const SideBar = lazy(() => import("../../components/SideBar"));
 
 function Profile() {
-  const classes = useStyles();
   const navigate = useNavigate();
-  const isNonMobile = useMediaQuery("(min-width: 768px)");
   const { enqueueSnackbar } = useSnackbar();
+  const { username } = useParams();
 
   const [user, setUser] = useState(null);
-  const [image, setImage] = useState("");
-  const [visible, setVisible] = useState(false);
   const [feed, setFeed] = useState([]);
-  const [profilePic, setProfilePic] = useState("");
-  const [open, setOpen] = useState(false);
-  const [logout, setLogout] = useState(false);
+  const [savedPosts, setSavedPosts] = useState([]);
+  // const [open, setOpen] = useState(false);
+  const [isSavedPostsLoading, setIsSavedPostsLoading] = useState(true);
   const [friendRequestSent, setFriendRequestSent] = useState(false);
   const [userData, setUserData] = useState(null);
-  const { username } = useParams();
+  const [isEditing, setIsEditing] = useState(false);
+  const [userExists, setUserExists] = useState(true);
+  const [viewStory, setViewStory] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [bgimgurl, setBgimgurl] = useState(null);
+  const [backgroundImage, setBackgroundImage] = useState(null);
+  const [showSaved, setShowSaved] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [previewImage, setPreviewImage] = useState(null);
+
+  const bgRef = useRef(null);
 
   let name = "";
   let avatar = "";
+  let bgImageUrl = "";
   let uid = "";
+  let bio = "";
+  let country = "";
+  let storyTimestamp = null;
 
   if (userData) {
     name = userData.name;
     avatar = userData.avatar;
+    bgImageUrl = userData.bgImageUrl;
     uid = userData.uid;
+    bio = userData.bio;
+    country = userData.country;
+    storyTimestamp = userData.storyTimestamp;
   }
 
-  const handleClose = () => setOpen(false);
+  const handleCancel = () => {
+    // Reset the state to the previous background image
+    setBackgroundImage(null);
+    setEditing(false);
+  };
+  // Inside the Profile component
+  const handleBackgroundImgChange = (e) => {
+    if (e.target.files[0]) {
+      setBackgroundImage(e.target.files[0]);
+      setEditing(true);
+    }
+  };
+
+  const handleBgImageSave = () => {
+    try {
+      const oldImg = bgImageUrl;
+      if (backgroundImage) {
+        const uploadTask = storage
+          .ref(`background-images/${backgroundImage.name}`)
+          .put(backgroundImage);
+        uploadTask.on(
+          "state_changed",
+          () => {},
+          (error) => {
+            enqueueSnackbar(error.message, {
+              variant: "error",
+            });
+          },
+          () => {
+            storage
+              .ref("background-images")
+              .child(backgroundImage.name)
+              .getDownloadURL()
+              .then(async (url) => {
+                setBgimgurl(url);
+                const docRef = db.collection("users").doc(uid);
+                await docRef.update({
+                  bgImageUrl: url,
+                });
+                await deleteImg(oldImg);
+              })
+              .then(
+                enqueueSnackbar("Background image uploaded successfully !", {
+                  variant: "success",
+                }),
+              )
+              .catch((error) => {
+                enqueueSnackbar(error.message, {
+                  variant: "error",
+                });
+              });
+          },
+        );
+      }
+      setEditing(false);
+    } catch (error) {
+      console.error("Error saving background image URL to Firestore:", error);
+    }
+  };
+
+  useEffect(() => {
+    const bg = bgRef.current;
+    function handleScroll() {
+      bg.style.height = 100 + +window.scrollY / 16 + "%";
+      bg.style.width = 100 + +window.scrollY / 16 + "%";
+      bg.style.opacity = 1 - +window.scrollY / 500 + "";
+    }
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  });
 
   useEffect(() => {
     async function getUserData() {
@@ -71,12 +158,49 @@ function Profile() {
       docRef
         .get()
         .then((snapshot) => {
-          const doc = snapshot.docs[0];
-          setUserData({
-            name: doc.data().name,
-            avatar: doc.data().photoURL,
-            uid: doc.data().uid,
-          });
+          if (snapshot.docs) {
+            const doc = snapshot.docs[0];
+            const currTimestamp = firebase.firestore.Timestamp.now().seconds;
+            const storyTimestamp = doc.data().storyTimestamp?.seconds;
+            //Check if story is expired or not
+            if (storyTimestamp && currTimestamp - storyTimestamp > 86400) {
+              async function deleteStory() {
+                const querySnapshot = await db
+                  .collection("story")
+                  .where("username", "==", username)
+                  .get();
+
+                // Delete the story that are expired
+                querySnapshot?.forEach((doc) => {
+                  doc.ref.delete().catch((error) => {
+                    console.error("Error deleting document: ", error);
+                  });
+                });
+
+                const docRef = doc.ref;
+                docRef.update({
+                  storyTimestamp: deleteField(),
+                });
+              }
+              deleteStory();
+            }
+            const data = doc.data();
+            setUserData({
+              name: data.name,
+              avatar: data.photoURL,
+              bgImageUrl: data.bgImageUrl
+                ? data.bgImageUrl
+                : profileBackgroundImg,
+              uid: data.uid,
+              bio: data.bio
+                ? data.bio
+                : "Lorem ipsum dolor sit amet consectetur",
+              country: data.country ? data.country : "Global",
+              storyTimestamp: data.storyTimestamp,
+            });
+          } else {
+            setUserExists(false);
+          }
         })
         .catch((error) => {
           enqueueSnackbar(`Error Occured: ${error}`, {
@@ -85,7 +209,7 @@ function Profile() {
         });
     }
     getUserData();
-  }, []);
+  }, [username, bgimgurl]);
 
   const handleSendFriendRequest = () => {
     const currentUserUid = auth.currentUser.uid;
@@ -139,8 +263,7 @@ function Profile() {
           const notificationData = {
             recipient: targetUserUid,
             sender: currentUserUid,
-            message: `You have received a friend request`,
-            senderName: auth?.currentUser?.displayName,
+            message: "You have received a friend request",
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
           };
           db.collection("users")
@@ -201,7 +324,11 @@ function Profile() {
 
   // Get user's posts from posts collection
   useEffect(() => {
-    const q = query(collection(db, "posts"), where("uid", "==", uid));
+    const q = query(
+      collection(db, "posts"),
+      where("uid", "==", uid),
+      orderBy("timestamp", "desc"),
+    );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const userPosts = [];
       querySnapshot.forEach((doc) => {
@@ -212,402 +339,246 @@ function Profile() {
       });
       setFeed(userPosts);
     });
+
+    return () => {
+      unsubscribe();
+    };
   }, [user, name]);
 
-  const handleChange = (e) => {
-    if (e.target.files[0]) {
-      setProfilePic(URL.createObjectURL(e.target.files[0]));
-      setImage(e.target.files[0]);
-      setVisible(true);
-    }
-  };
-
-  const handleSave = () => {
-    setOpen(false);
-    const uploadTask = storage.ref(`images/${image?.name}`).put(image);
-    uploadTask.on(
-      "state_changed",
-      () => {},
-      (error) => {
-        playErrorSound();
-        enqueueSnackbar(error.message, {
+  async function getSavedPosts() {
+    let savedPostsArr = JSON.parse(localStorage.getItem("posts")) || [];
+    const posts = [];
+    if (savedPostsArr.length > 0 && savedPosts.length === 0) {
+      try {
+        const fetchSavedPosts = savedPostsArr.map(async (id) => {
+          try {
+            const docRef = doc(db, "posts", id);
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+              posts.push({ id: docSnap.id, post: docSnap.data() });
+            }
+          } catch (error) {
+            console.log(error, "err");
+            enqueueSnackbar("Error while fetching all posts", {
+              variant: "error",
+            });
+          } finally {
+            setIsSavedPostsLoading(false);
+          }
+        });
+        await Promise.all(fetchSavedPosts); // Wait for all fetch requests to complete
+        setSavedPosts(posts);
+      } catch (error) {
+        enqueueSnackbar("Error while fetching all posts", {
           variant: "error",
         });
-      },
-      () => {
-        storage
-          .ref("images")
-          .child(image?.name)
-          .getDownloadURL()
-          .then(async (url) => {
-            //Updating profile image in auth
-            auth.currentUser.updateProfile({
-              displayName: name,
-              photoURL: url,
-            });
-
-            //Updating profile image in users collection
-            const docRef = db.collection("users").doc(uid);
-            await docRef.update({
-              photoURL: url,
-            });
-
-            //Updating profile image in all posts
-            const postsRef = db.collection("posts").where("uid", "==", uid);
-            postsRef.get().then((postsSnapshot) => {
-              postsSnapshot.forEach((post) => {
-                const postRef = post.ref;
-                postRef.update({
-                  avatar: url,
-                });
-              });
-            });
-            playSuccessSound();
-            enqueueSnackbar("Upload Successful!!!", {
-              variant: "success",
-            });
-          })
-          .catch((error) => console.error(error));
+      } finally {
+        setIsSavedPostsLoading(false);
       }
-    );
-    setVisible(false);
-  };
-
-  const signOut = () => {
-    auth.signOut().finally(() => {
-      playSuccessSound();
-      enqueueSnackbar("Logged out Successfully !", {
-        variant: "info",
-      });
-      navigate("/dummygram/");
-    });
-  };
+    } else {
+      setIsSavedPostsLoading(false);
+    }
+  }
 
   return (
     <>
       <ErrorBoundary>
         <SideBar />
       </ErrorBoundary>
-      {userData ? (
+      {viewStory && (
+        <StoryView
+          username={username}
+          setViewStory={setViewStory}
+          setUserData={setUserData}
+        />
+      )}
+      {isEditing && (
+        <EditProfile
+          userData={userData}
+          username={username}
+          setIsEditing={setIsEditing}
+          setUserData={setUserData}
+        />
+      )}
+      {userData && userExists ? (
         <>
-          <div className="background-image">
-            <img
-              src={profileBackgroundImg}
-              alt=""
-              className="background-image"
-            />
-          </div>
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box
-              sx={{
-                position: "relative",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                width: `${isNonMobile ? "40vw" : "80vw"}`,
-                height: `${isNonMobile ? "40vw" : "80vw"}`,
-                boxShadow: 24,
-                backdropFilter: "blur(7px)",
-                border: "1px solid #fff",
-                zIndex: "1000",
-                textAlign: "center",
-                borderRadius: "5%",
-              }}
+          <div style={{ zIndex: "9" }}>
+            <div
+              className="background-image-container"
+              style={{ position: "relative" }}
             >
-              {name === user?.displayName ? (
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <img
-                    style={{
-                      objectFit: "cover",
-                      borderRadius: "50%",
-                      margin: 0,
-                      position: "absolute",
-                      top: "30%",
-                      left: "50%",
-                      transform: "translate(-50%, -50%)",
-                    }}
-                    width={isNonMobile ? "50%" : "50%"}
-                    height={isNonMobile ? "50%" : "50%"}
-                    src={avatar}
-                    alt={name}
-                  />
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "70%",
-                      left: "50%",
-                      transform: "translate(-50%, -30%)",
-                      color: "var(--text-secondary)",
-                    }}
-                  >
-                    {name === user?.displayName && (
-                      <Box>
-                        <input
-                          type="file"
-                          id="file"
-                          className="file"
-                          onChange={handleChange}
-                          accept="image/*"
-                        />
-                        <label htmlFor="file">
-                          <EditIcon className="edit-image-icon" />
-                        </label>
-                      </Box>
-                    )}
-                    {visible && (
-                      <Button
-                        className="img-save"
-                        onClick={handleSave}
-                        variant="outlined"
-                        sx={{
-                          marginTop: "1rem",
-                          padding: "5px 25px",
-                        }}
-                      >
-                        Save
-                      </Button>
-                    )}
-                  </div>
-                </div>
-              ) : (
-                <>
-                  <img
-                    style={{
-                      objectFit: "cover",
-                      margin: 0,
-                      position: "absolute",
-                      height: "90%",
-                      width: "90%",
-                      transform: "translate(-50%, -50%)",
-                      borderRadius: "6%",
-                      top: "50%",
-                      left: "50%",
-                    }}
-                    width={isNonMobile ? "50%" : "50%"}
-                    height={isNonMobile ? "50%" : "50%"}
-                    src={avatar}
-                    alt={name}
-                  />
-                </>
-              )}
-            </Box>
-          </Modal>
-
-          <Box className="outer-profile-box">
-            <Box
-              display="flex"
-              width="90%"
-              flexDirection="column"
-              justifyContent="space-between"
-              gap={1}
-              className="inner-profile"
-            >
-              <Box
-                display="flex"
-                marginRight="10px"
-                flexDirection="column"
-                className="profile-left"
-              >
-                {avatar ? (
-                  <Avatar
-                    onClick={() => setOpen((on) => !on)}
-                    alt={name}
-                    src={avatar}
-                    className="profile-pic-container"
-                  />
-                ) : (
-                  <FaUserCircle style={{ width: "22vh", height: "22vh" }} />
-                )}
-                {name === user?.displayName && (
-                  <Box className="edit-btn">
+              <div className="background-image-sub-container">
+                {!imageLoaded && <div className="blur-effect" />}
+                <img
+                  ref={bgRef}
+                  src={
+                    backgroundImage
+                      ? URL.createObjectURL(backgroundImage)
+                      : bgImageUrl || profileBackgroundImg
+                  }
+                  alt={name}
+                  onLoad={() => setImageLoaded(true)}
+                  className="background-image"
+                />
+              </div>
+              {uid === user?.uid && (
+                <div className="bg-img-save" style={{ position: "absolute" }}>
+                  <div className="bg-icon">
                     <input
                       type="file"
-                      id="file"
+                      id="backgroundImage"
                       className="file"
-                      onChange={handleChange}
+                      onChange={handleBackgroundImgChange}
                       accept="image/*"
                     />
-                    <label htmlFor="file">
-                      <EditIcon className="edit-image-icon" />
+                    <label htmlFor="backgroundImage">
+                      <Cam sx={{ fontSize: 33 }} />
                     </label>
-                  </Box>
-                )}
-                {visible && (
-                  <Button
-                    className="img-save"
-                    onClick={handleSave}
-                    variant="outlined"
-                    sx={{
-                      marginTop: "1rem",
-                      padding: "5px 25px",
-                    }}
-                  >
-                    Save
-                  </Button>
-                )}
-              </Box>
-              <Box
-                display="flex"
-                flexDirection="column"
-                alignItems="flex-start"
-                marginTop="10px"
-                className="profile-right"
-              >
-                <Typography className="profile-user-display-name">
-                  {name}
-                </Typography>
-                <p className="profile-bio">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Accusamus atque eaque mollitia iusto odit! Voluptatum iusto
-                  beatae esse exercitationem.
-                </p>
-                <div className="username-and-location-container">
-                  <Typography className="profile-user-username">
-                    {username}
-                  </Typography>
-                  <span className="dot-seperator"></span>
-                  <Typography className="profile-user-username">
-                    <LocationOnIcon className="location-icon" /> India
-                  </Typography>
-                </div>
-                <div style={{ display: "flex", gap: "30px" }}>
-                  <Typography className="posts-views">
-                    All Posts:&nbsp;
-                    <span>{feed.length}</span>
-                  </Typography>
-                  <Typography className="posts-views">
-                    Views:&nbsp;
-                    <span>
-                      <ViewsCounter uid={uid} />
-                    </span>
-                  </Typography>
-                </div>
-                {name !== user?.displayName && (
-                  <Button
-                    onClick={() =>
-                      user.isAnonymous
-                        ? navigate("/dummygram/signup")
-                        : handleSendFriendRequest()
-                    }
-                    variant="contained"
-                    color="primary"
-                    sx={{ marginTop: "1rem" }}
-                  >
-                    {friendRequestSent ? "Remove friend request" : "Add Friend"}
-                  </Button>
-                )}
-                {name === user?.displayName && (
-                  <Box className="setting-logout">
-                    <Button
-                      variant="contained"
-                      startIcon={<SettingsIcon style={{ color: "black" }} />}
-                      style={{ backgroundColor: "#8beeff" }}
-                      onClick={() => navigate("/dummygram/settings")}
-                    >
-                      <Typography
-                        fontSize="1rem"
-                        color="black"
-                        textTransform="capitalize"
-                      >
-                        Settings
-                      </Typography>
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      startIcon={<LogoutIcon style={{ color: "black" }} />}
-                      style={{ backgroundColor: "#8beeff" }}
-                      onClick={() => setLogout(true)}
-                    >
-                      <Typography
-                        fontSize="1rem"
-                        color="black"
-                        textTransform="capitalize"
-                      >
-                        Log Out
-                      </Typography>
-                    </Button>
-                  </Box>
-                )}
-
-                <Modal open={logout} onClose={() => setLogout(false)}>
-                  <div style={getModalStyle()} className={classes.paper}>
-                    <form className="modal__signup">
-                      <img
-                        src={logo}
-                        alt="dummygram"
-                        className="modal__signup__img"
-                        style={{
-                          width: "80%",
-                          marginLeft: "10%",
-                          filter: "var(--filter-img)",
-                        }}
-                      />
-
-                      <p
-                        style={{
-                          fontSize: "15px",
-                          fontFamily: "monospace",
-                          padding: "10%",
-                          color: "var(--color)",
-                        }}
-                      >
-                        Are you sure you want to Logout?
-                      </p>
-
-                      <div className={classes.logout}>
-                        <AnimatedButton
-                          type="submit"
-                          onClick={signOut}
-                          variant="contained"
-                          color="primary"
-                          className="button-style"
-                        >
-                          Logout
-                        </AnimatedButton>
-                        <AnimatedButton
-                          type="submit"
-                          onClick={() => setLogout(false)}
-                          variant="contained"
-                          color="primary"
-                          className="button-style"
-                        >
-                          Cancel
-                        </AnimatedButton>
-                      </div>
-                    </form>
                   </div>
-                </Modal>
-              </Box>
-            </Box>
-          </Box>
-          <Divider style={{ background: "var(--profile-divider)" }} />
-          <Box className="flex feed-main-container">
-            <div className="app__posts" id="feed-sub-container">
-              <ErrorBoundary>
-                {feed.map(({ post, id }) => (
-                  <Post
-                    rowMode={true}
-                    key={id}
-                    postId={id}
-                    user={user}
-                    post={post}
-                    shareModal={true}
-                    setLink="/"
-                    setPostText=""
-                  />
-                ))}
-              </ErrorBoundary>
+                  {editing && (
+                    <div
+                      className="bg-save-btn"
+                      style={{ position: "absolute" }}
+                    >
+                      <Button variant="outlined" onClick={handleBgImageSave}>
+                        Save
+                      </Button>
+                      <Button
+                        className="cancel-btn"
+                        variant="outlined"
+                        onClick={handleCancel}
+                      >
+                        Cancel
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
-          </Box>
+          </div>
+          <div className="user-details-section">
+            <div className="image-edit-container">
+              <div className="user-image-container">
+                {avatar ? (
+                  <Avatar
+                    onClick={() => {
+                      if (storyTimestamp) {
+                        setViewStory(true);
+                      }
+                    }}
+                    alt={name}
+                    src={avatar}
+                    className={`profile-pic-container ${
+                      storyTimestamp ? "story_available_border" : null
+                    } user-image`}
+                  />
+                ) : (
+                  <FaUserCircle className="profile-pic-container" />
+                )}
+              </div>
+              {uid === user?.uid && (
+                <Box className="edit-details">
+                  <EditIcon
+                    className="edit-details-icon edit-image-icon"
+                    onClick={() => setIsEditing(true)}
+                  />
+                </Box>
+              )}
+            </div>
+            <div className="user-details">
+              <Box
+                className="space-btw"
+                display="flex"
+                flexDirection="row"
+                justifyContent="space-between"
+              >
+                <Typography className="user-name">{name}</Typography>
+              </Box>
+              <p className="bio space-btw text-dim">{bio}</p>
+              <div className="username-and-location-container space-btw">
+                <p className="username text-dim">@{username}</p>&nbsp;&nbsp;
+                <Typography className="profile-user-username flexx">
+                  <LocationOnIcon className="location-icon" />
+                </Typography>
+                <p className="username text-dim">{country}</p>
+              </div>
+            </div>
+            <div
+              className="space-btw text-dim"
+              style={{ display: "flex", gap: "30px" }}
+            >
+              <Typography className="posts-views text-dim">
+                All Posts&nbsp;&nbsp;
+                <span>{feed.length}</span>
+              </Typography>
+              <Typography className="posts-views text-dim">
+                Views&nbsp;&nbsp;
+                <span>
+                  <ViewsCounter uid={uid} />
+                </span>
+              </Typography>
+            </div>
+            <div>
+              {uid !== user?.uid && (
+                <Button
+                  onClick={() =>
+                    user.isAnonymous
+                      ? navigate("/dummygram/signup")
+                      : handleSendFriendRequest()
+                  }
+                  variant="contained"
+                  color="primary"
+                  sx={{
+                    marginTop: "10px",
+                    borderRadius: "22px",
+                    padding: "10px 25px",
+                  }}
+                >
+                  {friendRequestSent ? "Remove friend request" : "Add Friend"}
+                </Button>
+              )}
+            </div>
+          </div>
+
+          <div className="feed_btn_container">
+            <button
+              className={`feed_change_btn ${
+                showSaved ? "feed_btn_deactivated" : "feed_btn_activated"
+              }`}
+              onClick={() => setShowSaved(false)}
+            >
+              <GridOnIcon /> <span className="feed_btn_text">Feed</span>
+            </button>
+            {user?.uid === uid && (
+              <button
+                className={`feed_change_btn ${
+                  showSaved ? "feed_btn_activated" : "feed_btn_deactivated"
+                }`}
+                onClick={() => {
+                  getSavedPosts();
+                  setShowSaved(true);
+                }}
+              >
+                <BookmarksIcon /> <span className="feed_btn_text">Saved</span>
+              </button>
+            )}
+          </div>
+          {showSaved ? (
+            isSavedPostsLoading ? (
+              <Loader />
+            ) : savedPosts.length === 0 ? (
+              <p className="no_posts_msg">Nothing in saved</p>
+            ) : (
+              <ProfieFeed feed={savedPosts} />
+            )
+          ) : (
+            <ProfieFeed feed={feed} />
+          )}
         </>
-      ) : (
+      ) : userExists ? (
         <Loader />
+      ) : (
+        <NotFound />
       )}
     </>
   );

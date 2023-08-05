@@ -10,11 +10,12 @@ function ContributorCard(props) {
 
   return (
     <Box
-      width={isNonMobileScreen ? "100%" : "25%"}
-      padding="2rem"
+      className="contributors-card"
+      // width={isNonMobileScreen ? "100%" : "25%"}
       display="flex"
       flexDirection="column"
       justifyContent="center"
+      alignItems="center"
       sx={{
         border: "2px solid black",
         borderRadius: "20px",
@@ -23,21 +24,45 @@ function ContributorCard(props) {
         ":hover": { scale: "1.03", transition: "ease-in-out" },
       }}
     >
-      <Box padding={isNonMobileScreen ? "0" : "0 2.5rem"}>
+      <Box
+        padding={isNonMobileScreen ? "0" : "0 2.5rem"}
+        style={{ textAlign: "center" }}
+      >
         <img
           src={`https://images.weserv.nl/?output=webp&url=${image}`}
           alt={title}
-          style={{ width: "100%", height: "100%", borderRadius: "50%" }}
+          style={{ width: "10rem", height: "10rem", borderRadius: "50%" }}
         />
       </Box>
-      <Typography
-        fontSize="1.2rem"
-        fontFamily="serif"
-        textAlign="center"
-        my="1rem"
+      <Link
+        to={profile}
+        style={{ textDecoration: "none" }}
+        target="_blank"
+        referrerPolicy="no-referrer"
       >
-        {title}
-      </Typography>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <span
+            style={{
+              marginRight: "10px",
+              display: "flex",
+              alignItems: "center",
+              color: "var(--link-color)",
+            }}
+          >
+            <GitHub />
+          </span>
+          <Typography
+            fontSize="1.3rem"
+            fontFamily="serif"
+            textAlign="center"
+            my="1rem"
+            fontWeight="600"
+            color="var(--link-color)"
+          >
+            {title}
+          </Typography>
+        </div>
+      </Link>
 
       <Button
         variant="outlined"
@@ -49,17 +74,6 @@ function ContributorCard(props) {
       >
         {commits} commits
       </Button>
-
-      <Link to={profile} target="_blank" referrerPolicy="no-referrer">
-        <Button
-          variant="outlined"
-          color="primary"
-          startIcon={<GitHub />}
-          sx={{ width: "100%" }}
-        >
-          View Profile
-        </Button>
-      </Link>
     </Box>
   );
 }

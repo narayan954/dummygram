@@ -8,11 +8,13 @@ import {
   DialogTitle,
   Divider,
 } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { auth, db } from "../../lib/firebase";
+import { doc, getDoc } from "firebase/firestore";
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import { Link } from "react-router-dom";
-import React from "react";
 import ReadMore from "../ReadMore";
 
 const CommentDialogBox = ({
@@ -27,6 +29,21 @@ const CommentDialogBox = ({
   deleteCommentID,
 }) => {
   const { isAnonymous } = user;
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    async function getUsername() {
+      const docRef = doc(db, "users", auth?.currentUser?.uid);
+      const docSnap = await getDoc(docRef);
+      setUsername(docSnap.data().username);
+    }
+    if (isAnonymous) {
+      setUsername("guest");
+    } else {
+      getUsername();
+    }
+  }, []);
+
   return (
     <Box
       sx={{
@@ -48,7 +65,9 @@ const CommentDialogBox = ({
                   <Link
                     className="comment-doer"
                     to={`/dummygram/${
-                      isAnonymous ? "signup" : userComment.content.username
+                      isAnonymous
+                        ? "signup"
+                        : `user/${userComment.content.username}`
                     }`}
                   >
                     {userComment.content.avatar ? (
@@ -74,13 +93,12 @@ const CommentDialogBox = ({
                     setDeleteCommentID(userComment);
                   }}
                 >
-                  {user &&
-                    userComment.content.username === user.displayName && (
-                      <DeleteTwoToneIcon
-                        fontSize="small"
-                        className="comment-delete-icon"
-                      />
-                    )}
+                  {user && userComment?.content?.username == username && (
+                    <DeleteTwoToneIcon
+                      fontSize="small"
+                      className="comment-delete-icon"
+                    />
+                  )}
                   {
                     <Dialog
                       fullScreen={fullScreen}

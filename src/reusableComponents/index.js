@@ -7,6 +7,7 @@ import ImageSlider from "./ImageSlider";
 import Loader from "./Loader";
 import Logo from "./Logo";
 import Popup from "./Popup";
+import PostSkeleton from "./PostSkeleton";
 import Scroll from "./Scroll";
 import ShareModal from "./ShareModal";
 import SnackBar from "./SnackBar";
@@ -22,6 +23,7 @@ export {
   Loader,
   Logo,
   Popup,
+  PostSkeleton,
   Scroll,
   ShareModal,
   SnackBar,

@@ -1,3 +1,4 @@
+import "./index.css";
 // To use this dialog box create a useState and pass them as open and onClose
 // open is a boolean value to show the dialog box
 
@@ -6,7 +7,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   Divider,
 } from "@mui/material";
@@ -31,26 +31,29 @@ const DialogBox = ({
             id="responsive-dialog-title"
             sx={{
               fontWeight: "bold",
-              backgroundColor: "var(--bg-color)",
+              backgroundColor: "var(--dark-post-bg)",
               color: "var(--color)",
             }}
           >
             {title}
           </DialogTitle>
-
           <Divider />
         </>
       )}
 
       <DialogContent
-        sx={{ color: "var(--color)", backgroundColor: "var(--bg-color)" }}
+        sx={{
+          color: "var(--color)",
+          backgroundColor: "var(--dark-post-bg)",
+        }}
+        className="dialog_box_container"
       >
-        <DialogContentText>{children}</DialogContentText>
+        <div>{children}</div>
       </DialogContent>
 
       <Divider />
 
-      <DialogActions sx={{ backgroundColor: "var(--bg-color)" }}>
+      <DialogActions sx={{ backgroundColor: "var(--dark-post-bg)" }}>
         <Button
           onClick={onClose}
           sx={{ fontWeight: "bold", color: "var(--color)" }}

@@ -1,32 +1,113 @@
-.contributor-container {
-  position: relative;
-  margin-top: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+.navigation nav ul li button {
+  border-radius: 50%;
+  margin: 0 0.5rem;
+  color: var(--color);
+  border: 1px solid var(--pagination-border);
+}
+.contributors-outer {
+  width: 90vw;
+  margin: 0 auto;
 }
 
-.contributor-sub-container {
-  position: relative;
-  border-radius: 150px;
-  margin-bottom: 50px;
-}
-
-.contributor-section {
-  position: relative;
-  width: 70vw;
-  min-height: 100vh;
-  border-radius: 60px;
-  padding-bottom: 40px;
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
-  align-items: center;
-}
-
-@media only screen and (max-width: 1000px) {
-  .contributor-section {
-    width: 90vw;
+@media only screen and (max-width: 640px) {
+  .contributors-container {
+    width: 80%;
+    margin: auto;
   }
+  .contributors-card {
+    width: 100%;
+    padding: 1.5rem;
+  }
+  .navigation nav ul li button {
+    height: 2.2rem;
+    width: 2.2rem;
+    margin: 0 0.3rem;
+  }
+}
+@media only screen and (min-width: 640px) {
+  .contributors-card {
+    min-width: 260px;
+    padding: 1.5rem;
+  }
+  .contributors-container {
+    gap: 1rem;
+    row-gap: 2rem;
+  }
+  .navigation nav ul li button {
+    height: 2.8rem;
+    width: 2.8rem;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .contributors-container {
+    /* gap: 2rem !important; */
+    row-gap: 0;
+  }
+  .contributors-outer {
+    width: 85vw;
+  }
+  .navigation nav ul li button {
+    height: 3.2rem;
+    width: 3.2rem;
+  }
+  .contributors-card button {
+    font-size: 1rem;
+  }
+}
+
+.search-container {
+  margin: auto;
+  margin-bottom: 3em;
+  height: 40px;
+  width: 250px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  position: relative;
+  background: #fff;
+}
+
+.search-input {
+  border: none;
+  height: 25px;
+  width: 250px;
+  color: #1b1b1b;
+  font-size: 15px;
+  outline: none;
+}
+
+.search-input:not(:placeholder-shown) + .label {
+  font-size: 9px;
+  top: 3px;
+  color: #00c853;
+}
+
+.search-input:focus ~ .label {
+  font-size: 9px;
+  top: 3px;
+  color: #4279a3;
+  transition: all 0.5s ease;
+}
+
+.search-input:focus ~ .highlight {
+  width: 250px;
+  transition: all 0.5s ease;
+}
+
+.label {
+  color: #aaaaaa;
+  position: absolute;
+  top: 13px;
+  pointer-events: none;
+  transition: all 0.5s ease;
+}
+
+.highlight {
+  width: 0px;
+  height: 1px;
+  background: #4279a3;
+  position: absolute;
+  bottom: 8px;
+  transition: all 1s ease;
 }

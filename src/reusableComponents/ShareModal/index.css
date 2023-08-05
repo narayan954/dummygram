@@ -4,11 +4,20 @@
   text-align: center;
   color: var(--color);
   border: 2px solid var(--color);
+  width: 90vw;
+  max-width: 550px;
 }
 
 .share-modal-container > img {
   width: 40%;
   filter: invert(var(--val));
+}
+
+.share-modal-logo {
+  width: 40%;
+  margin-bottom: 10px;
+  text-align: center;
+  margin-inline: auto;
 }
 
 .share-modal-container > p {

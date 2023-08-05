@@ -1,5 +1,6 @@
 import Caption from "./Post/Caption";
-import Favorite from "./Favorite";
+import ChatBox from "./CommunityChat";
+import EditProfile from "./EditProfile";
 import GuestSignInBtn from "./Guest/GuestSignInBtn";
 import GuestSignUpBtn from "./Guest/GuestSignUpBtn";
 import ImgUpload from "./ImgUpload";
@@ -9,14 +10,14 @@ import NotFound from "../pages/NotFound";
 import Notifications from "./Notification";
 import Post from "./Post";
 import ReadMore from "./ReadMore";
-import SearchBar from "./SearchBar";
 import SideBar from "./SideBar";
-import ChatBox from "./CommunityChat";
+import StoryView from "./Story";
+import Suggestion from "./Suggestions";
 
 export {
   Caption,
   ChatBox,
-  Favorite,
+  EditProfile,
   GuestSignInBtn,
   GuestSignUpBtn,
   ImgUpload,
@@ -26,8 +27,9 @@ export {
   Notifications,
   Post,
   ReadMore,
-  SearchBar,
   SideBar,
+  StoryView,
+  Suggestion,
 };
 
 export default Post;

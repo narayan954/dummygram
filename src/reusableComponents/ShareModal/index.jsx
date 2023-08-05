@@ -5,10 +5,12 @@ import { Dialog, IconButton, Input } from "@mui/material";
 import logo from "../../assets/logo.webp";
 import { playSuccessSound } from "../../js/sounds";
 import { useSnackbar } from "notistack";
+import Logo from "../Logo";
 
 const ShareModal = (props) => {
   const { openShareModal, setOpenShareModal, currentPostLink, postText } =
     props;
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleCopyLink = () => {
     window.navigator.clipboard.writeText(currentPostLink);
@@ -24,8 +26,6 @@ const ShareModal = (props) => {
     </button>
   );
 
-  const { enqueueSnackbar } = useSnackbar();
-
   return (
     <Dialog
       sx={{ borderRadius: "100px" }}
@@ -33,7 +33,9 @@ const ShareModal = (props) => {
       onClose={() => setOpenShareModal(false)}
     >
       <div className="share-modal-container">
-        <img src={logo} alt="dummygram" />
+        <div className="share-modal-logo">
+          <Logo />
+        </div>
         <p>Share Post</p>
 
         <div className="mx-2">

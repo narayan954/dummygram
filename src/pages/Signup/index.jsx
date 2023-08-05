@@ -56,7 +56,7 @@ const SignupScreen = () => {
 
   const checkUsername = () => {
     const name = usernameRef.current;
-    const regex = /^[A-Za-z][A-Za-z0-9_]{4,17}$/gi;
+    const regex = /^[a-z][a-z0-9_]{4,20}$/;
     if (!regex.test(name)) {
       setUsernameAvailable(false);
     } else {
@@ -66,10 +66,14 @@ const SignupScreen = () => {
   };
 
   const findUsernameInDB = async () => {
-    const docId = usernameRef.current; // Assuming `usernameRef.current` contains the document ID
-    const ref = db.doc(`usernames/${docId}`);
-    const { exists } = await ref.get();
-    setUsernameAvailable(!exists);
+    const newName = usernameRef.current; // Assuming `usernameRef.current` contains the document ID
+    const usersRef = db.collection("users");
+    const querySnapshot = await usersRef.where("username", "==", newName).get();
+    if (querySnapshot.empty) {
+      setUsernameAvailable(true);
+    } else {
+      setUsernameAvailable(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -100,7 +104,7 @@ const SignupScreen = () => {
     }
 
     if (submitable) {
-      const userCollectionRef = db.collection(`users`);
+      const userCollectionRef = db.collection("users");
       const usernameDoc = db.doc(`usernames/${username}`);
       const batch = db.batch();
       await auth
@@ -120,7 +124,7 @@ const SignupScreen = () => {
                 photoURL: auth.currentUser.photoURL,
                 posts: [],
                 friends: [],
-              })
+              }),
             )
             .then(() => {
               playSuccessSound();
@@ -128,7 +132,7 @@ const SignupScreen = () => {
                 `Congratulations ${fullName},you have joined Dummygram`,
                 {
                   variant: "success",
-                }
+                },
               );
               navigate("/dummygram");
             })
@@ -164,7 +168,7 @@ const SignupScreen = () => {
                   });
                 })
                 .catch((error) => console.error(error));
-            }
+            },
           );
         })
         .catch((error) => {
@@ -266,7 +270,7 @@ const SignupScreen = () => {
     setFullName(val?.user?.displayName);
     setEmail(val?.user?.email);
     setIsOauthSignUp(true);
-    const userCollectionRef = db.collection(`users`);
+    const userCollectionRef = db.collection("users");
     const usernameDoc = db.doc(`usernames/${username}`);
     const batch = db.batch();
     batch.set(usernameDoc, { uid: val.user.uid });
@@ -288,7 +292,7 @@ const SignupScreen = () => {
           `Congratulations ${fullName},you have joined Dummygram`,
           {
             variant: "success",
-          }
+          },
         );
         navigate("/dummygram");
       })

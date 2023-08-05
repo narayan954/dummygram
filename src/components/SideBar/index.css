@@ -1,17 +1,19 @@
 /* sidebar styling */
 
 .sidebar {
-  background: var(--bg-color);
+  background: var(--dark-post-bg);
   position: fixed;
   width: 17vw;
   height: 100vh;
   left: 0;
-  border-right: 1px solid rgb(219, 219, 219);
+  z-index: 99;
+  /* border-right: 1px solid rgb(219, 219, 219); */
 }
 
 .sidebar-container {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   height: 100vh;
   overflow-y: scroll;
 }
@@ -34,9 +36,10 @@
 .sidebar-links li {
   cursor: pointer;
   padding: 10px;
-  margin: 10px 0;
+  margin: 0 0 10px;
   border-radius: 10px;
   transition: all 0.5s ease;
+  position: relative;
 }
 
 #sidebar-home-link {
@@ -45,7 +48,7 @@
 
 .sidebar-links li:hover {
   /* background: rgba(0, 0, 0, 0.05); */
-  background-color: #0cc;
+  background-color: #5f85db;
 }
 
 .sidebar-links li a,
@@ -73,27 +76,71 @@
   height: 30px;
   width: 30px;
   border-radius: 100%;
+  border: 1px solid #eee;
+}
+
+.sidebar_user_dropdown {
+  display: flex;
+}
+
+.sidebar_user_dropdown_container {
+  position: absolute;
+  top: 333px;
+  left: 100px;
+  padding: 0;
+  border-radius: 10px;
+  width: 170px;
+}
+
+.sidebar_user_dropdown_sub_container {
+  border: 1px solid grey;
+  background-color: var(--dark-post-bg);
+  color: var(--color);
+  padding-inline: 0px;
+  list-style-type: none;
+  border-radius: inherit;
+  box-shadow: var(--post-box-shadow);
+}
+
+.sidebar_user_dropdown_sub_container > li {
+  padding: 10px 25px;
+  margin: 0;
+  border-radius: 8px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.sidebar_user_dropdown_sub_container > li:hover {
+  background: var(--btn-color-hover);
+}
+.dropdown-list-profile-picture {
+  width: 30px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid #eee;
+  margin-left: -3px;
 }
 
 footer {
-  margin-block: auto;
-  padding-left: 20px;
-  padding-block: 12px;
+  display: absolute;
+  bottom: 0;
+  margin-bottom: 2em;
   font-size: 13px;
-  background-color: var(--bg-color);
+  background-color: var(--dark-post-bg);
+  padding-left: 12px;
 }
 
 .sidebar-footer-container {
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
   list-style-type: none;
-  flex-wrap: wrap;
+  flex-direction: column;
   padding: 0;
-}
-
-.sidebar-footer-container > li {
-  margin-right: 10px;
+  text-align: start;
+  margin-right: 20px;
+  margin-top: 20px;
 }
 
 .footer-link {
@@ -102,29 +149,40 @@ footer {
 }
 
 .footer-link:hover {
-  text-decoration: underline;
+  color: var(--color);
 }
 
 .copyright {
   margin-top: 10px;
   color: var(--color);
+  text-align: start;
 }
 
 .activeTab {
-  border: 2px solid #0cc;
+  border: 2px solid #5f85db;
+}
+.sidebar-footer-container li a {
+  text-decoration: none;
+  color: #898787;
 }
 
 /* media query */
+@media screen and (min-width: 1200px) {
+  .sidebar-footer-container li {
+    padding-bottom: 5px;
+  }
+}
 
 @media screen and (max-width: 1200px) {
   .sidebar {
     width: 8vw;
   }
-
+  .sidebar-footer-container .footer-icons {
+    display: none;
+  }
   .sidebar-links {
     padding: 0 5px;
   }
-
   .sidebar-links li a,
   .sidebar_align {
     justify-content: center;
@@ -135,20 +193,33 @@ footer {
     display: none;
   }
 
+  .sidebar_user_dropdown_container {
+    width: 150px;
+    left: 40px;
+  }
+
+  .sidebar_user_dropdown_sub_container > li {
+    padding-right: 0;
+  }
+
   footer {
     font-size: 10px;
-    padding-left: 8px;
   }
 }
-
 @media screen and (max-width: 800px) {
   .sidebar {
     border-top: 1px solid rgb(219, 219, 219);
     border-right: none;
     width: 100vw;
-    height: 8vh;
-    top: 92vh;
-    z-index: 2;
+    height: 60px;
+    position: fixed;
+    padding-block: 5px;
+    bottom: 0;
+    margin: 0;
+  }
+
+  .sidebar hr {
+    display: none;
   }
 
   #sidebar-home-link {
@@ -158,11 +229,17 @@ footer {
   .sidebar-links {
     justify-content: space-around;
     flex-direction: row;
-    height: 8vh;
+    height: 60px;
   }
 
   .sidebar-links li {
     margin: auto;
+  }
+
+  .sidebar_user_dropdown_container {
+    left: initial;
+    top: -120px;
+    right: 5px;
   }
 
   footer {

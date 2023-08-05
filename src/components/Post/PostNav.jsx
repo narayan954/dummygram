@@ -29,7 +29,7 @@ const PostNav = ({
   const { enqueueSnackbar } = useSnackbar();
   const [Open, setOpen] = useState(false);
   const [favoritePosts, setFavoritePosts] = useState(
-    JSON.parse(localStorage.getItem("posts")) || []
+    JSON.parse(localStorage.getItem("posts")) || [],
   );
   const [isSaved, setisSaved] = useState(false);
   const navigate = useNavigate();
@@ -43,14 +43,14 @@ const PostNav = ({
       localStoragePosts.push(postId);
       localStorage.setItem("posts", JSON.stringify(localStoragePosts));
       playSuccessSound();
-      enqueueSnackbar("Post added to favourites!", {
+      enqueueSnackbar("Post added to saved!", {
         variant: "success",
       });
     } else {
       localStoragePosts = localStoragePosts.filter((post) => post !== postId);
       localStorage.setItem("posts", JSON.stringify(localStoragePosts));
       playSuccessSound();
-      enqueueSnackbar("Post is removed from favourites!", {
+      enqueueSnackbar("Post is removed from saved!", {
         variant: "info",
       });
     }
