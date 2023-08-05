@@ -3,11 +3,9 @@ import "./index.css";
 import { auth, db, storage } from "../../lib/firebase";
 import { useRef, useState } from "react";
 
-import CancelIcon from "@mui/icons-material/Cancel";
 import EditIcon from "@mui/icons-material/Edit";
 import BackIcon from "@mui/icons-material/ArrowBackIosNew";
 import { ClickAwayListener } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
