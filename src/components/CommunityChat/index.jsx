@@ -13,6 +13,8 @@ import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfi
 import firebase from "firebase/compat/app";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
+import OptionIcon from "@mui/icons-material/MoreVert";
 
 const ChatBox = () => {
   const [showEmojis, setShowEmojis] = useState(false);
@@ -23,6 +25,7 @@ const ChatBox = () => {
   const [user, setUser] = useState(null);
   const [isLastMsgRecieved, setIsLastMsgRecieved] = useState(false);
   const chatMsgContainerRef = useRef(null);
+  const [openOptions, setOpenOptions] = useState(false);
 
   const handleEmojiClick = () => {
     setShowEmojis((prevShowEmojis) => !prevShowEmojis);
@@ -81,6 +84,25 @@ const ChatBox = () => {
       unsubscribe();
     };
   }, []);
+
+  const handleOpenOptions = (messageId) => {
+    setOpenOptions(messageId);
+  };
+
+  const handleDeletMsg = async (messageId) => {
+    try {
+      await db.collection("messages").doc(messageId).delete();
+      playSuccessSound();
+      enqueueSnackbar("Message deleted successfully.", {
+        variant: "success",
+      });
+    } catch (error) {
+      playErrorSound();
+      enqueueSnackbar("Failed to delete the message. Please try again.", {
+        variant: "error",
+      });
+    }
+  };
 
   const handleMouseScroll = (event) => {
     if (event.target.documentElement.scrollTop === 0 && !isLastMsgRecieved) {
@@ -246,6 +268,31 @@ const ChatBox = () => {
                         {getTime(message?.createdAt?.seconds)}
                       </h6>
                       <Reaction message={message} userUid={message.uid} />
+                      {user.uid === message.uid && (
+                        <span className="flex-center message-options"
+                        >
+                          <OptionIcon
+                            onClick={() => {
+                              setOpenOptions(true);
+                              handleOpenOptions(message.id);
+                            }}
+                          />
+                          {openOptions && openOptions === message.id && (
+                            <ClickAwayListener
+                              onClickAway={() => setOpenOptions(false)}
+                            >
+                              <div className="delete-message-container">
+                                <span
+                                  style={{ padding: "6px" }}
+                                  onClick={() => handleDeletMsg(message.id)}
+                                >
+                                  Delete
+                                </span>
+                              </div>
+                            </ClickAwayListener>
+                          )}
+                        </span>
+                      )}
                     </span>
                   </span>
                   <p>{message.text}</p>
