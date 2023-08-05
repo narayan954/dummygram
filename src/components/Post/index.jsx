@@ -321,7 +321,11 @@ function Post(prop) {
               onClose={() => setIsLikesOpen(false)}
               title="Likes ❤"
             >
-              <LikesDialogBox likecountArr={likecount} />
+              {likesNo === 0 ? (
+                <p style={{ textAlign: "center" }}>No likes🥺</p>
+              ) : (
+                <LikesDialogBox likecountArr={likecount} />
+              )}
             </DialogBox>
           </div>
         )}
