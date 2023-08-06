@@ -10,7 +10,7 @@ const ViewsCounter = ({ uid }) => {
       try {
         let viewsArr = sessionStorage.getItem("viewsArr");
         if (viewsArr) {
-          viewsArr = JSON.parse(sessionStorage.getItem("viewsArr"));
+          viewsArr = JSON.parse(viewsArr);
           if (viewsArr.includes(uid)) {
             // Views have already been updated in this session
             const querySnapshot = await db
@@ -56,13 +56,14 @@ const ViewsCounter = ({ uid }) => {
             .update({
               views: updatedViews,
             })
+            .then(() => {
+              setViews(updatedViews);
+              viewsArr.push(uid);
+              sessionStorage.setItem("viewsArr", JSON.stringify(viewsArr));
+            })
             .catch((error) => {
               console.error("Error updating document:", error);
             });
-
-          setViews(updatedViews);
-          viewsArr.push(uid);
-          sessionStorage.setItem("viewsArr", JSON.stringify(viewsArr));
         }
       } catch (error) {
         console.error("Error querying Firestore:", error);
@@ -70,7 +71,7 @@ const ViewsCounter = ({ uid }) => {
     };
 
     checkAndCreateDocument();
-  }, []);
+  }, [uid]);
 
   return <span>{views}</span>;
 };

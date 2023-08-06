@@ -75,7 +75,7 @@ const Reaction = ({ message, userUid }) => {
 
   return (
     <ClickAwayListener onClickAway={() => setReactionOpen(false)}>
-      <div>
+      <div className="flex-center">
         <AddReactionIcon
           className="msg-reaction-icon"
           onClick={() => setReactionOpen((prev) => !prev)}

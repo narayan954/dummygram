@@ -18,17 +18,27 @@ const PostView = (props) => {
 
   useEffect(() => {
     const docRef = doc(db, "posts", id);
+    setLoading(true); // Set loading state to true when starting data fetching
     getDoc(docRef)
       .then((docSnap) => {
         if (docSnap.exists()) {
           setPost(docSnap.data());
+        } else {
+          // Handle the case when the document does not exist
+          // For example, set an error state or display a message to the user
+          console.log("Post not found");
         }
-        setLoading(false);
       })
-      .catch(() => {
+      .catch((error) => {
+        // Handle any errors that may occur during data retrieval
+        console.error("Error fetching data:", error);
+        // For example, set an error state or display a message to the user
+      })
+      .finally(() => {
+        // Set loading state to false when data fetching is complete (both success and error scenarios)
         setLoading(false);
       });
-  }, []);
+  }, [id]);
 
   return (
     <>

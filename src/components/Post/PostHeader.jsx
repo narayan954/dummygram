@@ -44,40 +44,36 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
 
   useEffect(() => {
     async function getUserData() {
-      const docRef = db
-        .collection("users")
-        .where("uid", "==", postData.uid)
-        .limit(1);
-      docRef
-        .get()
-        .then((snapshot) => {
-          if (snapshot.docs) {
-            const doc = snapshot.docs[0];
+      try {
+        const docRef = db
+          .collection("users")
+          .where("uid", "==", postData.uid)
+          .limit(1);
+        const snapshot = await docRef.get();
 
-            const data = doc.data();
-            setUserData({
-              name: data.name,
-              username: data.username,
-              avatar: data.photoURL,
-              uid: data.uid,
-              posts: data.posts.length,
-              bio: data.bio
-                ? data.bio
-                : "Lorem ipsum dolor sit amet consectetur",
-              followers: "",
-              following: "",
-              country: data.country ? data.country : "",
-              storyTimestamp: data.storyTimestamp,
-            });
-          } else {
-            setUserExists(false);
-          }
-        })
-        .catch((error) => {
-          enqueueSnackbar(`Error Occured: ${error}`, {
-            variant: "error",
+        if (!snapshot.empty) {
+          const doc = snapshot.docs[0];
+          const data = doc.data();
+          setUserData({
+            name: data.name,
+            username: data.username,
+            avatar: data.photoURL,
+            uid: data.uid,
+            posts: data.posts.length,
+            bio: data.bio ? data.bio : "Hey there! I am using Dummygram.",
+            followers: "",
+            following: "",
+            country: data.country ? data.country : "",
+            storyTimestamp: data.storyTimestamp,
           });
+        } else {
+          setUserExists(false);
+        }
+      } catch (error) {
+        enqueueSnackbar(`Error Occurred: ${error}`, {
+          variant: "error",
         });
+      }
     }
     getUserData();
   }, []);
