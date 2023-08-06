@@ -1,5 +1,5 @@
-import "./index.css"
-import Logo from "../Logo"
+import "./index.css";
+import Logo from "../Logo";
 
 const Auth_container = ({ right__img, children }) => {
   return (
@@ -8,7 +8,10 @@ const Auth_container = ({ right__img, children }) => {
         <div className="login__right__container">
           <div className="login__right__sub__container">
             <Logo />
-            <p id="welcome__msg">Welcome to Dummygram, place to share your wonderful moments and connect with others</p>
+            <p id="welcome__msg">
+              Welcome to Dummygram, place to share your wonderful moments and
+              connect with others
+            </p>
           </div>
         </div>
         <div className="login__left">{children}</div>

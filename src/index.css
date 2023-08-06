@@ -580,7 +580,6 @@ input {
 }
 
 @media only screen and (max-width: 700px) {
-
   .login__left {
     height: 100%;
     overflow-y: visible;
@@ -594,7 +593,7 @@ input {
   }
 
   .login__left {
-     align-items: flex-start !important;
+    align-items: flex-start !important;
   }
 }
 

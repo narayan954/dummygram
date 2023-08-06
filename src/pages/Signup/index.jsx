@@ -319,7 +319,6 @@ const SignupScreen = () => {
   return (
     <Auth_container right__img={loginRight}>
       <form aria-label="Sign Up Form">
-
         <div className="form__bottom">
           {/* image input for the form  */}
           <Auth__image__input
