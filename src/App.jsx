@@ -13,6 +13,7 @@ import { RowModeContext } from "./hooks/useRowMode";
 import { Suggestion } from "./components";
 import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
+import { SettingsSidebar, SoundSetting, DeleteAccount } from "./components/SettingsComponents";
 
 // ------------------------------------ Pages ----------------------------------------------------
 const About = React.lazy(() => import("./pages/FooterPages/About"));
@@ -24,7 +25,6 @@ const Profile = React.lazy(() => import("./pages/Profile"));
 const SignupScreen = React.lazy(() => import("./pages/Signup"));
 const ForgotPassword = React.lazy(() => import("./pages/ForgotPassword"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
-const Settings = React.lazy(() => import("./pages/Settings"));
 const Contributors = React.lazy(() =>
   import("./pages/FooterPages/ContributorPage"),
 );
@@ -246,8 +246,8 @@ function App() {
           />
           {(location.pathname == "/dummygram/login" ||
             location.pathname == "/dummygram/signup") && (
-            <Darkmode themeClass="themeButton themeButton-login" />
-          )}
+              <Darkmode themeClass="themeButton themeButton-login" />
+            )}
           <Routes>
             <Route
               exact
@@ -264,18 +264,17 @@ function App() {
                         !loadingPosts
                           ? {}
                           : {
-                              width: "100%",
-                              minHeight: "100vh",
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                            }
+                            width: "100%",
+                            minHeight: "100vh",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }
                       }
                     >
                       <div
-                        className={`${
-                          rowMode ? "app__posts" : "app_posts_column flex"
-                        }`}
+                        className={`${rowMode ? "app__posts" : "app_posts_column flex"
+                          }`}
                       >
                         {loadingPosts ? (
                           <>
@@ -336,14 +335,12 @@ function App() {
               }
             />
 
-            <Route
-              path="/dummygram/settings"
-              element={
-                <ErrorBoundary inApp={true}>
-                  <Settings />
-                </ErrorBoundary>
-              }
-            />
+            <Route path="/dummygram/settings" element={<SettingsSidebar />}>
+              <Route index element={<SoundSetting />} />
+              <Route path="account" element={<DeleteAccount user={user} />} />
+              <Route path="*" element={<h1>Empty...</h1>} />
+            </Route>
+            
             <Route
               path="/dummygram/about"
               element={

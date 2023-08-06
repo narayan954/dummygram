@@ -1,3 +1,11 @@
+.settings-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  margin-top: 60px;
+}
+
 .settings-sidebar-container {
   background: var(--bg-color);
   position: fixed;
@@ -12,18 +20,6 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-}
-
-.settings-sidebar-sub-container {
-  display: flex;
-  flex-direction: column;
-  list-style: none;
-  padding: 0 20px;
-}
-
-.settings-sidebar-sub-container {
-  display: flex;
-  flex-direction: column;
   list-style: none;
   padding: 0 20px;
 }
@@ -65,9 +61,20 @@ li:hover .icon {
   margin-left: 15px;
 }
 
+.settings_child_container {
+  margin-left: 17vw;
+  width: 100%;
+  height: 100%;
+}
+
 @media screen and (max-width: 1200px) {
   .settings-sidebar-container {
+    bottom: 0;
+    top: auto;
+    width: 100vw;
+    height: 80px;
     border-right: none;
+    margin: 0;
   }
   .settings-sidebar-sub-container span {
     display: none;
@@ -75,16 +82,21 @@ li:hover .icon {
   .settings-sidebar-sub-container {
     border-top: 1px solid rgb(219, 219, 219);
     flex-direction: row;
-    margin-top: 88vh;
-    width: 100vw;
     padding: 0 5px;
+    height: 80px;
+    min-height: auto;
   }
   .settings-sidebar-sub-container {
     justify-content: space-around;
   }
+
+  .settings_child_container {
+    margin-left: 0;
+  }
 }
 @media screen and (max-width: 800px) {
-  .settings-sidebar-sub-container {
-    margin-top: 80vh;
-  }
+.settings-container {
+  min-height: calc(100vh-180px) !important;
+  margin-top: 80px;
+}
 }

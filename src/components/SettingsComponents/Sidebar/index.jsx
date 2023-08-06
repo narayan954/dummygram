@@ -12,7 +12,7 @@ import VolumeUpOutlinedIcon from "@mui/icons-material/VolumeUpOutlined";
 
 const SettingsSidebar = () => {
   return (
-    <div>
+    <div  className="settings-container">
       <div className="settings-sidebar-container">
         <ul className="settings-sidebar-sub-container">
           <li
@@ -21,7 +21,7 @@ const SettingsSidebar = () => {
               location.pathname == "/dummygram/settings" ? "active" : ""
             }
           >
-            <Link>
+            <Link to={"/dummygram/settings"}>
               <VolumeUpOutlinedIcon className="icon" /> <span>Sound</span>
             </Link>
           </li>
@@ -78,7 +78,9 @@ const SettingsSidebar = () => {
           </li>
         </ul>
       </div>
-      <Outlet />
+      <div className="settings_child_container">
+        <Outlet />
+      </div>
     </div>
   );
 };
