@@ -15,35 +15,35 @@ const StoryView = ({ username, setViewStory, setUserData }) => {
 
   useEffect(() => {
     async function getStory() {
-      const docRef = db
-        .collection("story")
-        .where("username", "==", username)
-        .limit(1);
+      try {
+        const docRef = db
+          .collection("story")
+          .where("username", "==", username)
+          .limit(1);
 
-      docRef.get().then((snapshot) => {
-        const doc = snapshot.docs[0];
-        setStoryData({
-          ...doc?.data(),
-        });
-        try {
-          setStoryImage(JSON.parse(doc.data().imageUrl));
-        } catch {
-          const img = doc
-            ?.data()
-            ?.imageUrl?.split(",")
-            .map((url) => ({
-              imageUrl: url,
-              imageWidth: 0,
-              imageHeight: 0,
-              thumbnail: null,
-            }));
-          setStoryImage(img);
+        const snapshot = await docRef.get();
+        if (!snapshot.empty) {
+          const doc = snapshot.docs[0];
+          const data = doc.data();
+          setStoryData({
+            ...data,
+          });
+          setStoryImage(data?.imageUrl || []);
+        } else {
+          // Handle the case when the story document is not found for the provided username
+          setStoryData(null);
+          setStoryImage([]);
         }
-      });
+      } catch (error) {
+        console.error("Error fetching story data:", error);
+        // Handle any other error that might occur during data fetching
+        setStoryData(null);
+        setStoryImage([]);
+      }
     }
 
     getStory();
-  }, []);
+  }, [username]);
 
   async function deleteStory() {
     // Delete the story from story collection
