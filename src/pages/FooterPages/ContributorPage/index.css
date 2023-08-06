@@ -92,7 +92,7 @@
 }
 
 .search-input:focus ~ .highlight {
-  width: 210px;
+  width: 260px;
   margin-left: 2px;
   transition: all 0.5s ease;
 }
