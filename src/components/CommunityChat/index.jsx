@@ -17,6 +17,7 @@ import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfi
 import firebase from "firebase/compat/app";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import profileAvatar from "../../assets/blank-profile.webp";
 
 const ChatBox = () => {
   const [showEmojis, setShowEmojis] = useState(false);
@@ -288,7 +289,7 @@ const ChatBox = () => {
                 }`}
               >
                 <img
-                  src={message.photoURL}
+                  src={message.photoURL || profileAvatar}
                   alt={message.displayName}
                   className={"chat-user-img"}
                   onClick={() => goToUserProfile(message.uid)}
