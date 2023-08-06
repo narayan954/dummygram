@@ -20,6 +20,7 @@ import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import ProfileDialogBox from "../ProfileDialogBox";
 import TextField from "@mui/material/TextField";
 import { db } from "../../lib/firebase";
+import deletePost from "../../js/deletePost";
 import { saveAs } from "file-saver";
 import useCreatedAt from "../../hooks/useCreatedAt";
 import { useSnackbar } from "notistack";
@@ -28,7 +29,6 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
   const time = useCreatedAt(timestamp);
   const { fullScreen, isAnonymous } = user; // TODO: needs fixing
   const { username, caption, imageUrl, displayName, avatar } = postData;
-
   const [Open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(false);
   const [openEditCaption, setOpenEditCaption] = useState(false);
@@ -44,40 +44,36 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
 
   useEffect(() => {
     async function getUserData() {
-      const docRef = db
-        .collection("users")
-        .where("uid", "==", postData.uid)
-        .limit(1);
-      docRef
-        .get()
-        .then((snapshot) => {
-          if (snapshot.docs) {
-            const doc = snapshot.docs[0];
+      try {
+        const docRef = db
+          .collection("users")
+          .where("uid", "==", postData.uid)
+          .limit(1);
+        const snapshot = await docRef.get();
 
-            const data = doc.data();
-            setUserData({
-              name: data.name,
-              username: data.username,
-              avatar: data.photoURL,
-              uid: data.uid,
-              posts: data.posts.length,
-              bio: data.bio
-                ? data.bio
-                : "Lorem ipsum dolor sit amet consectetur",
-              followers: "",
-              following: "",
-              country: data.country ? data.country : "",
-              storyTimestamp: data.storyTimestamp,
-            });
-          } else {
-            setUserExists(false);
-          }
-        })
-        .catch((error) => {
-          enqueueSnackbar(`Error Occured: ${error}`, {
-            variant: "error",
+        if (!snapshot.empty) {
+          const doc = snapshot.docs[0];
+          const data = doc.data();
+          setUserData({
+            name: data.name,
+            username: data.username,
+            avatar: data.photoURL,
+            uid: data.uid,
+            posts: data.posts.length,
+            bio: data.bio ? data.bio : "Hey there! I am using Dummygram.",
+            followers: "",
+            following: "",
+            country: data.country ? data.country : "",
+            storyTimestamp: data.storyTimestamp,
           });
+        } else {
+          setUserExists(false);
+        }
+      } catch (error) {
+        enqueueSnackbar(`Error Occurred: ${error}`, {
+          variant: "error",
         });
+      }
     }
     getUserData();
   }, []);
@@ -117,10 +113,6 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
   const handleClose = () => {
     setOpen(false);
   };
-
-  async function deletePost() {
-    await db.collection("posts").doc(postId).delete();
-  }
 
   function showProfileDialogBox() {
     setMouseOnProfileImg(true);
@@ -247,7 +239,19 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={deletePost}>Delete</Button>
+            <Button
+              onClick={() =>
+                deletePost(
+                  user?.uid,
+                  postId,
+                  imageUrl,
+                  enqueueSnackbar,
+                  setOpen,
+                )
+              }
+            >
+              Delete
+            </Button>
           </DialogActions>
         </Dialog>
       </div>

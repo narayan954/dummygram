@@ -1,4 +1,10 @@
-import { errorSound, successSound, backBtnSound } from "../assets/sounds";
+import {
+  errorSound,
+  successSound,
+  backBtnSound,
+  lightOnSound,
+  lightOffSound,
+} from "../assets/sounds";
 
 export function playSuccessSound() {
   const sound = localStorage.getItem("sound");
@@ -18,5 +24,19 @@ export function playTapSound() {
   const sound = localStorage.getItem("sound");
   if (!sound) {
     new Audio(backBtnSound).play();
+  }
+}
+
+export function playLightOnSound() {
+  const sound = localStorage.getItem("sound");
+  if (!sound) {
+    new Audio(lightOnSound).play();
+  }
+}
+
+export function playLightOffSound() {
+  const sound = localStorage.getItem("sound");
+  if (!sound) {
+    new Audio(lightOffSound).play();
   }
 }

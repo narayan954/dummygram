@@ -1,0 +1,150 @@
+.suggestion-main-container {
+  width: 100%;
+  overflow: scroll;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.suggestion-scroll-btn {
+  display: none;
+  width: 40px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+}
+
+.suggestion-scroll-btn-left {
+  left: 0;
+}
+
+.suggestion-scroll-btn-right {
+  right: 0;
+}
+
+.suggestion-user-container {
+  display: flex;
+  flex-direction: row;
+  overflow: scroll;
+  padding: 0;
+  margin: 0;
+  scroll-behavior: smooth;
+}
+
+.suggestion-user-list-item {
+  list-style: none;
+  padding: 10px;
+  padding-block: 20px;
+  transition: 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 10px;
+  /* margin-block: 20px; */
+  width: 200px;
+  height: 200px;
+  border-right: 1px solid #eee;
+}
+
+.suggestion-user-img {
+  width: 80px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid #eee;
+  cursor: default;
+}
+
+.suggestion-user-data {
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.suggestion-user-name {
+  font-size: 16px;
+  font-weight: 600;
+  cursor: default;
+}
+
+.suggestion-user-bio {
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: var(--text-secondary);
+}
+
+.suggestion-user-btn {
+  padding: 6px 15px;
+  border-radius: 8px;
+  border: none;
+  width: 150px;
+  box-shadow: 0 0 6px rgba(104, 85, 224, 0.2);
+}
+
+@media screen and (min-width: 550px) {
+  .suggestion-scroll-btn {
+    display: flex;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .suggestion-main-container {
+    margin-left: 8vw;
+    width: calc(100vw - 8vw);
+  }
+
+  .suggestion-user-list-item {
+    width: 300px;
+    height: 250px;
+  }
+
+  .suggestion-user-img {
+    width: 120px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .suggestion-main-container {
+    margin-left: 17vw;
+    width: calc(100vw - 17vw);
+  }
+}
+
+@media only screen and (min-width: 1300px) {
+  .suggestion-main-container {
+    position: fixed;
+    top: 65px;
+    margin-left: 0;
+    right: 0;
+    width: 17vw;
+    height: calc(100vh - 80px);
+    display: flex;
+    justify-content: center;
+    overflow: scroll;
+    margin-left: 17vw;
+    align-items: flex-start;
+  }
+  .suggestion-user-container {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .suggestion-user-list-item {
+    border-bottom: 1px solid #eee;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100%;
+    height: auto;
+  }
+
+  .suggestion-user-img {
+    width: 40px;
+  }
+
+  .suggestion-scroll-btn {
+    display: none;
+  }
+}

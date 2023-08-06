@@ -1,3 +1,8 @@
+.flex-center {
+  display: flex;
+  align-items: center;
+}
+
 .chat-main-container {
   position: relative;
   margin-top: 63px;
@@ -8,6 +13,14 @@
 
 .all-chat-msg-container {
   margin-bottom: 60px;
+}
+
+.chat-loader-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .chat-input-container {
@@ -48,7 +61,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 13px;
+  margin-bottom: 18px;
 }
 
 .chat-message:hover {
@@ -78,6 +91,12 @@
   align-items: center;
 }
 
+.time-reaction-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .message-time {
   font-weight: 600;
   font-size: 12px;
@@ -91,6 +110,7 @@
 }
 
 .chat-msg-text {
+  position: relative;
   color: var(--text-secondary);
   border-radius: 6px;
   padding: 4px 8px;
@@ -114,7 +134,7 @@
 }
 
 .chat-msg-send-btn:hover {
-  color: cyan;
+  color: var(--btn-hover);
 }
 
 .hide {
@@ -128,6 +148,52 @@
 
 .communitychat-emoji-btn:hover {
   transform: scale(1.1);
+}
+
+.rxn-main-container {
+  position: absolute;
+  padding: 0;
+  bottom: -13px;
+  right: 0;
+}
+
+.rxn-container {
+  list-style: none;
+  position: relative;
+  width: fit-content;
+  cursor: default;
+}
+
+.rxn-count {
+  position: absolute;
+  bottom: -6px;
+  right: 0px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.message-options {
+  position: relative;
+}
+
+.delete-message-container {
+  display: flex;
+  border: 1px solid;
+  background-color: transparent;
+  border-radius: 6px;
+  position: absolute;
+  bottom: 20px;
+  right: 0;
+  min-width: 100px;
+}
+
+.delete-message-container span {
+  cursor: pointer;
+}
+
+.delete-message-container span:hover {
+  color: red;
+  transition: all 0.2s ease;
 }
 
 @media screen and (max-width: 1200px) {
@@ -156,16 +222,17 @@
     max-width: 75%;
   }
 }
-.roundedBtn {
-  position: "relative";
-}
+
 .closeBtn {
   position: absolute;
   position: fixed;
   cursor: pointer;
-  color: #59afc7;
+  color: var(--color);
   padding: 2px;
-  right: 1%;
-  height: 7% !important;
-  width: 4% !important;
+  right: 3%;
+  transform: scale(2);
+}
+
+.closeBtn:hover {
+  color: var(--btn-hover);
 }

@@ -28,10 +28,10 @@ export default function ImgUpload(props) {
   const [isStoryUploaded, setIsStoryUploaded] = useState(false);
   const [username, setUsername] = useState("");
 
-  const displayName = auth.currentUser.displayName;
-  const avatar = auth.currentUser.photoURL;
-  const imgInput = useRef(null);
+  const displayName = auth?.currentUser?.displayName;
+  const avatar = auth?.currentUser?.photoURL;
 
+  const imgInput = useRef(null);
   const { enqueueSnackbar } = useSnackbar();
 
   const ShiftToNextPage = () => {
@@ -49,11 +49,15 @@ export default function ImgUpload(props) {
       const docRef = doc(db, "users", auth?.currentUser?.uid);
       const docSnap = await getDoc(docRef);
       setUsername(docSnap.data().username);
-      if (docSnap.data().storyTimestamp) {
+      if (docSnap.data().hasOwnProperty("storyTimestamp")) {
         setIsStoryUploaded(true);
       }
     }
-    getUsername();
+    if (auth.currentUser.isAnonymous) {
+      setUsername("guest");
+    } else {
+      getUsername();
+    }
   }, []);
 
   const handleChange = (e) => {

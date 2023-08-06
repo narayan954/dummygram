@@ -1,16 +1,18 @@
 import "./index.css";
 
-import { Darkmode, Loader, ShareModal } from "./reusableComponents";
-import React, { useEffect, useState } from "react";
+import { Darkmode, ShareModal } from "./reusableComponents";
+import { ErrorBoundary, PostSkeleton } from "./reusableComponents";
+import React, { Fragment, useEffect, useState } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { auth, db } from "./lib/firebase";
 
 import { ChatPage } from "./pages";
-import ErrorBoundary from "./reusableComponents/ErrorBoundary";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { GuestSignUpBtn } from "./components";
 import { RowModeContext } from "./hooks/useRowMode";
+import { Suggestion } from "./components";
 import { makeStyles } from "@mui/styles";
+import { useSnackbar } from "notistack";
 
 // ------------------------------------ Pages ----------------------------------------------------
 const About = React.lazy(() => import("./pages/FooterPages/About"));
@@ -27,7 +29,6 @@ const Contributors = React.lazy(() =>
   import("./pages/FooterPages/ContributorPage"),
 );
 // ------------------------------------- Components ------------------------------------------------
-const Favorite = React.lazy(() => import("./components/Favorite"));
 const Notifications = React.lazy(() => import("./components/Notification"));
 const Post = React.lazy(() => import("./components/Post"));
 const SideBar = React.lazy(() => import("./components/SideBar"));
@@ -79,17 +80,11 @@ function App() {
   const [rowMode, setRowMode] = useState(false);
   const [showScroll, setShowScroll] = useState(false);
   const [anonymous, setAnonymous] = useState(false);
+  const [windowWidth, setWindowWidth] = useState("700");
 
   const navigate = useNavigate();
   const location = useLocation();
-
-  const checkScrollTop = () => {
-    if (!showScroll && window.scrollY > 400) {
-      setShowScroll(true);
-    } else if (showScroll && window.scrollY <= 400) {
-      setShowScroll(false);
-    }
-  };
+  const { enqueueSnackbar } = useSnackbar();
 
   const scrollTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -101,7 +96,42 @@ function App() {
     location.pathname === "/dummygram/guidelines" ||
     location.pathname === "/dummygram/contributors";
 
-  window.addEventListener("scroll", checkScrollTop);
+  useEffect(() => {
+    const checkScrollTop = () => {
+      if (!showScroll && window.scrollY > 400) {
+        setShowScroll(true);
+      } else if (showScroll && window.scrollY <= 400) {
+        setShowScroll(false);
+      }
+    };
+    window.addEventListener("scroll", checkScrollTop);
+    return () => {
+      window.removeEventListener("scroll", checkScrollTop);
+    };
+  }, []);
+
+  useEffect(() => {
+    const showOfflineNotification = () => {
+      enqueueSnackbar("You are offline", {
+        variant: "error",
+      });
+    };
+
+    const showOnlineNotification = () => {
+      enqueueSnackbar("You are online", {
+        variant: "success",
+      });
+    };
+
+    window.addEventListener("offline", showOfflineNotification);
+
+    window.addEventListener("online", showOnlineNotification);
+
+    return () => {
+      window.removeEventListener("offline", showOfflineNotification);
+      window.removeEventListener("online", showOnlineNotification);
+    };
+  }, []);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -117,11 +147,23 @@ function App() {
     return () => {
       unsubscribe();
     };
-  }, [user]);
+  }, []);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleMouseScroll);
-    db.collection("posts")
+    const handleMouseScroll = (event) => {
+      if (
+        window.innerHeight + event.target.documentElement.scrollTop + 1 >=
+        event.target.documentElement.scrollHeight
+      ) {
+        setLoadMorePosts(true);
+      }
+    };
+    const scrollEventListener = window.addEventListener(
+      "scroll",
+      handleMouseScroll,
+    );
+    const unsubscribe = db
+      .collection("posts")
       .orderBy("timestamp", "desc")
       .limit(PAGESIZE)
       .onSnapshot((snapshot) => {
@@ -133,20 +175,19 @@ function App() {
           })),
         );
       });
+
+    return () => {
+      window.removeEventListener("scroll", scrollEventListener);
+      unsubscribe();
+    };
   }, []);
 
-  const handleMouseScroll = (event) => {
-    if (
-      window.innerHeight + event.target.documentElement.scrollTop + 1 >=
-      event.target.documentElement.scrollHeight
-    ) {
-      setLoadMorePosts(true);
-    }
-  };
-
   useEffect(() => {
+    let unsubscribe;
+
     if (loadMorePosts && posts.length) {
-      db.collection("posts")
+      unsubscribe = db
+        .collection("posts")
         .orderBy("timestamp", "desc")
         .startAfter(posts[posts.length - 1].post.timestamp)
         .limit(PAGESIZE)
@@ -161,9 +202,27 @@ function App() {
             ];
           });
         });
+      setLoadMorePosts(false);
     }
-    setLoadMorePosts(false);
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    };
   }, [loadMorePosts]);
+
+  useEffect(() => {
+    function getWindowDimensions() {
+      const { innerWidth: width } = window;
+      return { width };
+    }
+    function handleResize() {
+      setWindowWidth(getWindowDimensions());
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <RowModeContext.Provider value={rowMode}>
@@ -213,31 +272,45 @@ function App() {
                             }
                       }
                     >
-                      {loadingPosts ? (
-                        <Loader />
-                      ) : (
-                        <div
-                          className={`${
-                            rowMode ? "app__posts" : "app_posts_column flex"
-                          }`}
-                        >
-                          <ErrorBoundary inApp>
-                            {posts.map(({ id, post }) => (
-                              <Post
-                                rowMode={rowMode}
-                                key={id}
-                                postId={id}
-                                user={user}
-                                post={post}
-                                shareModal={setOpenShareModal}
-                                setLink={setCurrentPostLink}
-                                setPostText={setPostText}
-                              />
-                            ))}
-                          </ErrorBoundary>
-                        </div>
-                      )}
+                      <div
+                        className={`${
+                          rowMode ? "app__posts" : "app_posts_column flex"
+                        }`}
+                      >
+                        {loadingPosts ? (
+                          <>
+                            <PostSkeleton />
+                            <PostSkeleton />
+                            <PostSkeleton />
+                            <PostSkeleton />
+                            <PostSkeleton />
+                          </>
+                        ) : (
+                          <>
+                            <ErrorBoundary inApp>
+                              {posts.map(({ id, post }, index) => (
+                                <Fragment key={id}>
+                                  <Post
+                                    rowMode={rowMode}
+                                    key={id}
+                                    postId={id}
+                                    user={user}
+                                    post={post}
+                                    shareModal={setOpenShareModal}
+                                    setLink={setCurrentPostLink}
+                                    setPostText={setPostText}
+                                  />
+                                  {index === 1 && windowWidth.width < 1300 && (
+                                    <Suggestion currentUserUid={user.uid} />
+                                  )}
+                                </Fragment>
+                              ))}
+                            </ErrorBoundary>
+                          </>
+                        )}
+                      </div>
                     </div>
+                    {windowWidth.width > 1300 && <Suggestion />}
                   </div>
                 ) : (
                   <></>
@@ -358,14 +431,6 @@ function App() {
             />
 
             <Route path="*" element={<NotFound />} />
-            <Route
-              path="/dummygram/favourites"
-              element={
-                <ErrorBoundary inApp={true}>
-                  <Favorite />
-                </ErrorBoundary>
-              }
-            />
           </Routes>
           {/* below scroll button must be checked for implementation */}
           <FaArrowCircleUp

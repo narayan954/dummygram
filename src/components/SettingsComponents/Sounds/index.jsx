@@ -2,6 +2,7 @@ import "./index.css";
 
 import React, { useState } from "react";
 
+import { Switch } from "@mui/material";
 import { VscChromeClose } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
 
@@ -23,6 +24,7 @@ const SoundSetting = () => {
     setShowDiv(false);
     navigate("/dummygram");
   };
+
   return (
     <div className="sounds-setting-container">
       {showDiv && (
@@ -41,9 +43,15 @@ const SoundSetting = () => {
             <label htmlFor="sound-btn" className="sound-btn-label">
               Play sound effects
             </label>
-            <button onClick={toggleSound} id="sound-btn">
-              {sound ? "Enable" : "Disable"}
-            </button>
+            <span className="sound-toggle-switch-container">
+              <p>Off</p>
+              <Switch
+                onClick={toggleSound}
+                checked={!sound}
+                className="sound-toggle-switch"
+              />
+              <p>On</p>
+            </span>
           </div>
           <div>
             <p className="sound-page-note">

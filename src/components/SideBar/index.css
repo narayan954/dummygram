@@ -6,6 +6,7 @@
   width: 17vw;
   height: 100vh;
   left: 0;
+  z-index: 99;
   /* border-right: 1px solid rgb(219, 219, 219); */
 }
 
@@ -38,6 +39,7 @@
   margin: 0 0 10px;
   border-radius: 10px;
   transition: all 0.5s ease;
+  position: relative;
 }
 
 #sidebar-home-link {
@@ -74,6 +76,52 @@
   height: 30px;
   width: 30px;
   border-radius: 100%;
+  border: 1px solid #eee;
+}
+
+.sidebar_user_dropdown {
+  display: flex;
+}
+
+.sidebar_user_dropdown_container {
+  position: absolute;
+  top: 333px;
+  left: 100px;
+  padding: 0;
+  border-radius: 10px;
+  width: 170px;
+}
+
+.sidebar_user_dropdown_sub_container {
+  border: 1px solid grey;
+  background-color: var(--dark-post-bg);
+  color: var(--color);
+  padding-inline: 0px;
+  list-style-type: none;
+  border-radius: inherit;
+  box-shadow: var(--post-box-shadow);
+}
+
+.sidebar_user_dropdown_sub_container > li {
+  padding: 10px 25px;
+  margin: 0;
+  border-radius: 8px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.sidebar_user_dropdown_sub_container > li:hover {
+  background: var(--btn-color-hover);
+}
+.dropdown-list-profile-picture {
+  width: 30px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid #eee;
+  margin-left: -3px;
 }
 
 footer {
@@ -145,6 +193,15 @@ footer {
     display: none;
   }
 
+  .sidebar_user_dropdown_container {
+    width: 150px;
+    left: 40px;
+  }
+
+  .sidebar_user_dropdown_sub_container > li {
+    padding-right: 0;
+  }
+
   footer {
     font-size: 10px;
   }
@@ -158,8 +215,8 @@ footer {
     position: fixed;
     padding-block: 5px;
     bottom: 0;
-    z-index: 2;
     margin: 0;
+    z-index: 999;
   }
 
   .sidebar hr {
@@ -178,6 +235,12 @@ footer {
 
   .sidebar-links li {
     margin: auto;
+  }
+
+  .sidebar_user_dropdown_container {
+    left: initial;
+    top: -120px;
+    right: 5px;
   }
 
   footer {

@@ -6,7 +6,7 @@
 }
 .contributors-outer {
   width: 90vw;
-  margin: 0 auto 3.3rem;
+  margin: 0 auto;
 }
 
 @media only screen and (max-width: 640px) {
@@ -40,7 +40,7 @@
 }
 @media only screen and (min-width: 768px) {
   .contributors-container {
-    gap: 2rem !important;
+    /* gap: 2rem !important; */
     row-gap: 0;
   }
   .contributors-outer {
@@ -53,4 +53,61 @@
   .contributors-card button {
     font-size: 1rem;
   }
+}
+
+.search-container {
+  margin: auto;
+  margin-bottom: 3em;
+  height: 40px;
+  width: 250px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  position: relative;
+  background: #fff;
+}
+
+.search-input {
+  border: none;
+  height: 25px;
+  width: 250px;
+  color: #1b1b1b;
+  font-size: 15px;
+  outline: none;
+}
+
+.search-input:not(:placeholder-shown) + .label {
+  font-size: 9px;
+  top: 3px;
+  color: #00c853;
+}
+
+.search-input:focus ~ .label {
+  font-size: 9px;
+  top: 3px;
+  color: #4279a3;
+  transition: all 0.5s ease;
+}
+
+.search-input:focus ~ .highlight {
+  width: 250px;
+  transition: all 0.5s ease;
+}
+
+.label {
+  color: #aaaaaa;
+  position: absolute;
+  top: 13px;
+  pointer-events: none;
+  transition: all 0.5s ease;
+}
+
+.highlight {
+  width: 0px;
+  height: 1px;
+  background: #4279a3;
+  position: absolute;
+  bottom: 8px;
+  transition: all 1s ease;
 }

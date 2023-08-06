@@ -35,9 +35,19 @@ const CommentDialogBox = ({
     async function getUsername() {
       const docRef = doc(db, "users", auth?.currentUser?.uid);
       const docSnap = await getDoc(docRef);
-      setUsername(docSnap.data().username);
+      if (docSnap.exists()) {
+        setUsername(docSnap.data().username);
+      } else {
+        setUsername("guest"); // Handle the case when the user document doesn't exist
+      }
     }
-    getUsername();
+    if (isAnonymous) {
+      setUsername("guest");
+    } else {
+      getUsername().catch((error) => {
+        console.error("Error fetching username:", error); // Handle any error that might occur during username fetching
+      });
+    }
   }, []);
 
   return (
