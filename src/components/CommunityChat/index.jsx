@@ -1,10 +1,10 @@
 import "./index.css";
 
 import { auth, db } from "../../lib/firebase";
+import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useEffect, useRef, useState } from "react";
 
 import { ClickAwayListener } from "@mui/material";
-import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import EmojiPicker from "emoji-picker-react";
 import HighlightOffRoundedIcon from "@mui/icons-material/HighlightOffRounded";
 import { Loader } from "../../reusableComponents";
@@ -39,42 +39,6 @@ const ChatBox = () => {
     setShowEmojis(false);
   };
 
-  useEffect(() => {
-    const scrollTop = () => {
-      window.scrollTo({ top: window.innerHeight + 800 });
-    };
-    if (!isLastMsgRecieved) {
-      scrollTop();
-    }
-  }, [messages]);
-
-  //Load messages for the first time
-  useEffect(() => {
-    const handleMouseScroll = (event) => {
-      if (event.target.documentElement.scrollTop === 0 && !isLastMsgRecieved) {
-        setLoadMoreMsgs(true);
-      }
-    };
-    window.addEventListener("scroll", handleMouseScroll);
-    const unsubscribe = db
-      .collection("messages")
-      .orderBy("createdAt")
-      .limitToLast(20)
-      .onSnapshot((querySnapshot) => {
-        const data = querySnapshot.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }));
-        setMessages(data);
-        setIsLoading(false);
-      });
-
-    return () => {
-      window.removeEventListener("scroll", handleMouseScroll);
-      unsubscribe();
-    };
-  }, []);
-
   const handleOpenOptions = (messageId) => {
     setOpenOptions(messageId);
   };
@@ -93,40 +57,6 @@ const ChatBox = () => {
       });
     }
   };
-
-  useEffect(() => {
-    let unsubscribed = false;
-
-    if (loadMoreMsgs && messages.length) {
-      const lastMessageCreatedAt = messages[0].createdAt;
-      db.collection("messages")
-        .orderBy("createdAt")
-        .endBefore(lastMessageCreatedAt)
-        .limitToLast(20)
-        .onSnapshot((querySnapshot) => {
-          if (!unsubscribed) {
-            setMessages((loadedMsgs) => {
-              return [
-                ...querySnapshot.docs.map((doc) => ({
-                  id: doc.id,
-                  ...doc.data(),
-                })),
-                ...loadedMsgs,
-              ];
-            });
-
-            if (querySnapshot.empty) {
-              setIsLastMsgRecieved(true);
-            }
-          }
-        });
-    }
-
-    return () => {
-      setLoadMoreMsgs(false);
-      unsubscribed = true;
-    };
-  }, [loadMoreMsgs]);
 
   function handleChange(e) {
     e.preventDefault();
@@ -212,6 +142,90 @@ const ChatBox = () => {
     });
     return rxnList;
   }
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        navigate("/dummygram/login");
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    const scrollTop = () => {
+      window.scrollTo({ top: window.innerHeight + 800 });
+    };
+    if (!isLastMsgRecieved) {
+      scrollTop();
+    }
+  }, [messages]);
+
+  //Load messages for the first time
+  useEffect(() => {
+    const handleMouseScroll = (event) => {
+      if (event.target.documentElement.scrollTop === 0 && !isLastMsgRecieved) {
+        setLoadMoreMsgs(true);
+      }
+    };
+    window.addEventListener("scroll", handleMouseScroll);
+    const unsubscribe = db
+      .collection("messages")
+      .orderBy("createdAt")
+      .limitToLast(20)
+      .onSnapshot((querySnapshot) => {
+        const data = querySnapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        setMessages(data);
+        setIsLoading(false);
+      });
+
+    return () => {
+      window.removeEventListener("scroll", handleMouseScroll);
+      unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    let unsubscribed = false;
+
+    if (loadMoreMsgs && messages.length) {
+      const lastMessageCreatedAt = messages[0].createdAt;
+      db.collection("messages")
+        .orderBy("createdAt")
+        .endBefore(lastMessageCreatedAt)
+        .limitToLast(20)
+        .onSnapshot((querySnapshot) => {
+          if (!unsubscribed) {
+            setMessages((loadedMsgs) => {
+              return [
+                ...querySnapshot.docs.map((doc) => ({
+                  id: doc.id,
+                  ...doc.data(),
+                })),
+                ...loadedMsgs,
+              ];
+            });
+
+            if (querySnapshot.empty) {
+              setIsLastMsgRecieved(true);
+            }
+          }
+        });
+    }
+
+    return () => {
+      setLoadMoreMsgs(false);
+      unsubscribed = true;
+    };
+  }, [loadMoreMsgs]);
 
   return (
     <div className="chat-main-container">
