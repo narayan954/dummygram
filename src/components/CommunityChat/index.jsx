@@ -4,17 +4,17 @@ import { auth, db } from "../../lib/firebase";
 import { useEffect, useRef, useState } from "react";
 
 import { ClickAwayListener } from "@mui/material";
+import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import EmojiPicker from "emoji-picker-react";
 import HighlightOffRoundedIcon from "@mui/icons-material/HighlightOffRounded";
 import { Loader } from "../../reusableComponents";
+import OptionIcon from "@mui/icons-material/MoreVert";
 import Reaction from "./Reaction";
 import SendIcon from "@mui/icons-material/Send";
 import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfied";
 import firebase from "firebase/compat/app";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
-import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
-import OptionIcon from "@mui/icons-material/MoreVert";
 
 const ChatBox = () => {
   const [showEmojis, setShowEmojis] = useState(false);
@@ -253,8 +253,7 @@ const ChatBox = () => {
                       </h6>
                       <Reaction message={message} userUid={message.uid} />
                       {user.uid === message.uid && (
-                        <span className="flex-center message-options"
-                        >
+                        <span className="flex-center message-options">
                           <OptionIcon
                             onClick={() => {
                               setOpenOptions(true);
