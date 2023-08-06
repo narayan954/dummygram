@@ -1,12 +1,14 @@
 import "./index.css";
 
 import { auth, db } from "../../lib/firebase";
+import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useEffect, useRef, useState } from "react";
 
 import { ClickAwayListener } from "@mui/material";
 import EmojiPicker from "emoji-picker-react";
 import HighlightOffRoundedIcon from "@mui/icons-material/HighlightOffRounded";
 import { Loader } from "../../reusableComponents";
+import OptionIcon from "@mui/icons-material/MoreVert";
 import Reaction from "./Reaction";
 import SendIcon from "@mui/icons-material/Send";
 import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfied";
@@ -23,6 +25,7 @@ const ChatBox = () => {
   const [user, setUser] = useState(null);
   const [isLastMsgRecieved, setIsLastMsgRecieved] = useState(false);
   const chatMsgContainerRef = useRef(null);
+  const [openOptions, setOpenOptions] = useState(false);
 
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
@@ -36,75 +39,24 @@ const ChatBox = () => {
     setShowEmojis(false);
   };
 
-  useEffect(() => {
-    const scrollTop = () => {
-      window.scrollTo({ top: window.innerHeight + 800 });
-    };
-    if (!isLastMsgRecieved) {
-      scrollTop();
-    }
-  }, [messages]);
+  const handleOpenOptions = (messageId) => {
+    setOpenOptions(messageId);
+  };
 
-  //Load messages for the first time
-  useEffect(() => {
-    const handleMouseScroll = (event) => {
-      if (event.target.documentElement.scrollTop === 0 && !isLastMsgRecieved) {
-        setLoadMoreMsgs(true);
-      }
-    };
-    window.addEventListener("scroll", handleMouseScroll);
-    const unsubscribe = db
-      .collection("messages")
-      .orderBy("createdAt")
-      .limitToLast(20)
-      .onSnapshot((querySnapshot) => {
-        const data = querySnapshot.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }));
-        setMessages(data);
-        setIsLoading(false);
+  const handleDeletMsg = async (messageId) => {
+    try {
+      await db.collection("messages").doc(messageId).delete();
+      playSuccessSound();
+      enqueueSnackbar("Message deleted successfully.", {
+        variant: "success",
       });
-
-    return () => {
-      window.removeEventListener("scroll", handleMouseScroll);
-      unsubscribe();
-    };
-  }, []);
-
-  useEffect(() => {
-    let unsubscribed = false;
-
-    if (loadMoreMsgs && messages.length) {
-      const lastMessageCreatedAt = messages[0].createdAt;
-      db.collection("messages")
-        .orderBy("createdAt")
-        .endBefore(lastMessageCreatedAt)
-        .limitToLast(20)
-        .onSnapshot((querySnapshot) => {
-          if (!unsubscribed) {
-            setMessages((loadedMsgs) => {
-              return [
-                ...querySnapshot.docs.map((doc) => ({
-                  id: doc.id,
-                  ...doc.data(),
-                })),
-                ...loadedMsgs,
-              ];
-            });
-
-            if (querySnapshot.empty) {
-              setIsLastMsgRecieved(true);
-            }
-          }
-        });
+    } catch (error) {
+      playErrorSound();
+      enqueueSnackbar("Failed to delete the message. Please try again.", {
+        variant: "error",
+      });
     }
-
-    return () => {
-      setLoadMoreMsgs(false);
-      unsubscribed = true;
-    };
-  }, [loadMoreMsgs]);
+  };
 
   function handleChange(e) {
     e.preventDefault();
@@ -191,6 +143,90 @@ const ChatBox = () => {
     return rxnList;
   }
 
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        navigate("/dummygram/login");
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    const scrollTop = () => {
+      window.scrollTo({ top: window.innerHeight + 800 });
+    };
+    if (!isLastMsgRecieved) {
+      scrollTop();
+    }
+  }, [messages]);
+
+  //Load messages for the first time
+  useEffect(() => {
+    const handleMouseScroll = (event) => {
+      if (event.target.documentElement.scrollTop === 0 && !isLastMsgRecieved) {
+        setLoadMoreMsgs(true);
+      }
+    };
+    window.addEventListener("scroll", handleMouseScroll);
+    const unsubscribe = db
+      .collection("messages")
+      .orderBy("createdAt")
+      .limitToLast(20)
+      .onSnapshot((querySnapshot) => {
+        const data = querySnapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        setMessages(data);
+        setIsLoading(false);
+      });
+
+    return () => {
+      window.removeEventListener("scroll", handleMouseScroll);
+      unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    let unsubscribed = false;
+
+    if (loadMoreMsgs && messages.length) {
+      const lastMessageCreatedAt = messages[0].createdAt;
+      db.collection("messages")
+        .orderBy("createdAt")
+        .endBefore(lastMessageCreatedAt)
+        .limitToLast(20)
+        .onSnapshot((querySnapshot) => {
+          if (!unsubscribed) {
+            setMessages((loadedMsgs) => {
+              return [
+                ...querySnapshot.docs.map((doc) => ({
+                  id: doc.id,
+                  ...doc.data(),
+                })),
+                ...loadedMsgs,
+              ];
+            });
+
+            if (querySnapshot.empty) {
+              setIsLastMsgRecieved(true);
+            }
+          }
+        });
+    }
+
+    return () => {
+      setLoadMoreMsgs(false);
+      unsubscribed = true;
+    };
+  }, [loadMoreMsgs]);
+
   return (
     <div className="chat-main-container">
       <div className="closeBtn">
@@ -230,6 +266,30 @@ const ChatBox = () => {
                         {getTime(message?.createdAt?.seconds)}
                       </h6>
                       <Reaction message={message} userUid={message.uid} />
+                      {user.uid === message.uid && (
+                        <span className="flex-center message-options">
+                          <OptionIcon
+                            onClick={() => {
+                              setOpenOptions(true);
+                              handleOpenOptions(message.id);
+                            }}
+                          />
+                          {openOptions && openOptions === message.id && (
+                            <ClickAwayListener
+                              onClickAway={() => setOpenOptions(false)}
+                            >
+                              <div className="delete-message-container">
+                                <span
+                                  style={{ padding: "6px" }}
+                                  onClick={() => handleDeletMsg(message.id)}
+                                >
+                                  Delete
+                                </span>
+                              </div>
+                            </ClickAwayListener>
+                          )}
+                        </span>
+                      )}
                     </span>
                   </span>
                   <p>{message.text}</p>
