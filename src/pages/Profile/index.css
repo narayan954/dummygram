@@ -21,6 +21,16 @@
   margin: auto;
 }
 
+.blur-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
 .feed_btn_container {
   margin-left: 17vw;
   display: flex;

@@ -18,6 +18,7 @@ const ImageSlider = ({ slides, doubleClickHandler }) => {
 
   useEffect(() => {
     setTimeout(nextStep, 1000);
+    return () => clearTimeout(nextStep);
   }, [slides]);
 
   return (

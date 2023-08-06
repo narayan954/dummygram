@@ -41,13 +41,30 @@ function SideBar({ anonymous }) {
 
   useEffect(() => {
     async function getUsername() {
-      const docRef = doc(db, "users", user?.uid);
-      const docSnap = await getDoc(docRef);
-      setUserData({
-        name: docSnap.data().displayName,
-        username: docSnap.data().username,
-      });
+      try {
+        const docRef = doc(db, "users", user?.uid);
+        const docSnap = await getDoc(docRef);
+        const data = docSnap.data();
+        if (docSnap.exists()) {
+          setUserData({
+            name: data?.displayName || auth.currentUser?.displayName,
+            username: data?.username || auth.currentUser?.uid,
+          });
+        } else {
+          setUserData({
+            name: auth.currentUser?.displayName,
+            username: auth.currentUser?.uid,
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setUserData({
+          name: auth.currentUser?.displayName,
+          username: auth.currentUser?.uid,
+        });
+      }
     }
+
     if (anonymous) {
       setUserData({
         name: "Guest",
@@ -56,20 +73,15 @@ function SideBar({ anonymous }) {
     } else {
       getUsername();
     }
-  }, []);
+  }, [user, anonymous]);
 
   const signOut = () => {
-    auth
-      .signOut()
-      .then(() => {
-        navigate("/dummygram");
-      })
-      .finally(() => {
-        playSuccessSound();
-        enqueueSnackbar("Logged out Successfully !", {
-          variant: "info",
-        });
+    auth.signOut().finally(() => {
+      playSuccessSound();
+      enqueueSnackbar("Logged out Successfully !", {
+        variant: "info",
       });
+    });
   };
 
   return (

@@ -47,7 +47,7 @@ function Navbar({ onClick, user, setUser }) {
   useEffect(() => {
     const timerId = setTimeout(() => {
       setDebouncedQuery(searchQuery);
-    }, 2000);
+    }, 1000);
 
     return () => {
       clearTimeout(timerId);
@@ -55,33 +55,32 @@ function Navbar({ onClick, user, setUser }) {
   }, [searchQuery]);
 
   useEffect(() => {
-    // Call fetchUsers function whenever debouncedQuery changes after the 2-second delay
+    const fetchUsers = async () => {
+      const value = searchQuery;
+      if (value.length > 0) {
+        const usersCollection = await db
+          .collection("users")
+          .orderBy("name", "asc")
+          .startAt(value.toUpperCase())
+          .endAt(value.toLowerCase())
+          .limit(PAGESIZE)
+          .get();
+
+        const fetchedUsers = usersCollection.docs.map((doc) => ({
+          id: doc.id,
+          user: doc.data(),
+        }));
+        setSearchResults(fetchedUsers);
+      } else {
+        setSearchResults([]);
+      }
+    };
+    // Call fetchUsers function whenever debouncedQuery changes after the 1-second delay
     fetchUsers();
   }, [debouncedQuery]);
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
-  };
-
-  const fetchUsers = async () => {
-    const value = searchQuery;
-    if (value.length > 0) {
-      const usersCollection = await db
-        .collection("users")
-        .orderBy("name", "asc")
-        .startAt(value.toUpperCase())
-        .endAt(value.toLowerCase())
-        .limit(PAGESIZE)
-        .get();
-
-      const fetchedUsers = usersCollection.docs.map((doc) => ({
-        id: doc.id,
-        user: doc.data(),
-      }));
-      setSearchResults(fetchedUsers);
-    } else {
-      setSearchResults([]);
-    }
   };
 
   useEffect(() => {

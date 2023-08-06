@@ -55,7 +55,11 @@ function Post(prop) {
     async function getUsername() {
       const docRef = doc(db, "users", auth?.currentUser?.uid);
       const docSnap = await getDoc(docRef);
-      setUsername(docSnap.data().username);
+      if (docSnap.exists()) {
+        setUsername(docSnap.data().username);
+      } else {
+        setUsername("guest"); // Handle the case when the user document doesn't exist
+      }
     }
     if (auth?.currentUser?.isAnonymous) {
       setUsername("guest");

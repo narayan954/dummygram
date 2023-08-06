@@ -49,7 +49,7 @@ export default function ImgUpload(props) {
       const docRef = doc(db, "users", auth?.currentUser?.uid);
       const docSnap = await getDoc(docRef);
       setUsername(docSnap.data().username);
-      if (docSnap.data().storyTimestamp) {
+      if (docSnap.data().hasOwnProperty("storyTimestamp")) {
         setIsStoryUploaded(true);
       }
     }
