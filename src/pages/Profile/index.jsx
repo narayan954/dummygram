@@ -31,6 +31,7 @@ import ViewsCounter from "../../reusableComponents/views";
 import deleteImg from "../../js/deleteImg";
 import firebase from "firebase/compat/app";
 import profileBackgroundImg from "../../assets/profile-background.jpg";
+import defaultProfile from "../../assets/blank-profile.webp";
 import { useSnackbar } from "notistack";
 
 const SideBar = lazy(() => import("../../components/SideBar"));
@@ -478,7 +479,19 @@ function Profile() {
                     } user-image`}
                   />
                 ) : (
-                  <FaUserCircle className="profile-pic-container" />
+                  <img
+                    onClick={() => {
+                      if (storyTimestamp) {
+                        setViewStory(true);
+                      }
+                    }}
+                    style={{ borderRadius: "50%", objectFit: "cover" }}
+                    className={`user-image profile-pic-container ${
+                      storyTimestamp ? "story_available_border" : null
+                    } user-image`}
+                    src={defaultProfile}
+                    alt={name}
+                  />
                 )}
               </div>
               {uid === user?.uid && (
