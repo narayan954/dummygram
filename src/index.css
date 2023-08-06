@@ -518,7 +518,6 @@ input {
 
 /* login sign up forms */
 .page-over {
-  background-color: var(--page-over-color);
   height: 100%;
   width: 100%;
   display: flex;
@@ -527,13 +526,11 @@ input {
   min-height: 100vh;
 }
 .login__section {
-  border: 1px solid black;
-  margin: 0 5%;
-  height: 70%;
-  background-color: var(--slide-color);
-  box-shadow: 0 0 10px 1px rgb(66, 49, 66);
   max-width: 1360px;
   min-width: 300px;
+  width: calc(100vw - 40px);
+  /* border: 1px solid red; */
+  margin-inline: 20px;
 }
 .other__login {
   margin: 0 auto;
@@ -571,25 +568,32 @@ input {
 }
 
 /* auth container */
-.login__section {
-  height: 90vh;
-  overflow: hidden;
-}
 
 .login__left {
   overflow-y: scroll;
 }
 
-@media only screen and (max-width: 700px) {
-  .login__section {
-    height: 100%;
-    overflow: visible;
+@media only screen and (max-width: 840px) {
+  .page-over {
+    align-items: flex-start;
   }
+}
 
+@media only screen and (max-width: 700px) {
   .login__left {
     height: 100%;
     overflow-y: visible;
     padding: 0;
+  }
+}
+
+@media only screen and (min-height: 900px) and (min-width: 840px) {
+  .login__right__sub__container {
+    top: 230px !important;
+  }
+
+  .login__left {
+    align-items: flex-start !important;
   }
 }
 
