@@ -1,3 +1,8 @@
+.flex-center {
+  display: flex;
+  align-items: center;
+}
+
 .chat-main-container {
   position: relative;
   margin-top: 63px;
@@ -165,6 +170,30 @@
   right: 0px;
   font-size: 11px;
   font-weight: 600;
+}
+
+.message-options {
+  position: relative;
+}
+
+.delete-message-container {
+  display: flex;
+  border: 1px solid;
+  background-color: transparent;
+  border-radius: 6px;
+  position: absolute;
+  bottom: 20px;
+  right: 0;
+  min-width: 100px;
+}
+
+.delete-message-container span {
+  cursor: pointer;
+}
+
+.delete-message-container span:hover {
+  color: red;
+  transition: all 0.2s ease;
 }
 
 @media screen and (max-width: 1200px) {

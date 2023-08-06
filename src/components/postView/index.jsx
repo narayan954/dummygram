@@ -124,7 +124,6 @@ const PostCommentView = ({
           );
         });
     }
-
     return () => {
       if (unsubscribe) {
         unsubscribe();

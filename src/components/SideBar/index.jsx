@@ -11,7 +11,6 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineClose } from "react-icons/ai";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import { ClickAwayListener } from "@mui/material";
 import { Dialog } from "@mui/material";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
@@ -42,13 +41,30 @@ function SideBar({ anonymous }) {
 
   useEffect(() => {
     async function getUsername() {
-      const docRef = doc(db, "users", user?.uid);
-      const docSnap = await getDoc(docRef);
-      setUserData({
-        name: docSnap.data().displayName,
-        username: docSnap.data().username,
-      });
+      try {
+        const docRef = doc(db, "users", user?.uid);
+        const docSnap = await getDoc(docRef);
+        const data = docSnap.data();
+        if (docSnap.exists()) {
+          setUserData({
+            name: data?.displayName || auth.currentUser?.displayName,
+            username: data?.username || auth.currentUser?.uid,
+          });
+        } else {
+          setUserData({
+            name: auth.currentUser?.displayName,
+            username: auth.currentUser?.uid,
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setUserData({
+          name: auth.currentUser?.displayName,
+          username: auth.currentUser?.uid,
+        });
+      }
     }
+
     if (anonymous) {
       setUserData({
         name: "Guest",
@@ -57,20 +73,15 @@ function SideBar({ anonymous }) {
     } else {
       getUsername();
     }
-  }, []);
+  }, [user, anonymous]);
 
   const signOut = () => {
-    auth
-      .signOut()
-      .then(() => {
-        navigate("/dummygram");
-      })
-      .finally(() => {
-        playSuccessSound();
-        enqueueSnackbar("Logged out Successfully !", {
-          variant: "info",
-        });
+    auth.signOut().finally(() => {
+      playSuccessSound();
+      enqueueSnackbar("Logged out Successfully !", {
+        variant: "info",
       });
+    });
   };
 
   return (
@@ -98,21 +109,6 @@ function SideBar({ anonymous }) {
           >
             <div className="sidebar_align">
               <AddCircleOutlineIcon className="icon" /> <span>Create</span>
-            </div>
-          </li>
-          <li
-            onClick={() =>
-              navigate(`/dummygram/${anonymous ? "signup" : "favourites"}`)
-            }
-            className={
-              location.pathname.includes("/dummygram/favourites")
-                ? "activeTab"
-                : ""
-            }
-          >
-            <div className="sidebar_align">
-              <BookmarksIcon className="icon" />
-              <span>Saved</span>
             </div>
           </li>
           <li

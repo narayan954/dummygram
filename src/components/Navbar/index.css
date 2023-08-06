@@ -5,7 +5,8 @@
   width: 100%;
   top: 0;
   z-index: 999;
-  padding-block: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   object-fit: contain;
   display: flex;
   align-items: center;

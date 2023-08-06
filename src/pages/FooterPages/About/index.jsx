@@ -52,13 +52,19 @@ const About = () => {
 
   useEffect(() => {
     fetch("https://api.github.com/repos/narayan954/dummygram")
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return res.json();
+      })
       .then((data) => {
         setForks(data.forks_count);
         setStars(data.stargazers_count);
       })
       .catch((error) => {
-        console.error("Error", error);
+        console.error("Error fetching data:", error);
+        // Handle the error or display an error message to the user
       });
   }, []);
 

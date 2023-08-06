@@ -4,7 +4,6 @@
   font-size: 32px;
   font-weight: 700;
   text-shadow: var(--logo-text-shadow);
-  /* background: linear-gradient(40deg, #ea18cb, #f404d0, #59afc7); */
   background: linear-gradient(40deg, #f404d0, #5f85db, #f404d0);
   -webkit-background-clip: text;
   background-clip: text;
