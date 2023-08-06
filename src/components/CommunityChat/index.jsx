@@ -27,6 +27,9 @@ const ChatBox = () => {
   const chatMsgContainerRef = useRef(null);
   const [openOptions, setOpenOptions] = useState(false);
 
+  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
+
   const handleEmojiClick = () => {
     setShowEmojis((prevShowEmojis) => !prevShowEmojis);
   };
@@ -35,9 +38,6 @@ const ChatBox = () => {
     setNewMessage((prevInput) => prevInput + emojiObject.emoji);
     setShowEmojis(false);
   };
-
-  const navigate = useNavigate();
-  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const scrollTop = () => {
@@ -48,23 +48,13 @@ const ChatBox = () => {
     }
   }, [messages]);
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((authUser) => {
-      if (authUser && !authUser.isAnonymous) {
-        setUser(authUser);
-      } else {
-        setUser(null);
-        navigate("/dummygram/login");
-      }
-    });
-
-    return () => {
-      unsubscribe();
-    };
-  }, [user]);
-
   //Load messages for the first time
   useEffect(() => {
+    const handleMouseScroll = (event) => {
+      if (event.target.documentElement.scrollTop === 0 && !isLastMsgRecieved) {
+        setLoadMoreMsgs(true);
+      }
+    };
     window.addEventListener("scroll", handleMouseScroll);
     const unsubscribe = db
       .collection("messages")
@@ -101,12 +91,6 @@ const ChatBox = () => {
       enqueueSnackbar("Failed to delete the message. Please try again.", {
         variant: "error",
       });
-    }
-  };
-
-  const handleMouseScroll = (event) => {
-    if (event.target.documentElement.scrollTop === 0 && !isLastMsgRecieved) {
-      setLoadMoreMsgs(true);
     }
   };
 

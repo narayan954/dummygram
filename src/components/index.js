@@ -4,7 +4,6 @@ import EditProfile from "./EditProfile";
 import GuestSignInBtn from "./Guest/GuestSignInBtn";
 import GuestSignUpBtn from "./Guest/GuestSignUpBtn";
 import ImgUpload from "./ImgUpload";
-import LandingAnimation from "./LandingAnimation";
 import Navbar from "./Navbar";
 import NotFound from "../pages/NotFound";
 import Notifications from "./Notification";
@@ -21,7 +20,6 @@ export {
   GuestSignInBtn,
   GuestSignUpBtn,
   ImgUpload,
-  LandingAnimation,
   Navbar,
   NotFound,
   Notifications,
