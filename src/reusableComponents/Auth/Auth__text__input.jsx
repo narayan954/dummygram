@@ -16,7 +16,6 @@ const Auth__text__input = ({
 }) => {
   return (
     <div className="input__group">
-      <label htmlFor={id}>{label}</label>
       <input
         name={fieldName}
         id={id}
@@ -36,6 +35,7 @@ const Auth__text__input = ({
           {errorMesssage}
         </p>
       )}
+<label htmlFor={id}>{label}</label>
     </div>
   );
 };

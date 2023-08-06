@@ -12,8 +12,9 @@
   display: flex;
   gap: 1rem;
   justify-content: center;
-  padding: 1px 1rem;
+  padding: 20px 1rem;
   overflow-y: scroll;
+  background: var(--form-bg);  
 }
 
 .form__top {
@@ -45,23 +46,41 @@
 }
 
 .input__group {
-  display: flex;
   width: 100%;
-  gap: 0.4rem;
-  flex-direction: column;
+  position: relative;
+  box-shadow: 2px 2px 5px black;  
 }
 
 .input__group label {
+  display: block;
   font-size: 1.2rem;
   font-weight: 600;
-  color: var(--color);
+  color: black;
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  transition: all 0.2s linear;
+  z-index: 4;
 }
 
 .input__group input {
   padding: 0.6rem 0.9rem;
   font-size: 1.2rem;
   margin-top: 0;
-  width: auto;
+  width:94%;
+  background: whitesmoke;
+  backdrop-filter: blur(20px);
+}
+.input__group input::placeholder{
+  visibility: hidden;
+}
+.input__group input:focus{
+  border: 2px solid blueviolet;
+}
+.input__group input:focus + label, .input__group input:not(:placeholder-shown)~label{
+  top: -10px;
+  backdrop-filter: blur(4px);
+  background-clip: text;
 }
 
 .action__btn {
@@ -99,8 +118,9 @@
 .action__btn:hover {
   background-color: var(--page-over-color);
   border: 1px solid whitesmoke;
-  color: whitesmoke;
+  color: whitesmoke;  
 }
+
 
 #password-container {
   border: 1px solid rgba(104, 85, 224, 1);
@@ -108,7 +128,6 @@
   align-items: center;
   white-space: nowrap;
   position: relative;
-  overflow: hidden;
   width: 100%;
   background: rgb(0, 132, 255);
 }
@@ -121,6 +140,8 @@
   cursor: pointer;
   color: white;
   font-size: large;
+  position: absolute;
+  right:7%;
 }
 
 .pass__input__container input {
@@ -136,6 +157,7 @@
   flex-wrap: wrap;
   margin: 0 auto;
   gap: 0.7rem;
+  height: 100px;
 }
 
 .other__login {

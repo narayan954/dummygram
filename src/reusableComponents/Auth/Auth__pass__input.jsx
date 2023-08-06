@@ -21,7 +21,6 @@ const Auth__pass__input = ({
 
   return (
     <div className="input__group">
-      <label htmlFor={id}>{label}</label>
       <div
         id="password-container"
         className={
@@ -43,6 +42,7 @@ const Auth__pass__input = ({
           aria-label={label}
           aria-describedby={aria_dsc_by}
         />
+        <label htmlFor={id}>{label}</label>
         <button
           onClick={(e) => handleShowPassword(e)}
           className="show-password show__hide--pass"

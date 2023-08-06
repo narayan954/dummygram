@@ -14,7 +14,8 @@ import { auth, db, facebookProvider, googleProvider } from "../../lib/firebase";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
-import loginRight from "../../assets/login-right.webp";
+// import loginRight from "../../assets/login-right.webp";
+import loginRight from "../../assets/login-right-2.jpg";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 

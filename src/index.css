@@ -28,13 +28,14 @@
   --link-color: #068fff;
   --pagination-border: rgba(0, 0, 0, 0.23);
   --text-grey: rgba(0, 0, 0, 0.8);
+  --form-bg:linear-gradient(#ffaea7 , rgb(252, 85, 252), rgb(31, 210, 255) 99%);    
 }
 
 .darkmode {
   --bg-color: black;
   --text-primary: rgb(255, 255, 255);
   --text-secondary: white;
-  --color: rgb(226, 226, 226);
+  --color: rgb(248, 248, 248);
   /* --logo-text-shadow: 0 0 7px #eeeeee, 0 0 10px #ff4da6, 0 0 20px #ff4da6; */
   --logo-text-shadow: none;
   --filter-img: invert(100%);
@@ -60,6 +61,7 @@
   --link-color: #068fff;
   --pagination-border: rgba(255, 255, 255, 0.23);
   --text-grey: rgba(255, 255, 255, 0.8);
+  --form-bg:linear-gradient( black , rgb(75, 0, 75));
 }
 
 * {
