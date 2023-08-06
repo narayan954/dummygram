@@ -5,19 +5,19 @@ import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useEffect, useRef, useState } from "react";
 
 import { ClickAwayListener } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import EditIcon from "@mui/icons-material/EditOutlined";
 import EmojiPicker from "emoji-picker-react";
 import HighlightOffRoundedIcon from "@mui/icons-material/HighlightOffRounded";
 import { Loader } from "../../reusableComponents";
 import OptionIcon from "@mui/icons-material/MoreVert";
 import Reaction from "./Reaction";
 import SendIcon from "@mui/icons-material/Send";
-import DeleteIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import EditIcon from "@mui/icons-material/EditOutlined";
 import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfied";
 import firebase from "firebase/compat/app";
+import profileAvatar from "../../assets/blank-profile.webp";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
-import profileAvatar from "../../assets/blank-profile.webp";
 
 const ChatBox = () => {
   const [showEmojis, setShowEmojis] = useState(false);
@@ -224,13 +224,6 @@ const ChatBox = () => {
     return () => {
       window.removeEventListener("scroll", handleMouseScroll);
       unsubscribe();
-    };
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      setIsEditing(false);
-      setEditingMessageId(null);
     };
   }, []);
 
