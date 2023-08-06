@@ -59,19 +59,20 @@
   margin: auto;
   margin-bottom: 3em;
   height: 40px;
-  width: 250px;
+  width: 230px;
   border-radius: 2px;
   display: flex;
   align-items: center;
   padding: 0;
   position: relative;
   background: #fff;
+  justify-content: center;
 }
 
 .search-input {
   border: none;
   height: 25px;
-  width: 250px;
+  width: 350px;
   color: #1b1b1b;
   font-size: 15px;
   outline: none;
@@ -91,7 +92,8 @@
 }
 
 .search-input:focus ~ .highlight {
-  width: 250px;
+  width: 260px;
+  margin-left: 2px;
   transition: all 0.5s ease;
 }
 
