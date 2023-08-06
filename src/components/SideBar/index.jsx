@@ -45,15 +45,22 @@ function SideBar({ anonymous }) {
         const docRef = doc(db, "users", user?.uid);
         const docSnap = await getDoc(docRef);
         const data = docSnap.data();
-        setUserData({
-          name: data?.displayName || "Guest",
-          username: data?.username || "guest",
-        });
+        if (docSnap.exists()) {
+          setUserData({
+            name: data?.displayName || auth.currentUser?.displayName,
+            username: data?.username || auth.currentUser?.uid,
+          });
+        } else {
+          setUserData({
+            name: auth.currentUser?.displayName,
+            username: auth.currentUser?.uid,
+          });
+        }
       } catch (error) {
         console.error("Error fetching user data:", error);
         setUserData({
-          name: "Guest",
-          username: "guest",
+          name: auth.currentUser?.displayName,
+          username: auth.currentUser?.uid,
         });
       }
     }
