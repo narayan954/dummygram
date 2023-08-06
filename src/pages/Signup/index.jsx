@@ -6,10 +6,9 @@ import {
   Auth__image__input,
   Auth__pass__input,
   Auth__text__input,
-  Auth__top,
   Auth_container,
 } from "../../reusableComponents/Auth";
-import { Logo, validate } from "../../reusableComponents";
+import { validate } from "../../reusableComponents";
 import React, { useRef, useState } from "react";
 import {
   auth,
@@ -320,13 +319,6 @@ const SignupScreen = () => {
   return (
     <Auth_container right__img={loginRight}>
       <form aria-label="Sign Up Form">
-        <Logo ml={1} />
-        <Auth__top
-          heading={"Hey, hello 👋"}
-          top__greeting={
-            "Welcome to DummyGram 😊, let's get your account created"
-          }
-        />
 
         <div className="form__bottom">
           {/* image input for the form  */}

@@ -15,6 +15,8 @@
   justify-content: center;
   padding: 1px 1rem;
   overflow-y: scroll;
+  align-items: center;
+  width: 100%;
 }
 
 .form__top {
@@ -328,9 +330,6 @@
   }
   .no__acct {
     font-size: 1rem;
-  }
-  .login__right {
-    display: none;
   }
 }
 
