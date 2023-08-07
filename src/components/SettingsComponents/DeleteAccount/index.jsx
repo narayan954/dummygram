@@ -16,10 +16,33 @@ const DeleteAccount = ({ user }) => {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
+
   // Function to handle delete account in firebase auth
-  async function handleConfirmPass() {
-    console.log("user", user);
-    if (user?.email && pass !== "") {
+  async function handleConfirmDelete() {
+
+    const providerName = user?.providerData[0]?.providerId
+    if (providerName) {
+      //Signed in using OAuth Provider
+      let provider;
+      setIsDeleting(true);
+
+      if (providerName === "google.com") {
+        provider = new firebase.auth.GoogleAuthProvider();
+      }
+      else {
+        provider = new firebase.auth.FacebookAuthProvider();
+      }
+      try {
+        await user.reauthenticateWithPopup(provider);
+        await handleDeleteAcc();
+      } catch (err) {
+        enqueueSnackbar(`Error: ${err}`, {
+          variant: "error",
+        });
+        setIsDeleting(false);
+      }
+    } else if (user?.email && pass !== "") {
+      //Signed In using Email and Password
       setIsDeleting(true);
       const credential = firebase.auth.EmailAuthProvider.credential(
         user.email,
@@ -34,25 +57,11 @@ const DeleteAccount = ({ user }) => {
         });
         setIsDeleting(false);
       }
-    } else if (user?.providerData[0]?.providerId === "google.com") {
-      // If user signed in with google
-      setIsDeleting(true);
-      const provider = new firebase.auth.GoogleAuthProvider();
-      try {
-        await user.reauthenticateWithPopup(provider);
-        await handleDeleteAcc();
-      } catch (err) {
-        enqueueSnackbar(`Error: ${err}`, {
-          variant: "error",
-        });
-        setIsDeleting(false);
-      }
     } else {
       enqueueSnackbar(`Error: Invalid credentials`, {
         variant: "error",
       });
     }
-    // TODO: Add condition for facebook.com
   }
 
   async function handleDeleteAcc() {
@@ -65,9 +74,12 @@ const DeleteAccount = ({ user }) => {
       const userDoc = await userDocRef.get();
       const userData = userDoc.data();
 
-      imagesArr.push(userData?.photoURL !== undefined ? userData.photoURL : ""); // TODO - Handle this better (if user signed in with oauth, and not push "" to imagesArr)
+
       imagesArr.push(
-        userData?.bgImageUrl !== undefined ? userData.bgImageUrl : "", // TODO - Handle this better like above
+        userData?.photoURL?.length > 0 && userData.photoURL.startsWith('https://firebasestorage.googleapis.com')
+      );
+      imagesArr.push(
+        userData?.bgImageUrl.length > 0 && userData.bgImageUrl.startsWith("https://firebasestorage.googleapis.com")
       );
 
       batch.delete(userDocRef);
@@ -142,14 +154,21 @@ const DeleteAccount = ({ user }) => {
           <div className="delete_account_action_btn_container">
             <button
               className="delete_account_action_btn delete_account_action_delete_btn"
-              onClick={() => setDeleteAcc(true)}
+              onClick={() => {
+                if (user?.providerData[0]?.providerId) {
+                  handleConfirmDelete()
+                }
+                else {
+                  setDeleteAcc(true)
+                }
+              }}
             >
               Delete my account
             </button>
           </div>
         </div>
       </div>
-      {/* // TODO: Right now, if user is oauth user, he shouldnt get password input modal */}
+
       {deleteAcc && (
         <ClickAwayListener onClickAway={() => setDeleteAcc(false)}>
           <div className="delete_acc_pass">
@@ -162,10 +181,9 @@ const DeleteAccount = ({ user }) => {
               onChange={(e) => setPass(e.target.value)}
             />
             <button
-              className={`confirm_delete_acc_btn ${
-                isDeleting ? "disable_confirm_btn" : ""
-              }`}
-              onClick={handleConfirmPass}
+              className={`confirm_delete_acc_btn ${isDeleting ? "disable_confirm_btn" : ""
+                }`}
+              onClick={handleConfirmDelete}
               disabled={isDeleting}
             >
               Confirm
