@@ -6,7 +6,6 @@ import Guidelines from "./FooterPages/Guidelines";
 import LoginScreen from "./Login";
 import PostView from "./PostView";
 import Profile from "./Profile";
-import Settings from "./Settings";
 import SignupScreen from "./Signup";
 
 export {
@@ -18,6 +17,5 @@ export {
   LoginScreen,
   PostView,
   Profile,
-  Settings,
   SignupScreen,
 };
