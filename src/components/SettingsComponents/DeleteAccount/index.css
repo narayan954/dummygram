@@ -10,7 +10,7 @@
 }
 
 .delete_account_sub_container {
-  padding: 10px;
+  padding: 40px;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -93,4 +93,10 @@
 
 .disable_confirm_btn {
   background-color: rgb(161, 161, 161) !important;
+}
+
+@media screen and (max-width: 800px) {
+  .delete_account_sub_container {
+    padding: 15px;
+  }
 }
