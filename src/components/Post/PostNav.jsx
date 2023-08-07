@@ -5,13 +5,13 @@ import {
   ShareOutlined,
 } from "@mui/icons-material";
 import { IconButton, Typography } from "@mui/material";
+
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
-import { useState } from "react";
-import { savePost } from "../../js/postFn";
-
 import Flexbetween from "../../reusableComponents/Flexbetween";
+import { savePost } from "../../js/postFn";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const PostNav = ({
   caption,
@@ -33,13 +33,13 @@ const PostNav = ({
 
   const handleOnClick = async () => {
     if (isAnonymous) {
-      navigate('/dummygram/signup');
+      navigate("/dummygram/signup");
     } else {
       try {
-        const data = await savePost(postId); 
+        const data = await savePost(postId);
         setFavoritePosts(data);
       } catch (error) {
-        console.error('Error saving post:', error);
+        console.error("Error saving post:", error);
       }
     }
   };
@@ -106,10 +106,7 @@ const PostNav = ({
         </Typography>
       </Flexbetween>
 
-      <Flexbetween
-        sx={{ cursor: "pointer" }}
-        onClick={handleOnClick}
-      >
+      <Flexbetween sx={{ cursor: "pointer" }} onClick={handleOnClick}>
         <IconButton>
           {favoritePosts.indexOf(postId) !== -1 ? (
             <BookmarksIcon sx={{ color: "green" }} />
@@ -121,7 +118,7 @@ const PostNav = ({
           Save
         </Typography>
       </Flexbetween>
-    </Flexbetween >
+    </Flexbetween>
   );
 };
 
