@@ -8,7 +8,6 @@ import {
   Auth__text__input,
   Auth_container,
 } from "../../reusableComponents/Auth";
-import { validate } from "../../reusableComponents";
 import React, { useRef, useState } from "react";
 import {
   auth,
@@ -21,10 +20,10 @@ import { playErrorSound, playSuccessSound } from "../../js/sounds";
 
 import blank_profile from "../../assets/blank-profile.webp";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
-import loginRight from "../../assets/login-right.webp";
 import { updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import { validate } from "../../reusableComponents";
 
 const SignupScreen = () => {
   const usernameRef = useRef("");
@@ -317,7 +316,7 @@ const SignupScreen = () => {
   };
 
   return (
-    <Auth_container right__img={loginRight}>
+    <Auth_container>
       <form aria-label="Sign Up Form">
         <div className="form__bottom">
           {/* image input for the form  */}

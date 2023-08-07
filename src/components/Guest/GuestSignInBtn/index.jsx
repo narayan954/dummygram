@@ -20,7 +20,7 @@ const GuestSignInBtn = ({ show }) => {
         enqueueSnackbar("Guest Sign In successfull", {
           variant: "success",
         });
-        navigate("/dummygram/");
+        navigate("/dummygram");
       })
       .catch((error) => {
         playErrorSound();
