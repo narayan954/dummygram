@@ -1,6 +1,7 @@
 import "./index.css";
 
 import { Box, useMediaQuery } from "@mui/material";
+
 import ErrorBoundary from "../../../reusableComponents/ErrorBoundary";
 import postBg from "../../../assets/postbg.webp";
 import { useNavigate } from "react-router-dom";
