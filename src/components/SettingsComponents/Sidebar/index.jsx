@@ -9,14 +9,16 @@ import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlin
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import VolumeUpOutlinedIcon from "@mui/icons-material/VolumeUpOutlined";
+import { useNavigate } from "react-router-dom";
 
 const SettingsSidebar = () => {
+  const navigate = useNavigate();
   return (
     <div className="settings-container">
       <div className="settings-sidebar-container">
         <ul className="settings-sidebar-sub-container">
           <li
-            onClick={() => Navigate("/dummygram/settings")}
+            onClick={() => navigate("/dummygram/settings")}
             className={
               location.pathname == "/dummygram/settings" ? "active" : ""
             }
