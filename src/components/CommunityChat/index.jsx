@@ -5,6 +5,8 @@ import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useEffect, useRef, useState } from "react";
 
 import { ClickAwayListener } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import EditIcon from "@mui/icons-material/EditOutlined";
 import EmojiPicker from "emoji-picker-react";
 import HighlightOffRoundedIcon from "@mui/icons-material/HighlightOffRounded";
 import { Loader } from "../../reusableComponents";
@@ -13,6 +15,7 @@ import Reaction from "./Reaction";
 import SendIcon from "@mui/icons-material/Send";
 import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfied";
 import firebase from "firebase/compat/app";
+import profileAvatar from "../../assets/blank-profile.webp";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
@@ -26,6 +29,8 @@ const ChatBox = () => {
   const [isLastMsgRecieved, setIsLastMsgRecieved] = useState(false);
   const chatMsgContainerRef = useRef(null);
   const [openOptions, setOpenOptions] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingMessageId, setEditingMessageId] = useState(null);
 
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
@@ -41,6 +46,15 @@ const ChatBox = () => {
 
   const handleOpenOptions = (messageId) => {
     setOpenOptions(messageId);
+  };
+
+  const handleEditMsg = (messageId) => {
+    const messageToEdit = messages.find((message) => message.id === messageId);
+    if (messageToEdit) {
+      setNewMessage(messageToEdit.text);
+      setIsEditing(true);
+      setEditingMessageId(messageId);
+    }
   };
 
   const handleDeletMsg = async (messageId) => {
@@ -66,15 +80,35 @@ const ChatBox = () => {
   function handleOnSubmit(e) {
     e.preventDefault();
     if (newMessage.trim()) {
-      db.collection("messages").add({
-        text: newMessage,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        uid: user.uid,
-        displayName: user.displayName,
-        photoURL: user.photoURL,
-      });
+      if (isEditing && editingMessageId) {
+        // If user is in edit mode, update the existing message
+        db.collection("messages")
+          .doc(editingMessageId)
+          .update({
+            text: newMessage,
+          })
+          .then(() => {
+            setNewMessage("");
+            setIsEditing(false);
+            setEditingMessageId(null);
+          })
+          .catch((error) => {
+            enqueueSnackbar(`Error Occurred: ${error}`, {
+              variant: "error",
+            });
+          });
+      } else {
+        // If not in edit mode, send a new message
+        db.collection("messages").add({
+          text: newMessage,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          uid: user.uid,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+        });
 
-      setNewMessage("");
+        setNewMessage("");
+      }
     } else {
       enqueueSnackbar("Enter something!", {
         variant: "error",
@@ -248,7 +282,7 @@ const ChatBox = () => {
                 }`}
               >
                 <img
-                  src={message.photoURL}
+                  src={message.photoURL || profileAvatar}
                   alt={message.displayName}
                   className={"chat-user-img"}
                   onClick={() => goToUserProfile(message.uid)}
@@ -280,10 +314,18 @@ const ChatBox = () => {
                             >
                               <div className="delete-message-container">
                                 <span
-                                  style={{ padding: "6px" }}
+                                  className="delete-option"
                                   onClick={() => handleDeletMsg(message.id)}
                                 >
+                                  <DeleteIcon />
                                   Delete
+                                </span>
+                                <span
+                                  className="edit-option"
+                                  onClick={() => handleEditMsg(message.id)}
+                                >
+                                  <EditIcon />
+                                  Edit
                                 </span>
                               </div>
                             </ClickAwayListener>

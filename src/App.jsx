@@ -177,7 +177,7 @@ function App() {
       });
 
     return () => {
-      window.removeEventListener("scroll", scrollEventListener);
+      window.removeEventListener("scroll", handleMouseScroll);
       unsubscribe();
     };
   }, []);
