@@ -43,3 +43,17 @@ export default async function deletePost(
     enqueueSnackbar(`Error deleting post: ${error}`, { variant: "error" });
   }
 }
+
+export const savePost = async (postId) => {
+  let localStoragePosts = JSON.parse(localStorage.getItem("posts")) || [];
+  const postIdExists = localStoragePosts.includes(postId);
+
+  if (!postIdExists) {
+    localStoragePosts.push(postId);
+    localStorage.setItem("posts", JSON.stringify(localStoragePosts));
+  } else {
+    localStoragePosts = localStoragePosts.filter((post) => post !== postId);
+    localStorage.setItem("posts", JSON.stringify(localStoragePosts));
+  }
+  return JSON.parse(localStorage.getItem("posts"));
+};

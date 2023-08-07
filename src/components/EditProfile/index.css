@@ -35,6 +35,7 @@
   height: 160px;
   width: 160px;
   display: flex;
+  flex-direction: column;
   cursor: pointer;
 }
 
@@ -98,6 +99,30 @@
   width: 85% !important;
 }
 
+.delete_dp_btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 8px;
+  border: none;
+  background-color: transparent;
+  color: red;
+  font-weight: 600;
+  transition: 0.2s ease-in-out;
+}
+
+.delete_dp_btn:hover {
+  box-shadow: var(--post-box-shadow);
+  background-color: rgb(223, 219, 219);
+}
+
+.delete_dp_btn:active {
+  background-color: rgb(194, 190, 190);
+}
+
 .edit-profile-img {
   width: 120px;
   aspect-ratio: 1;
@@ -115,6 +140,7 @@
 
 .edit-profile-save-btn {
   width: 100%;
+  background-color: transparent;
   color: rgba(8, 17, 123, 0.69);
   font-size: 20px;
   font-weight: 600;
