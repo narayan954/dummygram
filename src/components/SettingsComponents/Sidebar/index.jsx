@@ -12,7 +12,7 @@ import VolumeUpOutlinedIcon from "@mui/icons-material/VolumeUpOutlined";
 
 const SettingsSidebar = () => {
   return (
-    <div  className="settings-container">
+    <div className="settings-container">
       <div className="settings-sidebar-container">
         <ul className="settings-sidebar-sub-container">
           <li
