@@ -1,6 +1,11 @@
 import "./index.css";
 
 import { Darkmode, ShareModal } from "./reusableComponents";
+import {
+  DeleteAccount,
+  SettingsSidebar,
+  SoundSetting,
+} from "./components/SettingsComponents";
 import { ErrorBoundary, PostSkeleton } from "./reusableComponents";
 import React, { Fragment, useEffect, useState } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
@@ -24,7 +29,6 @@ const Profile = React.lazy(() => import("./pages/Profile"));
 const SignupScreen = React.lazy(() => import("./pages/Signup"));
 const ForgotPassword = React.lazy(() => import("./pages/ForgotPassword"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
-const Settings = React.lazy(() => import("./pages/Settings"));
 const Contributors = React.lazy(() =>
   import("./pages/FooterPages/ContributorPage"),
 );
@@ -336,14 +340,12 @@ function App() {
               }
             />
 
-            <Route
-              path="/dummygram/settings"
-              element={
-                <ErrorBoundary inApp={true}>
-                  <Settings />
-                </ErrorBoundary>
-              }
-            />
+            <Route path="/dummygram/settings" element={<SettingsSidebar />}>
+              <Route index element={<SoundSetting />} />
+              <Route path="account" element={<DeleteAccount user={user} />} />
+              <Route path="*" element={<h1>Empty...</h1>} />
+            </Route>
+
             <Route
               path="/dummygram/about"
               element={

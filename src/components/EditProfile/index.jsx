@@ -6,9 +6,9 @@ import blankImg from "../../assets/blank-profile.webp";
 
 import BackIcon from "@mui/icons-material/ArrowBackIosNew";
 import { ClickAwayListener } from "@mui/material";
-import deleteImg from "../../js/deleteImg";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import deleteImg from "../../js/deleteImg";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
