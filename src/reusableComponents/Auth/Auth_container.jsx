@@ -1,7 +1,8 @@
 import "./index.css";
+
 import Logo from "../Logo";
 
-const Auth_container = ({ right__img, children }) => {
+const Auth_container = ({ children }) => {
   return (
     <div className="page-over">
       <section className="login__section">

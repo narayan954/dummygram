@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { getModalStyle, useStyles } from "../App";
+import { playErrorSound, playSuccessSound } from "../js/sounds";
 
 import { auth } from "../lib/firebase";
-import logo from "../assets/logo.webp";
+import logo from "../assets/logo.png";
 import { useNavigate } from "react-router-dom";
-import { playSuccessSound, playErrorSound } from "../js/sounds";
 import { useSnackbar } from "notistack";
 
 const ForgotPassword = () => {
@@ -16,6 +16,13 @@ const ForgotPassword = () => {
 
   const signIn = (e) => {
     e.preventDefault();
+    if (email === "") {
+      playErrorSound();
+      enqueueSnackbar("Email cannot be empty", {
+        variant: "error",
+      });
+      return;
+    }
     auth
       .sendPasswordResetEmail(email)
       .then(() => {
