@@ -5,8 +5,8 @@ import { useRef, useState } from "react";
 
 import BackIcon from "@mui/icons-material/ArrowBackIosNew";
 import { ClickAwayListener } from "@mui/material";
-import deleteImg from "../../js/deleteImg";
 import EditIcon from "@mui/icons-material/Edit";
+import deleteImg from "../../js/deleteImg";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 

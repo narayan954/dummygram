@@ -14,9 +14,12 @@ import {
   ShareOutlined,
 } from "@mui/icons-material";
 
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Flexbetween from "../../reusableComponents/Flexbetween";
-import deletePost from "../../js/deletePost.js";
+import deletePost from "../../js/postFn.js";
+import { savePost } from "../../js/postFn.js";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
@@ -35,10 +38,14 @@ const PostDetails = ({
   fullScreen,
 }) => {
   const [open, setOpen] = useState(false);
+  const [favoritePosts, setFavoritePosts] = useState(
+    JSON.parse(localStorage.getItem("posts")) || [],
+  );
   const tempLikeCount = likecount ? [...likecount] : [];
   const { enqueueSnackbar } = useSnackbar();
   const currentUserUid = user.uid;
   const navigate = useNavigate();
+
   return (
     <>
       {" "}
@@ -70,6 +77,23 @@ const PostDetails = ({
             <ShareOutlined style={{ color: "var(--post-nav-icons)" }} />
           </IconButton>
           <Typography fontSize={14}>Share</Typography>
+        </Flexbetween>
+
+        <Flexbetween
+          sx={{ cursor: "pointer" }}
+          onClick={async () => {
+            const data = await savePost(postId);
+            setFavoritePosts(data);
+          }}
+        >
+          <IconButton>
+            {favoritePosts.indexOf(postId) !== -1 ? (
+              <BookmarksIcon sx={{ color: "green" }} />
+            ) : (
+              <BookmarkBorderIcon style={{ color: "var(--post-nav-icons)" }} />
+            )}
+          </IconButton>
+          <Typography fontSize={14}>Save</Typography>
         </Flexbetween>
 
         {currentUserUid === postUserUid && (
