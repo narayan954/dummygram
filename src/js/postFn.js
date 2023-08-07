@@ -44,7 +44,6 @@ export default async function deletePost(
   }
 }
 
-
 export const savePost = async (postId) => {
   let localStoragePosts = JSON.parse(localStorage.getItem("posts")) || [];
   const postIdExists = localStoragePosts.includes(postId);
@@ -56,5 +55,5 @@ export const savePost = async (postId) => {
     localStoragePosts = localStoragePosts.filter((post) => post !== postId);
     localStorage.setItem("posts", JSON.stringify(localStoragePosts));
   }
-  return (JSON.parse(localStorage.getItem("posts")));
+  return JSON.parse(localStorage.getItem("posts"));
 };
