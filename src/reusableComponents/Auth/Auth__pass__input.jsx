@@ -26,8 +26,8 @@ const Auth__pass__input = ({
         id="password-container"
         className={
           errorMesssage
-            ? "error-border pass__input__container"
-            : "pass__input__container"
+            ? "error-border pass__input__container password-container"
+            : "pass__input__container password-container"
         }
       >
         <input
