@@ -1,0 +1,103 @@
+.delete_account_main_container {
+  width: 100%;
+  height: 100%;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: left;
+  color: var(--text-secondary);
+}
+
+.delete_account_sub_container {
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* .delete_account_heading {
+} */
+
+.delete_account_heading > h1 {
+  font-weight: 600;
+}
+
+/* .delete_account_body {
+} */
+
+.delete_account_body_heading {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.delete_account_body_list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.delete_account_action_btn_container {
+  display: flex;
+  gap: 15px;
+}
+
+.delete_account_action_btn {
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  border: none;
+  /* background-color: #ff0000; */
+}
+
+.delete_account_action_btn:hover {
+  background-color: #ff0000;
+}
+
+.delete_acc_btn {
+  margin-right: 10px !important;
+}
+
+.delete_account_action_delete_btn {
+  background-color: gray;
+}
+
+.delete_acc_pass {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: var(--bg-color);
+  gap: 10px;
+  font-size: 20px;
+}
+
+.confirm_delete_acc_btn {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #5f85db;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 18px;
+  box-shadow: var(--post-box-shadow);
+}
+
+.disable_confirm_btn {
+  background-color: rgb(161, 161, 161) !important;
+}
+
+@media screen and (max-width: 800px) {
+  .delete_account_sub_container {
+    padding: 15px;
+  }
+}
