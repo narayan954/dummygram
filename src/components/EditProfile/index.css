@@ -176,8 +176,7 @@
   }
 }
 
-.edit-profile-container .errorMsg
-{
+.edit-profile-container .errorMsg {
   color: red;
   font-size: small;
 }

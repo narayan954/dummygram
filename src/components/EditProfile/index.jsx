@@ -5,8 +5,8 @@ import { useRef, useState } from "react";
 
 import BackIcon from "@mui/icons-material/ArrowBackIosNew";
 import { ClickAwayListener } from "@mui/material";
-import deleteImg from "../../js/deleteImg";
 import EditIcon from "@mui/icons-material/Edit";
+import deleteImg from "../../js/deleteImg";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
@@ -85,134 +85,128 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
     console.log(editedData.name);
     if (editedData.name === "") {
       setError("**Name is Required!");
-    } 
-    else if(editedData.newUsername==="")
-    { setError("**User name is Required!");
-    }
-    else if(editedData.country==="")
-    { setError("**Country is Required!");
-    }
-    else if(editedData.bio==="")
-    { setError("**Bio is Required!");
-    }
-    else
-    {
-        
-          if (!usernameAvailable) {
-            return;
-          }
-          const oldImg = userData.avatar;
-          if (image) {
-            const uploadTask = storage.ref(`images/${image?.name}`).put(image);
-            uploadTask.on(
-              "state_changed",
-              () => {},
-              (error) => {
-                // playErrorSound();
-                enqueueSnackbar(error.message, {
-                  variant: "error",
+    } else if (editedData.newUsername === "") {
+      setError("**User name is Required!");
+    } else if (editedData.country === "") {
+      setError("**Country is Required!");
+    } else if (editedData.bio === "") {
+      setError("**Bio is Required!");
+    } else {
+      if (!usernameAvailable) {
+        return;
+      }
+      const oldImg = userData.avatar;
+      if (image) {
+        const uploadTask = storage.ref(`images/${image?.name}`).put(image);
+        uploadTask.on(
+          "state_changed",
+          () => {},
+          (error) => {
+            // playErrorSound();
+            enqueueSnackbar(error.message, {
+              variant: "error",
+            });
+          },
+          () => {
+            storage
+              .ref("images")
+              .child(image?.name)
+              .getDownloadURL()
+              .then(async (url) => {
+                //Updating profile data in auth
+                await auth.currentUser.updateProfile({
+                  displayName: name,
+                  photoURL: url,
                 });
-              },
-              () => {
-                storage
-                  .ref("images")
-                  .child(image?.name)
-                  .getDownloadURL()
-                  .then(async (url) => {
-                    //Updating profile data in auth
-                    await auth.currentUser.updateProfile({
-                      displayName: name,
-                      photoURL: url,
-                    });
 
-                    //Updating profile data in users collection
-                    const docRef = db.collection("users").doc(uid);
-                    await docRef.update({
-                      photoURL: url,
-                      name: name,
-                      username: newUsername,
-                      bio: bio,
-                      country: country,
-                    });
+                //Updating profile data in users collection
+                const docRef = db.collection("users").doc(uid);
+                await docRef.update({
+                  photoURL: url,
+                  name: name,
+                  username: newUsername,
+                  bio: bio,
+                  country: country,
+                });
 
-                    //Updating profile data in all posts
-                    const postsRef = db.collection("posts").where("uid", "==", uid);
-                    await postsRef.get().then((postsSnapshot) => {
-                      postsSnapshot.forEach((post) => {
-                        const postRef = post.ref;
-                        postRef.update({
-                          avatar: url,
-                          displayName: name,
-                          username: newUsername,
-                        });
-                      });
-                    });
-
-                    await deleteImg(oldImg);
-                  })
-                  .then(
-                    enqueueSnackbar("Upload Successfull", {
-                      variant: "success",
-                    }),
-                  )
-                  .then(() => setUserData(editedData))
-                  .catch((error) => {
-                    enqueueSnackbar(error, {
-                      variant: "error",
-                    });
-                  })
-                  .finally(() => {
-                    setIsEditing(false);
-                  });
-              },
-            );
-          } else {
-            async function upload() {
-              //Updating profile data in auth
-              await auth.currentUser.updateProfile({
-                displayName: name,
-              });
-
-              //Updating profile data in users collection
-              const docRef = db.collection("users").doc(uid);
-              await docRef.update({
-                name: name,
-                username: newUsername,
-                bio: bio,
-                country: country,
-              });
-
-              //Updating profile data in all posts
-              const postsRef = db.collection("posts").where("uid", "==", uid);
-              await postsRef
-                .get()
-                .then((postsSnapshot) => {
+                //Updating profile data in all posts
+                const postsRef = db.collection("posts").where("uid", "==", uid);
+                await postsRef.get().then((postsSnapshot) => {
                   postsSnapshot.forEach((post) => {
                     const postRef = post.ref;
                     postRef.update({
+                      avatar: url,
                       displayName: name,
                       username: newUsername,
                     });
                   });
-                })
-                .then(
-                  enqueueSnackbar("Upload Successfull", {
-                    variant: "success",
-                  }),
-                )
-                .then(() => setUserData(editedData))
-                .then(() => navigate(`/dummygram/user/${newUsername}`))
-                .catch((error) => {
-                  enqueueSnackbar(error, {
-                    variant: "error",
-                  });
-                })
-                .finally(() => {
-                  setIsEditing(false);
                 });
-            }
-            upload();
-          }
+
+                await deleteImg(oldImg);
+              })
+              .then(
+                enqueueSnackbar("Upload Successfull", {
+                  variant: "success",
+                }),
+              )
+              .then(() => setUserData(editedData))
+              .catch((error) => {
+                enqueueSnackbar(error, {
+                  variant: "error",
+                });
+              })
+              .finally(() => {
+                setIsEditing(false);
+              });
+          },
+        );
+      } else {
+        async function upload() {
+          //Updating profile data in auth
+          await auth.currentUser.updateProfile({
+            displayName: name,
+          });
+
+          //Updating profile data in users collection
+          const docRef = db.collection("users").doc(uid);
+          await docRef.update({
+            name: name,
+            username: newUsername,
+            bio: bio,
+            country: country,
+          });
+
+          //Updating profile data in all posts
+          const postsRef = db.collection("posts").where("uid", "==", uid);
+          await postsRef
+            .get()
+            .then((postsSnapshot) => {
+              postsSnapshot.forEach((post) => {
+                const postRef = post.ref;
+                postRef.update({
+                  displayName: name,
+                  username: newUsername,
+                });
+              });
+            })
+            .then(
+              enqueueSnackbar("Upload Successfull", {
+                variant: "success",
+              }),
+            )
+            .then(() => setUserData(editedData))
+            .then(() => navigate(`/dummygram/user/${newUsername}`))
+            .catch((error) => {
+              enqueueSnackbar(error, {
+                variant: "error",
+              });
+            })
+            .finally(() => {
+              setIsEditing(false);
+            });
+        }
+        upload();
+      }
     }
   };
 
@@ -257,9 +251,9 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
                   className="edit-profile-input name-input"
                   onChange={handleChange}
                 />
-                 {error === "**Name is Required!" && (
-                <small className="errorMsg">*Name is required!</small>
-              )}
+                {error === "**Name is Required!" && (
+                  <small className="errorMsg">*Name is required!</small>
+                )}
               </label>
             </div>
             {/* username  */}
@@ -280,9 +274,9 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
                     checkUsername();
                   }}
                 />
-                  {error === "**User name is Required!" && (
-                <small className="errorMsg">*User name is required!</small>
-              )}
+                {error === "**User name is Required!" && (
+                  <small className="errorMsg">*User name is required!</small>
+                )}
               </label>
             </div>
             {/* country  */}
@@ -296,9 +290,9 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
                   className="edit-profile-input country-input"
                   onChange={handleChange}
                 />
-                 {error === "**Country is Required!" && (
-                <small className="errorMsg">*Country is required!</small>
-              )}
+                {error === "**Country is Required!" && (
+                  <small className="errorMsg">*Country is required!</small>
+                )}
               </label>
             </div>
           </div>
@@ -317,9 +311,9 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
               className="edit-profile-input edit-profile-bio"
               onChange={handleChange}
             ></textarea>
-             {error === "**Bio is Required!" && (
-                <small className="errorMsg">*Enter something about you..</small>
-              )}
+            {error === "**Bio is Required!" && (
+              <small className="errorMsg">*Enter something about you..</small>
+            )}
           </label>
         </div>
       </div>
