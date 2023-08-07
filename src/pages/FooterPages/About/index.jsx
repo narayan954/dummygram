@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { VscChromeClose } from "react-icons/vsc";
-import about from "../../../assets/about-us.png";
+import about from "../../../assets/about-us.webp";
 import logo from "../../../assets/logo.webp";
 
 const About = () => {

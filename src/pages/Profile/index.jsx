@@ -30,7 +30,7 @@ import { StoryView } from "../../components";
 import ViewsCounter from "../../reusableComponents/views";
 import deleteImg from "../../js/deleteImg";
 import firebase from "firebase/compat/app";
-import profileBackgroundImg from "../../assets/profile-background.jpg";
+import profileBackgroundImg from "../../assets/profile-background.webp";
 import defaultProfile from "../../assets/blank-profile.webp";
 import { useSnackbar } from "notistack";
 
