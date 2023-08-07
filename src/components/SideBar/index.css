@@ -22,6 +22,34 @@
   display: none;
 }
 
+.sidebar_design {
+  margin-top: 4.6em;
+  padding: 0;
+  display: flex;
+  width: fit-content;
+}
+
+.sidebar_design > span{
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  border-radius: 50%;
+  margin-left: 5px;
+}
+
+.sidebar_menu_icon {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  border-radius: 50%;
+  padding: 5px;
+  color: var(--text-secondary)
+}
+
+.sidebar_menu_icon:hover {
+  background: var(--sidebar-link-hover);
+}
+
 .sidebar-links {
   display: flex;
   flex-direction: column;
@@ -42,12 +70,7 @@
   position: relative;
 }
 
-#sidebar-home-link {
-  margin-top: 6.2em;
-}
-
 .sidebar-links li:hover {
-  /* background: rgba(0, 0, 0, 0.05); */
   background-color: #5f85db;
 }
 
@@ -57,6 +80,29 @@
   align-items: center;
   color: var(--color);
   text-decoration: none;
+}
+
+#sidebar_profile_link:hover {
+  background: transparent;
+}
+
+.sidebar_profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+}
+
+.profile-picture {
+  width: 80px;
+  height: 80px;
+}
+
+.sidebar_user_name {
+  opacity: 0.9;
+  color: var(--text-grey);
+  margin-top: 5px;
 }
 
 .sidebar .icon {
@@ -72,21 +118,14 @@
   margin-left: 15px;
 }
 
-.sidebar .profile-picture {
-  height: 30px;
-  width: 30px;
-  border-radius: 100%;
-  border: 1px solid #eee;
-}
-
 .sidebar_user_dropdown {
   display: flex;
 }
 
 .sidebar_user_dropdown_container {
   position: absolute;
-  top: 333px;
-  left: 100px;
+  top: 175px;
+  left: 192px;
   padding: 0;
   border-radius: 10px;
   width: 170px;
@@ -193,9 +232,22 @@ footer {
     display: none;
   }
 
+  .sidebar_user_name {
+    display: none;
+  }
+
+  .profile-picture {
+    width: 30px;
+    height: 30px;
+  }
+
   .sidebar_user_dropdown_container {
     width: 150px;
     left: 40px;
+  }
+  
+  #sidebar_profile_link:hover {
+    background-color: #5f85db;
   }
 
   .sidebar_user_dropdown_sub_container > li {
@@ -223,13 +275,17 @@ footer {
     display: none;
   }
 
+  .sidebar_design {
+    display: none;
+  }
+
   #sidebar-home-link {
     margin-top: auto;
   }
 
   .sidebar-links {
     justify-content: space-around;
-    flex-direction: row;
+    flex-direction: row-reverse;
     height: 60px;
   }
 
@@ -245,5 +301,11 @@ footer {
 
   footer {
     display: none;
+  }
+}
+
+@media only screen and (min-height: 900px) and (min-width: 840px) {
+  .sidebar-links {
+    gap: 60px;
   }
 }

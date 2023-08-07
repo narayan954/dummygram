@@ -6,6 +6,8 @@ import { auth, db } from "../../lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { getModalStyle, useStyles } from "../../App";
 import { useLocation, useNavigate } from "react-router-dom";
+import blankImg from "../../assets/blank-profile.webp"
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -34,10 +36,25 @@ function SideBar({ anonymous }) {
   const [logout, setLogout] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const [openNewUpload, setOpenNewUpload] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(700);
   const [userData, setUserData] = useState({
     name: "",
     username: "",
   });
+
+  function getWindowDimensions() {
+    const { innerWidth: width } = window;
+    return width;
+  }
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowWidth(getWindowDimensions());
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     async function getUsername() {
@@ -87,13 +104,43 @@ function SideBar({ anonymous }) {
   return (
     <div className="sidebar">
       <div className="sidebar-container">
+        <div className="sidebar_design">
+          <span style={{ backgroundColor: "red" }}></span>
+          <span style={{ backgroundColor: "orange" }}></span>
+          <span style={{ backgroundColor: "rgb(30, 222, 30)" }}></span>
+        </div>
         <ul className="sidebar-links">
+          <li
+            className={
+              location.pathname.includes("/dummygram/user") ? "activeTab" : ""
+            }
+            id="sidebar_profile_link"
+            onClick={() => {
+              if (windowWidth < 1200) {
+                setOpenMenu((prev) => !prev)
+              }
+            }}
+          >
+            <div className="sidebar_profile">
+              {windowWidth > 1200 && (
+                <MoreVertIcon
+                  className="sidebar_menu_icon"
+                  onClick={() => setOpenMenu((prev) => !prev)}
+                />)}
+              <img
+                src={user?.photoURL?.length > 0? user.photoURL : blankImg}
+                alt="profile picture"
+                className="profile-picture"
+              />
+              <h3 className="sidebar_user_name">{user?.displayName}</h3>
+            </div>
+          </li>
           <li
             id="sidebar-home-link"
             onClick={() => navigate("/dummygram")}
             className={
               location.pathname === "/dummygram/" ||
-              location.pathname === "/dummygram"
+                location.pathname === "/dummygram"
                 ? "activeTab"
                 : ""
             }
@@ -123,30 +170,6 @@ function SideBar({ anonymous }) {
           >
             <div className="sidebar_align">
               <NotificationsIcon className="icon" /> <span>Notifications</span>
-            </div>
-          </li>
-          <li
-            className={
-              location.pathname.includes("/dummygram/user") ? "activeTab" : ""
-            }
-          >
-            <div
-              className="sidebar_align"
-              onClick={() => setOpenMenu((prev) => !prev)}
-            >
-              {user && user.photoURL ? (
-                <img
-                  src={user.photoURL}
-                  alt="profile picture"
-                  className="profile-picture"
-                />
-              ) : (
-                <AccountCircleIcon className="icon" />
-              )}{" "}
-              <span className="sidebar_user_dropdown">
-                {user && !anonymous ? user.displayName : userData.name}{" "}
-                <ArrowDropDownIcon />
-              </span>
             </div>
           </li>
         </ul>
@@ -201,8 +224,7 @@ function SideBar({ anonymous }) {
               <li
                 onClick={() =>
                   navigate(
-                    `/dummygram/${
-                      anonymous ? "signup" : `user/${userData.username}`
+                    `/dummygram/${anonymous ? "signup" : `user/${userData.username}`
                     }`,
                   )
                 }
