@@ -7,6 +7,7 @@
   align-items: center;
   flex-direction: column;
   text-align: left;
+  color: var(--text-secondary);
 }
 
 .delete_account_sub_container {
@@ -51,11 +52,11 @@
   font-weight: bold;
   font-size: 18px;
   border: none;
-  background-color: #5f85db;
+  /* background-color: #ff0000; */
 }
 
 .delete_account_action_btn:hover {
-  background-color: #6d8fdd;
+  background-color: #ff0000;
 }
 
 .delete_acc_btn {
@@ -63,7 +64,7 @@
 }
 
 .delete_account_action_delete_btn {
-  background-color: #8f8e8e;
+  background-color: gray;
 }
 
 .delete_acc_pass {

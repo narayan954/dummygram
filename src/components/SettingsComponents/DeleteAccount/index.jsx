@@ -62,7 +62,7 @@ const DeleteAccount = ({ user }) => {
   }
 
   async function handleDeleteAcc() {
-    const imagesArr = [];
+    let imagesArr = [];
     try {
       const batch = db.batch();
 
@@ -71,19 +71,10 @@ const DeleteAccount = ({ user }) => {
       const userDoc = await userDocRef.get();
       const userData = userDoc.data();
 
-      imagesArr.push(
-        userData?.photoURL?.length > 0 &&
-          userData.photoURL.startsWith(
-            "https://firebasestorage.googleapis.com",
-          ),
-      );
-      imagesArr.push(
-        userData?.bgImageUrl.length > 0 &&
-          userData.bgImageUrl.startsWith(
-            "https://firebasestorage.googleapis.com",
-          ),
-      );
-
+      if (userData) {
+        if (userData.photoURL) imagesArr.push(userData.photoURL);
+        if (userData.bgImageUrl) imagesArr.push(userData.bgImageUrl);
+      }
       batch.delete(userDocRef);
 
       // Step 2: Delete all posts where uid === user.uid from the posts collection
@@ -91,34 +82,47 @@ const DeleteAccount = ({ user }) => {
         .collection("posts")
         .where("uid", "==", user?.uid)
         .get();
-      postsSnapshot.forEach((postDoc) => {
-        const postImages = postDoc.data().imageUrl;
-        if (postImages && postImages !== "") {
-          const arr = JSON.parse(postImages);
-          arr.forEach((img) => {
-            imagesArr.push(img.imageUrl);
-          });
-        }
-        batch.delete(postDoc.ref);
-      });
+
+      if (!postsSnapshot.empty) {
+        postsSnapshot.forEach((postDoc) => {
+          const postImages = postDoc.data().imageUrl;
+          if (postImages && postImages !== "") {
+            const arr = JSON.parse(postImages);
+            if (arr) {
+              arr.forEach((img) => {
+                imagesArr.push(img.imageUrl);
+              });
+            }
+          }
+          batch.delete(postDoc.ref);
+        });
+      }
 
       // Commit the batch
       await batch.commit();
 
-      // Step 3: Delete the user account from Firebase Auth
+      // Step 3: Delete user from authentication
       await user.delete();
 
       // Step 4: Delete images from cloud
-      const deleteImagePromises = imagesArr.forEach(async (img) => {
-        await deleteImg(img);
+      const deleteImagePromises = imagesArr.map(async (img) => {
+        if (img === "") return;
+        try {
+          await deleteImg(img);
+        } catch (err) {
+          console.error(`Error deleting image: ${err}`);
+        }
       });
 
       await Promise.all(deleteImagePromises);
+
+      localStorage.removeItem("user");
+      navigate("/dummygram/login");
       enqueueSnackbar("User deleted successfully", {
         variant: "success",
       });
-      navigate("/dummygram/login");
     } catch (err) {
+      console.error(`Error handling delete: ${err}`);
       enqueueSnackbar(`Error: ${err}`, {
         variant: "error",
       });
