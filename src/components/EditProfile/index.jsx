@@ -2,12 +2,12 @@ import "./index.css";
 
 import { auth, db, storage } from "../../lib/firebase";
 import { useRef, useState } from "react";
-import blankImg from "../../assets/blank-profile.webp";
 
 import BackIcon from "@mui/icons-material/ArrowBackIosNew";
 import { ClickAwayListener } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import blankImg from "../../assets/blank-profile.webp";
 import deleteImg from "../../js/deleteImg";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
@@ -83,13 +83,12 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
     }
   };
 
-
   function handleImgDelete() {
     setImage("");
-    setEditedData(prevData => ({
+    setEditedData((prevData) => ({
       ...prevData,
       avatar: "",
-    }))
+    }));
   }
 
   async function updateUser(url) {
@@ -127,14 +126,12 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
 
       // Commit the batch
       await batch.commit();
-
     } catch (error) {
       console.error("Error updating profile:", error);
       setIsUploading(false);
       throw error;
     }
   }
-
 
   const handleProfileUpdate = () => {
     if (!usernameAvailable) {
@@ -145,7 +142,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
       const uploadTask = storage.ref(`images/${image?.name}`).put(image);
       uploadTask.on(
         "state_changed",
-        () => { },
+        () => {},
         (error) => {
           // playErrorSound();
           enqueueSnackbar(error.message, {
@@ -158,14 +155,14 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
             .child(image?.name)
             .getDownloadURL()
             .then(async (url) => {
-              oldImg && await deleteImg(oldImg);
+              oldImg && (await deleteImg(oldImg));
               await updateUser(url);
             })
             .then(() => {
               enqueueSnackbar("Upload Successfull", {
                 variant: "success",
               }),
-                setUserData(editedData)
+                setUserData(editedData);
             })
             .finally(() => {
               setIsEditing(false);
@@ -173,33 +170,31 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
             });
         },
       );
-    }
-    else if (image?.length === 0) {
+    } else if (image?.length === 0) {
       async function removeImg() {
-        oldImg && await deleteImg(oldImg);
+        oldImg && (await deleteImg(oldImg));
         await updateUser(image)
-        .then(() => {
-          enqueueSnackbar("Upload Successfull", {
-            variant: "success",
-          }),
-            setUserData(editedData)
-        })
-        .finally(() => {
-          setIsEditing(false);
-          setIsUploading(false);
-        });
+          .then(() => {
+            enqueueSnackbar("Upload Successfull", {
+              variant: "success",
+            }),
+              setUserData(editedData);
+          })
+          .finally(() => {
+            setIsEditing(false);
+            setIsUploading(false);
+          });
       }
-      removeImg()
-    }
-    else {
+      removeImg();
+    } else {
       async function upload() {
         await updateUser(oldImg)
           .then(() => {
             enqueueSnackbar("Upload Successfull", {
               variant: "success",
             }),
-              setUserData(editedData)
-            navigate(`/dummygram/user/${newUsername}`)
+              setUserData(editedData);
+            navigate(`/dummygram/user/${newUsername}`);
           })
           .finally(() => {
             setIsEditing(false);
@@ -207,120 +202,122 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
           });
       }
       upload();
-    };
-  }
-
-    return (
-      <ClickAwayListener onClickAway={() => setIsEditing(false)}>
-        <div className="edit-profile-container">
-          <div className="edit-profile-sub-container">
-            <div className="edit-profile-header">
-              <BackIcon
-                onClick={() => setIsEditing(false)}
-                style={{ display: "flex", marginTop: "6px", cursor: "pointer" }}
-              />
-              <h2>Edit Profile</h2>
-              <div>
-                <button 
-                  className="edit-profile-save-btn" 
-                  onClick={() => {
-                    handleProfileUpdate();
-                    setIsUploading(true);
-                  }}
-                  disabled={isUploading}
-                >
-                  Save
-                </button>
-              </div>
-            </div>
-            <div className="edit-profile-image">
-              <input
-                type="file"
-                id="file"
-                className="file"
-                onChange={handleImgChange}
-                accept="image/*"
-              />
-              <label htmlFor="file">
-                <EditIcon className="edit-profile-image-icon" />
-              </label>
-              <img src={avatar?.length > 0 ? avatar : blankImg} alt={name} className="edit-profile-img" />
-              {user?.photoURL?.length > 0 && (
-                <button
-                  className="delete_dp_btn"
-                  onClick={handleImgDelete}
-                >
-                  <DeleteIcon /> Remove DP
-                </button>
-              )}
-            </div>
-            <div className="edit-user-details">
-              {/* name  */}
-              <div className="user-field">
-                <label defaultValue={"Name"}>
-                  <p className="edit-profile-label">Name</p>
-                  <input
-                    type="text"
-                    value={name}
-                    name="name"
-                    className="edit-profile-input name-input"
-                    onChange={handleChange}
-                  />
-                </label>
-              </div>
-              {/* username  */}
-              <div className="user-field">
-                <label htmlFor="">
-                  <p className="edit-profile-label">Username</p>
-                  <input
-                    type="text"
-                    value={newUsername}
-                    name="newUsername"
-                    className={`edit-profile-input username-input ${usernameAvailable ? "" : "error-border"
-                      }`}
-                    ref={usernameRef}
-                    onChange={(e) => {
-                      usernameRef.current = e.target.value.trim();
-                      handleChange(e);
-                      checkUsername();
-                    }}
-                  />
-                </label>
-              </div>
-              {/* country  */}
-              <div className="user-field">
-                <label htmlFor="">
-                  <p className="edit-profile-label">Country</p>
-                  <input
-                    type="text"
-                    name="country"
-                    value={country}
-                    className="edit-profile-input country-input"
-                    onChange={handleChange}
-                  />
-                </label>
-              </div>
-            </div>
-            {/* bio */}
-            <label htmlFor="">
-              <p style={{ paddingTop: "0" }} className="edit-profile-label">
-                Bio
-              </p>
-              <textarea
-                name="bio"
-                id=""
-                // cols="30"
-                // rows="10"
-                maxLength={170}
-                value={bio}
-                className="edit-profile-input edit-profile-bio"
-                onChange={handleChange}
-              ></textarea>
-            </label>
-          </div>
-        </div>
-      </ClickAwayListener>
-    );
+    }
   };
 
-  export default EditProfile;
+  return (
+    <ClickAwayListener onClickAway={() => setIsEditing(false)}>
+      <div className="edit-profile-container">
+        <div className="edit-profile-sub-container">
+          <div className="edit-profile-header">
+            <BackIcon
+              onClick={() => setIsEditing(false)}
+              style={{ display: "flex", marginTop: "6px", cursor: "pointer" }}
+            />
+            <h2>Edit Profile</h2>
+            <div>
+              <button
+                className="edit-profile-save-btn"
+                onClick={() => {
+                  handleProfileUpdate();
+                  setIsUploading(true);
+                }}
+                disabled={isUploading}
+              >
+                Save
+              </button>
+            </div>
+          </div>
+          <div className="edit-profile-image">
+            <input
+              type="file"
+              id="file"
+              className="file"
+              onChange={handleImgChange}
+              accept="image/*"
+            />
+            <label htmlFor="file">
+              <EditIcon className="edit-profile-image-icon" />
+            </label>
+            <img
+              src={avatar?.length > 0 ? avatar : blankImg}
+              alt={name}
+              className="edit-profile-img"
+            />
+            {user?.photoURL?.length > 0 && (
+              <button className="delete_dp_btn" onClick={handleImgDelete}>
+                <DeleteIcon /> Remove DP
+              </button>
+            )}
+          </div>
+          <div className="edit-user-details">
+            {/* name  */}
+            <div className="user-field">
+              <label defaultValue={"Name"}>
+                <p className="edit-profile-label">Name</p>
+                <input
+                  type="text"
+                  value={name}
+                  name="name"
+                  className="edit-profile-input name-input"
+                  onChange={handleChange}
+                />
+              </label>
+            </div>
+            {/* username  */}
+            <div className="user-field">
+              <label htmlFor="">
+                <p className="edit-profile-label">Username</p>
+                <input
+                  type="text"
+                  value={newUsername}
+                  name="newUsername"
+                  className={`edit-profile-input username-input ${
+                    usernameAvailable ? "" : "error-border"
+                  }`}
+                  ref={usernameRef}
+                  onChange={(e) => {
+                    usernameRef.current = e.target.value.trim();
+                    handleChange(e);
+                    checkUsername();
+                  }}
+                />
+              </label>
+            </div>
+            {/* country  */}
+            <div className="user-field">
+              <label htmlFor="">
+                <p className="edit-profile-label">Country</p>
+                <input
+                  type="text"
+                  name="country"
+                  value={country}
+                  className="edit-profile-input country-input"
+                  onChange={handleChange}
+                />
+              </label>
+            </div>
+          </div>
+          {/* bio */}
+          <label htmlFor="">
+            <p style={{ paddingTop: "0" }} className="edit-profile-label">
+              Bio
+            </p>
+            <textarea
+              name="bio"
+              id=""
+              // cols="30"
+              // rows="10"
+              maxLength={170}
+              value={bio}
+              className="edit-profile-input edit-profile-bio"
+              onChange={handleChange}
+            ></textarea>
+          </label>
+        </div>
+      </div>
+    </ClickAwayListener>
+  );
+};
+
+export default EditProfile;

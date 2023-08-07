@@ -108,7 +108,7 @@
   cursor: pointer;
   border-radius: 8px;
   border: none;
-  background-color: white;
+  background-color: transparent;
   color: red;
   font-weight: 600;
   transition: 0.2s ease-in-out;
@@ -140,6 +140,7 @@
 
 .edit-profile-save-btn {
   width: 100%;
+  background-color: transparent;
   color: rgba(8, 17, 123, 0.69);
   font-size: 20px;
   font-weight: 600;
