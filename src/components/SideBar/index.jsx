@@ -177,7 +177,7 @@ function SideBar({ anonymous }) {
                 variant="contained"
                 color="primary"
                 className="button-style"
-                style={{ marginRight: '20px' }} // Add right margin to create a gap
+                style={{ marginRight: "20px" }} // Add right margin to create a gap
               >
                 Logout
               </AnimatedButton>
