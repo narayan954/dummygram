@@ -22,6 +22,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
 
   const [image, setImage] = useState(null);
   const [usernameAvailable, setUsernameAvailable] = useState(true);
+  const [error, setError] = useState({});
 
   const { enqueueSnackbar } = useSnackbar();
   const usernameRef = useRef("");
@@ -77,21 +78,21 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
       }));
     }
   };
-
-  const [error, setError] = useState({});
+ function validInputs()
+  {
+      if (editedData.name === "") {
+        setError("**Name is Required!");
+      } 
+      else if(editedData.newUsername==="")
+      { setError("**User name is Required!");
+      }
+      else
+      { setError(""); return true; }
+  }
   const handleImgSave = (event) => {
     event.preventDefault();
-    console.log("called");
-    console.log(editedData.name);
-    if (editedData.name === "") {
-      setError("**Name is Required!");
-    } else if (editedData.newUsername === "") {
-      setError("**User name is Required!");
-    } else if (editedData.country === "") {
-      setError("**Country is Required!");
-    } else if (editedData.bio === "") {
-      setError("**Bio is Required!");
-    } else {
+     if(validInputs())
+     {  
       if (!usernameAvailable) {
         return;
       }
@@ -290,9 +291,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
                   className="edit-profile-input country-input"
                   onChange={handleChange}
                 />
-                {error === "**Country is Required!" && (
-                  <small className="errorMsg">*Country is required!</small>
-                )}
+                
               </label>
             </div>
           </div>
@@ -311,9 +310,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
               className="edit-profile-input edit-profile-bio"
               onChange={handleChange}
             ></textarea>
-            {error === "**Bio is Required!" && (
-              <small className="errorMsg">*Enter something about you..</small>
-            )}
+            
           </label>
         </div>
       </div>
