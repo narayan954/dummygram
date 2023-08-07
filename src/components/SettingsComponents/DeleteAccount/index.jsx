@@ -16,11 +16,9 @@ const DeleteAccount = ({ user }) => {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
-
   // Function to handle delete account in firebase auth
   async function handleConfirmDelete() {
-
-    const providerName = user?.providerData[0]?.providerId
+    const providerName = user?.providerData[0]?.providerId;
     if (providerName) {
       //Signed in using OAuth Provider
       let provider;
@@ -28,8 +26,7 @@ const DeleteAccount = ({ user }) => {
 
       if (providerName === "google.com") {
         provider = new firebase.auth.GoogleAuthProvider();
-      }
-      else {
+      } else {
         provider = new firebase.auth.FacebookAuthProvider();
       }
       try {
@@ -74,12 +71,17 @@ const DeleteAccount = ({ user }) => {
       const userDoc = await userDocRef.get();
       const userData = userDoc.data();
 
-
       imagesArr.push(
-        userData?.photoURL?.length > 0 && userData.photoURL.startsWith('https://firebasestorage.googleapis.com')
+        userData?.photoURL?.length > 0 &&
+          userData.photoURL.startsWith(
+            "https://firebasestorage.googleapis.com",
+          ),
       );
       imagesArr.push(
-        userData?.bgImageUrl.length > 0 && userData.bgImageUrl.startsWith("https://firebasestorage.googleapis.com")
+        userData?.bgImageUrl.length > 0 &&
+          userData.bgImageUrl.startsWith(
+            "https://firebasestorage.googleapis.com",
+          ),
       );
 
       batch.delete(userDocRef);
@@ -156,10 +158,9 @@ const DeleteAccount = ({ user }) => {
               className="delete_account_action_btn delete_account_action_delete_btn"
               onClick={() => {
                 if (user?.providerData[0]?.providerId) {
-                  handleConfirmDelete()
-                }
-                else {
-                  setDeleteAcc(true)
+                  handleConfirmDelete();
+                } else {
+                  setDeleteAcc(true);
                 }
               }}
             >
@@ -181,8 +182,9 @@ const DeleteAccount = ({ user }) => {
               onChange={(e) => setPass(e.target.value)}
             />
             <button
-              className={`confirm_delete_acc_btn ${isDeleting ? "disable_confirm_btn" : ""
-                }`}
+              className={`confirm_delete_acc_btn ${
+                isDeleting ? "disable_confirm_btn" : ""
+              }`}
               onClick={handleConfirmDelete}
               disabled={isDeleting}
             >
