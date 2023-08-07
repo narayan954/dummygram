@@ -1,8 +1,6 @@
 import "./index.css";
 
 import { Dialog, IconButton, Input } from "@mui/material";
-
-import logo from "../../assets/logo.webp";
 import { playSuccessSound } from "../../js/sounds";
 import { useSnackbar } from "notistack";
 import Logo from "../Logo";
