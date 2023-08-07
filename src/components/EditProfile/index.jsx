@@ -5,7 +5,9 @@ import { useRef, useState } from "react";
 
 import BackIcon from "@mui/icons-material/ArrowBackIosNew";
 import { ClickAwayListener } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import blankImg from "../../assets/blank-profile.webp";
 import deleteImg from "../../js/deleteImg";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
@@ -20,7 +22,10 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
     uid: userData.uid,
   });
 
+  const user = auth?.currentUser;
+
   const [image, setImage] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
   const [usernameAvailable, setUsernameAvailable] = useState(true);
 
   const { enqueueSnackbar } = useSnackbar();
@@ -78,12 +83,62 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
     }
   };
 
-  const handleImgSave = () => {
+  function handleImgDelete() {
+    setImage("");
+    setEditedData((prevData) => ({
+      ...prevData,
+      avatar: "",
+    }));
+  }
+
+  async function updateUser(url) {
+    try {
+      const batch = db.batch();
+
+      // Update profile data in authentication (auth)
+      await auth.currentUser.updateProfile({
+        displayName: name,
+        photoURL: url,
+      });
+
+      // Update profile data in users collection
+      const userRef = db.collection("users").doc(uid);
+      const userData = {
+        photoURL: url,
+        name: name,
+        username: newUsername,
+        bio: bio,
+        country: country,
+      };
+      batch.update(userRef, userData);
+
+      // Update profile data in all posts
+      const postsRef = db.collection("posts").where("uid", "==", uid);
+      const postsSnapshot = await postsRef.get();
+      postsSnapshot.forEach((post) => {
+        const postRef = post.ref;
+        batch.update(postRef, {
+          avatar: url,
+          displayName: name,
+          username: newUsername,
+        });
+      });
+
+      // Commit the batch
+      await batch.commit();
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      setIsUploading(false);
+      throw error;
+    }
+  }
+
+  const handleProfileUpdate = () => {
     if (!usernameAvailable) {
       return;
     }
-    const oldImg = userData.avatar;
-    if (image) {
+    const oldImg = user.photoURL;
+    if (image && typeof image === "object") {
       const uploadTask = storage.ref(`images/${image?.name}`).put(image);
       uploadTask.on(
         "state_changed",
@@ -100,96 +155,50 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
             .child(image?.name)
             .getDownloadURL()
             .then(async (url) => {
-              //Updating profile data in auth
-              await auth.currentUser.updateProfile({
-                displayName: name,
-                photoURL: url,
-              });
-
-              //Updating profile data in users collection
-              const docRef = db.collection("users").doc(uid);
-              await docRef.update({
-                photoURL: url,
-                name: name,
-                username: newUsername,
-                bio: bio,
-                country: country,
-              });
-
-              //Updating profile data in all posts
-              const postsRef = db.collection("posts").where("uid", "==", uid);
-              await postsRef.get().then((postsSnapshot) => {
-                postsSnapshot.forEach((post) => {
-                  const postRef = post.ref;
-                  postRef.update({
-                    avatar: url,
-                    displayName: name,
-                    username: newUsername,
-                  });
-                });
-              });
-
-              await deleteImg(oldImg);
+              oldImg && (await deleteImg(oldImg));
+              await updateUser(url);
             })
-            .then(
+            .then(() => {
               enqueueSnackbar("Upload Successfull", {
                 variant: "success",
               }),
-            )
-            .then(() => setUserData(editedData))
-            .catch((error) => {
-              enqueueSnackbar(error, {
-                variant: "error",
-              });
+                setUserData(editedData);
             })
             .finally(() => {
               setIsEditing(false);
+              setIsUploading(false);
             });
         },
       );
-    } else {
-      async function upload() {
-        //Updating profile data in auth
-        await auth.currentUser.updateProfile({
-          displayName: name,
-        });
-
-        //Updating profile data in users collection
-        const docRef = db.collection("users").doc(uid);
-        await docRef.update({
-          name: name,
-          username: newUsername,
-          bio: bio,
-          country: country,
-        });
-
-        //Updating profile data in all posts
-        const postsRef = db.collection("posts").where("uid", "==", uid);
-        await postsRef
-          .get()
-          .then((postsSnapshot) => {
-            postsSnapshot.forEach((post) => {
-              const postRef = post.ref;
-              postRef.update({
-                displayName: name,
-                username: newUsername,
-              });
-            });
-          })
-          .then(
+    } else if (image?.length === 0) {
+      async function removeImg() {
+        oldImg && (await deleteImg(oldImg));
+        await updateUser(image)
+          .then(() => {
             enqueueSnackbar("Upload Successfull", {
               variant: "success",
             }),
-          )
-          .then(() => setUserData(editedData))
-          .then(() => navigate(`/dummygram/user/${newUsername}`))
-          .catch((error) => {
-            enqueueSnackbar(error, {
-              variant: "error",
-            });
+              setUserData(editedData);
           })
           .finally(() => {
             setIsEditing(false);
+            setIsUploading(false);
+          });
+      }
+      removeImg();
+    } else {
+      async function upload() {
+        await updateUser(oldImg)
+          .then(() => {
+            enqueueSnackbar("Upload Successfull", {
+              variant: "success",
+            }),
+              setUserData(editedData);
+            navigate(`/dummygram/user/${newUsername}`);
+          })
+          .finally(() => {
+            setIsEditing(false);
+            setIsUploading(false);
           });
       }
       upload();
@@ -207,9 +216,16 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
             />
             <h2>Edit Profile</h2>
             <div>
-              <span className="edit-profile-save-btn" onClick={handleImgSave}>
+              <button
+                className="edit-profile-save-btn"
+                onClick={() => {
+                  handleProfileUpdate();
+                  setIsUploading(true);
+                }}
+                disabled={isUploading}
+              >
                 Save
-              </span>
+              </button>
             </div>
           </div>
           <div className="edit-profile-image">
@@ -220,10 +236,19 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
               onChange={handleImgChange}
               accept="image/*"
             />
-            <EditIcon className="edit-profile-image-icon" />
             <label htmlFor="file">
-              <img src={avatar} alt={name} className="edit-profile-img" />
+              <EditIcon className="edit-profile-image-icon" />
             </label>
+            <img
+              src={avatar?.length > 0 ? avatar : blankImg}
+              alt={name}
+              className="edit-profile-img"
+            />
+            {user?.photoURL?.length > 0 && (
+              <button className="delete_dp_btn" onClick={handleImgDelete}>
+                <DeleteIcon /> Remove DP
+              </button>
+            )}
           </div>
           <div className="edit-user-details">
             {/* name  */}
