@@ -130,7 +130,7 @@ const PostDetails = ({
                 enqueueSnackbar,
                 setOpen,
               );
-              navigate("/dummygram/");
+              navigate("/dummygram");
             }}
           >
             Delete
