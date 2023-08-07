@@ -1,7 +1,7 @@
 import { storage } from "../lib/firebase";
 
 export default async function deleteImg(imageUrl) {
-  if (imageUrl !== "") {
+  if (imageUrl && imageUrl !== "") {
     const imageRef = storage.refFromURL(imageUrl);
     try {
       await imageRef.delete();

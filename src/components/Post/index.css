@@ -360,6 +360,10 @@
     margin-top: 25px;
   }
 
+  .epr-emoji-category {
+    width: 300px;
+  }
+
   .postColumn {
     max-width: 320px;
     padding: 5px;
