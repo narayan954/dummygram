@@ -16,7 +16,9 @@ const DeleteAccount = ({ user }) => {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
+  // Function to handle delete account in firebase auth
   async function handleConfirmPass() {
+    console.log("user", user);
     if (user?.email && pass !== "") {
       setIsDeleting(true);
       const credential = firebase.auth.EmailAuthProvider.credential(
@@ -32,7 +34,25 @@ const DeleteAccount = ({ user }) => {
         });
         setIsDeleting(false);
       }
+    } else if (user?.providerData[0]?.providerId === "google.com") {
+      // If user signed in with google
+      setIsDeleting(true);
+      const provider = new firebase.auth.GoogleAuthProvider();
+      try {
+        await user.reauthenticateWithPopup(provider);
+        await handleDeleteAcc();
+      } catch (err) {
+        enqueueSnackbar(`Error: ${err}`, {
+          variant: "error",
+        });
+        setIsDeleting(false);
+      }
+    } else {
+      enqueueSnackbar(`Error: Invalid credentials`, {
+        variant: "error",
+      });
     }
+    // TODO: Add condition for facebook.com
   }
 
   async function handleDeleteAcc() {
@@ -45,8 +65,10 @@ const DeleteAccount = ({ user }) => {
       const userDoc = await userDocRef.get();
       const userData = userDoc.data();
 
-      imagesArr.push(userData.photoURL);
-      imagesArr.push(userData.bgImageUrl);
+      imagesArr.push(userData?.photoURL !== undefined ? userData.photoURL : ""); // TODO - Handle this better (if user signed in with oauth, and not push "" to imagesArr)
+      imagesArr.push(
+        userData?.bgImageUrl !== undefined ? userData.bgImageUrl : "", // TODO - Handle this better like above
+      );
 
       batch.delete(userDocRef);
 
@@ -127,7 +149,7 @@ const DeleteAccount = ({ user }) => {
           </div>
         </div>
       </div>
-
+      {/* // TODO: Right now, if user is oauth user, he shouldnt get password input modal */}
       {deleteAcc && (
         <ClickAwayListener onClickAway={() => setDeleteAcc(false)}>
           <div className="delete_acc_pass">
