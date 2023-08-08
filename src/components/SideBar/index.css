@@ -23,7 +23,6 @@
 }
 
 .sidebar_design {
-  margin-top: 4.6em;
   padding: 0;
   display: flex;
   width: fit-content;
@@ -68,6 +67,10 @@
   border-radius: 10px;
   transition: all 0.5s ease;
   position: relative;
+}
+
+#sidebar-home-link {
+  margin-top: 20px;
 }
 
 .sidebar-links li:hover {
@@ -134,6 +137,7 @@
   padding: 0;
   border-radius: 10px;
   width: 170px;
+  z-index: 999;
 }
 
 .sidebar_user_dropdown_sub_container {
@@ -171,7 +175,7 @@
 footer {
   display: absolute;
   bottom: 0;
-  margin-bottom: 2em;
+  margin-bottom: 6em;
   font-size: 13px;
   background-color: var(--dark-post-bg);
   padding-left: 12px;

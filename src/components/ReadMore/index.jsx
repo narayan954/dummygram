@@ -15,10 +15,10 @@ const ReadMore = ({ children, picCap = false, postId, readMore = true }) => {
     <>
       <Caption
         caption={
-          isReadMore ? (picCap ? text.slice(0, 300) : text.slice(0, 100)) : text
+          isReadMore ? (picCap ? text.slice(0, 100) : text.slice(0, 40)) : text
         }
       />
-      {text.length >= 200 && (
+      {text.length >= 40 && (
         <span
           onClick={() => {
             toggleReadMore();
@@ -27,9 +27,10 @@ const ReadMore = ({ children, picCap = false, postId, readMore = true }) => {
             }
           }}
           style={{
-            color: "var(--color)",
+            color: "var(--profile-color)",
             fontWeight: "bold",
             cursor: "pointer",
+            fontSize: "12px",
           }}
         >
           {isReadMore ? " ...read more" : " ...show less"}

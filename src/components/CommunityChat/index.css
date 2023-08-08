@@ -5,8 +5,6 @@
 
 .chat-main-container {
   position: relative;
-  margin-top: 63px;
-  margin-left: 17vw;
   min-height: 100vh;
   padding: 15px;
 }
@@ -209,20 +207,12 @@
 }
 
 @media screen and (max-width: 1200px) {
-  .chat-main-container {
-    margin-left: 8vw;
-  }
-
   .chat-input-container {
     width: 88%;
   }
 }
 
 @media screen and (max-width: 800px) {
-  .chat-main-container {
-    margin-left: 0;
-  }
-
   .all-chat-msg-container {
     margin-bottom: 120px;
   }

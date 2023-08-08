@@ -3,7 +3,6 @@ import "./index.css";
 import { AnimatedButton, Logo } from "../../reusableComponents";
 import React, { useEffect, useState } from "react";
 import { auth, db } from "../../lib/firebase";
-import { doc, getDoc } from "firebase/firestore";
 import { getModalStyle, useStyles } from "../../App";
 import { useLocation, useNavigate } from "react-router-dom";
 import blankImg from "../../assets/blank-profile.webp"
@@ -26,10 +25,11 @@ import { useSnackbar } from "notistack";
 
 const Footer = React.lazy(() => import("./Footer"));
 
-function SideBar({ anonymous }) {
+function SideBar() {
   const classes = useStyles();
   const navigate = useNavigate();
-  const user = auth.currentUser;
+  const user = auth?.currentUser;
+  const anonymous = user?.isAnonymous;
   const location = useLocation();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -46,10 +46,11 @@ function SideBar({ anonymous }) {
   useEffect(() => {
     async function getUsername() {
       try {
-        const docRef = doc(db, "users", user?.uid);
-        const docSnap = await getDoc(docRef);
-        const data = docSnap.data();
-        if (docSnap.exists()) {
+        const docRef = db.collection("users", user?.uid);
+        const docSnap = await docRef.get();
+
+        if (docSnap.docs[0].exists) {
+          const data = docSnap.docs[0].data();
           setUserData({
             name: data?.displayName || auth.currentUser?.displayName,
             username: data?.username || auth.currentUser?.uid,
