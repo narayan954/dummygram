@@ -133,16 +133,15 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
       throw error;
     }
   }
-  function validInputs()
-  {
-      if (editedData.name === "") {
-        setError("**Name is Required!");
-      } 
-      else if(editedData.newUsername==="")
-      { setError("**User name is Required!");
-      }
-      else
-      { setError(""); return true; }
+  function validInputs() {
+    if (editedData.name === "") {
+      setError("**Name is Required!");
+    } else if (editedData.newUsername === "") {
+      setError("**User name is Required!");
+    } else {
+      setError("");
+      return true;
+    }
   }
   const handleProfileUpdate = () => {
     if (!validInputs()) {
