@@ -201,10 +201,10 @@ input:focus {
 
 .post__avatar {
   border-radius: 50%;
-  height: 30px !important;
+  height: 40px !important;
+  width: 40px !important;
   margin-right: 10px;
   object-fit: contain;
-  width: 30px !important;
 }
 
 .modal__signup__img {

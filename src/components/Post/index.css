@@ -39,6 +39,15 @@
   color: var(--text-primary);
 }
 
+.post__username {
+  font-size: 18px;
+}
+
+.post__time {
+  font-size: 12px;
+  color: var(--profile-color);
+}
+
 .postColumn:hover {
   transform: scale(1.01);
 }
@@ -109,7 +118,7 @@
   text-align: left;
   white-space: pre-line;
   overflow: hidden;
-  height: 3.5em;
+  height: 27px;
   line-height: 1.2em;
 }
 
@@ -195,7 +204,6 @@
 }
 
 .comment-box {
-  margin-top: 10px;
   width: 100%;
 }
 
@@ -370,6 +378,10 @@
     margin-top: 25px;
   }
 
+  .post__text, .postCaption, .postCaptiontext {
+    height: 50px !important;
+  }
+
   .like_user_data {
     flex-direction: column;
     gap: 0;
@@ -392,13 +404,13 @@
 .postCaption {
   color: var(--color);
   padding-inline: 8px;
-  height: 80px;
+  height: 27px;
 }
 
 .postCaptiontext {
   color: var(--color);
   padding-inline: 8px;
-  height: 80px;
+  height: 27px;
   display: flex;
   align-items: flex-end;
 }
