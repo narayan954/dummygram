@@ -378,7 +378,9 @@
     margin-top: 25px;
   }
 
-  .post__text, .postCaption, .postCaptiontext {
+  .post__text,
+  .postCaption,
+  .postCaptiontext {
     height: 50px !important;
   }
 
