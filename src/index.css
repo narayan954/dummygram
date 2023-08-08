@@ -616,6 +616,8 @@ input {
     justify-content: center;
   
   }
+
+
   /* .accordion{
     display: flex;
     justify-content: center;
@@ -640,4 +642,27 @@ input {
   /* Accordion Content */
   .accordion-content {
     padding: 10px;
+  }
+
+  .accordionTitle{
+    width:70%;
+   border: 1px solid black;
+  }
+
+  @media only screen and (max-width: 460px) {
+    .faqTitle{
+      font-size: 20px;
+      margin-bottom: 20px;
+      width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .faqSubtitle{
+      font-size: 15px;
+      width: 300px;
+      margin-left: auto;
+      margin-right: auto;    
+    }
+
+
   }

@@ -11,10 +11,10 @@ export default function Error() {
   const navigate = useNavigate();
 
   const accordionData = [
-    { title: "What is Dummygram", content: "Dummygram is a social media platform that allows users to share photos, videos, and stories with their followers. " },
-    { title: "How To Upload Images ", content: "Click on Post on left side menu and then click on upload Images" },
-    { title: "How To See Other User Profile ", content: "Click on Post Profile Avatar Image" },
-    { title: "How To Logout ", content: "Click on your profile in side menu you will get DropDown click on logout" },
+    { title: "What is Dummygram ?", content: "Dummygram is a social media platform that allows users to share photos, videos, and stories with their followers. " },
+    { title: "How To Upload Images ?", content: "Click on Post on left side menu and then click on upload Images" },
+    { title: "How To See Other User Profile", content: "Click on Post Profile Avatar Image" },
+    { title: "How To Logout", content: "Click on your profile in side menu you will get DropDown click on logout" },
     // Add more sections as needed
   ];
 
@@ -28,7 +28,7 @@ export default function Error() {
     return (
       <>
         <div style={{display:"flex",justifyContent:"center"}}>
-          <div style={{width:"700px",marginTop:"0px",border:"1px solid black"}}>
+          <div className="accordionTitle">
             <div className="accordion-header" onClick={toggleAccordion}>
               {title}
             </div>
