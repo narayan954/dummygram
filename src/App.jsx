@@ -5,6 +5,11 @@ import { ErrorBoundary } from "./reusableComponents";
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useLocation, useNavigate, Outlet } from "react-router-dom";
 import { auth } from "./lib/firebase";
+import {
+  DeleteAccount,
+  SettingsSidebar,
+  SoundSetting,
+} from "./components/SettingsComponents";
 
 import { ChatPage } from "./pages";
 import { FaArrowCircleUp } from "react-icons/fa";
@@ -24,7 +29,6 @@ const Profile = React.lazy(() => import("./pages/Profile"));
 const SignupScreen = React.lazy(() => import("./pages/Signup"));
 const ForgotPassword = React.lazy(() => import("./pages/ForgotPassword"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
-const Settings = React.lazy(() => import("./pages/Settings"));
 const Contributors = React.lazy(() =>
   import("./pages/FooterPages/ContributorPage"),
 );
@@ -120,13 +124,13 @@ function App() {
             {anonymous &&
               location.pathname !== "/dummygram/signup" &&
               location.pathname !== "/dummygram/login" && <GuestSignUpBtn />}
-            <Route element={user? <SideBarWrapper /> : <></>}>
-              <Route index element={user? (
-              <Home 
-                rowMode={rowMode} 
-                user={user} 
+            <Route element={user ? <SideBarWrapper /> : <></>}>
+              <Route index element={user ? (
+                <Home
+                  rowMode={rowMode}
+                  user={user}
                 />
-              ) : <></>} 
+              ) : <></>}
               />
               <Route
                 path="user/:username"
@@ -214,14 +218,11 @@ function App() {
               }
             />
 
-            <Route
-              path="settings"
-              element={
-                <ErrorBoundary inApp={true}>
-                  <Settings />
-                </ErrorBoundary>
-              }
-            />
+            <Route path="settings" element={<SettingsSidebar />}>
+              <Route index element={<SoundSetting />} />
+              <Route path="account" element={<DeleteAccount user={user} />} />
+              <Route path="*" element={<h1>Empty...</h1>} />
+            </Route>
 
             <Route
               path="login"
@@ -291,7 +292,7 @@ function Wrapper({ user, setUser, setRowMode }) {
         )}
       <div className="navbar_wrapper">
         {/* All the children element will come here */}
-        <Outlet /> 
+        <Outlet />
       </div>
       <FaArrowCircleUp
         fill="#5F85DB"

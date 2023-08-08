@@ -57,7 +57,7 @@
     height: 100%;
   }
   .caption_without_image {
-    font-size: 14px;
+    font-size: 12px !important;
   }
 }
 
@@ -67,7 +67,7 @@
   }
 
   .caption_without_image {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .app__posts__feed {

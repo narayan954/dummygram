@@ -1,4 +1,5 @@
+import DeleteAccount from "./DeleteAccount";
 import SettingsSidebar from "./Sidebar";
 import SoundSetting from "./Sounds";
 
-export { SettingsSidebar, SoundSetting };
+export { DeleteAccount, SettingsSidebar, SoundSetting };

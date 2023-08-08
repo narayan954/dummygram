@@ -346,7 +346,6 @@
   }
 }
 
-
 @media screen and (max-width: 800px) {
   .outer-profile-box {
     width: calc(100% - 10vw);

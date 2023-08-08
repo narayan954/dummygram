@@ -2,9 +2,9 @@ import "./index.css";
 
 import { Dialog, IconButton, Input } from "@mui/material";
 
+import Logo from "../Logo";
 import { playSuccessSound } from "../../js/sounds";
 import { useSnackbar } from "notistack";
-import Logo from "../Logo";
 
 const ShareModal = (props) => {
   const { openShareModal, setOpenShareModal, currentPostLink, postText } =
