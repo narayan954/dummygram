@@ -5,14 +5,13 @@ import {
   ShareOutlined,
 } from "@mui/icons-material";
 import { IconButton, Typography } from "@mui/material";
-import React, { useState } from "react";
 
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import Flexbetween from "../../reusableComponents/Flexbetween";
-import { playSuccessSound } from "../../js/sounds";
+import { savePost } from "../../js/postFn";
 import { useNavigate } from "react-router-dom";
-import { useSnackbar } from "notistack";
+import { useState } from "react";
 
 const PostNav = ({
   caption,
@@ -26,46 +25,22 @@ const PostNav = ({
   setPostText,
   shareModal,
 }) => {
-  const { enqueueSnackbar } = useSnackbar();
-  const [Open, setOpen] = useState(false);
   const [favoritePosts, setFavoritePosts] = useState(
     JSON.parse(localStorage.getItem("posts")) || [],
   );
-  const [isSaved, setisSaved] = useState(false);
   const navigate = useNavigate();
   const { isAnonymous } = user;
 
-  const save = async () => {
-    let localStoragePosts = JSON.parse(localStorage.getItem("posts")) || [];
-    const postIdExists = localStoragePosts.includes(postId);
-
-    if (!postIdExists) {
-      localStoragePosts.push(postId);
-      localStorage.setItem("posts", JSON.stringify(localStoragePosts));
-      playSuccessSound();
-      enqueueSnackbar("Post added to saved!", {
-        variant: "success",
-      });
+  const handleOnClick = async () => {
+    if (isAnonymous) {
+      navigate("/dummygram/signup");
     } else {
-      localStoragePosts = localStoragePosts.filter((post) => post !== postId);
-      localStorage.setItem("posts", JSON.stringify(localStoragePosts));
-      playSuccessSound();
-      enqueueSnackbar("Post is removed from saved!", {
-        variant: "info",
-      });
-    }
-    setFavoritePosts(JSON.parse(localStorage.getItem("posts")));
-  };
-
-  const handleToggleFavorite = () => {
-    setisSaved(!isSaved);
-  };
-
-  const renderFavoriteIcon = () => {
-    if (isSaved) {
-      return <BookmarksIcon onClick={handleToggleFavorite} />;
-    } else {
-      return <BookmarkBorderIcon onClick={handleToggleFavorite} />;
+      try {
+        const data = await savePost(postId);
+        setFavoritePosts(data);
+      } catch (error) {
+        console.error("Error saving post:", error);
+      }
     }
   };
 
@@ -98,7 +73,7 @@ const PostNav = ({
       <Flexbetween
         sx={{ cursor: "pointer" }}
         onClick={() => {
-          isAnonymous ? navigate("/dummygram/signup") : setisCommentOpen(!Open);
+          isAnonymous ? navigate("/dummygram/signup") : setisCommentOpen(true);
         }}
       >
         <IconButton sx={{ padding: "2px" }}>
@@ -131,10 +106,7 @@ const PostNav = ({
         </Typography>
       </Flexbetween>
 
-      <Flexbetween
-        sx={{ cursor: "pointer" }}
-        onClick={() => (isAnonymous ? navigate("/dummygram/signup") : save())}
-      >
+      <Flexbetween sx={{ cursor: "pointer" }} onClick={handleOnClick}>
         <IconButton>
           {favoritePosts.indexOf(postId) !== -1 ? (
             <BookmarksIcon sx={{ color: "green" }} />

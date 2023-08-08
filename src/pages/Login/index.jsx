@@ -7,15 +7,14 @@ import {
   Auth__text__input,
   Auth_container,
 } from "../../reusableComponents/Auth";
-import { validate } from "../../reusableComponents";
 import React, { useState } from "react";
 import { auth, db, facebookProvider, googleProvider } from "../../lib/firebase";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
-import loginRight from "../../assets/login-right.webp";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import { validate } from "../../reusableComponents";
 
 const LoginScreen = () => {
   const [userDatails, setuserDatails] = useState({
@@ -199,7 +198,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <Auth_container right__img={loginRight}>
+    <Auth_container>
       <form aria-label="Sign Up Form">
         <div className="form__bottom">
           {/* Email Input for the form */}
