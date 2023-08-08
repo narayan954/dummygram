@@ -30,6 +30,7 @@
   margin-top: 10px;
   padding: 10px;
   transition: 0.4s;
+  resize: none;
 }
 
 .feedback_sent_btn {
