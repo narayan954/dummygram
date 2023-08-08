@@ -9,7 +9,9 @@ const ImgBox = ({
   likesHandler,
   caption,
   postId,
+  background,
 }) => {
+  const defaultBg = `linear-gradient(130deg, #dee2ed, #dee2ed, #9aa9d1, #b6c8e3, #b6afd0, #d3c0d8)`
   return (
     <div>
       {postHasImages ? (
@@ -19,7 +21,11 @@ const ImgBox = ({
           doubleClickHandler={likesHandler}
         />
       ) : (
-        <div className="post__background" onDoubleClick={likesHandler}>
+        <div 
+          className="post__background" 
+          style={{background: background? background: defaultBg}} 
+          onDoubleClick={likesHandler}
+        >
           {caption.length >= 300 ? (
             <>
               <p className="post_caption">
@@ -39,9 +45,8 @@ const ImgBox = ({
       <div className={caption.length ? "p-0" : "post__text"}>
         {caption && postHasImages ? (
           <p
-            className={`${
-              caption.length >= 200 ? "postCaption" : "postCaptiontext"
-            }`}
+            className={`${caption.length >= 200 ? "postCaption" : "postCaptiontext"
+              }`}
           >
             <ReadMore postId={postId}>{caption}</ReadMore>
           </p>

@@ -6,6 +6,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { auth, db, handleMultiUpload } from "../../lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
+import { HuePicker } from 'react-color';
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Camera from "./Camera";
@@ -27,6 +28,7 @@ export default function ImgUpload(props) {
   const [buttonPopup, setButtonPopup] = useState(false);
   const [isStoryUploaded, setIsStoryUploaded] = useState(false);
   const [username, setUsername] = useState("");
+  const [background, setBackground] = useState('#fff');
 
   const displayName = auth?.currentUser?.displayName;
   const avatar = auth?.currentUser?.photoURL;
@@ -43,6 +45,11 @@ export default function ImgUpload(props) {
   const nextStep = () => {
     setCurrent(current === imagePreviews.length - 1 ? 0 : current + 1);
   };
+
+  const handleBackgroundChange = (color) => {
+    setBackground(color.hex);
+  };
+
 
   useEffect(() => {
     async function getUsername() {
@@ -92,6 +99,7 @@ export default function ImgUpload(props) {
     }
 
     setImagePreviews(images);
+    setBackground("#fff")
   };
 
   const savePost = async (imageUrl = "", type) => {
@@ -102,6 +110,7 @@ export default function ImgUpload(props) {
           caption: caption,
           imageUrl,
           username: username,
+          background: background,
           displayName: props.user.displayName,
           avatar: props.user.photoURL,
           likecount: [],
@@ -120,6 +129,7 @@ export default function ImgUpload(props) {
         await db.collection("story").add({
           caption: caption,
           imageUrl,
+          background: background,
           username: username,
           uid: auth?.currentUser?.uid,
         });
@@ -316,29 +326,38 @@ export default function ImgUpload(props) {
               </>
             )}
           </div>
-          <TextField
-            className="create-post-input"
-            onChange={(e) => setCaption(e.target.value)}
-            value={caption}
-            variant="filled"
-            // placeholder="Write a Caption..."
-            label="Write a caption..."
-            multiline
-            rows={12}
-            disabled={uploadingPost}
-            inputProps={{ maxLength: 200 }}
-            sx={{
-              width: "100%",
-              "& .MuiFormLabel-root.Mui-focused": {
-                fontWeight: "bold",
-              },
-              "& .MuiFilledInput-root": {
-                background: "transparent",
-                color: "var(--color)",
-              },
-            }}
-            style={{ color: "var(--color) !important" }}
-          />
+          <div>
+            <TextField
+              className="create-post-input"
+              onChange={(e) => setCaption(e.target.value)}
+              value={caption}
+              variant="filled"
+              // placeholder="Write a Caption..."
+              label="Write a caption..."
+              multiline
+              rows={12}
+              disabled={uploadingPost}
+              inputProps={{ maxLength: 200 }}
+              sx={{
+                width: "100%",
+                "& .MuiFormLabel-root.Mui-focused": {
+                  fontWeight: "bold",
+                },
+                "& .MuiFilledInput-root": {
+                  background: background,
+                  color: "var(--color)",
+                },
+              }}
+              style={{ color: "var(--color) !important" }}
+            />
+            {!image && (
+            <HuePicker
+              color={background}
+              onChange={handleBackgroundChange}
+              height="12px"
+              width="100%"
+            />)}
+          </div>
           <div className="shareBtnContainer">
             <button
               onClick={() => handleUpload("Post")}
@@ -350,9 +369,8 @@ export default function ImgUpload(props) {
             <button
               onClick={() => handleUpload("Story")}
               disabled={uploadingPost || isStoryUploaded}
-              className={`share__button ${
-                isStoryUploaded ? "disable_post_btn" : null
-              }`}
+              className={`share__button ${isStoryUploaded ? "disable_post_btn" : null
+                }`}
             >
               Create Story
             </button>
@@ -501,9 +519,8 @@ export default function ImgUpload(props) {
               <button
                 onClick={() => handleUpload("Story")}
                 disabled={uploadingPost || isStoryUploaded}
-                className={`share__button ${
-                  isStoryUploaded ? "disable_post_btn" : null
-                }`}
+                className={`share__button ${isStoryUploaded ? "disable_post_btn" : null
+                  }`}
               >
                 Create Story
               </button>

@@ -32,7 +32,7 @@ const PostNav = lazy(() => import("./PostNav"));
 function Post(prop) {
   const { postId, user, post, shareModal, setLink, setPostText, rowMode } =
     prop;
-  const { caption, imageUrl, likecount, timestamp } = post;
+  const { caption, imageUrl, likecount, timestamp, background } = post;
 
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
@@ -216,6 +216,7 @@ function Post(prop) {
             postId={postId}
             likesHandler={likesHandler}
             caption={caption}
+            background={background}
           />
         </ErrorBoundary>
         <Divider />
