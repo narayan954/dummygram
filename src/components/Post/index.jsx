@@ -30,13 +30,8 @@ const ImgBox = lazy(() => import("./ImgBox"));
 const PostNav = lazy(() => import("./PostNav"));
 
 function Post(prop) {
-  const { postId, user, post, shareModal, setLink, setPostText, rowMode } =
-    prop;
+  const { postId, user, post, rowMode } = prop;
   const { caption, imageUrl, likecount, timestamp, background } = post;
-
-  // const { postId, user, post, rowMode } = prop;
-  // const { caption, imageUrl, likecount, timestamp } = post;
-
 
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");

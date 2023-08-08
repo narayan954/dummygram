@@ -6,10 +6,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { auth, db, handleMultiUpload } from "../../lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
-import { HuePicker } from 'react-color';
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Camera from "./Camera";
+import { HuePicker } from "react-color";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
 import Popup from "../../reusableComponents/Popup";
@@ -28,7 +28,7 @@ export default function ImgUpload(props) {
   const [buttonPopup, setButtonPopup] = useState(false);
   const [isStoryUploaded, setIsStoryUploaded] = useState(false);
   const [username, setUsername] = useState("");
-  const [background, setBackground] = useState('#fff');
+  const [background, setBackground] = useState("#fff");
 
   const displayName = auth?.currentUser?.displayName;
   const avatar = auth?.currentUser?.photoURL;
@@ -49,7 +49,6 @@ export default function ImgUpload(props) {
   const handleBackgroundChange = (color) => {
     setBackground(color.hex);
   };
-
 
   useEffect(() => {
     async function getUsername() {
@@ -99,7 +98,7 @@ export default function ImgUpload(props) {
     }
 
     setImagePreviews(images);
-    setBackground("#fff")
+    setBackground("#fff");
   };
 
   const savePost = async (imageUrl = "", type) => {
@@ -351,12 +350,13 @@ export default function ImgUpload(props) {
               style={{ color: "var(--color) !important" }}
             />
             {!image && (
-            <HuePicker
-              color={background}
-              onChange={handleBackgroundChange}
-              height="12px"
-              width="100%"
-            />)}
+              <HuePicker
+                color={background}
+                onChange={handleBackgroundChange}
+                height="12px"
+                width="100%"
+              />
+            )}
           </div>
           <div className="shareBtnContainer">
             <button
@@ -369,8 +369,9 @@ export default function ImgUpload(props) {
             <button
               onClick={() => handleUpload("Story")}
               disabled={uploadingPost || isStoryUploaded}
-              className={`share__button ${isStoryUploaded ? "disable_post_btn" : null
-                }`}
+              className={`share__button ${
+                isStoryUploaded ? "disable_post_btn" : null
+              }`}
             >
               Create Story
             </button>
@@ -519,8 +520,9 @@ export default function ImgUpload(props) {
               <button
                 onClick={() => handleUpload("Story")}
                 disabled={uploadingPost || isStoryUploaded}
-                className={`share__button ${isStoryUploaded ? "disable_post_btn" : null
-                  }`}
+                className={`share__button ${
+                  isStoryUploaded ? "disable_post_btn" : null
+                }`}
               >
                 Create Story
               </button>
