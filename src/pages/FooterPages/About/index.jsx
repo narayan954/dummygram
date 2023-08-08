@@ -1,15 +1,11 @@
 import "./index.css";
 import "../design.css";
 
-import {useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-
 import about from "../../../assets/about-us.webp";
-
-import about from "../../../assets/about-us.png";
-
+import { useNavigate } from "react-router-dom";
 
 const About = () => {
   const [forks, setForks] = useState(0);
