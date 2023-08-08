@@ -6,11 +6,11 @@ import {
 } from "@mui/icons-material";
 import { IconButton, Typography } from "@mui/material";
 import React, { useState } from "react";
-import { ShareModal } from "../../reusableComponents";
 
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import Flexbetween from "../../reusableComponents/Flexbetween";
+import { ShareModal } from "../../reusableComponents";
 import { savePost } from "../../js/postFn";
 import { useNavigate } from "react-router-dom";
 
@@ -74,7 +74,9 @@ const PostNav = ({
         <Flexbetween
           sx={{ cursor: "pointer" }}
           onClick={() => {
-            isAnonymous ? navigate("/dummygram/signup") : setisCommentOpen(true);
+            isAnonymous
+              ? navigate("/dummygram/signup")
+              : setisCommentOpen(true);
           }}
         >
           <IconButton sx={{ padding: "2px" }}>
@@ -93,7 +95,7 @@ const PostNav = ({
             if (isAnonymous) {
               navigate("/dummygram/signup");
             } else {
-              setOpenShareModal(prev => !prev)
+              setOpenShareModal((prev) => !prev);
             }
           }}
         >
@@ -125,8 +127,8 @@ const PostNav = ({
           setOpenShareModal={setOpenShareModal}
           currentPostLink={`https://narayan954.github.io/dummygram/posts/${postId}`}
           postText={caption}
-        />)
-      }
+        />
+      )}
     </>
   );
 };

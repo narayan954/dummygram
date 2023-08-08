@@ -1,20 +1,26 @@
 import "./index.css";
 
-import { Darkmode } from "./reusableComponents";
-import { ErrorBoundary } from "./reusableComponents";
-import React, { useEffect, useState } from "react";
-import { Route, Routes, useLocation, useNavigate, Outlet } from "react-router-dom";
-import { auth } from "./lib/firebase";
 import {
   DeleteAccount,
   SettingsSidebar,
   SoundSetting,
 } from "./components/SettingsComponents";
+import {
+  Outlet,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
+import React, { useEffect, useState } from "react";
 
 import { ChatPage } from "./pages";
+import { Darkmode } from "./reusableComponents";
+import { ErrorBoundary } from "./reusableComponents";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { GuestSignUpBtn } from "./components";
 import { RowModeContext } from "./hooks/useRowMode";
+import { auth } from "./lib/firebase";
 import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
 
@@ -120,17 +126,19 @@ function App() {
     <RowModeContext.Provider value={rowMode}>
       <ErrorBoundary inApp={true}>
         <Routes>
-          <Route path="/dummygram" element={<Wrapper user={user} setUser={setUser} setRowMode={setRowMode} />}>
+          <Route
+            path="/dummygram"
+            element={
+              <Wrapper user={user} setUser={setUser} setRowMode={setRowMode} />
+            }
+          >
             {anonymous &&
               location.pathname !== "/dummygram/signup" &&
               location.pathname !== "/dummygram/login" && <GuestSignUpBtn />}
             <Route element={user ? <SideBarWrapper /> : <></>}>
-              <Route index element={user ? (
-                <Home
-                  rowMode={rowMode}
-                  user={user}
-                />
-              ) : <></>}
+              <Route
+                index
+                element={user ? <Home rowMode={rowMode} user={user} /> : <></>}
               />
               <Route
                 path="user/:username"
@@ -181,9 +189,7 @@ function App() {
                 path="posts/:id"
                 element={
                   <ErrorBoundary inApp={true}>
-                    <PostView
-                      user={user}
-                    />
+                    <PostView user={user} />
                   </ErrorBoundary>
                 }
               />
@@ -198,7 +204,6 @@ function App() {
                 </ErrorBoundary>
               }
             />
-
 
             <Route
               path="contributors"
@@ -252,7 +257,6 @@ function App() {
 
 export default App;
 
-
 function Wrapper({ user, setUser, setRowMode }) {
   const [showScroll, setShowScroll] = useState(false);
   const scrollTop = () => {
@@ -288,8 +292,8 @@ function Wrapper({ user, setUser, setRowMode }) {
       />
       {(location.pathname == "/dummygram/login" ||
         location.pathname == "/dummygram/signup") && (
-          <Darkmode themeClass="themeButton themeButton-login" />
-        )}
+        <Darkmode themeClass="themeButton themeButton-login" />
+      )}
       <div className="navbar_wrapper">
         {/* All the children element will come here */}
         <Outlet />
@@ -305,7 +309,7 @@ function Wrapper({ user, setUser, setRowMode }) {
         }}
       />
     </div>
-  )
+  );
 }
 
 function SideBarWrapper() {
@@ -318,6 +322,5 @@ function SideBarWrapper() {
         <Outlet />
       </div>
     </div>
-  )
+  );
 }
-

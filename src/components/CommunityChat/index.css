@@ -207,14 +207,12 @@
 }
 
 @media screen and (max-width: 1200px) {
-
   .chat-input-container {
     width: 88%;
   }
 }
 
 @media screen and (max-width: 800px) {
-
   .all-chat-msg-container {
     margin-bottom: 120px;
   }

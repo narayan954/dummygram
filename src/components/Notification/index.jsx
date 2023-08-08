@@ -113,7 +113,7 @@ function Notifications() {
           <Box>
             <div
               className="profile__favourites"
-              style={{ marginBlock: "1.5rem"}}
+              style={{ marginBlock: "1.5rem" }}
               align="center"
             >
               {notifications.length ? (

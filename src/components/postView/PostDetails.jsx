@@ -67,7 +67,7 @@ const PostDetails = ({
         <Flexbetween
           sx={{ cursor: "pointer" }}
           onClick={() => {
-            setOpenShareModal(prev => !prev)
+            setOpenShareModal((prev) => !prev);
           }}
         >
           <IconButton>
@@ -140,7 +140,8 @@ const PostDetails = ({
           setOpenShareModal={setOpenShareModal}
           currentPostLink={`https://narayan954.github.io/dummygram/posts/${postId}`}
           postText={caption}
-        />)}
+        />
+      )}
     </>
   );
 };

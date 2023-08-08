@@ -43,7 +43,6 @@
   cursor: pointer;
 }
 
-
 @media only screen and (max-width: 720px) {
   .feedback-form-container {
     align-items: flex-start;
@@ -53,7 +52,7 @@
   #feedback_form {
     padding: 20px;
   }
-  
+
   .feedback_input,
   .feedback_textarea {
     margin-bottom: 20px;
