@@ -4,8 +4,7 @@ import "../design.css";
 import { Link, useNavigate } from "react-router-dom";
 
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { VscChromeClose } from "react-icons/vsc";
-import background from "../../../assets/guidelines.png";
+import background from "../../../assets/guidelines.webp";
 
 const Guidelines = () => {
   const navigate = useNavigate();

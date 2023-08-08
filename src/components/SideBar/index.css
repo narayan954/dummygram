@@ -43,7 +43,7 @@
 }
 
 #sidebar-home-link {
-  margin-top: 6.2em;
+  margin-top: 20px;
 }
 
 .sidebar-links li:hover {
@@ -85,11 +85,12 @@
 
 .sidebar_user_dropdown_container {
   position: absolute;
-  top: 333px;
+  top: 250px;
   left: 100px;
   padding: 0;
   border-radius: 10px;
   width: 170px;
+  z-index: 999;
 }
 
 .sidebar_user_dropdown_sub_container {
@@ -127,7 +128,7 @@
 footer {
   display: absolute;
   bottom: 0;
-  margin-bottom: 2em;
+  margin-bottom: 6em;
   font-size: 13px;
   background-color: var(--dark-post-bg);
   padding-left: 12px;

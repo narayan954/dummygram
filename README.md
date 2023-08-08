@@ -60,24 +60,32 @@ Overall, the Dummygram team loves what they do and wants to make the app visuall
 
 # Table of Contents
 
-- [Codebase](#codebase)
-
-  - [Technologies](#technologies)
-  - [Folder Structure](#folder-structure)
-
-- [Project Setup](#project-setup)
-
-  - [First time setup](#first-time-setup)
-  - [Installation](#installation)
-  - [Running the app locally](#running-the-app-locally)
-
-- [Testing](#testing)
-- [How to get started with Open Source](#how-to-get-started-with-open-source)
-- [How to use Dummygram](#how-to-use-dummygram)
-- [Contributing](#contributing)
-- [Rules](#rules)
-- [Open Source Programs](#open-source-programs)
-- [License](#license)
+- [Table of Contents](#table-of-contents)
+  - [Codebase](#codebase)
+    - [Technologies](#technologies)
+    - [Folder structure](#folder-structure)
+  - [Project Setup](#project-setup)
+    - [First time setup](#first-time-setup)
+    - [Installation](#installation)
+    - [Running the app locally](#running-the-app-locally)
+      - [Start the servers](#start-the-servers)
+  - [Testing](#testing)
+    - [Introduction to Cypress](#introduction-to-cypress)
+    - [Start Testing](#start-testing)
+    - [Create New Test Cases](#create-new-test-cases)
+  - [How to get started with Open Source](#how-to-get-started-with-open-source)
+  - [How to use Dummygram](#how-to-use-dummygram)
+  - [Contributing](#contributing)
+  - [Rules](#rules)
+    - [Contributions and discussion guidelines](#contributions-and-discussion-guidelines)
+    - [Reporting a bug or discussing a feature idea](#reporting-a-bug-or-discussing-a-feature-idea)
+    - [Fixing a bug or implementing a new feature](#fixing-a-bug-or-implementing-a-new-feature)
+  - [Code of Conduct](#code-of-conduct)
+  - [Programs](#programs)
+  - [Feedback](#feedback)
+  - [👩🏽‍💻 Contributing](#-contributing)
+  - [Thanks to all Contributors 💪](#thanks-to-all-contributors-)
+  - [License](#license)
 
 ## Codebase
 
@@ -337,7 +345,7 @@ Dummygram is now part of GitHub. For code of conduct, please see [GitHub's Commu
 </p>
 
 <p align="center">
-<a href="https://gssoc.girlscript.tech/"><img alt="Girlscript Summer of Code Logo" src="src/assets/gssoc.png" width="47%"></a>
+<a href="https://gssoc.girlscript.tech/"><img alt="Girlscript Summer of Code Logo" src="src/assets/gssoc.webp" width="47%"></a>
 &nbsp;
 <a href="https://jwoc.tech/"><img alt="jwoc program" src="https://user-images.githubusercontent.com/77617189/219851281-59de273a-388a-4367-a7c6-39d37196ee90.png"  width="47%"></a>
 </p>

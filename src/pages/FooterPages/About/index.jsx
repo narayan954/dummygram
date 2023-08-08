@@ -1,12 +1,11 @@
 import "./index.css";
 import "../design.css";
 
-import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { VscChromeClose } from "react-icons/vsc";
-import about from "../../../assets/about-us.png";
+import about from "../../../assets/about-us.webp";
+import { useNavigate } from "react-router-dom";
 
 const About = () => {
   const [forks, setForks] = useState(0);
