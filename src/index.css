@@ -601,3 +601,43 @@ input {
 .postColumn {
   background-color: var(--dark-post-bg);
 }
+
+.faq{
+  display: flex;
+  justify-content: center;
+  }
+  .faqTitle{
+    font-size: 50px;
+    margin-bottom: 20px;
+  }
+  .faqSubtitle{
+    display: flex;
+    font-size: 20px;
+    justify-content: center;
+  
+  }
+  /* .accordion{
+    display: flex;
+    justify-content: center;
+  }
+  .accordion-header{
+    font-size: 20px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  }
+  
+  .accordion {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+  } */
+  
+  /* Accordion Header */
+  .accordion-header {
+    background-color: #f1f1f1;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  /* Accordion Content */
+  .accordion-content {
+    padding: 10px;
+  }

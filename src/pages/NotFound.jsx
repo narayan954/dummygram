@@ -1,59 +1,78 @@
 import { Box, Button, Container, Typography } from "@mui/material";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import Grid from "@mui/material/Grid";
-import { Link } from "react-router-dom";
-import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import about from "../../../dummygram/src/assets/about-us.png";
 
 export default function Error() {
+  const navigate = useNavigate();
+
+  const accordionData = [
+    { title: "What is Dummygram", content: "Dummygram is a social media platform that allows users to share photos, videos, and stories with their followers. " },
+    { title: "How To Upload Images ", content: "Click on Post on left side menu and then click on upload Images" },
+    { title: "How To See Other User Profile ", content: "Click on Post Profile Avatar Image" },
+    { title: "How To Logout ", content: "Click on your profile in side menu you will get DropDown click on logout" },
+    // Add more sections as needed
+  ];
+
+  const Accordion = ({ title, content }) => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleAccordion = () => {
+      setIsOpen(!isOpen);
+    };
+
+    return (
+      <>
+        <div style={{display:"flex",justifyContent:"center"}}>
+          <div style={{width:"700px",marginTop:"0px",border:"1px solid black"}}>
+            <div className="accordion-header" onClick={toggleAccordion}>
+              {title}
+            </div>
+          {isOpen && <div className="accordion-content">{content}</div>}
+          </div>
+        </div>
+      </>
+    );
+  };
+
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "100vh",
-      }}
-    >
-      <Container maxWidth="md">
-        <Grid container spacing={2}>
-          <Grid xs={6}>
-            <Typography variant="h1" style={{ color: "var(--text-secondary)" }}>
-              404
-            </Typography>
-            <Typography variant="h6" style={{ color: "var(--text-secondary)" }}>
-              The page you're looking for doesn't exist.
-            </Typography>
-            <Link to="/dummygram/">
-              <Button
-                variant="contained"
-                sx={{
-                  backgroundColor: "var(--btn-hover)",
-                  color: "black",
-                  borderRadius: "0.45rem",
-                  marginTop: "15px",
-                  fontWeight: "bold",
-                  "&:hover": {
-                    backgroundColor: "#2d5dc9",
-                    color: "black",
-                  },
-                }}
-                // style={{ backgroundColor: "var(--btn-hover)"}}
-              >
-                Back Home
-              </Button>
-            </Link>
-          </Grid>
-          <Grid xs={6}>
-            <img
-              src="https://cdn.pixabay.com/photo/2017/03/09/12/31/error-2129569__340.jpg"
-              alt="error image"
-              width={500}
-              height={250}
-              style={{ borderRadius: "12px" }}
+    <>
+      <div className="footer-page-header-img" style={{ position: "relative" }}>
+        <img src={about} style={{ objectFit: "cover" }} />
+      </div>
+
+      <div
+        className="back-icon"
+        style={{ height: "90px", cursor: "pointer" }}
+        onClick={() => navigate("/dummygram")}
+      >
+        <KeyboardBackspaceIcon className="icon" /> <span>Back to Home</span>
+      </div>
+
+      <section className="faq">
+        <div>
+          <h1 className="faqTitle">Dummygram Frequently Asked Question</h1>
+          <p className="faqSubtitle">
+            Have a question in mind? We've got the answers!
+          </p>
+        </div>
+      </section>
+
+      <div style={{marginTop:"60px",marginBottom:"60px"}}>
+        {accordionData.map((section, index) => (
+          <>
+            <Accordion
+              key={index}
+              title={section.title}
+              content={section.content}
             />
-          </Grid>
-        </Grid>
-      </Container>
-    </Box>
+          </>
+        ))}
+      </div>
+    </>
   );
 }
