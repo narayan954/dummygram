@@ -1,0 +1,29 @@
+.not_found_container {
+    display: flex;
+}
+
+.not_found_poem {
+    margin-block: 20px;
+    color: var(--profile-color);
+    font-weight: 600;
+}
+
+.not_found_btn {
+    border-radius: 0.45rem;
+    margin-top: 15px;
+    font-weight: bold;
+    /* background-color: #2d5dc9; */
+    background: var(--btn-color) !important;
+    color: black;
+    width: 100%;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+@media only screen and (max-width: 600px) {
+    .not_found_container {
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+}
