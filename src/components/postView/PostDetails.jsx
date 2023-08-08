@@ -16,6 +16,7 @@ import {
 
 import DeleteIcon from "@mui/icons-material/Delete";
 import Flexbetween from "../../reusableComponents/Flexbetween";
+import { ShareModal } from "../../reusableComponents";
 import deletePost from "../../js/deletePost.js";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
@@ -28,13 +29,11 @@ const PostDetails = ({
   likecount,
   likesHandler,
   imageUrl,
-  shareModal,
-  setPostText,
-  setLink,
   caption,
   fullScreen,
 }) => {
   const [open, setOpen] = useState(false);
+  const [openShareModal, setOpenShareModal] = useState(false);
   const tempLikeCount = likecount ? [...likecount] : [];
   const { enqueueSnackbar } = useSnackbar();
   const currentUserUid = user.uid;
@@ -61,9 +60,7 @@ const PostDetails = ({
         <Flexbetween
           sx={{ cursor: "pointer" }}
           onClick={() => {
-            setLink(`https://narayan954.github.io/dummygram/posts/${postId}`);
-            setPostText(caption);
-            shareModal(true);
+            setOpenShareModal(prev => !prev)
           }}
         >
           <IconButton>
@@ -113,6 +110,13 @@ const PostDetails = ({
           </Button>
         </DialogActions>
       </Dialog>
+      {openShareModal && (
+        <ShareModal
+          openShareModal={openShareModal}
+          setOpenShareModal={setOpenShareModal}
+          currentPostLink={`https://narayan954.github.io/dummygram/posts/${postId}`}
+          postText={caption}
+        />)}
     </>
   );
 };

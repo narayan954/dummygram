@@ -43,7 +43,7 @@
 }
 
 #sidebar-home-link {
-  margin-top: 6.2em;
+  margin-top: 20px;
 }
 
 .sidebar-links li:hover {
@@ -127,7 +127,7 @@
 footer {
   display: absolute;
   bottom: 0;
-  margin-bottom: 2em;
+  margin-bottom: 6em;
   font-size: 13px;
   background-color: var(--dark-post-bg);
   padding-left: 12px;

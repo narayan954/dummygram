@@ -40,13 +40,10 @@ const ReadMore = React.lazy(() => import("../ReadMore"));
 
 const PostCommentView = ({
   setFetchAgain,
-  shareModal,
   fetchAgain,
   postId,
   user,
   post,
-  setLink,
-  setPostText,
 }) => {
   const navigate = useNavigate();
   const theme = useTheme();
@@ -275,9 +272,6 @@ const PostCommentView = ({
               likesHandler={likesHandler}
               fullScreen={fullScreen}
               caption={caption}
-              shareModal={shareModal}
-              setLink={setLink}
-              setPostText={setPostText}
               setFetchAgain={setFetchAgain}
               fetchAgain={fetchAgain}
             />

@@ -204,6 +204,7 @@ function Profile() {
         enqueueSnackbar(`Error Occured: ${error}`, {
           variant: "error",
         });
+        setUserExists(false);
       }
     }
 

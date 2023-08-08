@@ -1,5 +1,5 @@
 .loader-container {
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -7,9 +7,7 @@
 }
 
 .notification-container {
-  border: 1px solid pink;
   min-height: 100vh;
-  margin-left: 17vw;
 }
 
 .notification-heading {
@@ -93,16 +91,7 @@
   background-color: rgb(167, 13, 13);
 }
 
-@media screen and (max-width: 1200px) {
-  .notification-container {
-    margin-left: 8vw;
-  }
-}
-
 @media screen and (max-width: 800px) {
-  .notification-container {
-    margin-left: 0;
-  }
   .notification-heading {
     font-size: 30px;
   }
