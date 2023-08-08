@@ -302,7 +302,7 @@ export default function ImgUpload(props) {
               <>
                 {" "}
                 <Avatar
-                  className="post__avatar"
+                  className="post__upload__avatar"
                   alt={displayName}
                   src={avatar}
                   sx={{
