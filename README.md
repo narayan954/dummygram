@@ -110,7 +110,7 @@ dummygram/
 
 ## Project Setup
 
-### First time setup
+### First-time setup
 
 The first step to running dummygram locally is downloading the code by cloning the repository:
 
@@ -150,7 +150,7 @@ npm install
 
 You've now finished installing everything! Let's start :100:
 
-Ps: if you're getting error installing the dependencies, try --force command along with npm install. For example
+Ps: if you're getting an error installing the dependencies, try --force command along with npm install. For example
 
 ```sh
 
@@ -186,15 +186,15 @@ _We will be using Cypress for our testing purposes._
 
 <details><summary>See More</summary> <br>
 
-Cypress is a relatively new automated tests tool which is gaining popularity at a very rapid pace
+Cypress is a relatively new automated tests tool that is gaining popularity at a very rapid pace
 
 Here is the home page for Cypress if someone wants to look it up
 <https://www.cypress.io/>
 
-Cypress has very strong documentation so a new comer could find most of the information from their own site
+Cypress has very strong documentation so a newcomer could find most of the information from their own site
 <https://docs.cypress.io/guides/overview/why-cypress.html#In-a-nutshell>
 
-Also as a starting point it would be good to go through these tutorial videos
+Also as a starting point, it would be good to go through these tutorial videos
 <https://docs.cypress.io/examples/tutorials>
 
 </details>
@@ -203,7 +203,7 @@ Also as a starting point it would be good to go through these tutorial videos
 
 ### Start Testing
 
-> You need to [setup](#project-setup) the project as usual, and after that we can run our test cases.
+> You need to [setup](#project-setup) the project as usual, and after that, we can run our test cases.
 
 <sub>See It Running</sub>
 
@@ -214,7 +214,7 @@ Also as a starting point it would be good to go through these tutorial videos
 1. **Run This Command**
 
 ```zsh
-npm run cypress:open
+npm run cypress: open
 ```
 
 _It will open up this window,_
@@ -247,8 +247,8 @@ E2E Files: `/cypress/e2e/`
 **To Create New E2E Tests**
 
 1. Goto `/cypress/e2e/`
-2. You can create new file (similar to `spec.cy.js`). <br>
-   **OR** add new `it` function inside existing `describe` function in this existing file.
+2. You can create a new file (similar to `spec.cy.js`). <br>
+   **OR** Add a new `it` function inside the existing `describe` function in this existing file.
 
 <img width="720" alt="test-file-screenshot" src="https://user-images.githubusercontent.com/84321236/223485219-2fd93fa7-686e-4a60-92b0-2a927ee4a7b0.png">
 
@@ -269,11 +269,11 @@ Here's a quick rundown on how to get started with open source. First of all, let
 
 - Git: This is a versioning system that lets you store your code and code history on your local computer, preventing loss and allowing sharing of that code.
 - Github: This is a server that lets you store the history in a database.
-- Open Source: A project is said to be open sourced if you can see the code on GitHub.
+- Open Source: A project is said to be open-sourced if you can see the code on GitHub.
 - Fork: This is a copy that you make of a project on GitHub, it gets added to your repositories.
 - Repository: A project on GitHub is called a repository.
 - Pull Request: This is a fix for an issue proposed to be done in a project, this consists of you editing a file in the project.
-- Issue: An issue is a change that should be done in a project, can be a bug, a new feature or a suggestion to a project.
+- Issue: An issue is a change that should be done in a project, can be a bug, a new feature, or a suggestion to a project.
 - Branch: A branch is a new workspace derived from the default workspace(main or master) that allows you to work on something without affecting the original code.
 
 Now you know some basic terms, let's get into how to get started with some resources to let you understand open source better:
@@ -290,7 +290,7 @@ Now you know some basic terms, let's get into how to get started with some resou
 
 **We heartily welcome any and all contributions that match our engineering standards! :raised_hands:**
 
-That being said, this codebase isn't your typical open source project because it's not a library or package with a limited scope—it's our entire product.
+That being said, this codebase isn't your typical open-source project because it's not a library or package with a limited scope—it's our entire product.
 
 ## Rules
 
@@ -303,7 +303,7 @@ That being said, this codebase isn't your typical open source project because it
 
 🎊Code of conduct is applied for all conversations that happen within the contributor community here on GitHub.
 
-🎊Discussions are important,productive and respectful.
+🎊Discussions are important, productive, and respectful.
 
 🎊**Remember**:-There are real people on the other side of that screen:exclamation:
 
@@ -314,7 +314,7 @@ If you found a technical bug on Dummygram or have ideas for features we should i
 ### Fixing a bug or implementing a new feature
 
 - If you find a bug on Dummygram and open a PR that fixes it we'll review it as soon as possible to ensure it matches our engineering standards.
-- If you want to implement a new feature, open an issue first to discuss what it'd look like .
+- If you want to implement a new feature, open an issue first to discuss what it'd look like.
 - If you want to contribute but are unsure to start, we have [a "good first issue" label](https://github.com/narayan954/dummygram/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) which is applied to newcomer-friendly issues. Take a look at [the full list of good first issues](https://github.com/narayan954/dummygram/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) and pick something you like!
 - Want to fix a bug or implement an agreed-upon feature? Great, jump to the [local setup instructions](#first-time-setup)!
 
@@ -359,7 +359,7 @@ For further queries and whereabouts you can communicate and reach out to the own
 
 ## 👩🏽‍💻 Contributing
 
-- Contributions make the open source community such an amazing place to learn, inspire, and create.
+- Contributions make the open-source community such an amazing place to learn, inspire, and create.
 - Any contributions you make are greatly appreciated.
 - Check out our [contribution guidelines](/CONTRIBUTING.md) for more information.
 
