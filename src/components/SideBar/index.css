@@ -97,6 +97,11 @@
 .profile-picture {
   width: 80px;
   height: 80px;
+  transition: 0.2s ease-in-out;
+  border: 1px solid #eee;
+  box-shadow:
+    1px 1px 3px #bcbbbb,
+    -1px -1px 3px #bcbbbb;
 }
 
 .sidebar_user_name {
@@ -124,8 +129,8 @@
 
 .sidebar_user_dropdown_container {
   position: absolute;
-  top: 175px;
-  left: 192px;
+  top: 111px;
+  left: 200px;
   padding: 0;
   border-radius: 10px;
   width: 170px;
@@ -301,11 +306,5 @@ footer {
 
   footer {
     display: none;
-  }
-}
-
-@media only screen and (min-height: 900px) and (min-width: 840px) {
-  .sidebar-links {
-    gap: 60px;
   }
 }

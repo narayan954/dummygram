@@ -36,25 +36,12 @@ function SideBar({ anonymous }) {
   const [logout, setLogout] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const [openNewUpload, setOpenNewUpload] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(700);
   const [userData, setUserData] = useState({
     name: "",
     username: "",
   });
 
-  function getWindowDimensions() {
-    const { innerWidth: width } = window;
-    return width;
-  }
-
-  useEffect(() => {
-    function handleResize() {
-      setWindowWidth(getWindowDimensions());
-    }
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const windowWidth = window.innerWidth;
 
   useEffect(() => {
     async function getUsername() {
@@ -104,16 +91,19 @@ function SideBar({ anonymous }) {
   return (
     <div className="sidebar">
       <div className="sidebar-container">
+        <ul className="sidebar-links">
         <div className="sidebar_design">
           <span style={{ backgroundColor: "red" }}></span>
           <span style={{ backgroundColor: "orange" }}></span>
           <span style={{ backgroundColor: "rgb(30, 222, 30)" }}></span>
         </div>
-        <ul className="sidebar-links">
           <li
             className={
-              location.pathname.includes("/dummygram/user") ? "activeTab" : ""
+              (windowWidth < 1200 && location.pathname.includes("/dummygram/user")) ? "activeTab" : ""
             }
+            style={{
+              cursor: windowWidth > 1200? "default" : "pointer"
+            }}
             id="sidebar_profile_link"
             onClick={() => {
               if (windowWidth < 1200) {
@@ -126,6 +116,7 @@ function SideBar({ anonymous }) {
                 <MoreVertIcon
                   className="sidebar_menu_icon"
                   onClick={() => setOpenMenu((prev) => !prev)}
+                  style={{cursor: "pointer"}}
                 />)}
               <img
                 src={user?.photoURL?.length > 0? user.photoURL : blankImg}
