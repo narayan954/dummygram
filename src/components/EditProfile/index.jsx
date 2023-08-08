@@ -27,6 +27,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
   const [image, setImage] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const [usernameAvailable, setUsernameAvailable] = useState(true);
+  const [error, setError] = useState({});
 
   const { enqueueSnackbar } = useSnackbar();
   const usernameRef = useRef("");
@@ -132,9 +133,19 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
       throw error;
     }
   }
-
+  function validInputs()
+  {
+      if (editedData.name === "") {
+        setError("**Name is Required!");
+      } 
+      else if(editedData.newUsername==="")
+      { setError("**User name is Required!");
+      }
+      else
+      { setError(""); return true; }
+  }
   const handleProfileUpdate = () => {
-    if (!usernameAvailable) {
+    if (!validInputs()) {
       return;
     }
     const oldImg = user.photoURL;
@@ -262,6 +273,9 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
                   className="edit-profile-input name-input"
                   onChange={handleChange}
                 />
+                {error === "**Name is Required!" && (
+                  <small className="errorMsg">*Name is required!</small>
+                )}
               </label>
             </div>
             {/* username  */}
@@ -282,6 +296,9 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
                     checkUsername();
                   }}
                 />
+                {error === "**User name is Required!" && (
+                  <small className="errorMsg">*User name is required!</small>
+                )}
               </label>
             </div>
             {/* country  */}
