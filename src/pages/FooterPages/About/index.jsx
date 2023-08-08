@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { VscChromeClose } from "react-icons/vsc";
 import about from "../../../assets/about-us.png";
-import logo from "../../../assets/logo.webp";
 
 const About = () => {
   const [forks, setForks] = useState(0);
@@ -81,7 +80,7 @@ const About = () => {
       <div
         className="back-icon"
         style={{ height: "90px", cursor: "pointer" }}
-        onClick={() => navigate("/dummygram/")}
+        onClick={() => navigate("/dummygram")}
       >
         <KeyboardBackspaceIcon className="icon" /> <span>Back to Home</span>
       </div>

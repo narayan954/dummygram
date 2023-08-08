@@ -106,7 +106,9 @@ function Navbar({ onClick, user, setUser }) {
             <Logo />
           </span>
         ) : (
-          <img src={appLogo} alt="dummygram" className="nav_img_logo" />
+          <span onClick={() => navigate("/dummygram")}>
+            <img src={appLogo} alt="dummygram" className="nav_img_logo" />
+          </span>
         )}
         <div className="navSpace">
           <div className="search_bar_main_container">
