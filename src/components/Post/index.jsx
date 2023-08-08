@@ -34,6 +34,10 @@ function Post(prop) {
     prop;
   const { caption, imageUrl, likecount, timestamp, background } = post;
 
+  // const { postId, user, post, rowMode } = prop;
+  // const { caption, imageUrl, likecount, timestamp } = post;
+
+
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
   const [likesNo, setLikesNo] = useState(likecount ? likecount.length : 0);
@@ -249,10 +253,7 @@ function Post(prop) {
                 user={user}
                 tempLikeCount={tempLikeCount}
                 setisCommentOpen={setisCommentOpen}
-                setLink={setLink}
                 postId={postId}
-                setPostText={setPostText}
-                shareModal={shareModal}
                 caption={caption}
               />
             </ErrorBoundary>
