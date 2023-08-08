@@ -1,7 +1,7 @@
 <div id="top"></div>
 <div align="center">
 
-<img  src="src/assets/logo.webp"  alt="Dummygram"  height="150">
+<img  src="src/assets/logo.png"  alt="Dummygram"  height="150">
 
 [See Live!](https://narayan954.github.io/dummygram/)
 
@@ -58,28 +58,26 @@ Overall, the Dummygram team loves what they do and wants to make the app visuall
 
 **Backend and Data Storage:** DummyGram utilizes Firebase as the backend service for storing user data, posts, and comments. Firebase provides a scalable and reliable platform for handling backend functionalities and offers real-time database capabilities, ensuring efficient data storage and retrieval.
 
-# Docs
+# Table of Contents
 
-- Table of Contents
+- [Codebase](#codebase)
 
-  - [Codebase](#codebase)
+  - [Technologies](#technologies)
+  - [Folder Structure](#folder-structure)
 
-    - [Technologies](#technologies)
-    - [Folder Structure](#folder-structure)
+- [Project Setup](#project-setup)
 
-  - [Project Setup](#project-setup)
+  - [First time setup](#first-time-setup)
+  - [Installation](#installation)
+  - [Running the app locally](#running-the-app-locally)
 
-    - [First time setup](#first-time-setup)
-    - [Installation](#installation)
-    - [Running the app locally](#running-the-app-locally)
-
-  - [Testing](#testing)
-  - [How to get started with Open Source](#how-to-get-started-with-open-source)
-  - [How to use Dummygram](#how-to-use-dummygram)
-  - [Contributing](#contributing)
-  - [Rules](#rules)
-  - [Open Source Programs](#open-source-programs)
-  - [License](#license)
+- [Testing](#testing)
+- [How to get started with Open Source](#how-to-get-started-with-open-source)
+- [How to use Dummygram](#how-to-use-dummygram)
+- [Contributing](#contributing)
+- [Rules](#rules)
+- [Open Source Programs](#open-source-programs)
+- [License](#license)
 
 ## Codebase
 
@@ -267,14 +265,14 @@ E2E Files: `/cypress/e2e/`
 
 Here's a quick rundown on how to get started with open source. First of all, let's know some basic terminologies:
 
-- Git: This is a versioning system that lets you store your code and code history on your local computer, preventing loss and allowing sharing of that code.
-- Github: This is a server that lets you store the history in a database.
-- Open Source: A project is said to be open sourced if you can see the code on GitHub.
-- Fork: This is a copy that you make of a project on GitHub, it gets added to your repositories.
-- Repository: A project on GitHub is called a repository.
-- Pull Request: This is a fix for an issue proposed to be done in a project, this consists of you editing a file in the project.
-- Issue: An issue is a change that should be done in a project, can be a bug, a new feature or a suggestion to a project.
-- Branch: A branch is a new workspace derived from the default workspace(main or master) that allows you to work on something without affecting the original code.
+- **Git:** This is a versioning system that lets you store your code and code history on your local computer, preventing loss and allowing sharing of that code.
+- **Github:** This is a server that lets you store the history in a database.
+- **Open Source:** A project is said to be open sourced if you can see the code on GitHub.
+- **Fork:** This is a copy that you make of a project on GitHub, it gets added to your repositories.
+- **Repository:** A project on GitHub is called a repository.
+- **Pull Request:** This is a fix for an issue proposed to be done in a project, this consists of you editing a file in the project.
+- **Issue:** An issue is a change that should be done in a project, can be a bug, a new feature or a suggestion to a project.
+- **Branch:** A branch is a new workspace derived from the default workspace(main or master) that allows you to work on something without affecting the original code.
 
 Now you know some basic terms, let's get into how to get started with some resources to let you understand open source better:
 
@@ -333,14 +331,14 @@ Dummygram is now part of GitHub. For code of conduct, please see [GitHub's Commu
 <a href="https://hacktoberfest.com/"><img alt="hacktoberfest logo" src="https://user-images.githubusercontent.com/79099734/189589410-ca17afb8-5855-4316-918a-054f27594809.png"></a>
 
 <p align="center">
-<a href="https://www.codepeak.tech/"><img alt="codepeak" src="https://user-images.githubusercontent.com/77617189/205454287-c5bffb68-d08f-4103-a191-02b7f54fb81f.png" width="47%" height="400"></a>
-&nbsp; &nbsp; &nbsp; &nbsp;
-<a href="https://kwoc.kossiitkgp.org/"><img alt="kwoc" src="https://user-images.githubusercontent.com/77617189/205456062-b28a333d-c48b-41ef-96c3-676ef2363ade.png" width="47%" height="400"></a>
+<a href="https://www.codepeak.tech/"><img alt="codepeak" src="https://user-images.githubusercontent.com/77617189/205454287-c5bffb68-d08f-4103-a191-02b7f54fb81f.png" width="47%" height="300"></a>
+&nbsp;
+<a href="https://kwoc.kossiitkgp.org/"><img alt="kwoc" src="https://user-images.githubusercontent.com/77617189/205456062-b28a333d-c48b-41ef-96c3-676ef2363ade.png" width="47%" height="300"></a>
 </p>
 
 <p align="center">
 <a href="https://gssoc.girlscript.tech/"><img alt="Girlscript Summer of Code Logo" src="src/assets/gssoc.png" width="47%"></a>
-&nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp;
 <a href="https://jwoc.tech/"><img alt="jwoc program" src="https://user-images.githubusercontent.com/77617189/219851281-59de273a-388a-4367-a7c6-39d37196ee90.png"  width="47%"></a>
 </p>
 
