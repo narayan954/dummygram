@@ -354,6 +354,9 @@
   .feed_btn_container {
     margin-left: 8vw;
   }
+  .user-details-section {
+    padding: 0 12vw;
+  }
 }
 
 @media screen and (max-width: 800px) {
