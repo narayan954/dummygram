@@ -97,7 +97,6 @@ function App() {
     };
 
     window.addEventListener("offline", showOfflineNotification);
-
     window.addEventListener("online", showOnlineNotification);
 
     return () => {
@@ -116,7 +115,6 @@ function App() {
         navigate("/dummygram/login");
       }
     });
-
     return () => {
       unsubscribe();
     };
@@ -129,16 +127,30 @@ function App() {
           <Route
             path="/dummygram"
             element={
-              <Wrapper user={user} setUser={setUser} setRowMode={setRowMode} />
+              <ErrorBoundary inApp={true}>
+                <Wrapper
+                  user={user}
+                  setUser={setUser}
+                  setRowMode={setRowMode}
+                />
+              </ErrorBoundary>
             }
           >
             {anonymous &&
               location.pathname !== "/dummygram/signup" &&
               location.pathname !== "/dummygram/login" && <GuestSignUpBtn />}
-            <Route element={user ? <SideBarWrapper /> : <></>}>
+            <Route
+              element={
+                user && (
+                  <ErrorBoundary inApp={true}>
+                    <SideBarWrapper />
+                  </ErrorBoundary>
+                )
+              }
+            >
               <Route
                 index
-                element={user ? <Home rowMode={rowMode} user={user} /> : <></>}
+                element={user && <Home rowMode={rowMode} user={user} />}
               />
               <Route
                 path="user/:username"
@@ -193,7 +205,7 @@ function App() {
                   </ErrorBoundary>
                 }
               />
-              <Route path="*" element={<NotFound />} />
+              <Route errorElement path="*" element={<NotFound />} />
             </Route>
 
             <Route
@@ -223,10 +235,36 @@ function App() {
               }
             />
 
-            <Route path="settings" element={<SettingsSidebar />}>
-              <Route index element={<SoundSetting />} />
-              <Route path="account" element={<DeleteAccount user={user} />} />
-              <Route path="*" element={<h1>Empty...</h1>} />
+            <Route
+              path="settings"
+              element={
+                <ErrorBoundary inApp={true}>
+                  <SettingsSidebar />
+                </ErrorBoundary>
+              }
+            >
+              <Route
+                index
+                element={
+                  <ErrorBoundary inApp={true}>
+                    <SoundSetting />
+                  </ErrorBoundary>
+                }
+              />
+              <Route
+                path="account"
+                element={
+                  <ErrorBoundary inApp={true}>
+                    <DeleteAccount user={user} />
+                  </ErrorBoundary>
+                }
+              />
+              <Route
+                path="*"
+                element={
+                  <h1 style={{ color: "var(--text-secondary)" }}>Empty...</h1>
+                }
+              />
             </Route>
 
             <Route
@@ -247,7 +285,7 @@ function App() {
               }
             />
 
-            <Route path="*" element={<NotFound />} />
+            <Route errorElement path="*" element={<NotFound />} />
           </Route>
         </Routes>
       </ErrorBoundary>
