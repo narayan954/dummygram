@@ -30,9 +30,8 @@ const ImgBox = lazy(() => import("./ImgBox"));
 const PostNav = lazy(() => import("./PostNav"));
 
 function Post(prop) {
-  const { postId, user, post, shareModal, setLink, setPostText, rowMode } =
-    prop;
-  const { caption, imageUrl, likecount, timestamp } = post;
+  const { postId, user, post, rowMode } = prop;
+  const { caption, imageUrl, likecount, timestamp, background } = post;
 
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
@@ -55,7 +54,11 @@ function Post(prop) {
     async function getUsername() {
       const docRef = doc(db, "users", auth?.currentUser?.uid);
       const docSnap = await getDoc(docRef);
-      setUsername(docSnap.data().username);
+      if (docSnap.exists()) {
+        setUsername(docSnap.data().username);
+      } else {
+        setUsername("guest"); // Handle the case when the user document doesn't exist
+      }
     }
     if (auth?.currentUser?.isAnonymous) {
       setUsername("guest");
@@ -212,6 +215,7 @@ function Post(prop) {
             postId={postId}
             likesHandler={likesHandler}
             caption={caption}
+            background={background}
           />
         </ErrorBoundary>
         <Divider />
@@ -244,10 +248,7 @@ function Post(prop) {
                 user={user}
                 tempLikeCount={tempLikeCount}
                 setisCommentOpen={setisCommentOpen}
-                setLink={setLink}
                 postId={postId}
-                setPostText={setPostText}
-                shareModal={shareModal}
                 caption={caption}
               />
             </ErrorBoundary>
@@ -321,7 +322,11 @@ function Post(prop) {
               onClose={() => setIsLikesOpen(false)}
               title="Likes ❤"
             >
-              <LikesDialogBox likecountArr={likecount} />
+              {likesNo === 0 ? (
+                <p style={{ textAlign: "center" }}>No likes🥺</p>
+              ) : (
+                <LikesDialogBox likecountArr={likecount} />
+              )}
             </DialogBox>
           </div>
         )}

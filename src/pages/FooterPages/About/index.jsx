@@ -1,7 +1,6 @@
 import "./index.css";
 import "../design.css";
 
-import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
@@ -9,6 +8,8 @@ import { VscChromeClose } from "react-icons/vsc";
 import about from "../../../assets/about-us.png";
 import logo from "../../../assets/logo.webp";
 import Footer from "../../../components/Footer/Footer";
+import about from "../../../assets/about-us.webp";
+import { useNavigate } from "react-router-dom";
 
 const About = () => {
   const [forks, setForks] = useState(0);
@@ -53,13 +54,19 @@ const About = () => {
 
   useEffect(() => {
     fetch("https://api.github.com/repos/narayan954/dummygram")
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return res.json();
+      })
       .then((data) => {
         setForks(data.forks_count);
         setStars(data.stargazers_count);
       })
       .catch((error) => {
-        console.error("Error", error);
+        console.error("Error fetching data:", error);
+        // Handle the error or display an error message to the user
       });
   }, []);
 
@@ -76,7 +83,7 @@ const About = () => {
       <div
         className="back-icon"
         style={{ height: "90px", cursor: "pointer" }}
-        onClick={() => navigate("/dummygram/")}
+        onClick={() => navigate("/dummygram")}
       >
         <KeyboardBackspaceIcon className="icon" /> <span>Back to Home</span>
       </div>

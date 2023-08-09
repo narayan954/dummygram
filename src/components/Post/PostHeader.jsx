@@ -13,15 +13,14 @@ import {
   MenuItem,
 } from "@mui/material";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { db, storage } from "../../lib/firebase";
 import { doc, updateDoc } from "firebase/firestore";
-import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useEffect, useState } from "react";
 
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import ProfileDialogBox from "../ProfileDialogBox";
 import TextField from "@mui/material/TextField";
-import firebase from "firebase/compat/app";
+import { db } from "../../lib/firebase";
+import deletePost from "../../js/postFn";
 import { saveAs } from "file-saver";
 import useCreatedAt from "../../hooks/useCreatedAt";
 import { useSnackbar } from "notistack";
@@ -45,40 +44,36 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
 
   useEffect(() => {
     async function getUserData() {
-      const docRef = db
-        .collection("users")
-        .where("uid", "==", postData.uid)
-        .limit(1);
-      docRef
-        .get()
-        .then((snapshot) => {
-          if (snapshot.docs) {
-            const doc = snapshot.docs[0];
+      try {
+        const docRef = db
+          .collection("users")
+          .where("uid", "==", postData.uid)
+          .limit(1);
+        const snapshot = await docRef.get();
 
-            const data = doc.data();
-            setUserData({
-              name: data.name,
-              username: data.username,
-              avatar: data.photoURL,
-              uid: data.uid,
-              posts: data.posts.length,
-              bio: data.bio
-                ? data.bio
-                : "Lorem ipsum dolor sit amet consectetur",
-              followers: "",
-              following: "",
-              country: data.country ? data.country : "",
-              storyTimestamp: data.storyTimestamp,
-            });
-          } else {
-            setUserExists(false);
-          }
-        })
-        .catch((error) => {
-          enqueueSnackbar(`Error Occured: ${error}`, {
-            variant: "error",
+        if (!snapshot.empty) {
+          const doc = snapshot.docs[0];
+          const data = doc.data();
+          setUserData({
+            name: data.name,
+            username: data.username,
+            avatar: data.photoURL,
+            uid: data.uid,
+            posts: data.posts.length,
+            bio: data.bio ? data.bio : "Hey there! I am using Dummygram.",
+            followers: "",
+            following: "",
+            country: data.country ? data.country : "",
+            storyTimestamp: data.storyTimestamp,
           });
+        } else {
+          setUserExists(false);
+        }
+      } catch (error) {
+        enqueueSnackbar(`Error Occurred: ${error}`, {
+          variant: "error",
         });
+      }
     }
     getUserData();
   }, []);
@@ -118,41 +113,6 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
   const handleClose = () => {
     setOpen(false);
   };
-
-  async function deletePost() {
-    try {
-      await db
-        .runTransaction(async (transaction) => {
-          //Delete doc ref from user doc
-          const docRef = db.collection("users").doc(user?.uid);
-          transaction.update(docRef, {
-            posts: firebase.firestore.FieldValue.arrayRemove(postId),
-          });
-
-          // Delete the post document
-          const postRef = db.collection("posts").doc(postId);
-          transaction.delete(postRef);
-        })
-        .then(async () => {
-          if (imageUrl !== "") {
-            const url = JSON.parse(imageUrl);
-            const deleteImagePromises = url.map(({ imageUrl }) => {
-              const imageRef = storage.refFromURL(imageUrl);
-              return imageRef.delete();
-            });
-            await Promise.all(deleteImagePromises);
-          }
-        })
-        .then(() => {
-          playSuccessSound();
-          enqueueSnackbar("Post deleted successfully!", { variant: "success" });
-          setOpen(false);
-        });
-    } catch (error) {
-      playErrorSound();
-      enqueueSnackbar(`Error deleting post: ${error}`, { variant: "error" });
-    }
-  }
 
   function showProfileDialogBox() {
     setMouseOnProfileImg(true);
@@ -279,7 +239,19 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={deletePost}>Delete</Button>
+            <Button
+              onClick={() =>
+                deletePost(
+                  user?.uid,
+                  postId,
+                  imageUrl,
+                  enqueueSnackbar,
+                  setOpen,
+                )
+              }
+            >
+              Delete
+            </Button>
           </DialogActions>
         </Dialog>
       </div>

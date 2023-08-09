@@ -4,6 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 18px;
 }
 
 #feedback_form {
@@ -29,6 +30,7 @@
   margin-top: 10px;
   padding: 10px;
   transition: 0.4s;
+  resize: none;
 }
 
 .feedback_sent_btn {
@@ -42,15 +44,14 @@
   cursor: pointer;
 }
 
-@media only screen and (max-width: 1080px) {
-  .feedback-form-container {
-    margin-left: 8vw;
-  }
-}
-
 @media only screen and (max-width: 720px) {
   .feedback-form-container {
-    margin-left: 0;
+    align-items: flex-start;
+    padding-top: 50px;
+  }
+
+  #feedback_form {
+    padding: 20px;
   }
 
   .feedback_input,

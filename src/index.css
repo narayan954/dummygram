@@ -22,6 +22,8 @@
   --label-color: rgb(200, 246, 248);
   --profile-color: #7d7575;
   --text-light: rgba(0, 0, 0, 0.6);
+  --text-light-black: rgba(0, 0, 0, 0.6);
+  --text-dim: rgba(0, 0, 0, 0.8);
   --post-error-boundary: rgba(0, 0, 0, 0.54);
   --text-black-only: black;
   --dark-post-bg: rgb(255, 255, 255);
@@ -55,6 +57,8 @@
   --profile-color: #c8c6c6;
   --text-black-only: black;
   --text-light: rgba(255, 255, 255, 0.6);
+  --text-light-black: rgba(0, 0, 0, 0.6);
+  --text-dim: rgba(255, 255, 255, 0.8);
   --post-error-boundary: rgba(255, 255, 255, 0.54);
   --darkmode-white: white;
   --dark-post-bg: #191919;
@@ -80,6 +84,26 @@ body {
   overflow-x: auto;
 }
 
+.navbar_wrapper {
+  margin-top: 72px;
+}
+
+.sidebar_wrapper {
+  margin-left: 17vw;
+}
+
+@media screen and (max-width: 1200px) {
+  .sidebar_wrapper {
+    margin-left: 8vw;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .sidebar_wrapper {
+    margin-left: 0;
+  }
+}
+
 input:hover {
   cursor: text;
 }
@@ -98,8 +122,8 @@ input:focus {
 }
 
 /* Post style */
-.app__posts {
-  padding: 5.5em 17vw 20px 17vw;
+.app_posts {
+  padding: 1.5em 17vw 20px 0vw;
 }
 
 .app_posts_column {
@@ -107,7 +131,6 @@ input:focus {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 5.5em 17vw 20px 17vw;
 }
 
 .rowConvert,
@@ -128,20 +151,18 @@ input:focus {
 }
 
 @media only screen and (max-width: 1300px) {
-  .app__posts,
-  .home-posts-container .app_posts_column,
   .home-posts-container .app_posts {
-    padding: 5.5em 15px 20px 9vw;
+    padding: 1.5em 15px 20px 10px;
   }
   .post-page-container {
-    padding: 5.5em 15px 15px 8vw;
+    padding: 1.5em 15px 15px 8vw;
   }
   .post-card {
     margin: 50px auto !important;
   }
 }
 @media only screen and (max-width: 800px) {
-  .app__posts,
+  .app_posts,
   .home-posts-container .app_posts_column {
     padding: 5.5em 15px 5.5em 15px;
     display: flex;
@@ -151,7 +172,7 @@ input:focus {
   }
   .post-page-container {
     padding: 0;
-    padding-top: 5.5em;
+    padding-top: 1em;
   }
 }
 
@@ -161,7 +182,7 @@ input:focus {
   }
 }
 @media only screen and (max-width: 700px) {
-  .app__posts {
+  .app_posts {
     padding-inline: auto;
   }
 }
@@ -197,10 +218,10 @@ input:focus {
 
 .post__avatar {
   border-radius: 50%;
-  height: 30px !important;
+  height: 40px !important;
+  width: 40px !important;
   margin-right: 10px;
   object-fit: contain;
-  width: 30px !important;
 }
 
 .modal__signup__img {
@@ -265,8 +286,8 @@ input:focus {
   .app__newpost__button {
     left: -6%;
   }
-  .home-posts-container .app_posts_column {
-    padding: 5.5em 15px 5em 15px;
+  .home-posts-container .app_posts {
+    padding: 1.5em 15px 5em 15px;
   }
   .search-modal {
     width: 80vw;
@@ -305,14 +326,14 @@ input:focus {
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 800px) {
-  .app__posts {
+  .app_posts {
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
     justify-content: center;
   }
   .post-page-container {
-    padding: 5.5em 15px 15px 17vw;
+    padding: 0 15px 15px 0;
   }
   .post-card {
     margin: 50px auto !important;
@@ -323,9 +344,6 @@ input:focus {
 
   .app__newpost__button {
     left: -1.2%;
-  }
-  .home-posts-container .app_posts_column {
-    padding: 5.5em 17vw 20px 17vw;
   }
 }
 
@@ -514,7 +532,6 @@ input {
 
 /* login sign up forms */
 .page-over {
-  background-color: var(--page-over-color);
   height: 100%;
   width: 100%;
   display: flex;
@@ -523,13 +540,11 @@ input {
   min-height: 100vh;
 }
 .login__section {
-  border: 1px solid black;
-  margin: 0 5%;
-  height: 70%;
-  background-color: var(--slide-color);
-  box-shadow: 0 0 10px 1px rgb(66, 49, 66);
   max-width: 1360px;
   min-width: 300px;
+  width: calc(100vw - 40px);
+  /* border: 1px solid red; */
+  margin-inline: 20px;
 }
 .other__login {
   margin: 0 auto;
@@ -567,25 +582,32 @@ input {
 }
 
 /* auth container */
-.login__section {
-  height: 90vh;
-  overflow: hidden;
-}
 
 .login__left {
   overflow-y: scroll;
 }
 
-@media only screen and (max-width: 700px) {
-  .login__section {
-    height: 100%;
-    overflow: visible;
+@media only screen and (max-width: 840px) {
+  .page-over {
+    align-items: flex-start;
   }
+}
 
+@media only screen and (max-width: 700px) {
   .login__left {
     height: 100%;
     overflow-y: visible;
     padding: 0;
+  }
+}
+
+@media only screen and (min-height: 900px) and (min-width: 840px) {
+  .login__right__sub__container {
+    top: 230px !important;
+  }
+
+  .login__left {
+    align-items: flex-start !important;
   }
 }
 

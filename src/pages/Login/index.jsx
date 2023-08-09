@@ -5,18 +5,16 @@ import {
   Auth__ctn__group,
   Auth__pass__input,
   Auth__text__input,
-  Auth__top,
   Auth_container,
 } from "../../reusableComponents/Auth";
-import { Logo, validate } from "../../reusableComponents";
 import React, { useState } from "react";
 import { auth, db, facebookProvider, googleProvider } from "../../lib/firebase";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
-import loginRight from "../../assets/login-right.webp";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import { validate } from "../../reusableComponents";
 
 const LoginScreen = () => {
   const [userDatails, setuserDatails] = useState({
@@ -200,13 +198,8 @@ const LoginScreen = () => {
   };
 
   return (
-    <Auth_container right__img={loginRight}>
+    <Auth_container>
       <form aria-label="Sign Up Form">
-        <Logo ml={1} />
-        <Auth__top
-          heading={"Hey, hello 👋"}
-          top__greeting={"Enter your information to get started"}
-        />
         <div className="form__bottom">
           {/* Email Input for the form */}
           <Auth__text__input

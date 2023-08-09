@@ -1,7 +1,10 @@
+.flex-center {
+  display: flex;
+  align-items: center;
+}
+
 .chat-main-container {
   position: relative;
-  margin-top: 63px;
-  margin-left: 17vw;
   min-height: 100vh;
   padding: 15px;
 }
@@ -167,21 +170,49 @@
   font-weight: 600;
 }
 
-@media screen and (max-width: 1200px) {
-  .chat-main-container {
-    margin-left: 8vw;
-  }
+.message-options {
+  position: relative;
+  cursor: pointer;
+}
 
+.delete-message-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: 1px solid;
+  background-color: var(--dark-post-bg);
+  border-radius: 6px;
+  position: absolute;
+  bottom: 20px;
+  right: 0;
+  min-width: 100px;
+  padding: 14px 20px;
+}
+
+.delete-message-container span {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.delete-message-container .delete-option:hover {
+  color: red;
+  transition: all 0.2s ease;
+}
+
+.delete-message-container .edit-option:hover {
+  color: rgb(22 163 74);
+  transition: all 0.2s ease;
+}
+
+@media screen and (max-width: 1200px) {
   .chat-input-container {
     width: 88%;
   }
 }
 
 @media screen and (max-width: 800px) {
-  .chat-main-container {
-    margin-left: 0;
-  }
-
   .all-chat-msg-container {
     margin-bottom: 120px;
   }

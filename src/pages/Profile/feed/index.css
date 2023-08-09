@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 60px;
   justify-content: center;
 }
 
@@ -36,15 +36,9 @@
   object-fit: cover;
 }
 
-@media screen and (min-width: 1200px) {
-  .profile-feed-main-container {
-    margin-left: 17vw;
-  }
-}
-
 @media screen and (min-width: 800px) and (max-width: 1200px) {
   .profile-feed-main-container {
-    margin-left: 9vw;
+    margin-left: 5px;
   }
 
   .story-caption {
@@ -63,22 +57,17 @@
     height: 100%;
   }
   .caption_without_image {
-    font-size: 14px;
+    font-size: 12px !important;
   }
 }
 
 @media screen and (max-width: 800px) {
-  .profile-feed-main-container {
-    margin-left: 5px;
-    margin-bottom: 60px;
-  }
-
   .story-caption {
     font-size: 12px;
   }
 
   .caption_without_image {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .app__posts__feed {

@@ -43,7 +43,7 @@
 }
 
 #sidebar-home-link {
-  margin-top: 6.2em;
+  margin-top: 20px;
 }
 
 .sidebar-links li:hover {
@@ -85,11 +85,12 @@
 
 .sidebar_user_dropdown_container {
   position: absolute;
-  top: 390px;
+  top: 250px;
   left: 100px;
   padding: 0;
   border-radius: 10px;
   width: 170px;
+  z-index: 999;
 }
 
 .sidebar_user_dropdown_sub_container {
@@ -117,7 +118,8 @@
   background: var(--btn-color-hover);
 }
 .dropdown-list-profile-picture {
-  width: 25px;
+  width: 30px;
+  aspect-ratio: 1;
   border-radius: 50%;
   border: 1px solid #eee;
   margin-left: -3px;
@@ -126,7 +128,7 @@
 footer {
   display: absolute;
   bottom: 0;
-  margin-bottom: 2em;
+  margin-bottom: 6em;
   font-size: 13px;
   background-color: var(--dark-post-bg);
   padding-left: 12px;
@@ -214,8 +216,8 @@ footer {
     position: fixed;
     padding-block: 5px;
     bottom: 0;
-    z-index: 2;
     margin: 0;
+    z-index: 999;
   }
 
   .sidebar hr {

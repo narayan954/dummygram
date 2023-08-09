@@ -62,6 +62,7 @@ export const Feedback = () => {
             name="user_name"
             placeholder="Enter your Name"
             className="feedback_input"
+            maxLength={30}
           />
           <label>Email</label>
           <input
@@ -69,6 +70,7 @@ export const Feedback = () => {
             name="user_email"
             placeholder="Enter your Email"
             className="feedback_input"
+            maxLength={320}
           />
           <label>Feedback</label>
           <textarea
@@ -76,6 +78,7 @@ export const Feedback = () => {
             placeholder="Feedback..."
             className="feedback_textarea"
             rows={5}
+            maxLength={600}
           />
           <button type="submit" className="feedback_sent_btn button-style">
             Send

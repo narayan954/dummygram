@@ -1,16 +1,21 @@
 import "./index.css";
 
 import { auth, db } from "../../lib/firebase";
+import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useEffect, useRef, useState } from "react";
 
 import { ClickAwayListener } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import EditIcon from "@mui/icons-material/EditOutlined";
 import EmojiPicker from "emoji-picker-react";
 import HighlightOffRoundedIcon from "@mui/icons-material/HighlightOffRounded";
 import { Loader } from "../../reusableComponents";
+import OptionIcon from "@mui/icons-material/MoreVert";
 import Reaction from "./Reaction";
 import SendIcon from "@mui/icons-material/Send";
 import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfied";
 import firebase from "firebase/compat/app";
+import profileAvatar from "../../assets/blank-profile.webp";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
@@ -23,6 +28,12 @@ const ChatBox = () => {
   const [user, setUser] = useState(null);
   const [isLastMsgRecieved, setIsLastMsgRecieved] = useState(false);
   const chatMsgContainerRef = useRef(null);
+  const [openOptions, setOpenOptions] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingMessageId, setEditingMessageId] = useState(null);
+
+  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleEmojiClick = () => {
     setShowEmojis((prevShowEmojis) => !prevShowEmojis);
@@ -33,94 +44,33 @@ const ChatBox = () => {
     setShowEmojis(false);
   };
 
-  const navigate = useNavigate();
-  const { enqueueSnackbar } = useSnackbar();
+  const handleOpenOptions = (messageId) => {
+    setOpenOptions(messageId);
+  };
 
-  useEffect(() => {
-    const scrollTop = () => {
-      window.scrollTo({ top: window.innerHeight + 800 });
-    };
-    if (!isLastMsgRecieved) {
-      scrollTop();
-    }
-  }, [messages]);
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((authUser) => {
-      if (authUser && !authUser.isAnonymous) {
-        setUser(authUser);
-      } else {
-        setUser(null);
-        navigate("/dummygram/login");
-      }
-    });
-
-    return () => {
-      unsubscribe();
-    };
-  }, [user]);
-
-  //Load messages for the first time
-  useEffect(() => {
-    window.addEventListener("scroll", handleMouseScroll);
-    const unsubscribe = db
-      .collection("messages")
-      .orderBy("createdAt")
-      .limitToLast(20)
-      .onSnapshot((querySnapshot) => {
-        const data = querySnapshot.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }));
-        setMessages(data);
-        setIsLoading(false);
-      });
-
-    return () => {
-      window.removeEventListener("scroll", handleMouseScroll);
-      unsubscribe();
-    };
-  }, []);
-
-  const handleMouseScroll = (event) => {
-    if (event.target.documentElement.scrollTop === 0 && !isLastMsgRecieved) {
-      setLoadMoreMsgs(true);
+  const handleEditMsg = (messageId) => {
+    const messageToEdit = messages.find((message) => message.id === messageId);
+    if (messageToEdit) {
+      setNewMessage(messageToEdit.text);
+      setIsEditing(true);
+      setEditingMessageId(messageId);
     }
   };
 
-  useEffect(() => {
-    let unsubscribed = false;
-
-    if (loadMoreMsgs && messages.length) {
-      const lastMessageCreatedAt = messages[0].createdAt;
-      db.collection("messages")
-        .orderBy("createdAt")
-        .endBefore(lastMessageCreatedAt)
-        .limitToLast(20)
-        .onSnapshot((querySnapshot) => {
-          if (!unsubscribed) {
-            setMessages((loadedMsgs) => {
-              return [
-                ...querySnapshot.docs.map((doc) => ({
-                  id: doc.id,
-                  ...doc.data(),
-                })),
-                ...loadedMsgs,
-              ];
-            });
-
-            if (querySnapshot.empty) {
-              setIsLastMsgRecieved(true);
-            }
-          }
-        });
+  const handleDeletMsg = async (messageId) => {
+    try {
+      await db.collection("messages").doc(messageId).delete();
+      playSuccessSound();
+      enqueueSnackbar("Message deleted successfully.", {
+        variant: "success",
+      });
+    } catch (error) {
+      playErrorSound();
+      enqueueSnackbar("Failed to delete the message. Please try again.", {
+        variant: "error",
+      });
     }
-
-    return () => {
-      setLoadMoreMsgs(false);
-      unsubscribed = true;
-    };
-  }, [loadMoreMsgs]);
+  };
 
   function handleChange(e) {
     e.preventDefault();
@@ -130,15 +80,35 @@ const ChatBox = () => {
   function handleOnSubmit(e) {
     e.preventDefault();
     if (newMessage.trim()) {
-      db.collection("messages").add({
-        text: newMessage,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        uid: user.uid,
-        displayName: user.displayName,
-        photoURL: user.photoURL,
-      });
+      if (isEditing && editingMessageId) {
+        // If user is in edit mode, update the existing message
+        db.collection("messages")
+          .doc(editingMessageId)
+          .update({
+            text: newMessage,
+          })
+          .then(() => {
+            setNewMessage("");
+            setIsEditing(false);
+            setEditingMessageId(null);
+          })
+          .catch((error) => {
+            enqueueSnackbar(`Error Occurred: ${error}`, {
+              variant: "error",
+            });
+          });
+      } else {
+        // If not in edit mode, send a new message
+        db.collection("messages").add({
+          text: newMessage,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          uid: user.uid,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+        });
 
-      setNewMessage("");
+        setNewMessage("");
+      }
     } else {
       enqueueSnackbar("Enter something!", {
         variant: "error",
@@ -207,6 +177,90 @@ const ChatBox = () => {
     return rxnList;
   }
 
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        navigate("/dummygram/login");
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    const scrollTop = () => {
+      window.scrollTo({ top: window.innerHeight + 800 });
+    };
+    if (!isLastMsgRecieved) {
+      scrollTop();
+    }
+  }, [messages]);
+
+  //Load messages for the first time
+  useEffect(() => {
+    const handleMouseScroll = (event) => {
+      if (event.target.documentElement.scrollTop === 0 && !isLastMsgRecieved) {
+        setLoadMoreMsgs(true);
+      }
+    };
+    window.addEventListener("scroll", handleMouseScroll);
+    const unsubscribe = db
+      .collection("messages")
+      .orderBy("createdAt")
+      .limitToLast(20)
+      .onSnapshot((querySnapshot) => {
+        const data = querySnapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        setMessages(data);
+        setIsLoading(false);
+      });
+
+    return () => {
+      window.removeEventListener("scroll", handleMouseScroll);
+      unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    let unsubscribed = false;
+
+    if (loadMoreMsgs && messages.length) {
+      const lastMessageCreatedAt = messages[0].createdAt;
+      db.collection("messages")
+        .orderBy("createdAt")
+        .endBefore(lastMessageCreatedAt)
+        .limitToLast(20)
+        .onSnapshot((querySnapshot) => {
+          if (!unsubscribed) {
+            setMessages((loadedMsgs) => {
+              return [
+                ...querySnapshot.docs.map((doc) => ({
+                  id: doc.id,
+                  ...doc.data(),
+                })),
+                ...loadedMsgs,
+              ];
+            });
+
+            if (querySnapshot.empty) {
+              setIsLastMsgRecieved(true);
+            }
+          }
+        });
+    }
+
+    return () => {
+      setLoadMoreMsgs(false);
+      unsubscribed = true;
+    };
+  }, [loadMoreMsgs]);
+
   return (
     <div className="chat-main-container">
       <div className="closeBtn">
@@ -228,7 +282,7 @@ const ChatBox = () => {
                 }`}
               >
                 <img
-                  src={message.photoURL}
+                  src={message.photoURL || profileAvatar}
                   alt={message.displayName}
                   className={"chat-user-img"}
                   onClick={() => goToUserProfile(message.uid)}
@@ -246,6 +300,38 @@ const ChatBox = () => {
                         {getTime(message?.createdAt?.seconds)}
                       </h6>
                       <Reaction message={message} userUid={message.uid} />
+                      {user.uid === message.uid && (
+                        <span className="flex-center message-options">
+                          <OptionIcon
+                            onClick={() => {
+                              setOpenOptions(true);
+                              handleOpenOptions(message.id);
+                            }}
+                          />
+                          {openOptions && openOptions === message.id && (
+                            <ClickAwayListener
+                              onClickAway={() => setOpenOptions(false)}
+                            >
+                              <div className="delete-message-container">
+                                <span
+                                  className="delete-option"
+                                  onClick={() => handleDeletMsg(message.id)}
+                                >
+                                  <DeleteIcon />
+                                  Delete
+                                </span>
+                                <span
+                                  className="edit-option"
+                                  onClick={() => handleEditMsg(message.id)}
+                                >
+                                  <EditIcon />
+                                  Edit
+                                </span>
+                              </div>
+                            </ClickAwayListener>
+                          )}
+                        </span>
+                      )}
                     </span>
                   </span>
                   <p>{message.text}</p>

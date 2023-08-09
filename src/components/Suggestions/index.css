@@ -61,6 +61,7 @@
 
 .suggestion-user-data {
   text-align: center;
+  color: var(--text-secondary);
 }
 
 .suggestion-user-name {
@@ -72,6 +73,7 @@
 .suggestion-user-bio {
   font-size: 14px;
   margin-bottom: 10px;
+  color: var(--text-secondary);
 }
 
 .suggestion-user-btn {
@@ -89,11 +91,6 @@
 }
 
 @media screen and (min-width: 800px) {
-  .suggestion-main-container {
-    margin-left: 8vw;
-    width: calc(100vw - 8vw);
-  }
-
   .suggestion-user-list-item {
     width: 300px;
     height: 250px;
@@ -101,13 +98,6 @@
 
   .suggestion-user-img {
     width: 120px;
-  }
-}
-
-@media screen and (min-width: 1200px) {
-  .suggestion-main-container {
-    margin-left: 17vw;
-    width: calc(100vw - 17vw);
   }
 }
 

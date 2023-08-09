@@ -3,7 +3,6 @@ import "./index.css";
 import { AnimatedButton, Logo } from "../../reusableComponents";
 import React, { useEffect, useState } from "react";
 import { auth, db } from "../../lib/firebase";
-import { doc, getDoc } from "firebase/firestore";
 import { getModalStyle, useStyles } from "../../App";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -11,7 +10,6 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineClose } from "react-icons/ai";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import { ClickAwayListener } from "@mui/material";
 import { Dialog } from "@mui/material";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
@@ -25,15 +23,16 @@ import { useSnackbar } from "notistack";
 
 const Footer = React.lazy(() => import("./Footer"));
 
-function SideBar({ anonymous }) {
-  const [logout, setLogout] = useState(false);
-  const [openMenu, setOpenMenu] = useState(false);
+function SideBar() {
   const classes = useStyles();
   const navigate = useNavigate();
-  const user = auth.currentUser;
+  const user = auth?.currentUser;
+  const anonymous = user?.isAnonymous;
   const location = useLocation();
   const { enqueueSnackbar } = useSnackbar();
 
+  const [logout, setLogout] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
   const [openNewUpload, setOpenNewUpload] = useState(false);
   const [userData, setUserData] = useState({
     name: "",
@@ -42,13 +41,31 @@ function SideBar({ anonymous }) {
 
   useEffect(() => {
     async function getUsername() {
-      const docRef = doc(db, "users", user?.uid);
-      const docSnap = await getDoc(docRef);
-      setUserData({
-        name: docSnap.data().displayName,
-        username: docSnap.data().username,
-      });
+      try {
+        const docRef = db.collection("users", user?.uid);
+        const docSnap = await docRef.get();
+
+        if (docSnap.docs[0].exists) {
+          const data = docSnap.docs[0].data();
+          setUserData({
+            name: data?.displayName || auth.currentUser?.displayName,
+            username: data?.username || auth.currentUser?.uid,
+          });
+        } else {
+          setUserData({
+            name: auth.currentUser?.displayName,
+            username: auth.currentUser?.uid,
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setUserData({
+          name: auth.currentUser?.displayName,
+          username: auth.currentUser?.uid,
+        });
+      }
     }
+
     if (anonymous) {
       setUserData({
         name: "Guest",
@@ -57,20 +74,15 @@ function SideBar({ anonymous }) {
     } else {
       getUsername();
     }
-  }, []);
+  }, [user, anonymous]);
 
   const signOut = () => {
-    auth
-      .signOut()
-      .then(() => {
-        navigate("/dummygram");
-      })
-      .finally(() => {
-        playSuccessSound();
-        enqueueSnackbar("Logged out Successfully !", {
-          variant: "info",
-        });
+    auth.signOut().finally(() => {
+      playSuccessSound();
+      enqueueSnackbar("Logged out Successfully !", {
+        variant: "info",
       });
+    });
   };
 
   return (
@@ -102,21 +114,6 @@ function SideBar({ anonymous }) {
           </li>
           <li
             onClick={() =>
-              navigate(`/dummygram/${anonymous ? "signup" : "favourites"}`)
-            }
-            className={
-              location.pathname.includes("/dummygram/favourites")
-                ? "activeTab"
-                : ""
-            }
-          >
-            <div className="sidebar_align">
-              <BookmarksIcon className="icon" />
-              <span>Saved</span>
-            </div>
-          </li>
-          <li
-            onClick={() =>
               navigate(`/dummygram/${anonymous ? "signup" : "notifications"}`)
             }
             className={
@@ -138,7 +135,7 @@ function SideBar({ anonymous }) {
               className="sidebar_align"
               onClick={() => setOpenMenu((prev) => !prev)}
             >
-              {user && user.photoURL ? (
+              {user?.photoURL ? (
                 <img
                   src={user.photoURL}
                   alt="profile picture"
@@ -154,7 +151,6 @@ function SideBar({ anonymous }) {
             </div>
           </li>
         </ul>
-        {/* <hr /> */}
         <ErrorBoundary>
           <Footer />
         </ErrorBoundary>
@@ -182,6 +178,7 @@ function SideBar({ anonymous }) {
                 variant="contained"
                 color="primary"
                 className="button-style"
+                style={{ marginRight: "20px" }} // Add right margin to create a gap
               >
                 Logout
               </AnimatedButton>
@@ -216,7 +213,7 @@ function SideBar({ anonymous }) {
                   <img
                     src={user.photoURL}
                     alt="profile picture"
-                    className="dropdown-list-profile-picture"
+                    className="dropdown-list-profile-picture icon"
                   />
                 ) : (
                   <AccountCircleIcon className="icon" />
@@ -228,10 +225,10 @@ function SideBar({ anonymous }) {
                   navigate(`/dummygram/${anonymous ? "signup" : "settings"}`)
                 }
               >
-                <SettingsIcon /> Settings
+                <SettingsIcon className="icon" /> Settings
               </li>
               <li onClick={() => setLogout(true)}>
-                <LogoutIcon /> Logout
+                <LogoutIcon className="icon" /> Logout
               </li>
             </ul>
           </div>

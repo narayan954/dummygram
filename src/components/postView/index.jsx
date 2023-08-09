@@ -38,20 +38,11 @@ const PostViewMenu = React.lazy(() => import("./PostViewMenu.jsx"));
 
 const ReadMore = React.lazy(() => import("../ReadMore"));
 
-const PostCommentView = ({
-  setFetchAgain,
-  shareModal,
-  fetchAgain,
-  postId,
-  user,
-  post,
-  setLink,
-  setPostText,
-}) => {
+const PostCommentView = ({ setFetchAgain, fetchAgain, postId, user, post }) => {
   const navigate = useNavigate();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
-  const { username, caption, imageUrl, avatar, likecount, timestamp, email } =
+  const { username, caption, imageUrl, avatar, likecount, timestamp, uid } =
     post;
   const time = useCreatedAt(timestamp);
 
@@ -88,15 +79,17 @@ const PostCommentView = ({
   }
 
   const postComment = (event) => {
-    event.preventDefault();
-    const commentValue = commentRef?.current?.value;
-    if (commentValue && commentRef?.current?.value?.trim().length >= 1) {
-      db.collection("posts").doc(postId).collection("comments").add({
-        text: commentValue,
-        username: user.displayName,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      });
-      commentRef.current.value = "";
+    if (event.key === "Enter" || event.type == "click") {
+      event.preventDefault();
+      const commentValue = commentRef?.current?.value;
+      if (commentValue && commentRef?.current?.value?.trim().length >= 1) {
+        db.collection("posts").doc(postId).collection("comments").add({
+          text: commentValue,
+          username: user.displayName,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        });
+        commentRef.current.value = "";
+      }
     }
   };
 
@@ -122,7 +115,6 @@ const PostCommentView = ({
           );
         });
     }
-
     return () => {
       if (unsubscribe) {
         unsubscribe();
@@ -267,14 +259,13 @@ const PostCommentView = ({
           <ErrorBoundary>
             <PostDetails
               user={user}
+              postUserUid={uid}
+              imageUrl={imageUrl}
               postId={postId}
               likecount={likecount}
               likesHandler={likesHandler}
               fullScreen={fullScreen}
               caption={caption}
-              shareModal={shareModal}
-              setLink={setLink}
-              setPostText={setPostText}
               setFetchAgain={setFetchAgain}
               fetchAgain={fetchAgain}
             />
@@ -294,10 +285,10 @@ const PostCommentView = ({
                   />
                 </div>
                 {showEmojis && (
-                  <div id="picker">
+                  <div>
                     <EmojiPicker
                       emojiStyle="native"
-                      height={330}
+                      height={280}
                       searchDisabled
                       style={{ zIndex: 999 }}
                       onEmojiClick={onEmojiClick}
@@ -311,6 +302,7 @@ const PostCommentView = ({
             </ClickAwayListener>
             <input
               className="post__input"
+              onKeyDown={postComment}
               type="text"
               placeholder={
                 comments?.length !== 0
@@ -325,6 +317,7 @@ const PostCommentView = ({
                 margin: "4px 0px",
               }}
             />
+
             <IconButton
               className="post__button"
               disabled={commentRef?.current?.value === null}

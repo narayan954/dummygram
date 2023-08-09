@@ -1,17 +1,19 @@
-import React from "react";
+import "./index.css";
 
-const Auth_container = ({ right__img, children }) => {
+import Logo from "../Logo";
+
+const Auth_container = ({ children }) => {
   return (
     <div className="page-over">
       <section className="login__section">
-        <div className="login__right signup__right">
-          {right__img && (
-            <img
-              src={right__img}
-              alt="website image"
-              style={{ objectFit: "fill" }}
-            />
-          )}
+        <div className="login__right__container">
+          <div className="login__right__sub__container">
+            <Logo />
+            <p id="welcome__msg">
+              Welcome to Dummygram, place to share your wonderful moments and
+              connect with others
+            </p>
+          </div>
         </div>
         <div className="login__left">{children}</div>
       </section>

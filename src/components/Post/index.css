@@ -39,6 +39,15 @@
   color: var(--text-primary);
 }
 
+.post__username {
+  font-size: 18px;
+}
+
+.post__time {
+  font-size: 12px;
+  color: var(--profile-color);
+}
+
 .postColumn:hover {
   transform: scale(1.01);
 }
@@ -50,7 +59,7 @@
 }
 
 .post__background {
-  min-height: 350px;
+  height: 350px;
   background: linear-gradient(
     130deg,
     #dee2ed,
@@ -63,6 +72,7 @@
 
   background-size: cover;
   color: black;
+  display: flex;
   justify-content: center;
   align-items: center;
   font-weight: 600;
@@ -108,7 +118,7 @@
   text-align: left;
   white-space: pre-line;
   overflow: hidden;
-  height: 3.5em;
+  height: 27px;
   line-height: 1.2em;
 }
 
@@ -194,7 +204,6 @@
 }
 
 .comment-box {
-  margin-top: 10px;
   width: 100%;
 }
 
@@ -271,6 +280,22 @@
   border-radius: 100%;
 }
 
+.dialog_box_skeleton {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.dialog_box_text_skeleton {
+  width: 80%;
+}
+
+.dialog_box_text_skeleton > * {
+  width: 100%;
+}
+
 .likedby_list_container {
   margin: 0;
   display: flex;
@@ -310,6 +335,7 @@
   cursor: pointer;
   font-weight: 600;
   color: rgb(42, 42, 135);
+  text-decoration: none;
 }
 
 .like_user_name:hover {
@@ -342,10 +368,20 @@
     margin-top: 25px;
   }
 
+  .epr-emoji-category {
+    width: 300px;
+  }
+
   .postColumn {
     max-width: 320px;
     padding: 5px;
     margin-top: 25px;
+  }
+
+  .post__text,
+  .postCaption,
+  .postCaptiontext {
+    height: 50px !important;
   }
 
   .like_user_data {
@@ -370,13 +406,13 @@
 .postCaption {
   color: var(--color);
   padding-inline: 8px;
-  height: 80px;
+  height: 27px;
 }
 
 .postCaptiontext {
   color: var(--color);
   padding-inline: 8px;
-  height: 80px;
+  height: 27px;
   display: flex;
   align-items: flex-end;
 }

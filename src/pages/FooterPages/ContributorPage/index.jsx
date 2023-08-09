@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 
 import ContributorCard from "./ContributorCard";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import backgroundimg from "../../../assets/contributors.png";
+import backgroundimg from "../../../assets/contributors.webp";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../../components/Footer/Footer";
 
@@ -17,32 +17,43 @@ function Contributor() {
 
   const navigate = useNavigate();
 
-  const getData = async () => {
-    const res = await fetch(
-      `https://api.github.com/repos/narayan954/dummygram/contributors?page=${currentPage}&&per_page=${
-        searchResult.length < 1 ? 10 : ""
-      }`,
-    );
-
-    const data = await res.json();
-    const contributorsData = data.filter(
-      (contributor) => !contributor.login.includes("deepsource-autofix[bot]"),
-    );
-    const value = contributorsData.filter((item) => {
-      return `${item.login.toLowerCase()}`.includes(searchResult.toLowerCase());
-    });
-    if (searchResult.length > 0) {
-      setContributors(value);
-    } else {
-      setContributors(contributorsData);
-    }
-  };
-
   const handleChange = (event, value) => {
     setCurrentPage(value);
   };
 
   useEffect(() => {
+    const getData = async () => {
+      try {
+        const res = await fetch(
+          `https://api.github.com/repos/narayan954/dummygram/contributors?page=${currentPage}&&per_page=${
+            searchResult.length < 1 ? 10 : ""
+          }`,
+        );
+
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const data = await res.json();
+        const contributorsData = data.filter(
+          (contributor) =>
+            !contributor.login.includes("deepsource-autofix[bot]"),
+        );
+        const value = contributorsData.filter((item) =>
+          item.login.toLowerCase().includes(searchResult.toLowerCase()),
+        );
+        if (searchResult.length > 0) {
+          setContributors(value);
+        } else {
+          setContributors(contributorsData);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        // Handle the error or display an error message to the user
+        // For example, you could set an error state to display an error message on the UI
+        setContributors([]);
+      }
+    };
     getData();
   }, [currentPage, searchResult]);
 
@@ -59,7 +70,7 @@ function Contributor() {
       <div
         className="back-icon"
         style={{ height: "90px", cursor: "pointer" }}
-        onClick={() => navigate("/dummygram/")}
+        onClick={() => navigate("/dummygram")}
       >
         <KeyboardBackspaceIcon className="icon" /> <span>Back to Home</span>
       </div>
@@ -76,7 +87,7 @@ function Contributor() {
           onChange={(e) => setSearchResult(e.target.value)}
         />
         <span className="label">Search Contributor</span>
-        <span class="highlight"></span>
+        <span className="highlight"></span>
       </div>
       <div className="contributors-outer">
         <Box
@@ -86,7 +97,7 @@ function Contributor() {
             display: "flex",
             flexWrap: "wrap",
             rowGap: "2rem",
-            justifyContent: "space-around",
+            justifyContent: "center",
           }}
         >
           {contributors.map((contributor) => (

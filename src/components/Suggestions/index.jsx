@@ -39,29 +39,39 @@ const Suggestion = () => {
     return false;
   };
 
-  const fetchRandomDocument = async () => {
-    const collectionRef = db.collection("users");
-
-    // Generate a new auto-id (random value)
-    const randomValue = collectionRef.doc().id;
-
-    const snapshot = await collectionRef
-      .orderBy(firebase.firestore.FieldPath.documentId())
-      .startAt(randomValue)
-      .limit(5)
-      .get();
-
-    const randomDocuments = await Promise.all(
-      snapshot.docs.map(async (doc) => {
-        const data = doc.data();
-        const isFriendRequestSent = await checkFriendRequestSent(data.uid);
-        return { ...data, friendRequestSent: isFriendRequestSent };
-      }),
-    );
-    setRandomDocs(randomDocuments);
-  };
-
   useEffect(() => {
+    const fetchRandomDocument = async () => {
+      try {
+        const collectionRef = db.collection("users");
+
+        // Generate a new auto-id (random value)
+        const randomValue = collectionRef.doc().id;
+
+        const snapshot = await collectionRef
+          .orderBy(firebase.firestore.FieldPath.documentId())
+          .startAt(randomValue)
+          .limit(5)
+          .get();
+        if (!snapshot.empty) {
+          const randomDocuments = await Promise.all(
+            snapshot.docs.map(async (doc) => {
+              const data = doc.data();
+              const isFriendRequestSent = await checkFriendRequestSent(
+                data.uid,
+              );
+              return { ...data, friendRequestSent: isFriendRequestSent };
+            }),
+          );
+          setRandomDocs(randomDocuments);
+        } else {
+          // Handle the case when there are no documents in the snapshot
+          console.log("No random documents found.");
+        }
+      } catch (error) {
+        // Handle any errors that may occur during data retrieval
+        console.error("Error fetching random documents:", error);
+      }
+    };
     fetchRandomDocument();
   }, []);
 
