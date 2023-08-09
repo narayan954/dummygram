@@ -9,6 +9,7 @@
   margin-left: 17vw;
   min-height: 100vh;
   padding: 15px;
+  padding-bottom: 40px;
 }
 
 .all-chat-msg-container {
@@ -30,7 +31,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 2rem;
+  border-top: 1px solid #1a1a1a;
+  background-color: var(--input-bg);
 }
 
 .chat-input {
@@ -38,11 +41,16 @@
   margin-top: 0;
   font-size: 1em;
   width: 70%;
+  padding: 10px 0;
+  color: var(--text-grey);
+  background-color: var(--input-bg);
 }
 
 .chat-msg-send-btn-container {
   background-color: transparent;
   border: none;
+  padding: 10px 15px;
+    padding-right: 20px;
 }
 
 .chat-msg-send-btn {
@@ -144,6 +152,7 @@
 .communitychat-emoji-btn {
   cursor: pointer;
   transition: 0.2s ease-in-out;
+  padding: 10px 15px;
 }
 
 .communitychat-emoji-btn:hover {
@@ -208,13 +217,21 @@
   transition: all 0.2s ease;
 }
 
+@media screen and (min-width: 1200px) {
+  .chat-input-container {
+    width: 83vw;
+    padding-left: 17vw;
+  }
+}
+
 @media screen and (max-width: 1200px) {
   .chat-main-container {
     margin-left: 8vw;
   }
 
   .chat-input-container {
-    width: 88%;
+    width: 92vw;
+    padding-left: 8vw;
   }
 }
 
@@ -227,8 +244,9 @@
     margin-bottom: 120px;
   }
   .chat-input-container {
-    width: 95%;
-    bottom: 80px;
+    width: 100vw;
+    bottom: 72px;
+    padding-left: 0;
   }
   .chat-msg-text {
     max-width: 75%;

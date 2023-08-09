@@ -31,6 +31,7 @@
   --pagination-border: rgba(0, 0, 0, 0.23);
   --text-grey: rgba(0, 0, 0, 0.8);
   --theme-hover: rgba(8, 17, 123, 0.69);
+  --input-bg: #eee;
 }
 
 .darkmode {
@@ -66,6 +67,7 @@
   --pagination-border: rgba(255, 255, 255, 0.23);
   --text-grey: rgba(255, 255, 255, 0.8);
   --theme-hover: rgb(244, 210, 41);
+  --input-bg: #191919;
 }
 
 * {

@@ -14,6 +14,8 @@ import { Link } from "react-router-dom";
 import Popup from "../../reusableComponents/Popup";
 import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
+import AddPhotoIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
+import TakePhotoIcon from '@mui/icons-material/AddAPhotoOutlined';
 
 export default function ImgUpload(props) {
   const [current, setCurrent] = useState(0);
@@ -215,301 +217,78 @@ export default function ImgUpload(props) {
   }
 
   return (
-    <div className="imageUpload">
+    <div
+      className="imageUpload"
+      style={{
+        justifyContent: "flex-start",
+      }}
+    >
       {uploadingPost && image && (
         <LinearProgress variant="determinate" value={progress} />
       )}
-      <div className="big_post_view">
-        {!image && (
-          <div className="file-input">
-            <div className="upload-picture">
-              <input
-                type="file"
-                className="file"
-                name="file"
-                id="file"
-                onChange={handleChange}
-                multiple
-                accept="image/*"
-                ref={imgInput}
-                disabled={uploadingPost}
-              />
-              <label htmlFor="file">Upload Picture</label>
-            </div>
-            <div className="popupMain">
-              <button
-                className="openpopup"
-                onClick={() => setButtonPopup(true)}
-              >
-                Take Picture
-              </button>
-              <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-                <Camera />
-              </Popup>
-            </div>
-          </div>
-        )}
-        {image && (
-          <div className="slider__View">
-            {imagePreviews.map((imageUrl, index) => (
-              <div
-                style={{ display: index === current ? "contents" : "none" }}
-                className={index === current ? "slide active" : "slide"}
-                key={index}
-              >
-                <LazyLoadImage
-                  className="image"
-                  src={imageUrl}
-                  effect="blur"
-                  alt={" upload"}
-                  delayTime={1000}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
-                />
-                {imagePreviews.length > 1 ? (
-                  <div className="sliders_button">
-                    <FaChevronCircleLeft
-                      className="slider_circle"
-                      onClick={prevStep}
-                    />
-                    <FaChevronCircleRight
-                      className="slider_chevron"
-                      onClick={nextStep}
-                    />
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
-        <div className="post__caption_section">
-          <div className="post__header">
-            {avatar && displayName && (
-              <>
-                {" "}
-                <Avatar
-                  className="post__avatar"
-                  alt={displayName}
-                  src={avatar}
-                  sx={{
-                    bgcolor: "royalblue",
-                    border: "2px solid transparent",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    cursor: "pointer",
-                    "&:hover": {
-                      boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 17px 0px",
-                      border: "2px solid black",
-                      scale: "1.1",
-                    },
-                  }}
-                />
-                <Link style={{ textDecoration: "none" }}>
-                  <h3 className="post__username">{displayName}</h3>
-                </Link>
-              </>
-            )}
-          </div>
-          <TextField
-            className="create-post-input"
-            onChange={(e) => setCaption(e.target.value)}
-            value={caption}
-            variant="filled"
-            // placeholder="Write a Caption..."
-            label="Write a caption..."
-            multiline
-            rows={12}
-            disabled={uploadingPost}
-            inputProps={{ maxLength: 200 }}
-            sx={{
-              width: "100%",
-              "& .MuiFormLabel-root.Mui-focused": {
-                fontWeight: "bold",
-              },
-              "& .MuiFilledInput-root": {
-                background: "transparent",
-                color: "var(--color)",
-              },
-            }}
-            style={{ color: "var(--color) !important" }}
-          />
-          <div className="shareBtnContainer">
-            <button
-              onClick={() => handleUpload("Post")}
-              disabled={uploadingPost}
-              className="share__button"
-            >
-              Add Post
-            </button>
-            <button
-              onClick={() => handleUpload("Story")}
-              disabled={uploadingPost || isStoryUploaded}
-              className={`share__button ${
-                isStoryUploaded ? "disable_post_btn" : null
-              }`}
-            >
-              Create Story
-            </button>
-          </div>
-        </div>
-      </div>
-      <div className="small_post_view">
-        {!nextPage && !image && (
-          <div className="file-input">
-            <div className="upload-picture">
-              <input
-                type="file"
-                className="file"
-                name="file"
-                id="file"
-                onChange={handleChange}
-                multiple
-                accept="image/*"
-                ref={imgInput}
-                disabled={uploadingPost}
-              />
-              <label htmlFor="file">Upload Picture</label>
-            </div>
-            <div className="popupMain">
-              <button
-                className="openpopup"
-                onClick={() => setButtonPopup(true)}
-              >
-                Take Picture
-              </button>
-              <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-                <Camera />
-              </Popup>
-            </div>
-          </div>
-        )}
-        {!nextPage && image && (
-          <div className="slider__View">
-            {imagePreviews.map((imageUrl, index) => (
-              <div
-                style={{ display: index === current ? "contents" : "none" }}
-                className={index === current ? "slide active" : "slide"}
-                key={index}
-              >
-                <LazyLoadImage
-                  className="image"
-                  src={imageUrl}
-                  effect="blur"
-                  alt={" upload"}
-                  delayTime={1000}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
-                />
-                {imagePreviews.length > 1 ? (
-                  <div className="sliders_button">
-                    <FaChevronCircleLeft
-                      className="slider_circle"
-                      onClick={prevStep}
-                    />
-                    <FaChevronCircleRight
-                      className="slider_chevron"
-                      onClick={nextStep}
-                    />
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
-        {!nextPage && (
-          <button className="next_button" onClick={ShiftToNextPage}>
-            Let's Write Some Text...
-          </button>
-        )}
-        {nextPage && (
-          <div className="back_button" onClick={ShiftToNextPage}>
-            <ArrowBackIcon fontSize="1rem" />
-            &nbsp; Image
-          </div>
-        )}
-        {nextPage && (
-          <div className="post__caption_section">
-            <div className="post__header">
-              {avatar && displayName && (
-                <>
-                  {" "}
-                  <Avatar
-                    className="post__avatar"
-                    alt={displayName}
-                    src={avatar}
-                    sx={{
-                      bgcolor: "royalblue",
-                      border: "2px solid transparent",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      cursor: "pointer",
-                      "&:hover": {
-                        boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 17px 0px",
-                        border: "2px solid black",
-                        scale: "1.1",
-                      },
-                    }}
-                  />
-                  <Link style={{ textDecoration: "none" }}>
-                    <h3 className="post__username">{displayName}</h3>
-                  </Link>
-                </>
-              )}
-            </div>
-            <TextField
-              className="create-post-input"
-              onChange={(e) => setCaption(e.target.value)}
-              value={caption}
-              variant="filled"
-              // placeholder="Write a Caption..."
-              label="Write a caption..."
-              multiline
-              rows={12}
-              disabled={uploadingPost}
-              sx={{
-                width: "100%",
-                "& .MuiFormLabel-root.Mui-focused": {
-                  fontWeight: "bold",
-                },
-                "& .MuiFilledInput-root": {
-                  background: "transparent",
-                  color: "var(--color)",
-                },
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <div>
+          {avatar && displayName && (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "row",
+                justifyContent: "flex-start",
               }}
-              style={{ color: "var(--color) !important" }}
-            />
-            <div className="shareBtnContainer">
-              <button
-                onClick={() => handleUpload("Post")}
-                disabled={uploadingPost}
-                className="share__button"
-              >
-                Add Post
-              </button>
-              <button
-                onClick={() => handleUpload("Story")}
-                disabled={uploadingPost || isStoryUploaded}
-                className={`share__button ${
-                  isStoryUploaded ? "disable_post_btn" : null
-                }`}
-              >
-                Create Story
-              </button>
+            >
+              <Avatar
+                className=""
+                alt={displayName}
+                src={avatar}
+                sx={{
+                  bgcolor: "royalblue",
+                  border: "2px solid transparent",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  cursor: "pointer",
+                  "&:hover": {
+                    boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 17px 0px",
+                    border: "2px solid black",
+                    scale: "1.1",
+                  },
+                }}
+              />
+              <Link style={{ textDecoration: "none" }}>
+                <h3 className="post__username">{displayName}</h3>
+              </Link>
             </div>
-          </div>
-        )}
+          )}
+        </div>
+        <div style={{
+          display:"flex",
+          flexDirection:"row"
+        }}>
+          <>
+            <input
+              type="file"
+              className="file"
+              name="file"
+              id="file"
+              onChange={handleChange}
+              multiple
+              accept="image/*"
+              ref={imgInput}
+              disabled={uploadingPost}
+            />
+            <label htmlcFor="file"><AddPhotoIcon />Upload Picture</label>
+          </>
+          <span className="openpopup" onClick={() => setButtonPopup(true)}><TakePhotoIcon />Take Photo</span>
+          <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+            <Camera />
+          </Popup>
+        </div>
       </div>
     </div>
   );
