@@ -38,6 +38,7 @@ function FeedPostDisplay({ post, id }) {
   const navigate = useNavigate();
   const [hover, setHover] = useState(false)
   const [openShareModal, setOpenShareModal] = useState(false);
+  const [tempLikeCount, setTempLikeCount] = useState(post.likecount || [])
 
   const isMobileScreen = useMediaQuery("(max-width: 600px)");
   const isTabScreen = useMediaQuery("(max-width: 950px)");
@@ -46,16 +47,18 @@ function FeedPostDisplay({ post, id }) {
   async function likesHandler() {
     if (userUid && post.likecount !== undefined) {
       let ind = post.likecount.indexOf(userUid);
-      const tempLikeCount = post.likecount
+      const tempArr = tempLikeCount
 
       if (ind !== -1) {
-        tempLikeCount.splice(ind, 1);
+        tempArr.splice(ind, 1);
+        setTempLikeCount(tempArr)
       } else {
-        tempLikeCount.push(userUid);
+        tempArr.push(userUid);
+        setTempLikeCount(tempArr)
       }
 
       const data = {
-        likecount: tempLikeCount,
+        likecount: tempArr,
       };
       const docRef = doc(db, "posts", id);
       await updateDoc(docRef, data)
@@ -113,7 +116,7 @@ function FeedPostDisplay({ post, id }) {
               likesHandler();
             }}
           >
-            {post.likecount.indexOf(userUid) != -1 ? (
+            {tempLikeCount.indexOf(userUid) != -1 ? (
               <FavoriteOutlined
                 sx={{
                   color: "red",
