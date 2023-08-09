@@ -5,7 +5,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Grid from "@mui/material/Grid";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
-import about from "../../../dummygram/src/assets/about-us.png";
+import Faq from "../assets/preview.webp";
+
 
 export default function Error() {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ export default function Error() {
   return (
     <>
       <div className="footer-page-header-img" style={{ position: "relative" }}>
-        <img src={about} style={{ objectFit: "cover" }} />
+        <img src={Faq} style={{ objectFit: "cover" }} />
       </div>
 
       <div
