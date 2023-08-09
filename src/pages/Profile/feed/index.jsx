@@ -33,12 +33,11 @@ const ProfieFeed = ({ feed }) => {
 
 export default ProfieFeed;
 
-
 function FeedPostDisplay({ post, id }) {
   const navigate = useNavigate();
-  const [hover, setHover] = useState(false)
+  const [hover, setHover] = useState(false);
   const [openShareModal, setOpenShareModal] = useState(false);
-  const [tempLikeCount, setTempLikeCount] = useState(post.likecount || [])
+  const [tempLikeCount, setTempLikeCount] = useState(post.likecount || []);
 
   const isMobileScreen = useMediaQuery("(max-width: 600px)");
   const isTabScreen = useMediaQuery("(max-width: 950px)");
@@ -47,24 +46,23 @@ function FeedPostDisplay({ post, id }) {
   async function likesHandler() {
     if (userUid && post.likecount !== undefined) {
       let ind = post.likecount.indexOf(userUid);
-      const tempArr = tempLikeCount
+      const tempArr = tempLikeCount;
 
       if (ind !== -1) {
         tempArr.splice(ind, 1);
-        setTempLikeCount(tempArr)
+        setTempLikeCount(tempArr);
       } else {
         tempArr.push(userUid);
-        setTempLikeCount(tempArr)
+        setTempLikeCount(tempArr);
       }
 
       const data = {
         likecount: tempArr,
       };
       const docRef = doc(db, "posts", id);
-      await updateDoc(docRef, data)
-        .catch((error) => {
-          console.error("Error", error)
-        });
+      await updateDoc(docRef, data).catch((error) => {
+        console.error("Error", error);
+      });
     }
   }
 
@@ -128,14 +126,18 @@ function FeedPostDisplay({ post, id }) {
               />
             )}
           </button>
-          <Link to={`/dummygram/posts/${id}`} style={{ color: "white" }} className="profile_post_hover_icon">
+          <Link
+            to={`/dummygram/posts/${id}`}
+            style={{ color: "white" }}
+            className="profile_post_hover_icon"
+          >
             <ChatBubbleOutlineRounded />
           </Link>
           <button
             className="profile_post_hover_icon"
             onClick={(e) => {
               e.stopPropagation();
-              setOpenShareModal(prev => !prev);
+              setOpenShareModal((prev) => !prev);
             }}
           >
             <ShareOutlined />
@@ -149,7 +151,8 @@ function FeedPostDisplay({ post, id }) {
           setOpenShareModal={setOpenShareModal}
           currentPostLink={`https://narayan954.github.io/dummygram/posts/${id}`}
           postText={post.caption}
-        />)}
+        />
+      )}
     </div>
-  )
+  );
 }
