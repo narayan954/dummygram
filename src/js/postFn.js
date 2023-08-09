@@ -57,3 +57,13 @@ export const savePost = async (postId) => {
   }
   return JSON.parse(localStorage.getItem("posts"));
 };
+
+export const deleteComment = async (event, postId, commentId) => {
+  event.preventDefault();
+  await db
+    .collection("posts")
+    .doc(postId)
+    .collection("comments")
+    .doc(commentId)
+    .delete();
+};
