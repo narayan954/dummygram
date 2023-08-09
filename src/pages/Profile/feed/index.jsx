@@ -15,15 +15,13 @@ import { auth, db } from "../../../lib/firebase";
 import ErrorBoundary from "../../../reusableComponents/ErrorBoundary";
 import { ShareModal } from "../../../reusableComponents";
 
-const userUid = auth?.currentUser?.uid;
-
 const ProfieFeed = ({ feed }) => {
   return (
     <Box className="profile-feed-main-container">
       <div className="app__posts__feed" id="feed-sub-container">
         <ErrorBoundary>
           {feed.map(({ post, id }) => (
-            <FeedPostDisplay post={post} id={id} />
+            <FeedPostDisplay post={post} id={id} key={id} />
           ))}
         </ErrorBoundary>
       </div>
@@ -38,6 +36,7 @@ function FeedPostDisplay({ post, id }) {
   const [hover, setHover] = useState(false);
   const [openShareModal, setOpenShareModal] = useState(false);
   const [tempLikeCount, setTempLikeCount] = useState(post.likecount || []);
+  const userUid = auth?.currentUser?.uid;
 
   const isMobileScreen = useMediaQuery("(max-width: 600px)");
   const isTabScreen = useMediaQuery("(max-width: 950px)");
