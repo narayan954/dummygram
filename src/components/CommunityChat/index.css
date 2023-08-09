@@ -251,6 +251,7 @@
   .chat-msg-text {
     max-width: 75%;
   }
+
 }
 
 .closeBtn {
@@ -265,4 +266,11 @@
 
 .closeBtn:hover {
   color: var(--btn-hover);
+}
+
+@media screen and (max-width: 600px) {
+  .scrollTop {
+    margin-left: 10px;
+    margin-bottom: 15%;
+  }
 }
