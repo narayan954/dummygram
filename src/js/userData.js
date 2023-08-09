@@ -1,4 +1,5 @@
 import { db, auth } from "../lib/firebase";
+import { doc, getDoc } from "firebase/firestore";
 
 const user = auth?.currentUser;
 
@@ -13,13 +14,13 @@ export default async function getUserSessionData(getRef) {
         return userData;
     }
     else {
-        const docRef = db.collection("users", user?.uid);
-        const docSnap = await docRef.get();
+        const docRef = doc(db, "users", user?.uid);
+        const docSnap = await getDoc(docRef);
         sessionStorage.setItem("userDataDocRef", JSON.stringify(docSnap));
-        if (docSnap.docs[0].exists) {
-            const data = docSnap.docs[0].data();
+        if (docSnap.exists) {
+            const data = docSnap.data();
             sessionStorage.setItem("userData", JSON.stringify(data));
-            return getRef? docSnap : data;
+            return getRef ? docSnap : data;
         }
     }
     return userData;
