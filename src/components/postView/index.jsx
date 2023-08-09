@@ -68,10 +68,10 @@ const PostCommentView = ({ setFetchAgain, fetchAgain, postId, user, post }) => {
   useEffect(() => {
     async function getUsername() {
       try {
-        const docRef = db.collection("users", user?.uid);
+        const docRef = db.collection("users").doc(user?.uid);
         const docSnap = await docRef.get();
-        if (docSnap.docs[0].exists) {
-          const data = docSnap.docs[0].data();
+        if (docSnap.exists) {
+          const data = docSnap.data();
           setUserData({
             username: data?.username || auth.currentUser?.uid,
           });
