@@ -9,6 +9,7 @@ import { playErrorSound, playSuccessSound } from "../../js/sounds";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Camera from "./Camera";
+import { HuePicker } from "react-color";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
 import Popup from "../../reusableComponents/Popup";
@@ -27,6 +28,7 @@ export default function ImgUpload(props) {
   const [buttonPopup, setButtonPopup] = useState(false);
   const [isStoryUploaded, setIsStoryUploaded] = useState(false);
   const [username, setUsername] = useState("");
+  const [background, setBackground] = useState("#fff");
 
   const displayName = auth?.currentUser?.displayName;
   const avatar = auth?.currentUser?.photoURL;
@@ -42,6 +44,10 @@ export default function ImgUpload(props) {
   };
   const nextStep = () => {
     setCurrent(current === imagePreviews.length - 1 ? 0 : current + 1);
+  };
+
+  const handleBackgroundChange = (color) => {
+    setBackground(color.hex);
   };
 
   useEffect(() => {
@@ -92,6 +98,7 @@ export default function ImgUpload(props) {
     }
 
     setImagePreviews(images);
+    setBackground("#fff");
   };
 
   const savePost = async (imageUrl = "", type) => {
@@ -102,6 +109,7 @@ export default function ImgUpload(props) {
           caption: caption,
           imageUrl,
           username: username,
+          background: background,
           displayName: props.user.displayName,
           avatar: props.user.photoURL,
           likecount: [],
@@ -120,6 +128,7 @@ export default function ImgUpload(props) {
         await db.collection("story").add({
           caption: caption,
           imageUrl,
+          background: background,
           username: username,
           uid: auth?.currentUser?.uid,
         });
@@ -293,7 +302,7 @@ export default function ImgUpload(props) {
               <>
                 {" "}
                 <Avatar
-                  className="post__avatar"
+                  className="post__upload__avatar"
                   alt={displayName}
                   src={avatar}
                   sx={{
@@ -316,29 +325,39 @@ export default function ImgUpload(props) {
               </>
             )}
           </div>
-          <TextField
-            className="create-post-input"
-            onChange={(e) => setCaption(e.target.value)}
-            value={caption}
-            variant="filled"
-            // placeholder="Write a Caption..."
-            label="Write a caption..."
-            multiline
-            rows={12}
-            disabled={uploadingPost}
-            inputProps={{ maxLength: 200 }}
-            sx={{
-              width: "100%",
-              "& .MuiFormLabel-root.Mui-focused": {
-                fontWeight: "bold",
-              },
-              "& .MuiFilledInput-root": {
-                background: "transparent",
-                color: "var(--color)",
-              },
-            }}
-            style={{ color: "var(--color) !important" }}
-          />
+          <div>
+            <TextField
+              className="create-post-input"
+              onChange={(e) => setCaption(e.target.value)}
+              value={caption}
+              variant="filled"
+              // placeholder="Write a Caption..."
+              label="Write a caption..."
+              multiline
+              rows={12}
+              disabled={uploadingPost}
+              inputProps={{ maxLength: 200 }}
+              sx={{
+                width: "100%",
+                "& .MuiFormLabel-root.Mui-focused": {
+                  fontWeight: "bold",
+                },
+                "& .MuiFilledInput-root": {
+                  background: background,
+                  color: "var(--color)",
+                },
+              }}
+              style={{ color: "var(--color) !important" }}
+            />
+            {!image && (
+              <HuePicker
+                color={background}
+                onChange={handleBackgroundChange}
+                height="12px"
+                width="100%"
+              />
+            )}
+          </div>
           <div className="shareBtnContainer">
             <button
               onClick={() => handleUpload("Post")}

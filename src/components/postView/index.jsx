@@ -38,16 +38,7 @@ const PostViewMenu = React.lazy(() => import("./PostViewMenu.jsx"));
 
 const ReadMore = React.lazy(() => import("../ReadMore"));
 
-const PostCommentView = ({
-  setFetchAgain,
-  shareModal,
-  fetchAgain,
-  postId,
-  user,
-  post,
-  setLink,
-  setPostText,
-}) => {
+const PostCommentView = ({ setFetchAgain, fetchAgain, postId, user, post }) => {
   const navigate = useNavigate();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -275,9 +266,6 @@ const PostCommentView = ({
               likesHandler={likesHandler}
               fullScreen={fullScreen}
               caption={caption}
-              shareModal={shareModal}
-              setLink={setLink}
-              setPostText={setPostText}
               setFetchAgain={setFetchAgain}
               fetchAgain={fetchAgain}
             />

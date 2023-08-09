@@ -59,7 +59,6 @@
   margin: auto;
   margin-bottom: 3em;
   height: 40px;
-  width: 230px;
   border-radius: 2px;
   display: flex;
   align-items: center;
@@ -110,6 +109,7 @@
   height: 1px;
   background: #4279a3;
   position: absolute;
-  bottom: 8px;
+  bottom: 0px;
+  width: 95% !important;
   transition: all 1s ease;
 }
