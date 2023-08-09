@@ -18,6 +18,7 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Flexbetween from "../../reusableComponents/Flexbetween";
+import { ShareModal } from "../../reusableComponents";
 import deletePost from "../../js/postFn.js";
 import { savePost } from "../../js/postFn.js";
 import { useNavigate } from "react-router-dom";
@@ -31,13 +32,11 @@ const PostDetails = ({
   likecount,
   likesHandler,
   imageUrl,
-  shareModal,
-  setPostText,
-  setLink,
   caption,
   fullScreen,
 }) => {
   const [open, setOpen] = useState(false);
+  const [openShareModal, setOpenShareModal] = useState(false);
   const [favoritePosts, setFavoritePosts] = useState(
     JSON.parse(localStorage.getItem("posts")) || [],
   );
@@ -68,9 +67,7 @@ const PostDetails = ({
         <Flexbetween
           sx={{ cursor: "pointer" }}
           onClick={() => {
-            setLink(`https://narayan954.github.io/dummygram/posts/${postId}`);
-            setPostText(caption);
-            shareModal(true);
+            setOpenShareModal((prev) => !prev);
           }}
         >
           <IconButton>
@@ -137,6 +134,14 @@ const PostDetails = ({
           </Button>
         </DialogActions>
       </Dialog>
+      {openShareModal && (
+        <ShareModal
+          openShareModal={openShareModal}
+          setOpenShareModal={setOpenShareModal}
+          currentPostLink={`https://narayan954.github.io/dummygram/posts/${postId}`}
+          postText={caption}
+        />
+      )}
     </>
   );
 };
