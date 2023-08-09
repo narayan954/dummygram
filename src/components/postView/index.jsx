@@ -1,4 +1,4 @@
-import "./index.css"
+import "./index.css";
 import {
   Button,
   Dialog,
@@ -24,34 +24,41 @@ const ImageSlider = React.lazy(() =>
 );
 const PostDetails = React.lazy(() => import("./PostDetails.jsx"));
 
-
 const PostCommentView = ({ setFetchAgain, fetchAgain, postId, user, post }) => {
   const navigate = useNavigate();
   const [openToDeleteComment, setOpenToDeleteComment] = useState(false);
-  const { username, caption, imageUrl, avatar, likecount, timestamp, uid, displayName, background } =
-    post;
+  const {
+    username,
+    caption,
+    imageUrl,
+    avatar,
+    likecount,
+    timestamp,
+    uid,
+    displayName,
+    background,
+  } = post;
   const time = useCreatedAt(timestamp);
   const defaultBg = `linear-gradient(130deg, #dee2ed, #dee2ed, #9aa9d1, #b6c8e3, #b6afd0, #d3c0d8)`;
 
   const [comments, setComments] = React.useState(null);
   const [comment, setComment] = useState("");
-  const [tempLikeCount, setTempLikeCount] = useState(post.likecount || [])
-  const [userData, setUserData] = useState({})
+  const [tempLikeCount, setTempLikeCount] = useState(post.likecount || []);
+  const [userData, setUserData] = useState({});
   const [showEmojis, setShowEmojis] = React.useState(false);
   const docRef = doc(db, "posts", postId);
 
-
   async function likesHandler() {
     if (user && likecount !== undefined) {
-      const tempArr = tempLikeCount
+      const tempArr = tempLikeCount;
       let ind = tempLikeCount.indexOf(user.uid);
 
       if (ind !== -1) {
         tempArr.splice(ind, 1);
-        setTempLikeCount(tempArr)
+        setTempLikeCount(tempArr);
       } else {
         tempArr.push(user.uid);
-        setTempLikeCount(tempArr)
+        setTempLikeCount(tempArr);
       }
 
       const data = {
@@ -76,16 +83,15 @@ const PostCommentView = ({ setFetchAgain, fetchAgain, postId, user, post }) => {
             username: data?.username || auth.currentUser?.uid,
           });
         }
-      }
-      catch (error) {
+      } catch (error) {
         console.error("Error fetching user data:", error);
         setUserData({
           username: user?.uid,
         });
       }
     }
-    getUsername()
-  }, [])
+    getUsername();
+  }, []);
 
   const postComment = (event) => {
     event.preventDefault();
@@ -166,7 +172,8 @@ const PostCommentView = ({ setFetchAgain, fetchAgain, postId, user, post }) => {
       <div className="post_view_sub_container">
         <div className="post_view_header_container">
           <img
-            src={avatar?.length > 0 ? avatar : BlankImg} alt={displayName}
+            src={avatar?.length > 0 ? avatar : BlankImg}
+            alt={displayName}
             className="post_view_avatar"
             onClick={() => navigate(`/dummygram/user/${username}`)}
           />
@@ -228,14 +235,19 @@ const PostCommentView = ({ setFetchAgain, fetchAgain, postId, user, post }) => {
               {comments.map(({ id, content }) => (
                 <li key={id} className="post_view_comment_list_item">
                   <img
-                    src={content.avatar ? content.avatar : BlankImg} alt={content.displayName}
+                    src={content.avatar ? content.avatar : BlankImg}
+                    alt={content.displayName}
                     className="post_view_comment_img"
-                    onClick={() => navigate(`/dummygram/user/${content.username}`)}
+                    onClick={() =>
+                      navigate(`/dummygram/user/${content.username}`)
+                    }
                   />
                   <div>
                     <h4
                       className="post_view_comment_img_name"
-                      onClick={() => navigate(`/dummygram/user/${content.username}`)}
+                      onClick={() =>
+                        navigate(`/dummygram/user/${content.username}`)
+                      }
                     >
                       {content.displayName}
                     </h4>
@@ -273,8 +285,8 @@ const PostCommentView = ({ setFetchAgain, fetchAgain, postId, user, post }) => {
                           </Button>
                           <Button
                             onClick={async (event) => {
-                              await deleteComment(event, postId, id)
-                              setOpenToDeleteComment(false)
+                              await deleteComment(event, postId, id);
+                              setOpenToDeleteComment(false);
                             }}
                           >
                             Delete
@@ -287,9 +299,13 @@ const PostCommentView = ({ setFetchAgain, fetchAgain, postId, user, post }) => {
               ))}
             </ul>
           ) : (
-              <p variant="body2" className="no-comments" style={{textAlign: "center"}}>
-                No Comments to Show!!
-              </p>
+            <p
+              variant="body2"
+              className="no-comments"
+              style={{ textAlign: "center" }}
+            >
+              No Comments to Show!!
+            </p>
           )}
         </div>
       </div>

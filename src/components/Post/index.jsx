@@ -179,7 +179,6 @@ function Post(prop) {
     setisCommentOpen(false);
   };
 
-
   return (
     <div className={`${rowMode ? "post" : "postColumn"}`}>
       <ErrorBoundary>

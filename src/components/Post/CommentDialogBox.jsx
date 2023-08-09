@@ -18,12 +18,7 @@ import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import { Link } from "react-router-dom";
 import ReadMore from "../ReadMore";
 
-const CommentDialogBox = ({
-  postId,
-  comments,
-  user,
-  fullScreen,
-}) => {
+const CommentDialogBox = ({ postId, comments, user, fullScreen }) => {
   const { isAnonymous } = user;
   const [username, setUsername] = useState("");
   const [openToDeleteComment, setOpenToDeleteComment] = useState(false);
