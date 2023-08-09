@@ -121,9 +121,6 @@ const Home = ({ rowMode, user }) => {
                       postId={id}
                       user={user}
                       post={post}
-                      // shareModal={setOpenShareModal}
-                      // setLink={setCurrentPostLink}
-                      // setPostText={setPostText}
                     />
                     {index === 1 && windowWidth < 1300 && (
                       <Suggestion currentUserUid={user.uid} />

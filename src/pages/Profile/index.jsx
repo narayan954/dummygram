@@ -29,6 +29,7 @@ import { StoryView } from "../../components";
 import ViewsCounter from "../../reusableComponents/views";
 import defaultProfile from "../../assets/blank-profile.webp";
 import deleteImg from "../../js/deleteImg";
+import getUserSessionData, { setUserSessionData } from "../../js/userData";
 import firebase from "firebase/compat/app";
 import profileBackgroundImg from "../../assets/profile-background.webp";
 import { useSnackbar } from "notistack";
@@ -116,6 +117,7 @@ function Profile() {
                 await docRef.update({
                   bgImageUrl: url,
                 });
+                setUserSessionData({bgImageUrl: url});
                 await deleteImg(oldImg);
               })
               .then(
@@ -157,7 +159,6 @@ function Profile() {
           .where("username", "==", username)
           .limit(1);
         const snapshot = await docRef.get();
-
         if (!snapshot.empty) {
           const doc = snapshot.docs[0];
           const currTimestamp = firebase.firestore.Timestamp.now().toMillis();
@@ -179,6 +180,9 @@ function Profile() {
 
               const docRef = doc.ref;
               docRef.update({
+                storyTimestamp: deleteField(),
+              });
+              setUserSessionData({
                 storyTimestamp: deleteField(),
               });
             }

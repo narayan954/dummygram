@@ -15,10 +15,11 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { auth, db } from "../../lib/firebase";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { lazy, useEffect, useState } from "react";
 
 import firebase from "firebase/compat/app";
+import getUserSessionData from "../../js/userData";
 import { useSnackbar } from "notistack";
 import { useTheme } from "@mui/material/styles";
 
@@ -52,13 +53,8 @@ function Post(prop) {
 
   useEffect(() => {
     async function getUsername() {
-      const docRef = doc(db, "users", auth?.currentUser?.uid);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        setUsername(docSnap.data().username);
-      } else {
-        setUsername("guest"); // Handle the case when the user document doesn't exist
-      }
+      const data = await getUserSessionData();
+      setUsername(data.username)
     }
     if (auth?.currentUser?.isAnonymous) {
       setUsername("guest");

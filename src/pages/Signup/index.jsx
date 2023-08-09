@@ -12,11 +12,10 @@ import React, { useRef, useState } from "react";
 import {
   auth,
   db,
-  facebookProvider,
-  googleProvider,
   storage,
 } from "../../lib/firebase";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
+import signInWithOAuth from "../../js/signIn";
 
 import blank_profile from "../../assets/blank-profile.webp";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
@@ -34,12 +33,10 @@ const SignupScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [signingUp, setSigningUp] = useState(false);
   const [image, setImage] = useState(null);
   const [address, setAddress] = useState(null);
   const [usernameAvailable, setUsernameAvailable] = useState(true);
   const [username, setUsername] = useState("");
-  const [isOauthSignUp, setIsOauthSignUp] = useState(false);
   const [error, setError] = useState(validate.initialValue);
 
   function debounce(func, timeout = 300) {
@@ -83,7 +80,6 @@ const SignupScreen = () => {
 
   const signUp = async (e) => {
     e.preventDefault();
-    setSigningUp(true);
     let submitable = true;
     Object.values(error).forEach((err) => {
       if (err !== false) {
@@ -175,9 +171,6 @@ const SignupScreen = () => {
             variant: "error",
           });
         })
-        .finally(() => {
-          setSigningUp(false);
-        });
     } else {
       enqueueSnackbar("Please fill all fields with valid data", {
         variant: "error",
@@ -185,122 +178,6 @@ const SignupScreen = () => {
       return;
     }
   };
-
-  const signInWithGoogle = () => {
-    auth
-      .signInWithPopup(googleProvider)
-      .then((result) => {
-        // The user is signed in, and you can access the user information
-        const user = result.user;
-
-        // Check if the user exists in Firebase
-        const usersRef = db.collection("users");
-        usersRef
-          .doc(user.uid)
-          .get()
-          .then((doc) => {
-            if (doc.exists) {
-              if (!doc.data().username) {
-                doc.ref.update({
-                  username: doc.data().uid,
-                });
-              }
-              navigate("/dummygram");
-            } else {
-              createUserDoc(result);
-            }
-          })
-          .catch((error) => {
-            playErrorSound();
-            enqueueSnackbar(error.message, {
-              variant: "error",
-            });
-          });
-      })
-      .catch((error) => {
-        playErrorSound();
-        enqueueSnackbar(error.message, {
-          variant: "error",
-        });
-      });
-  };
-
-  const signInWithFacebook = () => {
-    auth
-      .signInWithPopup(facebookProvider)
-      .then((result) => {
-        // The user is signed in, and you can access the user information
-        const user = result.user;
-
-        // Check if the user exists in Firebase
-        const usersRef = db.collection("users");
-        usersRef
-          .doc(user.uid)
-          .get()
-          .then((doc) => {
-            if (doc.exists) {
-              if (!doc.data().username) {
-                doc.ref.update({
-                  username: doc.data().uid,
-                });
-              }
-              navigate("/dummygram");
-            } else {
-              createUserDoc(result);
-            }
-          })
-          .catch((error) => {
-            playErrorSound();
-            enqueueSnackbar(error.message, {
-              variant: "error",
-            });
-          });
-      })
-      .catch((error) => {
-        playErrorSound();
-        enqueueSnackbar(error.message, {
-          variant: "error",
-        });
-      });
-  };
-
-  async function createUserDoc(val) {
-    setFullName(val?.user?.displayName);
-    setEmail(val?.user?.email);
-    setIsOauthSignUp(true);
-    const userCollectionRef = db.collection("users");
-    const usernameDoc = db.doc(`usernames/${username}`);
-    const batch = db.batch();
-    batch.set(usernameDoc, { uid: val.user.uid });
-    batch.commit();
-    await userCollectionRef
-      .doc(auth.currentUser.uid)
-      .set({
-        uid: val.user.uid,
-        username: val.user.uid,
-        name: val.user.displayName,
-        email: val.user.email,
-        photoURL: val.user.photoURL,
-        posts: [],
-        friends: [],
-      })
-      .then(() => {
-        playSuccessSound();
-        enqueueSnackbar(
-          `Congratulations ${fullName},you have joined Dummygram`,
-          {
-            variant: "success",
-          },
-        );
-        navigate("/dummygram");
-      })
-      .catch((error) => {
-        playErrorSound();
-        enqueueSnackbar(error.message, {
-          variant: "error",
-        });
-      });
-  }
 
   const navigateToLogin = () => {
     navigate("/dummygram/login");
@@ -420,8 +297,8 @@ const SignupScreen = () => {
             handleSubmit={signUp}
             btn__label={"Sign up"}
             submit__icon={faRightToBracket}
-            handleSignInWithGoogle={signInWithGoogle}
-            handleSignInWithFacebook={signInWithFacebook}
+            handleSignInWithGoogle={(e) => signInWithOAuth(e, enqueueSnackbar, navigate)}
+            handleSignInWithFacebook={(e) => signInWithOAuth(e, enqueueSnackbar, navigate, false)}
             have_acct_question={"Already have an account?"}
             have_acct_nav={navigateToLogin}
             have__acct_action={"Sign in!"}

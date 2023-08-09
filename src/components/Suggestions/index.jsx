@@ -78,8 +78,6 @@ const Suggestion = () => {
   const handleSendFriendRequest = (
     friendRequestSent,
     uid,
-    name,
-    username,
     idx,
   ) => {
     const currentUserUid = currentUser?.uid;

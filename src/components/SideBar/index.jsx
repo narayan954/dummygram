@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { auth, db } from "../../lib/firebase";
 import { getModalStyle, useStyles } from "../../App";
 import { useLocation, useNavigate } from "react-router-dom";
+import getUserSessionData from "../../js/userData";
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -42,11 +43,8 @@ function SideBar() {
   useEffect(() => {
     async function getUsername() {
       try {
-        const docRef = db.collection("users", user?.uid);
-        const docSnap = await docRef.get();
-
-        if (docSnap.docs[0].exists) {
-          const data = docSnap.docs[0].data();
+        const data = await getUserSessionData();
+        if (data) {
           setUserData({
             name: data?.displayName || auth.currentUser?.displayName,
             username: data?.username || auth.currentUser?.uid,

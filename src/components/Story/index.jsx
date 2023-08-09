@@ -6,7 +6,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { db } from "../../lib/firebase";
 import { deleteField } from "firebase/firestore";
-import storyBg from "../../assets/postbg.webp";
 
 const StoryView = ({ username, setViewStory, setUserData }) => {
   const [storyData, setStoryData] = useState({});

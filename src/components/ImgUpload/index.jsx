@@ -4,8 +4,8 @@ import { Avatar, LinearProgress, TextField } from "@mui/material";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import React, { useEffect, useRef, useState } from "react";
 import { auth, db, handleMultiUpload } from "../../lib/firebase";
-import { doc, getDoc } from "firebase/firestore";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
+import getUserSessionData, { setUserSessionData } from "../../js/userData";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Camera from "./Camera";
@@ -52,10 +52,9 @@ export default function ImgUpload(props) {
 
   useEffect(() => {
     async function getUsername() {
-      const docRef = doc(db, "users", auth?.currentUser?.uid);
-      const docSnap = await getDoc(docRef);
-      setUsername(docSnap.data().username);
-      if (docSnap.data().hasOwnProperty("storyTimestamp")) {
+      const data = await getUserSessionData();
+      setUsername(data.username);
+      if (data.hasOwnProperty("storyTimestamp")) {
         setIsStoryUploaded(true);
       }
     }
@@ -102,6 +101,7 @@ export default function ImgUpload(props) {
   };
 
   const savePost = async (imageUrl = "", type) => {
+    const bg = background === "#fff" ? null : background
     try {
       if (type === "Post") {
         const postRef = await db.collection("posts").add({
@@ -109,7 +109,7 @@ export default function ImgUpload(props) {
           caption: caption,
           imageUrl,
           username: username,
-          background: background,
+          background: bg,
           displayName: props.user.displayName,
           avatar: props.user.photoURL,
           likecount: [],
@@ -124,11 +124,12 @@ export default function ImgUpload(props) {
           .update({
             posts: firebase.firestore.FieldValue.arrayUnion(postId), // Use postId instead of postRef.id
           });
+        setUserSessionData({ posts: firebase.firestore.FieldValue.arrayUnion(postId) })
       } else {
         await db.collection("story").add({
           caption: caption,
           imageUrl,
-          background: background,
+          background: bg,
           username: username,
           uid: auth?.currentUser?.uid,
         });
@@ -143,6 +144,7 @@ export default function ImgUpload(props) {
           await userRef.update({
             storyTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
           });
+          setUserSessionData({ storyTimestamp: firebase.firestore.FieldValue.serverTimestamp() })
         }
       }
 
@@ -369,9 +371,8 @@ export default function ImgUpload(props) {
             <button
               onClick={() => handleUpload("Story")}
               disabled={uploadingPost || isStoryUploaded}
-              className={`share__button ${
-                isStoryUploaded ? "disable_post_btn" : null
-              }`}
+              className={`share__button ${isStoryUploaded ? "disable_post_btn" : null
+                }`}
             >
               Create Story
             </button>
@@ -520,9 +521,8 @@ export default function ImgUpload(props) {
               <button
                 onClick={() => handleUpload("Story")}
                 disabled={uploadingPost || isStoryUploaded}
-                className={`share__button ${
-                  isStoryUploaded ? "disable_post_btn" : null
-                }`}
+                className={`share__button ${isStoryUploaded ? "disable_post_btn" : null
+                  }`}
               >
                 Create Story
               </button>
