@@ -8,6 +8,7 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { VscChromeClose } from "react-icons/vsc";
 import about from "../../../assets/about-us.png";
 import logo from "../../../assets/logo.webp";
+import Footer from "../../../components/Footer/Footer";
 
 const About = () => {
   const [forks, setForks] = useState(0);
@@ -160,7 +161,9 @@ const About = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
+  
   );
 };
 

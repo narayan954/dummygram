@@ -3,10 +3,13 @@ import "../design.css";
 
 import React, { useRef } from "react";
 
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { SideBar } from "../../../components";
 import emailjs from "@emailjs/browser";
 import { playSuccessSound } from "../../../js/sounds";
 import { useSnackbar } from "notistack";
+import Footer from "../../../components/Footer/Footer";
+import Scroll from "../../../reusableComponents";
 
 export const Feedback = () => {
   const form = useRef(null);
@@ -36,7 +39,14 @@ export const Feedback = () => {
 
   return (
     <>
-      <SideBar />
+       <div
+        className="back-icon"
+        style={{ height: "90px", cursor: "pointer", marginTop:'35px' }}
+        onClick={() => navigate("/dummygram/")}
+      >
+        <KeyboardBackspaceIcon className="icon" /> 
+      </div>
+      <h1 style={{textAlign:'center', color:'#5f85db'}}>Your opinion matters to us !</h1>
       <div className="feedback-form-container footer-page-para-color">
         <span className="grad3 grad"></span>
         <span className="grad4 grad"></span>
@@ -72,6 +82,8 @@ export const Feedback = () => {
           </button>
         </form>
       </div>
+      <Scroll/>
+      <Footer/>
     </>
   );
 };

@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { VscChromeClose } from "react-icons/vsc";
 import background from "../../../assets/guidelines.png";
+import Footer from "../../../components/Footer/Footer";
 
 const Guidelines = () => {
   const navigate = useNavigate();
@@ -178,6 +179,7 @@ const Guidelines = () => {
           </ul>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };
