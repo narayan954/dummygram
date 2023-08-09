@@ -30,9 +30,13 @@ export default function Error() {
       <>
         <div style={{display:"flex",justifyContent:"center"}}>
           <div className="accordionTitle">
-            <div className="accordion-header" onClick={toggleAccordion}>
+            {/* <div className="accordion-header" onClick={toggleAccordion}>
+            </div> */}
+            <button class={`accordion ${isOpen==true && "accordionTrue"}`} onClick={toggleAccordion}>
               {title}
-            </div>
+            </button>
+            <hr />
+
           {isOpen && <div className="accordion-content">{content}</div>}
           </div>
         </div>
