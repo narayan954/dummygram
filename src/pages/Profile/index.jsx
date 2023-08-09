@@ -20,7 +20,6 @@ import Cam from "@mui/icons-material/CameraAltOutlined";
 import EditIcon from "@mui/icons-material/Edit";
 import { EditProfile } from "../../components";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
-import { FaUserCircle } from "react-icons/fa";
 import GridOnIcon from "@mui/icons-material/GridOn";
 import { Loader } from "../../reusableComponents";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -28,10 +27,10 @@ import NotFound from "../NotFound";
 import ProfieFeed from "./feed";
 import { StoryView } from "../../components";
 import ViewsCounter from "../../reusableComponents/views";
+import defaultProfile from "../../assets/blank-profile.webp";
 import deleteImg from "../../js/deleteImg";
 import firebase from "firebase/compat/app";
-import profileBackgroundImg from "../../assets/profile-background.jpg";
-import defaultProfile from "../../assets/blank-profile.webp";
+import profileBackgroundImg from "../../assets/profile-background.webp";
 import { useSnackbar } from "notistack";
 
 const SideBar = lazy(() => import("../../components/SideBar"));
@@ -204,6 +203,7 @@ function Profile() {
         enqueueSnackbar(`Error Occured: ${error}`, {
           variant: "error",
         });
+        setUserExists(false);
       }
     }
 

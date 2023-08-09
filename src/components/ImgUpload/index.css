@@ -47,7 +47,7 @@
   flex-wrap: wrap;
 }
 
-.post__avatar {
+.post__upload__avatar {
   margin-right: 10px;
   border-radius: 50%;
   width: 30px !important;

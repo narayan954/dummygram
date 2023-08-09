@@ -11,7 +11,9 @@ import storyBg from "../../assets/postbg.webp";
 const StoryView = ({ username, setViewStory, setUserData }) => {
   const [storyData, setStoryData] = useState({});
   const [storyImage, setStoryImage] = useState("");
-  const { imageUrl, caption } = storyData;
+  const { imageUrl, caption, background } = storyData;
+
+  const defaultBg = `linear-gradient(130deg, #dee2ed, #dee2ed, #9aa9d1, #b6c8e3, #b6afd0, #d3c0d8)`;
 
   useEffect(() => {
     async function getStory() {
@@ -106,8 +108,12 @@ const StoryView = ({ username, setViewStory, setUserData }) => {
             />
             {imageUrl == "" ? (
               <div className="story-img">
-                <img src={storyBg} alt={username} className="story_bg" />
-                <p className="caption_without_image">{caption}</p>
+                <div
+                  className="story_bg"
+                  style={{ background: background ? background : defaultBg }}
+                >
+                  <p className="caption_without_image">{caption}</p>
+                </div>
               </div>
             ) : (
               <div className="story_container-inner">
