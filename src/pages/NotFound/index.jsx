@@ -1,13 +1,13 @@
-import "./index.css"
+import "./index.css";
 import { Box, Button, Container, Typography } from "@mui/material";
 
 import Grid from "@mui/material/Grid";
 import { Link } from "react-router-dom";
 import React from "react";
-import img1 from "../../assets/404/404_1.png"
-import img2 from "../../assets/404/404_2.png"
-import img3 from "../../assets/404/404_3.jpeg"
-import img4 from "../../assets/404/404_4.jpeg"
+import img1 from "../../assets/404/404_1.png";
+import img2 from "../../assets/404/404_2.png";
+import img3 from "../../assets/404/404_3.jpeg";
+import img4 from "../../assets/404/404_4.jpeg";
 
 export default function Error() {
   const imagesArr = [img1, img2, img3, img4];
@@ -25,10 +25,17 @@ export default function Error() {
       <Container maxWidth="md">
         <div className="not_found_container">
           <Grid xs={6}>
-            <Typography variant="h1" fontSize={150} style={{ color: "var(--text-secondary)" }}>
+            <Typography
+              variant="h1"
+              fontSize={150}
+              style={{ color: "var(--text-secondary)" }}
+            >
               404
             </Typography>
-            <Typography variant="h3" style={{ color: "var(--text-secondary)", margin: "0" }}>
+            <Typography
+              variant="h3"
+              style={{ color: "var(--text-secondary)", margin: "0" }}
+            >
               Page Not Found
             </Typography>
             <div className="not_found_poem">
@@ -41,7 +48,7 @@ export default function Error() {
               <Button
                 variant="contained"
                 className="not_found_btn"
-                style={{color: "black", fontWeight: "600"}}
+                style={{ color: "black", fontWeight: "600" }}
               >
                 Back To Home
               </Button>
@@ -51,7 +58,11 @@ export default function Error() {
             <img
               src={imagesArr[randomIdx]}
               alt="error image"
-              style={{ borderRadius: "12px", aspectRatio: "initial", maxHeight: "300px" }}
+              style={{
+                borderRadius: "12px",
+                aspectRatio: "initial",
+                maxHeight: "300px",
+              }}
             />
           </Grid>
         </div>
