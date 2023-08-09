@@ -392,7 +392,7 @@ const ChatBox = () => {
           maxLength={250}
           placeholder="Enter message"
         />
-        {isEditing && <CloseIcon onClick={handleCancel} />}
+        {isEditing && <CloseIcon style={{color:"var(--text-grey)"}} onClick={handleCancel} />}
         <button className="chat-msg-send-btn-container">
           <SendIcon className="chat-msg-send-btn" onClick={handleOnSubmit} />
         </button>
