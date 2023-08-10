@@ -8,19 +8,23 @@ import { useNavigate } from "react-router-dom";
 
 const accordionData = [
   {
+    key: 1,
     title: "What is Dummygram ?",
     content:
       "Dummygram is a social media platform that allows users to share photos, videos, and stories with their followers. ",
   },
   {
+    key: 2,
     title: "How To Upload Images ?",
     content: "Click on Post on left side menu and then click on upload Images",
   },
   {
+    key: 3,
     title: "How To See Other User Profile",
     content: "Click on Post Profile Avatar Image",
   },
   {
+    key: 4,
     title: "How To Logout",
     content:
       "Click on your profile in side menu you will get DropDown click on logout",
@@ -55,15 +59,15 @@ export default function HelpCenter() {
       </section>
 
       <div style={{ marginTop: "60px", marginBottom: "60px" }}>
-        {accordionData.map((section, index) => (
-          <>
+        {accordionData.map((section) => {
+          return (
             <Accordion
-              key={index}
+              key={section.key}
               title={section.title}
               content={section.content}
             />
-          </>
-        ))}
+          );
+        })}
       </div>
     </>
   );
