@@ -114,17 +114,17 @@
   position: absolute;
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  width: 98%;
 }
 
 .slider_circle {
-  color: grey;
-  font-size: 18px;
+  color: var(--btn-hover);
+  font-size: 1.2rem;
 }
 
 .slider_chevron {
-  color: grey;
-  font-size: 18px;
+  color: var(--btn-hover);
+  font-size: 1.2rem;
 }
 
 .button {
@@ -290,7 +290,7 @@ input {
 }
 
 @media only screen and (max-width: 500px) {
-  .dialogStyle {width: 70vw;}
+  .dialogStyle {width: 70vw !important;}
 
   .createNewPost {
     font-size: 1rem;
