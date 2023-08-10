@@ -33,7 +33,6 @@
   padding: 0;
   margin: 0;
   scroll-behavior: smooth;
-  margin-top: 5rem;
 }
 
 .suggestion-user-list-item {
@@ -120,7 +119,7 @@
   .suggestion-user-container {
     flex-direction: column;
     width: 100%;
-    margin-top: 7rem;
+    /* margin-top: 7rem; */
   }
 
   .suggestion-user-list-item {
@@ -137,5 +136,9 @@
 
   .suggestion-scroll-btn {
     display: none;
+  }
+
+  .top-margin {
+    margin-top: 5rem;
   }
 }
