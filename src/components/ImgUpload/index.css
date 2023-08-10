@@ -1,3 +1,52 @@
+.create_box_main_container {
+  padding: 15px;
+}
+
+.create_box_header_container{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+}
+
+.create_box_user_avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #eee;
+}
+
+.create_box_img_container {
+  width: 100%;
+  height: 400px;
+}
+
+.slider_view {
+  width: 100%;
+  height: 100%;
+}
+
+.slide > span {
+  width: 100%;
+  height: 100%;
+}
+
+.create_box_edit_container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px;
+}
+
+.create_box_edit_icon {
+  cursor: pointer;
+  transform: scale(1.4);
+}
+
+.create_box_edit_icon > span {
+  cursor: pointer;
+}
+
 .share__button {
   background: var(--btn-color);
   width: 100%;
@@ -14,29 +63,9 @@
   background: var(--btn-color-hover);
 }
 
-.back_button {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 1rem;
-  font-size: 1rem;
-  background: var(--btn-color);
-  color: white;
-  padding: 5px 10px;
-  cursor: pointer;
-}
-
-.back_button:hover {
-  background: var(--btn-color-hover);
-}
-
 .post__username {
   font-size: 14px;
   font-weight: 600;
-}
-
-.post__caption_section {
-  height: 100%;
 }
 
 .post__header {
@@ -47,25 +76,6 @@
   flex-wrap: wrap;
 }
 
-.post__upload__avatar {
-  margin-right: 10px;
-  border-radius: 50%;
-  width: 30px !important;
-  height: 30px !important;
-  object-fit: contain;
-}
-
-.imageUpload {
-  position: sticky;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* width: 100%; */
-}
-
-.upload-picture:hover {
-  opacity: 0.8;
-}
 
 .openpopup:hover {
   opacity: 0.8;
@@ -230,11 +240,6 @@ input {
     justify-content: center;
   }
 
-  .imageUpload {
-    width: 100%;
-    flex-direction: row;
-  }
-
   .big_post_view {
     width: 100%;
     display: flex;
@@ -247,21 +252,13 @@ input {
     width: 45%;
   }
 
-  .post__caption_section {
-    width: 55%;
-    border-left: 2px solid rgb(192, 191, 191);
-  }
-
   .file-input {
     gap: 5rem;
   }
 
-  .slider__View {
-    width: 45%;
-  }
 
   .sliders_button {
-    width: 38%;
+    width: 90%;
   }
 
   .small_post_view {
@@ -272,7 +269,6 @@ input {
 
 @media only screen and (max-width: 800px) {
   .imageUpload {
-    width: 70vw;
     margin-top: 20px;
     margin-bottom: 20px;
     flex-direction: column;
@@ -288,10 +284,6 @@ input {
     align-items: center;
     /* padding-top: 20px; */
     gap: 10vh;
-  }
-
-  .post__caption_section {
-    width: 100%;
   }
 
   .next_button {
@@ -313,11 +305,7 @@ input {
   }
 
   .slider__View {
-    height: 50vh;
-    width: 60vw;
-    margin: auto;
-    margin-bottom: 30px;
-    /* width: 16rem; */
+    margin: auto;/
   }
 
   .big_post_view {

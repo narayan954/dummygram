@@ -238,6 +238,7 @@ function SideBar() {
       <Dialog
         PaperProps={{
           className: "dialogStyle",
+          style: {width: "600px"}
         }}
         open={openNewUpload}
         onClose={() => setOpenNewUpload(false)}
