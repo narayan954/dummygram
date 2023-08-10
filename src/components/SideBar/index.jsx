@@ -46,11 +46,11 @@ function SideBar() {
   useEffect(() => {
     async function getUsername() {
       try {
-        const docRef = db.collection("users", user?.uid);
+        const docRef = db.collection("users").doc(user?.uid);
         const docSnap = await docRef.get();
 
-        if (docSnap.docs[0].exists) {
-          const data = docSnap.docs[0].data();
+        if (docSnap.exists) {
+          const data = docSnap.data();
           setUserData({
             name: data?.displayName || auth.currentUser?.displayName,
             username: data?.username || auth.currentUser?.uid,
@@ -212,7 +212,7 @@ function SideBar() {
 
       {openMenu && (
         <ClickAwayListener onClickAway={() => setOpenMenu(false)}>
-          <div className="sidebar_user_dropdown_container">
+          <div className="sidebar_user_dropdown_container" onClick={() => setOpenMenu(false)}>
             <ul className="sidebar_user_dropdown_sub_container">
               <li
                 onClick={() =>

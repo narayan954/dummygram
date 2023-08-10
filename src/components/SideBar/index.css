@@ -101,6 +101,7 @@
   width: 80px;
   height: 80px;
   transition: 0.2s ease-in-out;
+  border-radius: 50%;
   border: 1px solid #eee;
   box-shadow:
     1px 1px 3px #bcbbbb,
@@ -132,7 +133,7 @@
 
 .sidebar_user_dropdown_container {
   position: absolute;
-  top: 111px;
+  top: 41px;
   left: 200px;
   padding: 0;
   border-radius: 10px;
@@ -252,7 +253,7 @@ footer {
 
   .sidebar_user_dropdown_container {
     width: 150px;
-    left: 40px;
+    left: 50px;
   }
   
   #sidebar_profile_link:hover {
@@ -277,7 +278,6 @@ footer {
     padding-block: 5px;
     bottom: 0;
     margin: 0;
-    z-index: 999;
   }
 
   .sidebar hr {
@@ -304,7 +304,7 @@ footer {
 
   .sidebar_user_dropdown_container {
     left: initial;
-    top: -120px;
+    top: -140px;
     right: 5px;
   }
 
