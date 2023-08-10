@@ -250,7 +250,6 @@
 @media screen and (max-width: 600px) {
   .chat-msg-text {
     padding: 6px 9px;
-    max-width: 55%;
   }
 
   .chat-msg-text p {
