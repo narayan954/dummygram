@@ -1,74 +1,68 @@
+import "./index.css";
 import {
-  Avatar,
-  ClickAwayListener,
-  IconButton,
-  Typography,
-  useMediaQuery,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@mui/material";
-import {
-  CommentForm,
-  CommentItem,
-  PostCaption,
-  PostContentText,
-  PostGridItem,
-  PostGridItemContainer,
-  PostHeader,
-  PostViewGrid,
-} from "../../pages/PostView/PostViewStyled.jsx";
-import React, { useEffect } from "react";
+import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
+import React, { useEffect, useState } from "react";
 import { doc, updateDoc } from "firebase/firestore";
+import BlankImg from "../../assets/blank-profile.webp";
+import CommentBox from "../Post/CommentBox";
+import { deleteComment } from "../../js/postFn";
 
-import Caption from "../Post/Caption.jsx";
-import EmojiPicker from "emoji-picker-react";
-import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
-import { Send } from "@mui/icons-material";
-import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
 import { db } from "../../lib/firebase.js";
 import firebase from "firebase/compat/app";
 import useCreatedAt from "../../hooks/useCreatedAt.jsx";
 import { useNavigate } from "react-router-dom";
-import { useTheme } from "@mui/material/styles";
 
 const ImageSlider = React.lazy(() =>
   import("../../reusableComponents/ImageSlider"),
 );
 const PostDetails = React.lazy(() => import("./PostDetails.jsx"));
-const PostViewComments = React.lazy(() => import("./PostViewComments.jsx"));
-const PostViewMenu = React.lazy(() => import("./PostViewMenu.jsx"));
-
-const ReadMore = React.lazy(() => import("../ReadMore"));
 
 const PostCommentView = ({ setFetchAgain, fetchAgain, postId, user, post }) => {
   const navigate = useNavigate();
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
-  const { username, caption, imageUrl, avatar, likecount, timestamp, uid } =
-    post;
+  const [openToDeleteComment, setOpenToDeleteComment] = useState(false);
+  const {
+    username,
+    caption,
+    imageUrl,
+    avatar,
+    likecount,
+    timestamp,
+    uid,
+    displayName,
+    background,
+  } = post;
   const time = useCreatedAt(timestamp);
+  const defaultBg = `linear-gradient(130deg, #dee2ed, #dee2ed, #9aa9d1, #b6c8e3, #b6afd0, #d3c0d8)`;
 
   const [comments, setComments] = React.useState(null);
-  const [likesNo, setLikesNo] = React.useState(
-    likecount ? likecount.length : 0,
-  );
-  const tempLikeCount = likecount ? [...likecount] : [];
+  const [comment, setComment] = useState("");
+  const [tempLikeCount, setTempLikeCount] = useState(post.likecount || []);
+  const [userData, setUserData] = useState({});
   const [showEmojis, setShowEmojis] = React.useState(false);
-  const commentRef = React.useRef(null);
   const docRef = doc(db, "posts", postId);
 
   async function likesHandler() {
     if (user && likecount !== undefined) {
+      const tempArr = tempLikeCount;
       let ind = tempLikeCount.indexOf(user.uid);
 
       if (ind !== -1) {
-        tempLikeCount.splice(ind, 1);
-        setLikesNo((currLikesNo) => currLikesNo - 1);
+        tempArr.splice(ind, 1);
+        setTempLikeCount(tempArr);
       } else {
-        tempLikeCount.push(user.uid);
-        setLikesNo((currLikesNo) => currLikesNo + 1);
+        tempArr.push(user.uid);
+        setTempLikeCount(tempArr);
       }
 
       const data = {
-        likecount: tempLikeCount,
+        likecount: tempArr,
       };
       await updateDoc(docRef, data)
         .then(() => setFetchAgain(!fetchAgain))
@@ -78,18 +72,41 @@ const PostCommentView = ({ setFetchAgain, fetchAgain, postId, user, post }) => {
     }
   }
 
-  const postComment = (event) => {
-    if (event.key === "Enter" || event.type == "click") {
-      event.preventDefault();
-      const commentValue = commentRef?.current?.value;
-      if (commentValue && commentRef?.current?.value?.trim().length >= 1) {
-        db.collection("posts").doc(postId).collection("comments").add({
-          text: commentValue,
-          username: user.displayName,
-          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+  useEffect(() => {
+    async function getUsername() {
+      try {
+        const docRef = db.collection("users").doc(user?.uid);
+        const docSnap = await docRef.get();
+        if (docSnap.exists) {
+          const data = docSnap.data();
+          setUserData({
+            username: data?.username || auth.currentUser?.uid,
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setUserData({
+          username: user?.uid,
         });
-        commentRef.current.value = "";
       }
+    }
+    getUsername();
+  }, []);
+
+  const postComment = (event) => {
+    event.preventDefault();
+    try {
+      db.collection("posts").doc(postId).collection("comments").add({
+        text: comment,
+        username: userData?.username,
+        displayName: user?.displayName,
+        avatar: user?.photoURL,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setComment("");
     }
   };
 
@@ -145,241 +162,154 @@ const PostCommentView = ({ setFetchAgain, fetchAgain, postId, user, post }) => {
   }
 
   const postHasImages = postImages.some((image) => Boolean(image.imageUrl));
-  const onEmojiClick = (emojiObject, event) => {
-    if (commentRef && commentRef.current) {
-      const commentValue = commentRef.current.value || "";
-      commentRef.current.value = commentValue + emojiObject.emoji;
-    }
+  const onEmojiClick = (emojiObject) => {
+    setComment((prevInput) => prevInput + emojiObject.emoji);
     setShowEmojis(false);
   };
 
   return (
-    <PostViewGrid container className="post-card">
-      <PostGridItemContainer item xs={12} sm={6}>
-        <PostGridItem
-          postHasImages={postHasImages}
-          textPost={!postHasImages && caption}
-        >
+    <div className="post_view_container">
+      <div className="post_view_sub_container">
+        <div className="post_view_header_container">
+          <img
+            src={avatar?.length > 0 ? avatar : BlankImg}
+            alt={displayName}
+            className="post_view_avatar"
+            onClick={() => navigate(`/dummygram/user/${username}`)}
+          />
+          <span>
+            <h2
+              className="post_view_user_name"
+              onClick={() => navigate(`/dummygram/user/${username}`)}
+            >
+              {displayName}
+            </h2>
+            <p className="post_view_time">{time}</p>
+          </span>
+        </div>
+        <div className="post_view_img_container">
           {postHasImages ? (
-            <ErrorBoundary>
+            <>
+              <p>{caption}</p>
               <ImageSlider
                 slides={postImages}
+                height={500}
                 isCommentBox={true}
                 doubleClickHandler={likesHandler}
               />
-            </ErrorBoundary>
+            </>
           ) : (
-            <PostContentText style={{ padding: "1rem" }}>
-              {caption.length >= 300 ? (
-                <Typography variant="body3" color="text.secondary">
-                  <ErrorBoundary>
-                    <ReadMore picCap readMore={false}>
-                      {caption}
-                    </ReadMore>
-                  </ErrorBoundary>
-                </Typography>
-              ) : (
-                <Typography variant="h5" className="light-text">
-                  <Caption caption={caption} />
-                </Typography>
-              )}
-            </PostContentText>
-          )}
-        </PostGridItem>
-      </PostGridItemContainer>
-      <PostGridItemContainer
-        item
-        xs={12}
-        sm={6}
-        style={{ display: "flex", flexDirection: "column" }}
-        isDetails={true}
-      >
-        <PostGridItem isHeader={true}>
-          <ErrorBoundary>
-            <PostHeader
-              avatar={
-                <Avatar
-                  // className="post__avatar"
-                  alt={username}
-                  src={avatar}
-                  sx={{
-                    bgcolor: "royalblue",
-                    border: "2px solid transparent",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    cursor: "pointer",
-                    "&:hover": {
-                      boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 17px 0px",
-                      border: "2px solid black",
-                      scale: "1.1",
-                    },
-                  }}
-                  onClick={() => {
-                    navigate(`/dummygram/user/${username}`);
-                  }}
-                />
-              }
-              action={
-                <PostViewMenu
-                  postHasImages={postHasImages}
-                  user={user}
-                  username={username}
-                  avatar={avatar}
-                  caption={caption}
-                  postId={postId}
-                  setFetchAgain={setFetchAgain}
-                  fetchAgain={fetchAgain}
-                  imageUrl={imageUrl}
-                  fullScreen={fullScreen}
-                />
-              }
-              title={username}
-              subheader={time}
-            />
-          </ErrorBoundary>
-          {/* caption box */}
-          {postHasImages && caption ? (
-            <ErrorBoundary>
-              <PostCaption style={{ paddingRight: "1rem" }}>
-                <Typography
-                  variant="body2"
-                  className="post-page-caption"
-                  color="text.secondary"
-                >
-                  <ReadMore readMore={false}>{caption}</ReadMore>
-                </Typography>
-              </PostCaption>
-            </ErrorBoundary>
-          ) : null}
-        </PostGridItem>
-
-        {/* post/ like ...  box */}
-        <PostGridItem postActions>
-          <ErrorBoundary>
-            <PostDetails
-              user={user}
-              postUserUid={uid}
-              imageUrl={imageUrl}
-              postId={postId}
-              likecount={likecount}
-              likesHandler={likesHandler}
-              fullScreen={fullScreen}
-              caption={caption}
-              setFetchAgain={setFetchAgain}
-              fetchAgain={fetchAgain}
-            />
-          </ErrorBoundary>
-        </PostGridItem>
-
-        {/* Comment box  */}
-        <PostGridItem isComments={comments?.length > 0}>
-          <CommentForm>
-            <ClickAwayListener onClickAway={() => setShowEmojis(false)}>
-              <div className="social__icon">
-                <div className="emoji__icon">
-                  <SentimentSatisfiedAltOutlinedIcon
-                    onClick={() => {
-                      setShowEmojis((val) => !val);
-                    }}
-                  />
-                </div>
-                {showEmojis && (
-                  <div>
-                    <EmojiPicker
-                      emojiStyle="native"
-                      height={280}
-                      searchDisabled
-                      style={{ zIndex: 999 }}
-                      onEmojiClick={onEmojiClick}
-                      previewConfig={{
-                        showPreview: false,
-                      }}
-                    />
-                  </div>
-                )}
-              </div>
-            </ClickAwayListener>
-            <input
-              className="post__input"
-              onKeyDown={postComment}
-              type="text"
-              placeholder={
-                comments?.length !== 0
-                  ? "Add a comment..."
-                  : "Be the first one to comment ..."
-              }
-              ref={commentRef}
-              maxLength="150"
-              style={{
-                color: "var(--color)",
-                borderRadius: "16px",
-                margin: "4px 0px",
-              }}
-            />
-
-            <IconButton
-              className="post__button"
-              disabled={commentRef?.current?.value === null}
-              type="submit"
-              onClick={postComment}
-              style={{
-                padding: 0,
-                paddingRight: "5px",
-              }}
+            <div
+              style={{ background: background ? background : defaultBg }}
+              className="post_view_post_without_img"
             >
-              <Send className="send-comment-btn" />
-            </IconButton>
-          </CommentForm>
-          <ErrorBoundary>
-            {comments?.length ? (
-              <>
-                {comments.map((userComment) => (
-                  <CommentItem
-                    className="comment-container"
-                    key={userComment.id}
+              {caption}
+            </div>
+          )}
+        </div>
+        <div className="post_view_post_nav_container">
+          <PostDetails
+            user={user}
+            postId={postId}
+            postUserUid={uid}
+            likecount={tempLikeCount}
+            likesHandler={likesHandler}
+            imageUrl={imageUrl}
+            caption={caption}
+          />
+        </div>
+        <div>
+          <CommentBox
+            user={user}
+            showEmojis={showEmojis}
+            setShowEmojis={setShowEmojis}
+            comment={comment}
+            setComment={setComment}
+            postComment={postComment}
+            onEmojiClick={onEmojiClick}
+          />
+        </div>
+        <div>
+          {comments?.length ? (
+            <ul className="post_view_comment_container">
+              {comments.map(({ id, content }) => (
+                <li key={id} className="post_view_comment_list_item">
+                  <img
+                    src={content.avatar ? content.avatar : BlankImg}
+                    alt={content.displayName}
+                    className="post_view_comment_img"
+                    onClick={() =>
+                      navigate(`/dummygram/user/${content.username}`)
+                    }
+                  />
+                  <div>
+                    <h4
+                      className="post_view_comment_img_name"
+                      onClick={() =>
+                        navigate(`/dummygram/user/${content.username}`)
+                      }
+                    >
+                      {content.displayName}
+                    </h4>
+                    <p>{content.text}</p>
+                  </div>
+                  <div
+                    onClick={() => {
+                      setOpenToDeleteComment(!openToDeleteComment);
+                    }}
+                    style={{ marginLeft: "auto" }}
                   >
-                    <div className={"post_comment_details"}>
-                      <div className="post_comment_header">
-                        <span>{userComment.content.displayName}</span>
-                        <PostViewComments
-                          fullScreen={fullScreen}
-                          postId={postId}
-                          user={user}
-                          userComment={userComment}
-                        />
-                      </div>
-                      <div className="post_comment_area">
-                        <div className="post_comment_text">
-                          <ReadMore style={{ fontWeight: "500" }}>
-                            {userComment.content.text}
-                          </ReadMore>
-                        </div>
-                        <PostViewComments
-                          fullScreen={fullScreen}
-                          postId={postId}
-                          user={user}
-                          userComment={userComment}
-                        />
-                      </div>
-                    </div>
-                  </CommentItem>
-                ))}
-              </>
-            ) : (
-              <>
-                <CommentItem empty={true}>
-                  <Typography variant="body2" className="no-comments">
-                    No Comments to Show!!
-                  </Typography>
-                </CommentItem>
-              </>
-            )}
-          </ErrorBoundary>
-        </PostGridItem>
-        {/*<div style={{flexGrow: 1}}/>*/}
-      </PostGridItemContainer>
-    </PostViewGrid>
+                    {userData?.username == content.username && (
+                      <DeleteTwoToneIcon
+                        fontSize="small"
+                        className="comment-delete-icon"
+                      />
+                    )}
+                    {
+                      <Dialog
+                        open={openToDeleteComment}
+                        onClose={() => setOpenToDeleteComment(false)}
+                        aria-labelledby="responsive-dialog-title"
+                      >
+                        <DialogTitle id="responsive-dialog-title">
+                          {"Delete Comment?"}
+                        </DialogTitle>
+                        <DialogContent>
+                          <DialogContentText>
+                            Are you sure you want to delete this Comment?
+                          </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                          <Button onClick={() => setOpenToDeleteComment(false)}>
+                            Cancel
+                          </Button>
+                          <Button
+                            onClick={async (event) => {
+                              await deleteComment(event, postId, id);
+                              setOpenToDeleteComment(false);
+                            }}
+                          >
+                            Delete
+                          </Button>
+                        </DialogActions>
+                      </Dialog>
+                    }
+                  </div>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p
+              variant="body2"
+              className="no-comments"
+              style={{ textAlign: "center" }}
+            >
+              No Comments to Show!!
+            </p>
+          )}
+        </div>
+      </div>
+    </div>
   );
 };
 export default PostCommentView;
