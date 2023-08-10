@@ -194,43 +194,43 @@ function App() {
                 }
               />
               <Route errorElement path="*" element={<NotFound />} />
+
+              <Route
+                path="about"
+                element={
+                  <ErrorBoundary inApp={true}>
+                    <About />
+                  </ErrorBoundary>
+                }
+              />
+
+              <Route
+                path="contributors"
+                element={
+                  <ErrorBoundary inApp={true}>
+                    <Contributors />
+                  </ErrorBoundary>
+                }
+              />
+
+              <Route
+                path="guidelines"
+                element={
+                  <ErrorBoundary inApp={true}>
+                    <Guidelines />
+                  </ErrorBoundary>
+                }
+              />
+
+              <Route
+                path="help-center"
+                element={
+                  <ErrorBoundary inApp={true}>
+                    <HelpCenter />
+                  </ErrorBoundary>
+                }
+              />
             </Route>
-
-            <Route
-              path="about"
-              element={
-                <ErrorBoundary inApp={true}>
-                  <About />
-                </ErrorBoundary>
-              }
-            />
-
-            <Route
-              path="contributors"
-              element={
-                <ErrorBoundary inApp={true}>
-                  <Contributors />
-                </ErrorBoundary>
-              }
-            />
-
-            <Route
-              path="guidelines"
-              element={
-                <ErrorBoundary inApp={true}>
-                  <Guidelines />
-                </ErrorBoundary>
-              }
-            />
-
-            <Route
-              path="help-center"
-              element={
-                <ErrorBoundary inApp={true}>
-                  <HelpCenter />
-                </ErrorBoundary>
-              }
-            />
 
             <Route
               path="settings"
