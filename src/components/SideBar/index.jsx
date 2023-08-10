@@ -9,7 +9,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineClose } from "react-icons/ai";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { ClickAwayListener } from "@mui/material";
 import { Dialog } from "@mui/material";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
@@ -93,11 +92,11 @@ function SideBar() {
     <div className="sidebar">
       <div className="sidebar-container">
         <ul className="sidebar-links">
-          <div className="sidebar_design">
+          {/* <div className="sidebar_design">
             <span style={{ backgroundColor: "red" }}></span>
             <span style={{ backgroundColor: "orange" }}></span>
             <span style={{ backgroundColor: "rgb(30, 222, 30)" }}></span>
-          </div>
+          </div> */}
           <li
             className={
               windowWidth < 1200 &&
