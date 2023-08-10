@@ -5,6 +5,7 @@ import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useEffect, useRef, useState } from "react";
 
 import { ClickAwayListener } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import DeleteIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import EditIcon from "@mui/icons-material/EditOutlined";
 import EmojiPicker from "emoji-picker-react";
@@ -18,7 +19,6 @@ import firebase from "firebase/compat/app";
 import profileAvatar from "../../assets/blank-profile.webp";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
-import CloseIcon from "@mui/icons-material/Close";
 
 const ChatBox = () => {
   const [showEmojis, setShowEmojis] = useState(false);
@@ -392,7 +392,12 @@ const ChatBox = () => {
           maxLength={250}
           placeholder="Enter message"
         />
-        {isEditing && <CloseIcon style={{color:"var(--text-grey)"}} onClick={handleCancel} />}
+        {isEditing && (
+          <CloseIcon
+            style={{ color: "var(--text-grey)" }}
+            onClick={handleCancel}
+          />
+        )}
         <button className="chat-msg-send-btn-container">
           <SendIcon className="chat-msg-send-btn" onClick={handleOnSubmit} />
         </button>
