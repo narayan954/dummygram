@@ -31,6 +31,7 @@ const NotFound = React.lazy(() => import("./pages/NotFound"));
 const Contributors = React.lazy(() =>
   import("./pages/FooterPages/ContributorPage"),
 );
+const HelpCenter = React.lazy(() => import("./pages/FooterPages/HelpCenter"));
 // ------------------------------------- Components ------------------------------------------------
 const Notifications = React.lazy(() => import("./components/Notification"));
 const SideBar = React.lazy(() => import("./components/SideBar"));
@@ -218,6 +219,15 @@ function App() {
               element={
                 <ErrorBoundary inApp={true}>
                   <Guidelines />
+                </ErrorBoundary>
+              }
+            />
+
+            <Route
+              path="help-center"
+              element={
+                <ErrorBoundary inApp={true}>
+                  <HelpCenter />
                 </ErrorBoundary>
               }
             />
