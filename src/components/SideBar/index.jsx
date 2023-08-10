@@ -5,8 +5,6 @@ import React, { useEffect, useState } from "react";
 import { auth, db } from "../../lib/firebase";
 import { getModalStyle, useStyles } from "../../App";
 import { useLocation, useNavigate } from "react-router-dom";
-import blankImg from "../../assets/blank-profile.webp"
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -19,8 +17,10 @@ import HomeIcon from "@mui/icons-material/Home";
 import ImgUpload from "../ImgUpload";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Modal from "@mui/material/Modal";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import SettingsIcon from "@mui/icons-material/Settings";
+import blankImg from "../../assets/blank-profile.webp";
 import { useSnackbar } from "notistack";
 
 const Footer = React.lazy(() => import("./Footer"));
@@ -93,22 +93,25 @@ function SideBar() {
     <div className="sidebar">
       <div className="sidebar-container">
         <ul className="sidebar-links">
-        <div className="sidebar_design">
-          <span style={{ backgroundColor: "red" }}></span>
-          <span style={{ backgroundColor: "orange" }}></span>
-          <span style={{ backgroundColor: "rgb(30, 222, 30)" }}></span>
-        </div>
+          <div className="sidebar_design">
+            <span style={{ backgroundColor: "red" }}></span>
+            <span style={{ backgroundColor: "orange" }}></span>
+            <span style={{ backgroundColor: "rgb(30, 222, 30)" }}></span>
+          </div>
           <li
             className={
-              (windowWidth < 1200 && location.pathname.includes("/dummygram/user")) ? "activeTab" : ""
+              windowWidth < 1200 &&
+              location.pathname.includes("/dummygram/user")
+                ? "activeTab"
+                : ""
             }
             style={{
-              cursor: windowWidth > 1200? "default" : "pointer"
+              cursor: windowWidth > 1200 ? "default" : "pointer",
             }}
             id="sidebar_profile_link"
             onClick={() => {
               if (windowWidth < 1200) {
-                setOpenMenu((prev) => !prev)
+                setOpenMenu((prev) => !prev);
               }
             }}
           >
@@ -117,10 +120,11 @@ function SideBar() {
                 <MoreVertIcon
                   className="sidebar_menu_icon"
                   onClick={() => setOpenMenu((prev) => !prev)}
-                  style={{cursor: "pointer"}}
-                />)}
+                  style={{ cursor: "pointer" }}
+                />
+              )}
               <img
-                src={user?.photoURL?.length > 0? user.photoURL : blankImg}
+                src={user?.photoURL?.length > 0 ? user.photoURL : blankImg}
                 alt="profile picture"
                 className="profile-picture"
               />
@@ -132,7 +136,7 @@ function SideBar() {
             onClick={() => navigate("/dummygram")}
             className={
               location.pathname === "/dummygram/" ||
-                location.pathname === "/dummygram"
+              location.pathname === "/dummygram"
                 ? "activeTab"
                 : ""
             }
@@ -212,12 +216,16 @@ function SideBar() {
 
       {openMenu && (
         <ClickAwayListener onClickAway={() => setOpenMenu(false)}>
-          <div className="sidebar_user_dropdown_container" onClick={() => setOpenMenu(false)}>
+          <div
+            className="sidebar_user_dropdown_container"
+            onClick={() => setOpenMenu(false)}
+          >
             <ul className="sidebar_user_dropdown_sub_container">
               <li
                 onClick={() =>
                   navigate(
-                    `/dummygram/${anonymous ? "signup" : `user/${userData.username}`
+                    `/dummygram/${
+                      anonymous ? "signup" : `user/${userData.username}`
                     }`,
                   )
                 }

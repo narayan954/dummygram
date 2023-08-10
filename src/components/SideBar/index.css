@@ -28,7 +28,7 @@
   width: fit-content;
 }
 
-.sidebar_design > span{
+.sidebar_design > span {
   width: 10px;
   height: 10px;
   display: inline-block;
@@ -42,7 +42,7 @@
   right: -10px;
   border-radius: 50%;
   padding: 5px;
-  color: var(--text-secondary)
+  color: var(--text-secondary);
 }
 
 .sidebar_menu_icon:hover {
@@ -103,9 +103,7 @@
   transition: 0.2s ease-in-out;
   border-radius: 50%;
   border: 1px solid #eee;
-  box-shadow:
-    1px 1px 3px #bcbbbb,
-    -1px -1px 3px #bcbbbb;
+  box-shadow: 1px 1px 3px #bcbbbb, -1px -1px 3px #bcbbbb;
 }
 
 .sidebar_user_name {
@@ -255,7 +253,7 @@ footer {
     width: 150px;
     left: 50px;
   }
-  
+
   #sidebar_profile_link:hover {
     background-color: #5f85db;
   }
