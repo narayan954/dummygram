@@ -27,14 +27,31 @@ const FriendsComponent = () => {
         }
     };
 
+    async function checkCurrentUser() {
+        const docRef = db.collection("users").doc(currentUserUid);
+        const docSnap = await docRef.get();
+        const data = docSnap.data();
+
+        return data.username === username
+    }
+
 
     useEffect(() => {
         async function getFriendsArr() {
-            const docRef = db
-                .collection("users")
-                .where("username", "==", username)
-                .where("Friends", "array-contains", currentUserUid)
-                .limit(1);
+            let docRef;
+            if (checkCurrentUser) {
+                docRef = db
+                    .collection("users")
+                    .where("username", "==", username)
+                    .limit(1);
+            }
+            else {
+                docRef = db
+                    .collection("users")
+                    .where("username", "==", username)
+                    .where("Friends", "array-contains", currentUserUid)
+                    .limit(1);
+            }
             const snapshot = await docRef.get()
                 .catch((err) => {
                     enqueueSnackbar(`Error getting friends: ${err}`, {
@@ -99,7 +116,7 @@ const FriendsComponent = () => {
                     </ul>
                 </div>
             ) : (
-                <LockedFriendPage name={username}/>
+                <LockedFriendPage name={username} />
             )}
         </div>
     )
