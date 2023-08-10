@@ -103,7 +103,9 @@
   transition: 0.2s ease-in-out;
   border-radius: 50%;
   border: 1px solid #eee;
-  box-shadow: 1px 1px 3px #bcbbbb, -1px -1px 3px #bcbbbb;
+  box-shadow:
+    1px 1px 3px #bcbbbb,
+    -1px -1px 3px #bcbbbb;
 }
 
 .sidebar_user_name {
