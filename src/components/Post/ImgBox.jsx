@@ -46,7 +46,7 @@ const ImgBox = ({
         {caption && postHasImages ? (
           <p
             className={`${
-              caption.length >= 200 ? "postCaption" : "postCaptiontext"
+              caption.length >= 100 ? "postCaption" : "postCaptiontext"
             }`}
           >
             <ReadMore postId={postId}>{caption}</ReadMore>
@@ -56,7 +56,7 @@ const ImgBox = ({
             style={{
               color: "var(--color)",
               paddingInline: "8px",
-              height: "80px",
+              height: "27px",
             }}
           ></p>
         )}
