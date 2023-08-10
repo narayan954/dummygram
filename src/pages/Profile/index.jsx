@@ -43,9 +43,9 @@ function Profile() {
   const [user, setUser] = useState(null);
   const [feed, setFeed] = useState([]);
   const [savedPosts, setSavedPosts] = useState([]);
-  // const [open, setOpen] = useState(false);
   const [isSavedPostsLoading, setIsSavedPostsLoading] = useState(true);
   const [friendRequestSent, setFriendRequestSent] = useState(false);
+  const [isFriendAlready, setIsFriendAlready] = useState(false);
   const [userData, setUserData] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [userExists, setUserExists] = useState(true);
@@ -195,6 +195,7 @@ function Profile() {
             country: data.country ? data.country : "Global",
             storyTimestamp: data.storyTimestamp,
           });
+          setIsFriendAlready(data.Friends.includes(user?.uid))
         } else {
           setUserExists(false);
         }
@@ -349,6 +350,32 @@ function Profile() {
       unsubscribe();
     };
   }, [uid]);
+
+
+  async function handleRemoveFriend() {
+    const batch = db.batch();
+    const currentUserUid = user?.uid;
+    const targetUserUid = uid;
+
+    const currentUserRef = db.collection("users").doc(currentUserUid);
+    const targetUserRef = db.collection("users").doc(targetUserUid);
+
+    batch.update(currentUserRef, {
+      Friends: firebase.firestore.FieldValue.arrayRemove(targetUserUid),
+    });
+
+    batch.update(targetUserRef, {
+      Friends: firebase.firestore.FieldValue.arrayRemove(currentUserUid),
+    });
+
+    await batch
+      .commit()
+      .catch((error) => {
+        enqueueSnackbar(`Error Occurred: ${error}`, {
+          variant: "error",
+        });
+      });
+  }
 
   async function getSavedPosts() {
     let savedPostsArr = JSON.parse(localStorage.getItem("posts")) || [];
@@ -541,7 +568,7 @@ function Profile() {
                   onClick={() =>
                     user.isAnonymous
                       ? navigate("/dummygram/signup")
-                      : handleSendFriendRequest()
+                      : (isFriendAlready? handleRemoveFriend() : handleSendFriendRequest())
                   }
                   variant="contained"
                   color="primary"
@@ -551,7 +578,9 @@ function Profile() {
                     padding: "10px 25px",
                   }}
                 >
-                  {friendRequestSent ? "Remove friend request" : "Add Friend"}
+                  {isFriendAlready? "Remove Friend" : (
+                    friendRequestSent ? "Remove friend request" : "Add Friend"
+                    )}
                 </Button>
               )}
             </div>

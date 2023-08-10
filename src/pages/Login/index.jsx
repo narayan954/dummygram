@@ -94,7 +94,7 @@ const LoginScreen = () => {
             name: val.user.displayName,
             photoURL: val.user.photoURL,
             displayName: val.user.displayName,
-            Friends: [],
+            Friends: [val.user.uid],
             posts: [],
           });
         } else {
@@ -147,7 +147,7 @@ const LoginScreen = () => {
             name: val.user.displayName,
             photoURL: val.user.photoURL,
             displayName: val.user.displayName,
-            Friends: [],
+            Friends: [val.user.uid],
             posts: [],
           });
         } else {
