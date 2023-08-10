@@ -1,3 +1,5 @@
+import "./index.css";
+
 import React, { useState } from "react";
 
 import Faq from "../../../assets/preview.webp";
