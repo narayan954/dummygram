@@ -22,7 +22,17 @@
   aspect-ratio: 1;
   padding: 8px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
   transition: 0.4s ease-in-out;
+}
+
+.profile_post_sub_container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .post_sub_container {
@@ -35,6 +45,38 @@
   height: 100%;
   object-fit: cover;
 }
+
+.profile_post_hover_container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.5);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.profile_post_hover_icon{
+  transform: scale(1.8);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s ease-in-out;
+  background-color: transparent;
+  border: none;
+  color: white !important;
+  cursor: pointer;
+}
+
+.profile_post_hover_icon:hover {
+  background: rgba(255, 255, 255, 0.25);
+  padding: 10px;
+}
+
 
 @media screen and (min-width: 800px) and (max-width: 1200px) {
   .profile-feed-main-container {
