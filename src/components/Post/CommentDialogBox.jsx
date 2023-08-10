@@ -80,7 +80,7 @@ const CommentDialogBox = ({
                       <img
                         src={userComment.content.avatar}
                         alt="profile picture"
-                        className="profile-picture"
+                        className="post-profile-picture"
                       />
                     ) : (
                       <AccountCircleIcon className="icon" />

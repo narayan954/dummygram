@@ -22,6 +22,33 @@
   display: none;
 }
 
+.sidebar_design {
+  padding: 0;
+  display: flex;
+  width: fit-content;
+}
+
+.sidebar_design > span {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  border-radius: 50%;
+  margin-left: 5px;
+}
+
+.sidebar_menu_icon {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  border-radius: 50%;
+  padding: 5px;
+  color: var(--text-secondary);
+}
+
+.sidebar_menu_icon:hover {
+  background: var(--sidebar-link-hover);
+}
+
 .sidebar-links {
   display: flex;
   flex-direction: column;
@@ -47,7 +74,6 @@
 }
 
 .sidebar-links li:hover {
-  /* background: rgba(0, 0, 0, 0.05); */
   background-color: #5f85db;
 }
 
@@ -57,6 +83,33 @@
   align-items: center;
   color: var(--color);
   text-decoration: none;
+}
+
+#sidebar_profile_link:hover {
+  background: transparent;
+}
+
+.sidebar_profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+}
+
+.profile-picture {
+  width: 80px;
+  height: 80px;
+  transition: 0.2s ease-in-out;
+  border-radius: 50%;
+  border: 1px solid #eee;
+  box-shadow: 1px 1px 3px #bcbbbb, -1px -1px 3px #bcbbbb;
+}
+
+.sidebar_user_name {
+  opacity: 0.9;
+  color: var(--text-grey);
+  margin-top: 5px;
 }
 
 .sidebar .icon {
@@ -72,21 +125,14 @@
   margin-left: 15px;
 }
 
-.sidebar .profile-picture {
-  height: 30px;
-  width: 30px;
-  border-radius: 100%;
-  border: 1px solid #eee;
-}
-
 .sidebar_user_dropdown {
   display: flex;
 }
 
 .sidebar_user_dropdown_container {
   position: absolute;
-  top: 250px;
-  left: 100px;
+  top: 41px;
+  left: 200px;
   padding: 0;
   border-radius: 10px;
   width: 170px;
@@ -194,9 +240,22 @@ footer {
     display: none;
   }
 
+  .sidebar_user_name {
+    display: none;
+  }
+
+  .profile-picture {
+    width: 30px;
+    height: 30px;
+  }
+
   .sidebar_user_dropdown_container {
     width: 150px;
-    left: 40px;
+    left: 50px;
+  }
+
+  #sidebar_profile_link:hover {
+    background-color: #5f85db;
   }
 
   .sidebar_user_dropdown_sub_container > li {
@@ -217,10 +276,13 @@ footer {
     padding-block: 5px;
     bottom: 0;
     margin: 0;
-    z-index: 999;
   }
 
   .sidebar hr {
+    display: none;
+  }
+
+  .sidebar_design {
     display: none;
   }
 
@@ -230,7 +292,7 @@ footer {
 
   .sidebar-links {
     justify-content: space-around;
-    flex-direction: row;
+    flex-direction: row-reverse;
     height: 60px;
   }
 
@@ -240,7 +302,7 @@ footer {
 
   .sidebar_user_dropdown_container {
     left: initial;
-    top: -120px;
+    top: -140px;
     right: 5px;
   }
 
