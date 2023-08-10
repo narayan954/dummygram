@@ -86,6 +86,7 @@ const ChatBox = () => {
           .doc(editingMessageId)
           .update({
             text: newMessage,
+            edited: true,
           })
           .then(() => {
             setNewMessage("");
@@ -335,6 +336,11 @@ const ChatBox = () => {
                     </span>
                   </span>
                   <p>{message.text}</p>
+                  {message.edited && (
+                    <div className="edit-state">
+                      <span>Edited</span>
+                    </div>
+                  )}
                   {message.reaction && (
                     <ul className="rxn-main-container">
                       {getReaction(message.reaction)}

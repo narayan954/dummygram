@@ -206,6 +206,19 @@
   transition: all 0.2s ease;
 }
 
+.edit-state {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 4px;
+  padding-right: 4px;
+}
+
+.edit-state span {
+  color: var(--text-light);
+  font-size: 12px;
+  font-weight: 500;
+}
+
 @media screen and (max-width: 1200px) {
   .chat-input-container {
     width: 88%;
