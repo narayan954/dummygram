@@ -152,7 +152,9 @@
   position: absolute;
   padding: 0;
   bottom: -13px;
-  right: 0;
+  left: 12px;
+  display: flex;
+  gap: 8px;
 }
 
 .rxn-container {
