@@ -7,6 +7,7 @@ import LoginScreen from "./Login";
 import PostView from "./PostView";
 import Profile from "./Profile";
 import SignupScreen from "./Signup";
+import Friends from "./Friends";
 
 export {
   About,
@@ -18,4 +19,5 @@ export {
   PostView,
   Profile,
   SignupScreen,
+  Friends,
 };

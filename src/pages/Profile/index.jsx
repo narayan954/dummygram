@@ -55,7 +55,6 @@ function Profile() {
   const [backgroundImage, setBackgroundImage] = useState(null);
   const [showSaved, setShowSaved] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
-  const [previewImage, setPreviewImage] = useState(null);
 
   const bgRef = useRef(null);
 

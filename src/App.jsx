@@ -34,6 +34,7 @@ const PostView = React.lazy(() => import("./pages/PostView"));
 const Profile = React.lazy(() => import("./pages/Profile"));
 const SignupScreen = React.lazy(() => import("./pages/Signup"));
 const ForgotPassword = React.lazy(() => import("./pages/ForgotPassword"));
+const Friends = React.lazy(() => import("./pages/Friends"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 const Contributors = React.lazy(() =>
   import("./pages/FooterPages/ContributorPage"),
@@ -157,6 +158,15 @@ function App() {
                 element={
                   <ErrorBoundary inApp={true}>
                     <Profile />
+                  </ErrorBoundary>
+                }
+              />
+
+              <Route
+                path="user/:username/friends"
+                element={
+                  <ErrorBoundary inApp={true}>
+                    <Friends />
                   </ErrorBoundary>
                 }
               />
