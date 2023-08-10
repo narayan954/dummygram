@@ -5,20 +5,13 @@ import {
   SettingsSidebar,
   SoundSetting,
 } from "./components/SettingsComponents";
-import {
-  Outlet,
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
 import { ChatPage } from "./pages";
 import { Darkmode } from "./reusableComponents";
 import { ErrorBoundary } from "./reusableComponents";
 import { FaArrowCircleUp } from "react-icons/fa";
-import { GuestSignUpBtn } from "./components";
 import { RowModeContext } from "./hooks/useRowMode";
 import { auth } from "./lib/firebase";
 import { makeStyles } from "@mui/styles";
@@ -77,10 +70,8 @@ export const useStyles = makeStyles((theme) => ({
 function App() {
   const [user, setUser] = useState(null);
   const [rowMode, setRowMode] = useState(false);
-  const [anonymous, setAnonymous] = useState(false);
 
   const navigate = useNavigate();
-  const location = useLocation();
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
@@ -109,7 +100,6 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         setUser(authUser);
-        setAnonymous(authUser.isAnonymous);
       } else {
         setUser(null);
         navigate("/dummygram/login");
@@ -136,9 +126,6 @@ function App() {
               </ErrorBoundary>
             }
           >
-            {anonymous &&
-              location.pathname !== "/dummygram/signup" &&
-              location.pathname !== "/dummygram/login" && <GuestSignUpBtn />}
             <Route
               element={
                 user && (
