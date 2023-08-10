@@ -328,7 +328,7 @@ export default function ImgUpload(props) {
             </div>
           )}
           <hr />
-          <div className="caption-container" style={{ display: "flex" }}>
+          <div className="caption-container">
             <TextField
               className="create-post-input"
               onChange={(e) => setCaption(e.target.value)}
@@ -362,6 +362,7 @@ export default function ImgUpload(props) {
               )}
             </div>
           </div>
+          <hr />
           <div className="shareBtnContainer">
             <button
               onClick={() => handleUpload("Post")}

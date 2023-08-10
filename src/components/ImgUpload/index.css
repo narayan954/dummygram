@@ -5,6 +5,14 @@
   align-items: center;
 }
 
+.caption-container {
+  width: 95%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
 .share__button {
   background: var(--btn-color);
   width: 100%;
