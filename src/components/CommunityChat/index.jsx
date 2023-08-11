@@ -309,7 +309,11 @@ const ChatBox = () => {
                         <h6 className="message-time">
                           {getTime(message?.createdAt?.seconds)}
                         </h6>
-                        <Reaction message={message} userUid={message.uid} currentUid={user.uid} />
+                        <Reaction
+                          message={message}
+                          userUid={message.uid}
+                          currentUid={user.uid}
+                        />
                         {user.uid === message.uid && (
                           <span className="flex-center message-options">
                             <OptionIcon
