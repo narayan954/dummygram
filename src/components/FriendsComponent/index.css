@@ -1,72 +1,72 @@
 .friends_page_main_container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: calc(100vh - 85px);
-    margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 85px);
+  margin: 10px;
 }
 
 .friends_page_sub_container {
-    padding: 15px;
-    border-radius: 10px;
-    max-width: 700px;
-    width: 100%;
-    border: 2px solid var(--profile-color);
-    box-shadow: var(--post-box-shadow);
+  padding: 15px;
+  border-radius: 10px;
+  max-width: 700px;
+  width: 100%;
+  border: 2px solid var(--profile-color);
+  box-shadow: var(--post-box-shadow);
 }
 
 .friend_page_header {
-    text-align: center;
-    font-size: 30px;
-    font-weight: 700;
-    padding: 20px;
-    color: var(--text-dim)
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+  padding: 20px;
+  color: var(--text-dim);
 }
 
 .friend_page_friend_list_container {
-    padding: 0;
+  padding: 0;
 }
 
 .friend_page_friend_list_item {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px;
-    border-bottom: 1px solid #eee;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border-bottom: 1px solid #eee;
 }
 
 .friend_page_friend_avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 1px solid #eee;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid #eee;
 }
 
 .friend_page_friend_name {
-    font-weight: 600;
-    color: var(--text-secondary);
-    cursor: pointer;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
 }
 
 .friend_page_friend_name:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .friend_page_friend_bio {
-    color: var(--profile-color);
-    cursor: default;
+  color: var(--profile-color);
+  cursor: default;
 }
 
 @media only screen and (max-width: 840px) {
-    .friends_page_main_container {
-        padding-top: 20px;
-    }
+  .friends_page_main_container {
+    padding-top: 20px;
+  }
 }
 
 @media only screen and (max-width: 450px) {
-    .friend_page_header {
-        font-size: 23px;
-        padding: 15px;
-    }
+  .friend_page_header {
+    font-size: 23px;
+    padding: 15px;
+  }
 }

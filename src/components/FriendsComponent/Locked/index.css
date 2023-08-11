@@ -1,12 +1,12 @@
 .lock_profile_container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .profile_lock_img {
-    width: 100%;
-    max-width: 270px;
-    filter: drop-shadow(2px 2px 5px var(--color));
+  width: 100%;
+  max-width: 270px;
+  filter: drop-shadow(2px 2px 5px var(--color));
 }
