@@ -3,9 +3,9 @@ import "./index.css";
 import React, { useState } from "react";
 
 import Faq from "../../../assets/preview.webp";
+import Footer from "../Footer";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { useNavigate } from "react-router-dom";
-import Footer from "../FooterpageFooter/Footer";
 
 const accordionData = [
   {
@@ -70,7 +70,7 @@ export default function HelpCenter() {
           );
         })}
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 }
@@ -98,7 +98,6 @@ const Accordion = ({ title, content }) => {
           {isOpen && <div className="accordion-content">{content}</div>}
         </div>
       </div>
-  
     </>
   );
 };

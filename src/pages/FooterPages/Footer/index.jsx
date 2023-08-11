@@ -1,41 +1,35 @@
+import "./index.css";
 
 import { Link } from "react-router-dom";
-import './Footer.css';
 import { Logo } from "../../../reusableComponents";
 
 const Footer = () => {
   return (
     <div className="footerpages-footer">
-      <div >
-        <Logo/>
-      </div>
-      <ul >
+      <ul>
         <li>
           <Link to="/dummygram/about" className="footer-link">
             About
           </Link>
         </li>
         <li>
-          <Link
-            to="/dummygram/feedback"
-            className="footer-link"
-          >
+          <Link to="/dummygram/feedback" className="footer-link">
             Feedback
           </Link>
         </li>
         <li>
           <Link to="/dummygram/contributors" className="footer-link">
-           Contributors
+            Contributors
           </Link>
         </li>
         <li>
           <Link to="/dummygram/help-center" className="footer-link">
-           Help-center
+            Help-center
           </Link>
         </li>
         <li>
           <Link to="/dummygram/guidelines" className="footer-link">
-           Guidelines
+            Guidelines
           </Link>
         </li>
       </ul>

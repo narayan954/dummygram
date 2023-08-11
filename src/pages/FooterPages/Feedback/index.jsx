@@ -3,13 +3,12 @@ import "../design.css";
 
 import React, { useRef } from "react";
 
+import Footer from "../Footer";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { SideBar } from "../../../components";
+import Scroll from "../../../reusableComponents";
 import emailjs from "@emailjs/browser";
 import { playSuccessSound } from "../../../js/sounds";
 import { useSnackbar } from "notistack";
-import Scroll from "../../../reusableComponents";
-import Footer from "../FooterpageFooter/Footer";
 
 export const Feedback = () => {
   const form = useRef(null);
@@ -88,7 +87,7 @@ export const Feedback = () => {
         </form>
       </div>
       <Scroll />
-      <Footer/>
+      <Footer />
     </>
   );
 };

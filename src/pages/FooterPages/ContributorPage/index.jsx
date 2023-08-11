@@ -5,10 +5,10 @@ import { Box, Pagination } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 import ContributorCard from "./ContributorCard";
+import Footer from "../Footer";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import backgroundimg from "../../../assets/contributors.webp";
 import { useNavigate } from "react-router-dom";
-import Footer from "../FooterpageFooter/Footer";
 
 function Contributor() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -130,7 +130,7 @@ function Contributor() {
           <h1 className="no-result">Sorry no result matches your query</h1>
         )}
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
