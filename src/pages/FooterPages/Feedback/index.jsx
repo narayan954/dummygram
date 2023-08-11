@@ -9,6 +9,7 @@ import emailjs from "@emailjs/browser";
 import { playSuccessSound } from "../../../js/sounds";
 import { useSnackbar } from "notistack";
 import Scroll from "../../../reusableComponents";
+import Footer from "../FooterpageFooter/Footer";
 
 export const Feedback = () => {
   const form = useRef(null);
@@ -87,6 +88,7 @@ export const Feedback = () => {
         </form>
       </div>
       <Scroll />
+      <Footer/>
     </>
   );
 };

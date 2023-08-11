@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import about from "../../../assets/about-us.webp";
 import { useNavigate } from "react-router-dom";
+import Footer from "../FooterpageFooter/Footer";
 
 const About = () => {
   const [forks, setForks] = useState(0);
@@ -165,7 +166,7 @@ const About = () => {
           </div>
         </div>
       </div>
- 
+  <Footer/>
     </div>
   );
 };
