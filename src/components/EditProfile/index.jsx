@@ -9,6 +9,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import blankImg from "../../assets/blank-profile.webp";
 import deleteImg from "../../js/deleteImg";
+import { setUserSessionData } from "../../js/userData";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
@@ -111,6 +112,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
         bio: bio,
         country: country,
       };
+      setUserSessionData(userData);
       batch.update(userRef, userData);
 
       // Update profile data in all posts

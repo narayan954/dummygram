@@ -24,7 +24,7 @@ const ViewsCounter = ({ uid }) => {
           }
         } else {
           viewsArr = [];
-          sessionStorage.setItem(viewsArr, JSON.stringify(viewsArr));
+          sessionStorage.setItem("viewsArr", JSON.stringify(viewsArr));
         }
 
         const querySnapshot = await db

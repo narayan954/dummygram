@@ -5,20 +5,13 @@ import {
   SettingsSidebar,
   SoundSetting,
 } from "./components/SettingsComponents";
-import {
-  Outlet,
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
 import { ChatPage } from "./pages";
 import { Darkmode } from "./reusableComponents";
 import { ErrorBoundary } from "./reusableComponents";
 import { FaArrowCircleUp } from "react-icons/fa";
-import { GuestSignUpBtn } from "./components";
 import { RowModeContext } from "./hooks/useRowMode";
 import { auth } from "./lib/firebase";
 import { makeStyles } from "@mui/styles";
@@ -34,10 +27,12 @@ const PostView = React.lazy(() => import("./pages/PostView"));
 const Profile = React.lazy(() => import("./pages/Profile"));
 const SignupScreen = React.lazy(() => import("./pages/Signup"));
 const ForgotPassword = React.lazy(() => import("./pages/ForgotPassword"));
+const Friends = React.lazy(() => import("./pages/Friends"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 const Contributors = React.lazy(() =>
   import("./pages/FooterPages/ContributorPage"),
 );
+const HelpCenter = React.lazy(() => import("./pages/FooterPages/HelpCenter"));
 // ------------------------------------- Components ------------------------------------------------
 const Notifications = React.lazy(() => import("./components/Notification"));
 const SideBar = React.lazy(() => import("./components/SideBar"));
@@ -77,10 +72,8 @@ export const useStyles = makeStyles((theme) => ({
 function App() {
   const [user, setUser] = useState(null);
   const [rowMode, setRowMode] = useState(false);
-  const [anonymous, setAnonymous] = useState(false);
 
   const navigate = useNavigate();
-  const location = useLocation();
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
@@ -109,7 +102,6 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         setUser(authUser);
-        setAnonymous(authUser.isAnonymous);
       } else {
         setUser(null);
         navigate("/dummygram/login");
@@ -136,9 +128,6 @@ function App() {
               </ErrorBoundary>
             }
           >
-            {anonymous &&
-              location.pathname !== "/dummygram/signup" &&
-              location.pathname !== "/dummygram/login" && <GuestSignUpBtn />}
             <Route
               element={
                 user && (
@@ -157,6 +146,15 @@ function App() {
                 element={
                   <ErrorBoundary inApp={true}>
                     <Profile />
+                  </ErrorBoundary>
+                }
+              />
+
+              <Route
+                path="user/:username/friends"
+                element={
+                  <ErrorBoundary inApp={true}>
+                    <Friends />
                   </ErrorBoundary>
                 }
               />
@@ -206,34 +204,43 @@ function App() {
                 }
               />
               <Route errorElement path="*" element={<NotFound />} />
+
+              <Route
+                path="about"
+                element={
+                  <ErrorBoundary inApp={true}>
+                    <About />
+                  </ErrorBoundary>
+                }
+              />
+
+              <Route
+                path="contributors"
+                element={
+                  <ErrorBoundary inApp={true}>
+                    <Contributors />
+                  </ErrorBoundary>
+                }
+              />
+
+              <Route
+                path="guidelines"
+                element={
+                  <ErrorBoundary inApp={true}>
+                    <Guidelines />
+                  </ErrorBoundary>
+                }
+              />
+
+              <Route
+                path="help-center"
+                element={
+                  <ErrorBoundary inApp={true}>
+                    <HelpCenter />
+                  </ErrorBoundary>
+                }
+              />
             </Route>
-
-            <Route
-              path="about"
-              element={
-                <ErrorBoundary inApp={true}>
-                  <About />
-                </ErrorBoundary>
-              }
-            />
-
-            <Route
-              path="contributors"
-              element={
-                <ErrorBoundary inApp={true}>
-                  <Contributors />
-                </ErrorBoundary>
-              }
-            />
-
-            <Route
-              path="guidelines"
-              element={
-                <ErrorBoundary inApp={true}>
-                  <Guidelines />
-                </ErrorBoundary>
-              }
-            />
 
             <Route
               path="settings"

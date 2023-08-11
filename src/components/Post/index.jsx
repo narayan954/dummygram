@@ -15,10 +15,11 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { auth, db } from "../../lib/firebase";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { lazy, useEffect, useState } from "react";
 
 import firebase from "firebase/compat/app";
+import getUserSessionData from "../../js/userData";
 import { useSnackbar } from "notistack";
 import { useTheme } from "@mui/material/styles";
 
@@ -40,8 +41,6 @@ function Post(prop) {
   const [showCommentEmojis, setShowCommentEmojis] = useState(false);
   const [isCommentOpen, setisCommentOpen] = useState(false);
   const [isLikesOpen, setIsLikesOpen] = useState(false);
-  const [deleteCommentID, setDeleteCommentID] = useState("");
-  const [openToDeleteComment, setOpenToDeleteComment] = useState(false);
   const [username, setUsername] = useState("");
 
   const theme = useTheme();
@@ -52,13 +51,8 @@ function Post(prop) {
 
   useEffect(() => {
     async function getUsername() {
-      const docRef = doc(db, "users", auth?.currentUser?.uid);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        setUsername(docSnap.data().username);
-      } else {
-        setUsername("guest"); // Handle the case when the user document doesn't exist
-      }
+      const data = await getUserSessionData();
+      setUsername(data.username);
     }
     if (auth?.currentUser?.isAnonymous) {
       setUsername("guest");
@@ -116,16 +110,6 @@ function Post(prop) {
     } finally {
       setComment("");
     }
-  };
-
-  const deleteComment = async (event, commentRef) => {
-    event.preventDefault();
-    await db
-      .collection("posts")
-      .doc(postId)
-      .collection("comments")
-      .doc(commentRef.id)
-      .delete();
   };
 
   const onEmojiClick = (emojiObject, event) => {
@@ -189,10 +173,6 @@ function Post(prop) {
 
   const handleCommentClose = () => {
     setisCommentOpen(false);
-  };
-
-  const handleCloseForDeleteComment = () => {
-    setOpenToDeleteComment(false);
   };
 
   return (
@@ -288,19 +268,10 @@ function Post(prop) {
               <hr />
               <ErrorBoundary>
                 <CommentDialogBox
-                  Item={Item}
-                  postHasImages={postHasImages}
-                  postImages={postImages}
-                  caption={caption}
+                  postId={postId}
                   comments={comments}
-                  setOpenToDeleteComment={setOpenToDeleteComment}
-                  openToDeleteComment={openToDeleteComment}
-                  setDeleteCommentID={setDeleteCommentID}
                   user={user}
                   fullScreen={fullScreen}
-                  handleCloseForDeleteComment={handleCloseForDeleteComment}
-                  deleteComment={deleteComment}
-                  deleteCommentID={deleteCommentID}
                 />
               </ErrorBoundary>
               <ErrorBoundary>

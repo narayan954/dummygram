@@ -1,6 +1,7 @@
 import { ErrorBoundary, PostSkeleton } from "../../reusableComponents";
 import React, { Fragment, useEffect, useState } from "react";
 
+import { GuestSignUpBtn } from "../../components";
 import { Suggestion } from "../../components";
 import { db } from "../../lib/firebase";
 
@@ -12,6 +13,7 @@ const Home = ({ rowMode, user }) => {
   const [loadingPosts, setLoadingPosts] = useState(true);
   const [loadMorePosts, setLoadMorePosts] = useState(false);
   const [windowWidth, setWindowWidth] = useState("700");
+  const anonymous = user?.isAnonymous;
 
   useEffect(() => {
     function getWindowDimensions() {
@@ -101,6 +103,13 @@ const Home = ({ rowMode, user }) => {
               }
         }
       >
+        {anonymous &&
+          location.pathname !== "/dummygram/signup" &&
+          location.pathname !== "/dummygram/login" && (
+            <ErrorBoundary inApp={true}>
+              <GuestSignUpBtn />
+            </ErrorBoundary>
+          )}
         <div className={`app_posts ${!rowMode ? "app_posts_column flex" : ""}`}>
           {loadingPosts ? (
             <>
@@ -121,9 +130,6 @@ const Home = ({ rowMode, user }) => {
                       postId={id}
                       user={user}
                       post={post}
-                      // shareModal={setOpenShareModal}
-                      // setLink={setCurrentPostLink}
-                      // setPostText={setPostText}
                     />
                     {index === 1 && windowWidth < 1300 && (
                       <Suggestion currentUserUid={user.uid} />

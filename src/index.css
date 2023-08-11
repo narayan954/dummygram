@@ -31,6 +31,7 @@
   --pagination-border: rgba(0, 0, 0, 0.23);
   --text-grey: rgba(0, 0, 0, 0.8);
   --theme-hover: rgba(8, 17, 123, 0.69);
+  --input-bg: #eee;
 }
 
 .darkmode {
@@ -66,6 +67,7 @@
   --pagination-border: rgba(255, 255, 255, 0.23);
   --text-grey: rgba(255, 255, 255, 0.8);
   --theme-hover: rgb(244, 210, 41);
+  --input-bg: #191919;
 }
 
 * {
@@ -154,9 +156,6 @@ input:focus {
   .home-posts-container .app_posts {
     padding: 1.5em 15px 20px 10px;
   }
-  .post-page-container {
-    padding: 1.5em 15px 15px 8vw;
-  }
   .post-card {
     margin: 50px auto !important;
   }
@@ -169,10 +168,6 @@ input:focus {
     flex-direction: column;
     align-items: center;
     gap: 1em;
-  }
-  .post-page-container {
-    padding: 0;
-    padding-top: 1em;
   }
 }
 
@@ -267,7 +262,7 @@ input:focus {
 }
 
 .centeredScroll {
-  margin-left: 0;
+  margin-left: 40%;
 }
 
 .scrollTop:hover {
@@ -279,9 +274,6 @@ input:focus {
   .scrollTop {
     margin-left: 20px;
     margin-bottom: 8%;
-  }
-  .post-page-container {
-    padding: 0;
   }
   .app__newpost__button {
     left: -6%;
@@ -331,9 +323,6 @@ input:focus {
     flex-wrap: wrap;
     gap: 2rem;
     justify-content: center;
-  }
-  .post-page-container {
-    padding: 0 15px 15px 0;
   }
   .post-card {
     margin: 50px auto !important;
