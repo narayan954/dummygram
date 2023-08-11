@@ -12,6 +12,7 @@ import ReadMore from "./ReadMore";
 import SideBar from "./SideBar";
 import StoryView from "./Story";
 import Suggestion from "./Suggestions";
+import FriendsComponent from "./FriendsComponent";
 
 export {
   Caption,
@@ -28,6 +29,7 @@ export {
   SideBar,
   StoryView,
   Suggestion,
+  FriendsComponent,
 };
 
 export default Post;
