@@ -130,7 +130,7 @@ function Contributor() {
           <h1 className="no-result">Sorry no result matches your query</h1>
         )}
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

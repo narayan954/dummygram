@@ -39,14 +39,16 @@ export const Feedback = () => {
 
   return (
     <>
-       <div
+      <div
         className="back-icon"
-        style={{ height: "90px", cursor: "pointer", marginTop:'35px' }}
+        style={{ height: "90px", cursor: "pointer", marginTop: "35px" }}
         onClick={() => navigate("/dummygram/")}
       >
-        <KeyboardBackspaceIcon className="icon" /> 
+        <KeyboardBackspaceIcon className="icon" />
       </div>
-      <h1 style={{textAlign:'center', color:'#5f85db'}}>Your opinion matters to us !</h1>
+      <h1 style={{ textAlign: "center", color: "#5f85db" }}>
+        Your opinion matters to us !
+      </h1>
       <div className="feedback-form-container footer-page-para-color">
         <span className="grad3 grad"></span>
         <span className="grad4 grad"></span>
@@ -85,8 +87,8 @@ export const Feedback = () => {
           </button>
         </form>
       </div>
-      <Scroll/>
-      <Footer/>
+      <Scroll />
+      <Footer />
     </>
   );
 };

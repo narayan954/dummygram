@@ -3,11 +3,8 @@ import "../design.css";
 
 import { useEffect, useState } from "react";
 
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { VscChromeClose } from "react-icons/vsc";
-import about from "../../../assets/about-us.png";
-import logo from "../../../assets/logo.webp";
 import Footer from "../../../components/Footer/Footer";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import about from "../../../assets/about-us.webp";
 import { useNavigate } from "react-router-dom";
 
@@ -168,9 +165,8 @@ const About = () => {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
-  
   );
 };
 
