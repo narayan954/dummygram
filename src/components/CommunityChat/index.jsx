@@ -301,7 +301,9 @@ const ChatBox = () => {
                         className="chat-msg-sender-name"
                         onClick={() => goToUserProfile(message.uid)}
                       >
-                        {message.displayName}
+                        {user?.uid === message?.uid ? ("You") : (
+                       message.displayName
+                      )}
                       </h5>
                       <span className="time-reaction-container">
                         <h6 className="message-time">
