@@ -19,7 +19,7 @@ export default function Caption({ caption }) {
   const isUrl = (part) => urlRegex.test(part);
 
   // Render each part of the caption
-  const renderCaptionParts = () => {
+  const RenderCaptionParts = () => {
     return parts.map((part, index) => {
       if (isUrl(part)) {
         // If the part is a URL, render it as a clickable link.
@@ -35,5 +35,5 @@ export default function Caption({ caption }) {
     });
   };
 
-  return <>{renderCaptionParts()}</>;
+  return <RenderCaptionParts />;
 }

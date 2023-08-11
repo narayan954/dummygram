@@ -121,7 +121,7 @@ const SignupScreen = () => {
                 email: email,
                 photoURL: auth.currentUser.photoURL,
                 posts: [],
-                friends: [],
+                friends: [auth.currentUser.uid],
               }),
             )
             .then(() => {
@@ -282,7 +282,7 @@ const SignupScreen = () => {
         email: val.user.email,
         photoURL: val.user.photoURL,
         posts: [],
-        friends: [],
+        friends: [val.user.uid],
       })
       .then(() => {
         playSuccessSound();
