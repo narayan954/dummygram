@@ -4,6 +4,7 @@ import { ClickAwayListener } from "@mui/material";
 import { Link } from "react-router-dom";
 import { db } from "../../../lib/firebase";
 import deleteImg from "../../../js/deleteImg";
+import getUserSessionData from "../../../js/userData";
 import firebase from "firebase/compat/app";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
@@ -66,10 +67,7 @@ const DeleteAccount = ({ user }) => {
     try {
       const batch = db.batch();
 
-      // Step 1: Delete user doc from the users collection
-      const userDocRef = db.collection("users").doc(user?.uid);
-      const userDoc = await userDocRef.get();
-      const userData = userDoc.data();
+      const userData = await getUserSessionData();
 
       if (userData) {
         if (userData.photoURL) imagesArr.push(userData.photoURL);

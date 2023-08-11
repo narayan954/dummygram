@@ -75,13 +75,7 @@ const Suggestion = () => {
     fetchRandomDocument();
   }, []);
 
-  const handleSendFriendRequest = (
-    friendRequestSent,
-    uid,
-    name,
-    username,
-    idx,
-  ) => {
+  const handleSendFriendRequest = (friendRequestSent, uid, idx) => {
     const currentUserUid = currentUser?.uid;
     const targetUserUid = uid;
     const batch = db.batch();
