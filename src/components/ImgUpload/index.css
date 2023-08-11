@@ -248,7 +248,6 @@ input {
     width: 45%;
   }
 
-
   .small_post_view {
     display: none;
     width: 100%;
@@ -256,7 +255,9 @@ input {
 }
 
 @media only screen and (max-width: 800px) {
-  .dialogStyle {width: 60vw !important;}
+  .dialogStyle {
+    width: 60vw !important;
+  }
 
   .file-input {
     margin: auto;
@@ -281,7 +282,6 @@ input {
     cursor: pointer;
   }
 
-
   .slider__View {
     margin: auto;
     margin-bottom: 20px;
@@ -298,7 +298,9 @@ input {
 }
 
 @media only screen and (max-width: 500px) {
-  .dialogStyle {width: 70vw !important;}
+  .dialogStyle {
+    width: 70vw !important;
+  }
 
   .createNewPost {
     font-size: 1rem;
