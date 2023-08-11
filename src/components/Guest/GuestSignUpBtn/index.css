@@ -8,12 +8,13 @@
 .guest-sign-up-button {
   padding: 10px 30px;
   font-size: 20px;
-  border-radius: 20px;
+  border-radius: 1rem;
   cursor: pointer;
   font-weight: 600;
-  background: var(--btn-color);
-  border: none;
-  transition: 0.3s ease-in-out;
+  background: none;
+  border: 2px solid #5f85db;
+  transition: .3s ease-in-out;
+  color: #5f85db;
 }
 
 .guest-sign-up-button:hover {
