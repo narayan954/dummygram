@@ -117,7 +117,7 @@ const SignupScreen = () => {
                 email: email,
                 photoURL: auth.currentUser.photoURL,
                 posts: [],
-                friends: [],
+                friends: [auth.currentUser.uid],
               }),
             )
             .then(() => {

@@ -41,8 +41,6 @@ function Post(prop) {
   const [showCommentEmojis, setShowCommentEmojis] = useState(false);
   const [isCommentOpen, setisCommentOpen] = useState(false);
   const [isLikesOpen, setIsLikesOpen] = useState(false);
-  const [deleteCommentID, setDeleteCommentID] = useState("");
-  const [openToDeleteComment, setOpenToDeleteComment] = useState(false);
   const [username, setUsername] = useState("");
 
   const theme = useTheme();
@@ -114,16 +112,6 @@ function Post(prop) {
     }
   };
 
-  const deleteComment = async (event, commentRef) => {
-    event.preventDefault();
-    await db
-      .collection("posts")
-      .doc(postId)
-      .collection("comments")
-      .doc(commentRef.id)
-      .delete();
-  };
-
   const onEmojiClick = (emojiObject, event) => {
     setComment((prevInput) => prevInput + emojiObject.emoji);
     setShowEmojis(false);
@@ -185,10 +173,6 @@ function Post(prop) {
 
   const handleCommentClose = () => {
     setisCommentOpen(false);
-  };
-
-  const handleCloseForDeleteComment = () => {
-    setOpenToDeleteComment(false);
   };
 
   return (
@@ -284,19 +268,10 @@ function Post(prop) {
               <hr />
               <ErrorBoundary>
                 <CommentDialogBox
-                  Item={Item}
-                  postHasImages={postHasImages}
-                  postImages={postImages}
-                  caption={caption}
+                  postId={postId}
                   comments={comments}
-                  setOpenToDeleteComment={setOpenToDeleteComment}
-                  openToDeleteComment={openToDeleteComment}
-                  setDeleteCommentID={setDeleteCommentID}
                   user={user}
                   fullScreen={fullScreen}
-                  handleCloseForDeleteComment={handleCloseForDeleteComment}
-                  deleteComment={deleteComment}
-                  deleteCommentID={deleteCommentID}
                 />
               </ErrorBoundary>
               <ErrorBoundary>

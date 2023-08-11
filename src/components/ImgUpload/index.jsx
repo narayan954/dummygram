@@ -226,80 +226,15 @@ export default function ImgUpload(props) {
   }
 
   return (
-    <div className="imageUpload">
-      {uploadingPost && image && (
-        <LinearProgress variant="determinate" value={progress} />
-      )}
-      <div className="big_post_view">
-        {!image && (
-          <div className="file-input">
-            <div className="upload-picture">
-              <input
-                type="file"
-                className="file"
-                name="file"
-                id="file"
-                onChange={handleChange}
-                multiple
-                accept="image/*"
-                ref={imgInput}
-                disabled={uploadingPost}
-              />
-              <label htmlFor="file">Upload Picture</label>
-            </div>
-            <div className="popupMain">
-              <button
-                className="openpopup"
-                onClick={() => setButtonPopup(true)}
-              >
-                Take Picture
-              </button>
-              <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-                <Camera />
-              </Popup>
-            </div>
-          </div>
+    <>
+      <div
+        style={{ display: "flex", flexDirection: "column", position: "sticky" }}
+      >
+        {uploadingPost && image && (
+          <LinearProgress variant="determinate" value={progress} />
         )}
-        {image && (
-          <div className="slider__View">
-            {imagePreviews.map((imageUrl, index) => (
-              <div
-                style={{ display: index === current ? "contents" : "none" }}
-                className={index === current ? "slide active" : "slide"}
-                key={index}
-              >
-                <LazyLoadImage
-                  className="image"
-                  src={imageUrl}
-                  effect="blur"
-                  alt={" upload"}
-                  delayTime={1000}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
-                />
-                {imagePreviews.length > 1 ? (
-                  <div className="sliders_button">
-                    <FaChevronCircleLeft
-                      className="slider_circle"
-                      onClick={prevStep}
-                    />
-                    <FaChevronCircleRight
-                      className="slider_chevron"
-                      onClick={nextStep}
-                    />
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
-        <div className="post__caption_section">
-          <div className="post__header">
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div className="post-header">
             {avatar && displayName && (
               <>
                 {" "}
@@ -327,16 +262,84 @@ export default function ImgUpload(props) {
               </>
             )}
           </div>
-          <div>
+          {!image && (
+            <div className="file-input" style={{ flexDirection: "row" }}>
+              <div className="upload-picture">
+                <input
+                  type="file"
+                  className="file"
+                  name="file"
+                  id="file"
+                  onChange={handleChange}
+                  multiple
+                  accept="image/*"
+                  ref={imgInput}
+                  disabled={uploadingPost}
+                />
+                <label htmlFor="file">Upload Picture</label>
+              </div>
+              <div className="popupMain">
+                <button
+                  className="openpopup"
+                  onClick={() => setButtonPopup(true)}
+                >
+                  Take Picture
+                </button>
+                <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+                  <Camera />
+                </Popup>
+              </div>
+            </div>
+          )}
+          {image && (
+            <div className="slider__View" style={{ width: "90%" }}>
+              {imagePreviews.map((imageUrl, index) => (
+                <div
+                  style={{ display: index === current ? "contents" : "none" }}
+                  className={index === current ? "slide active" : "slide"}
+                  key={index}
+                >
+                  <LazyLoadImage
+                    className="image"
+                    src={imageUrl}
+                    effect="blur"
+                    alt={" upload"}
+                    delayTime={1000}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      maxHeight: "220px",
+                    }}
+                  />
+                  {imagePreviews.length > 1 ? (
+                    <div className="sliders_button">
+                      <FaChevronCircleLeft
+                        className="slider_circle"
+                        onClick={prevStep}
+                      />
+                      <FaChevronCircleRight
+                        className="slider_chevron"
+                        onClick={nextStep}
+                      />
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+          <hr />
+          <div className="caption-container">
             <TextField
               className="create-post-input"
               onChange={(e) => setCaption(e.target.value)}
               value={caption}
               variant="filled"
-              // placeholder="Write a Caption..."
               label="Write a caption..."
               multiline
-              rows={12}
+              rows={8}
               disabled={uploadingPost}
               inputProps={{ maxLength: 200 }}
               sx={{
@@ -351,15 +354,18 @@ export default function ImgUpload(props) {
               }}
               style={{ color: "var(--color) !important" }}
             />
-            {!image && (
-              <HuePicker
-                color={background}
-                onChange={handleBackgroundChange}
-                height="12px"
-                width="100%"
-              />
-            )}
+            <div>
+              {!image && (
+                <HuePicker
+                  color={background}
+                  onChange={handleBackgroundChange}
+                  height="12px"
+                  width="100%"
+                />
+              )}
+            </div>
           </div>
+          <hr />
           <div className="shareBtnContainer">
             <button
               onClick={() => handleUpload("Post")}
@@ -379,157 +385,6 @@ export default function ImgUpload(props) {
           </div>
         </div>
       </div>
-      <div className="small_post_view">
-        {!nextPage && !image && (
-          <div className="file-input">
-            <div className="upload-picture">
-              <input
-                type="file"
-                className="file"
-                name="file"
-                id="file"
-                onChange={handleChange}
-                multiple
-                accept="image/*"
-                ref={imgInput}
-                disabled={uploadingPost}
-              />
-              <label htmlFor="file">Upload Picture</label>
-            </div>
-            <div className="popupMain">
-              <button
-                className="openpopup"
-                onClick={() => setButtonPopup(true)}
-              >
-                Take Picture
-              </button>
-              <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-                <Camera />
-              </Popup>
-            </div>
-          </div>
-        )}
-        {!nextPage && image && (
-          <div className="slider__View">
-            {imagePreviews.map((imageUrl, index) => (
-              <div
-                style={{ display: index === current ? "contents" : "none" }}
-                className={index === current ? "slide active" : "slide"}
-                key={index}
-              >
-                <LazyLoadImage
-                  className="image"
-                  src={imageUrl}
-                  effect="blur"
-                  alt={" upload"}
-                  delayTime={1000}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
-                />
-                {imagePreviews.length > 1 ? (
-                  <div className="sliders_button">
-                    <FaChevronCircleLeft
-                      className="slider_circle"
-                      onClick={prevStep}
-                    />
-                    <FaChevronCircleRight
-                      className="slider_chevron"
-                      onClick={nextStep}
-                    />
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
-        {!nextPage && (
-          <button className="next_button" onClick={ShiftToNextPage}>
-            Let's Write Some Text...
-          </button>
-        )}
-        {nextPage && (
-          <div className="back_button" onClick={ShiftToNextPage}>
-            <ArrowBackIcon fontSize="1rem" />
-            &nbsp; Image
-          </div>
-        )}
-        {nextPage && (
-          <div className="post__caption_section">
-            <div className="post__header">
-              {avatar && displayName && (
-                <>
-                  {" "}
-                  <Avatar
-                    className="post__avatar"
-                    alt={displayName}
-                    src={avatar}
-                    sx={{
-                      bgcolor: "royalblue",
-                      border: "2px solid transparent",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      cursor: "pointer",
-                      "&:hover": {
-                        boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 17px 0px",
-                        border: "2px solid black",
-                        scale: "1.1",
-                      },
-                    }}
-                  />
-                  <Link style={{ textDecoration: "none" }}>
-                    <h3 className="post__username">{displayName}</h3>
-                  </Link>
-                </>
-              )}
-            </div>
-            <TextField
-              className="create-post-input"
-              onChange={(e) => setCaption(e.target.value)}
-              value={caption}
-              variant="filled"
-              // placeholder="Write a Caption..."
-              label="Write a caption..."
-              multiline
-              rows={12}
-              disabled={uploadingPost}
-              sx={{
-                width: "100%",
-                "& .MuiFormLabel-root.Mui-focused": {
-                  fontWeight: "bold",
-                },
-                "& .MuiFilledInput-root": {
-                  background: "transparent",
-                  color: "var(--color)",
-                },
-              }}
-              style={{ color: "var(--color) !important" }}
-            />
-            <div className="shareBtnContainer">
-              <button
-                onClick={() => handleUpload("Post")}
-                disabled={uploadingPost}
-                className="share__button"
-              >
-                Add Post
-              </button>
-              <button
-                onClick={() => handleUpload("Story")}
-                disabled={uploadingPost || isStoryUploaded}
-                className={`share__button ${isStoryUploaded ? "disable_post_btn" : null
-                  }`}
-              >
-                Create Story
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
+    </>
   );
 }

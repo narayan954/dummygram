@@ -5,6 +5,7 @@ import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useEffect, useRef, useState } from "react";
 
 import { ClickAwayListener } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import DeleteIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import EditIcon from "@mui/icons-material/EditOutlined";
 import EmojiPicker from "emoji-picker-react";
@@ -48,6 +49,11 @@ const ChatBox = () => {
     setOpenOptions(messageId);
   };
 
+  const handleCancel = () => {
+    setIsEditing(false);
+    setNewMessage("");
+  };
+
   const handleEditMsg = (messageId) => {
     const messageToEdit = messages.find((message) => message.id === messageId);
     if (messageToEdit) {
@@ -86,6 +92,7 @@ const ChatBox = () => {
           .doc(editingMessageId)
           .update({
             text: newMessage,
+            edited: true,
           })
           .then(() => {
             setNewMessage("");
@@ -262,90 +269,97 @@ const ChatBox = () => {
   }, [loadMoreMsgs]);
 
   return (
-    <div className="chat-main-container">
-      <div className="closeBtn">
-        <HighlightOffRoundedIcon onClick={() => navigate("/dummygram/")} />
-      </div>
+    <>
+      <div className="chat-main-container">
+        <div className="closeBtn">
+          <HighlightOffRoundedIcon onClick={() => navigate("/dummygram/")} />
+        </div>
 
-      {isLoading ? (
-        <div className="chat-loader-container">
-          <Loader />
-        </div>
-      ) : (
-        <div className="all-chat-msg-container" ref={chatMsgContainerRef}>
-          <ul className="chat-msg-container">
-            {messages.map((message) => (
-              <li
-                key={message.id}
-                className={`chat-message ${
-                  user?.uid == message.uid ? "current-user-msg" : ""
-                }`}
-              >
-                <img
-                  src={message.photoURL || profileAvatar}
-                  alt={message.displayName}
-                  className={"chat-user-img"}
-                  onClick={() => goToUserProfile(message.uid)}
-                />
-                <div className="chat-msg-text">
-                  <span className="name-and-date-container">
-                    <h5
-                      className="chat-msg-sender-name"
-                      onClick={() => goToUserProfile(message.uid)}
-                    >
-                      {message.displayName}
-                    </h5>
-                    <span className="time-reaction-container">
-                      <h6 className="message-time">
-                        {getTime(message?.createdAt?.seconds)}
-                      </h6>
-                      <Reaction message={message} userUid={message.uid} />
-                      {user.uid === message.uid && (
-                        <span className="flex-center message-options">
-                          <OptionIcon
-                            onClick={() => {
-                              setOpenOptions(true);
-                              handleOpenOptions(message.id);
-                            }}
-                          />
-                          {openOptions && openOptions === message.id && (
-                            <ClickAwayListener
-                              onClickAway={() => setOpenOptions(false)}
-                            >
-                              <div className="delete-message-container">
-                                <span
-                                  className="delete-option"
-                                  onClick={() => handleDeletMsg(message.id)}
-                                >
-                                  <DeleteIcon />
-                                  Delete
-                                </span>
-                                <span
-                                  className="edit-option"
-                                  onClick={() => handleEditMsg(message.id)}
-                                >
-                                  <EditIcon />
-                                  Edit
-                                </span>
-                              </div>
-                            </ClickAwayListener>
-                          )}
-                        </span>
-                      )}
+        {isLoading ? (
+          <div className="chat-loader-container">
+            <Loader />
+          </div>
+        ) : (
+          <div className="all-chat-msg-container" ref={chatMsgContainerRef}>
+            <ul className="chat-msg-container">
+              {messages.map((message) => (
+                <li
+                  key={message.id}
+                  className={`chat-message ${
+                    user?.uid == message.uid ? "current-user-msg" : ""
+                  }`}
+                >
+                  <img
+                    src={message.photoURL || profileAvatar}
+                    alt={message.displayName}
+                    className={"chat-user-img"}
+                    onClick={() => goToUserProfile(message.uid)}
+                  />
+                  <div className="chat-msg-text">
+                    <span className="name-and-date-container">
+                      <h5
+                        className="chat-msg-sender-name"
+                        onClick={() => goToUserProfile(message.uid)}
+                      >
+                        {message.displayName}
+                      </h5>
+                      <span className="time-reaction-container">
+                        <h6 className="message-time">
+                          {getTime(message?.createdAt?.seconds)}
+                        </h6>
+                        <Reaction message={message} userUid={message.uid} />
+                        {user.uid === message.uid && (
+                          <span className="flex-center message-options">
+                            <OptionIcon
+                              onClick={() => {
+                                setOpenOptions(true);
+                                handleOpenOptions(message.id);
+                              }}
+                            />
+                            {openOptions && openOptions === message.id && (
+                              <ClickAwayListener
+                                onClickAway={() => setOpenOptions(false)}
+                              >
+                                <div className="delete-message-container">
+                                  <span
+                                    className="delete-option"
+                                    onClick={() => handleDeletMsg(message.id)}
+                                  >
+                                    <DeleteIcon />
+                                    Delete
+                                  </span>
+                                  <span
+                                    className="edit-option"
+                                    onClick={() => handleEditMsg(message.id)}
+                                  >
+                                    <EditIcon />
+                                    Edit
+                                  </span>
+                                </div>
+                              </ClickAwayListener>
+                            )}
+                          </span>
+                        )}
+                      </span>
                     </span>
-                  </span>
-                  <p>{message.text}</p>
-                  {message.reaction && (
-                    <ul className="rxn-main-container">
-                      {getReaction(message.reaction)}
-                    </ul>
-                  )}
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+                    <p>{message.text}</p>
+                    {message.edited && (
+                      <div className="edit-state">
+                        <span>Edited</span>
+                      </div>
+                    )}
+                    {message.reaction && (
+                      <ul className="rxn-main-container">
+                        {getReaction(message.reaction)}
+                      </ul>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
       <form className="chat-input-container" onSubmit={handleOnSubmit}>
         {showEmojis && (
           <ClickAwayListener onClickAway={() => setShowEmojis(false)}>
@@ -376,17 +390,25 @@ const ChatBox = () => {
           onClick={handleEmojiClick}
         />
         <input
+          style={{ boxShadow: "none", border: "none" }}
           type="text"
           onChange={handleChange}
           value={newMessage}
           className="chat-input"
           maxLength={250}
+          placeholder="Enter message"
         />
+        {isEditing && (
+          <CloseIcon
+            style={{ color: "var(--text-grey)" }}
+            onClick={handleCancel}
+          />
+        )}
         <button className="chat-msg-send-btn-container">
           <SendIcon className="chat-msg-send-btn" onClick={handleOnSubmit} />
         </button>
       </form>
-    </div>
+    </>
   );
 };
 

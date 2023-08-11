@@ -155,7 +155,11 @@ const Suggestion = () => {
   };
 
   return (
-    <div className="suggestion-main-container">
+    <div
+      className={`suggestion-main-container ${
+        currentUser.isAnonymous ? "top-margin" : ""
+      }`}
+    >
       <button
         className="suggestion-scroll-btn suggestion-scroll-btn-left"
         onClick={() => scroll(-160)}

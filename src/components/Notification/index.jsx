@@ -1,8 +1,9 @@
 import "./index.css";
 
-import { Loader, ShareModal } from "../../reusableComponents";
+import { Loader } from "../../reusableComponents";
 import React, { useEffect, useState } from "react";
 import { auth, db } from "../../lib/firebase";
+import firebase from "firebase/compat/app";
 
 import { Box } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -10,9 +11,6 @@ import { SideBar } from "../index";
 import { useSnackbar } from "notistack";
 
 function Notifications() {
-  const [openShareModal, setOpenShareModal] = useState(false);
-  const [currentPostLink, setCurrentPostLink] = useState("");
-  const [postText, setPostText] = useState("");
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -62,7 +60,11 @@ function Notifications() {
     return () => unsubscribe();
   }, []);
 
-  function handleDeclineRequest(currentUserUid, targetUserUid) {
+  async function handleRemoveNotifiction(
+    currentUserUid,
+    targetUserUid,
+    accept,
+  ) {
     const batch = db.batch();
     const friendRequestRef = db
       .collection("users")
@@ -84,7 +86,7 @@ function Notifications() {
     batch
       .commit()
       .then(() => {
-        enqueueSnackbar("Friend Request Declined", {
+        enqueueSnackbar(`Friend Request ${accept ? "Accepted" : "Declined"}!`, {
           variant: "success",
         });
       })
@@ -93,6 +95,28 @@ function Notifications() {
           variant: "error",
         });
       });
+  }
+
+  async function handleAcceptRequest(currentUserUid, targetUserUid) {
+    const batch = db.batch();
+
+    const currentUserRef = db.collection("users").doc(currentUserUid);
+    const targetUserRef = db.collection("users").doc(targetUserUid);
+
+    batch.update(currentUserRef, {
+      Friends: firebase.firestore.FieldValue.arrayUnion(targetUserUid),
+    });
+
+    batch.update(targetUserRef, {
+      Friends: firebase.firestore.FieldValue.arrayUnion(currentUserUid),
+    });
+
+    await handleRemoveNotifiction(currentUserUid, targetUserUid, true);
+    await batch.commit().catch((error) => {
+      enqueueSnackbar(`Error Occurred: ${error}`, {
+        variant: "error",
+      });
+    });
   }
 
   return (
@@ -104,12 +128,6 @@ function Notifications() {
         </div>
       ) : (
         <div className="notification-container">
-          <ShareModal
-            openShareModal={openShareModal}
-            setOpenShareModal={setOpenShareModal}
-            currentPostLink={currentPostLink}
-            postText={postText}
-          />
           <Box>
             <div
               className="profile__favourites"
@@ -148,13 +166,21 @@ function Notifications() {
                             {name ? name : ""}.
                           </Link>
                           <div style={{ marginTop: "10px" }}>
-                            <button className="accept-btn notif-btn">
+                            <button
+                              className="accept-btn notif-btn"
+                              onClick={() => {
+                                handleAcceptRequest(
+                                  notification.recipient,
+                                  notification.sender,
+                                );
+                              }}
+                            >
                               Accept
                             </button>
                             <button
                               className="decline-btn notif-btn"
                               onClick={() =>
-                                handleDeclineRequest(
+                                handleRemoveNotifiction(
                                   notification.recipient,
                                   notification.sender,
                                 )
