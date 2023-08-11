@@ -262,7 +262,7 @@ input:focus {
 }
 
 .centeredScroll {
-  margin-left: 0;
+  margin-left:40%;
 }
 
 .scrollTop:hover {

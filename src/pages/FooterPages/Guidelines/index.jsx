@@ -3,6 +3,7 @@ import "../design.css";
 
 import { Link, useNavigate } from "react-router-dom";
 
+import Footer from "../Footer";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import background from "../../../assets/guidelines.webp";
 
@@ -177,6 +178,7 @@ const Guidelines = () => {
           </ul>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

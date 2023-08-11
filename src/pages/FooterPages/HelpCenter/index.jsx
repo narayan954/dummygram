@@ -3,6 +3,7 @@ import "./index.css";
 import React, { useState } from "react";
 
 import Faq from "../../../assets/preview.webp";
+import Footer from "../Footer";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { useNavigate } from "react-router-dom";
 
@@ -69,6 +70,7 @@ export default function HelpCenter() {
           );
         })}
       </div>
+      <Footer />
     </>
   );
 }
