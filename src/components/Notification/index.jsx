@@ -60,7 +60,11 @@ function Notifications() {
     return () => unsubscribe();
   }, []);
 
-  async function handleRemoveNotifiction(currentUserUid, targetUserUid, accept) {
+  async function handleRemoveNotifiction(
+    currentUserUid,
+    targetUserUid,
+    accept,
+  ) {
     const batch = db.batch();
     const friendRequestRef = db
       .collection("users")
@@ -108,15 +112,12 @@ function Notifications() {
     });
 
     await handleRemoveNotifiction(currentUserUid, targetUserUid, true);
-    await batch
-      .commit()
-      .catch((error) => {
-        enqueueSnackbar(`Error Occurred: ${error}`, {
-          variant: "error",
-        });
+    await batch.commit().catch((error) => {
+      enqueueSnackbar(`Error Occurred: ${error}`, {
+        variant: "error",
       });
+    });
   }
-
 
   return (
     <>
