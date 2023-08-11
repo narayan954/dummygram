@@ -8,7 +8,7 @@ import ContributorCard from "./ContributorCard";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import backgroundimg from "../../../assets/contributors.webp";
 import { useNavigate } from "react-router-dom";
-import Footer from "../../../components/Footer/Footer";
+
 
 function Contributor() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -130,7 +130,6 @@ function Contributor() {
           <h1 className="no-result">Sorry no result matches your query</h1>
         )}
       </div>
-      <Footer />
     </div>
   );
 }

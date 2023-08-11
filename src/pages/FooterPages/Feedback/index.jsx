@@ -8,7 +8,6 @@ import { SideBar } from "../../../components";
 import emailjs from "@emailjs/browser";
 import { playSuccessSound } from "../../../js/sounds";
 import { useSnackbar } from "notistack";
-import Footer from "../../../components/Footer/Footer";
 import Scroll from "../../../reusableComponents";
 
 export const Feedback = () => {
@@ -88,7 +87,6 @@ export const Feedback = () => {
         </form>
       </div>
       <Scroll />
-      <Footer />
     </>
   );
 };

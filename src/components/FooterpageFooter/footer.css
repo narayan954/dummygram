@@ -17,3 +17,8 @@ ul li{
     text-align: center;
     color: grey;
 }
+@media screen and (max-width:786) {
+    .footer ul li{
+        flex-direction: column;
+    }
+}
