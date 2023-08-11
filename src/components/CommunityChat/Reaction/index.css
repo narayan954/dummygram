@@ -21,6 +21,6 @@
   cursor: pointer;
 }
 .msg-reaction-container > p:hover {
-  transition: all 0.3s ease ;
+  transition: all 0.3s ease;
   scale: 1.5;
 }
