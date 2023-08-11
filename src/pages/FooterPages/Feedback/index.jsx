@@ -7,6 +7,7 @@ import { SideBar } from "../../../components";
 import emailjs from "@emailjs/browser";
 import { playSuccessSound } from "../../../js/sounds";
 import { useSnackbar } from "notistack";
+import Footer from "../FooterPagesFooter/Footer";
 
 export const Feedback = () => {
   const form = useRef(null);
@@ -37,6 +38,7 @@ export const Feedback = () => {
   return (
     <>
       <SideBar />
+      <h1 style={{color:'#5f85db', textAlign:'center', paddingTop:'1rem'}}>Your opinion matter to us !</h1>
       <div className="feedback-form-container footer-page-para-color">
         <span className="grad3 grad"></span>
         <span className="grad4 grad"></span>
@@ -75,6 +77,7 @@ export const Feedback = () => {
           </button>
         </form>
       </div>
+      <Footer/>
     </>
   );
 };

@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import background from "../../../assets/guidelines.webp";
+import Footer from "../FooterPagesFooter/Footer";
 
 const Guidelines = () => {
   const navigate = useNavigate();
@@ -177,6 +178,7 @@ const Guidelines = () => {
           </ul>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

@@ -24,10 +24,10 @@ export {
   Logo,
   Popup,
   PostSkeleton,
-  Scroll,
   ShareModal,
   SnackBar,
   validate,
+  Scroll,
 };
 
 export default Scroll;

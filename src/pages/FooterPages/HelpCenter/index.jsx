@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import Faq from "../../../assets/preview.webp";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { useNavigate } from "react-router-dom";
+import Footer from "../FooterPagesFooter/Footer";
 
 const accordionData = [
   {
@@ -69,6 +70,7 @@ export default function HelpCenter() {
           );
         })}
       </div>
+      <Footer/>
     </>
   );
 }
