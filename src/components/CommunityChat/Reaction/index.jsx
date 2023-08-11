@@ -28,31 +28,32 @@ const Reaction = ({ message, userUid, currentUid }) => {
   async function addReaction(type) {
     let updatedData = { ...reaction }; // Create a copy of the existing reactions
     const msgDocRef = db.collection("messages").doc(id);
-  
+
     if (updatedData[type]) {
       // Check if the user has already reacted with this emoji
       const userIndex = updatedData[type].indexOf(currentUid);
-  
+
       if (userIndex !== -1) {
         // If the user's reaction already exists, remove it
         updatedData[type].splice(userIndex, 1);
       } else {
         // If the user's reaction doesn't exist, toggle off any existing reaction
         for (const existingType in updatedData) {
-          const existingUserIndex = updatedData[existingType].indexOf(currentUid);
+          const existingUserIndex =
+            updatedData[existingType].indexOf(currentUid);
           if (existingUserIndex !== -1) {
             updatedData[existingType].splice(existingUserIndex, 1);
             break; // Exit the loop after toggling off the existing reaction
           }
         }
-        
+
         updatedData[type].push(currentUid); // Add the new reaction
       }
     } else {
       // If the reaction type doesn't exist, create a new array with the user's UID
       updatedData[type] = [currentUid];
     }
-  
+
     // Update the reaction data in the message document
     try {
       await msgDocRef.update({
@@ -65,7 +66,6 @@ const Reaction = ({ message, userUid, currentUid }) => {
       });
     }
   }
-
 
   return (
     <ClickAwayListener onClickAway={() => setReactionOpen(false)}>
