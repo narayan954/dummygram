@@ -5,11 +5,11 @@ import React, { useEffect, useState } from "react";
 import { auth, db } from "../../lib/firebase";
 import { getModalStyle, useStyles } from "../../App";
 import { useLocation, useNavigate } from "react-router-dom";
+import getUserSessionData from "../../js/userData";
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineClose } from "react-icons/ai";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { ClickAwayListener } from "@mui/material";
 import { Dialog } from "@mui/material";
 import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
@@ -17,8 +17,10 @@ import HomeIcon from "@mui/icons-material/Home";
 import ImgUpload from "../ImgUpload";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Modal from "@mui/material/Modal";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import SettingsIcon from "@mui/icons-material/Settings";
+import blankImg from "../../assets/blank-profile.webp";
 import { useSnackbar } from "notistack";
 
 const Footer = React.lazy(() => import("./Footer"));
@@ -39,14 +41,13 @@ function SideBar() {
     username: "",
   });
 
+  const windowWidth = window.innerWidth;
+
   useEffect(() => {
     async function getUsername() {
       try {
-        const docRef = db.collection("users", user?.uid);
-        const docSnap = await docRef.get();
-
-        if (docSnap.docs[0].exists) {
-          const data = docSnap.docs[0].data();
+        const data = await getUserSessionData();
+        if (data) {
           setUserData({
             name: data?.displayName || auth.currentUser?.displayName,
             username: data?.username || auth.currentUser?.uid,
@@ -89,6 +90,44 @@ function SideBar() {
     <div className="sidebar">
       <div className="sidebar-container">
         <ul className="sidebar-links">
+          {/* <div className="sidebar_design">
+            <span style={{ backgroundColor: "red" }}></span>
+            <span style={{ backgroundColor: "orange" }}></span>
+            <span style={{ backgroundColor: "rgb(30, 222, 30)" }}></span>
+          </div> */}
+          <li
+            className={
+              windowWidth < 1200 &&
+              location.pathname.includes("/dummygram/user")
+                ? "activeTab"
+                : ""
+            }
+            style={{
+              cursor: windowWidth > 1200 ? "default" : "pointer",
+            }}
+            id="sidebar_profile_link"
+            onClick={() => {
+              if (windowWidth < 1200) {
+                setOpenMenu((prev) => !prev);
+              }
+            }}
+          >
+            <div className="sidebar_profile">
+              {windowWidth > 1200 && (
+                <MoreVertIcon
+                  className="sidebar_menu_icon"
+                  onClick={() => setOpenMenu((prev) => !prev)}
+                  style={{ cursor: "pointer" }}
+                />
+              )}
+              <img
+                src={user?.photoURL?.length > 0 ? user.photoURL : blankImg}
+                alt="profile picture"
+                className="profile-picture"
+              />
+              <h3 className="sidebar_user_name">{user?.displayName}</h3>
+            </div>
+          </li>
           <li
             id="sidebar-home-link"
             onClick={() => navigate("/dummygram")}
@@ -124,30 +163,6 @@ function SideBar() {
           >
             <div className="sidebar_align">
               <NotificationsIcon className="icon" /> <span>Notifications</span>
-            </div>
-          </li>
-          <li
-            className={
-              location.pathname.includes("/dummygram/user") ? "activeTab" : ""
-            }
-          >
-            <div
-              className="sidebar_align"
-              onClick={() => setOpenMenu((prev) => !prev)}
-            >
-              {user?.photoURL ? (
-                <img
-                  src={user.photoURL}
-                  alt="profile picture"
-                  className="profile-picture"
-                />
-              ) : (
-                <AccountCircleIcon className="icon" />
-              )}{" "}
-              <span className="sidebar_user_dropdown">
-                {user && !anonymous ? user.displayName : userData.name}{" "}
-                <ArrowDropDownIcon />
-              </span>
             </div>
           </li>
         </ul>
@@ -198,7 +213,10 @@ function SideBar() {
 
       {openMenu && (
         <ClickAwayListener onClickAway={() => setOpenMenu(false)}>
-          <div className="sidebar_user_dropdown_container">
+          <div
+            className="sidebar_user_dropdown_container"
+            onClick={() => setOpenMenu(false)}
+          >
             <ul className="sidebar_user_dropdown_sub_container">
               <li
                 onClick={() =>
