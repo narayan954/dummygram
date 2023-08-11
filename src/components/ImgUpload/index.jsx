@@ -101,7 +101,7 @@ export default function ImgUpload(props) {
   };
 
   const savePost = async (imageUrl = "", type) => {
-    const bg = background === "#fff" ? null : background
+    const bg = background === "#fff" ? null : background;
     try {
       if (type === "Post") {
         const postRef = await db.collection("posts").add({
@@ -124,7 +124,9 @@ export default function ImgUpload(props) {
           .update({
             posts: firebase.firestore.FieldValue.arrayUnion(postId), // Use postId instead of postRef.id
           });
-        setUserSessionData({ posts: firebase.firestore.FieldValue.arrayUnion(postId) })
+        setUserSessionData({
+          posts: firebase.firestore.FieldValue.arrayUnion(postId),
+        });
       } else {
         await db.collection("story").add({
           caption: caption,
@@ -144,7 +146,9 @@ export default function ImgUpload(props) {
           await userRef.update({
             storyTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
           });
-          setUserSessionData({ storyTimestamp: firebase.firestore.FieldValue.serverTimestamp() })
+          setUserSessionData({
+            storyTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          });
         }
       }
 
@@ -377,8 +381,9 @@ export default function ImgUpload(props) {
             <button
               onClick={() => handleUpload("Story")}
               disabled={uploadingPost || isStoryUploaded}
-              className={`share__button ${isStoryUploaded ? "disable_post_btn" : null
-                }`}
+              className={`share__button ${
+                isStoryUploaded ? "disable_post_btn" : null
+              }`}
             >
               Create Story
             </button>

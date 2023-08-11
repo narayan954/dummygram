@@ -133,8 +133,12 @@ const LoginScreen = () => {
             handleSubmit={signIn}
             btn__label={"LogIn"}
             submit__icon={faRightToBracket}
-            handleSignInWithGoogle={(e) => signInWithOAuth(e, enqueueSnackbar, navigate)}
-            handleSignInWithFacebook={(e) => signInWithOAuth(e, enqueueSnackbar, navigate, false)}
+            handleSignInWithGoogle={(e) =>
+              signInWithOAuth(e, enqueueSnackbar, navigate)
+            }
+            handleSignInWithFacebook={(e) =>
+              signInWithOAuth(e, enqueueSnackbar, navigate, false)
+            }
             have_acct_question={"Don't have an account? "}
             have_acct_nav={navigateToSignup}
             have__acct_action={"Sign up"}

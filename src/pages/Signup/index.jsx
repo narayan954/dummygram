@@ -9,11 +9,7 @@ import {
   Auth_container,
 } from "../../reusableComponents/Auth";
 import React, { useRef, useState } from "react";
-import {
-  auth,
-  db,
-  storage,
-} from "../../lib/firebase";
+import { auth, db, storage } from "../../lib/firebase";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import signInWithOAuth from "../../js/signIn";
 
@@ -170,7 +166,7 @@ const SignupScreen = () => {
           enqueueSnackbar(error.message, {
             variant: "error",
           });
-        })
+        });
     } else {
       enqueueSnackbar("Please fill all fields with valid data", {
         variant: "error",
@@ -297,8 +293,12 @@ const SignupScreen = () => {
             handleSubmit={signUp}
             btn__label={"Sign up"}
             submit__icon={faRightToBracket}
-            handleSignInWithGoogle={(e) => signInWithOAuth(e, enqueueSnackbar, navigate)}
-            handleSignInWithFacebook={(e) => signInWithOAuth(e, enqueueSnackbar, navigate, false)}
+            handleSignInWithGoogle={(e) =>
+              signInWithOAuth(e, enqueueSnackbar, navigate)
+            }
+            handleSignInWithFacebook={(e) =>
+              signInWithOAuth(e, enqueueSnackbar, navigate, false)
+            }
             have_acct_question={"Already have an account?"}
             have_acct_nav={navigateToLogin}
             have__acct_action={"Sign in!"}

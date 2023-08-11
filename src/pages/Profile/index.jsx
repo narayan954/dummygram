@@ -118,7 +118,7 @@ function Profile() {
                 await docRef.update({
                   bgImageUrl: url,
                 });
-                setUserSessionData({bgImageUrl: url});
+                setUserSessionData({ bgImageUrl: url });
                 await deleteImg(oldImg);
               })
               .then(

@@ -52,7 +52,7 @@ function Post(prop) {
   useEffect(() => {
     async function getUsername() {
       const data = await getUserSessionData();
-      setUsername(data.username)
+      setUsername(data.username);
     }
     if (auth?.currentUser?.isAnonymous) {
       setUsername("guest");
