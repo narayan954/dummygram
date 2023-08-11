@@ -1,11 +1,11 @@
-import { FriendsComponent } from "../../components"
+import { FriendsComponent } from "../../components";
 
 const Friends = () => {
   return (
     <div>
       <FriendsComponent />
     </div>
-  )
-}
+  );
+};
 
-export default Friends
+export default Friends;

@@ -67,7 +67,6 @@ function Profile() {
   let storyTimestamp = null;
   let friendsLen = 0;
 
-
   if (userData) {
     name = userData.name;
     avatar = userData.avatar;
@@ -101,7 +100,7 @@ function Profile() {
           .put(backgroundImage);
         uploadTask.on(
           "state_changed",
-          () => { },
+          () => {},
           (error) => {
             enqueueSnackbar(error.message, {
               variant: "error",
@@ -199,7 +198,7 @@ function Profile() {
             storyTimestamp: data.storyTimestamp,
             Friends: data.Friends.length,
           });
-          setIsFriendAlready(data.Friends.includes(user?.uid))
+          setIsFriendAlready(data.Friends.includes(user?.uid));
         } else {
           setUserExists(false);
         }
@@ -355,7 +354,6 @@ function Profile() {
     };
   }, [uid]);
 
-
   async function handleRemoveFriend() {
     const batch = db.batch();
     const currentUserUid = user?.uid;
@@ -372,13 +370,11 @@ function Profile() {
       Friends: firebase.firestore.FieldValue.arrayRemove(currentUserUid),
     });
 
-    await batch
-      .commit()
-      .catch((error) => {
-        enqueueSnackbar(`Error Occurred: ${error}`, {
-          variant: "error",
-        });
+    await batch.commit().catch((error) => {
+      enqueueSnackbar(`Error Occurred: ${error}`, {
+        variant: "error",
       });
+    });
   }
 
   async function getSavedPosts() {
@@ -504,8 +500,9 @@ function Profile() {
                     }}
                     alt={name}
                     src={avatar}
-                    className={`profile-pic-container ${storyTimestamp ? "story_available_border" : null
-                      } user-image`}
+                    className={`profile-pic-container ${
+                      storyTimestamp ? "story_available_border" : null
+                    } user-image`}
                   />
                 ) : (
                   <img
@@ -515,8 +512,9 @@ function Profile() {
                       }
                     }}
                     style={{ borderRadius: "50%", objectFit: "cover" }}
-                    className={`user-image profile-pic-container ${storyTimestamp ? "story_available_border" : null
-                      } user-image`}
+                    className={`user-image profile-pic-container ${
+                      storyTimestamp ? "story_available_border" : null
+                    } user-image`}
                     src={defaultProfile}
                     alt={name}
                   />
@@ -570,7 +568,9 @@ function Profile() {
                   onClick={() =>
                     user.isAnonymous
                       ? navigate("/dummygram/signup")
-                      : (isFriendAlready ? handleRemoveFriend() : handleSendFriendRequest())
+                      : isFriendAlready
+                      ? handleRemoveFriend()
+                      : handleSendFriendRequest()
                   }
                   variant="contained"
                   color="primary"
@@ -580,30 +580,37 @@ function Profile() {
                     padding: "10px 25px",
                   }}
                 >
-                  {isFriendAlready ? "Remove Friend" : (
-                    friendRequestSent ? "Remove friend request" : "Add Friend"
-                  )}
+                  {isFriendAlready
+                    ? "Remove Friend"
+                    : friendRequestSent
+                    ? "Remove friend request"
+                    : "Add Friend"}
                 </Button>
               )}
             </div>
 
-            <Link to={`/dummygram/user/${username}/friends`} className="profile-user-username flexx">
+            <Link
+              to={`/dummygram/user/${username}/friends`}
+              className="profile-user-username flexx"
+            >
               {friendsLen} Friends
             </Link>
           </div>
 
           <div className="feed_btn_container">
             <button
-              className={`feed_change_btn ${showSaved ? "feed_btn_deactivated" : "feed_btn_activated"
-                }`}
+              className={`feed_change_btn ${
+                showSaved ? "feed_btn_deactivated" : "feed_btn_activated"
+              }`}
               onClick={() => setShowSaved(false)}
             >
               <GridOnIcon /> <span className="feed_btn_text">Feed</span>
             </button>
             {user?.uid === uid && (
               <button
-                className={`feed_change_btn ${showSaved ? "feed_btn_activated" : "feed_btn_deactivated"
-                  }`}
+                className={`feed_change_btn ${
+                  showSaved ? "feed_btn_activated" : "feed_btn_deactivated"
+                }`}
                 onClick={() => {
                   getSavedPosts();
                   setShowSaved(true);
