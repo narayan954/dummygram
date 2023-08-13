@@ -4,10 +4,9 @@ import { Avatar, LinearProgress, TextField } from "@mui/material";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import React, { useEffect, useRef, useState } from "react";
 import { auth, db, handleMultiUpload } from "../../lib/firebase";
-import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import getUserSessionData, { setUserSessionData } from "../../js/userData";
+import { playErrorSound, playSuccessSound } from "../../js/sounds";
 
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Camera from "./Camera";
 import { HuePicker } from "react-color";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -18,7 +17,6 @@ import { useSnackbar } from "notistack";
 
 export default function ImgUpload(props) {
   const [current, setCurrent] = useState(0);
-  const [nextPage, setNextPage] = useState(false);
   const [image, setImage] = useState(null);
   const [caption, setCaption] = useState("");
   const [progress, setProgress] = useState(0);
@@ -36,9 +34,6 @@ export default function ImgUpload(props) {
   const imgInput = useRef(null);
   const { enqueueSnackbar } = useSnackbar();
 
-  const ShiftToNextPage = () => {
-    setNextPage(!nextPage);
-  };
   const prevStep = () => {
     setCurrent(current === 0 ? imagePreviews.length - 1 : current - 1);
   };
@@ -66,7 +61,8 @@ export default function ImgUpload(props) {
   }, []);
 
   const handleChange = (e) => {
-    if (!e.target.files[0]) {
+    let filesSelected = e.target.files;
+    if (filesSelected.length < 1) {
       enqueueSnackbar("Select min 1 image!", {
         variant: "error",
       });
@@ -74,8 +70,7 @@ export default function ImgUpload(props) {
       e.stopPropagation();
       return;
     }
-    for (let i = 0; i < e.target.files.length; i++) {
-      const img = e.target.files[i];
+    for (let img of filesSelected) {
       if (!img.name.match(/\.(jpg|jpeg|png|gif|svg)$/)) {
         enqueueSnackbar("Select a valid image!", {
           variant: "error",
@@ -86,21 +81,18 @@ export default function ImgUpload(props) {
     }
     setisValidimage(true);
 
-    const images = [];
+    setImage(Array.from(filesSelected));
 
-    if (e.target.files?.length) {
-      setImage(Array.from(e.target.files));
-      setImagePreviews(image);
-    }
-    for (let i = 0; i < e.target.files.length; i++) {
-      images.push(URL.createObjectURL(e.target.files[i]));
+    const images = [];
+    for (let file of filesSelected) {
+      images.push(URL.createObjectURL(file));
     }
 
     setImagePreviews(images);
     setBackground("#fff");
   };
 
-  const savePost = async (imageUrl = "", type) => {
+  const savePost = async (type, imageUrl = "") => {
     const bg = background === "#fff" ? null : background;
     try {
       if (type === "Post") {
@@ -195,7 +187,7 @@ export default function ImgUpload(props) {
     }
 
     if (!image) {
-      savePost("", type);
+      savePost(type);
       return;
     }
 
@@ -210,7 +202,7 @@ export default function ImgUpload(props) {
       },
     })
       .then((urls) => {
-        savePost(JSON.stringify(urls), type);
+        savePost(type, JSON.stringify(urls));
       })
       .catch((err) => {
         enqueueSnackbar(err.message, {
@@ -301,7 +293,7 @@ export default function ImgUpload(props) {
                 <div
                   style={{ display: index === current ? "contents" : "none" }}
                   className={index === current ? "slide active" : "slide"}
-                  key={index}
+                  key={imageUrl}
                 >
                   <LazyLoadImage
                     className="image"
