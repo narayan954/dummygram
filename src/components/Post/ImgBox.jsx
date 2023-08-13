@@ -1,4 +1,4 @@
-import Caption from "./Caption.jsx";
+import Caption from "./../Caption.jsx";
 import { ImageSlider } from "../../reusableComponents";
 import React from "react";
 import { ReadMore } from "../index";

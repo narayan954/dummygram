@@ -1,6 +1,7 @@
-import Caption from "./Post/Caption";
+import Caption from "./Caption";
 import ChatBox from "./CommunityChat";
 import EditProfile from "./EditProfile";
+import FriendsComponent from "./FriendsComponent";
 import GuestSignInBtn from "./Guest/GuestSignInBtn";
 import GuestSignUpBtn from "./Guest/GuestSignUpBtn";
 import ImgUpload from "./ImgUpload";
@@ -12,7 +13,6 @@ import ReadMore from "./ReadMore";
 import SideBar from "./SideBar";
 import StoryView from "./Story";
 import Suggestion from "./Suggestions";
-import FriendsComponent from "./FriendsComponent";
 
 export {
   Caption,

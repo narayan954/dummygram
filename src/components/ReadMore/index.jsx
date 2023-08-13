@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import Caption from "../Post/Caption.jsx";
+import Caption from "../Caption.jsx";
 
 const ReadMore = ({ children, postId, picCap = false, readMore = true }) => {
   const { id } = useParams();
