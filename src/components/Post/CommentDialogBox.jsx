@@ -11,12 +11,12 @@ import {
 import React, { useEffect, useState } from "react";
 import { auth, db } from "../../lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
-import { deleteComment } from "../../js/postFn";
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import { Link } from "react-router-dom";
 import ReadMore from "../ReadMore";
+import { deleteComment } from "../../js/postFn";
 
 const CommentDialogBox = ({ postId, comments, user, fullScreen }) => {
   const { isAnonymous } = user;
@@ -82,7 +82,9 @@ const CommentDialogBox = ({ postId, comments, user, fullScreen }) => {
                     </span>
                   </Link>
                   <p className="comment">
-                    <ReadMore>{userComment.content.text}</ReadMore>
+                    <ReadMore postId={postId}>
+                      {userComment.content.text}
+                    </ReadMore>
                   </p>
                 </div>
                 <div

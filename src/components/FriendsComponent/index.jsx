@@ -91,7 +91,7 @@ const FriendsComponent = () => {
                   <li key={username} className="friend_page_friend_list_item">
                     <img
                       src={photoURL ? photoURL : blankImg}
-                      alt={displayName ? displayName : "user"}
+                      alt={"user pic"}
                       className="friend_page_friend_avatar"
                       onClick={() => navigate(`/dummygram/user/${username}`)}
                     />

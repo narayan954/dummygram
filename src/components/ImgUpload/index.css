@@ -95,7 +95,6 @@
 }
 
 .file-input label {
-  display: block;
   position: relative;
   border-radius: 20px;
   background: linear-gradient(40deg, #5f85db, #daf1f7);

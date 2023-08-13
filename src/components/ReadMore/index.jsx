@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import Caption from "../Post/Caption.jsx";
 
-const ReadMore = ({ children, picCap = false, postId, readMore = true }) => {
+const ReadMore = ({ children, postId, picCap = false, readMore = true }) => {
   const { id } = useParams();
 
   const [isReadMore, setIsReadMore] = useState(readMore);
