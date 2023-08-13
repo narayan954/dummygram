@@ -11,6 +11,7 @@ import PostSkeleton from "./PostSkeleton";
 import Scroll from "./Scroll";
 import ShareModal from "./ShareModal";
 import SnackBar from "./SnackBar";
+import ViewsCounter from "./Views";
 import validate from "./validation";
 
 export {
@@ -28,6 +29,7 @@ export {
   ShareModal,
   SnackBar,
   validate,
+  ViewsCounter,
 };
 
 export default Scroll;
