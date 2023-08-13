@@ -1,5 +1,6 @@
 import "./index.css";
 
+import { Darkmode, ErrorBoundary } from "./reusableComponents";
 import {
   DeleteAccount,
   SettingsSidebar,
@@ -9,8 +10,6 @@ import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
 import { ChatPage } from "./pages";
-import { Darkmode } from "./reusableComponents";
-import { ErrorBoundary } from "./reusableComponents";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { RowModeContext } from "./hooks/useRowMode";
 import { auth } from "./lib/firebase";

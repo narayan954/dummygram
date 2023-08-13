@@ -1,6 +1,7 @@
 import "./index.css";
 
 import { auth, db, storage } from "../../lib/firebase";
+import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useRef, useState } from "react";
 
 import BackIcon from "@mui/icons-material/ArrowBackIosNew";
@@ -156,7 +157,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
         "state_changed",
         () => {},
         (error) => {
-          // playErrorSound();
+          playErrorSound();
           enqueueSnackbar(error.message, {
             variant: "error",
           });
@@ -171,10 +172,11 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
               await updateUser(url);
             })
             .then(() => {
+              setUserData(editedData);
+              playSuccessSound();
               enqueueSnackbar("Upload Successfull", {
                 variant: "success",
-              }),
-                setUserData(editedData);
+              });
             })
             .finally(() => {
               setIsEditing(false);
@@ -187,10 +189,11 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
         oldImg && (await deleteImg(oldImg));
         await updateUser(image)
           .then(() => {
+            setUserData(editedData);
+            playSuccessSound();
             enqueueSnackbar("Upload Successfull", {
               variant: "success",
-            }),
-              setUserData(editedData);
+            });
           })
           .finally(() => {
             setIsEditing(false);
@@ -202,11 +205,12 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
       async function upload() {
         await updateUser(oldImg)
           .then(() => {
+            setUserData(editedData);
+            navigate(`/dummygram/user/${newUsername}`);
+            playSuccessSound();
             enqueueSnackbar("Upload Successfull", {
               variant: "success",
-            }),
-              setUserData(editedData);
-            navigate(`/dummygram/user/${newUsername}`);
+            });
           })
           .finally(() => {
             setIsEditing(false);

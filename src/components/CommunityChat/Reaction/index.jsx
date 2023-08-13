@@ -6,24 +6,10 @@ import { db } from "../../../lib/firebase";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
 
-const Reaction = ({ message, userUid, currentUid }) => {
+const Reaction = ({ message, currentUid }) => {
   const [reactionOpen, setReactionOpen] = useState(false);
   const { id, reaction } = message;
   const { enqueueSnackbar } = useSnackbar();
-
-  function checkOccurenceOfReaction() {
-    let reactionsArr = Object.keys(reaction);
-    let includess = null;
-
-    for (const rxn of reactionsArr) {
-      if (reaction[rxn].includes(userUid)) {
-        includess = rxn;
-        break;
-      }
-    }
-
-    return includess;
-  }
 
   async function addReaction(type) {
     let updatedData = { ...reaction }; // Create a copy of the existing reactions
@@ -38,14 +24,14 @@ const Reaction = ({ message, userUid, currentUid }) => {
         updatedData[type].splice(userIndex, 1);
       } else {
         // If the user's reaction doesn't exist, toggle off any existing reaction
-        for (const existingType in updatedData) {
-          const existingUserIndex =
-            updatedData[existingType].indexOf(currentUid);
-          if (existingUserIndex !== -1) {
-            updatedData[existingType].splice(existingUserIndex, 1);
-            break; // Exit the loop after toggling off the existing reaction
-          }
-        }
+        // for (const existingType in updatedData) {
+        //   const existingUserIndex =
+        //     updatedData[existingType].indexOf(currentUid);
+        //   if (existingUserIndex !== -1) {
+        //     updatedData[existingType].splice(existingUserIndex, 1);
+        //     break; // Exit the loop after toggling off the existing reaction
+        //   }
+        // }
 
         updatedData[type].push(currentUid); // Add the new reaction
       }

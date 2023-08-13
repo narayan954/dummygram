@@ -1,10 +1,12 @@
 import "./index.css";
+
+import { auth, db } from "../../lib/firebase";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { db, auth } from "../../lib/firebase";
-import { useSnackbar } from "notistack";
-import blankImg from "../../assets/blank-profile.webp";
+
 import LockedFriendPage from "./Locked";
+import blankImg from "../../assets/blank-profile.webp";
+import { useSnackbar } from "notistack";
 
 const FriendsComponent = () => {
   const { username } = useParams();
@@ -86,24 +88,24 @@ const FriendsComponent = () => {
               friendsArr.map((friend) => {
                 const { displayName, photoURL, bio, username } = friend;
                 return (
-                  <li className="friend_page_friend_list_item">
+                  <li key={username} className="friend_page_friend_list_item">
                     <img
                       src={photoURL ? photoURL : blankImg}
                       alt={displayName ? displayName : "user"}
                       className="friend_page_friend_avatar"
                       onClick={() => navigate(`/dummygram/user/${username}`)}
                     />
-                    <span>
+                    <div>
                       <h3
                         className="friend_page_friend_name"
                         onClick={() => navigate(`/dummygram/user/${username}`)}
                       >
                         {displayName ? displayName : "user"}
                       </h3>
-                      <p className="friend_page_friend_bio">
+                      <span className="friend_page_friend_bio">
                         {bio ? bio : "..."}
-                      </p>
-                    </span>
+                      </span>
+                    </div>
                   </li>
                 );
               })}

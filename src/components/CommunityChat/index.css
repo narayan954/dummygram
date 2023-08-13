@@ -78,7 +78,6 @@
 .chat-user-img {
   width: 40px;
   aspect-ratio: 1;
-  border: 1px solid;
   border-radius: 50%;
   cursor: pointer;
   border: 1px solid #eee;

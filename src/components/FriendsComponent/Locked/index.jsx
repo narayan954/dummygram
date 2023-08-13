@@ -1,6 +1,7 @@
 import "./index.css";
-import lockImg from "../../../assets/lock.png";
+
 import { Link } from "react-router-dom";
+import lockImg from "../../../assets/lock.png";
 
 const LockedFriendPage = ({ name }) => {
   return (

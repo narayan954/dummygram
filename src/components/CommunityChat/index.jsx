@@ -170,11 +170,7 @@ const ChatBox = () => {
 
       return (
         reaction[rxn].length > 0 && (
-          <li
-            className="rxn-container"
-            key={rxn}
-            onClick={() => setShowRxnList((prev) => !prev)}
-          >
+          <li className="rxn-container" key={rxn}>
             {emoji}
             <span className="rxn-count">{reaction[rxn].length}</span>
           </li>
