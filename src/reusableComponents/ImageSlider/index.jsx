@@ -35,7 +35,7 @@ const ImageSlider = ({ slides, doubleClickHandler, height = 350 }) => {
               width: "100%",
             }}
             className={index === current ? "slide active" : "slide"}
-            key={index}
+            key={imageUrl}
           >
             <LazyLoadImage
               className="image post__image"

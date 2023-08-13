@@ -38,9 +38,7 @@ const ViewsCounter = ({ uid }) => {
             uid: uid,
             views: 1,
           };
-          const newDocumentRef = await db
-            .collection("profileViews")
-            .add(newDocumentData);
+          await db.collection("profileViews").add(newDocumentData);
 
           setViews(1);
           viewsArr.push(uid);

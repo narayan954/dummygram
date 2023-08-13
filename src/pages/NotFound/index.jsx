@@ -10,7 +10,7 @@ import img2 from "../../assets/404/404_2.png";
 import img3 from "../../assets/404/404_3.jpeg";
 import img4 from "../../assets/404/404_4.jpeg";
 
-export default function Error() {
+export default function DisplayError() {
   const imagesArr = [img1, img2, img3, img4];
   const randomIdx = Math.floor(Math.random() * 4);
   return (

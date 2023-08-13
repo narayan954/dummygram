@@ -1,7 +1,6 @@
 import "./index.css";
 
 import { Link } from "react-router-dom";
-import { Logo } from "../../../reusableComponents";
 
 const Footer = () => {
   return (

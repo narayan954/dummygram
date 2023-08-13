@@ -1,37 +1,35 @@
 import "./index.css";
 
 import { Avatar, Box, Button, Typography } from "@mui/material";
+import { EditProfile, StoryView } from "../../components";
+import { ErrorBoundary, Loader, ViewsCounter } from "../../reusableComponents";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { auth, db, storage } from "../../lib/firebase";
 import {
   collection,
   deleteField,
+  doc,
+  getDoc,
   onSnapshot,
   orderBy,
   query,
   where,
 } from "firebase/firestore";
-import { doc, getDoc } from "firebase/firestore";
 import { lazy, useEffect, useRef, useState } from "react";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
-import { Link, useNavigate, useParams } from "react-router-dom";
 
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import Cam from "@mui/icons-material/CameraAltOutlined";
 import EditIcon from "@mui/icons-material/Edit";
-import { EditProfile } from "../../components";
-import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
 import GridOnIcon from "@mui/icons-material/GridOn";
-import { Loader } from "../../reusableComponents";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import NotFound from "../NotFound";
 import ProfieFeed from "./feed";
-import { StoryView } from "../../components";
-import ViewsCounter from "../../reusableComponents/views";
 import defaultProfile from "../../assets/blank-profile.webp";
 import deleteImg from "../../js/deleteImg";
-import getUserSessionData, { setUserSessionData } from "../../js/userData";
 import firebase from "firebase/compat/app";
 import profileBackgroundImg from "../../assets/profile-background.webp";
+import { setUserSessionData } from "../../js/userData";
 import { useSnackbar } from "notistack";
 
 const SideBar = lazy(() => import("../../components/SideBar"));

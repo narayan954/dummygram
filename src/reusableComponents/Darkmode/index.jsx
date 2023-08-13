@@ -7,9 +7,7 @@ import CustomizedSwitch from "./ToggleSwitch";
 
 const Darkmode = () => {
   let darkMode = localStorage.getItem("darkMode");
-  const [modeStatus, setModeStatus] = useState(
-    darkMode == "enabled" ? false : true,
-  );
+  const [modeStatus, setModeStatus] = useState(darkMode !== "enabled");
 
   function enableDarkMode() {
     //add the class darkmode to the body

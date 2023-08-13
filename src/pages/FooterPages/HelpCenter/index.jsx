@@ -89,7 +89,7 @@ const Accordion = ({ title, content }) => {
           {/* <div className="accordion-header" onClick={toggleAccordion}>
           </div> */}
           <button
-            className={`accordion ${isOpen == true && "accordionTrue"}`}
+            className={`accordion ${isOpen && "accordionTrue"}`}
             onClick={toggleAccordion}
           >
             {title}

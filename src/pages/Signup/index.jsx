@@ -11,10 +11,10 @@ import {
 import React, { useRef, useState } from "react";
 import { auth, db, storage } from "../../lib/firebase";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
-import signInWithOAuth from "../../js/signIn";
 
 import blank_profile from "../../assets/blank-profile.webp";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
+import signInWithOAuth from "../../js/signIn";
 import { updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
@@ -171,7 +171,6 @@ const SignupScreen = () => {
       enqueueSnackbar("Please fill all fields with valid data", {
         variant: "error",
       });
-      return;
     }
   };
 

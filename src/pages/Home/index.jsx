@@ -1,8 +1,7 @@
 import { ErrorBoundary, PostSkeleton } from "../../reusableComponents";
+import { GuestSignUpBtn, Suggestion } from "../../components";
 import React, { Fragment, useEffect, useState } from "react";
 
-import { GuestSignUpBtn } from "../../components";
-import { Suggestion } from "../../components";
 import { db } from "../../lib/firebase";
 
 const Post = React.lazy(() => import("../../components/Post"));

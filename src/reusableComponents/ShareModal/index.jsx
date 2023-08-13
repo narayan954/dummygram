@@ -6,6 +6,12 @@ import Logo from "../Logo";
 import { playSuccessSound } from "../../js/sounds";
 import { useSnackbar } from "notistack";
 
+const CopyLinkButton = ({ onClick }) => (
+  <button onClick={onClick} className="copy-link-button">
+    Copy Link
+  </button>
+);
+
 const ShareModal = (props) => {
   const { openShareModal, setOpenShareModal, currentPostLink, postText } =
     props;
@@ -18,12 +24,6 @@ const ShareModal = (props) => {
       variant: "success",
     });
   };
-
-  const CopyLinkButton = ({ onClick }) => (
-    <button onClick={onClick} className="copy-link-button">
-      Copy Link
-    </button>
-  );
 
   return (
     <Dialog

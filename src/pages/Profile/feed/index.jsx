@@ -1,36 +1,54 @@
 import "./index.css";
 
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { Box, useMediaQuery } from "@mui/material";
-import { doc, updateDoc } from "firebase/firestore";
 import {
   ChatBubbleOutlineRounded,
-  FavoriteOutlined,
   FavoriteBorderOutlined,
+  FavoriteOutlined,
   ShareOutlined,
 } from "@mui/icons-material";
+import { Link, useNavigate } from "react-router-dom";
 import { auth, db } from "../../../lib/firebase";
+import { doc, updateDoc } from "firebase/firestore";
 
 import ErrorBoundary from "../../../reusableComponents/ErrorBoundary";
 import { ShareModal } from "../../../reusableComponents";
+import { useState } from "react";
 
-const ProfieFeed = ({ feed }) => {
+const MAX_CAPTION_MOBILE = 50;
+const MAX_CAPTION_TAB = 110;
+const DEFAULTBG = `linear-gradient(130deg, #dee2ed, #dee2ed, #9aa9d1, #b6c8e3, #b6afd0, #d3c0d8)`;
+
+function Caption({ text, maxLength }) {
   return (
-    <Box className="profile-feed-main-container">
-      <div className="app__posts__feed" id="feed-sub-container">
-        <ErrorBoundary>
-          {feed.map(({ post, id }) => (
-            <FeedPostDisplay post={post} id={id} key={id} />
-          ))}
-        </ErrorBoundary>
-      </div>
-    </Box>
+    <p className="caption_without_image">
+      {text.length > maxLength ? text.slice(0, maxLength) + "..." : text}
+    </p>
   );
-};
+}
 
-export default ProfieFeed;
+function PostWithoutImage({ post, maxLength }) {
+  return (
+    <div
+      className="profile_post_sub_container"
+      style={{ background: post.background || DEFAULTBG }}
+    >
+      <Caption text={post.caption} maxLength={maxLength} />
+    </div>
+  );
+}
 
+function PostWithImage({ imageUrl, username }) {
+  return (
+    <div className="post_sub_container">
+      <img
+        src={JSON.parse(imageUrl)[0].imageUrl}
+        alt={username}
+        className="post_image"
+      />
+    </div>
+  );
+}
 function FeedPostDisplay({ post, id }) {
   const navigate = useNavigate();
   const [hover, setHover] = useState(false);
@@ -40,28 +58,29 @@ function FeedPostDisplay({ post, id }) {
 
   const isMobileScreen = useMediaQuery("(max-width: 600px)");
   const isTabScreen = useMediaQuery("(max-width: 950px)");
-  const defaultBg = `linear-gradient(130deg, #dee2ed, #dee2ed, #9aa9d1, #b6c8e3, #b6afd0, #d3c0d8)`;
 
   async function likesHandler() {
     if (userUid && post.likecount !== undefined) {
-      let ind = post.likecount.indexOf(userUid);
-      const tempArr = tempLikeCount;
+      const ind = post.likecount.indexOf(userUid);
+      const tempArr = [...tempLikeCount];
 
       if (ind !== -1) {
         tempArr.splice(ind, 1);
-        setTempLikeCount(tempArr);
       } else {
         tempArr.push(userUid);
-        setTempLikeCount(tempArr);
       }
+
+      setTempLikeCount(tempArr);
 
       const data = {
         likecount: tempArr,
       };
       const docRef = doc(db, "posts", id);
-      await updateDoc(docRef, data).catch((error) => {
+      try {
+        await updateDoc(docRef, data);
+      } catch (error) {
         console.error("Error", error);
-      });
+      }
     }
   }
 
@@ -73,35 +92,19 @@ function FeedPostDisplay({ post, id }) {
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      {post.imageUrl == "" ? (
-        <div
-          className="profile_post_sub_container"
-          style={{ background: post.background ? post.background : defaultBg }}
-        >
-          {isMobileScreen ? (
-            <p className="caption_without_image">
-              {post.caption.length > 50
-                ? post.caption.slice(0, 50) + "..."
-                : post.caption}
-            </p>
-          ) : isTabScreen ? (
-            <p className="caption_without_image">
-              {post.caption.length > 110
-                ? post.caption.slice(0, 110) + "..."
-                : post.caption}
-            </p>
-          ) : (
-            <p className="caption_without_image">{post.caption}</p>
-          )}
-        </div>
+      {post.imageUrl === "" ? (
+        <PostWithoutImage
+          post={post}
+          maxLength={
+            isMobileScreen
+              ? MAX_CAPTION_MOBILE
+              : isTabScreen
+              ? MAX_CAPTION_TAB
+              : undefined
+          }
+        />
       ) : (
-        <div className="post_sub_container" key={id}>
-          <img
-            src={JSON.parse(post.imageUrl)[0].imageUrl}
-            alt={post.username}
-            className="post_image"
-          />
-        </div>
+        <PostWithImage imageUrl={post.imageUrl} username={post.username} />
       )}
 
       {hover && (
@@ -113,12 +116,8 @@ function FeedPostDisplay({ post, id }) {
               likesHandler();
             }}
           >
-            {tempLikeCount.indexOf(userUid) != -1 ? (
-              <FavoriteOutlined
-                sx={{
-                  color: "red",
-                }}
-              />
+            {tempLikeCount.includes(userUid) ? (
+              <FavoriteOutlined sx={{ color: "red" }} />
             ) : (
               <FavoriteBorderOutlined
                 style={{ color: "var(--post-nav-icons)" }}
@@ -155,3 +154,19 @@ function FeedPostDisplay({ post, id }) {
     </div>
   );
 }
+
+const ProfileFeed = ({ feed }) => {
+  return (
+    <Box className="profile-feed-main-container">
+      <div className="app__posts__feed" id="feed-sub-container">
+        <ErrorBoundary>
+          {feed.map(({ post, id }) => (
+            <FeedPostDisplay post={post} id={id} key={id} />
+          ))}
+        </ErrorBoundary>
+      </div>
+    </Box>
+  );
+};
+
+export default ProfileFeed;

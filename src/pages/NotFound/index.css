@@ -11,8 +11,6 @@
 .not_found_btn {
   border-radius: 0.45rem;
   margin-top: 15px;
-  font-weight: bold;
-  /* background-color: #2d5dc9; */
   background: var(--btn-color) !important;
   color: black;
   width: 100%;
