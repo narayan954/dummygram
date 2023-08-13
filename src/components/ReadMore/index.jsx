@@ -11,13 +11,15 @@ const ReadMore = ({ children, postId, picCap = false, readMore = true }) => {
   let text = children;
   const toggleReadMore = () => setIsReadMore((prev) => !prev);
 
+  const captionText = isReadMore
+    ? picCap
+      ? text.slice(0, 100)
+      : text.slice(0, 40)
+    : text;
+
   return (
     <>
-      <Caption
-        caption={
-          isReadMore ? (picCap ? text.slice(0, 100) : text.slice(0, 40)) : text
-        }
-      />
+      <Caption caption={captionText} />;
       {text.length >= 40 && (
         <span
           onClick={() => {

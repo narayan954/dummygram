@@ -84,6 +84,7 @@ body {
   align-items: center;
   justify-content: center;
   overflow-x: auto;
+  overflow: hidden;
 }
 
 .navbar_wrapper {
@@ -346,10 +347,6 @@ input:focus {
   z-index: 1;
 }
 
-.app {
-  overflow: hidden;
-}
-
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -440,8 +437,6 @@ div#picker {
 
 /* Input */
 input {
-  width: 100%;
-  border: 0;
   border: 1px solid rgba(104, 85, 224, 1);
   border-radius: 4px;
   box-shadow: 0 0 20px rgba(104, 85, 224, 0.2);

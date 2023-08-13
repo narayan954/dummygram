@@ -13,14 +13,13 @@ import {
   FavoriteOutlined,
   ShareOutlined,
 } from "@mui/icons-material";
+import { deletePost, savePost } from "../../js/postFn.js";
 
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Flexbetween from "../../reusableComponents/Flexbetween";
 import { ShareModal } from "../../reusableComponents";
-import deletePost from "../../js/postFn.js";
-import { savePost } from "../../js/postFn.js";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import { useState } from "react";

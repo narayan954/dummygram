@@ -114,7 +114,6 @@
   /* height: 1.5rem; */
   font-weight: normal;
   font-size: 15px;
-  overflow: auto;
   text-align: left;
   white-space: pre-line;
   overflow: hidden;
@@ -176,6 +175,7 @@
 
 .comment-doer-name {
   color: rgb(42, 42, 135);
+  cursor: pointer;
 }
 
 .comment-doer-name:hover {
@@ -193,10 +193,6 @@
   border-radius: 50%;
   padding: 5px;
   transition: 0.3s ease-in-out;
-}
-
-.comment-doer-name {
-  cursor: pointer;
 }
 
 .comment-delete-icon:hover {

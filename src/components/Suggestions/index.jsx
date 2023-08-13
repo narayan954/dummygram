@@ -185,13 +185,7 @@ const Suggestion = () => {
                     className="suggestion-user-btn button"
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleSendFriendRequest(
-                        friendRequestSent,
-                        uid,
-                        name,
-                        username,
-                        idx,
-                      );
+                      handleSendFriendRequest(friendRequestSent, uid, idx);
                     }}
                   >
                     {friendRequestSent ? "Remove Request" : "Add Friend"}

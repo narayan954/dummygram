@@ -1,12 +1,12 @@
 import "./index.css";
 
+import { Link, useNavigate } from "react-router-dom";
+
 import { ClickAwayListener } from "@mui/material";
-import { Link } from "react-router-dom";
 import { db } from "../../../lib/firebase";
 import deleteImg from "../../../js/deleteImg";
-import getUserSessionData from "../../../js/userData";
 import firebase from "firebase/compat/app";
-import { useNavigate } from "react-router-dom";
+import getUserSessionData from "../../../js/userData";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
 

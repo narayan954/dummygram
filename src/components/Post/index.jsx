@@ -87,14 +87,6 @@ function Post(prop) {
     };
   }, [postId]);
 
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#FFF",
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  }));
-
   const postComment = (event) => {
     event.preventDefault();
     try {
@@ -294,7 +286,7 @@ function Post(prop) {
               title="Likes ❤"
             >
               {likesNo === 0 ? (
-                <p style={{ textAlign: "center" }}>No likes🥺</p>
+                <p style={{ textAlign: "center" }}>No likes!!</p>
               ) : (
                 <LikesDialogBox likecountArr={likecount} />
               )}

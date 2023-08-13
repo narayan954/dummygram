@@ -105,7 +105,6 @@
   .suggestion-main-container {
     position: fixed;
     top: 65px;
-    margin-left: 0;
     right: 0;
     width: 17vw;
     height: calc(100vh - 80px);

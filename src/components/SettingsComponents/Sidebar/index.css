@@ -85,8 +85,6 @@ li:hover .icon {
     padding: 0 5px;
     height: 80px;
     min-height: auto;
-  }
-  .settings-sidebar-sub-container {
     justify-content: space-around;
   }
 
@@ -96,7 +94,7 @@ li:hover .icon {
 }
 @media screen and (max-width: 800px) {
   .settings-container {
-    min-height: calc(100vh-180px) !important;
+    min-height: calc(100vh - 180px) !important;
     margin-top: 80px;
   }
 }

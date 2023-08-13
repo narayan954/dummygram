@@ -1,26 +1,24 @@
 import "./index.css";
 
-import { AnimatedButton, Logo } from "../../reusableComponents";
+import { AccountCircle, AddCircleOutlined } from "@mui/icons-material";
+import { AnimatedButton, ErrorBoundary, Logo } from "../../reusableComponents";
+import { ClickAwayListener, Dialog, Modal } from "@mui/material";
+import {
+  Home,
+  Logout,
+  MoreVert,
+  Notifications,
+  Settings,
+} from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
-import { auth, db } from "../../lib/firebase";
 import { getModalStyle, useStyles } from "../../App";
 import { useLocation, useNavigate } from "react-router-dom";
-import getUserSessionData from "../../js/userData";
 
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AiOutlineClose } from "react-icons/ai";
-import { ClickAwayListener } from "@mui/material";
-import { Dialog } from "@mui/material";
-import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
-import HomeIcon from "@mui/icons-material/Home";
 import ImgUpload from "../ImgUpload";
-import LogoutIcon from "@mui/icons-material/Logout";
-import Modal from "@mui/material/Modal";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import SettingsIcon from "@mui/icons-material/Settings";
+import { auth } from "../../lib/firebase";
 import blankImg from "../../assets/blank-profile.webp";
+import getUserSessionData from "../../js/userData";
 import { useSnackbar } from "notistack";
 
 const Footer = React.lazy(() => import("./Footer"));
@@ -28,8 +26,8 @@ const Footer = React.lazy(() => import("./Footer"));
 function SideBar() {
   const classes = useStyles();
   const navigate = useNavigate();
-  const user = auth?.currentUser;
-  const anonymous = user?.isAnonymous;
+  const user = auth.currentUser;
+  const anonymous = auth?.currentUser?.isAnonymous;
   const location = useLocation();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -90,11 +88,6 @@ function SideBar() {
     <div className="sidebar">
       <div className="sidebar-container">
         <ul className="sidebar-links">
-          {/* <div className="sidebar_design">
-            <span style={{ backgroundColor: "red" }}></span>
-            <span style={{ backgroundColor: "orange" }}></span>
-            <span style={{ backgroundColor: "rgb(30, 222, 30)" }}></span>
-          </div> */}
           <li
             className={
               windowWidth < 1200 &&
@@ -114,7 +107,7 @@ function SideBar() {
           >
             <div className="sidebar_profile">
               {windowWidth > 1200 && (
-                <MoreVertIcon
+                <MoreVert
                   className="sidebar_menu_icon"
                   onClick={() => setOpenMenu((prev) => !prev)}
                   style={{ cursor: "pointer" }}
@@ -139,7 +132,7 @@ function SideBar() {
             }
           >
             <div className="sidebar_align">
-              <HomeIcon className="icon" /> <span>Home</span>
+              <Home className="icon" /> <span>Home</span>
             </div>
           </li>
           <li
@@ -148,7 +141,7 @@ function SideBar() {
             }
           >
             <div className="sidebar_align">
-              <AddCircleOutlineIcon className="icon" /> <span>Create</span>
+              <AddCircleOutlined className="icon" /> <span>Create</span>
             </div>
           </li>
           <li
@@ -162,7 +155,7 @@ function SideBar() {
             }
           >
             <div className="sidebar_align">
-              <NotificationsIcon className="icon" /> <span>Notifications</span>
+              <Notifications className="icon" /> <span>Notifications</span>
             </div>
           </li>
         </ul>
@@ -227,14 +220,14 @@ function SideBar() {
                   )
                 }
               >
-                {user && user.photoURL ? (
+                {user?.photoURL ? (
                   <img
                     src={user.photoURL}
                     alt="profile picture"
                     className="dropdown-list-profile-picture icon"
                   />
                 ) : (
-                  <AccountCircleIcon className="icon" />
+                  <AccountCircle className="icon" />
                 )}{" "}
                 Profile
               </li>
@@ -243,10 +236,10 @@ function SideBar() {
                   navigate(`/dummygram/${anonymous ? "signup" : "settings"}`)
                 }
               >
-                <SettingsIcon className="icon" /> Settings
+                <Settings className="icon" /> Settings
               </li>
               <li onClick={() => setLogout(true)}>
-                <LogoutIcon className="icon" /> Logout
+                <Logout className="icon" /> Logout
               </li>
             </ul>
           </div>
