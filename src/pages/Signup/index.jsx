@@ -298,9 +298,9 @@ const SignupScreen = () => {
             handleSignInWithFacebook={(e) =>
               signInWithOAuth(e, enqueueSnackbar, navigate, false)
             }
-            have_acct_question={"Already have an account?"}
+            have_acct_question={"Don't have an account?"}
             have_acct_nav={navigateToLogin}
-            have__acct_action={"Sign in!"}
+            have__acct_action={"Sign up"}
           />
         </div>
       </form>

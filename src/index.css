@@ -88,10 +88,11 @@ body {
 }
 
 .navbar_wrapper {
-  margin-top: 72px;
+  margin-top: 0px;
 }
 
 .sidebar_wrapper {
+  margin-top: 72px;
   margin-left: 17vw;
 }
 
@@ -370,6 +371,7 @@ div#picker {
   opacity: 0;
   position: absolute;
   width: 0.1px;
+  display: none;
 }
 
 ::-webkit-scrollbar {
