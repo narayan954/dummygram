@@ -2,10 +2,15 @@ import "./index.css";
 
 import { Dialog, IconButton, Input } from "@mui/material";
 
-import logo from "../../assets/logo.webp";
+import Logo from "../Logo";
 import { playSuccessSound } from "../../js/sounds";
 import { useSnackbar } from "notistack";
-import Logo from "../Logo";
+
+const CopyLinkButton = ({ onClick }) => (
+  <button onClick={onClick} className="copy-link-button">
+    Copy Link
+  </button>
+);
 
 const ShareModal = (props) => {
   const { openShareModal, setOpenShareModal, currentPostLink, postText } =
@@ -19,12 +24,6 @@ const ShareModal = (props) => {
       variant: "success",
     });
   };
-
-  const CopyLinkButton = ({ onClick }) => (
-    <button onClick={onClick} className="copy-link-button">
-      Copy Link
-    </button>
-  );
 
   return (
     <Dialog

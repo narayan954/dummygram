@@ -1,6 +1,5 @@
 import ContributorsIcon from "@mui/icons-material/Diversity3";
 import FeedbackIcon from "@mui/icons-material/Feedback";
-import GitHubIcon from "@mui/icons-material/GitHub";
 import GuidelinesIcon from "@mui/icons-material/LibraryBooks";
 import HelpIcon from "@mui/icons-material/Help";
 import InfoIcon from "@mui/icons-material/Info";

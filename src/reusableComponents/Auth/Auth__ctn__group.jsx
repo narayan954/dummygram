@@ -31,8 +31,8 @@ const Auth__ctn__group = ({
           <div className="or-text">or</div>
           <div className="line" />
         </div>
+        <GuestSignInBtn show={showGuestSignIn} />
         <div className="google__fb--login">
-          <GuestSignInBtn show={showGuestSignIn} />
           <button
             className="other__login google"
             type="submit"

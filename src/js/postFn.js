@@ -3,13 +3,13 @@ import { playErrorSound, playSuccessSound } from "./sounds";
 
 import firebase from "firebase/compat/app";
 
-export default async function deletePost(
+export const deletePost = async (
   uid,
   postId,
   imageUrl,
   enqueueSnackbar,
   setOpen,
-) {
+) => {
   try {
     await db
       .runTransaction(async (transaction) => {
@@ -42,4 +42,28 @@ export default async function deletePost(
     playErrorSound();
     enqueueSnackbar(`Error deleting post: ${error}`, { variant: "error" });
   }
-}
+};
+
+export const savePost = async (postId) => {
+  let localStoragePosts = JSON.parse(localStorage.getItem("posts")) || [];
+  const postIdExists = localStoragePosts.includes(postId);
+
+  if (!postIdExists) {
+    localStoragePosts.push(postId);
+    localStorage.setItem("posts", JSON.stringify(localStoragePosts));
+  } else {
+    localStoragePosts = localStoragePosts.filter((post) => post !== postId);
+    localStorage.setItem("posts", JSON.stringify(localStoragePosts));
+  }
+  return JSON.parse(localStorage.getItem("posts"));
+};
+
+export const deleteComment = async (event, postId, commentId) => {
+  event.preventDefault();
+  await db
+    .collection("posts")
+    .doc(postId)
+    .collection("comments")
+    .doc(commentId)
+    .delete();
+};

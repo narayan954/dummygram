@@ -97,9 +97,10 @@
 
 .pass-container-both {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 0.8rem;
   align-items: last baseline;
+  width: 100%;
 }
 
 /* hide scrollbar */

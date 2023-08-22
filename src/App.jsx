@@ -1,20 +1,23 @@
 import "./index.css";
 
-import { Darkmode, ShareModal } from "./reusableComponents";
-import { ErrorBoundary, PostSkeleton } from "./reusableComponents";
-import React, { Fragment, useEffect, useState } from "react";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import { auth, db } from "./lib/firebase";
+import { Darkmode, ErrorBoundary } from "./reusableComponents";
+import {
+  DeleteAccount,
+  SettingsSidebar,
+  SoundSetting,
+} from "./components/SettingsComponents";
+import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 
 import { ChatPage } from "./pages";
 import { FaArrowCircleUp } from "react-icons/fa";
-import { GuestSignUpBtn } from "./components";
 import { RowModeContext } from "./hooks/useRowMode";
-import { Suggestion } from "./components";
+import { auth } from "./lib/firebase";
 import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "notistack";
 
 // ------------------------------------ Pages ----------------------------------------------------
+const Home = React.lazy(() => import("./pages/Home"));
 const About = React.lazy(() => import("./pages/FooterPages/About"));
 const Guidelines = React.lazy(() => import("./pages/FooterPages/Guidelines"));
 const Feedback = React.lazy(() => import("./pages/FooterPages/Feedback"));
@@ -23,26 +26,24 @@ const PostView = React.lazy(() => import("./pages/PostView"));
 const Profile = React.lazy(() => import("./pages/Profile"));
 const SignupScreen = React.lazy(() => import("./pages/Signup"));
 const ForgotPassword = React.lazy(() => import("./pages/ForgotPassword"));
+const Friends = React.lazy(() => import("./pages/Friends"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
-const Settings = React.lazy(() => import("./pages/Settings"));
 const Contributors = React.lazy(() =>
   import("./pages/FooterPages/ContributorPage"),
 );
+const HelpCenter = React.lazy(() => import("./pages/FooterPages/HelpCenter"));
 // ------------------------------------- Components ------------------------------------------------
 const Notifications = React.lazy(() => import("./components/Notification"));
-const Post = React.lazy(() => import("./components/Post"));
 const SideBar = React.lazy(() => import("./components/SideBar"));
 const Navbar = React.lazy(() => import("./components/Navbar"));
 
 export function getModalStyle() {
   const top = 0;
-  // const left = 50;
   const padding = 2;
   const radius = 3;
 
   return {
     top: `${top}%`,
-    // left: `${left}%`,
     transform: `translate(-${top}%, -50%)`,
     padding: `${padding}%`,
     borderRadius: `${radius}%`,
@@ -67,48 +68,12 @@ export const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PAGESIZE = 10;
-
 function App() {
-  const [posts, setPosts] = useState([]);
   const [user, setUser] = useState(null);
-  const [loadingPosts, setLoadingPosts] = useState(true);
-  const [loadMorePosts, setLoadMorePosts] = useState(false);
-  const [openShareModal, setOpenShareModal] = useState(false);
-  const [currentPostLink, setCurrentPostLink] = useState("");
-  const [postText, setPostText] = useState("");
   const [rowMode, setRowMode] = useState(false);
-  const [showScroll, setShowScroll] = useState(false);
-  const [anonymous, setAnonymous] = useState(false);
-  const [windowWidth, setWindowWidth] = useState("700");
 
   const navigate = useNavigate();
-  const location = useLocation();
   const { enqueueSnackbar } = useSnackbar();
-
-  const scrollTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  const isCenteredScroll =
-    location.pathname === "/dummygram/favourites" ||
-    location.pathname === "/dummygram/about" ||
-    location.pathname === "/dummygram/guidelines" ||
-    location.pathname === "/dummygram/contributors";
-
-  useEffect(() => {
-    const checkScrollTop = () => {
-      if (!showScroll && window.scrollY > 400) {
-        setShowScroll(true);
-      } else if (showScroll && window.scrollY <= 400) {
-        setShowScroll(false);
-      }
-    };
-    window.addEventListener("scroll", checkScrollTop);
-    return () => {
-      window.removeEventListener("scroll", checkScrollTop);
-    };
-  }, []);
 
   useEffect(() => {
     const showOfflineNotification = () => {
@@ -124,7 +89,6 @@ function App() {
     };
 
     window.addEventListener("offline", showOfflineNotification);
-
     window.addEventListener("online", showOnlineNotification);
 
     return () => {
@@ -137,242 +101,180 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         setUser(authUser);
-        setAnonymous(authUser.isAnonymous);
       } else {
         setUser(null);
         navigate("/dummygram/login");
       }
     });
-
     return () => {
       unsubscribe();
     };
-  }, []);
-
-  useEffect(() => {
-    const handleMouseScroll = (event) => {
-      if (
-        window.innerHeight + event.target.documentElement.scrollTop + 1 >=
-        event.target.documentElement.scrollHeight
-      ) {
-        setLoadMorePosts(true);
-      }
-    };
-    const scrollEventListener = window.addEventListener(
-      "scroll",
-      handleMouseScroll,
-    );
-    const unsubscribe = db
-      .collection("posts")
-      .orderBy("timestamp", "desc")
-      .limit(PAGESIZE)
-      .onSnapshot((snapshot) => {
-        setLoadingPosts(false);
-        setPosts(
-          snapshot.docs.map((doc) => ({
-            id: doc.id,
-            post: doc.data(),
-          })),
-        );
-      });
-
-    return () => {
-      window.removeEventListener("scroll", handleMouseScroll);
-      unsubscribe();
-    };
-  }, []);
-
-  useEffect(() => {
-    let unsubscribe;
-
-    if (loadMorePosts && posts.length) {
-      unsubscribe = db
-        .collection("posts")
-        .orderBy("timestamp", "desc")
-        .startAfter(posts[posts.length - 1].post.timestamp)
-        .limit(PAGESIZE)
-        .onSnapshot((snapshot) => {
-          setPosts((loadedPosts) => {
-            return [
-              ...loadedPosts,
-              ...snapshot.docs.map((doc) => ({
-                id: doc.id,
-                post: doc.data(),
-              })),
-            ];
-          });
-        });
-      setLoadMorePosts(false);
-    }
-    return () => {
-      if (unsubscribe) {
-        unsubscribe();
-      }
-    };
-  }, [loadMorePosts]);
-
-  useEffect(() => {
-    function getWindowDimensions() {
-      const { innerWidth: width } = window;
-      return { width };
-    }
-    function handleResize() {
-      setWindowWidth(getWindowDimensions());
-    }
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
     <RowModeContext.Provider value={rowMode}>
       <ErrorBoundary inApp={true}>
-        <div className="app">
-          <ErrorBoundary inApp={true}>
-            <Navbar
-              onClick={() => setRowMode((prev) => !prev)}
-              user={user}
-              setUser={setUser}
-            />
-          </ErrorBoundary>
-          {anonymous &&
-            location.pathname !== "/dummygram/signup" &&
-            location.pathname !== "/dummygram/login" && <GuestSignUpBtn />}
-          <ShareModal
-            openShareModal={openShareModal}
-            setOpenShareModal={setOpenShareModal}
-            currentPostLink={currentPostLink}
-            postText={postText}
-          />
-          {(location.pathname == "/dummygram/login" ||
-            location.pathname == "/dummygram/signup") && (
-            <Darkmode themeClass="themeButton themeButton-login" />
-          )}
-          <Routes>
+        <Routes>
+          <Route
+            path="/dummygram"
+            element={
+              <ErrorBoundary inApp={true}>
+                <Wrapper
+                  user={user}
+                  setUser={setUser}
+                  setRowMode={setRowMode}
+                />
+              </ErrorBoundary>
+            }
+          >
             <Route
-              exact
-              path="/dummygram/"
               element={
-                user ? (
-                  <div className="flex">
-                    <ErrorBoundary inApp={true}>
-                      <SideBar anonymous={anonymous} />
-                    </ErrorBoundary>
-                    <div
-                      className="home-posts-container"
-                      style={
-                        !loadingPosts
-                          ? {}
-                          : {
-                              width: "100%",
-                              minHeight: "100vh",
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                            }
-                      }
-                    >
-                      <div
-                        className={`${
-                          rowMode ? "app__posts" : "app_posts_column flex"
-                        }`}
-                      >
-                        {loadingPosts ? (
-                          <>
-                            <PostSkeleton />
-                            <PostSkeleton />
-                            <PostSkeleton />
-                            <PostSkeleton />
-                            <PostSkeleton />
-                          </>
-                        ) : (
-                          <>
-                            <ErrorBoundary inApp>
-                              {posts.map(({ id, post }, index) => (
-                                <Fragment key={id}>
-                                  <Post
-                                    rowMode={rowMode}
-                                    key={id}
-                                    postId={id}
-                                    user={user}
-                                    post={post}
-                                    shareModal={setOpenShareModal}
-                                    setLink={setCurrentPostLink}
-                                    setPostText={setPostText}
-                                  />
-                                  {index === 1 && windowWidth.width < 1300 && (
-                                    <Suggestion currentUserUid={user.uid} />
-                                  )}
-                                </Fragment>
-                              ))}
-                            </ErrorBoundary>
-                          </>
-                        )}
-                      </div>
-                    </div>
-                    {windowWidth.width > 1300 && <Suggestion />}
-                  </div>
-                ) : (
-                  <></>
+                user && (
+                  <ErrorBoundary inApp={true}>
+                    <SideBarWrapper />
+                  </ErrorBoundary>
                 )
               }
-            />
+            >
+              <Route
+                index
+                element={user && <Home rowMode={rowMode} user={user} />}
+              />
+              <Route
+                path="user/:username"
+                element={
+                  <ErrorBoundary inApp={true}>
+                    <Profile />
+                  </ErrorBoundary>
+                }
+              />
+
+              <Route
+                path="user/:username/friends"
+                element={
+                  <ErrorBoundary inApp={true}>
+                    <Friends />
+                  </ErrorBoundary>
+                }
+              />
+
+              <Route
+                path="chat"
+                element={
+                  <ErrorBoundary inApp={true}>
+                    <ChatPage user={user} />
+                  </ErrorBoundary>
+                }
+              />
+
+              <Route
+                path="feedback"
+                element={
+                  <ErrorBoundary inApp={true}>
+                    <Feedback />
+                  </ErrorBoundary>
+                }
+              />
+
+              <Route
+                path="forgot-password"
+                element={
+                  <ErrorBoundary inApp={true}>
+                    <ForgotPassword />
+                  </ErrorBoundary>
+                }
+              />
+
+              <Route
+                path="notifications"
+                element={
+                  <ErrorBoundary inApp={true}>
+                    <Notifications />
+                  </ErrorBoundary>
+                }
+              />
+
+              <Route
+                path="posts/:id"
+                element={
+                  <ErrorBoundary inApp={true}>
+                    <PostView user={user} />
+                  </ErrorBoundary>
+                }
+              />
+              <Route errorElement path="*" element={<NotFound />} />
+
+              <Route
+                path="about"
+                element={
+                  <ErrorBoundary inApp={true}>
+                    <About />
+                  </ErrorBoundary>
+                }
+              />
+
+              <Route
+                path="contributors"
+                element={
+                  <ErrorBoundary inApp={true}>
+                    <Contributors />
+                  </ErrorBoundary>
+                }
+              />
+
+              <Route
+                path="guidelines"
+                element={
+                  <ErrorBoundary inApp={true}>
+                    <Guidelines />
+                  </ErrorBoundary>
+                }
+              />
+
+              <Route
+                path="help-center"
+                element={
+                  <ErrorBoundary inApp={true}>
+                    <HelpCenter />
+                  </ErrorBoundary>
+                }
+              />
+            </Route>
 
             <Route
-              path="/dummygram/user/:username"
+              path="settings"
               element={
                 <ErrorBoundary inApp={true}>
-                  <Profile />
+                  <SettingsSidebar />
                 </ErrorBoundary>
               }
-            />
+            >
+              <Route
+                index
+                element={
+                  <ErrorBoundary inApp={true}>
+                    <SoundSetting />
+                  </ErrorBoundary>
+                }
+              />
+              <Route
+                path="account"
+                element={
+                  <ErrorBoundary inApp={true}>
+                    <DeleteAccount user={user} />
+                  </ErrorBoundary>
+                }
+              />
+              <Route
+                path="*"
+                element={
+                  <h1 style={{ color: "var(--text-secondary)" }}>Empty...</h1>
+                }
+              />
+            </Route>
 
             <Route
-              path="/dummygram/chat"
-              element={
-                <ErrorBoundary inApp={true}>
-                  <ChatPage user={user} />
-                </ErrorBoundary>
-              }
-            />
-
-            <Route
-              path="/dummygram/settings"
-              element={
-                <ErrorBoundary inApp={true}>
-                  <Settings />
-                </ErrorBoundary>
-              }
-            />
-            <Route
-              path="/dummygram/about"
-              element={
-                <ErrorBoundary inApp={true}>
-                  <About />
-                </ErrorBoundary>
-              }
-            />
-
-            <Route
-              path="/dummygram/feedback"
-              element={
-                <ErrorBoundary inApp={true}>
-                  <Feedback />
-                </ErrorBoundary>
-              }
-            />
-
-            <Route
-              path="/dummygram/guidelines"
-              element={
-                <ErrorBoundary inApp={true}>
-                  <Guidelines />
-                </ErrorBoundary>
-              }
-            />
-
-            <Route
-              path="/dummygram/login"
+              path="login"
               element={
                 <ErrorBoundary inApp={true}>
                   <LoginScreen />
@@ -381,7 +283,7 @@ function App() {
             />
 
             <Route
-              path="/dummygram/signup"
+              path="signup"
               element={
                 <ErrorBoundary inApp={true}>
                   <SignupScreen />
@@ -389,64 +291,80 @@ function App() {
               }
             />
 
-            <Route
-              path="/dummygram/forgot-password"
-              element={
-                <ErrorBoundary inApp={true}>
-                  <ForgotPassword />
-                </ErrorBoundary>
-              }
-            />
-
-            <Route
-              path="/dummygram/notifications"
-              element={
-                <ErrorBoundary inApp={true}>
-                  <Notifications />
-                </ErrorBoundary>
-              }
-            />
-
-            <Route
-              path="/dummygram/contributors"
-              element={
-                <ErrorBoundary inApp={true}>
-                  <Contributors />
-                </ErrorBoundary>
-              }
-            />
-
-            <Route
-              path="/dummygram/posts/:id"
-              element={
-                <ErrorBoundary inApp={true}>
-                  <PostView
-                    user={user}
-                    shareModal={setOpenShareModal}
-                    setLink={setCurrentPostLink}
-                    setPostText={setPostText}
-                  />
-                </ErrorBoundary>
-              }
-            />
-
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          {/* below scroll button must be checked for implementation */}
-          <FaArrowCircleUp
-            fill="#5F85DB"
-            className={`scrollTop ${isCenteredScroll ? "centeredScroll" : ""}`}
-            onClick={scrollTop}
-            style={{
-              height: 50,
-              display: showScroll ? "flex" : "none",
-              position: "fixed",
-            }}
-          />
-        </div>
+            <Route errorElement path="*" element={<NotFound />} />
+          </Route>
+        </Routes>
       </ErrorBoundary>
     </RowModeContext.Provider>
   );
 }
 
 export default App;
+
+function Wrapper({ user, setUser, setRowMode }) {
+  const [showScroll, setShowScroll] = useState(false);
+  const scrollTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    const checkScrollTop = () => {
+      if (!showScroll && window.scrollY > 400) {
+        setShowScroll(true);
+      } else if (showScroll && window.scrollY <= 400) {
+        setShowScroll(false);
+      }
+    };
+    window.addEventListener("scroll", checkScrollTop);
+    return () => {
+      window.removeEventListener("scroll", checkScrollTop);
+    };
+  }, []);
+
+  const isCenteredScroll =
+    location.pathname === "/dummygram/favourites" ||
+    location.pathname === "/dummygram/about" ||
+    location.pathname === "/dummygram/guidelines" ||
+    location.pathname === "/dummygram/contributors";
+
+  return (
+    <div className="app">
+      <Navbar
+        onClick={() => setRowMode((prev) => !prev)}
+        user={user}
+        setUser={setUser}
+      />
+      {(location.pathname == "/dummygram/login" ||
+        location.pathname == "/dummygram/signup") && (
+        <Darkmode themeClass="themeButton themeButton-login" />
+      )}
+
+      {/* All the children element will come here */}
+      <Outlet />
+
+      <FaArrowCircleUp
+        fill="#5F85DB"
+        className={`scrollTop ${isCenteredScroll ? "centeredScroll" : ""}`}
+        onClick={scrollTop}
+        style={{
+          height: 50,
+          display: showScroll ? "flex" : "none",
+          position: "fixed",
+        }}
+      />
+    </div>
+  );
+}
+
+function SideBarWrapper() {
+  return (
+    <div className="flex">
+      <ErrorBoundary inApp={true}>
+        <SideBar />
+      </ErrorBoundary>
+      <div className="sidebar_wrapper">
+        <Outlet />
+      </div>
+    </div>
+  );
+}

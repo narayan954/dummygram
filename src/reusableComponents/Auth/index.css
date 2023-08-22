@@ -20,6 +20,7 @@
 #welcome__msg {
   font-size: 18px !important;
   width: 400px !important;
+  color: var(--color);
 }
 
 @media (max-width: 840px) {

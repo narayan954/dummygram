@@ -9,15 +9,38 @@ import blankProfileImg from "../../assets/blank-profile.webp";
 import { db } from "../../lib/firebase";
 import { useSnackbar } from "notistack";
 
+const trimBio = (bio, maxLength = 90) => {
+  return bio.length > maxLength ? bio.substr(0, maxLength) + " ..." : bio;
+};
+
+const renderUser = ({ uid, username, photoURL, name, bio }) => (
+  <div key={uid} className="likedby_list_item">
+    <Link to={`/dummygram/user/${username}`} style={{ color: "var(--color)" }}>
+      <img
+        src={photoURL ? photoURL : blankProfileImg}
+        alt={name}
+        className="like_user_img"
+      />
+    </Link>
+    <div>
+      <section className="like_user_data">
+        <Link
+          to={`/dummygram/user/${username}`}
+          style={{ textDecoration: "none" }}
+        >
+          <h3 className="like_user_name">{name}</h3>
+        </Link>
+        <h5 className="like_user_username">@{username}</h5>
+      </section>
+      <p className="like_user_bio">{bio ? trimBio(bio) : "..."}</p>
+    </div>
+  </div>
+);
+
 const LikesDialogBox = ({ likecountArr }) => {
   const [userData, setUserData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
-
-  function trimBio(bio) {
-    const str = bio.substr(0, 90) + " ...";
-    return str;
-  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,56 +73,27 @@ const LikesDialogBox = ({ likecountArr }) => {
   }, []);
 
   return (
-    <Box
-      sx={{
-        overflowY: "scroll",
-        "&::-webkit-scrollbar": {
-          width: 0,
-        },
-      }}
-      borderRadius="10px"
-      maxHeight="40vh"
-      marginTop="10px"
-    >
-      {!isLoading ? (
-        <div className="likedby_list_container">
-          {userData.map((data) => (
-            <div key={data.uid} className="likedby_list_item">
-              <Link
-                to={`/dummygram/user/${data?.username}`}
-                style={{ color: "var(--color)" }}
-              >
-                <img
-                  src={data?.photoURL ? data.photoURL : blankProfileImg}
-                  alt={data?.name}
-                  className="like_user_img"
-                />
-              </Link>
-              <span>
-                <section className="like_user_data">
-                  <Link
-                    to={`/dummygram/user/${data?.username}`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <h3 className="like_user_name">{data?.name}</h3>
-                  </Link>
-                  <h5 className="like_user_username">@{data?.username}</h5>
-                </section>
-                <p className="like_user_bio">
-                  {data?.bio
-                    ? data.bio?.length > 90
-                      ? trimBio(data.bio)
-                      : data.bio
-                    : "..."}
-                </p>
-              </span>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <DialogBoxSkeleton />
-      )}
-    </Box>
+    <>
+      <Box
+        sx={{
+          overflowY: "scroll",
+          "&::-webkit-scrollbar": {
+            width: 0,
+          },
+        }}
+        borderRadius="10px"
+        maxHeight="40vh"
+        marginTop="10px"
+      >
+        {!isLoading ? (
+          <div className="likedby_list_container">
+            {userData.map(renderUser)}
+          </div>
+        ) : (
+          <DialogBoxSkeleton />
+        )}
+      </Box>
+    </>
   );
 };
 

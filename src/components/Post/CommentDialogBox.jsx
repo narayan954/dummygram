@@ -16,20 +16,12 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import { Link } from "react-router-dom";
 import ReadMore from "../ReadMore";
+import { deleteComment } from "../../js/postFn";
 
-const CommentDialogBox = ({
-  comments,
-  setOpenToDeleteComment,
-  openToDeleteComment,
-  setDeleteCommentID,
-  user,
-  fullScreen,
-  handleCloseForDeleteComment,
-  deleteComment,
-  deleteCommentID,
-}) => {
+const CommentDialogBox = ({ postId, comments, user, fullScreen }) => {
   const { isAnonymous } = user;
   const [username, setUsername] = useState("");
+  const [openToDeleteComment, setOpenToDeleteComment] = useState(false);
 
   useEffect(() => {
     async function getUsername() {
@@ -80,7 +72,7 @@ const CommentDialogBox = ({
                       <img
                         src={userComment.content.avatar}
                         alt="profile picture"
-                        className="profile-picture"
+                        className="post-profile-picture"
                       />
                     ) : (
                       <AccountCircleIcon className="icon" />
@@ -90,13 +82,14 @@ const CommentDialogBox = ({
                     </span>
                   </Link>
                   <p className="comment">
-                    <ReadMore>{userComment.content.text}</ReadMore>
+                    <ReadMore postId={postId}>
+                      {userComment.content.text}
+                    </ReadMore>
                   </p>
                 </div>
                 <div
                   onClick={() => {
                     setOpenToDeleteComment(!openToDeleteComment);
-                    setDeleteCommentID(userComment);
                   }}
                 >
                   {user && userComment?.content?.username == username && (
@@ -109,7 +102,7 @@ const CommentDialogBox = ({
                     <Dialog
                       fullScreen={fullScreen}
                       open={openToDeleteComment}
-                      onClose={handleCloseForDeleteComment}
+                      onClose={() => setOpenToDeleteComment(false)}
                       aria-labelledby="responsive-dialog-title"
                     >
                       <DialogTitle id="responsive-dialog-title">
@@ -121,12 +114,12 @@ const CommentDialogBox = ({
                         </DialogContentText>
                       </DialogContent>
                       <DialogActions>
-                        <Button onClick={handleCloseForDeleteComment}>
+                        <Button onClick={() => setOpenToDeleteComment(false)}>
                           Cancel
                         </Button>
                         <Button
                           onClick={(event) =>
-                            deleteComment(event, deleteCommentID)
+                            deleteComment(event, postId, userComment.id)
                           }
                         >
                           Delete

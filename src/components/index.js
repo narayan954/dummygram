@@ -1,6 +1,7 @@
-import Caption from "./Post/Caption";
+import Caption from "./Caption";
 import ChatBox from "./CommunityChat";
 import EditProfile from "./EditProfile";
+import FriendsComponent from "./FriendsComponent";
 import GuestSignInBtn from "./Guest/GuestSignInBtn";
 import GuestSignUpBtn from "./Guest/GuestSignUpBtn";
 import ImgUpload from "./ImgUpload";
@@ -28,6 +29,7 @@ export {
   SideBar,
   StoryView,
   Suggestion,
+  FriendsComponent,
 };
 
 export default Post;

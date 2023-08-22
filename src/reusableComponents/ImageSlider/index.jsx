@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
-const ImageSlider = ({ slides, doubleClickHandler }) => {
+const ImageSlider = ({ slides, doubleClickHandler, height = 350 }) => {
   const [current, setCurrent] = useState(0);
 
   const prevStep = () => {
@@ -23,7 +23,11 @@ const ImageSlider = ({ slides, doubleClickHandler }) => {
 
   return (
     slides.length > 0 && (
-      <div className="slider" onDoubleClick={doubleClickHandler}>
+      <div
+        className="slider"
+        style={{ height: height }}
+        onDoubleClick={doubleClickHandler}
+      >
         {slides.map(({ imageUrl, thumbnail }, index) => (
           <div
             style={{
@@ -31,7 +35,7 @@ const ImageSlider = ({ slides, doubleClickHandler }) => {
               width: "100%",
             }}
             className={index === current ? "slide active" : "slide"}
-            key={index}
+            key={imageUrl}
           >
             <LazyLoadImage
               className="image post__image"

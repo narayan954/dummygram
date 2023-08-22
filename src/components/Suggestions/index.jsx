@@ -75,13 +75,7 @@ const Suggestion = () => {
     fetchRandomDocument();
   }, []);
 
-  const handleSendFriendRequest = (
-    friendRequestSent,
-    uid,
-    name,
-    username,
-    idx,
-  ) => {
+  const handleSendFriendRequest = (friendRequestSent, uid, idx) => {
     const currentUserUid = currentUser?.uid;
     const targetUserUid = uid;
     const batch = db.batch();
@@ -157,7 +151,11 @@ const Suggestion = () => {
   };
 
   return (
-    <div className="suggestion-main-container">
+    <div
+      className={`suggestion-main-container ${
+        currentUser.isAnonymous ? "top-margin" : ""
+      }`}
+    >
       <button
         className="suggestion-scroll-btn suggestion-scroll-btn-left"
         onClick={() => scroll(-160)}
@@ -187,13 +185,7 @@ const Suggestion = () => {
                     className="suggestion-user-btn button"
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleSendFriendRequest(
-                        friendRequestSent,
-                        uid,
-                        name,
-                        username,
-                        idx,
-                      );
+                      handleSendFriendRequest(friendRequestSent, uid, idx);
                     }}
                   >
                     {friendRequestSent ? "Remove Request" : "Add Friend"}

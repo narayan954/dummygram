@@ -12,15 +12,15 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
-import { Link, useLocation, useNavigate } from "react-router-dom";
 import { doc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import ProfileDialogBox from "../ProfileDialogBox";
 import TextField from "@mui/material/TextField";
 import { db } from "../../lib/firebase";
-import deletePost from "../../js/deletePost";
+import { deletePost } from "../../js/postFn";
 import { saveAs } from "file-saver";
 import useCreatedAt from "../../hooks/useCreatedAt";
 import { useSnackbar } from "notistack";
@@ -131,7 +131,9 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
         alt={displayName}
         src={avatar}
         onClick={() =>
-          navigate(`/dummygram/${isAnonymous ? "signup" : `user/${username}`}`)
+          navigate(
+            "/dummygram/" + (isAnonymous ? "signup" : "user/" + username),
+          )
         }
         onMouseEnter={showProfileDialogBox}
         onMouseLeave={hideProfileDialogBox}
@@ -140,13 +142,19 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
         mouseOnProfileImg={mouseOnProfileImg}
         userData={userData}
       />
-      <Link
-        to={`/dummygram/${isAnonymous ? "signup" : `posts/${postId}`}`}
-        style={{ textDecoration: "none" }}
-      >
-        <h3 className="post__username">{displayName}</h3>
+      <div className="header-data">
+        <h3
+          onClick={() => {
+            navigate(
+              "/dummygram/" + (isAnonymous ? "signup" : "posts/" + postId),
+            );
+          }}
+          className="post__username"
+        >
+          {displayName}
+        </h3>
         <p className="post__time">{time}</p>
-      </Link>
+      </div>
       <div className="social__icon__last">
         {!location.pathname.includes("/dummygram/user") && (
           <IconButton

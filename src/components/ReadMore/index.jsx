@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import Caption from "../Post/Caption.jsx";
+import Caption from "../Caption.jsx";
 
-const ReadMore = ({ children, picCap = false, postId, readMore = true }) => {
+const ReadMore = ({ children, postId, picCap = false, readMore = true }) => {
   const { id } = useParams();
 
   const [isReadMore, setIsReadMore] = useState(readMore);
@@ -11,14 +11,16 @@ const ReadMore = ({ children, picCap = false, postId, readMore = true }) => {
   let text = children;
   const toggleReadMore = () => setIsReadMore((prev) => !prev);
 
+  const captionText = isReadMore
+    ? picCap
+      ? text.slice(0, 100)
+      : text.slice(0, 40)
+    : text;
+
   return (
     <>
-      <Caption
-        caption={
-          isReadMore ? (picCap ? text.slice(0, 300) : text.slice(0, 100)) : text
-        }
-      />
-      {text.length >= 200 && (
+      <Caption caption={captionText} />;
+      {text.length >= 40 && (
         <span
           onClick={() => {
             toggleReadMore();
@@ -27,9 +29,10 @@ const ReadMore = ({ children, picCap = false, postId, readMore = true }) => {
             }
           }}
           style={{
-            color: "var(--color)",
+            color: "var(--profile-color)",
             fontWeight: "bold",
             cursor: "pointer",
+            fontSize: "12px",
           }}
         >
           {isReadMore ? " ...read more" : " ...show less"}

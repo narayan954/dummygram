@@ -6,7 +6,6 @@
   height: 350px;
   position: relative;
   overflow: hidden;
-  border-bottom: 2px solid #eee;
 }
 
 .post__image {
@@ -25,6 +24,11 @@
   width: 100%;
 }
 
+.slide > span {
+  width: 100%;
+  height: 100%;
+}
+
 .slider__actions {
   width: 90%;
 }
@@ -34,10 +38,9 @@
 }
 
 .image {
-  background-color: aliceblue;
-  height: 250px;
   object-fit: scale-down;
   width: 100%;
+  height: 100%;
   z-index: -1;
 }
 

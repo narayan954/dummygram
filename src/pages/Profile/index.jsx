@@ -1,37 +1,35 @@
 import "./index.css";
 
 import { Avatar, Box, Button, Typography } from "@mui/material";
+import { EditProfile, StoryView } from "../../components";
+import { ErrorBoundary, Loader, ViewsCounter } from "../../reusableComponents";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { auth, db, storage } from "../../lib/firebase";
 import {
   collection,
   deleteField,
+  doc,
+  getDoc,
   onSnapshot,
   orderBy,
   query,
   where,
 } from "firebase/firestore";
-import { doc, getDoc } from "firebase/firestore";
 import { lazy, useEffect, useRef, useState } from "react";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
-import { useNavigate, useParams } from "react-router-dom";
 
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import Cam from "@mui/icons-material/CameraAltOutlined";
 import EditIcon from "@mui/icons-material/Edit";
-import { EditProfile } from "../../components";
-import ErrorBoundary from "../../reusableComponents/ErrorBoundary";
-import { FaUserCircle } from "react-icons/fa";
 import GridOnIcon from "@mui/icons-material/GridOn";
-import { Loader } from "../../reusableComponents";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import NotFound from "../NotFound";
 import ProfileFeed from "./feed";
-import { StoryView } from "../../components";
-import ViewsCounter from "../../reusableComponents/views";
+import defaultProfile from "../../assets/blank-profile.webp";
 import deleteImg from "../../js/deleteImg";
 import firebase from "firebase/compat/app";
-import profileBackgroundImg from "../../assets/profile-background.jpg";
-import defaultProfile from "../../assets/blank-profile.webp";
+import profileBackgroundImg from "../../assets/profile-background.webp";
+import { setUserSessionData } from "../../js/userData";
 import { useSnackbar } from "notistack";
 
 const SideBar = lazy(() => import("../../components/SideBar"));
@@ -43,10 +41,11 @@ function Profile() {
 
   const [user, setUser] = useState(null);
   const [feed, setFeed] = useState([]);
+  const [savedPosts, setSavedPosts] = useState([]);
   const [isFeedLoading, setIsFeedLoading] = useState(true);
   const [isSavedPostsLoading, setIsSavedPostsLoading] = useState(true);
-  const [savedPosts, setSavedPosts] = useState([]);
   const [friendRequestSent, setFriendRequestSent] = useState(false);
+  const [isFriendAlready, setIsFriendAlready] = useState(false);
   const [userData, setUserData] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [userExists, setUserExists] = useState(true);
@@ -56,7 +55,6 @@ function Profile() {
   const [backgroundImage, setBackgroundImage] = useState(null);
   const [showSaved, setShowSaved] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
-  const [previewImage, setPreviewImage] = useState(null);
 
   const bgRef = useRef(null);
 
@@ -67,6 +65,7 @@ function Profile() {
   let bio = "";
   let country = "";
   let storyTimestamp = null;
+  let friendsLen = 0;
 
   if (userData) {
     name = userData.name;
@@ -76,6 +75,7 @@ function Profile() {
     bio = userData.bio;
     country = userData.country;
     storyTimestamp = userData.storyTimestamp;
+    friendsLen = userData.Friends;
   }
 
   const handleCancel = () => {
@@ -117,6 +117,7 @@ function Profile() {
                 await docRef.update({
                   bgImageUrl: url,
                 });
+                setUserSessionData({ bgImageUrl: url });
                 await deleteImg(oldImg);
               })
               .then(
@@ -158,7 +159,6 @@ function Profile() {
           .where("username", "==", username)
           .limit(1);
         const snapshot = await docRef.get();
-
         if (!snapshot.empty) {
           const doc = snapshot.docs[0];
           const currTimestamp = firebase.firestore.Timestamp.now().toMillis();
@@ -182,6 +182,9 @@ function Profile() {
               docRef.update({
                 storyTimestamp: deleteField(),
               });
+              setUserSessionData({
+                storyTimestamp: deleteField(),
+              });
             }
             deleteStory();
           }
@@ -196,7 +199,9 @@ function Profile() {
             bio: data.bio ? data.bio : "Hi there! I am using Dummygram.",
             country: data.country ? data.country : "Global",
             storyTimestamp: data.storyTimestamp,
+            Friends: data.Friends.length,
           });
+          setIsFriendAlready(data.Friends.includes(user?.uid));
         } else {
           setUserExists(false);
         }
@@ -204,6 +209,7 @@ function Profile() {
         enqueueSnackbar(`Error Occured: ${error}`, {
           variant: "error",
         });
+        setUserExists(false);
       }
     }
 
@@ -338,8 +344,8 @@ function Profile() {
             post: doc.data(),
           });
         });
-      setFeed(userPosts);
-      setIsFeedLoading(false);
+        setFeed(userPosts);
+        setIsFeedLoading(false);
       },
       (error) => {
         console.error("Error fetching user posts:", error);
@@ -351,6 +357,29 @@ function Profile() {
       unsubscribe();
     };
   }, [uid]);
+
+  async function handleRemoveFriend() {
+    const batch = db.batch();
+    const currentUserUid = user?.uid;
+    const targetUserUid = uid;
+
+    const currentUserRef = db.collection("users").doc(currentUserUid);
+    const targetUserRef = db.collection("users").doc(targetUserUid);
+
+    batch.update(currentUserRef, {
+      Friends: firebase.firestore.FieldValue.arrayRemove(targetUserUid),
+    });
+
+    batch.update(targetUserRef, {
+      Friends: firebase.firestore.FieldValue.arrayRemove(currentUserUid),
+    });
+
+    await batch.commit().catch((error) => {
+      enqueueSnackbar(`Error Occurred: ${error}`, {
+        variant: "error",
+      });
+    });
+  }
 
   async function getSavedPosts() {
     let savedPostsArr = JSON.parse(localStorage.getItem("posts")) || [];
@@ -543,6 +572,8 @@ function Profile() {
                   onClick={() =>
                     user.isAnonymous
                       ? navigate("/dummygram/signup")
+                      : isFriendAlready
+                      ? handleRemoveFriend()
                       : handleSendFriendRequest()
                   }
                   variant="contained"
@@ -553,10 +584,21 @@ function Profile() {
                     padding: "10px 25px",
                   }}
                 >
-                  {friendRequestSent ? "Remove friend request" : "Add Friend"}
+                  {isFriendAlready
+                    ? "Remove Friend"
+                    : friendRequestSent
+                    ? "Remove friend request"
+                    : "Add Friend"}
                 </Button>
               )}
             </div>
+
+            <Link
+              to={`/dummygram/user/${username}/friends`}
+              className="profile-user-username flexx"
+            >
+              {friendsLen} Friends
+            </Link>
           </div>
 
           <div className="feed_btn_container">

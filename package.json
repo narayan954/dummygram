@@ -1,6 +1,6 @@
 {
   "name": "dummygram",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "homepage": "https://<narayan954>.github.io/<dummygram>/",
@@ -30,6 +30,7 @@
     "firebase": "^9.18.0",
     "notistack": "^3.0.1",
     "react": "^18.2.0",
+    "react-color": "^2.19.3",
     "react-dom": "^18.2.0",
     "react-error-boundary": "^4.0.10",
     "react-icons": "^4.8.0",
@@ -44,16 +45,22 @@
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^3.1.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
     "gh-pages": "^5.0.0",
     "husky": "^8.0.3",
     "prettier": "^2.8.8",
     "react-error-overlay": "^6.0.11",
     "vite": "^4.2.0"
   },
-  "description": "<div id=\"top\"></div>\r <div align=\"center\">",
+  "description": "A social media app built with React, Firebase, and Material-UI.",
   "main": "index.js",
   "keywords": [
-    "dummygram"
+    "dummygram",
+    "react",
+    "firebase",
+    "material-ui",
+    "social-media"
   ],
   "author": "narayan954",
   "license": "MIT",

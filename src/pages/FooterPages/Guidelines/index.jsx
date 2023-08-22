@@ -3,9 +3,9 @@ import "../design.css";
 
 import { Link, useNavigate } from "react-router-dom";
 
+import Footer from "../Footer";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { VscChromeClose } from "react-icons/vsc";
-import background from "../../../assets/guidelines.png";
+import background from "../../../assets/guidelines.webp";
 
 const Guidelines = () => {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ const Guidelines = () => {
       <div
         className="back-icon"
         style={{ height: "90px", cursor: "pointer" }}
-        onClick={() => navigate("/dummygram/")}
+        onClick={() => navigate("/dummygram")}
       >
         <KeyboardBackspaceIcon className="icon" /> <span>Back to Home</span>
       </div>
@@ -178,6 +178,7 @@ const Guidelines = () => {
           </ul>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

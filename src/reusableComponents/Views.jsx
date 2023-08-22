@@ -24,7 +24,7 @@ const ViewsCounter = ({ uid }) => {
           }
         } else {
           viewsArr = [];
-          sessionStorage.setItem(viewsArr, JSON.stringify(viewsArr));
+          sessionStorage.setItem("viewsArr", JSON.stringify(viewsArr));
         }
 
         const querySnapshot = await db
@@ -38,9 +38,7 @@ const ViewsCounter = ({ uid }) => {
             uid: uid,
             views: 1,
           };
-          const newDocumentRef = await db
-            .collection("profileViews")
-            .add(newDocumentData);
+          await db.collection("profileViews").add(newDocumentData);
 
           setViews(1);
           viewsArr.push(uid);

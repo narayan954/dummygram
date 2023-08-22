@@ -6,71 +6,51 @@ import { db } from "../../../lib/firebase";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
 
-const Reaction = ({ message, userUid }) => {
+const Reaction = ({ message, currentUid }) => {
   const [reactionOpen, setReactionOpen] = useState(false);
   const { id, reaction } = message;
   const { enqueueSnackbar } = useSnackbar();
 
-  function checkOccurenceOfReaction() {
-    let reactionsArr = Object.keys(reaction);
-    let includess = null;
-
-    for (const rxn of reactionsArr) {
-      if (reaction[rxn].includes(userUid)) {
-        includess = rxn;
-        break;
-      }
-    }
-
-    return includess;
-  }
-
   async function addReaction(type) {
-    let updatedData = reaction;
+    let updatedData = { ...reaction }; // Create a copy of the existing reactions
     const msgDocRef = db.collection("messages").doc(id);
 
-    if (!updatedData) {
-      updatedData = {
-        [type]: [userUid],
-      };
-    } else {
-      const rxnUser = checkOccurenceOfReaction();
-      if (rxnUser) {
-        const rxnIdx = reaction[rxnUser].indexOf(userUid);
-        updatedData[rxnUser].splice(rxnIdx, 1);
-        if (rxnUser !== type) {
-          if (updatedData[type]) {
-            updatedData[type].push(userUid);
-          } else {
-            updatedData = {
-              ...updatedData,
-              [rxnUser]: [userUid],
-            };
-          }
-        }
+    if (updatedData[type]) {
+      // Check if the user has already reacted with this emoji
+      const userIndex = updatedData[type].indexOf(currentUid);
+
+      if (userIndex !== -1) {
+        // If the user's reaction already exists, remove it
+        updatedData[type].splice(userIndex, 1);
       } else {
-        if (updatedData[type]) {
-          updatedData[type].push(userUid);
-        } else {
-          updatedData = {
-            ...updatedData,
-            [type]: [userUid],
-          };
-        }
+        // If the user's reaction doesn't exist, toggle off any existing reaction
+        // for (const existingType in updatedData) {
+        //   const existingUserIndex =
+        //     updatedData[existingType].indexOf(currentUid);
+        //   if (existingUserIndex !== -1) {
+        //     updatedData[existingType].splice(existingUserIndex, 1);
+        //     break; // Exit the loop after toggling off the existing reaction
+        //   }
+        // }
+
+        updatedData[type].push(currentUid); // Add the new reaction
       }
+    } else {
+      // If the reaction type doesn't exist, create a new array with the user's UID
+      updatedData[type] = [currentUid];
     }
 
-    msgDocRef
-      .update({
+    // Update the reaction data in the message document
+    try {
+      await msgDocRef.update({
         reaction: updatedData,
-      })
-      .catch((e) => {
-        enqueueSnackbar("Error while reacting", {
-          variant: "error",
-        });
       });
-
-    setReactionOpen(false);
+      setReactionOpen(false);
+    } catch (error) {
+      enqueueSnackbar("Error while reacting", {
+        variant: "error",
+      });
+    }
   }
 
   return (

@@ -32,6 +32,7 @@
   --text-grey: rgba(0, 0, 0, 0.8);
   --theme-hover: rgba(8, 17, 123, 0.69);
   --shimmer-bg: #e1dede;
+  --input-bg: #eee;
 }
 
 .darkmode {
@@ -68,6 +69,7 @@
   --text-grey: rgba(255, 255, 255, 0.8);
   --theme-hover: rgb(244, 210, 41);
   --shimmer-bg: #535256;
+  --input-bg: #191919;
 }
 
 * {
@@ -84,6 +86,24 @@ body {
   align-items: center;
   justify-content: center;
   overflow-x: auto;
+  overflow: hidden;
+}
+
+.sidebar_wrapper {
+  margin-top: 72px;
+  margin-left: 17vw;
+}
+
+@media screen and (max-width: 1200px) {
+  .sidebar_wrapper {
+    margin-left: 8vw;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .sidebar_wrapper {
+    margin-left: 0;
+  }
 }
 
 .shimmer_bg {
@@ -108,8 +128,8 @@ input:focus {
 }
 
 /* Post style */
-.app__posts {
-  padding: 5.5em 17vw 20px 17vw;
+.app_posts {
+  padding: 1.5em 17vw 20px 0vw;
 }
 
 .app_posts_column {
@@ -117,7 +137,6 @@ input:focus {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 5.5em 17vw 20px 17vw;
 }
 
 .rowConvert,
@@ -138,30 +157,21 @@ input:focus {
 }
 
 @media only screen and (max-width: 1300px) {
-  .app__posts,
-  .home-posts-container .app_posts_column,
   .home-posts-container .app_posts {
-    padding: 5.5em 15px 20px 9vw;
-  }
-  .post-page-container {
-    padding: 5.5em 15px 15px 8vw;
+    padding: 1.5em 15px 20px 10px;
   }
   .post-card {
     margin: 50px auto !important;
   }
 }
 @media only screen and (max-width: 800px) {
-  .app__posts,
+  .app_posts,
   .home-posts-container .app_posts_column {
     padding: 5.5em 15px 5.5em 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1em;
-  }
-  .post-page-container {
-    padding: 0;
-    padding-top: 5.5em;
   }
 }
 
@@ -171,7 +181,7 @@ input:focus {
   }
 }
 @media only screen and (max-width: 700px) {
-  .app__posts {
+  .app_posts {
     padding-inline: auto;
   }
 }
@@ -207,10 +217,10 @@ input:focus {
 
 .post__avatar {
   border-radius: 50%;
-  height: 30px !important;
+  height: 40px !important;
+  width: 40px !important;
   margin-right: 10px;
   object-fit: contain;
-  width: 30px !important;
 }
 
 .modal__signup__img {
@@ -256,7 +266,7 @@ input:focus {
 }
 
 .centeredScroll {
-  margin-left: 0;
+  margin-left: 40%;
 }
 
 .scrollTop:hover {
@@ -269,14 +279,11 @@ input:focus {
     margin-left: 20px;
     margin-bottom: 8%;
   }
-  .post-page-container {
-    padding: 0;
-  }
   .app__newpost__button {
     left: -6%;
   }
-  .home-posts-container .app_posts_column {
-    padding: 5.5em 15px 5em 15px;
+  .home-posts-container .app_posts {
+    padding: 1.5em 15px 5em 15px;
   }
   .search-modal {
     width: 80vw;
@@ -315,14 +322,11 @@ input:focus {
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 800px) {
-  .app__posts {
+  .app_posts {
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
     justify-content: center;
-  }
-  .post-page-container {
-    padding: 5.5em 15px 15px 17vw;
   }
   .post-card {
     margin: 50px auto !important;
@@ -334,9 +338,6 @@ input:focus {
   .app__newpost__button {
     left: -1.2%;
   }
-  .home-posts-container .app_posts_column {
-    padding: 5.5em 17vw 20px 17vw;
-  }
 }
 
 @media (min-width: 1200px) {
@@ -347,10 +348,6 @@ input:focus {
 
 .darkmode-toggle {
   z-index: 1;
-}
-
-.app {
-  overflow: hidden;
 }
 
 @keyframes fadeIn {
@@ -376,6 +373,7 @@ div#picker {
   opacity: 0;
   position: absolute;
   width: 0.1px;
+  display: none;
 }
 
 ::-webkit-scrollbar {
@@ -443,8 +441,6 @@ div#picker {
 
 /* Input */
 input {
-  width: 100%;
-  border: 0;
   border: 1px solid rgba(104, 85, 224, 1);
   border-radius: 4px;
   box-shadow: 0 0 20px rgba(104, 85, 224, 0.2);

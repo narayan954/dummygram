@@ -1,18 +1,16 @@
 import "./index.css";
 
+import { Darkmode, Logo } from "../../reusableComponents";
 import React, { useEffect, useState } from "react";
+import { auth, db } from "../../lib/firebase";
 
 import { AiOutlineInsertRowAbove } from "react-icons/ai";
 import ChatIcon from "@mui/icons-material/Chat";
 import { ClickAwayListener } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { Darkmode } from "../../reusableComponents";
-import { Logo } from "../../reusableComponents";
 import SearchIcon from "@mui/icons-material/Search";
 import appLogo from "../../assets/app-logo.webp";
-import { auth } from "../../lib/firebase";
 import blankImg from "../../assets/blank-profile.webp";
-import { db } from "../../lib/firebase";
 import { useNavigate } from "react-router-dom";
 
 const PAGESIZE = 7;
@@ -106,7 +104,9 @@ function Navbar({ onClick, user, setUser }) {
             <Logo />
           </span>
         ) : (
-          <img src={appLogo} alt="dummygram" className="nav_img_logo" />
+          <span onClick={() => navigate("/dummygram")}>
+            <img src={appLogo} alt="dummygram" className="nav_img_logo" />
+          </span>
         )}
         <div className="navSpace">
           <div className="search_bar_main_container">

@@ -13,10 +13,13 @@ import {
   FavoriteOutlined,
   ShareOutlined,
 } from "@mui/icons-material";
+import { deletePost, savePost } from "../../js/postFn.js";
 
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Flexbetween from "../../reusableComponents/Flexbetween";
-import deletePost from "../../js/deletePost.js";
+import { ShareModal } from "../../reusableComponents";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
@@ -28,17 +31,19 @@ const PostDetails = ({
   likecount,
   likesHandler,
   imageUrl,
-  shareModal,
-  setPostText,
-  setLink,
   caption,
   fullScreen,
 }) => {
   const [open, setOpen] = useState(false);
+  const [openShareModal, setOpenShareModal] = useState(false);
+  const [favoritePosts, setFavoritePosts] = useState(
+    JSON.parse(localStorage.getItem("posts")) || [],
+  );
   const tempLikeCount = likecount ? [...likecount] : [];
   const { enqueueSnackbar } = useSnackbar();
   const currentUserUid = user.uid;
   const navigate = useNavigate();
+
   return (
     <>
       {" "}
@@ -61,15 +66,30 @@ const PostDetails = ({
         <Flexbetween
           sx={{ cursor: "pointer" }}
           onClick={() => {
-            setLink(`https://narayan954.github.io/dummygram/posts/${postId}`);
-            setPostText(caption);
-            shareModal(true);
+            setOpenShareModal((prev) => !prev);
           }}
         >
           <IconButton>
             <ShareOutlined style={{ color: "var(--post-nav-icons)" }} />
           </IconButton>
           <Typography fontSize={14}>Share</Typography>
+        </Flexbetween>
+
+        <Flexbetween
+          sx={{ cursor: "pointer" }}
+          onClick={async () => {
+            const data = await savePost(postId);
+            setFavoritePosts(data);
+          }}
+        >
+          <IconButton>
+            {favoritePosts.indexOf(postId) !== -1 ? (
+              <BookmarksIcon sx={{ color: "green" }} />
+            ) : (
+              <BookmarkBorderIcon style={{ color: "var(--post-nav-icons)" }} />
+            )}
+          </IconButton>
+          <Typography fontSize={14}>Save</Typography>
         </Flexbetween>
 
         {currentUserUid === postUserUid && (
@@ -106,13 +126,21 @@ const PostDetails = ({
                 enqueueSnackbar,
                 setOpen,
               );
-              navigate("/dummygram/");
+              navigate("/dummygram");
             }}
           >
             Delete
           </Button>
         </DialogActions>
       </Dialog>
+      {openShareModal && (
+        <ShareModal
+          openShareModal={openShareModal}
+          setOpenShareModal={setOpenShareModal}
+          currentPostLink={`https://narayan954.github.io/dummygram/posts/${postId}`}
+          postText={caption}
+        />
+      )}
     </>
   );
 };

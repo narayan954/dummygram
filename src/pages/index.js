@@ -3,11 +3,12 @@ import ChatPage from "./Chat";
 import Contributor from "./FooterPages/ContributorPage";
 import Feedback from "./FooterPages/Feedback";
 import Guidelines from "./FooterPages/Guidelines";
+import HelpCenter from "./FooterPages/HelpCenter";
 import LoginScreen from "./Login";
 import PostView from "./PostView";
 import Profile from "./Profile";
-import Settings from "./Settings";
 import SignupScreen from "./Signup";
+import Friends from "./Friends";
 
 export {
   About,
@@ -15,9 +16,10 @@ export {
   Contributor,
   Feedback,
   Guidelines,
+  HelpCenter,
   LoginScreen,
   PostView,
   Profile,
-  Settings,
   SignupScreen,
+  Friends,
 };
