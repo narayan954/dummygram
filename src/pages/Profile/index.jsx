@@ -24,7 +24,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import GridOnIcon from "@mui/icons-material/GridOn";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import NotFound from "../NotFound";
-import ProfieFeed from "./feed";
+import ProfileFeed from "./feed";
 import defaultProfile from "../../assets/blank-profile.webp";
 import deleteImg from "../../js/deleteImg";
 import firebase from "firebase/compat/app";
@@ -42,6 +42,7 @@ function Profile() {
   const [user, setUser] = useState(null);
   const [feed, setFeed] = useState([]);
   const [savedPosts, setSavedPosts] = useState([]);
+  const [isFeedLoading, setIsFeedLoading] = useState(true);
   const [isSavedPostsLoading, setIsSavedPostsLoading] = useState(true);
   const [friendRequestSent, setFriendRequestSent] = useState(false);
   const [isFriendAlready, setIsFriendAlready] = useState(false);
@@ -344,6 +345,7 @@ function Profile() {
           });
         });
         setFeed(userPosts);
+        setIsFeedLoading(false);
       },
       (error) => {
         console.error("Error fetching user posts:", error);
@@ -623,15 +625,9 @@ function Profile() {
             )}
           </div>
           {showSaved ? (
-            isSavedPostsLoading ? (
-              <Loader />
-            ) : savedPosts.length === 0 ? (
-              <p className="no_posts_msg">Nothing in saved</p>
-            ) : (
-              <ProfieFeed feed={savedPosts} />
-            )
+            <ProfileFeed feed={savedPosts} isLoading={isSavedPostsLoading} />
           ) : (
-            <ProfieFeed feed={feed} />
+            <ProfileFeed feed={feed} isLoading={isFeedLoading} />
           )}
         </>
       ) : userExists ? (

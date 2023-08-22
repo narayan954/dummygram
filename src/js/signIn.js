@@ -1,5 +1,5 @@
 import { auth, db, facebookProvider, googleProvider } from "../lib/firebase";
-import { playSuccessSound, playErrorSound } from "./sounds";
+import { playErrorSound, playSuccessSound } from "./sounds";
 
 const signInWithOAuth = (e, enqueueSnackbar, navigate, google = true) => {
   e.preventDefault();
@@ -10,7 +10,6 @@ const signInWithOAuth = (e, enqueueSnackbar, navigate, google = true) => {
       const userRef = db.collection("users").where("uid", "==", val?.user?.uid);
 
       const docSnap = await userRef.get();
-      console.log("doing");
       if (docSnap.docs.length < 1) {
         const usernameDoc = db.collection("users");
         await usernameDoc.doc(auth.currentUser.uid).set({
