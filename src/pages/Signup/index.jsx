@@ -300,7 +300,7 @@ const SignupScreen = () => {
             }
             have_acct_question={"Already have an account?"}
             have_acct_nav={navigateToLogin}
-            have__acct_action={"Sign in!"}
+            have__acct_action={"Sign in"}
           />
         </div>
       </form>

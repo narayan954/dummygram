@@ -338,10 +338,10 @@ function Wrapper({ user, setUser, setRowMode }) {
         location.pathname == "/dummygram/signup") && (
         <Darkmode themeClass="themeButton themeButton-login" />
       )}
-      <div className="navbar_wrapper">
-        {/* All the children element will come here */}
-        <Outlet />
-      </div>
+
+      {/* All the children element will come here */}
+      <Outlet />
+
       <FaArrowCircleUp
         fill="#5F85DB"
         className={`scrollTop ${isCenteredScroll ? "centeredScroll" : ""}`}
