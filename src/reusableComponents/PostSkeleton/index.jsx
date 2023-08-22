@@ -32,30 +32,14 @@ const PostSkeleton = () => {
         className="skeleton-user-caption shimmer_bg"
       />
       <div className="post-skeleton-nav">
-        <Skeleton
-          variant="rectangular"
-          width={50}
-          height={35}
-          className="shimmer_bg"
-        />
-        <Skeleton
-          variant="rectangular"
-          width={50}
-          height={35}
-          className="shimmer_bg"
-        />
-        <Skeleton
-          variant="rectangular"
-          width={50}
-          height={35}
-          className="shimmer_bg"
-        />
-        <Skeleton
-          variant="rectangular"
-          width={50}
-          height={35}
-          className="shimmer_bg"
-        />
+        {Array.from({ length: 4 }, (_, index) => (
+          <Skeleton
+            variant="rectangular"
+            width={50}
+            height={35}
+            className="shimmer_bg"
+          />
+        ))}
       </div>
       <Skeleton variant="rectangular" height={30} className="shimmer_bg" />
     </div>
