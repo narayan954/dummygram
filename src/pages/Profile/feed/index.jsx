@@ -52,53 +52,22 @@ const ProfileFeed = ({ feed, isLoading }) => {
 export default ProfileFeed;
 
 function FeedSkeleton() {
+  const numSkeletons = 3;
+
   return (
     <>
-      <Skeleton
-        variant="rectangular"
-        style={{
-          width: "100%",
-          height: "100%",
-          aspectRatio: "1",
-        }}
-        className="shimmer_bg"
-      />
-      <Skeleton
-        variant="rectangular"
-        style={{
-          width: "100%",
-          height: "100%",
-          aspectRatio: "1",
-        }}
-        className="shimmer_bg"
-      />
-      <Skeleton
-        variant="rectangular"
-        style={{
-          width: "100%",
-          height: "100%",
-          aspectRatio: "1",
-        }}
-        className="shimmer_bg"
-      />
-      <Skeleton
-        variant="rectangular"
-        style={{
-          width: "100%",
-          height: "100%",
-          aspectRatio: "1",
-        }}
-        className="shimmer_bg"
-      />
-      <Skeleton
-        variant="rectangular"
-        style={{
-          width: "100%",
-          height: "100%",
-          aspectRatio: "1",
-        }}
-        className="shimmer_bg"
-      />
+      {Array.from({ length: numSkeletons }, (_, index) => (
+        <Skeleton
+          key={index}
+          variant="rectangular"
+          style={{
+            width: "100%",
+            height: "100%",
+            aspectRatio: "1",
+          }}
+          className="shimmer_bg"
+        />
+      ))}
     </>
   );
 }
