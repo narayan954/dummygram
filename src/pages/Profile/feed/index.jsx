@@ -13,6 +13,7 @@ import { doc, updateDoc } from "firebase/firestore";
 
 import ErrorBoundary from "../../../reusableComponents/ErrorBoundary";
 import { ShareModal } from "../../../reusableComponents";
+import { Skeleton } from "@mui/material";
 import { useState } from "react";
 
 const MAX_CAPTION_MOBILE = 50;
@@ -155,15 +156,19 @@ function FeedPostDisplay({ post, id }) {
   );
 }
 
-const ProfileFeed = ({ feed,isLoading }) => {
+const ProfileFeed = ({ feed, isLoading }) => {
   return (
     <Box className="profile-feed-main-container">
       <div className="app__posts__feed" id="feed-sub-container">
-        {!isLoading ? (<ErrorBoundary>
-          {feed.map(({ post, id }) => (
-            <FeedPostDisplay post={post} id={id} key={id} />
-          ))}
-        </ErrorBoundary>):(<FeedSkeleton />);
+        {!isLoading ? (
+          <ErrorBoundary>
+            {feed.map(({ post, id }) => (
+              <FeedPostDisplay post={post} id={id} key={id} />
+            ))}
+          </ErrorBoundary>
+        ) : (
+          <FeedSkeleton />
+        )}
       </div>
     </Box>
   );

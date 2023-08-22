@@ -1,12 +1,17 @@
 import { ErrorBoundary, PostSkeleton } from "../../reusableComponents";
-import { GuestSignUpBtn, Suggestion } from "../../components";
 import React, { Fragment, useEffect, useState } from "react";
 
 import { db } from "../../lib/firebase";
 
 const Post = React.lazy(() => import("../../components/Post"));
+const Suggestion = React.lazy(() => import("../../components/Suggestions"));
+const GuestSignUpBtn = React.lazy(() =>
+  import("../../components/Guest/GuestSignUpBtn"),
+);
 
 const PAGESIZE = 10;
+const NUMSKELETONS = 5;
+
 const Home = ({ rowMode, user }) => {
   const [posts, setPosts] = useState([]);
   const [loadingPosts, setLoadingPosts] = useState(true);
@@ -112,11 +117,9 @@ const Home = ({ rowMode, user }) => {
         <div className={`app_posts ${!rowMode ? "app_posts_column flex" : ""}`}>
           {loadingPosts ? (
             <>
-              <PostSkeleton />
-              <PostSkeleton />
-              <PostSkeleton />
-              <PostSkeleton />
-              <PostSkeleton />
+              {Array.from({ length: NUMSKELETONS }, (_, index) => (
+                <PostSkeleton key={index} />
+              ))}
             </>
           ) : (
             <>
