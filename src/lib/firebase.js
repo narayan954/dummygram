@@ -6,12 +6,12 @@ import firebase from "firebase/compat/app";
 import { v4 as uuid } from "uuid";
 
 const firebaseApp = firebase.initializeApp({
-  apiKey: import.meta.env.FIREBASE_APIKEY,
-  authDomain: import.meta.env.FIREBASE_AUTHDOMAIN,
-  projectId: import.meta.env.FIREBASE_PROJECTID,
-  storageBucket: import.meta.env.FIREBASE_STORAGEBUCKET,
-  messagingSenderId: import.meta.env.FIREBASE_MESSAGINGSENDERID,
-  appId: import.meta.env.FIREBASE_APPID,
+  apiKey: import.meta.env.VITE_DUMMYGRAM_APIKEY,
+  authDomain: import.meta.env.VITE_DUMMYGRAM_AUTHDOMAIN,
+  projectId: import.meta.env.VITE_DUMMYGRAM_PROJECTID,
+  storageBucket: import.meta.env.VITE_DUMMYGRAM_STORAGEBUCKET,
+  messagingSenderId: import.meta.env.VITE_DUMMYGRAM_MESSAGINGSENDERID,
+  appId: import.meta.env.VITE_DUMMYGRAM_APPID,
 });
 
 // Use these for db & auth
