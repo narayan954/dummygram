@@ -11,12 +11,13 @@
   border-radius: 1rem;
   cursor: pointer;
   font-weight: 600;
-  background: #5f85db;
-  border: 2px solid #5f85db;
+  background: var(--btn-color);
+  border: none;
   transition: 0.3s ease-in-out;
   color: #ffffff;
 }
 
 .guest-sign-up-button:hover {
   transform: scale(1.1);
+  color: var(----btn-color-hover);
 }

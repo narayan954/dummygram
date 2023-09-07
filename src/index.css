@@ -14,8 +14,8 @@
   --profile-container: #f4eeff;
   --profile-box-shadow: 0 0 6px 0 black;
   --logo-text-shadow: none;
-  --btn-color: linear-gradient(-40deg, #daf1f7, #5f85db);
-  --btn-color-hover: linear-gradient(40deg, #5f85db, #daf1f7);
+  --btn-color: linear-gradient(-40deg, #72cbf7, #5f85db);
+  --btn-color-hover: linear-gradient(40deg, #5f85db, #72cbf7);
   --btn-hover: #5f85db;
   --page-over-color: #00bfff;
   --slide-color: #dfffd8;
@@ -50,8 +50,8 @@
   --profile-container: rgb(50, 48, 48);
   --profile-box-shadow: 0 0 6px white;
   /* --logo-text-shadow: 0 0 10px #eeeeee, 0 0 20px #5F85DB, 0 0 30px #fff; */
-  --btn-color: linear-gradient(40deg, #5f85db, #daf1f7);
-  --btn-color-hover: linear-gradient(-40deg, #daf1f7, #5f85db);
+  --btn-color: linear-gradient(40deg, #5f85db, #72cbf7);
+  --btn-color-hover: linear-gradient(-40deg, #72cbf7, #5f85db);
   --btn-hover: #5f85db;
   --page-over-color: #26282b;
   --slide-color: #041c32;
