@@ -30,7 +30,7 @@
 
 ## Vision
 
-When you start learning ReactJS, it's crucial to work on projects that interest you. One exciting idea is to create a clone of the app made by the company that created ReactJS. In this case, let's build an Instagram clone. It will have similar features to the popular social media platform, but we can also add some new functions.
+When you start learning ReactJS, it's crucial to work on projects that interest you. One exciting idea is to create a clone of an app owned by the company that created ReactJS. In this case, let's build an Instagram clone. It will have similar features to the popular social media platform, but we can also add some new functions.
 
 Creating an Instagram clone is a fantastic chance for learning and improvement. By doing this project, you can contribute to the ReactJS community while also growing your knowledge and skills. It will be a fun way to practice and make something cool!
 
