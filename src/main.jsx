@@ -4,7 +4,7 @@ import { SnackbarProvider, useSnackbar } from "notistack";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 import App from "./App";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import { Close } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import React from "react";
@@ -37,9 +37,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           );
         }}
       >
-        <BrowserRouter>
+        <HashRouter>
           <App />
-        </BrowserRouter>
+        </HashRouter>
       </SnackbarProvider>
     </ThemeProvider>
   </React.StrictMode>,
