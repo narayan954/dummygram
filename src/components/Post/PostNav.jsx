@@ -49,9 +49,7 @@ const PostNav = ({
       <Flexbetween gap={!fullScreen && "1.6rem"} sx={{ marginInline: "auto" }}>
         <Flexbetween
           sx={{ cursor: "pointer" }}
-          onClick={() =>
-            isAnonymous ? navigate("/signup") : likesHandler()
-          }
+          onClick={() => (isAnonymous ? navigate("/signup") : likesHandler())}
         >
           <IconButton>
             {tempLikeCount.indexOf(user?.uid) != -1 ? (
@@ -74,9 +72,7 @@ const PostNav = ({
         <Flexbetween
           sx={{ cursor: "pointer" }}
           onClick={() => {
-            isAnonymous
-              ? navigate("/signup")
-              : setisCommentOpen(true);
+            isAnonymous ? navigate("/signup") : setisCommentOpen(true);
           }}
         >
           <IconButton sx={{ padding: "2px" }}>

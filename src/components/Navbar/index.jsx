@@ -148,9 +148,7 @@ function Navbar({ onClick, user, setUser }) {
                       <li
                         key={id}
                         className="searched_user_li"
-                        onClick={() =>
-                          navigate(`/user/${user.username}`)
-                        }
+                        onClick={() => navigate(`/user/${user.username}`)}
                       >
                         <img
                           src={user?.photoURL ? user.photoURL : blankImg}
