@@ -6,14 +6,20 @@ const validate = {
     if (!value) return { name: true, nameError: "Name field cannot be empty" };
     else {
       return value.length < 6
-        ? { name: true, nameError: "Name must be atleast 6 characters long." }
+        ? {
+            name: true,
+            nameError: "Name must be atleast 6 characters long.",
+          }
         : { name: false, nameError: false };
     }
   },
   email: (value) => {
     return emailRegex.test(value)
       ? { email: false, emailError: false }
-      : { email: true, emailError: "Please enter a valid email address" };
+      : {
+          email: true,
+          emailError: "Please enter a valid email address",
+        };
   },
 
   password: (value) => {

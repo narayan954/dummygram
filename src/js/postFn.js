@@ -1,7 +1,8 @@
-import { db, storage } from "../lib/firebase";
-import { playErrorSound, playSuccessSound } from "./sounds";
-
 import firebase from "firebase/compat/app";
+
+import { db, storage } from "../lib/firebase";
+
+import { playErrorSound, playSuccessSound } from "./sounds";
 
 export const deletePost = async (
   uid,
@@ -13,7 +14,7 @@ export const deletePost = async (
   try {
     await db
       .runTransaction(async (transaction) => {
-        //Delete doc ref from user doc
+        // Delete doc ref from user doc
         const docRef = db.collection("users").doc(uid);
         transaction.update(docRef, {
           posts: firebase.firestore.FieldValue.arrayRemove(postId),

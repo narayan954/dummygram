@@ -1,3 +1,5 @@
+import NotFound from "../pages/NotFound";
+
 import Caption from "./Caption";
 import ChatBox from "./CommunityChat";
 import EditProfile from "./EditProfile";
@@ -6,7 +8,6 @@ import GuestSignInBtn from "./Guest/GuestSignInBtn";
 import GuestSignUpBtn from "./Guest/GuestSignUpBtn";
 import ImgUpload from "./ImgUpload";
 import Navbar from "./Navbar";
-import NotFound from "../pages/NotFound";
 import Notifications from "./Notification";
 import Post from "./Post";
 import ReadMore from "./ReadMore";
@@ -18,6 +19,7 @@ export {
   Caption,
   ChatBox,
   EditProfile,
+  FriendsComponent,
   GuestSignInBtn,
   GuestSignUpBtn,
   ImgUpload,
@@ -29,7 +31,6 @@ export {
   SideBar,
   StoryView,
   Suggestion,
-  FriendsComponent,
 };
 
 export default Post;
