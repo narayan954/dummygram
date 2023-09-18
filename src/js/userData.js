@@ -1,4 +1,4 @@
-import { db, auth } from "../lib/firebase";
+import {auth, db} from "../lib/firebase";
 
 export default async function getUserSessionData(getRef) {
   const user = auth?.currentUser;
