@@ -129,7 +129,7 @@ const ChatBox = () => {
       docRef
         .get()
         .then((doc) => {
-          navigate(`/dummygram/user/${doc.data().username}`);
+          navigate(`/user/${doc.data().username}`);
         })
         .catch((error) => {
           enqueueSnackbar(`Error Occured: ${error}`, {
@@ -185,7 +185,7 @@ const ChatBox = () => {
       if (user) {
         setUser(user);
       } else {
-        navigate("/dummygram/login");
+        navigate("/login");
       }
     });
 
@@ -268,7 +268,7 @@ const ChatBox = () => {
     <>
       <div className="chat-main-container">
         <div className="closeBtn">
-          <HighlightOffRoundedIcon onClick={() => navigate("/dummygram/")} />
+          <HighlightOffRoundedIcon onClick={() => navigate("/")} />
         </div>
 
         {isLoading ? (

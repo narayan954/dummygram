@@ -68,7 +68,7 @@ const CommentBox = ({
             disabled={comment.trim().length < 1}
             type="submit"
             onClick={(e) =>
-              isAnonymous ? navigate("/dummygram/signup") : postComment(e)
+              isAnonymous ? navigate("/signup") : postComment(e)
             }
             style={{
               padding: 0,

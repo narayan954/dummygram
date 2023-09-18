@@ -103,7 +103,7 @@ function App() {
         setUser(authUser);
       } else {
         setUser(null);
-        navigate("/dummygram/login");
+        navigate("/login");
       }
     });
     return () => {
@@ -116,7 +116,7 @@ function App() {
       <ErrorBoundary inApp={true}>
         <Routes>
           <Route
-            path="/dummygram"
+            path="/"
             element={
               <ErrorBoundary inApp={true}>
                 <Wrapper
@@ -322,10 +322,10 @@ function Wrapper({ user, setUser, setRowMode }) {
   }, []);
 
   const isCenteredScroll =
-    location.pathname === "/dummygram/favourites" ||
-    location.pathname === "/dummygram/about" ||
-    location.pathname === "/dummygram/guidelines" ||
-    location.pathname === "/dummygram/contributors";
+    location.pathname === "/favourites" ||
+    location.pathname === "/about" ||
+    location.pathname === "/guidelines" ||
+    location.pathname === "/contributors";
 
   return (
     <div className="app">
@@ -334,8 +334,7 @@ function Wrapper({ user, setUser, setRowMode }) {
         user={user}
         setUser={setUser}
       />
-      {(location.pathname == "/dummygram/login" ||
-        location.pathname == "/dummygram/signup") && (
+      {(location.pathname == "/login" || location.pathname == "/signup") && (
         <Darkmode themeClass="themeButton themeButton-login" />
       )}
 

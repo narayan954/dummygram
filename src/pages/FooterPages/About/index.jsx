@@ -80,7 +80,7 @@ const About = () => {
       <div
         className="back-icon"
         style={{ height: "90px", cursor: "pointer" }}
-        onClick={() => navigate("/dummygram")}
+        onClick={() => navigate("/")}
       >
         <KeyboardBackspaceIcon className="icon" /> <span>Back to Home</span>
       </div>

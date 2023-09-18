@@ -10,7 +10,7 @@ const Footer = () => {
     <footer>
       <ul className="sidebar-footer-container">
         <li>
-          <Link to="/dummygram/about" className="footer-link">
+          <Link to="/about" className="footer-link">
             <span style={{ display: "flex", gap: "6px" }}>
               <InfoIcon className="footer-icons" fontSize="small" />
               About
@@ -20,7 +20,7 @@ const Footer = () => {
         <li>
           <Link
             style={{ display: "flex" }}
-            to="/dummygram/feedback"
+            to="/feedback"
             className="footer-link"
           >
             <span style={{ display: "flex", gap: "6px" }}>
@@ -30,7 +30,7 @@ const Footer = () => {
           </Link>
         </li>
         <li>
-          <Link to="/dummygram/contributors" className="footer-link">
+          <Link to="/contributors" className="footer-link">
             <span style={{ display: "flex", gap: "6px" }}>
               <ContributorsIcon className="footer-icons" fontSize="small" />
               Contributors
@@ -38,7 +38,7 @@ const Footer = () => {
           </Link>
         </li>
         <li>
-          <Link to="/dummygram/help-center" className="footer-link">
+          <Link to="/help-center" className="footer-link">
             <span style={{ display: "flex", gap: "6px" }}>
               <HelpIcon className="footer-icons" fontSize="small" />
               Help-center
@@ -46,7 +46,7 @@ const Footer = () => {
           </Link>
         </li>
         <li>
-          <Link to="/dummygram/guidelines" className="footer-link">
+          <Link to="/guidelines" className="footer-link">
             <span style={{ display: "flex", gap: "6px" }}>
               <GuidelinesIcon className="footer-icons" fontSize="small" />
               Guidelines

@@ -64,7 +64,7 @@ const ForgotPassword = () => {
   };
 
   const navigateToSignin = () => {
-    navigate("/dummygram/login");
+    navigate("/login");
   };
 
   return (

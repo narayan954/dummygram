@@ -41,7 +41,7 @@ export const Feedback = () => {
       <div
         className="back-icon"
         style={{ height: "90px", cursor: "pointer", marginTop: "35px" }}
-        onClick={() => navigate("/dummygram/")}
+        onClick={() => navigate("/")}
       >
         <KeyboardBackspaceIcon className="icon" />
       </div>

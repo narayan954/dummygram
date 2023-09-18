@@ -131,9 +131,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
         alt={displayName}
         src={avatar}
         onClick={() =>
-          navigate(
-            "/dummygram/" + (isAnonymous ? "signup" : "user/" + username),
-          )
+          navigate("/" + (isAnonymous ? "signup" : "user/" + username))
         }
         onMouseEnter={showProfileDialogBox}
         onMouseLeave={hideProfileDialogBox}
@@ -145,9 +143,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
       <div className="header-data">
         <h3
           onClick={() => {
-            navigate(
-              "/dummygram/" + (isAnonymous ? "signup" : "posts/" + postId),
-            );
+            navigate("/" + (isAnonymous ? "signup" : "posts/" + postId));
           }}
           className="post__username"
         >
@@ -156,7 +152,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
         <p className="post__time">{time}</p>
       </div>
       <div className="social__icon__last">
-        {!location.pathname.includes("/dummygram/user") && (
+        {!location.pathname.includes("/user") && (
           <IconButton
             aria-label="more"
             id="long-button"
@@ -165,7 +161,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
             aria-haspopup="true"
             onClick={(event) =>
               isAnonymous
-                ? navigate("/dummygram/signup")
+                ? navigate("/signup")
                 : setAnchorEl(event.currentTarget)
             }
             sx={{
@@ -200,7 +196,7 @@ const PostHeader = ({ postId, user, postData, postHasImages, timestamp }) => {
           {postHasImages && (
             <MenuItem onClick={handleDownload}> Download </MenuItem>
           )}
-          <MenuItem onClick={() => navigate(`/dummygram/user/${username}`)}>
+          <MenuItem onClick={() => navigate(`/user/${username}`)}>
             Visit Profile
           </MenuItem>
         </Menu>

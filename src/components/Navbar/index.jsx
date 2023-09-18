@@ -87,7 +87,7 @@ function Navbar({ onClick, user, setUser }) {
         setUser(authUser);
       } else {
         setUser(null);
-        navigate("/dummygram/login");
+        navigate("/login");
       }
     });
     return () => {
@@ -96,15 +96,15 @@ function Navbar({ onClick, user, setUser }) {
   }, [user]);
 
   return (
-    location.pathname !== "/dummygram/login" &&
-    location.pathname !== "/dummygram/signup" && (
+    location.pathname !== "/login" &&
+    location.pathname !== "/signup" && (
       <div className="app__header">
         {windowWidth > 600 ? (
           <span className="nav_text_logo">
             <Logo />
           </span>
         ) : (
-          <span onClick={() => navigate("/dummygram")}>
+          <span onClick={() => navigate("/")}>
             <img src={appLogo} alt="dummygram" className="nav_img_logo" />
           </span>
         )}
@@ -149,7 +149,7 @@ function Navbar({ onClick, user, setUser }) {
                         key={id}
                         className="searched_user_li"
                         onClick={() =>
-                          navigate(`/dummygram/user/${user.username}`)
+                          navigate(`/user/${user.username}`)
                         }
                       >
                         <img
@@ -184,7 +184,7 @@ function Navbar({ onClick, user, setUser }) {
             <div
               className="rowConvert"
               id="chat-icon"
-              onClick={() => navigate("/dummygram/chat")}
+              onClick={() => navigate("/chat")}
             >
               <ChatIcon className="chatIcon" />
             </div>

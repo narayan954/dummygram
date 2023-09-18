@@ -34,6 +34,7 @@ const PostSkeleton = () => {
       <div className="post-skeleton-nav">
         {Array.from({ length: 4 }, (_, index) => (
           <Skeleton
+            key={index}
             variant="rectangular"
             width={50}
             height={35}

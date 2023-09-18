@@ -25,7 +25,7 @@ const ReadMore = ({ children, postId, picCap = false, readMore = true }) => {
           onClick={() => {
             toggleReadMore();
             if (!id) {
-              navigate(`/dummygram/posts/${postId}`);
+              navigate(`/posts/${postId}`);
             }
           }}
           style={{

@@ -90,8 +90,7 @@ function SideBar() {
         <ul className="sidebar-links">
           <li
             className={
-              windowWidth < 1200 &&
-              location.pathname.includes("/dummygram/user")
+              windowWidth < 1200 && location.pathname.includes("/user")
                 ? "activeTab"
                 : ""
             }
@@ -123,10 +122,9 @@ function SideBar() {
           </li>
           <li
             id="sidebar-home-link"
-            onClick={() => navigate("/dummygram")}
+            onClick={() => navigate("/")}
             className={
-              location.pathname === "/dummygram/" ||
-              location.pathname === "/dummygram"
+              location.pathname === "" || location.pathname === "/"
                 ? "activeTab"
                 : ""
             }
@@ -137,7 +135,7 @@ function SideBar() {
           </li>
           <li
             onClick={() =>
-              anonymous ? navigate("/dummygram/signup") : setOpenNewUpload(true)
+              anonymous ? navigate("/signup") : setOpenNewUpload(true)
             }
           >
             <div className="sidebar_align">
@@ -146,12 +144,10 @@ function SideBar() {
           </li>
           <li
             onClick={() =>
-              navigate(`/dummygram/${anonymous ? "signup" : "notifications"}`)
+              navigate(`/${anonymous ? "signup" : "notifications"}`)
             }
             className={
-              location.pathname.includes("/dummygram/notifications")
-                ? "activeTab"
-                : ""
+              location.pathname.includes("/notifications") ? "activeTab" : ""
             }
           >
             <div className="sidebar_align">
@@ -214,9 +210,7 @@ function SideBar() {
               <li
                 onClick={() =>
                   navigate(
-                    `/dummygram/${
-                      anonymous ? "signup" : `user/${userData.username}`
-                    }`,
+                    `/${anonymous ? "signup" : `user/${userData.username}`}`,
                   )
                 }
               >
@@ -233,7 +227,7 @@ function SideBar() {
               </li>
               <li
                 onClick={() =>
-                  navigate(`/dummygram/${anonymous ? "signup" : "settings"}`)
+                  navigate(`/${anonymous ? "signup" : "settings"}`)
                 }
               >
                 <Settings className="icon" /> Settings

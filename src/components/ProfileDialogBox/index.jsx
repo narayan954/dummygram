@@ -40,7 +40,7 @@ const ProfileDialogBox = ({ mouseOnProfileImg, userData }) => {
           src={avatar ? avatar : profileAvatar}
           alt={name}
           className="dialog-box-img"
-          onClick={() => navigate(`/dummygram/user/${username}`)}
+          onClick={() => navigate(`/user/${username}`)}
         />
         <div
           className="dialog-box-name-container"
@@ -48,7 +48,7 @@ const ProfileDialogBox = ({ mouseOnProfileImg, userData }) => {
         >
           <h4
             className="dialog-box-display-name"
-            onClick={() => navigate(`/dummygram/user/${username}`)}
+            onClick={() => navigate(`/user/${username}`)}
           >
             {name}
           </h4>

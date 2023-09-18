@@ -93,12 +93,12 @@ const FriendsComponent = () => {
                       src={photoURL ? photoURL : blankImg}
                       alt={"user pic"}
                       className="friend_page_friend_avatar"
-                      onClick={() => navigate(`/dummygram/user/${username}`)}
+                      onClick={() => navigate(`/user/${username}`)}
                     />
                     <div>
                       <h3
                         className="friend_page_friend_name"
-                        onClick={() => navigate(`/dummygram/user/${username}`)}
+                        onClick={() => navigate(`/user/${username}`)}
                       >
                         {displayName ? displayName : "user"}
                       </h3>

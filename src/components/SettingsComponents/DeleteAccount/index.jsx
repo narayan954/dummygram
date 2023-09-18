@@ -115,7 +115,7 @@ const DeleteAccount = ({ user }) => {
       await Promise.all(deleteImagePromises);
 
       localStorage.removeItem("user");
-      navigate("/dummygram/login");
+      navigate("/login");
       enqueueSnackbar("User deleted successfully", {
         variant: "success",
       });

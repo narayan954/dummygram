@@ -318,7 +318,7 @@ function Profile() {
       if (authUser) {
         setUser(authUser);
       } else {
-        navigate("/dummygram/login");
+        navigate("/login");
       }
     });
 
@@ -571,7 +571,7 @@ function Profile() {
                 <Button
                   onClick={() =>
                     user.isAnonymous
-                      ? navigate("/dummygram/signup")
+                      ? navigate("/signup")
                       : isFriendAlready
                       ? handleRemoveFriend()
                       : handleSendFriendRequest()
@@ -594,7 +594,7 @@ function Profile() {
             </div>
 
             <Link
-              to={`/dummygram/user/${username}/friends`}
+              to={`/user/${username}/friends`}
               className="profile-user-username flexx"
             >
               {friendsLen} Friends

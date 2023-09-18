@@ -8,11 +8,11 @@ import {
   Auth_container,
 } from "../../reusableComponents/Auth";
 import React, { useState } from "react";
-import { auth } from "../../lib/firebase";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
-import signInWithOAuth from "../../js/signIn";
 
+import { auth } from "../../lib/firebase";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
+import signInWithOAuth from "../../js/signIn";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import { validate } from "../../reusableComponents";
@@ -37,7 +37,7 @@ const LoginScreen = () => {
           enqueueSnackbar("Login successful!", {
             variant: "success",
           });
-          navigate("/dummygram");
+          navigate("/");
         })
         .catch((error) => {
           if (error.code === "auth/invalid-email") {
@@ -78,10 +78,10 @@ const LoginScreen = () => {
   };
 
   const navigateToForgot = () => {
-    navigate("/dummygram/forgot-password");
+    navigate("/forgot-password");
   };
   const navigateToSignup = () => {
-    navigate("/dummygram/signup");
+    navigate("/signup");
   };
 
   const handleError = (name, value) => {

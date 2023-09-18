@@ -17,47 +17,47 @@ const SettingsSidebar = () => {
         <ul className="settings-sidebar-sub-container">
           <li
             className={
-              location.pathname == "/dummygram/settings" ? "active" : ""
+              location.pathname == "/settings" ? "active" : ""
             }
           >
-            <Link to={"/dummygram/settings"}>
+            <Link to={"/settings"}>
               <VolumeUpOutlinedIcon className="icon" /> <span>Sound</span>
             </Link>
           </li>
           <li
             className={
-              location.pathname == "/dummygram/settings/notification"
+              location.pathname == "/settings/notification"
                 ? "active"
                 : ""
             }
           >
             <Link
               className="settings-sidebar-item"
-              to="/dummygram/settings/notification"
+              to="/settings/notification"
             >
               <NotificationsIcon className="icon" /> <span>Notification</span>
             </Link>
           </li>
           <li
             className={
-              location.pathname == "/dummygram/settings/about" ? "active" : ""
+              location.pathname == "/settings/about" ? "active" : ""
             }
           >
             <Link
               className="settings-sidebar-item"
-              to="/dummygram/settings/about"
+              to="/settings/about"
             >
               <InfoOutlinedIcon className="icon" /> <span>About</span>
             </Link>
           </li>
           <li
             className={
-              location.pathname == "/dummygram/settings/theme" ? "active" : ""
+              location.pathname == "/settings/theme" ? "active" : ""
             }
           >
             <Link
               className="settings-sidebar-item"
-              to="/dummygram/settings/theme"
+              to="/settings/theme"
             >
               <DarkModeOutlinedIcon className="icon" />
               <span>Theme</span>
@@ -65,12 +65,12 @@ const SettingsSidebar = () => {
           </li>
           <li
             className={
-              location.pathname == "/dummygram/settings/lorem" ? "active" : ""
+              location.pathname == "/settings/lorem" ? "active" : ""
             }
           >
             <Link
               className="settings-sidebar-item"
-              to="/dummygram/settings/lorem"
+              to="/settings/lorem"
             >
               <SecurityOutlinedIcon className="icon" />
               <span>Privacy and Security</span>
@@ -78,24 +78,24 @@ const SettingsSidebar = () => {
           </li>
           <li
             className={
-              location.pathname == "/dummygram/settings/ipsum" ? "active" : ""
+              location.pathname == "/settings/ipsum" ? "active" : ""
             }
           >
             <Link
               className="settings-sidebar-item"
-              to="/dummygram/settings/ipsum"
+              to="/settings/ipsum"
             >
               <ContactSupportOutlinedIcon className="icon" /> <span> Help</span>
             </Link>
           </li>
           <li
             className={
-              location.pathname == "/dummygram/settings/account" ? "active" : ""
+              location.pathname == "/settings/account" ? "active" : ""
             }
           >
             <Link
               className="settings-sidebar-item"
-              to="/dummygram/settings/account"
+              to="/settings/account"
             >
               <ManageAccountsOutlinedIcon className="icon" />{" "}
               <span>Account</span>

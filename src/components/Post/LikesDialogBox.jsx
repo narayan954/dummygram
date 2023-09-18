@@ -15,7 +15,7 @@ const trimBio = (bio, maxLength = 90) => {
 
 const renderUser = ({ uid, username, photoURL, name, bio }) => (
   <div key={uid} className="likedby_list_item">
-    <Link to={`/dummygram/user/${username}`} style={{ color: "var(--color)" }}>
+    <Link to={`/user/${username}`} style={{ color: "var(--color)" }}>
       <img
         src={photoURL ? photoURL : blankProfileImg}
         alt={name}
@@ -25,7 +25,7 @@ const renderUser = ({ uid, username, photoURL, name, bio }) => (
     <div>
       <section className="like_user_data">
         <Link
-          to={`/dummygram/user/${username}`}
+          to={`/user/${username}`}
           style={{ textDecoration: "none" }}
         >
           <h3 className="like_user_name">{name}</h3>

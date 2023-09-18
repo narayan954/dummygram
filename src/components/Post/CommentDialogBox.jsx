@@ -62,7 +62,7 @@ const CommentDialogBox = ({ postId, comments, user, fullScreen }) => {
                 <div>
                   <Link
                     className="comment-doer"
-                    to={`/dummygram/${
+                    to={`/${
                       isAnonymous
                         ? "signup"
                         : `user/${userComment.content.username}`

@@ -169,7 +169,7 @@ const Suggestion = () => {
           return (
             <li
               className="suggestion-user-list-item"
-              onClick={() => navigate(`/dummygram/user/${username}`)}
+              onClick={() => navigate(`/user/${username}`)}
               key={uid}
             >
               <img

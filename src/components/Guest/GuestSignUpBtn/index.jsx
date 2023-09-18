@@ -8,7 +8,7 @@ const GuestSignUpBtn = () => {
     <div className="guest-sign-up-button-container">
       <button
         className="guest-sign-up-button"
-        onClick={() => navigate("/dummygram/signup")}
+        onClick={() => navigate("/signup")}
       >
         Sign Up
       </button>
