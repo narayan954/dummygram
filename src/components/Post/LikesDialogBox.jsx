@@ -24,10 +24,7 @@ const renderUser = ({ uid, username, photoURL, name, bio }) => (
     </Link>
     <div>
       <section className="like_user_data">
-        <Link
-          to={`/user/${username}`}
-          style={{ textDecoration: "none" }}
-        >
+        <Link to={`/user/${username}`} style={{ textDecoration: "none" }}>
           <h3 className="like_user_name">{name}</h3>
         </Link>
         <h5 className="like_user_username">@{username}</h5>

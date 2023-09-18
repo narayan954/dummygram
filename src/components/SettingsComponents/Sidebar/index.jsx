@@ -15,88 +15,54 @@ const SettingsSidebar = () => {
     <div className="settings-container">
       <div className="settings-sidebar-container">
         <ul className="settings-sidebar-sub-container">
-          <li
-            className={
-              location.pathname == "/settings" ? "active" : ""
-            }
-          >
+          <li className={location.pathname == "/settings" ? "active" : ""}>
             <Link to={"/settings"}>
               <VolumeUpOutlinedIcon className="icon" /> <span>Sound</span>
             </Link>
           </li>
           <li
             className={
-              location.pathname == "/settings/notification"
-                ? "active"
-                : ""
+              location.pathname == "/settings/notification" ? "active" : ""
             }
           >
-            <Link
-              className="settings-sidebar-item"
-              to="/settings/notification"
-            >
+            <Link className="settings-sidebar-item" to="/settings/notification">
               <NotificationsIcon className="icon" /> <span>Notification</span>
             </Link>
           </li>
           <li
-            className={
-              location.pathname == "/settings/about" ? "active" : ""
-            }
+            className={location.pathname == "/settings/about" ? "active" : ""}
           >
-            <Link
-              className="settings-sidebar-item"
-              to="/settings/about"
-            >
+            <Link className="settings-sidebar-item" to="/settings/about">
               <InfoOutlinedIcon className="icon" /> <span>About</span>
             </Link>
           </li>
           <li
-            className={
-              location.pathname == "/settings/theme" ? "active" : ""
-            }
+            className={location.pathname == "/settings/theme" ? "active" : ""}
           >
-            <Link
-              className="settings-sidebar-item"
-              to="/settings/theme"
-            >
+            <Link className="settings-sidebar-item" to="/settings/theme">
               <DarkModeOutlinedIcon className="icon" />
               <span>Theme</span>
             </Link>
           </li>
           <li
-            className={
-              location.pathname == "/settings/lorem" ? "active" : ""
-            }
+            className={location.pathname == "/settings/lorem" ? "active" : ""}
           >
-            <Link
-              className="settings-sidebar-item"
-              to="/settings/lorem"
-            >
+            <Link className="settings-sidebar-item" to="/settings/lorem">
               <SecurityOutlinedIcon className="icon" />
               <span>Privacy and Security</span>
             </Link>
           </li>
           <li
-            className={
-              location.pathname == "/settings/ipsum" ? "active" : ""
-            }
+            className={location.pathname == "/settings/ipsum" ? "active" : ""}
           >
-            <Link
-              className="settings-sidebar-item"
-              to="/settings/ipsum"
-            >
+            <Link className="settings-sidebar-item" to="/settings/ipsum">
               <ContactSupportOutlinedIcon className="icon" /> <span> Help</span>
             </Link>
           </li>
           <li
-            className={
-              location.pathname == "/settings/account" ? "active" : ""
-            }
+            className={location.pathname == "/settings/account" ? "active" : ""}
           >
-            <Link
-              className="settings-sidebar-item"
-              to="/settings/account"
-            >
+            <Link className="settings-sidebar-item" to="/settings/account">
               <ManageAccountsOutlinedIcon className="icon" />{" "}
               <span>Account</span>
             </Link>

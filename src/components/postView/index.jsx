@@ -239,16 +239,12 @@ const PostCommentView = ({ setFetchAgain, fetchAgain, postId, user, post }) => {
                     src={content.avatar ? content.avatar : BlankImg}
                     alt={content.displayName}
                     className="post_view_comment_img"
-                    onClick={() =>
-                      navigate(`/user/${content.username}`)
-                    }
+                    onClick={() => navigate(`/user/${content.username}`)}
                   />
                   <div>
                     <h4
                       className="post_view_comment_img_name"
-                      onClick={() =>
-                        navigate(`/user/${content.username}`)
-                      }
+                      onClick={() => navigate(`/user/${content.username}`)}
                     >
                       {content.displayName}
                     </h4>
