@@ -12,8 +12,8 @@ const LockedFriendPage = ({ name }) => {
         className="profile_lock_img"
       />
       <h3>
-        Add <Link to={`/dummygram/user/${name}`}>{name}</Link> as friend to
-        unlock their friend list!
+        Add <Link to={`/user/${name}`}>{name}</Link> as friend to unlock their
+        friend list!
       </h3>
     </div>
   );

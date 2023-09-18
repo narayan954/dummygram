@@ -20,7 +20,7 @@ const Guidelines = () => {
       <div
         className="back-icon"
         style={{ height: "90px", cursor: "pointer" }}
-        onClick={() => navigate("/dummygram")}
+        onClick={() => navigate("/")}
       >
         <KeyboardBackspaceIcon className="icon" /> <span>Back to Home</span>
       </div>
@@ -79,7 +79,7 @@ const Guidelines = () => {
             </li>
             <li>
               User can report about any copyright infringement to our{" "}
-              <Link to={"/dummygram/report"} className="guideline-link">
+              <Link to={"/report"} className="guideline-link">
                 report
               </Link>{" "}
               page.
@@ -99,7 +99,7 @@ const Guidelines = () => {
               <span>Reporting Inappropriate Behavior:</span> Users is encouraged
               to report any abusive, offensive, or inappropriate behavior they
               encounter on the platform to the{" "}
-              <Link to={"/dummygram/report"} className="guideline-link">
+              <Link to={"/report"} className="guideline-link">
                 report
               </Link>{" "}
               page.
@@ -123,7 +123,7 @@ const Guidelines = () => {
             <li>
               <span>Reporting System:</span> Users can easily report to
               violations or inappropriate behavior through our{" "}
-              <Link to={"/dummygram/report"} className="guideline-link">
+              <Link to={"/report"} className="guideline-link">
                 report
               </Link>{" "}
               page.

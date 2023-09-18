@@ -12,10 +12,10 @@ const Logo = ({ ml, type = "anchor" }) => {
       onClick={() => {
         if (type === "anchor") {
           if (
-            location.pathname !== "/dummygram/login" &&
-            location.pathname !== "/dummygram/signup"
+            location.pathname !== "/login" &&
+            location.pathname !== "/signup"
           ) {
-            navigate("/dummygram");
+            navigate("/");
           }
         }
         window.scrollTo({ top: 0, left: 0, behavior: "smooth" });

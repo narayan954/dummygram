@@ -206,7 +206,7 @@ const EditProfile = ({ userData, username, setIsEditing, setUserData }) => {
         await updateUser(oldImg)
           .then(() => {
             setUserData(editedData);
-            navigate(`/dummygram/user/${newUsername}`);
+            navigate(`/user/${newUsername}`);
             playSuccessSound();
             enqueueSnackbar("Upload Successfull", {
               variant: "success",

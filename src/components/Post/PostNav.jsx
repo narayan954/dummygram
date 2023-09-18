@@ -33,7 +33,7 @@ const PostNav = ({
 
   const handleOnClick = async () => {
     if (isAnonymous) {
-      navigate("/dummygram/signup");
+      navigate("/signup");
     } else {
       try {
         const data = await savePost(postId);
@@ -50,7 +50,7 @@ const PostNav = ({
         <Flexbetween
           sx={{ cursor: "pointer" }}
           onClick={() =>
-            isAnonymous ? navigate("/dummygram/signup") : likesHandler()
+            isAnonymous ? navigate("/signup") : likesHandler()
           }
         >
           <IconButton>
@@ -75,7 +75,7 @@ const PostNav = ({
           sx={{ cursor: "pointer" }}
           onClick={() => {
             isAnonymous
-              ? navigate("/dummygram/signup")
+              ? navigate("/signup")
               : setisCommentOpen(true);
           }}
         >
@@ -93,7 +93,7 @@ const PostNav = ({
           sx={{ cursor: "pointer" }}
           onClick={() => {
             if (isAnonymous) {
-              navigate("/dummygram/signup");
+              navigate("/signup");
             } else {
               setOpenShareModal((prev) => !prev);
             }

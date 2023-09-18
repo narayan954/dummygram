@@ -89,7 +89,7 @@ function FeedPostDisplay({ post, id }) {
     <div
       className="post_container"
       key={id}
-      onClick={() => navigate(`/dummygram/posts/${id}`)}
+      onClick={() => navigate(`/posts/${id}`)}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
@@ -126,7 +126,7 @@ function FeedPostDisplay({ post, id }) {
             )}
           </button>
           <Link
-            to={`/dummygram/posts/${id}`}
+            to={`/posts/${id}`}
             style={{ color: "white" }}
             className="profile_post_hover_icon"
           >

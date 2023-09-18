@@ -7,27 +7,27 @@ const Footer = () => {
     <div className="footerpages-footer">
       <ul>
         <li>
-          <Link to="/dummygram/about" className="footer-link">
+          <Link to="/about" className="footer-link">
             About
           </Link>
         </li>
         <li>
-          <Link to="/dummygram/feedback" className="footer-link">
+          <Link to="/feedback" className="footer-link">
             Feedback
           </Link>
         </li>
         <li>
-          <Link to="/dummygram/contributors" className="footer-link">
+          <Link to="/contributors" className="footer-link">
             Contributors
           </Link>
         </li>
         <li>
-          <Link to="/dummygram/help-center" className="footer-link">
+          <Link to="/help-center" className="footer-link">
             Help-center
           </Link>
         </li>
         <li>
-          <Link to="/dummygram/guidelines" className="footer-link">
+          <Link to="/guidelines" className="footer-link">
             Guidelines
           </Link>
         </li>

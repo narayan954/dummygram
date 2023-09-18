@@ -108,8 +108,8 @@ const Home = ({ rowMode, user }) => {
         }
       >
         {anonymous &&
-          location.pathname !== "/dummygram/signup" &&
-          location.pathname !== "/dummygram/login" && (
+          location.pathname !== "/signup" &&
+          location.pathname !== "/login" && (
             <ErrorBoundary inApp={true}>
               <GuestSignUpBtn />
             </ErrorBoundary>

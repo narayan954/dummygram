@@ -22,7 +22,7 @@ const SoundSetting = () => {
   }
   const closeHandler = () => {
     setShowDiv(false);
-    navigate("/dummygram");
+    navigate("/");
   };
 
   return (

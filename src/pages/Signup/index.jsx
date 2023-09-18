@@ -124,7 +124,7 @@ const SignupScreen = () => {
                   variant: "success",
                 },
               );
-              navigate("/dummygram");
+              navigate("/");
             })
             .catch((error) => {
               playErrorSound();
@@ -175,7 +175,7 @@ const SignupScreen = () => {
   };
 
   const navigateToLogin = () => {
-    navigate("/dummygram/login");
+    navigate("/login");
   };
 
   const handleError = (name, value) => {

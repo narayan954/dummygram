@@ -45,7 +45,7 @@ export default function DisplayError() {
               <p>Click 'Back Home' below, come what may,</p>
               <p>Brighter times just a click away!"</p>
             </div>
-            <Link to="/dummygram/">
+            <Link to="/">
               <Button
                 variant="contained"
                 className="not_found_btn"

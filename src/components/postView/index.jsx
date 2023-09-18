@@ -1,4 +1,5 @@
 import "./index.css";
+
 import {
   Button,
   Dialog,
@@ -7,14 +8,14 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
-import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import React, { useEffect, useState } from "react";
 import { doc, updateDoc } from "firebase/firestore";
+
 import BlankImg from "../../assets/blank-profile.webp";
 import CommentBox from "../Post/CommentBox";
-import { deleteComment } from "../../js/postFn";
-
+import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import { db } from "../../lib/firebase.js";
+import { deleteComment } from "../../js/postFn";
 import firebase from "firebase/compat/app";
 import useCreatedAt from "../../hooks/useCreatedAt.jsx";
 import { useNavigate } from "react-router-dom";
@@ -175,12 +176,12 @@ const PostCommentView = ({ setFetchAgain, fetchAgain, postId, user, post }) => {
             src={avatar?.length > 0 ? avatar : BlankImg}
             alt={displayName}
             className="post_view_avatar"
-            onClick={() => navigate(`/dummygram/user/${username}`)}
+            onClick={() => navigate(`/user/${username}`)}
           />
           <span>
             <h2
               className="post_view_user_name"
-              onClick={() => navigate(`/dummygram/user/${username}`)}
+              onClick={() => navigate(`/user/${username}`)}
             >
               {displayName}
             </h2>
@@ -239,14 +240,14 @@ const PostCommentView = ({ setFetchAgain, fetchAgain, postId, user, post }) => {
                     alt={content.displayName}
                     className="post_view_comment_img"
                     onClick={() =>
-                      navigate(`/dummygram/user/${content.username}`)
+                      navigate(`/user/${content.username}`)
                     }
                   />
                   <div>
                     <h4
                       className="post_view_comment_img_name"
                       onClick={() =>
-                        navigate(`/dummygram/user/${content.username}`)
+                        navigate(`/user/${content.username}`)
                       }
                     >
                       {content.displayName}

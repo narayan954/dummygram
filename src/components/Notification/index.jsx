@@ -1,13 +1,13 @@
 import "./index.css";
 
-import { Loader } from "../../reusableComponents";
 import React, { useEffect, useState } from "react";
 import { auth, db } from "../../lib/firebase";
-import firebase from "firebase/compat/app";
 
 import { Box } from "@mui/material";
 import { Link } from "react-router-dom";
+import { Loader } from "../../reusableComponents";
 import { SideBar } from "../index";
+import firebase from "firebase/compat/app";
 import { useSnackbar } from "notistack";
 
 function Notifications() {
@@ -161,7 +161,7 @@ function Notifications() {
                           {message} from{" "}
                           <Link
                             className="friend-request-sender-name"
-                            to={`/dummygram/user/${username ? username : ""}`}
+                            to={`/user/${username ? username : ""}`}
                           >
                             {name ? name : ""}.
                           </Link>

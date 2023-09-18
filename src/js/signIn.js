@@ -30,7 +30,7 @@ const signInWithOAuth = (e, enqueueSnackbar, navigate, google = true) => {
       enqueueSnackbar("Login successful!", {
         variant: "success",
       });
-      navigate("/dummygram");
+      navigate("/");
     })
     .catch((error) => {
       if (error.code === "auth/account-exists-with-different-credential") {
