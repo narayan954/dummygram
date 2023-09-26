@@ -337,7 +337,7 @@ input:focus {
 
 @media (min-width: 1200px) {
   .scrollTop {
-    margin-left: 95%;
+    margin-left: 94%;
     bottom: 11%;
   }
 }
