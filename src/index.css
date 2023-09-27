@@ -257,10 +257,10 @@ input:focus {
 .scrollTop {
   position: fixed;
   position: relative;
-  bottom: 8%;
+  bottom: 12%;
   height: 50px;
   width: 50px;
-  margin-left: -27%;
+  margin-left: 90%;
   cursor: pointer;
   opacity: 0.7;
 }
@@ -276,7 +276,6 @@ input:focus {
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 790px) {
   .scrollTop {
-    margin-left: 20px;
     margin-bottom: 8%;
   }
   .app__newpost__button {
@@ -331,10 +330,6 @@ input:focus {
   .post-card {
     margin: 50px auto !important;
   }
-  .scrollTop {
-    left: 40.7%;
-  }
-
   .app__newpost__button {
     left: -1.2%;
   }
@@ -342,7 +337,8 @@ input:focus {
 
 @media (min-width: 1200px) {
   .scrollTop {
-    left: 47.7%;
+    margin-left: 94%;
+    bottom: 11%;
   }
 }
 
