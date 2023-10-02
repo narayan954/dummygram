@@ -529,6 +529,7 @@ input {
   width: calc(100vw - 40px);
   /* border: 1px solid red; */
   margin-inline: 20px;
+  margin-top: 100px;
 }
 .other__login {
   margin: 0 auto;
