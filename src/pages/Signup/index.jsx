@@ -190,7 +190,7 @@ const SignupScreen = () => {
   return (
     <Auth_container>
       <form aria-label="Sign Up Form">
-        <div className="form__bottom">
+        <div className="form__bottom signup-container">
           {/* image input for the form  */}
           <Auth__image__input
             address={address}
