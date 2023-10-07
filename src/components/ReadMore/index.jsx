@@ -19,7 +19,7 @@ const ReadMore = ({ children, postId, picCap = false, readMore = true }) => {
 
   return (
     <>
-      <Caption caption={captionText} />;
+      <Caption caption={captionText} />
       {text.length >= 40 && (
         <span
           onClick={() => {
