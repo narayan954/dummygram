@@ -94,6 +94,12 @@
   box-shadow: var(--post-box-shadow);
 }
 
+@media screen and (min-width: 1221px) {
+  .show_search_bar{
+    width: 40%;
+  }
+}
+
 .search_bar_input {
   border: none;
   width: 100%;
