@@ -22,6 +22,7 @@ const CommentDialogBox = ({ postId, comments, user, fullScreen }) => {
   const { isAnonymous } = user;
   const [username, setUsername] = useState("");
   const [openToDeleteComment, setOpenToDeleteComment] = useState(false);
+  const [selectedCommentId, setSelectedCommentId] = useState(null);
 
   useEffect(() => {
     async function getUsername() {
@@ -42,6 +43,25 @@ const CommentDialogBox = ({ postId, comments, user, fullScreen }) => {
     }
   }, []);
 
+  const handleDelete=(event, postId, commentid)=>{
+      console.log(event, postId, commentid);
+                              
+      deleteComment(event, postId, commentid);
+      console.log("Comments details: ",commentid);
+  }
+
+  /****************************************** */
+  const handleDeleteIconClick = (commentId) => {
+    setSelectedCommentId(commentId);
+    setOpenToDeleteComment(true);
+  };
+
+  // Function to clear the selected comment ID when the delete confirmation dialog is closed
+  const handleCloseDeleteDialog = () => {
+    setSelectedCommentId(null);
+    setOpenToDeleteComment(false);
+  };
+
   return (
     <Box
       sx={{
@@ -56,7 +76,7 @@ const CommentDialogBox = ({ postId, comments, user, fullScreen }) => {
     >
       {comments.length ? (
         <>
-          {comments.map((userComment) => (
+          {console.log("my all comments: ",comments) || comments.map((userComment) => (
             <div key={userComment.id}>
               <div className="commentCard">
                 <div>
@@ -87,15 +107,12 @@ const CommentDialogBox = ({ postId, comments, user, fullScreen }) => {
                     </ReadMore>
                   </p>
                 </div>
-                <div
-                  onClick={() => {
-                    setOpenToDeleteComment(!openToDeleteComment);
-                  }}
-                >
+                <div>
                   {user && userComment?.content?.username == username && (
                     <DeleteTwoToneIcon
                       fontSize="small"
                       className="comment-delete-icon"
+                      onClick={() => handleDeleteIconClick(userComment.id)}
                     />
                   )}
                   {
@@ -106,20 +123,22 @@ const CommentDialogBox = ({ postId, comments, user, fullScreen }) => {
                       aria-labelledby="responsive-dialog-title"
                     >
                       <DialogTitle id="responsive-dialog-title">
-                        {"Delete Comment?"}
+                        Delete Comment?
                       </DialogTitle>
                       <DialogContent>
                         <DialogContentText>
                           Are you sure you want to delete this Comment?
                         </DialogContentText>
                       </DialogContent>
-                      <DialogActions>
-                        <Button onClick={() => setOpenToDeleteComment(false)}>
+                      <DialogActions onClick={handleCloseDeleteDialog}>
+                        <Button>
                           Cancel
                         </Button>
                         <Button
-                          onClick={(event) =>
-                            deleteComment(event, postId, userComment.id)
+                          onClick={(event) =>{
+                              handleDelete(event, postId, selectedCommentId);
+                              handleCloseDeleteDialog();
+                            }
                           }
                         >
                           Delete
