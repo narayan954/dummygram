@@ -12,8 +12,8 @@ const Logo = ({ ml, type = "anchor" }) => {
       onClick={() => {
         if (type === "anchor") {
           if (
-            location.pathname !== "/login" &&
-            location.pathname !== "/signup"
+            !location.href.includes("login") &&
+            !location.href.includes("signup")
           ) {
             navigate("/");
           }

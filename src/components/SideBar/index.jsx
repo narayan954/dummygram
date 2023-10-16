@@ -19,6 +19,7 @@ import ImgUpload from "../ImgUpload";
 import { auth } from "../../lib/firebase";
 import blankImg from "../../assets/blank-profile.webp";
 import getUserSessionData from "../../js/userData";
+import { playSuccessSound } from "../../js/sounds";
 import { useSnackbar } from "notistack";
 
 const Footer = React.lazy(() => import("./Footer"));

@@ -53,7 +53,7 @@ export default function ImgUpload(props) {
         setIsStoryUploaded(true);
       }
     }
-    if (auth.currentUser.isAnonymous) {
+    if (auth?.currentUser.isAnonymous) {
       setUsername("guest");
     } else {
       getUsername();

@@ -322,10 +322,10 @@ function Wrapper({ user, setUser, setRowMode }) {
   }, []);
 
   const isCenteredScroll =
-    location.pathname === "/favourites" ||
-    location.pathname === "/about" ||
-    location.pathname === "/guidelines" ||
-    location.pathname === "/contributors";
+    location.href.includes("favourites") ||
+    location.href.includes("about") ||
+    location.href.includes("guidelines") ||
+    location.href.includes("contributors");
 
   return (
     <div className="app">
@@ -334,7 +334,8 @@ function Wrapper({ user, setUser, setRowMode }) {
         user={user}
         setUser={setUser}
       />
-      {(location.pathname == "/login" || location.pathname == "/signup") && (
+      {(location.href.includes("login") ||
+        location.href.includes("signup")) && (
         <Darkmode themeClass="themeButton themeButton-login" />
       )}
 

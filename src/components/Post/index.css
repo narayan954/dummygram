@@ -90,6 +90,7 @@
   font-size: 15px;
   color: var(--text-black-only);
   white-space: pre-line;
+  overflow: hidden;
 }
 
 .post__btn {

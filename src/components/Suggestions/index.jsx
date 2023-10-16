@@ -153,7 +153,7 @@ const Suggestion = () => {
   return (
     <div
       className={`suggestion-main-container ${
-        currentUser.isAnonymous ? "top-margin" : ""
+        currentUser?.isAnonymous ? "top-margin" : ""
       }`}
     >
       <button

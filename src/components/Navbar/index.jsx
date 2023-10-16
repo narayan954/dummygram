@@ -96,8 +96,8 @@ function Navbar({ onClick, user, setUser }) {
   }, [user]);
 
   return (
-    location.pathname !== "/login" &&
-    location.pathname !== "/signup" && (
+    !location.href.includes("login") &&
+    !location.href.includes("signup") && (
       <div className="app__header">
         {windowWidth > 600 ? (
           <span className="nav_text_logo">

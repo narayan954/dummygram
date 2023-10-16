@@ -108,8 +108,8 @@ const Home = ({ rowMode, user }) => {
         }
       >
         {anonymous &&
-          location.pathname !== "/signup" &&
-          location.pathname !== "/login" && (
+          !location.href.includes("login") &&
+          !location.href.includes("signup") && (
             <ErrorBoundary inApp={true}>
               <GuestSignUpBtn />
             </ErrorBoundary>
