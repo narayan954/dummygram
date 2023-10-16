@@ -1,8 +1,7 @@
-import firebase from "firebase/compat/app";
-
 import { db, storage } from "../lib/firebase";
-
 import { playErrorSound, playSuccessSound } from "./sounds";
+
+import firebase from "firebase/compat/app";
 
 export const deletePost = async (
   uid,
@@ -59,12 +58,22 @@ export const savePost = async (postId) => {
   return JSON.parse(localStorage.getItem("posts"));
 };
 
-export const deleteComment = async (event, postId, commentId) => {
-  event.preventDefault();
-  await db
-    .collection("posts")
-    .doc(postId)
-    .collection("comments")
-    .doc(commentId)
-    .delete();
+export const deleteComment = async (postId, commentId, enqueueSnackbar) => {
+  try {
+    await db
+      .collection("posts")
+      .doc(postId)
+      .collection("comments")
+      .doc(commentId)
+      .delete()
+      .then(() => {
+        playSuccessSound();
+        enqueueSnackbar("Comment deleted successfully!", {
+          variant: "success",
+        });
+      });
+  } catch (error) {
+    playErrorSound();
+    enqueueSnackbar(`Error deleting comment: ${error}`, { variant: "error" });
+  }
 };
