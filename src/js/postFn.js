@@ -1,7 +1,8 @@
-import { db, storage } from "../lib/firebase";
-import { playErrorSound, playSuccessSound } from "./sounds";
-
 import firebase from "firebase/compat/app";
+
+import { db, storage } from "../lib/firebase";
+
+import { playErrorSound, playSuccessSound } from "./sounds";
 
 export const deletePost = async (
   uid,
