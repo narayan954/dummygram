@@ -46,7 +46,7 @@ const PostNav = ({
 
   return (
     <>
-      <Flexbetween gap={!fullScreen && "1.6rem"} sx={{ marginInline: "auto" }}>
+      <Flexbetween gap={!fullScreen && "1rem"} sx={{ marginInline: "auto" }}>
         <Flexbetween
           sx={{ cursor: "pointer" }}
           onClick={() => (isAnonymous ? navigate("/signup") : likesHandler())}
