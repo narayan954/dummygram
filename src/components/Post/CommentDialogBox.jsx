@@ -17,8 +17,11 @@ import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import { Link } from "react-router-dom";
 import ReadMore from "../ReadMore";
 import { deleteComment } from "../../js/postFn";
+import { useSnackbar } from "notistack";
 
 const CommentDialogBox = ({ postId, comments, user, fullScreen }) => {
+  const { enqueueSnackbar } = useSnackbar();
+
   const { isAnonymous } = user;
   const [username, setUsername] = useState("");
   const [openToDeleteComment, setOpenToDeleteComment] = useState(false);
@@ -43,12 +46,9 @@ const CommentDialogBox = ({ postId, comments, user, fullScreen }) => {
     }
   }, []);
 
-  const handleDelete=(event, postId, commentid)=>{
-      console.log(event, postId, commentid);
-                              
-      deleteComment(event, postId, commentid);
-      console.log("Comments details: ",commentid);
-  }
+  const handleDelete = (postId, commentid) => {
+    deleteComment(postId, commentid, enqueueSnackbar);
+  };
 
   /****************************************** */
   const handleDeleteIconClick = (commentId) => {
@@ -76,7 +76,7 @@ const CommentDialogBox = ({ postId, comments, user, fullScreen }) => {
     >
       {comments.length ? (
         <>
-          {console.log("my all comments: ",comments) || comments.map((userComment) => (
+          {comments.map((userComment) => (
             <div key={userComment.id}>
               <div className="commentCard">
                 <div>
@@ -131,15 +131,11 @@ const CommentDialogBox = ({ postId, comments, user, fullScreen }) => {
                         </DialogContentText>
                       </DialogContent>
                       <DialogActions onClick={handleCloseDeleteDialog}>
-                        <Button>
-                          Cancel
-                        </Button>
+                        <Button>Cancel</Button>
                         <Button
-                          onClick={(event) =>{
-                              handleDelete(event, postId, selectedCommentId);
-                              handleCloseDeleteDialog();
-                            }
-                          }
+                          onClick={() => {
+                            handleDelete(postId, selectedCommentId);
+                          }}
                         >
                           Delete
                         </Button>
