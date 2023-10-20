@@ -1,3 +1,5 @@
+import "./index.css";
+
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -18,7 +20,7 @@ const ReadMore = ({ children, postId, picCap = false, readMore = true }) => {
     : text;
 
   return (
-    <div style={{zIndex:1,backgroundColor:'white',opacity:0.7}}>
+    <div className="caption_container">
       <Caption caption={captionText} />
       {text.length >= 40 && (
         <span
