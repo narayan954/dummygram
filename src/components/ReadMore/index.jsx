@@ -20,7 +20,7 @@ const ReadMore = ({ children, postId, picCap = false, readMore = true }) => {
     : text;
 
   return (
-    <div className="caption_container">
+    <span className="caption_container">
       <Caption caption={captionText} />
       {text.length >= 40 && (
         <span
@@ -40,7 +40,7 @@ const ReadMore = ({ children, postId, picCap = false, readMore = true }) => {
           {isReadMore ? " ...read more" : " ...show less"}
         </span>
       )}
-    </div>
+    </span>
   );
 };
 
