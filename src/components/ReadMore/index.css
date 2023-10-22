@@ -7,3 +7,10 @@
 .read__more__less:hover {
   color: rgb(6, 33, 115);
 }
+
+.caption_container {
+  z-Index:1;
+background-color: white;
+opacity: 0.7;
+
+}
