@@ -8,18 +8,18 @@
 ### _Instagram_, dummified
 
 <div align="center">
-      <img src="https://forthebadge.com/images/badges/built-with-love.svg" />
-      <img src="https://forthebadge.com/images/badges/uses-brains.svg" />
-      <img src="https://forthebadge.com/images/badges/powered-by-responsibility.svg" />
+      <img alt="badge" src="https://forthebadge.com/images/badges/built-with-love.svg" />
+      <img alt="badge" src="https://forthebadge.com/images/badges/uses-brains.svg" />
+      <img alt="badge" src="https://forthebadge.com/images/badges/powered-by-responsibility.svg" />
       <br>
-      <img src="https://img.shields.io/github/repo-size/narayan954/dummygram?style=for-the-badge" />
-      <img src="https://img.shields.io/github/issues-raw/narayan954/dummygram?style=for-the-badge" />
-      <img src="https://img.shields.io/github/forks/narayan954/dummygram?style=for-the-badge" />
-      <img src="https://img.shields.io/github/issues-pr-closed/narayan954/dummygram?style=for-the-badge" />
+      <img alt="badge" src="https://img.shields.io/github/repo-size/narayan954/dummygram?style=for-the-badge" />
+      <img alt="badge" src="https://img.shields.io/github/issues-raw/narayan954/dummygram?style=for-the-badge" />
+      <img alt="badge" src="https://img.shields.io/github/forks/narayan954/dummygram?style=for-the-badge" />
+      <img alt="badge" src="https://img.shields.io/github/issues-pr-closed/narayan954/dummygram?style=for-the-badge" />
       <br>
-      <img src="https://img.shields.io/github/stars/narayan954/dummygram?style=for-the-badge" />
-      <img src="https://img.shields.io/github/contributors/narayan954/dummygram?style=for-the-badge" />
-      <img src="https://img.shields.io/github/last-commit/narayan954/dummygram?style=for-the-badge" />
+      <img alt="badge" src="https://img.shields.io/github/stars/narayan954/dummygram?style=for-the-badge" />
+      <img alt="badge" src="https://img.shields.io/github/contributors/narayan954/dummygram?style=for-the-badge" />
+      <img alt="badge" src="https://img.shields.io/github/last-commit/narayan954/dummygram?style=for-the-badge" />
  </div>
 
 ---
@@ -94,7 +94,7 @@ Overall, the Dummygram team loves what they do and wants to make the app visuall
 With the ground rules out of the way, let's talk about the coarse architecture of this mono repo:
 
 **Frontend JavaScript**: We use React to power our frontend apps. Almost all of the code you'll touch in this codebase will be JavaScript.
-<img  src="http://3con14.biz/code/_data/js/intro/js-logo.png"  alt="JS"  width="30"  height="30">
+<img alt="badge" src="http://3con14.biz/code/_data/js/intro/js-logo.png"  alt="JS"  width="30"  height="30">
 
 Here is a list of all the big technologies we use:
 
@@ -381,7 +381,7 @@ Thanks a lot for spending your time helping dummygram grow. Thanks a lot! Keep r
     <summary>Contributors</summary>
     <div>
       <a href="https://github.com/narayan954/dummygram/graphs/contributors">
-      <img src="https://contrib.rocks/image?repo=narayan954/dummygram"/>
+      <img alt="contributor graph" src="https://contrib.rocks/image?repo=narayan954/dummygram"/>
       </a>
     </div>
 </details>
