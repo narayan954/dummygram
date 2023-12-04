@@ -20,8 +20,8 @@ import firebase from "firebase/compat/app";
 import useCreatedAt from "../../hooks/useCreatedAt.jsx";
 import { useNavigate } from "react-router-dom";
 
-const ImageSlider = React.lazy(
-  () => import("../../reusableComponents/ImageSlider"),
+const ImageSlider = React.lazy(() =>
+  import("../../reusableComponents/ImageSlider"),
 );
 const PostDetails = React.lazy(() => import("./PostDetails.jsx"));
 

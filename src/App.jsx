@@ -28,8 +28,8 @@ const SignupScreen = React.lazy(() => import("./pages/Signup"));
 const ForgotPassword = React.lazy(() => import("./pages/ForgotPassword"));
 const Friends = React.lazy(() => import("./pages/Friends"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
-const Contributors = React.lazy(
-  () => import("./pages/FooterPages/ContributorPage"),
+const Contributors = React.lazy(() =>
+  import("./pages/FooterPages/ContributorPage"),
 );
 const HelpCenter = React.lazy(() => import("./pages/FooterPages/HelpCenter"));
 // ------------------------------------- Components ------------------------------------------------
