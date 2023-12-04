@@ -573,8 +573,8 @@ function Profile() {
                     user.isAnonymous
                       ? navigate("/signup")
                       : isFriendAlready
-                      ? handleRemoveFriend()
-                      : handleSendFriendRequest()
+                        ? handleRemoveFriend()
+                        : handleSendFriendRequest()
                   }
                   variant="contained"
                   color="primary"
@@ -587,8 +587,8 @@ function Profile() {
                   {isFriendAlready
                     ? "Remove Friend"
                     : friendRequestSent
-                    ? "Remove friend request"
-                    : "Add Friend"}
+                      ? "Remove friend request"
+                      : "Add Friend"}
                 </Button>
               )}
             </div>
