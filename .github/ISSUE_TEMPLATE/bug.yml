@@ -58,5 +58,12 @@ body:
         - label: I agree to follow this project's Code of Conduct
           required: true
         - label: I have checked the existing issues
-        - label: I'm a GSSoC'23 contributor
+        - label: I am a participant of a program
         - label: I want to work on this issue
+  -type: textarea
+   id: optionalinfo
+   attributes:
+     label: Optional information
+     description: Which program you`re participating from?
+   validations:
+     required: false
