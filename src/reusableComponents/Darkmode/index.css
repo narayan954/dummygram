@@ -27,3 +27,8 @@
 .toggle-btn-mui > span > span > input {
   cursor: pointer;
 }
+
+.toggle-container{
+  position: absolute;
+  top: 0px;
+}
