@@ -199,9 +199,9 @@ function Profile() {
             bio: data.bio ? data.bio : "Hi there! I am using Dummygram.",
             country: data.country ? data.country : "Global",
             storyTimestamp: data.storyTimestamp,
-            Friends: data.Friends.length,
+            Friends: data?.Friends?.length||data?.friends?.length,
           });
-          setIsFriendAlready(data.Friends.includes(user?.uid));
+          setIsFriendAlready(data?.Friends?.includes(user?.uid)||data?.friends?.includes(user?.uid));
         } else {
           setUserExists(false);
         }
