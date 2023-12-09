@@ -62,8 +62,8 @@ const FriendsComponent = () => {
       } else {
         const userData = snapshot.docs[0].data();
         const fetchedFriends = [];
-        setName(userData.displayName);
-        for (const friendUid of userData.Friends) {
+        setName(userData.name);
+        for (const friendUid of (userData?.Friends || userData?.friends || [])) {
           const friendData = await getFriendData(friendUid);
           if (friendData) {
             fetchedFriends.push({
