@@ -1,4 +1,4 @@
-import { storage } from "../lib/firebase";
+import {storage} from "../lib/firebase";
 
 export default async function deleteImg(imageUrl) {
   if (imageUrl && imageUrl !== "") {
