@@ -1,7 +1,6 @@
 import "./index.css";
 
 import { Avatar, Box, Button, Typography } from "@mui/material";
-import { EditProfile, StoryView } from "../../components";
 import { ErrorBoundary, Loader, ViewsCounter } from "../../reusableComponents";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { auth, db, storage } from "../../lib/firebase";
@@ -33,6 +32,8 @@ import { setUserSessionData } from "../../js/userData";
 import { useSnackbar } from "notistack";
 
 const SideBar = lazy(() => import("../../components/SideBar"));
+const EditProfile = lazy(() => import("../../components/EditProfile"));
+const StoryView = lazy(() => import("../../components/Story"));
 
 function Profile() {
   const navigate = useNavigate();
