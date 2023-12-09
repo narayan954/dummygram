@@ -100,8 +100,8 @@ function FeedPostDisplay({ post, id }) {
             isMobileScreen
               ? MAX_CAPTION_MOBILE
               : isTabScreen
-                ? MAX_CAPTION_TAB
-                : undefined
+              ? MAX_CAPTION_TAB
+              : undefined
           }
         />
       ) : (

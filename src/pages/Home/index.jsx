@@ -5,8 +5,8 @@ import { db } from "../../lib/firebase";
 
 const Post = React.lazy(() => import("../../components/Post"));
 const Suggestion = React.lazy(() => import("../../components/Suggestions"));
-const GuestSignUpBtn = React.lazy(
-  () => import("../../components/Guest/GuestSignUpBtn"),
+const GuestSignUpBtn = React.lazy(() =>
+  import("../../components/Guest/GuestSignUpBtn"),
 );
 
 const PAGESIZE = 10;
