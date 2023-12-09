@@ -44,7 +44,7 @@ const Darkmode = () => {
   };
 
   return (
-    <div className="toggle-container">
+    <div className={`${location.href.includes('login') ? "toggle-container" : ""}`}>
       <button onClick={darkModeToggle} className="theme-toggle-btn">
         <CustomizedSwitch modeStatus={modeStatus} />
       </button>
