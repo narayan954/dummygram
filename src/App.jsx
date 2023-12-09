@@ -21,22 +21,22 @@ const SignupScreen = React.lazy(() => import("./pages/Signup"));
 const ForgotPassword = React.lazy(() => import("./pages/ForgotPassword"));
 const Friends = React.lazy(() => import("./pages/Friends"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
-const Contributors = React.lazy(() =>
-  import("./pages/FooterPages/ContributorPage"),
+const Contributors = React.lazy(
+  () => import("./pages/FooterPages/ContributorPage"),
 );
 const HelpCenter = React.lazy(() => import("./pages/FooterPages/HelpCenter"));
 // ------------------------------------- Components ------------------------------------------------
 const Notifications = React.lazy(() => import("./components/Notification"));
 const SideBar = React.lazy(() => import("./components/SideBar"));
 const Navbar = React.lazy(() => import("./components/Navbar"));
-const DeleteAccount = React.lazy(() =>
-  import("./components/SettingsComponents/DeleteAccount"),
+const DeleteAccount = React.lazy(
+  () => import("./components/SettingsComponents/DeleteAccount"),
 );
-const SettingsSidebar = React.lazy(() =>
-  import("./components/SettingsComponents/Sidebar"),
+const SettingsSidebar = React.lazy(
+  () => import("./components/SettingsComponents/Sidebar"),
 );
-const SoundSetting = React.lazy(() =>
-  import("./components/SettingsComponents/Sounds"),
+const SoundSetting = React.lazy(
+  () => import("./components/SettingsComponents/Sounds"),
 );
 
 export function getModalStyle() {
