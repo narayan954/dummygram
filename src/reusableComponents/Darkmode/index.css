@@ -28,7 +28,7 @@
   cursor: pointer;
 }
 
-@media (min-width: 840px){
+@media (min-width: 840px) {
   .toggle-container {
     position: absolute;
     top: 0px;
