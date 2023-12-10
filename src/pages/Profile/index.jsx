@@ -200,9 +200,12 @@ function Profile() {
             bio: data.bio ? data.bio : "Hi there! I am using Dummygram.",
             country: data.country ? data.country : "Global",
             storyTimestamp: data.storyTimestamp,
-            Friends: data.Friends.length,
+            Friends: data?.Friends?.length || data?.friends?.length, // same as below
           });
-          setIsFriendAlready(data.Friends.includes(user?.uid));
+          setIsFriendAlready(
+            data?.Friends?.includes(user?.uid) ||
+              data?.friends?.includes(user?.uid),
+          ); // old accounts have friends attribute and new accounts have Friends attribute
         } else {
           setUserExists(false);
         }
