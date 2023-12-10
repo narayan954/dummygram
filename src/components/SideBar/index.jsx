@@ -79,6 +79,7 @@ function SideBar() {
   const signOut = () => {
     auth.signOut().finally(() => {
       playSuccessSound();
+      sessionStorage.clear();
       enqueueSnackbar("Logged out Successfully !", {
         variant: "info",
       });
