@@ -15,7 +15,6 @@ import { getModalStyle, useStyles } from "../../App";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { AiOutlineClose } from "react-icons/ai";
-import ImgUpload from "../ImgUpload";
 import { auth } from "../../lib/firebase";
 import blankImg from "../../assets/blank-profile.webp";
 import getUserSessionData from "../../js/userData";
@@ -23,6 +22,7 @@ import { playSuccessSound } from "../../js/sounds";
 import { useSnackbar } from "notistack";
 
 const Footer = React.lazy(() => import("./Footer"));
+const ImgUpload = React.lazy(() => import("../ImgUpload"));
 
 function SideBar() {
   const classes = useStyles();
@@ -79,6 +79,7 @@ function SideBar() {
   const signOut = () => {
     auth.signOut().finally(() => {
       playSuccessSound();
+      sessionStorage.clear();
       enqueueSnackbar("Logged out Successfully !", {
         variant: "info",
       });

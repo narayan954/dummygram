@@ -1,7 +1,6 @@
 import "./index.css";
 
 import { Avatar, Box, Button, Typography } from "@mui/material";
-import { EditProfile, StoryView } from "../../components";
 import { ErrorBoundary, Loader, ViewsCounter } from "../../reusableComponents";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { auth, db, storage } from "../../lib/firebase";
@@ -33,6 +32,8 @@ import { setUserSessionData } from "../../js/userData";
 import { useSnackbar } from "notistack";
 
 const SideBar = lazy(() => import("../../components/SideBar"));
+const EditProfile = lazy(() => import("../../components/EditProfile"));
+const StoryView = lazy(() => import("../../components/Story"));
 
 function Profile() {
   const navigate = useNavigate();
@@ -199,9 +200,12 @@ function Profile() {
             bio: data.bio ? data.bio : "Hi there! I am using Dummygram.",
             country: data.country ? data.country : "Global",
             storyTimestamp: data.storyTimestamp,
-            Friends: data.Friends.length,
+            Friends: data?.Friends?.length || data?.friends?.length, // same as below
           });
-          setIsFriendAlready(data.Friends.includes(user?.uid));
+          setIsFriendAlready(
+            data?.Friends?.includes(user?.uid) ||
+              data?.friends?.includes(user?.uid),
+          ); // old accounts have friends attribute and new accounts have Friends attribute
         } else {
           setUserExists(false);
         }

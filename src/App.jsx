@@ -1,11 +1,4 @@
-import "./index.css";
-
 import { Darkmode, ErrorBoundary } from "./reusableComponents";
-import {
-  DeleteAccount,
-  SettingsSidebar,
-  SoundSetting,
-} from "./components/SettingsComponents";
 import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
@@ -36,6 +29,15 @@ const HelpCenter = React.lazy(() => import("./pages/FooterPages/HelpCenter"));
 const Notifications = React.lazy(() => import("./components/Notification"));
 const SideBar = React.lazy(() => import("./components/SideBar"));
 const Navbar = React.lazy(() => import("./components/Navbar"));
+const DeleteAccount = React.lazy(
+  () => import("./components/SettingsComponents/DeleteAccount"),
+);
+const SettingsSidebar = React.lazy(
+  () => import("./components/SettingsComponents/Sidebar"),
+);
+const SoundSetting = React.lazy(
+  () => import("./components/SettingsComponents/Sounds"),
+);
 
 export function getModalStyle() {
   const top = 0;
@@ -68,7 +70,7 @@ export const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function App() {
+export default function App() {
   const [user, setUser] = useState(null);
   const [rowMode, setRowMode] = useState(false);
 
@@ -298,8 +300,6 @@ function App() {
     </RowModeContext.Provider>
   );
 }
-
-export default App;
 
 function Wrapper({ user, setUser, setRowMode }) {
   const [showScroll, setShowScroll] = useState(false);
