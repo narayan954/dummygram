@@ -64,6 +64,8 @@ const SignupScreen = () => {
       setUsernameAvailable(true);
     } else {
       setUsernameAvailable(false);
+      
+      enqueueSnackbar("Sorry, this username is already in use. Please try another username.", {variant: "error"})
     }
   };
 
@@ -83,10 +85,11 @@ const SignupScreen = () => {
       }
     });
 
-    if (username === "") submitable = false;
-
+    if (username !== "") { 
+      submitable = false;
+  }
     if (!usernameAvailable) {
-      playErrorSound();
+      playErrorSound();     
       enqueueSnackbar("Username not available!", {
         variant: "error",
       });
@@ -213,10 +216,34 @@ const SignupScreen = () => {
             fieldName={"username"}
             aria_dsc_by={"username-error"}
             isError={!usernameAvailable}
-            errorMesssage={"Username not availaible"}
+            errorMesssage={!username.length ?  `Username cannot be empty` :  `Username is invalid`}
             error_border={usernameAvailable}
+            successMessage={"Perfect!"}
           />
-
+          
+          { !usernameAvailable && 
+            <div className= "username-rules">
+            A valid username must
+            <ul>
+              <li>
+                NOT contain captial letters.
+              </li>
+              <li>
+                NOT contain special characters.
+              </li>
+              <li>
+                NOT start with a digit.
+              </li>
+              <li>
+                be between 4 and 20 letters long.
+              </li>
+              <li>
+                NOT be registered.
+              </li>  
+            </ul>
+          </div>
+          }
+          
           {/* fullname input for the form */}
           <Auth__text__input
             label={"Full name"}
@@ -233,6 +260,7 @@ const SignupScreen = () => {
             isError={error.name && error.nameError}
             errorMesssage={error.nameError}
             error_border={!error.nameError}
+            successMessage={"Perfect!"}
           />
 
           {/* Email input for the form */}
@@ -252,6 +280,7 @@ const SignupScreen = () => {
             isError={error.email && error.emailError}
             errorMesssage={error.emailError}
             error_border={!error.emailError}
+            successMessage={"Perfect!"}
           />
           <div className="pass-container-both">
             {/* password input for the form  */}
@@ -268,6 +297,7 @@ const SignupScreen = () => {
               maxLength={30}
               aria_dsc_by={"password-error"}
               errorMesssage={error.passwordError}
+              successMessage={"Perfect!"}
               isError={error.password && error.passwordError}
             />
 
@@ -285,7 +315,9 @@ const SignupScreen = () => {
               maxLength={30}
               aria_dsc_by={"confirm-password-error"}
               errorMesssage={error.confirmPasswordError}
+              successMessage={"Perfect!"}
               isError={error.confirmPassword && error.confirmPasswordError}
+              
             />
           </div>
           <Auth__ctn__group
