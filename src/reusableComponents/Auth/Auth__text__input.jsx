@@ -1,7 +1,6 @@
-import React from "react";
-
-import { IoIosWarning } from "react-icons/io";
 import { IoCheckmarkCircle } from "react-icons/io5";
+import { IoIosWarning } from "react-icons/io";
+import React from "react";
 
 const Auth__text__input = ({
   label,
@@ -28,7 +27,9 @@ const Auth__text__input = ({
         placeholder={placeholder}
         value={value}
         onChange={(e) => handleChange(e)}
-        className={error_border ? (!value ? null : "success-border") : "error-border"}
+        className={
+          error_border ? (!value ? null : "success-border") : "error-border"
+        }
         required
         maxLength={maxLength}
         aria-required="true"
@@ -40,11 +41,11 @@ const Auth__text__input = ({
           <IoIosWarning /> {errorMesssage}
         </p>
       )}
-      {!isError && value && 
+      {!isError && value && (
         <p className="success" id={`${fieldName}-success`}>
           <IoCheckmarkCircle /> {successMessage}
         </p>
-      }
+      )}
     </div>
   );
 };

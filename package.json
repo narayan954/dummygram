@@ -10,7 +10,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "preview": "vite preview",
-    "pretty": "prettier --write \"./**/*.{js,jsx,ts,tsx,json}\"",
+    "pretty": "prettier --write \"./**/*.{js,jsx,ts,tsx,json,css}\"",
     "prepare": "husky install"
   },
   "dependencies": {

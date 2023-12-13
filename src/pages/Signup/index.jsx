@@ -64,8 +64,11 @@ const SignupScreen = () => {
       setUsernameAvailable(true);
     } else {
       setUsernameAvailable(false);
-      
-      enqueueSnackbar("Sorry, this username is already in use. Please try another username.", {variant: "error"})
+
+      enqueueSnackbar(
+        "Sorry, this username is already in use. Please try another username.",
+        { variant: "error" },
+      );
     }
   };
 
@@ -85,11 +88,11 @@ const SignupScreen = () => {
       }
     });
 
-    if (username !== "") { 
+    if (username !== "") {
       submitable = false;
-  }
+    }
     if (!usernameAvailable) {
-      playErrorSound();     
+      playErrorSound();
       enqueueSnackbar("Username not available!", {
         variant: "error",
       });
@@ -216,34 +219,28 @@ const SignupScreen = () => {
             fieldName={"username"}
             aria_dsc_by={"username-error"}
             isError={!usernameAvailable}
-            errorMesssage={!username.length ?  `Username cannot be empty` :  `Username is invalid`}
+            errorMesssage={
+              !username.length
+                ? `Username cannot be empty`
+                : `Username is invalid`
+            }
             error_border={usernameAvailable}
             successMessage={"Perfect!"}
           />
-          
-          { !usernameAvailable && 
-            <div className= "username-rules">
-            A valid username must
-            <ul>
-              <li>
-                NOT contain captial letters.
-              </li>
-              <li>
-                NOT contain special characters.
-              </li>
-              <li>
-                NOT start with a digit.
-              </li>
-              <li>
-                be between 4 and 20 letters long.
-              </li>
-              <li>
-                NOT be registered.
-              </li>  
-            </ul>
-          </div>
-          }
-          
+
+          {!usernameAvailable && (
+            <div className="username-rules">
+              A valid username must
+              <ul>
+                <li>NOT contain captial letters.</li>
+                <li>NOT contain special characters.</li>
+                <li>NOT start with a digit.</li>
+                <li>be between 4 and 20 letters long.</li>
+                <li>NOT be registered.</li>
+              </ul>
+            </div>
+          )}
+
           {/* fullname input for the form */}
           <Auth__text__input
             label={"Full name"}
@@ -317,7 +314,6 @@ const SignupScreen = () => {
               errorMesssage={error.confirmPasswordError}
               successMessage={"Perfect!"}
               isError={error.confirmPassword && error.confirmPasswordError}
-              
             />
           </div>
           <Auth__ctn__group
