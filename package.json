@@ -10,7 +10,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "preview": "vite preview",
-    "pretty": "prettier --write \"./**/*.{js,jsx,ts,tsx,json}\"",
+    "pretty": "prettier --write \"./**/*.{js,jsx,ts,tsx,json,css}\"",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -23,7 +23,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.3.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/icons-material": "^5.11.11",
-    "@mui/material": "^5.13.6",
+    "@mui/material": "^5.14.20",
     "@mui/styles": "^5.13.2",
     "emoji-picker-react": "^4.4.10",
     "file-saver": "^2.0.5",

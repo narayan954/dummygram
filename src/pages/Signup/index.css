@@ -51,8 +51,17 @@
   border: 2px solid green;
 }
 
+.username-rules {
+  color: var(--profile-color);
+  font-size: 15px;
+}
+
 .error-border {
   border: 2px solid red !important;
+}
+
+.success-border {
+  border: 2px solid green;
 }
 
 .password-container {
@@ -90,6 +99,11 @@
 .error {
   font-size: 12px;
   color: red;
+}
+
+.success {
+  font-size: 12px;
+  color: green;
 }
 
 .pass-container-both {

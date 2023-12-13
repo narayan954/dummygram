@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
 
+import { IoCheckmarkCircle } from "react-icons/io5";
+
 const Auth__pass__input = ({
   label,
   id,
@@ -12,6 +14,7 @@ const Auth__pass__input = ({
   errorMesssage,
   isError,
   maxLength,
+  successMessage,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const handleShowPassword = (e) => {
@@ -27,7 +30,9 @@ const Auth__pass__input = ({
         className={
           errorMesssage
             ? "error-border pass__input__container password-container"
-            : "pass__input__container password-container"
+            : !value
+            ? "pass__input__container password-container"
+            : "success-border pass__input__container password-container"
         }
       >
         <input
@@ -51,10 +56,16 @@ const Auth__pass__input = ({
           {showPassword ? <RiEyeFill /> : <RiEyeCloseFill />}
         </button>
       </div>
-      {isError && (
+      {isError ? (
         <p className="error" id="password-error">
           {errorMesssage}
         </p>
+      ) : (
+        value && (
+          <p className="success" id={`success`}>
+            <IoCheckmarkCircle /> {successMessage}
+          </p>
+        )
       )}
     </div>
   );
