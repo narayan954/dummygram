@@ -31,8 +31,8 @@ const Auth__pass__input = ({
           errorMesssage
             ? "error-border pass__input__container password-container"
             : !value
-            ? "pass__input__container password-container"
-            : "success-border pass__input__container password-container"
+              ? "pass__input__container password-container"
+              : "success-border pass__input__container password-container"
         }
       >
         <input
