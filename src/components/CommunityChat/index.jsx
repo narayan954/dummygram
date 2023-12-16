@@ -271,9 +271,9 @@ const ChatBox = () => {
     const today = new Date();
     const yesterday = new Date(today);
     yesterday.setDate(today.getDate() - 1);
-  
-    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-  
+
+    const options = { day: "2-digit", month: "2-digit", year: "numeric" };
+
     if (messageDate.toDateString() === today.toDateString()) {
       return "Today";
     } else if (messageDate.toDateString() === yesterday.toDateString()) {
@@ -320,7 +320,13 @@ const ChatBox = () => {
               {Object.keys(groupedMessages).map((date) => (
                 <React.Fragment key={date}>
                   <li className="date-separator">
-                    <Divider>
+                    <Divider
+                      sx={{
+                        "&::before, &::after": {
+                          borderColor: "var(--text-light)",
+                        },
+                      }}
+                    >
                       {date}
                     </Divider>
                   </li>
