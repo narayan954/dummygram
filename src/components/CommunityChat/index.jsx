@@ -1,10 +1,11 @@
+import React from "react";
 import "./index.css";
 
 import { auth, db } from "../../lib/firebase";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
 import { useEffect, useRef, useState } from "react";
 
-import { ClickAwayListener } from "@mui/material";
+import { Chip, ClickAwayListener, Divider } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import DeleteIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import EditIcon from "@mui/icons-material/EditOutlined";
@@ -264,6 +265,44 @@ const ChatBox = () => {
     };
   }, [loadMoreMsgs]);
 
+  // Function to format the message creation date
+  const formatDate = (timestamp) => {
+    const messageDate = new Date(timestamp * 1000); // Convert seconds to milliseconds
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+  
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+  
+    if (messageDate.toDateString() === today.toDateString()) {
+      return "Today";
+    } else if (messageDate.toDateString() === yesterday.toDateString()) {
+      return "Yesterday";
+    } else {
+      // Format the actual date as 'dd/mm/yyyy'
+      return messageDate.toLocaleDateString("en-IN", options);
+    }
+  };
+
+  // Function to group messages by date
+  const groupMessagesByDate = (messages) => {
+    const groupedMessages = {};
+    messages.forEach((message) => {
+      const formattedDate = formatDate(message?.createdAt?.seconds);
+      if (!groupedMessages[formattedDate]) {
+        groupedMessages[formattedDate] = [];
+      }
+      groupedMessages[formattedDate].push(message);
+    });
+    return groupedMessages;
+  };
+
+  const [groupedMessages, setGroupedMessages] = useState({});
+
+  useEffect(() => {
+    setGroupedMessages(groupMessagesByDate(messages));
+  }, [messages]);
+
   return (
     <>
       <div className="chat-main-container">
@@ -278,7 +317,103 @@ const ChatBox = () => {
         ) : (
           <div className="all-chat-msg-container" ref={chatMsgContainerRef}>
             <ul className="chat-msg-container">
-              {messages.map((message) => (
+              {Object.keys(groupedMessages).map((date) => (
+                <React.Fragment key={date}>
+                  <li className="date-separator">
+                    <Divider>
+                      {date}
+                    </Divider>
+                  </li>
+                  {groupedMessages[date].map((message) => (
+                    <li
+                      key={message.id}
+                      className={`chat-message ${
+                        user?.uid == message.uid ? "current-user-msg" : ""
+                      }`}
+                    >
+                      <img
+                        src={message.photoURL || profileAvatar}
+                        alt={message.displayName}
+                        className={"chat-user-img"}
+                        onClick={() => goToUserProfile(message.uid)}
+                      />
+                      <div className="chat-msg-text">
+                        <span className="name-and-date-container">
+                          <h5
+                            className="chat-msg-sender-name"
+                            onClick={() => goToUserProfile(message.uid)}
+                          >
+                            {user?.uid === message?.uid
+                              ? "You"
+                              : message.displayName}
+                          </h5>
+                          <span className="time-reaction-container">
+                            <h6 className="message-time">
+                              {getTime(message?.createdAt?.seconds)}
+                            </h6>
+                            <Reaction
+                              message={message}
+                              userUid={message.uid}
+                              currentUid={user.uid}
+                            />
+                            {user.uid === message.uid && (
+                              <span className="flex-center message-options">
+                                <OptionIcon
+                                  onClick={() => {
+                                    setOpenOptions(true);
+                                    handleOpenOptions(message.id);
+                                  }}
+                                />
+                                {openOptions && openOptions === message.id && (
+                                  <ClickAwayListener
+                                    onClickAway={() => setOpenOptions(false)}
+                                  >
+                                    <div className="delete-message-container">
+                                      <span
+                                        className="delete-option"
+                                        onClick={() =>
+                                          handleDeletMsg(message.id)
+                                        }
+                                      >
+                                        <DeleteIcon />
+                                        Delete
+                                      </span>
+                                      <span
+                                        className="edit-option"
+                                        onClick={() =>
+                                          handleEditMsg(message.id)
+                                        }
+                                      >
+                                        <EditIcon />
+                                        Edit
+                                      </span>
+                                    </div>
+                                  </ClickAwayListener>
+                                )}
+                              </span>
+                            )}
+                          </span>
+                        </span>
+                        <p>{message.text}</p>
+                        {message.edited && (
+                          <div className="edit-state">
+                            <span>Edited</span>
+                          </div>
+                        )}
+                        {message.reaction && (
+                          <ul className="rxn-main-container">
+                            {getReaction(message.reaction)}
+                          </ul>
+                        )}
+                      </div>
+                    </li>
+                  ))}
+                </React.Fragment>
+              ))}
+
+              {/* correct code */}
+              {console.log("msgs", messages)}
+              {/* {messages.map((message) => (
                 <li
                   key={message.id}
                   className={`chat-message ${
@@ -357,7 +492,7 @@ const ChatBox = () => {
                     )}
                   </div>
                 </li>
-              ))}
+              ))} */}
             </ul>
           </div>
         )}
