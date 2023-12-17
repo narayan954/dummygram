@@ -1,11 +1,10 @@
-import React from "react";
 import "./index.css";
 
+import { ClickAwayListener, Divider } from "@mui/material";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { auth, db } from "../../lib/firebase";
 import { playErrorSound, playSuccessSound } from "../../js/sounds";
-import { useEffect, useRef, useState } from "react";
 
-import { Chip, ClickAwayListener, Divider } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import DeleteIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import EditIcon from "@mui/icons-material/EditOutlined";
@@ -318,7 +317,7 @@ const ChatBox = () => {
           <div className="all-chat-msg-container" ref={chatMsgContainerRef}>
             <ul className="chat-msg-container">
               {Object.keys(groupedMessages).map((date) => (
-                <React.Fragment key={date}>
+                <Fragment key={date}>
                   <li className="date-separator">
                     <Divider
                       sx={{
@@ -414,7 +413,7 @@ const ChatBox = () => {
                       </div>
                     </li>
                   ))}
-                </React.Fragment>
+                </Fragment>
               ))}
             </ul>
           </div>

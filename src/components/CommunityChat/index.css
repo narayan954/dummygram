@@ -109,13 +109,12 @@
   color: var(--profile-color);
 }
 
-.date-separator{
+.date-separator {
   padding: 1.5rem 0;
   list-style-type: none;
   font-size: 15px;
   color: var(--darkmode-white);
 }
-
 
 .current-user-msg {
   flex-direction: row-reverse;
@@ -285,8 +284,8 @@
 }
 
 @media screen and (max-width: 600px) {
-  .date-separator{
-     font-size: 9px;
+  .date-separator {
+    font-size: 9px;
   }
 
   .chat-msg-text {
