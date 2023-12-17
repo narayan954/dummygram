@@ -196,11 +196,12 @@ const ChatBox = () => {
 
   useEffect(() => {
     const scrollTop = () => {
-      window.scrollTo({ top: window.innerHeight + 800 });
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+      // Scroll to the bottom of the page
+      // TODO: Fix this
+      // chatMsgContainerRef.current.scrollTop = chatMsgContainerRef.current.scrollHeight
     };
-    if (!isLastMsgRecieved) {
-      scrollTop();
-    }
+    scrollTop();
   }, [messages]);
 
   //Load messages for the first time
@@ -250,7 +251,6 @@ const ChatBox = () => {
                 ...loadedMsgs,
               ];
             });
-
             if (querySnapshot.empty) {
               setIsLastMsgRecieved(true);
             }
