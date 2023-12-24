@@ -140,4 +140,7 @@
   .top-margin {
     margin-top: 5rem;
   }
+  .suggestion-user-list-item, .suggestion-user-img, .suggestion-user-name{
+    cursor: pointer;
+  }
 }
