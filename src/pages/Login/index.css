@@ -358,3 +358,16 @@
     width: 18em;
   }
 }
+
+/* media query for 320px */
+@media (max-width: 320px) {
+  .login__left {
+    justify-content: flex-start;
+  }
+  .login__section form {
+    width: 95%;
+  }
+  .form__bottom {
+    width: 17.5em;
+  }
+}
