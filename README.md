@@ -146,11 +146,27 @@ git clone https://github.com/narayan954/dummygram.git
 
 Dummygram has a single installation step:
 
+- **Go to dummygram directory**:
+
+```sh
+
+cd dummygram
+
+```
+
 - **Install the dependencies**:
 
 ```sh
 
 npm install
+
+```
+
+<p align="center">OR</p>
+
+```sh
+
+yarn install
 
 ```
 
@@ -164,6 +180,14 @@ npm install --force
 
 ```
 
+<p align="center">OR</p>
+
+```sh
+
+yarn --force
+
+```
+
 Now you're ready to run the app locally and sign into your local instance!
 
 ### Running the app locally
@@ -174,6 +198,14 @@ To Start the development server run
 
 ```sh
 npm start
+```
+
+<p align="center">OR</p>
+
+```sh
+
+yarn start
+
 ```
 
 <div  align="center"><img  height="200px"  src="https://user-images.githubusercontent.com/77617189/192947926-37284128-9965-46a4-b29b-c75e47b2f76b.svg" /></div>
