@@ -161,6 +161,7 @@ cd dummygram
 npm install
 
 ```
+
 <p align="center">OR</p>
 
 ```sh
@@ -178,6 +179,7 @@ Ps: if you're getting error installing the dependencies, try --force command alo
 npm install --force
 
 ```
+
 <p align="center">OR</p>
 
 ```sh
@@ -197,6 +199,7 @@ To Start the development server run
 ```sh
 npm start
 ```
+
 <p align="center">OR</p>
 
 ```sh
