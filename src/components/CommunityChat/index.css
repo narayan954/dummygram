@@ -25,7 +25,7 @@
 .chat-input-container {
   position: fixed;
   width: 80%;
-  bottom: 10px;
+  bottom: 0;
   display: flex;
   justify-content: center;
   align-items: center;
