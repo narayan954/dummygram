@@ -42,11 +42,11 @@ const PostCommentView = ({ setFetchAgain, fetchAgain, postId, user, post }) => {
   const time = useCreatedAt(timestamp);
   const defaultBg = `linear-gradient(130deg, #dee2ed, #dee2ed, #9aa9d1, #b6c8e3, #b6afd0, #d3c0d8)`;
 
-  const [comments, setComments] = React.useState(null);
+  const [comments, setComments] = useState(null);
   const [comment, setComment] = useState("");
   const [tempLikeCount, setTempLikeCount] = useState(post.likecount || []);
   const [userData, setUserData] = useState({});
-  const [showEmojis, setShowEmojis] = React.useState(false);
+  const [showEmojis, setShowEmojis] = useState(false);
   const docRef = doc(db, "posts", postId);
 
   async function likesHandler() {

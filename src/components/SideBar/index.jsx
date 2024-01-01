@@ -156,7 +156,7 @@ function SideBar() {
             </div>
           </li>
         </ul>
-        <ErrorBoundary>
+        <ErrorBoundary >
           <Footer />
         </ErrorBoundary>
       </div>

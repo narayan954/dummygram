@@ -9,6 +9,7 @@ import blankImg from "../../assets/blank-profile.webp";
 import firebase from "firebase/compat/app";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import { Divider } from "@mui/material";
 
 const Suggestion = () => {
   const [randomDocs, setRandomDocs] = useState([]);
@@ -179,18 +180,20 @@ const Suggestion = () => {
               />
               <div className="suggestion-user-data">
                 <h4 className="suggestion-user-name">{name}</h4>
-                <p className="suggestion-user-bio">{bio ? bio : "..."}</p>
-                {uid !== currentUser?.uid && (
+                 <p className="suggestion-user-bio">{typeof(bio) == "string" && bio.length > 12 ? bio.slice(0, 12) : bio ? bio : "..."}</p> 
+                      
+                
                   <button
                     className="suggestion-user-btn button"
                     onClick={(e) => {
                       e.stopPropagation();
                       handleSendFriendRequest(friendRequestSent, uid, idx);
                     }}
+                    style={{visibility: uid == currentUser.uid ? "hidden" : "visible"}}
                   >
                     {friendRequestSent ? "Remove Request" : "Add Friend"}
                   </button>
-                )}
+                
               </div>
             </li>
           );

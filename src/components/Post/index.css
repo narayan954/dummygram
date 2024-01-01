@@ -12,6 +12,7 @@
   transition: all;
   transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+  background-color: var(--bg-color-alt2);
 }
 
 .post {
@@ -208,20 +209,24 @@
   font-weight: bold;
   color: #5f85db;
   border-radius: 50%;
+  margin-top: 12px;
   padding: 5px;
 }
 
 .comment-input {
-  background-color: var(--dark-post-bg) !important;
+  /* background-color: var(--input-bg-alt) !important; */
+  background: transparent;
   color: var(--color);
   border-radius: 22px;
-  margin-top: 4px;
+  margin-top: 0px;
   width: 100%;
   box-shadow: var(--post-box-shadow);
 }
 
+
 .emoji-picker-btn {
   color: var(--emoji-btn);
+  opacity: 60%;
 }
 
 .social__icon {
@@ -236,8 +241,21 @@
   padding-top: auto;
 }
 
+.input__container{
+  align-items: center;
+  background: var(--input-bg-alt);
+  /* border: 1px solid var(--profile-color); */
+  border-radius: 30px;
+  display: flex;
+  margin-top: 12px;
+  transform: translate(12px, 0);
+}
+
+.input__container input{
+  border-color: transparent;
+}
+
 .post__input {
-  border: none;
   flex: 1;
   padding: 10px;
   padding-bottom: 7px;
@@ -251,7 +269,7 @@
   border: none;
   margin-right: 2px;
   color: #0a66c2;
-  margin-top: 3px;
+  margin-top: 12px;
   cursor: pointer;
   background: transparent;
 }
@@ -363,6 +381,7 @@
     max-width: 320px;
     padding: 5px;
     margin-top: 25px;
+    
   }
 
   .epr-emoji-category {

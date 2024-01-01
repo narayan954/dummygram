@@ -2,6 +2,8 @@
 
 :root {
   --bg-color: rgb(255, 255, 255);
+  --bg-color-alt: #ecedf3;
+  --bg-color-alt2: #f6f6ff;
   --text-primary: blue;
   --text-secondary: black;
   --color: rgb(0, 0, 0);
@@ -13,6 +15,7 @@
   --emoji-btn: black;
   --profile-container: #f4eeff;
   --profile-box-shadow: 0 0 6px 0 black;
+  --sidebar-shadow:rgba(196, 196, 196, 0.4);
   --logo-text-shadow: none;
   --btn-color: linear-gradient(-40deg, #72cbf7, #5f85db);
   --btn-color-hover: linear-gradient(40deg, #5f85db, #72cbf7);
@@ -24,7 +27,7 @@
   --text-light: rgba(0, 0, 0, 0.6);
   --text-light-black: rgba(0, 0, 0, 0.6);
   --text-dim: rgba(0, 0, 0, 0.8);
-  --post-error-boundary: rgba(0, 0, 0, 0.54);
+  --post-error-boundary: #0000008a;
   --text-black-only: black;
   --dark-post-bg: rgb(255, 255, 255);
   --link-color: #068fff;
@@ -33,16 +36,21 @@
   --theme-hover: rgba(8, 17, 123, 0.69);
   --shimmer-bg: #e1dede;
   --input-bg: #eee;
+  --input-bg-alt: rgba(212, 212, 212, 0.30);
+  --divider-color: rgba(31, 0, 0, 0);
 }
 
 .darkmode {
   --bg-color: black;
+  --bg-color-alt: #1b1b21;
+  --bg-color-alt2: #2a2b38;
   --text-primary: rgb(255, 255, 255);
   --text-secondary: white;
   --color: rgb(226, 226, 226);
   /* --logo-text-shadow: 0 0 7px #eeeeee, 0 0 10px #ff4da6, 0 0 20px #ff4da6; */
-  --logo-text-shadow: none;
   --filter-img: invert(100%);
+  --logo-text-shadow: none;
+  --sidebar-shadow:rgba(0, 0, 0, 0.35);
   --sidebar-link-hover: rgba(255, 255, 255, 0.15);
   --post-box-shadow: 0px 0px 5px 1px rgba(255, 255, 255, 0.4);
   --post-nav-icons: white;
@@ -70,6 +78,8 @@
   --theme-hover: rgb(244, 210, 41);
   --shimmer-bg: #535256;
   --input-bg: #191919;
+  --input-bg-alt: rgba(43, 43, 43, 0.50);
+  --divider-color: rgb(65, 65, 65);
 }
 
 * {
@@ -78,7 +88,7 @@
 }
 
 body {
-  background-color: var(--bg-color) !important;
+  background-color: var(--bg-color-alt) !important;
 }
 
 /* App styles */

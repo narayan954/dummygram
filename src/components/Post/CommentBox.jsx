@@ -20,6 +20,8 @@ const CommentBox = ({
     <div className="comment-box">
       {user && (
         <form className="modal__commentBox">
+        <div className="input__container">
+
           <div
             className="social__icon"
             style={{
@@ -55,13 +57,11 @@ const CommentBox = ({
             onChange={(e) => setComment(e.target.value)}
             maxLength={300}
             style={{
-              // backgroundColor: "var(--bg-color)",
-              background: "transparent",
+              // background: "transparent",
               color: "var(--color)",
-              borderRadius: "11px",
-              marginTop: "4px",
             }}
           />
+        </div>
 
           <IconButton
             className="post__button"

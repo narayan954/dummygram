@@ -2,6 +2,7 @@
 
 .app__header {
   position: fixed;
+  height: 40px;
   width: 100%;
   top: 0;
   z-index: 999;
@@ -10,7 +11,7 @@
   object-fit: contain;
   display: flex;
   align-items: center;
-  background-color: var(--dark-post-bg);
+  background-color: var(--bg-color-alt2);
   justify-content: space-between;
 }
 

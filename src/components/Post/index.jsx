@@ -10,10 +10,12 @@ import {
   DialogTitle,
   Divider,
   Paper,
-  Typography,
+  Stack,
   styled,
+  Typography,
   useMediaQuery,
 } from "@mui/material";
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { auth, db } from "../../lib/firebase";
 import { doc, updateDoc } from "firebase/firestore";
 import { lazy, useEffect, useState } from "react";
@@ -25,8 +27,7 @@ import { useTheme } from "@mui/material/styles";
 
 const PostHeader = lazy(() => import("./PostHeader"));
 const CommentBox = lazy(() => import("./CommentBox"));
-const CommentDialogBox = lazy(() => import("./CommentDialogBox"));
-const LikesDialogBox = lazy(() => import("./LikesDialogBox"));
+
 const ImgBox = lazy(() => import("./ImgBox"));
 const PostNav = lazy(() => import("./PostNav"));
 
@@ -39,8 +40,6 @@ function Post(prop) {
   const [likesNo, setLikesNo] = useState(likecount ? likecount.length : 0);
   const [showEmojis, setShowEmojis] = useState(false);
   const [showCommentEmojis, setShowCommentEmojis] = useState(false);
-  const [isCommentOpen, setisCommentOpen] = useState(false);
-  const [isLikesOpen, setIsLikesOpen] = useState(false);
   const [username, setUsername] = useState("");
 
   const theme = useTheme();
@@ -163,9 +162,6 @@ function Post(prop) {
     }
   }
 
-  const handleCommentClose = () => {
-    setisCommentOpen(false);
-  };
 
   return (
     <div className={`${rowMode ? "post" : "postColumn"}`}>
@@ -178,7 +174,7 @@ function Post(prop) {
           timestamp={timestamp}
         />
       </ErrorBoundary>
-      <Divider />
+
       <div className="post__container">
         <ErrorBoundary>
           <ImgBox
@@ -190,26 +186,34 @@ function Post(prop) {
             background={background}
           />
         </ErrorBoundary>
-        <Divider />
-        <Flexbetween>
+        {/* <Flexbetween>
           <Typography
-            marginLeft={1}
+            marginLeft={1.5}
             fontSize={13}
             padding={1}
-            sx={{ color: "grey", cursor: "pointer" }}
+            sx={{ color: "grey", cursor: "pointer", visibility: likesNo === 0 ? "hidden" : "visible" }}
             onClick={() => setIsLikesOpen((prev) => !prev)}
           >
-            {likesNo} {likesNo > 1 ? "Likes" : "Like"}
+            <Flexbetween gap={0.5} >
+              <span>
+                <ThumbUpIcon sx={{ fontSize: "18px" }} />
+              </span>
+              <span>
+                {likesNo}
+              </span>
+            </Flexbetween>
           </Typography>
+  
           <Typography
-            sx={{ color: "grey", cursor: "pointer" }}
+            sx={{ color: "grey", cursor: "pointer", visibility: comments.length === 0 ? "hidden" : "visible" }}
             fontSize={13}
-            paddingRight={1}
+            p = {1}
             onClick={() => setisCommentOpen((prev) => !prev)}
           >
             {comments.length} {comments.length > 1 ? "comments" : "comment"}
           </Typography>
-        </Flexbetween>
+        </Flexbetween> */}
+        <Divider variant="middle" sx={{backgroundColor: "var(--divider-color)"}}/>
 
         {user && (
           <div className="post__commentBox">
@@ -219,9 +223,12 @@ function Post(prop) {
                 likesHandler={likesHandler}
                 user={user}
                 tempLikeCount={tempLikeCount}
-                setisCommentOpen={setisCommentOpen}
+                comments = {comments}  
                 postId={postId}
                 caption={caption}
+                likeCount={likesNo}
+                commentCount={comments.length}
+                likecount={likecount}
               />
             </ErrorBoundary>
             <ErrorBoundary>
@@ -236,7 +243,7 @@ function Post(prop) {
               />
             </ErrorBoundary>
 
-            {/* Comments dialog box */}
+            {/* Comments dialog box
             <DialogBox
               open={isCommentOpen}
               onClose={handleCommentClose}
@@ -277,10 +284,10 @@ function Post(prop) {
                   user={user}
                 />
               </ErrorBoundary>
-            </DialogBox>
+            </DialogBox> */}
 
             {/* Likes Dialog Box */}
-            <DialogBox
+            {/* <DialogBox
               open={isLikesOpen}
               onClose={() => setIsLikesOpen(false)}
               title="Likes ❤"
@@ -290,7 +297,7 @@ function Post(prop) {
               ) : (
                 <LikesDialogBox likecountArr={likecount} />
               )}
-            </DialogBox>
+            </DialogBox> */}
           </div>
         )}
       </div>

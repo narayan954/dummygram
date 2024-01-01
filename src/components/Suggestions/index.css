@@ -1,4 +1,6 @@
 .suggestion-main-container {
+  box-shadow: -0.5px 0 10px 0 var(--sidebar-shadow);
+  background-color: var(--bg-color-alt2);
   width: 100%;
   overflow: scroll;
   display: flex;
@@ -6,6 +8,7 @@
   align-items: center;
   position: relative;
 }
+
 
 .suggestion-scroll-btn {
   display: none;
@@ -42,13 +45,12 @@
   transition: 0.3s ease-in-out;
   display: flex;
   align-items: center;
-  flex-direction: column;
+  flex-flow: column;
   flex-shrink: 0;
   gap: 10px;
   /* margin-block: 20px; */
   width: 200px;
   height: 200px;
-  border-right: 1px solid #eee;
 }
 
 .suggestion-user-img {
@@ -61,19 +63,19 @@
 
 .suggestion-user-data {
   text-align: center;
-  color: var(--text-secondary);
 }
 
 .suggestion-user-name {
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 400;
   cursor: default;
+  color: var(--color);
 }
 
 .suggestion-user-bio {
-  font-size: 14px;
+  font-size: 12px;
   margin-bottom: 10px;
-  color: var(--text-secondary);
+  color: var(--color);
 }
 
 .suggestion-user-btn {
@@ -95,7 +97,7 @@
     width: 300px;
     height: 250px;
   }
-
+  
   .suggestion-user-img {
     width: 120px;
   }
@@ -103,18 +105,19 @@
 
 @media only screen and (min-width: 1300px) {
   .suggestion-main-container {
+    background-color: var(--bg-color-alt2);
     position: fixed;
-    top: 65px;
+    top: 55px;
     right: 0;
     width: 17vw;
-    height: calc(100vh - 80px);
+    height: calc(100vh - 40px);
     display: flex;
     justify-content: center;
     overflow: scroll;
     margin-left: 17vw;
     align-items: flex-start;
   }
-
+  
   .suggestion-user-container {
     flex-direction: column;
     width: 100%;
@@ -122,7 +125,7 @@
   }
 
   .suggestion-user-list-item {
-    border-bottom: 1px solid #eee;
+    /* border-bottom: 1px solid #eee; */
     flex-direction: row;
     align-items: flex-start;
     width: 100%;

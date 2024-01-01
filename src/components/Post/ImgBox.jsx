@@ -14,8 +14,29 @@ const ImgBox = ({
   const defaultBg = `linear-gradient(130deg, #dee2ed, #dee2ed, #9aa9d1, #b6c8e3, #b6afd0, #d3c0d8)`;
   return (
     <div>
+      {/* //Post Content. */}
+      <div className={caption.length ? "p-0" : "post__text"}>
+        {caption && postHasImages ? (
+          <p
+            className={`${
+              caption.length >= 100 ? "postCaption" : "postCaptiontext"
+            }`}
+          >
+            <ReadMore postId={postId}>{caption}</ReadMore>
+          </p>
+        ) : (
+          <p
+            style={{
+              color: "var(--color)",
+              paddingInline: "8px",
+              height: "27px",
+            }}
+          ></p>
+        )}
+
+      {/*Image associated with post */}  
       {postHasImages ? (
-        <ImageSlider
+        <ImageSlider 
           slides={postImages}
           isCommentBox={false}
           doubleClickHandler={likesHandler}
@@ -41,25 +62,6 @@ const ImgBox = ({
           )}
         </div>
       )}
-
-      <div className={caption.length ? "p-0" : "post__text"}>
-        {caption && postHasImages ? (
-          <p
-            className={`${
-              caption.length >= 100 ? "postCaption" : "postCaptiontext"
-            }`}
-          >
-            <ReadMore postId={postId}>{caption}</ReadMore>
-          </p>
-        ) : (
-          <p
-            style={{
-              color: "var(--color)",
-              paddingInline: "8px",
-              height: "27px",
-            }}
-          ></p>
-        )}
       </div>
     </div>
   );

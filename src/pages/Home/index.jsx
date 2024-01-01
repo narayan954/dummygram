@@ -8,7 +8,8 @@ const Suggestion = React.lazy(() => import("../../components/Suggestions"));
 const GuestSignUpBtn = React.lazy(
   () => import("../../components/Guest/GuestSignUpBtn"),
 );
-
+import "./index.css";
+import { Divider } from "@mui/material";
 const PAGESIZE = 10;
 const NUMSKELETONS = 5;
 
@@ -99,12 +100,12 @@ const Home = ({ rowMode, user }) => {
           !loadingPosts
             ? {}
             : {
-                width: "100%",
-                minHeight: "100vh",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }
+              width: "100%",
+              minHeight: "100vh",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }
         }
       >
         {anonymous &&
@@ -122,24 +123,39 @@ const Home = ({ rowMode, user }) => {
               ))}
             </>
           ) : (
-            <>
+            <div className="suggestions">
               <ErrorBoundary inApp>
-                {posts.map(({ id, post }, index) => (
-                  <Fragment key={id}>
-                    <Post
-                      rowMode={rowMode}
-                      key={id}
-                      postId={id}
-                      user={user}
-                      post={post}
-                    />
-                    {index === 1 && windowWidth < 1300 && (
-                      <Suggestion currentUserUid={user.uid} />
-                    )}
-                  </Fragment>
-                ))}
+                <div>
+
+                  {posts.map(({ id, post }, index) => (
+                    <Fragment key={id}>
+                      <Post
+                        rowMode={rowMode}
+                        key={id}
+                        postId={id}
+                        user={user}
+                        post={post}
+                      />
+                    </Fragment>
+                  ))}
+                </div>
               </ErrorBoundary>
-            </>
+              <ErrorBoundary inApp>
+
+                <div>
+                  {posts.map(({ id, post }, index) => (
+
+                    <Fragment key={id}>
+                      {index === 1 && windowWidth < 1300 && (
+
+                        <Suggestion currentUserUid={user.uid} />
+
+                      )}
+                    </Fragment>
+                    ))}
+                </div>
+              </ErrorBoundary>
+            </div>
           )}
         </div>
       </div>

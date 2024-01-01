@@ -350,6 +350,7 @@ function Wrapper({ user, setUser, setRowMode }) {
           height: 50,
           display: showScroll ? "flex" : "none",
           position: "fixed",
+          bottom: "10px"
         }}
       />
     </div>

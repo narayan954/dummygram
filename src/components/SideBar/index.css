@@ -1,20 +1,22 @@
 /* sidebar styling */
 
 .sidebar {
-  background: var(--dark-post-bg);
+  background: var(--bg-color-alt2);
+  box-shadow: -0.5px 0 10px 0 var(--sidebar-shadow);
   position: fixed;
+  top: 40px;
   width: 17vw;
-  height: 100vh;
+  height: 100vh; 
   left: 0;
   z-index: 99;
-  /* border-right: 1px solid rgb(219, 219, 219); */
 }
 
 .sidebar-container {
+  padding-top: 50px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100vh;
+  height: 100%;
   overflow-y: scroll;
 }
 
@@ -143,7 +145,7 @@
 
 .sidebar_user_dropdown_sub_container {
   border: 1px solid grey;
-  background-color: var(--dark-post-bg);
+  background-color: var(--bg-color-alt2);
   color: var(--color);
   padding-inline: 0px;
   list-style-type: none;
@@ -176,9 +178,9 @@
 footer {
   display: absolute;
   bottom: 0;
-  margin-bottom: 6em;
+  margin-bottom: 7rem;
   font-size: 13px;
-  background-color: var(--dark-post-bg);
+  background-color: var(--bg-color-alt2);
   padding-left: 12px;
 }
 
