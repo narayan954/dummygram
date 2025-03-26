@@ -44,14 +44,14 @@
     "@commitlint/config-conventional": "^17.6.7",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
-    "@vitejs/plugin-react": "^3.1.0",
+    "@vitejs/plugin-react": "^4.3.4",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
     "gh-pages": "^5.0.0",
     "husky": "^8.0.3",
     "prettier": "^2.8.8",
     "react-error-overlay": "^6.0.11",
-    "vite": "^4.5.9"
+    "vite": "^6.2.3"
   },
   "description": "A social media app built with React, Firebase, and Material-UI.",
   "main": "index.js",
